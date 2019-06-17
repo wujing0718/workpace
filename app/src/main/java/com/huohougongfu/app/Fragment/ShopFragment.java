@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
+import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.DaShiZhuanChang;
@@ -50,6 +51,9 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
     private View inflate;
     private Banner banner;
     private List<Integer> mlist = new ArrayList<>();
+    private List<String> mbanner = new ArrayList<>();
+    private List<String> mbannerimg = new ArrayList<>();
+
     private SmartRefreshLayout smartrefreshlayout;
     private View head_shangcheng;
     private RecyclerView rec_shangcheng_shangpin;
@@ -126,65 +130,43 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
 
     private void initbanner() {
         banner = head_shangcheng.findViewById(R.id.banner);
-//设置指示器位置
+        //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
         Map<String,String> map = new HashMap<>();
-//        map.put("channel","wh");
-//        OkGo.<String>post(Contacts.bannerurl)
-//                .params(map)
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        String body = response.body();
-//                        Gson gson = new Gson();
-//                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
-//                        if (bannergson.getCode()==200){
-//                            if (bannergson.getData()!=null){
-//                                mlist.clear();
-//                                mbannertitle.clear();
-//                                for (int i = 0;i < bannergson.getData().size();i++){
-//                                    mlist.add(bannergson.getData().get(i).getImg());
-//                                    mtaburl.add(bannergson.getData().get(i).getUrl());
-//                                    mbannertitle.add(bannergson.getData().get(i).getTitle());
-//                                }
-//                            }
-//                            initBanner(mbannertitle,mlist,mtaburl);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onStart(Request<String, ? extends Request> request) {
-////                        ProgressBar.setVisibility(View.VISIBLE);
-//                        super.onStart(request);
-//                    }
+        map.put("where","2");
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
+                        if (bannergson.getStatus()==1){
+                            if (bannergson.getResult()!=null){
+                                mbanner.clear();
+                                for (int i = 0;i < bannergson.getResult().size();i++){
+                                    mbanner.add(bannergson.getResult().get(i).getPictureUrl());
+                                }
+                            }
+                            initBanner(mbanner);
+                        }
+                    }
 
-//                    private void initBanner(List<String> mbannertitle, List<String> mlist, List<String> mtaburl) {
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        //加载网络图片
-        banner.setImages(mlist)
-                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                .setImageLoader(new GlideImageLoader())
-                .start();
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                if (!utils.isDoubleClick()) {
-                    ToastUtils.showShort("Banner"+position);
-//                                    Intent intent = new Intent();
-//                                    intent.putExtra("id", 3);
-//                                    intent.putExtra("collect", 2);
-//                                    intent = intent.setClass(getActivity(), DetailActivity.class);
-//                                    intent.putExtra("title", mbannertitle.get(position));
-//                                    intent.putExtra("url", mtaburl.get(position));
-//                                    startActivity(intent);
-                }
-            }
-        });
-//                    }
-//                });
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        ProgressBar.setVisibility(View.VISIBLE);
+                        super.onStart(request);
+                    }
+
+                    private void initBanner(List<String> mbanner) {
+                        //加载网络图片
+                        banner.setImages(mbanner)
+                                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                                .setImageLoader(new GlideImageLoader())
+                                .start();
+                    }
+                });
     }
 
     public static Fragment newInstance(String content) {

@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 import static com.kongzue.dialog.v2.DialogSettings.STYLE_IOS;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
@@ -53,8 +54,9 @@ public class MyApp extends Application {
         context = this;
         Utils.init(this);
         instances = this;
-        UMConfigure.init(this,"5d075ab54ca3570286000832"
+        UMConfigure.init(this,"5a12384aa40fa3551f0001d1"
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
         super.onCreate();
     }
 

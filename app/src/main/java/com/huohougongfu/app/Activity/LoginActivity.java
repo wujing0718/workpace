@@ -18,10 +18,12 @@ import com.huohougongfu.app.Gson.Code;
 import com.huohougongfu.app.Gson.Login;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.ShareUtils;
 import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +56,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = findViewById(R.id.edt_login_password);
 
         tv_login_code = findViewById(R.id.tv_login_code);
+        findViewById(R.id.bt_wexin).setOnClickListener(this);
+
         findViewById(R.id.bt_yanzhengmadenglu).setOnClickListener(this);
         findViewById(R.id.bt_zhaohuimima).setOnClickListener(this);
         findViewById(R.id.bt_mimadenglu).setOnClickListener(this);
@@ -65,6 +69,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_wexin:
+                ShareUtils.shareWeb(LoginActivity.this,"wwww.baidu.com","","","",R.mipmap.ic_launcher,SHARE_MEDIA.QQ);
+                break;
             case R.id.bt_login:
                 if (!utils.isDoubleClick()){
                     if (yanzhengmadenglu.getVisibility() == View.VISIBLE){

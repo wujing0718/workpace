@@ -19,9 +19,11 @@ import android.widget.Switch;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
+import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.PopupView.Paocha;
 import com.huohougongfu.app.PopupView.QianDao;
 import com.huohougongfu.app.R;
@@ -37,6 +39,7 @@ import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -55,8 +58,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private View inflate;
     private List<Integer> mlist = new ArrayList<>();
-    private List<String> mbannertitle = new ArrayList<>();
-    private List<String> mtaburl = new ArrayList<>();
+    private List<String> mbanner = new ArrayList<>();
     private Banner banner;
 
     private SwitchButton bt_switch;
@@ -115,65 +117,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void initbanner() {
         //设置指示器位置
-        banner.setIndicatorGravity(BannerConfig.RIGHT);
+        banner.setIndicatorGravity(BannerConfig.CENTER);
         Map<String,String> map = new HashMap<>();
-//        map.put("channel","wh");
-//        OkGo.<String>post(Contacts.bannerurl)
-//                .params(map)
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        String body = response.body();
-//                        Gson gson = new Gson();
-//                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
-//                        if (bannergson.getCode()==200){
-//                            if (bannergson.getData()!=null){
-//                                mlist.clear();
-//                                mbannertitle.clear();
-//                                for (int i = 0;i < bannergson.getData().size();i++){
-//                                    mlist.add(bannergson.getData().get(i).getImg());
-//                                    mtaburl.add(bannergson.getData().get(i).getUrl());
-//                                    mbannertitle.add(bannergson.getData().get(i).getTitle());
-//                                }
-//                            }
-//                            initBanner(mbannertitle,mlist,mtaburl);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onStart(Request<String, ? extends Request> request) {
-////                        ProgressBar.setVisibility(View.VISIBLE);
-//                        super.onStart(request);
-//                    }
-
-//                    private void initBanner(List<String> mbannertitle, List<String> mlist, List<String> mtaburl) {
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-                        //加载网络图片
-                        banner.setImages(mlist)
-                                .setBannerStyle(BannerConfig.NOT_INDICATOR)
-                                .setImageLoader(new GlideImageLoader())
-                                .start();
-                        banner.setOnBannerListener(new OnBannerListener() {
-                            @Override
-                            public void OnBannerClick(int position) {
-                                if (!utils.isDoubleClick()) {
-                                    ToastUtils.showShort("Banner"+position);
-//                                    Intent intent = new Intent();
-//                                    intent.putExtra("id", 3);
-//                                    intent.putExtra("collect", 2);
-//                                    intent = intent.setClass(getActivity(), DetailActivity.class);
-//                                    intent.putExtra("title", mbannertitle.get(position));
-//                                    intent.putExtra("url", mtaburl.get(position));
-//                                    startActivity(intent);
+        map.put("where","1");
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
+                        if (bannergson.getStatus()==1){
+                            if (bannergson.getResult()!=null){
+                                mbanner.clear();
+                                for (int i = 0;i < bannergson.getResult().size();i++){
+                                    mbanner.add(bannergson.getResult().get(i).getPictureUrl());
                                 }
                             }
-                        });
-//                    }
-//                });
+                            initBanner(mbanner);
+                        }
+                    }
 
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        ProgressBar.setVisibility(View.VISIBLE);
+                        super.onStart(request);
+                    }
+
+                    private void initBanner(List<String> mbanner) {
+                        //加载网络图片
+                        banner.setImages(mbanner)
+                                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                                .setImageLoader(new GlideImageLoader())
+                                .start();
+                    }
+                });
     }
 
     public static Fragment newInstance(String content) {
