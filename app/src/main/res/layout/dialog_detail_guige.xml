@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/kaquan_kuang"
+        android:layout_above="@+id/bt_wancheng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <RelativeLayout
+                android:id="@+id/bt_guanbi"
+                android:layout_alignParentRight="true"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+
+            <LinearLayout
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:text="白茶寿眉茶叶陈年太姥山老白茶春季寿眉茶一饼300克"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="¥199"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="库存1996件"
+                    android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:background="#BBBBBB"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:text="规格"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:layout_gravity="center_vertical"
+                android:button="@null"
+                android:text="16g"
+                android:gravity="center"
+                android:paddingHorizontal="6dp"
+                android:textSize="12sp"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/selector_paocha"
+                android:layout_width="60dp"
+                android:layout_height="30dp" />
+
+            <RadioButton
+                android:layout_marginHorizontal="10dp"
+                android:layout_gravity="center_vertical"
+                android:button="@null"
+                android:text="18g"
+                android:gravity="center"
+                android:paddingHorizontal="6dp"
+                android:textSize="12sp"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/selector_paocha"
+                android:layout_width="60dp"
+                android:layout_height="30dp" />
+
+            <RadioButton
+                android:layout_gravity="center_vertical"
+                android:button="@null"
+                android:text="20g"
+                android:gravity="center"
+                android:paddingHorizontal="6dp"
+                android:textSize="12sp"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/selector_paocha"
+                android:layout_width="60dp"
+                android:layout_height="30dp" />
+
+
+        </RadioGroup>
+
+        <View
+            android:background="#BBBBBB"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:text="购买数量"
+                android:textSize="14sp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.huohougongfu.app.Utils.AmountView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                app:btnTextSize="10sp"
+                app:btnWidth="30dp"
+                app:tvWidth="50dp">
+
+            </com.huohougongfu.app.Utils.AmountView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bt_wancheng"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <TextView
+            android:id="@+id/bt_gouwuche"
+            android:layout_weight="1"
+            android:text="加入购物车"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/bt_goumai"
+            android:layout_weight="1"
+            android:text="立即购买"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

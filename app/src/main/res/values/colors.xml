@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorZi">#333333</color>
+    <color name="colorBlack">#101010</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorTab">#F98B24</color>
+    <color name="colorBar">#28104F</color>
+    <color name="colorHui">#818181</color>
+    <color name="colorXian">#BBBBBB</color>
+    <color name="colorGreen">#8BC34A</color>
+    <color name="colorRed">#F55754</color>
+
+    <color name="divider">#ffd2d2d2</color>
+</resources>

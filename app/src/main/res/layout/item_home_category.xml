@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv"
+    android:clickable="true"
+    android:background="@drawable/selector_education"
+    android:textColor="@color/black"
+    android:layout_width="120dp"
+    android:layout_gravity="center"
+    android:layout_centerInParent="true"
+    android:gravity="center"
+    android:layout_height="60dp"
+    android:textSize="@dimen/sp_16"
+    android:text="标题" />
+
+
+
+
+
+
+

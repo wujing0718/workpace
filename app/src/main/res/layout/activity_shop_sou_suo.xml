@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Shop.Activity.ShopSouSuoActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="44dp"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:src="@mipmap/img_back"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+            <EditText
+                android:id="@+id/bt_shop_sousuo"
+                android:hint="啦啦啦啦"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:paddingHorizontal="@dimen/dp_10"
+                android:background="@drawable/sousuo_kuang"
+                android:drawableLeft="@mipmap/img_back"
+                android:drawableRight="@mipmap/img_back"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="28dp">
+
+            </EditText>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        app:tl_divider_color="#1A000000"
+        app:tl_indicator_color="#BBBBBB"
+        android:layout_marginHorizontal="60dp"
+        app:tl_indicator_corner_radius="3dp"
+        app:tl_indicator_style="NORMAL"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_tab_space_equal="true"
+        app:tl_textSelectColor="@color/colorBlack"
+        app:tl_textUnselectColor="@color/colorHui"
+        app:tl_textsize="17sp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

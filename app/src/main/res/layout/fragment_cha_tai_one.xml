@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ShouYe.Fragment.ChaTaiOneFragment">
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <LinearLayout
+                android:id="@+id/bt_checkbox"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.huohougongfu.app.Utils.SmoothCheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="16dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
+                    app:color_checked="@color/colorBlack"
+                    app:color_tick="@color/colorWhite" />
+
+                <TextView
+                    android:text="全选"
+                    android:textSize="17sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginLeft="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginBottom="50dp"
+            android:id="@+id/rec_chatai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+        
+        
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="@color/colorWhite"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:text="共3件"
+            android:textSize="14sp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text="合计:"
+                android:textSize="14sp"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_gravity="center_vertical"
+                android:text="¥28"
+                android:textSize="20sp"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            
+            <Button
+                android:id="@+id/btn_go_to_pay"
+                android:text="支付"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textColor="@color/colorWhite"
+                android:background="#D3AA79"
+                android:layout_width="100dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    
+</FrameLayout>
