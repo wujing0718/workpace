@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
@@ -132,10 +135,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         banner = head_shangcheng.findViewById(R.id.banner);
         //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        Map<String,String> map = new HashMap<>();
-        map.put("where","2");
-        OkGo.<String>get(Contacts.URl1+"/setting/banner/")
-                .params(map)
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/2")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

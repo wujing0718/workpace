@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
@@ -74,10 +76,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_home, container, false);
         intent = new Intent();
+        String token = SPUtils.getInstance("登录").getString("token");
         //设置默认显示内容
         setDefaultFragment();
         initUI();
         initbanner();
+        LogUtils.e(token);
         return inflate;
     }
 
@@ -118,10 +122,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void initbanner() {
         //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        Map<String,String> map = new HashMap<>();
-        map.put("where","1");
-        OkGo.<String>get(Contacts.URl1+"/setting/banner/")
-                .params(map)
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/1")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

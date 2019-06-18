@@ -4,6 +4,8 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.Utils;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -52,7 +54,7 @@ public class MyApp extends Application {
         DialogSettings.dialog_theme = THEME_LIGHT;
         DialogSettings.style = STYLE_IOS;
         context = this;
-        Utils.init(this);
+        Utils.init(getApplicationContext());
         instances = this;
         UMConfigure.init(this,"5a12384aa40fa3551f0001d1"
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.Code;
@@ -37,12 +38,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String login_phone,login_code,login_password;
     private TextView tv_login_code;
     private LoginActivity.TimerCount timerCount;
+    private SPUtils instance;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        instance = SPUtils.getInstance("登录");
         timerCount = new LoginActivity.TimerCount(60000, 1000);
         intent = new Intent();
         initUI();
@@ -170,6 +173,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
                                     if (login.getStatus() == 1){
+                                        instance.put("id",login.getResult().getUserInfo().getId(),true);
+                                        instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
+                                        instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
+                                        instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
+                                        instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
+                                        instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         finish();
@@ -211,6 +220,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
                                     if (login.getStatus() == 1){
+                                        instance.put("id",login.getResult().getUserInfo().getId(),true);
+                                        instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
+                                        instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
+                                        instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
+                                        instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
+                                        instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         finish();
