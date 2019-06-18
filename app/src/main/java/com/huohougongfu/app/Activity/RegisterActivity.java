@@ -168,23 +168,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Login register = gson.fromJson(body, Login.class);
                         if (register.getStatus() == 1){
                             SPUtils instance = SPUtils.getInstance("注册");
-                            instance.put("id",register.getResult().getUserInfo().getId(),true);
+                            instance.put("userid",register.getResult().getUserInfo().getUserId(),true);
                             instance.put("nickName",register.getResult().getUserInfo().getNickName(),true);
                             instance.put("phone",register.getResult().getUserInfo().getPhone(),true);
                             instance.put("photo",register.getResult().getUserInfo().getPhoto(),true);
-                            instance.put("rongToken",register.getResult().getUserInfo().getRongToken(),true);
+                            instance.put("rongtoken",register.getResult().getUserInfo().getRongToken(),true);
                             instance.put("token",register.getResult().getToken(),true);
-                            timer.schedule(task, 1000, 1000);//等待时间一秒，停顿时间一秒
-                            view_registerok.setVisibility(View.VISIBLE);
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    intent.setClass(RegisterActivity.this,LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            },3000);
+                            intent.setClass(RegisterActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
 //                            ToastUtils.showShort(register.getMsg());
                         }else{
                             ToastUtils.showShort(register.getMsg());

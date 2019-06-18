@@ -65,4 +65,5 @@ public class MyApp extends Application {
     public static MyApp getInstances(){
         return instances;
     }
+
 }

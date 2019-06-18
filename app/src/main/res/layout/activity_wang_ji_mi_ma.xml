@@ -215,7 +215,7 @@
                 android:layout_height="1dp"/>
 
             <TextView
-                android:id="@+id/bt_register"
+                android:id="@+id/bt_queren"
                 android:layout_marginTop="60dp"
                 android:background="@drawable/login_kuang"
                 android:layout_marginHorizontal="38dp"

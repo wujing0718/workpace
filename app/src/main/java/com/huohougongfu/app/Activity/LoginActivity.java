@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
                                     if (login.getStatus() == 1){
-                                        instance.put("id",login.getResult().getUserInfo().getId(),true);
+                                        instance.put("id",login.getResult().getUserInfo().getUserId(),true);
                                         instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
                                         instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
                                         instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
                                     if (login.getStatus() == 1){
-                                        instance.put("id",login.getResult().getUserInfo().getId(),true);
+                                        instance.put("id",login.getResult().getUserInfo().getUserId(),true);
                                         instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
                                         instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
                                         instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);

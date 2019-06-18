@@ -216,7 +216,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-        <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView
             android:id="@+id/bt_chatai"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="36dp"
@@ -254,4 +254,10 @@
         </android.support.v7.widget.CardView>
 
 
+    <com.amap.api.maps.MapView
+        android:id="@+id/amap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </com.amap.api.maps.MapView>
 </FrameLayout>

@@ -2,9 +2,10 @@ package com.huohougongfu.app.Gson;
 
 public class Login {
 
+
     /**
      * msg : 操作成功
-     * result : {"userInfo":{"id":21,"nickName":"18910328110","personalProfile":null,"phone":"18910328110","photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","password":"123456","payPassword":"","realName":null,"idcard":null,"teaRiceMe":0,"teaRicePresent":0,"monetary":0,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":"0AK40ySpdyJuU8FL5OIB1+aULa9ikgcawPKgMF6uCiw7+bNhzO0CcDF+4xYZVVQ5yGCsm/J7Qk2F+NgLR3fP5XJcdMKfLwUp","place":null,"integral":"0","isMaster":false,"isMerchant":false,"state":0,"delFlag":0,"loginIp":"","loginDate":null,"qrcode":null,"createTime":"2019-06-17T07:06:00.000+0000","updateTime":"2019-06-17T07:06:00.000+0000","buyMoney":0},"token":"1e4aaf7e1d524d5fa875e87c91638822"}
+     * result : {"userInfo":{"userId":28,"nickName":"15927484518","personalProfile":null,"phone":"15927484518","photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","password":"111111","payPassword":"","realName":null,"idcard":null,"teaRiceMe":0,"teaRicePresent":0,"monetary":0,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":"Vp1kXOu7yXor1nCrGDXShS05fKauf4SF7OSsuV/xwHVy5LjUAZAaeV48yObNgexZvgc3irpehnWJ7xtCLRUubV87vFU1QhFp","place":null,"integral":"0","isMaster":false,"isMerchant":false,"state":0,"delFlag":0,"loginIp":"","loginDate":null,"qrcode":null,"createTime":"2019-06-18T02:33:55.000+0000","updateTime":"2019-06-18T02:33:55.000+0000","buyMoney":0},"token":"05e437c3603f4eb5b463967a60ec9098"}
      * status : 1
      */
 
@@ -38,8 +39,8 @@ public class Login {
 
     public static class ResultBean {
         /**
-         * userInfo : {"id":21,"nickName":"18910328110","personalProfile":null,"phone":"18910328110","photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","password":"123456","payPassword":"","realName":null,"idcard":null,"teaRiceMe":0,"teaRicePresent":0,"monetary":0,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":"0AK40ySpdyJuU8FL5OIB1+aULa9ikgcawPKgMF6uCiw7+bNhzO0CcDF+4xYZVVQ5yGCsm/J7Qk2F+NgLR3fP5XJcdMKfLwUp","place":null,"integral":"0","isMaster":false,"isMerchant":false,"state":0,"delFlag":0,"loginIp":"","loginDate":null,"qrcode":null,"createTime":"2019-06-17T07:06:00.000+0000","updateTime":"2019-06-17T07:06:00.000+0000","buyMoney":0}
-         * token : 1e4aaf7e1d524d5fa875e87c91638822
+         * userInfo : {"userId":28,"nickName":"15927484518","personalProfile":null,"phone":"15927484518","photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","password":"111111","payPassword":"","realName":null,"idcard":null,"teaRiceMe":0,"teaRicePresent":0,"monetary":0,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":"Vp1kXOu7yXor1nCrGDXShS05fKauf4SF7OSsuV/xwHVy5LjUAZAaeV48yObNgexZvgc3irpehnWJ7xtCLRUubV87vFU1QhFp","place":null,"integral":"0","isMaster":false,"isMerchant":false,"state":0,"delFlag":0,"loginIp":"","loginDate":null,"qrcode":null,"createTime":"2019-06-18T02:33:55.000+0000","updateTime":"2019-06-18T02:33:55.000+0000","buyMoney":0}
+         * token : 05e437c3603f4eb5b463967a60ec9098
          */
 
         private UserInfoBean userInfo;
@@ -63,23 +64,23 @@ public class Login {
 
         public static class UserInfoBean {
             /**
-             * id : 21
-             * nickName : 18910328110
+             * userId : 28
+             * nickName : 15927484518
              * personalProfile : null
-             * phone : 18910328110
+             * phone : 15927484518
              * photo : http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png
-             * password : 123456
+             * password : 111111
              * payPassword :
              * realName : null
              * idcard : null
-             * teaRiceMe : 0.0
+             * teaRiceMe : 0
              * teaRicePresent : 0
-             * monetary : 0.0
+             * monetary : 0
              * qq : null
              * qqToken : null
              * wechat : null
              * wechatToken : null
-             * rongToken : 0AK40ySpdyJuU8FL5OIB1+aULa9ikgcawPKgMF6uCiw7+bNhzO0CcDF+4xYZVVQ5yGCsm/J7Qk2F+NgLR3fP5XJcdMKfLwUp
+             * rongToken : Vp1kXOu7yXor1nCrGDXShS05fKauf4SF7OSsuV/xwHVy5LjUAZAaeV48yObNgexZvgc3irpehnWJ7xtCLRUubV87vFU1QhFp
              * place : null
              * integral : 0
              * isMaster : false
@@ -89,12 +90,12 @@ public class Login {
              * loginIp :
              * loginDate : null
              * qrcode : null
-             * createTime : 2019-06-17T07:06:00.000+0000
-             * updateTime : 2019-06-17T07:06:00.000+0000
-             * buyMoney : 0.0
+             * createTime : 2019-06-18T02:33:55.000+0000
+             * updateTime : 2019-06-18T02:33:55.000+0000
+             * buyMoney : 0
              */
 
-            private int id;
+            private int userId;
             private String nickName;
             private Object personalProfile;
             private String phone;
@@ -103,9 +104,9 @@ public class Login {
             private String payPassword;
             private Object realName;
             private Object idcard;
-            private double teaRiceMe;
+            private int teaRiceMe;
             private int teaRicePresent;
-            private double monetary;
+            private int monetary;
             private Object qq;
             private Object qqToken;
             private Object wechat;
@@ -122,14 +123,14 @@ public class Login {
             private Object qrcode;
             private String createTime;
             private String updateTime;
-            private double buyMoney;
+            private int buyMoney;
 
-            public int getId() {
-                return id;
+            public int getUserId() {
+                return userId;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setUserId(int userId) {
+                this.userId = userId;
             }
 
             public String getNickName() {
@@ -196,11 +197,11 @@ public class Login {
                 this.idcard = idcard;
             }
 
-            public double getTeaRiceMe() {
+            public int getTeaRiceMe() {
                 return teaRiceMe;
             }
 
-            public void setTeaRiceMe(double teaRiceMe) {
+            public void setTeaRiceMe(int teaRiceMe) {
                 this.teaRiceMe = teaRiceMe;
             }
 
@@ -212,11 +213,11 @@ public class Login {
                 this.teaRicePresent = teaRicePresent;
             }
 
-            public double getMonetary() {
+            public int getMonetary() {
                 return monetary;
             }
 
-            public void setMonetary(double monetary) {
+            public void setMonetary(int monetary) {
                 this.monetary = monetary;
             }
 
@@ -348,11 +349,11 @@ public class Login {
                 this.updateTime = updateTime;
             }
 
-            public double getBuyMoney() {
+            public int getBuyMoney() {
                 return buyMoney;
             }
 
-            public void setBuyMoney(double buyMoney) {
+            public void setBuyMoney(int buyMoney) {
                 this.buyMoney = buyMoney;
             }
         }
