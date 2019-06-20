@@ -161,9 +161,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //判断是否为正确手机号
             if (RegexUtils.isMobileExact(login_phone)) {
                 if(!login_password.isEmpty()){
+                    String password = utils.makeMD5(login_password);
                     Map<String,String> map = new HashMap<>();
                     map.put("tel",login_phone);
-                    map.put("codeOrPass",login_password);
+                    map.put("codeOrPass",password);
                     OkGo.<String>post(Contacts.URl1+"/member/login")
                             .params(map)
                             .execute(new StringCallback() {

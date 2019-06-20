@@ -21,6 +21,7 @@ import com.amap.api.maps.MapView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DaKaActivity;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Gson.BannerGson;
@@ -237,13 +238,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.bt_daka:
-
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),LoginActivity.class);
+                    intent.setClass(getActivity(),DaKaActivity.class);
                     startActivity(intent);
-//                    new XPopup.Builder(getContext())
-//                            .asCustom(new QianDao(getContext()))
-//                            .show();
                 }
                 break;
             case R.id.bt_mykabao:

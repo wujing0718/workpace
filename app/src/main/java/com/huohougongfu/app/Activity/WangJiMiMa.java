@@ -130,10 +130,11 @@ public class WangJiMiMa extends AppCompatActivity implements View.OnClickListene
     }
 
     private void initData() {
+        String password = utils.makeMD5(password1);
         Map<String,String> map = new HashMap<>();
         map.put("tel",phone);
         map.put("code",code);
-        map.put("password",password1);
+        map.put("password",password);
         OkGo.<String>post(Contacts.URl1+"/member/forgetPass")
                 .params(map)
                 .execute(new StringCallback() {

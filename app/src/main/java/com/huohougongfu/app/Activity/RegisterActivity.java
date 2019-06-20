@@ -154,10 +154,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initRegister() {
+        String password1 = utils.makeMD5(password);
         Map map = new HashMap();
         map.put("tel",phone);
         map.put("code",code);
-        map.put("password",password);
+        map.put("password",password1);
         OkGo.<String>post(Contacts.URl1+"/member/register")
                 .params(map)
                 .isMultipart(true).tag(this)
