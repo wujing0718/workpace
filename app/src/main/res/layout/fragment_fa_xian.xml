@@ -6,6 +6,7 @@
     tools:context=".QuanZi.Fragment.FaXianFragment">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

@@ -97,6 +97,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/bt_quanzi_wenzhang"
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="match_parent"

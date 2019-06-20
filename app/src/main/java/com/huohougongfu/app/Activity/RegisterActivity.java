@@ -160,6 +160,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         map.put("password",password);
         OkGo.<String>post(Contacts.URl1+"/member/register")
                 .params(map)
+                .isMultipart(true).tag(this)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -167,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Gson gson = new Gson();
                         Login register = gson.fromJson(body, Login.class);
                         if (register.getStatus() == 1){
-                            SPUtils instance = SPUtils.getInstance("注册");
+                            SPUtils instance = SPUtils.getInstance("登录");
                             instance.put("userid",register.getResult().getUserInfo().getUserId(),true);
                             instance.put("nickName",register.getResult().getUserInfo().getNickName(),true);
                             instance.put("phone",register.getResult().getUserInfo().getPhone(),true);

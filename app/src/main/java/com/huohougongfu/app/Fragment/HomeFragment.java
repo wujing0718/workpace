@@ -22,6 +22,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DingWeiActivity;
+import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.PopupView.QianDao;
 import com.huohougongfu.app.R;
@@ -236,10 +237,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.bt_daka:
+
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .asCustom(new QianDao(getContext()))
-                            .show();
+                    intent.setClass(getActivity(),LoginActivity.class);
+                    startActivity(intent);
+//                    new XPopup.Builder(getContext())
+//                            .asCustom(new QianDao(getContext()))
+//                            .show();
                 }
                 break;
             case R.id.bt_mykabao:

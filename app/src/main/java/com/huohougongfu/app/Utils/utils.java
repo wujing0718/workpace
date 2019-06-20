@@ -109,7 +109,18 @@ public class utils {
      * @return
      */
     public static String getNowTime2() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM月dd日");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月");
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
+    }
+
+    /**
+     * 获取当前时间
+     *
+     * @return
+     */
+    public static String getNowTime3() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }

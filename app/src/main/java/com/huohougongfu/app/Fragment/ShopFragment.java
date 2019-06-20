@@ -77,6 +77,12 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         return inflate;
     }
 
+    @Override
+    public void onResume() {
+        smartrefreshlayout.autoRefresh();
+        super.onResume();
+    }
+
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("service","App.Mixed_Jinse.Zx");

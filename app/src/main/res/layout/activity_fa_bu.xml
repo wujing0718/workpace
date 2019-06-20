@@ -13,6 +13,7 @@
         android:layout_height="44dp">
 
         <RelativeLayout
+            android:id="@+id/bt_finish"
             android:layout_width="44dp"
             android:layout_height="44dp">
 
@@ -27,6 +28,54 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="动态"
+            android:textColor="@color/colorBlack"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/bt_fabu"
+            android:layout_alignParentRight="true"
+            android:layout_width="44dp"
+            android:layout_height="44dp">
+
+            <TextView
+                android:text="发布"
+                android:layout_centerInParent="true"
+                android:textSize="17sp"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+
     </RelativeLayout>
+
+    <EditText
+        android:hint="写点什么吧......"
+        android:textSize="14sp"
+        android:padding="@dimen/dp_10"
+        android:background="@null"
+        android:gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <com.huxq17.handygridview.HandyGridView
+        android:id="@+id/gridView"
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_centerVertical="true"
+        android:columnWidth="60dp"
+        android:horizontalSpacing="10dp"
+        android:numColumns="3"
+        android:verticalSpacing="10dp"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

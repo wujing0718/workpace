@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this,LoginActivity.class);
+                intent.setClass(MainActivity.this,FaBuActivity.class);
                 startActivity(intent);
             }
         });

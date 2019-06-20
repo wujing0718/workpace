@@ -19,6 +19,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class FaXianFragment extends Fragment {
     private View inflate;
     private RecyclerView rec_faxian;
     private String channel;
+    private SmartRefreshLayout smartrefreshlayout;
 
     public FaXianFragment() {
     }
@@ -45,6 +47,12 @@ public class FaXianFragment extends Fragment {
         initUI();
         initData();
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        smartrefreshlayout.autoRefresh();
+        super.onResume();
     }
 
     private void initData() {
@@ -83,6 +91,7 @@ public class FaXianFragment extends Fragment {
     }
 
     private void initUI() {
+        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_faxian = inflate.findViewById(R.id.rec_faxian);
     }
 

@@ -1,6 +1,7 @@
 package com.huohougongfu.app.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
+import com.huohougongfu.app.QuanZi.Activity.WenZhangActivity;
 import com.huohougongfu.app.QuanZi.Fragment.FaXianFragment;
 import com.huohougongfu.app.QuanZi.Fragment.GuanZhuFragment;
 import com.huohougongfu.app.QuanZi.Fragment.TongChengFragment;
@@ -18,6 +20,7 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Fragment.SouSuoDaShiFragment;
 import com.huohougongfu.app.Shop.Fragment.SouSuoPinPaiFragment;
 import com.huohougongfu.app.Shop.Fragment.SouSuoShopFragment;
+import com.huohougongfu.app.Utils.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuanZiFragment extends Fragment {
+public class QuanZiFragment extends Fragment implements View.OnClickListener {
 
     private final String[] mTitles = {"发现", "同城", "关注","喜欢"};
     private final String[] mchannel = {"www", "news", "zhengce","personage"};
@@ -34,6 +37,8 @@ public class QuanZiFragment extends Fragment {
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private View inflate;
+    private Intent intent;
+
     public QuanZiFragment() {
         // Required empty public constructor
     }
@@ -43,6 +48,8 @@ public class QuanZiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_quan_zi, container, false);
+        intent = new Intent();
+        inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
         initTablayout();
         return inflate;
     }
@@ -71,5 +78,17 @@ public class QuanZiFragment extends Fragment {
         QuanZiFragment fragment = new QuanZiFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt_quanzi_wenzhang:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getContext(),WenZhangActivity.class);
+                    startActivity(intent);
+                }
+            break;
+        }
     }
 }
