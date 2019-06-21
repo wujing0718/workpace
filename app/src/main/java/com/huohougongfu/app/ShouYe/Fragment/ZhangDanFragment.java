@@ -29,14 +29,17 @@ import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.ZhangDan;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.ZhangDanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.DateTimeHelper;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import org.w3c.dom.Text;
 
@@ -58,6 +61,7 @@ public class ZhangDanFragment extends Fragment {
     private String phone;
     private TextView tv_zhangdan_zhichu,tv_zhangdan_shouru;
     private RecyclerView rec_zhangdan;
+    private String token,tel,id;
 
     public ZhangDanFragment() {
         // Required empty public constructor
@@ -68,7 +72,9 @@ public class ZhangDanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_zhang_dan, container, false);
-        phone = SPUtils.getInstance("登录").getString("phone");
+        token = MyApp.instance.getString("token");
+        tel = MyApp.instance.getString("phone");
+        id = String.valueOf(MyApp.instance.getInt("id"));
         String nowTime = utils.getNowTime2();
         String nowTime2 = utils.getNowTime3();
         tv_time = inflate.findViewById(R.id.tv_time);
@@ -81,7 +87,9 @@ public class ZhangDanFragment extends Fragment {
 
     private void initData(String nowTime2) {
         Map<String,String> map = new HashMap<>();
-        map.put("tel",phone);
+        map.put("tel",tel);
+        map.put("id",id);
+        map.put("token",token);
         map.put("time",nowTime2+"-01");
         map.put("pageNo",String.valueOf(1));
         OkGo.<String>post(Contacts.URl1+"/wallet/bill")
@@ -89,6 +97,7 @@ public class ZhangDanFragment extends Fragment {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         ZhangDan zhangdan = gson.fromJson(body, ZhangDan.class);
@@ -97,6 +106,12 @@ public class ZhangDanFragment extends Fragment {
                             tv_zhangdan_shouru.setText("收入¥"+zhangdan.getResult().getPositive());
                             initRec(zhangdan.getResult().getRecords());
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
                     }
                 });
     }

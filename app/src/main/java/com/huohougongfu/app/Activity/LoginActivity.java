@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.Code;
 import com.huohougongfu.app.Gson.Login;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.ShareUtils;
@@ -174,12 +175,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
                                     if (login.getStatus() == 1){
-                                        instance.put("id",login.getResult().getUserInfo().getUserId(),true);
-                                        instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
-                                        instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
-                                        instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
-                                        instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
-                                        instance.put("token",login.getResult().getToken(),true);
+                                        MyApp.instance.put("id",login.getResult().getUserInfo().getUserId(),true);
+                                        MyApp.instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
+                                        MyApp.instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
+                                        MyApp.instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
+                                        MyApp.instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
+                                        MyApp.instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         finish();
@@ -221,12 +222,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
                                     if (login.getStatus() == 1){
-                                        instance.put("id",login.getResult().getUserInfo().getUserId(),true);
-                                        instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
-                                        instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
-                                        instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
-                                        instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
-                                        instance.put("token",login.getResult().getToken(),true);
+                                        MyApp.instance.put("id",login.getResult().getUserInfo().getUserId(),true);
+                                        MyApp.instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
+                                        MyApp.instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
+                                        MyApp.instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
+                                        MyApp.instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
+                                        MyApp.instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         finish();

@@ -71,6 +71,9 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_shop, container, false);
         intent = new Intent();
+        View statusBar = inflate.findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = utils.getStatusBarHeight();
         initUI();
         initbanner();
         initData();
@@ -101,7 +104,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
             }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+//                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });

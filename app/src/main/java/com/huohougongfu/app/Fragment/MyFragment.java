@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.utils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyFragment extends Fragment {
 
+
+    private View inflate;
 
     public MyFragment() {
         // Required empty public constructor
@@ -24,7 +27,11 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my, container, false);
+        inflate = inflater.inflate(R.layout.fragment_my, container, false);
+        View statusBar = inflate.findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = utils.getStatusBarHeight();
+        return inflate;
     }
     public static Fragment newInstance(String content) {
         Bundle args = new Bundle();

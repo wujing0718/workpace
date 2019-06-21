@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.Code;
 import com.huohougongfu.app.Gson.Login;
 import com.huohougongfu.app.Gson.Register;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.SmoothCheckBox;
@@ -169,13 +170,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Gson gson = new Gson();
                         Login register = gson.fromJson(body, Login.class);
                         if (register.getStatus() == 1){
-                            SPUtils instance = SPUtils.getInstance("登录");
-                            instance.put("userid",register.getResult().getUserInfo().getUserId(),true);
-                            instance.put("nickName",register.getResult().getUserInfo().getNickName(),true);
-                            instance.put("phone",register.getResult().getUserInfo().getPhone(),true);
-                            instance.put("photo",register.getResult().getUserInfo().getPhoto(),true);
-                            instance.put("rongtoken",register.getResult().getUserInfo().getRongToken(),true);
-                            instance.put("token",register.getResult().getToken(),true);
+                            MyApp.instance.put("userid",register.getResult().getUserInfo().getUserId(),true);
+                            MyApp.instance.put("nickName",register.getResult().getUserInfo().getNickName(),true);
+                            MyApp.instance.put("phone",register.getResult().getUserInfo().getPhone(),true);
+                            MyApp.instance.put("photo",register.getResult().getUserInfo().getPhoto(),true);
+                            MyApp.instance.put("rongtoken",register.getResult().getUserInfo().getRongToken(),true);
+                            MyApp.instance.put("token",register.getResult().getToken(),true);
                             intent.setClass(RegisterActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -219,7 +219,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     tv_daojishi.setText("返回登陆(" + recLen+"s)");
                     if (recLen < 0) {
                         timer.cancel();
-//                        tv_daojishi.setVisibility(View.GONE);//倒计时到0隐藏字体
                     }
                 }
             });

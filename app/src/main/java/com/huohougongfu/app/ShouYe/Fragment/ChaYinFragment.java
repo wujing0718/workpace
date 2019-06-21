@@ -17,15 +17,18 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.ChaQuan;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.KaQuanGuiZe;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.MeKaQuanAdapter;
 import com.huohougongfu.app.ShouYe.Adapter.SendKaQuanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +44,7 @@ public class ChaYinFragment extends Fragment {
     private RecyclerView rec_wodequan,rec_woshoudaoquan;
     private String phone;
     private boolean isfrist = true;
+    private String token,tel,id;
 
     public ChaYinFragment() {
         // Required empty public constructor
@@ -51,7 +55,9 @@ public class ChaYinFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_cha_yin, container, false);
-        phone = SPUtils.getInstance("登录").getString("phone");
+        token = MyApp.instance.getString("token");
+        tel = MyApp.instance.getString("phone");
+        id = String.valueOf(MyApp.instance.getInt("id"));
         initUI();
         initData();
         return inflate;
@@ -59,13 +65,16 @@ public class ChaYinFragment extends Fragment {
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
-        map.put("tel",phone);
+        map.put("tel",tel);
+        map.put("id",id);
+        map.put("token",token);
         map.put("type","tea");
         OkGo.<String>post(Contacts.URl1+"/wallet/coupons")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         ChaQuan chaQuan = gson.fromJson(body, ChaQuan.class);
@@ -73,6 +82,12 @@ public class ChaYinFragment extends Fragment {
                             initME(chaQuan.getResult().getMe());
                             initSend(chaQuan.getResult().getSend());
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
                     }
                 });
     }

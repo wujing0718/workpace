@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.Code;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
@@ -35,6 +36,7 @@ public class WangJiMiMa extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wang_ji_mi_ma);
         timerCount = new WangJiMiMa.TimerCount(60000, 1000);
+
 
         initUI();
     }

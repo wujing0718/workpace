@@ -18,13 +18,16 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.huohougongfu.app.Fragment.HomeFragment;
 import com.huohougongfu.app.Fragment.MyFragment;
 import com.huohougongfu.app.Fragment.QuanZiFragment;
 import com.huohougongfu.app.Fragment.ShopFragment;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.utils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -36,11 +39,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private BottomNavigationView bottomNavigationView;
     private ViewPager viewPager;
     private MenuItem menuItem;
+    private ImmersionBar mImmersionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mImmersionBar = ImmersionBar.with(MainActivity.this);
+        mImmersionBar.transparentStatusBar().statusBarColor(R.color.colortab) .init();
+
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         bottomNavigationView.setItemIconTintList(null);
         viewPager = findViewById(R.id.viewpager);
@@ -158,4 +165,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();  //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
+    }
 }

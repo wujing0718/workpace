@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
+import com.huohougongfu.app.QuanZi.Activity.JingXuanActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangActivity;
 import com.huohougongfu.app.QuanZi.Fragment.FaXianFragment;
 import com.huohougongfu.app.QuanZi.Fragment.GuanZhuFragment;
@@ -48,8 +49,12 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_quan_zi, container, false);
+        View statusBar = inflate.findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = utils.getStatusBarHeight();
         intent = new Intent();
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);
         initTablayout();
         return inflate;
     }
@@ -89,6 +94,12 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener {
                     startActivity(intent);
                 }
             break;
+            case R.id.bt_jingxuan:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getContext(),JingXuanActivity.class);
+                    startActivity(intent);
+                }
+                break;
         }
     }
 }

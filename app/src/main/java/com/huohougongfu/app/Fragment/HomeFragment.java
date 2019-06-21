@@ -21,9 +21,11 @@ import com.amap.api.maps.MapView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
+import com.gyf.barlibrary.ImmersionBar;
 import com.huohougongfu.app.Activity.DaKaActivity;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.PopupView.QianDao;
 import com.huohougongfu.app.R;
@@ -65,7 +67,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     boolean isFirstLoc = true;
     private String lat;
     private String lon;
-
+    private String token,id,phone;
+    private ImmersionBar mImmersionBar;
 
     public HomeFragment() {
     }
@@ -76,7 +79,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_home, container, false);
         intent = new Intent();
-        String token = SPUtils.getInstance("登录").getString("token");
         //设置默认显示内容
         setDefaultFragment();
         initUI();
@@ -206,7 +208,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-//                        ProgressBar.setVisibility(View.VISIBLE);
                         super.onStart(request);
                     }
 
@@ -251,7 +252,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_chatai:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),ChaTaiActivity.class);
+                    intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
                 }
             case R.id.bt_dingwei:

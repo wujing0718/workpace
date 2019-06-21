@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.huohougongfu.app.MyApp;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.ParseException;
@@ -57,7 +59,19 @@ public class utils {
             return false;
         }
     }
-
+    /**
+     * 利用反射获取状态栏高度
+     * @return
+     */
+    public static int getStatusBarHeight() {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = MyApp.getInstances().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = MyApp.getInstances().getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
     public static void MoveToPosition(LinearLayoutManager manager, int n) {
         manager.scrollToPositionWithOffset(n, 0);
         manager.setStackFromEnd(true);
