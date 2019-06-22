@@ -6,7 +6,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <android.support.v4.view.ViewPager
@@ -17,7 +16,6 @@
         tools:ignore="UnknownId">
 
     </android.support.v4.view.ViewPager>
-
 
     <FrameLayout
         android:id="@+id/framelayout"
@@ -31,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:labelVisibilityMode="labeled"
+            app:itemIconTint="@color/blue"
+            app:itemTextColor="@color/colorBlack"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/bottom_navigation_tab" />
 
@@ -40,6 +40,7 @@
             android:elevation="10dp">
 
             <View
+                android:clickable="false"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2" />
@@ -54,6 +55,7 @@
                 android:src="@mipmap/ic_launcher" />
 
             <View
+                android:clickable="false"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2" />
@@ -61,30 +63,5 @@
         </LinearLayout>
 
     </FrameLayout>
-
-    <!--<LinearLayout-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
-        <!--<FrameLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@+id/layFrame"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1" >-->
-
-        <!--</FrameLayout>-->
-
-        <!--<com.ashokvarma.bottomnavigation.BottomNavigationBar-->
-            <!--android:clipChildren="false"-->
-            <!--android:id="@+id/bottomNavigationBar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="bottom"-->
-            <!--&gt;-->
-        <!--</com.ashokvarma.bottomnavigation.BottomNavigationBar>-->
-
-
-    <!--</LinearLayout>-->
 
 </RelativeLayout>

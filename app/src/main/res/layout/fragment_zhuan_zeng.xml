@@ -3,150 +3,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ShouYe.Fragment.ZhuanZengFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="50dp"
-                android:text="茶米（剩余：60粒）"
-                android:textSize="16sp"
-                android:textColor="@color/colorBlack"
+            <LinearLayout
+                android:layout_marginTop="@dimen/icon_size_20dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:text="我的茶米："
+                    android:textSize="16sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_my_chami"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:text="2200"
+                    android:textSize="30sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:layout_marginLeft="50dp"
-                    android:hint="请输入数量"
-                    android:textSize="14sp"
-                    android:textColor="#BBBBBB"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:background="@drawable/kaquan_kuang"
-                    android:layout_width="220dp"
-                    android:layout_height="30dp" />
-
                 <TextView
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="50dp"
-                    android:text="只能送出总数的50%哦~"
-                    android:textSize="10sp"
-                    android:textColor="#E51C23"
+                    android:layout_marginHorizontal="50dp"
+                    android:text="转增茶米数："
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <RadioGroup
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="6dp"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:button="@null"
-                        android:text="250"
-                        android:gravity="center"
-                        android:paddingHorizontal="10dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorBlack"
-                        android:background="@drawable/xiadan_kuang"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_gravity="center_vertical"
-                        android:button="@null"
-                        android:text="666"
-                        android:gravity="center"
-                        android:paddingHorizontal="10dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorBlack"
-                        android:background="@drawable/xiadan_kuang"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:button="@null"
-                        android:text="1314"
-                        android:gravity="center"
-                        android:paddingHorizontal="10dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorBlack"
-                        android:background="@drawable/xiadan_kuang"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
-
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_marginLeft="50dp"
-                android:text="我的悄悄话..."
-                android:textColor="#1890FF"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <android.support.v7.widget.CardView
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="20dp"
-                android:layout_marginHorizontal="50dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="90dp">
-
                 <RelativeLayout
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginHorizontal="50dp"
+                    android:background="@drawable/chami"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edt_chamishu"
+                        android:paddingLeft="@dimen/icon_size_20dp"
+                        android:hint="请输入赠送的茶米数"
+                        android:textSize="12sp"
+                        android:inputType="number"
+                        android:background="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/bt_guize"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/dp_4"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_width="12sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="12sp" />
 
                     <TextView
-                        android:maxLines="4"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="50dp"
-                        android:layout_marginVertical="@dimen/dp_10"
-                        android:text="送你我的茶米，分享我的快乐~
-送你我的茶米，分享我的快乐~送你我的茶米，分享我的快乐~送你我的茶米，分享我的快乐~送你我的茶米，分享我的快乐~"
+                        android:layout_marginLeft="@dimen/dp_4"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/tv_my_cezengsong"
+                        android:text="可转赠茶米数1000"
+                        android:textSize="11sp"
+                        android:textColor="#818181"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginHorizontal="50dp"
+                    android:text="我的悄悄话："
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginHorizontal="50dp"
+                    android:background="@drawable/chami"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+
+                    <EditText
+                        android:layout_above="@+id/bt_qiaoqiaohua_huanyihuan"
+                        android:id="@+id/edt_qiaoqiaohua"
+                        android:paddingLeft="@dimen/icon_size_20dp"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="收下我的茶米，你就是我的人啦~"
+                        android:gravity="top"
+                        android:textSize="12sp"
+                        android:background="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                     <LinearLayout
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="@dimen/dp_4"
+                        android:id="@+id/bt_qiaoqiaohua_huanyihuan"
+                        android:layout_marginRight="6dp"
                         android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -154,8 +155,8 @@
                         <TextView
                             android:text="换一换"
                             android:textSize="10sp"
-                            android:textColor="#DBDBDB"
                             android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorWhite"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -170,91 +171,32 @@
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-            <TextView
-                android:layout_marginLeft="50dp"
-                android:text="收下我的茶米，你就是我的人啦~"
-                android:textColor="@color/colorHui"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_marginLeft="50dp"
-                android:text="茶米代表我的心~"
-                android:textColor="@color/colorHui"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_marginLeft="50dp"
-                android:text="猜猜送你几个茶米~"
-                android:textColor="@color/colorHui"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/bt_zhuanzengchami"
                 android:text="转增给他"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/colorBlack"
+                android:layout_marginBottom="@dimen/icon_size_20dp"
                 android:background="@drawable/kaquan_kuang"
                 android:layout_width="200dp"
                 android:layout_height="30dp" />
 
 
-            <LinearLayout
-                android:layout_alignParentBottom="true"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:background="#BBBBBB"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_weight="1"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_weight="1"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <ImageView
-                        android:layout_weight="1"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </FrameLayout>

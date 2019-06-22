@@ -101,6 +101,8 @@ dependencies {
     //上传图片
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     implementation 'com.github.Awent:PhotoPick-Master:v1.095'
+    //沉浸式状态栏
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta01'
     //可滑动的Gridview
     implementation 'com.huxq17.handygridview:handygridview:1.2.0'
     //日期选择

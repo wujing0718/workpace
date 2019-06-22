@@ -8,11 +8,13 @@
     android:layout_height="wrap_content">
     
     <ImageView
+        android:id="@+id/img_jingxuan_photo"
         android:src="@mipmap/ic_launcher"
         android:layout_width="match_parent"
         android:layout_height="170dp" />
 
     <TextView
+        android:id="@+id/tv_jingxuan_title"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginHorizontal="8dp"
         android:text="白茶寿眉茶叶陈年太姥山老白茶春季寿眉茶一饼300克"
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_jingxuan_price"
             android:text="189"
             android:textSize="18sp"
             android:textColor="@color/colorBlack"
@@ -53,6 +56,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_jingxuan_name"
             android:text="【爱茶之人...】"
             android:textSize="11sp"
             android:textColor="@color/colorHui"
@@ -60,6 +64,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_jingxuan_num"
             android:layout_alignParentRight="true"
             android:text="1000人付款"
             android:textSize="11sp"

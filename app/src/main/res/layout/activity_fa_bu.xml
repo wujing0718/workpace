@@ -57,6 +57,7 @@
     </RelativeLayout>
 
     <EditText
+        android:id="@+id/edt_content"
         android:hint="写点什么吧......"
         android:textSize="14sp"
         android:padding="@dimen/dp_10"
@@ -77,5 +78,26 @@
         android:numColumns="3"
         android:verticalSpacing="10dp"
         android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:padding="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="12dp"
+            android:layout_height="12dp" />
+
+        <TextView
+            android:text="深圳"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </LinearLayout>

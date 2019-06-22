@@ -94,7 +94,8 @@
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.XieYiActivity" />
         <activity android:name=".Activity.YinSiActivity" />
-        <activity android:name=".ShouYe.Activity.PleaseTeaActivity" />
+        <activity android:name=".ShouYe.Activity.PleaseTeaActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ShouYe.Activity.MyKaBaoActivity" />
         <activity android:name=".ShouYe.Activity.ChaTaiActivity" />
         <activity android:name=".ShouYe.Activity.MaiChaDetailActivity" />
@@ -109,7 +110,8 @@
         <activity android:name=".Activity.WangJiMiMa" />
         <activity android:name=".UploadPictures.PlusImageActivity" />
         <activity android:name=".QuanZi.Activity.WenZhangActivity" />
-        <activity android:name=".Activity.DaKaActivity"></activity>
+        <activity android:name=".Activity.DaKaActivity" />
+        <activity android:name=".QuanZi.Activity.JingXuanActivity"></activity>
     </application>
 
 </manifest>

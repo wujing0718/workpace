@@ -10,6 +10,14 @@
     android:focusableInTouchMode="true"
     tools:context=".Fragment.QuanZiFragment">
 
+    <View
+        android:id="@+id/statusBarView"
+        android:background="#33000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </View>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -121,6 +129,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/bt_jingxuan"
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="match_parent"

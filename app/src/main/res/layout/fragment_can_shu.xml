@@ -171,14 +171,16 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="2014.06.10"
+                    android:id="@+id/tv_producedDate"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="适宜长期保存"
+                    android:id="@+id/tv_expirationDate"
+                    android:text=""
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
@@ -186,46 +188,8 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="避免阳光暴晒"
-                    android:layout_marginTop="10dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="50dp"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="QS66666666666"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="GB/T12345-2008"
-                    android:layout_marginTop="10dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="广东省深圳市XX茶厂"
-                    android:layout_marginTop="10dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:text="广东省深圳市XX镇XX山XX号"
+                    android:id="@+id/tv_storageWay"
+                    android:text=""
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
@@ -241,14 +205,16 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="云南大白茶"
+                    android:id="@+id/tv_productionLicenseCode"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="无"
+                    android:id="@+id/tv_productStandardCode"
+                    android:text=""
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
@@ -256,7 +222,17 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="500g"
+                    android:id="@+id/tv_factoryName"
+                    android:text=""
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_factoryAddress"
+                    android:text=""
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
@@ -272,14 +248,16 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="XX牌"
+                    android:id="@+id/tv_burdenSheet"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="白茶"
+                    android:id="@+id/tv_foodAdditives"
+                    android:text=""
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
@@ -287,7 +265,33 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="云南"
+                    android:id="@+id/tv_netContent"
+                    android:text=""
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_brand"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_category"
+                    android:text=""
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
@@ -295,7 +299,17 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="盒装"
+                    android:id="@+id/tv_producedAddress"
+                    android:text=""
+                    android:layout_marginTop="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_packageType"
+                    android:text=""
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
