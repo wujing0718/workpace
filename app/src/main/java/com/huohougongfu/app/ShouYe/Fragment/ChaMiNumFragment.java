@@ -30,7 +30,7 @@ public class ChaMiNumFragment extends Fragment {
 
 
     private View inflate;
-    private TextView tv_chami_wode,tv_chami_send,tv_chami_price,tv_chami_zong;
+    private TextView tv_chami_wode,tv_chami_send,tv_chami_price,tv_chami_zong,tv_yongjin,tv_shouru;
     private String token,tel,id;
 
     public ChaMiNumFragment() {
@@ -60,7 +60,7 @@ public class ChaMiNumFragment extends Fragment {
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
-                         String body = response.body();
+                        String body = response.body();
                         Gson gson = new Gson();
                         ChaMi chaMi = gson.fromJson(body, ChaMi.class);
                         if (chaMi.getStatus() == 1){
@@ -80,7 +80,9 @@ public class ChaMiNumFragment extends Fragment {
         tv_chami_wode.setText(String.valueOf(chaMi.getResult().getMe()+"粒"));
         tv_chami_send.setText(String.valueOf(chaMi.getResult().getSent()+"粒"));
         tv_chami_zong.setText(String.valueOf(chaMi.getResult().getMe()+chaMi.getResult().getSent()+"粒"));
-        tv_chami_price.setText(String.valueOf(chaMi.getResult().getMonetary()+"元"));
+        tv_yongjin.setText(String.valueOf(chaMi.getResult().getCommission()+"元"));
+        tv_shouru.setText(String.valueOf(chaMi.getResult().getIncome()+"元"));
+
     }
 
     private void initUI() {
@@ -88,6 +90,8 @@ public class ChaMiNumFragment extends Fragment {
         tv_chami_send = inflate.findViewById(R.id.tv_chami_send);
         tv_chami_price = inflate.findViewById(R.id.tv_chami_price);
         tv_chami_zong = inflate.findViewById(R.id.tv_chami_zong);
+        tv_yongjin = inflate.findViewById(R.id.tv_yongjin);
+        tv_shouru = inflate.findViewById(R.id.tv_shouru);
 
     }
 

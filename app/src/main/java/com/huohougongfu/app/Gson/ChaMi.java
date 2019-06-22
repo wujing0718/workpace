@@ -1,9 +1,10 @@
 package com.huohougongfu.app.Gson;
 
 public class ChaMi {
+
     /**
      * msg : 操作成功
-     * result : {"monetary":0,"me":5,"sent":0}
+     * result : {"income":0,"me":99809,"commission":1,"sent":0}
      * status : 1
      */
 
@@ -37,21 +38,23 @@ public class ChaMi {
 
     public static class ResultBean {
         /**
-         * monetary : 0.0
-         * me : 5.0
+         * income : 0.0
+         * me : 99809.0
+         * commission : 1.0
          * sent : 0
          */
 
-        private double monetary;
+        private double income;
         private double me;
+        private double commission;
         private int sent;
 
-        public double getMonetary() {
-            return monetary;
+        public double getIncome() {
+            return income;
         }
 
-        public void setMonetary(double monetary) {
-            this.monetary = monetary;
+        public void setIncome(double income) {
+            this.income = income;
         }
 
         public double getMe() {
@@ -60,6 +63,14 @@ public class ChaMi {
 
         public void setMe(double me) {
             this.me = me;
+        }
+
+        public double getCommission() {
+            return commission;
+        }
+
+        public void setCommission(double commission) {
+            this.commission = commission;
         }
 
         public int getSent() {

@@ -36,7 +36,7 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="40dp"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="我的余额："
+                android:text="我的余额（总额）："
                 android:textSize="17sp"
                 android:textColor="@color/colorBlack"
                 android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
 
             <TextView
                 android:id="@+id/tv_chami_price"
-                android:text="220元"
+                android:text="¥220元"
                 android:textSize="17sp"
                 android:textColor="@color/colorBlack"
                 android:layout_width="wrap_content"
@@ -120,6 +120,68 @@
 
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="佣金"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_yongjin"
+                    android:layout_marginTop="12dp"
+                    android:text="120"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="微店收入"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_shouru"
+                    android:layout_marginTop="12dp"
+                    android:text="100粒"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 

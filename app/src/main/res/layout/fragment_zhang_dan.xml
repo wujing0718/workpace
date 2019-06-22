@@ -1,82 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShouYe.Fragment.ZhangDanFragment">
+    tools:context=".ShouYe.Activity.MyKaBaoActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_marginHorizontal="100dp"
+        android:layout_height="36dp"
+        app:tl_divider_color="#1A000000"
+        app:tl_indicator_color="#BBBBBB"
+        app:tl_indicator_corner_radius="3dp"
+        app:tl_indicator_height="0dp"
+        app:tl_indicator_style="NORMAL"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_tab_space_equal="true"
+        app:tl_textSelectColor="@color/colorBlack"
+        app:tl_textUnselectColor="@color/colorHui"
+        app:tl_textsize="14sp" />
 
-        <TextView
-            android:text="全部交易"
-            android:textSize="@dimen/sp_14"
-            android:textColor="@color/colorBlack"
-            android:padding="@dimen/dp_10"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_marginVertical="@dimen/dp_10"
-            android:id="@+id/bt_timepicker"
-            android:layout_marginLeft="15dp"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_time"
-                android:text="201"
-                android:textSize="14sp"
-                android:textColor="@color/colorBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_zhangdan_zhichu"
-                    android:textColor="#BBBBBB"
-                    android:text="支出¥1200.51"
-                    android:textSize="12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tv_zhangdan_shouru"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:text="收入¥14425.81"
-                    android:textColor="#BBBBBB"
-                    android:textSize="12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rec_zhangdan"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-
-    </LinearLayout>
-
-
-</FrameLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

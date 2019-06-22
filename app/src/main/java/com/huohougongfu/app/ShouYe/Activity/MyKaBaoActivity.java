@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MyKaBaoActivity extends AppCompatActivity {
 
-    private final String[] mTitles = {"茶饮券", "商城券", "茶米数","我的账单"};
+    private final String[] mTitles = {"茶饮券", "商城券", "余额","我的账单"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
