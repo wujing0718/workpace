@@ -96,10 +96,10 @@ public class PingJiaFragment extends Fragment {
     }
 
 
-    public static Fragment newInstance(String str){
+    public static Fragment newInstance(int str){
         PingJiaFragment fragment = new PingJiaFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("",str);
+        bundle.putInt("id",str);
         fragment.setArguments(bundle);
         return fragment;
     }

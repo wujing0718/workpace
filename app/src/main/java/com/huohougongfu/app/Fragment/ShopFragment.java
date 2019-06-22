@@ -20,6 +20,8 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.Gson.ShopGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.DaShiZhuanChang;
 import com.huohougongfu.app.Shop.Activity.LeiMuActivity;
@@ -27,6 +29,7 @@ import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.ShopSouSuoActivity;
 import com.huohougongfu.app.Shop.Activity.TeHuiActivity;
 import com.huohougongfu.app.Shop.Activity.TeYuePinPaiActivity;
+import com.huohougongfu.app.Shop.Adapter.ShopAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
@@ -36,6 +39,9 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -56,11 +62,14 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
     private List<Integer> mlist = new ArrayList<>();
     private List<String> mbanner = new ArrayList<>();
     private List<String> mbannerimg = new ArrayList<>();
-
+    private String token,tel,id;
     private SmartRefreshLayout smartrefreshlayout;
     private View head_shangcheng;
     private RecyclerView rec_shangcheng_shangpin;
     private Intent intent;
+    private int page = 2;
+    private ShopAdapter shangPinAdapter;
+
     @SuppressLint("ValidFragment")
     public ShopFragment() {
     }
@@ -71,6 +80,9 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_shop, container, false);
         intent = new Intent();
+        token = MyApp.instance.getString("token");
+        tel = MyApp.instance.getString("phone");
+        id = String.valueOf(MyApp.instance.getInt("id"));
         View statusBar = inflate.findViewById(R.id.statusBarView);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
@@ -83,25 +95,30 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         smartrefreshlayout.autoRefresh();
+        page = 2;
         super.onResume();
     }
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
+        map.put("page","1");
+        map.put("tel",tel);
+        map.put("id",id);
+        map.put("token",token);
+        OkGo.<String>get(Contacts.URl1+"selectSift")
                 .params(map)
                 .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                 WaitDialog.dismiss();
+                String body = response.body();
                 Gson gson = new Gson();
-                ShangPinGson shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-                if (shangPinGson.getCode() == 200) {
-                    initRec(shangPinGson.getData());
+                ShopGson shop = gson.fromJson(body, ShopGson.class);
+                if (shop.getStatus() == 1){
+                    initRec(shop);
+                    }
                 }
-            }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
 //                        WaitDialog.show(getActivity(), "载入中...");
@@ -110,29 +127,75 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                 });
     }
 
-    private void initRec(ShangPinGson.DataBean data) {
+    private void initRec(ShopGson list) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         GridLayoutManager layoutmanager = new GridLayoutManager(getActivity(),2);
         //设置RecyclerView 布局
         rec_shangcheng_shangpin.setLayoutManager(layoutmanager);
-        ShangPinAdapter shangPinAdapter = new ShangPinAdapter(R.layout.item_shangpin,data.getList());
+        shangPinAdapter = new ShopAdapter(R.layout.item_shangpin,list.getResult().getList());
         shangPinAdapter.addHeaderView(head_shangcheng);
         rec_shangcheng_shangpin.setAdapter(shangPinAdapter);
         shangPinAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
+                intent.putExtra("id",list.getResult().getList().get(position).getId());
                 intent.setClass(getActivity(),ShangPinDetailActivity.class);
                 startActivity(intent);
             }
         });
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+//                initOkGO();
+                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String, String> map = new HashMap<>();
+        map.put("page",String.valueOf(page++));
+        map.put("tel",tel);
+        map.put("id",id);
+        map.put("token",token);
+        OkGo.<String>get(Contacts.URl1+"selectSift")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ShopGson shop = gson.fromJson(body, ShopGson.class);
+                        if (shop.getResult().getList().size()>0){
+                            shangPinAdapter.add(shop.getResult().getList());
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }else {
+                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
     }
 
     private void initUI() {
         inflate.findViewById(R.id.bt_shop_sousuo).setOnClickListener(this);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_shangcheng_shangpin = inflate.findViewById(R.id.rec_shangcheng_shangpin);
-        head_shangcheng = getLayoutInflater().inflate(R.layout.head_shangcheng, smartrefreshlayout, false);
+        head_shangcheng = getLayoutInflater().inflate(R.layout.head_shangcheng, (ViewGroup) rec_shangcheng_shangpin.getParent(), false);
         head_shangcheng.findViewById(R.id.bt_shangpin_teyue).setOnClickListener(this);
         head_shangcheng.findViewById(R.id.bt_shangpin_dashi).setOnClickListener(this);
         head_shangcheng.findViewById(R.id.bt_shangpin_tehui).setOnClickListener(this);

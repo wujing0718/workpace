@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.DaKa;
+import com.huohougongfu.app.Gson.DaKaOne;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -42,8 +44,15 @@ public class DaKaActivity extends AppCompatActivity {
                 DaKa daKa = gson.fromJson(body, DaKa.class);
                 if (daKa.getStatus() == 1){
                     if (daKa.getResult().getIsPunch() == 1 ){
+                        findViewById(R.id.bt_daka).setOnClickListener(null);
                         tv_yidaka.setVisibility(View.VISIBLE);
                     }else{
+                        findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                initDaKa();
+                            }
+                        });
                         tv_yidaka.setVisibility(View.GONE);
                     }
                     if (daKa.getResult().getArr().get(0) == 0){
@@ -95,12 +104,7 @@ public class DaKaActivity extends AppCompatActivity {
                 finish();
             }
         });
-        findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initDaKa();
-            }
-        });
+
         img1 = findViewById(R.id.img1);
         img2 = findViewById(R.id.img2);
         img3 = findViewById(R.id.img3);
@@ -118,41 +122,41 @@ public class DaKaActivity extends AppCompatActivity {
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        DaKa daKa = gson.fromJson(body, DaKa.class);
+                        DaKaOne daKa = gson.fromJson(body, DaKaOne.class);
                         if (daKa.getStatus() == 1){
-                            if (daKa.getResult().getArr().get(0) == 0){
+                            if (daKa.getResult().get(0) == 0){
                                 img1.setImageResource(R.mipmap.ic_launcher);
-                            }else if (daKa.getResult().getArr().get(0) == 1){
+                            }else if (daKa.getResult().get(0) == 1){
                                 img1.setImageResource(R.mipmap.img_back);
                             }
-                            if (daKa.getResult().getArr().get(1) == 0){
+                            if (daKa.getResult().get(1) == 0){
                                 img2.setImageResource(R.mipmap.ic_launcher);
-                            }else if (daKa.getResult().getArr().get(1) == 1){
+                            }else if (daKa.getResult().get(1) == 1){
                                 img2.setImageResource(R.mipmap.img_back);
                             }
-                            if (daKa.getResult().getArr().get(2) == 0){
+                            if (daKa.getResult().get(2) == 0){
                                 img3.setImageResource(R.mipmap.ic_launcher);
-                            }else if (daKa.getResult().getArr().get(2) == 1){
+                            }else if (daKa.getResult().get(2) == 1){
                                 img3.setImageResource(R.mipmap.img_back);
                             }
-                            if (daKa.getResult().getArr().get(3) == 0){
+                            if (daKa.getResult().get(3) == 0){
                                 img4.setImageResource(R.mipmap.ic_launcher);
-                            }else if (daKa.getResult().getArr().get(3) == 1){
+                            }else if (daKa.getResult().get(3) == 1){
                                 img4.setImageResource(R.mipmap.img_back);
                             }
-                            if (daKa.getResult().getArr().get(4) == 0){
+                            if (daKa.getResult().get(4) == 0){
                                 img5.setImageResource(R.mipmap.ic_launcher);
-                            }else if (daKa.getResult().getArr().get(4) == 1){
+                            }else if (daKa.getResult().get(4) == 1){
                                 img5.setImageResource(R.mipmap.img_back);
                             }
-                            if (daKa.getResult().getArr().get(5) == 0){
+                            if (daKa.getResult().get(5) == 0){
                                 img6.setImageResource(R.mipmap.ic_launcher);
-                            }else if (daKa.getResult().getArr().get(5) == 1){
+                            }else if (daKa.getResult().get(5) == 1){
                                 img6.setImageResource(R.mipmap.img_back);
                             }
-                            if (daKa.getResult().getArr().get(6) == 0){
+                            if (daKa.getResult().get(6) == 0){
                                 img7.setImageResource(R.mipmap.ic_launcher);
-                            }else if (daKa.getResult().getArr().get(6) == 1){
+                            }else if (daKa.getResult().get(6) == 1){
                                 img7.setImageResource(R.mipmap.img_back);
                             }
                         }

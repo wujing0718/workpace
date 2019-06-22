@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Fragment.SimpleCardFragment;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Fragment.CanShuFragment;
 import com.huohougongfu.app.Shop.Fragment.PingJiaFragment;
@@ -25,11 +26,13 @@ public class ShangPinDetailActivity extends AppCompatActivity {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
+    private int shopid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shang_pin_detail);
+        shopid = getIntent().getIntExtra("id", 0);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,14 +42,17 @@ public class ShangPinDetailActivity extends AppCompatActivity {
         initTablayout();
     }
 
+    private void initData() {
+    }
+
     private void initTablayout() {
         mFragments.clear();
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(ShangPinFragment.newInstance("分类"));
-        mFragments.add(CanShuFragment.newInstance("分类"));
-        mFragments.add(PingJiaFragment.newInstance("分类"));
+        mFragments.add(ShangPinFragment.newInstance(shopid));
+        mFragments.add(CanShuFragment.newInstance(shopid));
+        mFragments.add(PingJiaFragment.newInstance(shopid));
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
         }

@@ -1,36 +1,34 @@
-package com.huohougongfu.app.Activity;
+        package com.huohougongfu.app.Activity;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+        import android.Manifest;
+        import android.annotation.SuppressLint;
+        import android.content.Intent;
+        import android.os.Build;
+        import android.support.annotation.NonNull;
+        import android.support.design.internal.BottomNavigationItemView;
+        import android.support.design.internal.BottomNavigationMenuView;
+        import android.support.design.widget.BottomNavigationView;
+        import android.support.v4.app.ActivityCompat;
+        import android.support.v4.app.Fragment;
+        import android.support.v4.app.FragmentManager;
+        import android.support.v4.app.FragmentPagerAdapter;
+        import android.support.v4.view.ViewPager;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.view.KeyEvent;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.Toast;
 
-import com.gyf.barlibrary.ImmersionBar;
-import com.huohougongfu.app.Fragment.HomeFragment;
-import com.huohougongfu.app.Fragment.MyFragment;
-import com.huohougongfu.app.Fragment.QuanZiFragment;
-import com.huohougongfu.app.Fragment.ShopFragment;
-import com.huohougongfu.app.R;
-import com.huohougongfu.app.Utils.utils;
+        import com.gyf.barlibrary.ImmersionBar;
+        import com.huohougongfu.app.Fragment.HomeFragment;
+        import com.huohougongfu.app.Fragment.MyFragment;
+        import com.huohougongfu.app.Fragment.QuanZiFragment;
+        import com.huohougongfu.app.Fragment.ShopFragment;
+        import com.huohougongfu.app.R;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
+        import java.lang.reflect.Field;
+        import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
 
@@ -39,26 +37,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private BottomNavigationView bottomNavigationView;
     private ViewPager viewPager;
     private MenuItem menuItem;
-    private ImmersionBar mImmersionBar;
+    private ImmersionBar immersionber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mImmersionBar = ImmersionBar.with(MainActivity.this);
-        mImmersionBar.transparentStatusBar().statusBarColor(R.color.colortab) .init();
-
+        immersionber = ImmersionBar.with(this);
+        immersionber.statusBarDarkFont(true).init();
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         bottomNavigationView.setItemIconTintList(null);
         viewPager = findViewById(R.id.viewpager);
-        disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         viewPager.addOnPageChangeListener(this);
-        if(Build.VERSION.SDK_INT>=23){
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-            ActivityCompat.requestPermissions(this,mPermissionList,123);
-        }
         bottomNavigationView.setSelectedItemId(R.id.tab_two);
+        disableShiftMode(bottomNavigationView);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         findViewById(R.id.navigation_center_image).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             shiftingMode.setAccessible(true);
             shiftingMode.setBoolean(menuView, false);
             shiftingMode.setAccessible(false);
-
             for (int i = 0; i < menuView.getChildCount(); i++) {
                 BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
                 itemView.setShifting(false);
@@ -107,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 System.exit(0);
             }
         }
-
         return super.onKeyUp(keyCode, event);
     }
 
@@ -133,13 +124,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {
-        
+
     }
 
     @Override
     public void onPageSelected(int position) {
         menuItem = bottomNavigationView.getMenu().getItem(position);
         menuItem.setChecked(true);
+        if (position>=2){
+            menuItem = bottomNavigationView.getMenu().getItem(position+1);
+            menuItem.setChecked(true);
+        }
     }
 
     @Override
@@ -161,14 +156,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         @Override
         public int getCount() {
-            return 4;
+            return mFragments.length;
         }
     }
 
     @Override
     protected void onDestroy() {
+        if (immersionber!=null){
+            immersionber.destroy();
+        }
         super.onDestroy();
-        if (mImmersionBar != null)
-            mImmersionBar.destroy();  //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
     }
 }

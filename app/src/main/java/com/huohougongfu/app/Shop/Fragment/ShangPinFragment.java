@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
 import com.huohougongfu.app.PopupView.YouHuiQuan;
@@ -42,6 +43,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private View inflate;
     private TextView tv_yuan_price;
     private RecyclerView rec_shangpin_tuijian;
+    private String token,tel,id;
+    private int shopid;
 
     public ShangPinFragment() {
     }
@@ -52,6 +55,10 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                              Bundle savedInstanceState) {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_shang_pin, container, false);
+        token = MyApp.instance.getString("token");
+        tel = MyApp.instance.getString("phone");
+        id = String.valueOf(MyApp.instance.getInt("id"));
+        shopid = getArguments().getInt("id");
         initData();
         initUI();
         return inflate;
@@ -70,19 +77,20 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
+        map.put("tel",tel);
+        map.put("id",String.valueOf(shopid));
+        map.put("token",token);
+        OkGo.<String>get(Contacts.URl1+"selectDetailById")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        ShangPinGson shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-                        if (shangPinGson.getCode() == 200) {
-                            initRec(shangPinGson.getData());
-                        }
+//                        ShangPinGson shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
+//                        if (shangPinGson.getCode() == 200) {
+//                            initRec(shangPinGson.getData());
+//                        }
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
@@ -103,10 +111,10 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         rec_shangpin_tuijian.setAdapter(shangPinTuiJianAdapter);
     }
 
-    public static Fragment newInstance(String str){
+    public static Fragment newInstance(int str){
         ShangPinFragment fragment = new ShangPinFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("",str);
+        bundle.putInt("id",str);
         fragment.setArguments(bundle);
         return fragment;
     }
