@@ -8,25 +8,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.PaoChaFragment">
 
-    <com.lwj.widget.viewpagerindicator.ViewPagerIndicator
-        android:layout_marginHorizontal="100dp"
-        android:id="@+id/indicator_line"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        app:vpi_default_color="#E8E8E8"
-        app:vpi_distance="800dp"
-        app:vpi_length="300dp"
-        app:vpi_distanceType="BY_LAYOUT"
-        app:vpi_indicatorType="BEZIER"
-        app:vpi_radius="4dp"
-        app:vpi_selected_color="#CCBA91"
-        />
+        <LinearLayout
+            android:id="@+id/ly"
+            android:clipChildren="false"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
-        android:clipChildren="false"
-        android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="match_parent"/>
+            <com.lwj.widget.viewpagerindicator.ViewPagerIndicator
+                android:layout_marginHorizontal="100dp"
+                android:id="@+id/indicator_line"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                app:vpi_default_color="#E8E8E8"
+                app:vpi_distance="800dp"
+                app:vpi_length="300dp"
+                app:vpi_distanceType="BY_LAYOUT"
+                app:vpi_indicatorType="BEZIER"
+                app:vpi_radius="4dp"
+                app:vpi_selected_color="#CCBA91"
+                />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:clipChildren="false"
+                android:layout_marginHorizontal="70dp"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
 
 </LinearLayout>

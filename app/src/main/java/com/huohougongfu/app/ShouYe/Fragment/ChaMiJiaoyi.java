@@ -28,6 +28,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -48,6 +52,10 @@ public class ChaMiJiaoyi extends Fragment {
     private TextView tv_zhangdan_zhichu,tv_zhangdan_shouru;
     private RecyclerView rec_zhangdan;
     private String token,tel,id;
+    private SmartRefreshLayout smartrefreshlayout;
+    private String nowTime2;
+    private int page = 2;
+    private ChaMiJiaoYiAdapter madapter;
 
     public ChaMiJiaoyi() {
         // Required empty public constructor
@@ -62,16 +70,16 @@ public class ChaMiJiaoyi extends Fragment {
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
         String nowTime = utils.getNowTime2();
-        String nowTime2 = utils.getNowTime3();
+        nowTime2 = utils.getNowTime3();
         tv_time = inflate.findViewById(R.id.tv_time);
         tv_time.setText(nowTime);
         initUI();
-        initData(nowTime2);
+        initData();
         initStartTimePicker();
         return inflate;
     }
 
-    private void initData(String nowTime2) {
+    private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
         map.put("id",id);
@@ -107,8 +115,59 @@ public class ChaMiJiaoyi extends Fragment {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_zhangdan.setLayoutManager(layoutmanager);
-        ChaMiJiaoYiAdapter madapter = new ChaMiJiaoYiAdapter(R.layout.item_chamijiaoyi,list);
+        madapter = new ChaMiJiaoYiAdapter(R.layout.item_chamijiaoyi,list);
         rec_zhangdan.setAdapter(madapter);
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+//                initOkGO();
+                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String,String> map = new HashMap<>();
+        map.put("tel",tel);
+        map.put("id",id);
+        map.put("token",token);
+        map.put("time",nowTime2+"-01");
+        map.put("pageNo",String.valueOf(page++));
+        OkGo.<String>post(Contacts.URl1+"/wallet/bill/teaRice")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ChaMiJiaoYI zhangdan = gson.fromJson(body, ChaMiJiaoYI.class);
+                        if (zhangdan.getStatus() == 1){
+                            tv_zhangdan_zhichu.setText("支出"+zhangdan.getResult().getOut()+"粒");
+                            tv_zhangdan_shouru.setText("收入"+zhangdan.getResult().getIn()+"粒");
+                            if (zhangdan.getResult().getRecord().getList().size()>0){
+                                madapter.add(zhangdan.getResult().getRecord().getList());
+                                smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                            }else {
+                                smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
     }
 
     /**初始化开始日期选择器控件*/
@@ -130,7 +189,8 @@ public class ChaMiJiaoyi extends Fragment {
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
                 tv_time.setText(DateTimeHelper.formatToString(date,"yyyy年MM月"));
-                initData(DateTimeHelper.formatToString(date,"yyyy-MM"));
+                nowTime2 = DateTimeHelper.formatToString(date, "yyyy-MM");
+                initData();
             }
         })
                 //年月日时分秒 的显示与否，不设置则默认全部显示
@@ -148,6 +208,7 @@ public class ChaMiJiaoyi extends Fragment {
         tv_zhangdan_zhichu = inflate.findViewById(R.id.tv_zhangdan_zhichu);
         tv_zhangdan_shouru = inflate.findViewById(R.id.tv_zhangdan_shouru);
         rec_zhangdan = inflate.findViewById(R.id.rec_zhangdan);
+        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         inflate.findViewById(R.id.bt_timepicker).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

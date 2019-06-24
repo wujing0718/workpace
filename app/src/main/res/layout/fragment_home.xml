@@ -178,8 +178,8 @@
                     <com.kyleduo.switchbutton.SwitchButton
                         android:id="@+id/bt_switch"
                         style="@style/SwitchButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         app:kswThumbColor="#CCBA91"
                         app:kswBackColor = "@color/colorWhite"
                         android:checked="true"/>

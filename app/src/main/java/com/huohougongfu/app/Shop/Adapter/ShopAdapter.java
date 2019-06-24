@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.haozhang.lib.SlantedTextView;
 import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.R;
 import com.squareup.picasso.Picasso;
@@ -22,6 +23,8 @@ public class ShopAdapter extends BaseQuickAdapter<ShopGson.ResultBean.ListBean,B
 
     @Override
     protected void convert(BaseViewHolder helper, ShopGson.ResultBean.ListBean item) {
+        SlantedTextView slanted = helper.getView(R.id.slanted);
+        slanted.setVisibility(View.GONE);
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);
         helper.setText(R.id.tv_jingxuan_title,item.getName());

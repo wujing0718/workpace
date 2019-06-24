@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginHorizontal="8dp"
     android:layout_marginBottom="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    
-    <ImageView
-        android:id="@+id/img_jingxuan_photo"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="match_parent"
-        android:layout_height="170dp" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/img_jingxuan_photo"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="match_parent"
+            android:layout_height="170dp" />
+
+        <com.haozhang.lib.SlantedTextView
+            android:id="@+id/slanted"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            app:slantedBackgroundColor="@color/white"
+            app:slantedLength="40dp"
+            app:slantedMode="left"
+            app:slantedText="IOS"
+            app:slantedTextColor="@color/colorRed"
+            app:slantedTextSize="16sp"
+            />
+
+    </FrameLayout>
+    
     <TextView
         android:id="@+id/tv_jingxuan_title"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginHorizontal="8dp"
-        android:text="白茶寿眉茶叶陈年太姥山老白茶春季寿眉茶一饼300克"
+        android:text=""
         android:maxLines="2"
         android:ellipsize="end"
         android:textSize="12sp"
@@ -41,7 +61,8 @@
 
         <TextView
             android:id="@+id/tv_jingxuan_price"
-            android:text="189"
+            android:text=""
+            android:layout_marginLeft="@dimen/dp_4"
             android:textSize="18sp"
             android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
@@ -57,7 +78,7 @@
 
         <TextView
             android:id="@+id/tv_jingxuan_name"
-            android:text="【爱茶之人...】"
+            android:text=""
             android:textSize="11sp"
             android:textColor="@color/colorHui"
             android:layout_width="wrap_content"
@@ -66,7 +87,7 @@
         <TextView
             android:id="@+id/tv_jingxuan_num"
             android:layout_alignParentRight="true"
-            android:text="1000人付款"
+            android:text=""
             android:textSize="11sp"
             android:textColor="@color/colorHui"
             android:layout_width="wrap_content"

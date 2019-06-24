@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flyco.tablayout.SlidingTabLayout;
-import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Adapter.ViewPagerAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.RotationPageTransformer;
@@ -58,6 +57,11 @@ public class PaoChaFragment extends Fragment {
             mViewPager.setOffscreenPageLimit(2);
             mViewPager.setPageMargin(10);//改小间隔
             mViewPagerIndicator.setViewPager(mViewPager);
+            inflate.findViewById(R.id.ly).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return mViewPager.dispatchTouchEvent(event); }
+            });
     }
 
     public static Fragment newInstance(String content) {

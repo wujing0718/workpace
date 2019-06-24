@@ -107,4 +107,6 @@ dependencies {
     implementation 'com.huxq17.handygridview:handygridview:1.2.0'
     //日期选择
     implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    //一个倾斜的TextView,适用于标签效果
+    implementation 'com.haozhang.libary:android-slanted-textview:1.2'
 }
