@@ -45,7 +45,7 @@ public class FaXianFragment extends Fragment {
         inflate = inflater.inflate(R.layout.fragment_fa_xian, container, false);
         channel = getArguments().getString("ARGS");
         initUI();
-        initData();
+//        initData();
         return inflate;
     }
 

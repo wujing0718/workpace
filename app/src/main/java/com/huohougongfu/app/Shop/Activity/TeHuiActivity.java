@@ -105,6 +105,7 @@ public class TeHuiActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initAdd() {
         Map<String, String> map = new HashMap<>();
         map.put("page",String.valueOf(page++));

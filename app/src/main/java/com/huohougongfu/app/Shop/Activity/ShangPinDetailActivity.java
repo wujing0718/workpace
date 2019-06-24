@@ -16,9 +16,15 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Fragment.CanShuFragment;
 import com.huohougongfu.app.Shop.Fragment.PingJiaFragment;
 import com.huohougongfu.app.Shop.Fragment.ShangPinFragment;
+import com.huohougongfu.app.Utils.Contacts;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShangPinDetailActivity extends AppCompatActivity {
 
@@ -39,10 +45,8 @@ public class ShangPinDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-        initTablayout();
-    }
 
-    private void initData() {
+        initTablayout();
     }
 
     private void initTablayout() {

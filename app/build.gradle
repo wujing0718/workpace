@@ -109,4 +109,7 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.8'
     //一个倾斜的TextView,适用于标签效果
     implementation 'com.haozhang.libary:android-slanted-textview:1.2'
+    //小刀
+    implementation 'com.jakewharton:butterknife:8.8.1'
+
 }

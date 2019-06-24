@@ -28,7 +28,7 @@
             app:slantedMode="left"
             app:slantedText="IOS"
             app:slantedTextColor="@color/colorRed"
-            app:slantedTextSize="16sp"
+            app:slantedTextSize="12sp"
             />
 
     </FrameLayout>

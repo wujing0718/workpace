@@ -29,8 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:labelVisibilityMode="labeled"
-            app:itemIconTint="@color/blue"
-            app:itemTextColor="@color/colorBlack"
+            app:itemTextColor="@drawable/tab_menu_selector_text"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/bottom_navigation_tab" />
 
@@ -52,7 +51,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/img_fabu1" />
 
             <View
                 android:clickable="false"

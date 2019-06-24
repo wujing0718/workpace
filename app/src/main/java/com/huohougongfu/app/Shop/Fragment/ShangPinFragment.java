@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
@@ -87,10 +88,10 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-//                        ShangPinGson shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-//                        if (shangPinGson.getCode() == 200) {
-//                            initRec(shangPinGson.getData());
-//                        }
+                        ShopDetail shopdetail = gson.fromJson(response.body(), ShopDetail.class);
+                        if (shopdetail.getStatus() == 1) {
+
+                        }
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {

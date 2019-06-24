@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
@@ -193,6 +194,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
 
     private void initUI() {
         inflate.findViewById(R.id.bt_shop_sousuo).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_gouwuche).setOnClickListener(this);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_shangcheng_shangpin = inflate.findViewById(R.id.rec_shangcheng_shangpin);
         head_shangcheng = getLayoutInflater().inflate(R.layout.head_shangcheng, (ViewGroup) rec_shangcheng_shangpin.getParent(), false);
@@ -200,6 +202,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         head_shangcheng.findViewById(R.id.bt_shangpin_dashi).setOnClickListener(this);
         head_shangcheng.findViewById(R.id.bt_shangpin_tehui).setOnClickListener(this);
         head_shangcheng.findViewById(R.id.bt_shangpin_leimu).setOnClickListener(this);
+
 
     }
 
@@ -279,6 +282,12 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
             case R.id.bt_shop_sousuo:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),ShopSouSuoActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_gouwuche:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),GouWuCheActivity.class);
                     startActivity(intent);
                 }
                 break;
