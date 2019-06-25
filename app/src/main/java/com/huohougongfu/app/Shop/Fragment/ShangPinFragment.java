@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopDetail;
+import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
@@ -33,6 +34,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,6 +48,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private RecyclerView rec_shangpin_tuijian;
     private String token,tel,id;
     private int shopid;
+    private List<ShopYouHuiQuan.ResultBean> myouhuiquan;
 
     public ShangPinFragment() {
     }
@@ -62,7 +65,24 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         shopid = getArguments().getInt("id");
         initData();
         initUI();
+        initYouHuiQuan();
         return inflate;
+    }
+
+    private void initYouHuiQuan() {
+            OkGo.<String>get(Contacts.URl1+"/selectCoupon")
+                    .params("id",String.valueOf(1))
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            Gson gson = new Gson();
+                            ShopYouHuiQuan youhuiquan = gson.fromJson(body, ShopYouHuiQuan.class);
+                            if (youhuiquan.getStatus() == 1){
+                                myouhuiquan = youhuiquan.getResult();
+                            }
+                        }
+                    });
     }
 
     private void initUI() {
@@ -126,7 +146,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_detail_lingquan:
                 if (!utils.isDoubleClick()){
                     new XPopup.Builder(getContext())
-                            .asCustom(new YouHuiQuan(getContext()))
+                            .asCustom(new YouHuiQuan(getContext(),myouhuiquan))
                             .show();
                 }
                 break;

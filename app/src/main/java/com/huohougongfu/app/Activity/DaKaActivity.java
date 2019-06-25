@@ -44,7 +44,12 @@ public class DaKaActivity extends AppCompatActivity {
                 DaKa daKa = gson.fromJson(body, DaKa.class);
                 if (daKa.getStatus() == 1){
                     if (daKa.getResult().getIsPunch() == 1 ){
-                        findViewById(R.id.bt_daka).setOnClickListener(null);
+                        findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtils.showShort("今日已打卡");
+                            }
+                        });
                         tv_yidaka.setVisibility(View.VISIBLE);
                     }else{
                         findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {

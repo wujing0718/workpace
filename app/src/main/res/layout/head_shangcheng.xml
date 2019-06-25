@@ -35,8 +35,7 @@
                 android:layout_height="60dp">
 
                 <ImageView
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_teyuepinpai"
                     android:layout_width="80dp"
                     android:layout_height="60dp" />
 
@@ -85,8 +84,7 @@
                 android:layout_height="60dp">
 
                 <ImageView
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_dashizhuanchnag"
                     android:layout_width="80dp"
                     android:layout_height="60dp" />
 
@@ -144,8 +142,7 @@
                 android:layout_height="60dp">
 
                 <ImageView
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_tehuishangpin"
                     android:layout_width="80dp"
                     android:layout_height="60dp" />
 
@@ -194,8 +191,7 @@
                 android:layout_height="60dp">
 
                 <ImageView
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_quanbufenlei"
                     android:layout_width="80dp"
                     android:layout_height="60dp" />
 

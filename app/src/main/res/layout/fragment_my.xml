@@ -20,6 +20,7 @@
         android:layout_height="44dp">
 
         <RelativeLayout
+            android:id="@+id/bt_setting"
             android:layout_width="50dp"
             android:layout_height="44dp">
 
@@ -32,6 +33,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/bt_duihua"
             android:layout_alignParentRight="true"
             android:layout_width="50dp"
             android:layout_height="44dp">
@@ -72,6 +74,7 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/img_my_touxiang"
                             android:src="@mipmap/ic_launcher"
                             android:layout_width="@dimen/layout_margin_64dp"
                             android:layout_height="@dimen/layout_margin_64dp" />
@@ -100,6 +103,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/tv_my_name"
                                 android:text="寄与爱茶人"
                                 android:textSize="17sp"
                                 android:layout_gravity="center_vertical"
@@ -115,6 +119,7 @@
                                 android:layout_height="16dp" />
 
                             <TextView
+                                android:id="@+id/tv_my_vipnum"
                                 android:text=".1"
                                 android:textSize="@dimen/text_size_10sp"
                                 android:layout_gravity="bottom"
@@ -140,6 +145,7 @@
                                 android:layout_height="wrap_content" />
 
                             <TextView
+                                android:id="@+id/tv_my_id"
                                 android:text="123456"
                                 android:textColor="#818181"
                                 android:textSize="12sp"
@@ -155,6 +161,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/tv_my_fenlei"
                                 android:text="茶艺师"
                                 android:textSize="12sp"
                                 android:textColor="#818181"
@@ -169,6 +176,7 @@
                                 android:layout_height="14dp"/>
 
                             <TextView
+                                android:id="@+id/tv_my_weizhi"
                                 android:text="深圳"
                                 android:textSize="12sp"
                                 android:textColor="#818181"
@@ -207,6 +215,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/tv_my_guanzhunum"
                             android:text="50"
                             android:textColor="@color/colorBlack"
                             android:textSize="20sp"
@@ -231,6 +240,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/tv_my_fensinum"
                             android:text="1.6k"
                             android:textColor="@color/colorBlack"
                             android:textSize="20sp"
@@ -271,6 +281,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_my_jianjie"
                     android:textSize="12sp"
                     android:layout_marginLeft="14dp"
                     android:textColor="@color/colorBlack"
@@ -290,6 +301,29 @@
                 android:layout_height="@dimen/dp_40">
 
                 <RelativeLayout
+                    android:id="@+id/bt_my_gouwuche"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/img_gouwuche"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_marginHorizontal="@dimen/icon_size_20dp"
+                    android:background="#E8E8E8"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/bt_my_shoucang"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:layout_width="40dp"
@@ -304,27 +338,6 @@
                 </RelativeLayout>
 
                 <View
-                    android:layout_marginHorizontal="@dimen/icon_size_20dp"
-                    android:background="#E8E8E8"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="1dp"
-                    android:layout_height="20dp"/>
-
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </RelativeLayout>
-
-                <View
                     android:layout_gravity="center_vertical"
                     android:layout_marginHorizontal="@dimen/icon_size_20dp"
                     android:background="#E8E8E8"
@@ -332,6 +345,7 @@
                     android:layout_height="20dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/bt_my_kabao"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:layout_width="40dp"
@@ -339,9 +353,9 @@
 
                     <ImageView
                         android:layout_centerInParent="true"
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:src="@mipmap/img_kabao"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp" />
 
                 </RelativeLayout>
 
@@ -355,6 +369,7 @@
                 android:layout_height="120dp">
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/bt_my_dianpu"
                     app:cardElevation="6dp"
                     app:cardBackgroundColor="#E8E8E8"
                     android:layout_marginHorizontal="5dp"
@@ -408,6 +423,7 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/bt_my_dongtai"
                     app:cardElevation="6dp"
                     app:cardBackgroundColor="#E8E8E8"
                     android:layout_marginHorizontal="5dp"
@@ -484,7 +500,9 @@
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
-                        android:layout_marginRight="12dp"
+                        android:id="@+id/bt_dingdan_quanbu"
+                        android:layout_marginHorizontal="@dimen/dp_10"
+                        android:paddingVertical="@dimen/dp_10"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:orientation="horizontal"
@@ -522,6 +540,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/bt_dingdan_daifukuan"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -545,6 +564,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_dingdan_daifahuo"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -557,7 +577,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="待发货"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -568,6 +588,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_dingdan_daishouhuo"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -580,7 +601,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="待收货"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -591,6 +612,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_dingdan_pingjia"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -603,7 +625,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="评价"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -614,6 +636,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_dingdan_shouhou"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -626,7 +649,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="售后"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -662,6 +685,8 @@
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
+                        android:id="@+id/bt_huiyuan_quanbu"
+                        android:paddingVertical="@dimen/dp_10"
                         android:layout_marginRight="12dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
@@ -700,6 +725,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/bt_huiyuan_fenxiao"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -712,7 +738,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="分销"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -723,6 +749,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_huiyuan_huodong"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -735,7 +762,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="活动"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -746,6 +773,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_huiyuan_tuiguang"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -758,7 +786,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="推广"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -769,6 +797,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_huiyuan_kaidian"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -781,7 +810,7 @@
                             android:layout_height="22dp" />
 
                         <TextView
-                            android:text="待付款"
+                            android:text="开店"
                             android:textSize="12sp"
                             android:layout_marginTop="4dp"
                             android:layout_gravity="center_horizontal"
@@ -796,6 +825,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/bt_my_fenxiang"
                 android:layout_marginBottom="@dimen/dp_40"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="@dimen/icon_size_20dp"

@@ -7,32 +7,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:scaleType="fitXY"
-            android:id="@+id/img_jingxuan_photo"
-            android:src="@mipmap/ic_launcher"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp" />
+            android:layout_height="match_parent">
 
-        <com.haozhang.lib.SlantedTextView
-            android:id="@+id/slanted"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:gravity="center"
-            app:slantedBackgroundColor="@color/white"
-            app:slantedLength="40dp"
-            app:slantedMode="left"
-            app:slantedText="IOS"
-            app:slantedTextColor="@color/colorRed"
-            app:slantedTextSize="12sp"
-            />
+            <ImageView
+                android:scaleType="fitXY"
+                android:id="@+id/img_jingxuan_photo"
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="match_parent"
+                android:layout_height="170dp" />
 
-    </FrameLayout>
-    
+            <com.haozhang.lib.SlantedTextView
+                android:id="@+id/slanted"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                app:slantedBackgroundColor="@color/white"
+                app:slantedLength="40dp"
+                app:slantedMode="left"
+                app:slantedText="IOS"
+                app:slantedTextColor="@color/colorRed"
+                app:slantedTextSize="12sp"
+                />
+
+        </FrameLayout>
+
+
+    </android.support.v7.widget.CardView>
+
     <TextView
         android:id="@+id/tv_jingxuan_title"
         android:layout_marginTop="@dimen/dp_10"

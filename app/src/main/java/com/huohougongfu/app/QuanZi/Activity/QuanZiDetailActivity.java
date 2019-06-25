@@ -11,5 +11,6 @@ public class QuanZiDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_zi_detail);
+
     }
 }

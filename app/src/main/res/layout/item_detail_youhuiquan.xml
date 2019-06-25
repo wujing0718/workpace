@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_youhuiquan_money"
                     android:text="¥50"
                     android:textSize="30sp"
                     android:textColor="@color/colorBlack"
@@ -31,6 +32,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_youhuiquan_serviceRegulations"
                     android:text="订单金额满500可用"
                     android:layout_marginTop="5dp"
                     android:textSize="12sp"
@@ -39,6 +41,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_youhuiquan_endTime"
                     android:text="有效期2019.02.25-2019.7.31"
                     android:layout_marginTop="2dp"
                     android:textSize="12sp"
@@ -49,6 +52,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/bt_lingquyouhuiquan"
                 android:layout_alignParentRight="true"
                 android:layout_width="100dp"
                 android:layout_height="match_parent">

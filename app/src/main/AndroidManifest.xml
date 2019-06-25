@@ -114,7 +114,8 @@
         <activity android:name=".Activity.DaKaActivity" />
         <activity android:name=".QuanZi.Activity.JingXuanActivity" />
         <activity android:name=".Activity.GouWuCheActivity" />
-        <activity android:name=".QuanZi.Activity.QuanZiDetailActivity"></activity>
+        <activity android:name=".QuanZi.Activity.QuanZiDetailActivity" />
+        <activity android:name=".WoDe.SettingActivity"></activity>
     </application>
 
 </manifest>

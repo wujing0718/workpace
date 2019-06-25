@@ -43,9 +43,9 @@
 
                         <ImageView
                             android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp" />
+                            android:src="@mipmap/img_tea"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp" />
 
                         <TextView
                             android:text="请TA喝茶"
@@ -73,9 +73,9 @@
 
                         <ImageView
                             android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp" />
+                            android:src="@mipmap/img_daka"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp" />
 
                         <TextView
                             android:text="每日打卡"
@@ -103,9 +103,9 @@
 
                         <ImageView
                             android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/ic_launcher"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp" />
+                            android:src="@mipmap/img_kabao"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp" />
 
                         <TextView
                             android:text="我的卡包"
@@ -236,14 +236,14 @@
 
                 <ImageView
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_gouwuche"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
 
                 <TextView
                     android:text="茶台"
                     android:textSize="12sp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="2dp"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"

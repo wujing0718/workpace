@@ -9,7 +9,7 @@
         android:background="@drawable/kaquan_kuang"
         android:orientation="vertical"
         android:layout_above="@+id/bt_wancheng"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -21,25 +21,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <include
-            android:layout_marginHorizontal="12dp"
-            layout="@layout/item_detail_youhuiquan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_shop_youhuiquan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <include
-            android:layout_marginHorizontal="12dp"
-            layout="@layout/item_detail_youhuiquan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <include
-            android:layout_marginBottom="@dimen/dp_10"
-            android:layout_marginHorizontal="12dp"
-            layout="@layout/item_detail_youhuiquan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
     

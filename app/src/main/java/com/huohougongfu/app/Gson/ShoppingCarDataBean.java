@@ -8,42 +8,116 @@ import java.util.List;
 
 public class ShoppingCarDataBean implements Cloneable {
 
-    private int code;
-    private List<DatasBean> datas;
 
-    public int getCode() {
-        return code;
+    /**
+     * msg : 操作成功
+     * result : [{"price":0,"id":1,"storeName":"测试店铺","storeLogo":"https://werw/w/ge.jpg","productNum":0,"products":[{"productId":45,"standardId":2,"standard":"45g","price":1,"name":"商品标题","couverUrl":"http://img2.imgtn.bdimg.com/it/u=180868167,273146879&fm=26&gp=0.jpg","productNum":60}]},{"price":0,"id":2,"storeName":"测试店铺2","storeLogo":"https://werw/w/ge.jpg","productNum":0,"products":[{"productId":47,"standardId":1,"standard":"16g","price":75,"name":"商品标题","couverUrl":"封面图片","productNum":1}]}]
+     * status : 1
+     */
+
+    private String msg;
+    private int status;
+    private List<ResultBean> result;
+
+    public String getMsg() {
+        return msg;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public List<DatasBean> getDatas() {
-        return datas;
+    public int getStatus() {
+        return status;
     }
 
-    public void setDatas(List<DatasBean> datas) {
-        this.datas = datas;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public static class DatasBean implements Cloneable {
+    public List<ResultBean> getResult() {
+        return result;
+    }
 
-        private String store_id;
-        private String store_name;
-        private boolean isSelect_shop;      //店铺是否在购物车中被选中
-        private List<GoodsBean> goods;
+    public void setResult(List<ResultBean> result) {
+        this.result = result;
+    }
 
-        public DatasBean clone() {
-            DatasBean o = null;
+    public static class ResultBean implements Cloneable{
+        /**
+         * price : 0.0
+         * id : 1
+         * storeName : 测试店铺
+         * storeLogo : https://werw/w/ge.jpg
+         * productNum : 0
+         * products : [{"productId":45,"standardId":2,"standard":"45g","price":1,"name":"商品标题","couverUrl":"http://img2.imgtn.bdimg.com/it/u=180868167,273146879&fm=26&gp=0.jpg","productNum":60}]
+         */
+
+        public ResultBean clone() {
+            ResultBean o = null;
             try {
-                o = (DatasBean) super.clone();
+                o = (ResultBean) super.clone();
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
             return o;
         }
 
+        private double price;
+        private int id;
+        private String storeName;
+        private String storeLogo;
+        private int productNum;
+        private boolean isSelect_shop;//店铺是否在购物车中被选中
+        private List<ProductsBean> products;
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getStoreName() {
+            return storeName;
+        }
+
+        public void setStoreName(String storeName) {
+            this.storeName = storeName;
+        }
+
+        public String getStoreLogo() {
+            return storeLogo;
+        }
+
+        public void setStoreLogo(String storeLogo) {
+            this.storeLogo = storeLogo;
+        }
+
+        public int getProductNum() {
+            return productNum;
+        }
+
+        public void setProductNum(int productNum) {
+            this.productNum = productNum;
+        }
+
+        public List<ProductsBean> getProducts() {
+            return products;
+        }
+
+        public void setProducts(List<ProductsBean> products) {
+            this.products = products;
+        }
         public boolean getIsSelect_shop() {
             return isSelect_shop;
         }
@@ -52,38 +126,82 @@ public class ShoppingCarDataBean implements Cloneable {
             isSelect_shop = select_shop;
         }
 
-        public String getStore_id() {
-            return store_id;
-        }
 
-        public void setStore_id(String store_id) {
-            this.store_id = store_id;
-        }
+        public static class ProductsBean {
+            /**
+             * productId : 45
+             * standardId : 2
+             * standard : 45g
+             * price : 1.0
+             * name : 商品标题
+             * couverUrl : http://img2.imgtn.bdimg.com/it/u=180868167,273146879&fm=26&gp=0.jpg
+             * productNum : 60
+             */
 
-        public String getStore_name() {
-            return store_name;
-        }
+            private int productId;
+            private int standardId;
+            private String standard;
+            private double price;
+            private String name;
+            private String couverUrl;
+            private boolean isSelect;
+            private int productNum;
 
-        public void setStore_name(String store_name) {
-            this.store_name = store_name;
-        }
+            public int getProductId() {
+                return productId;
+            }
 
-        public List<GoodsBean> getGoods() {
-            return goods;
-        }
+            public void setProductId(int productId) {
+                this.productId = productId;
+            }
 
-        public void setGoods(List<GoodsBean> goods) {
-            this.goods = goods;
-        }
+            public int getStandardId() {
+                return standardId;
+            }
 
-        public static class GoodsBean {
+            public void setStandardId(int standardId) {
+                this.standardId = standardId;
+            }
 
-            private String goods_id;
-            private String goods_image;
-            private String goods_name;
-            private String goods_num;
-            private String goods_price;
-            private boolean isSelect;        //商品是否在购物车中被选中
+            public String getStandard() {
+                return standard;
+            }
+
+            public void setStandard(String standard) {
+                this.standard = standard;
+            }
+
+            public double getPrice() {
+                return price;
+            }
+
+            public void setPrice(double price) {
+                this.price = price;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getCouverUrl() {
+                return couverUrl;
+            }
+
+            public void setCouverUrl(String couverUrl) {
+                this.couverUrl = couverUrl;
+            }
+
+            public int getProductNum() {
+                return productNum;
+            }
+
+            public void setProductNum(int productNum) {
+                this.productNum = productNum;
+            }
 
             public boolean getIsSelect() {
                 return isSelect;
@@ -91,46 +209,6 @@ public class ShoppingCarDataBean implements Cloneable {
 
             public void setIsSelect(boolean isSelect) {
                 this.isSelect = isSelect;
-            }
-
-            public String getGoods_id() {
-                return goods_id;
-            }
-
-            public void setGoods_id(String goods_id) {
-                this.goods_id = goods_id;
-            }
-
-            public String getGoods_image() {
-                return goods_image;
-            }
-
-            public void setGoods_image(String goods_image) {
-                this.goods_image = goods_image;
-            }
-
-            public String getGoods_name() {
-                return goods_name;
-            }
-
-            public void setGoods_name(String goods_name) {
-                this.goods_name = goods_name;
-            }
-
-            public String getGoods_num() {
-                return goods_num;
-            }
-
-            public void setGoods_num(String goods_num) {
-                this.goods_num = goods_num;
-            }
-
-            public String getGoods_price() {
-                return goods_price;
-            }
-
-            public void setGoods_price(String goods_price) {
-                this.goods_price = goods_price;
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.huohougongfu.app.QuanZi.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Adapter.FaXianAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -88,6 +91,12 @@ public class FaXianFragment extends Fragment {
         rec_faxian.setLayoutManager(layoutManager);
         FaXianAdapter faXianAdapter = new FaXianAdapter(R.layout.item_quanzi_faxian,data.getList());
         rec_faxian.setAdapter(faXianAdapter);
+        faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent().setClass(getActivity(),QuanZiDetailActivity.class));
+            }
+        });
     }
 
     private void initUI() {
