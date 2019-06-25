@@ -183,6 +183,7 @@
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
+                        android:layout_marginRight="50dp"
                         android:layout_marginLeft="100dp"
                         android:layout_centerVertical="true"
                         android:orientation="horizontal"
@@ -190,17 +191,24 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/tv_manjian1"
                             android:textColor="@color/colorBlack"
                             android:textSize="14sp"
-                            android:text="199减10"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:maxEms="8"
+                            android:text=""
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
                         <TextView
+                            android:id="@+id/tv_manjian2"
                             android:layout_marginLeft="15dp"
                             android:textColor="@color/colorBlack"
                             android:textSize="14sp"
-                            android:text="299减15"
+                            android:maxLines="1"
+                            android:maxEms="8"
+                            android:text=""
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 

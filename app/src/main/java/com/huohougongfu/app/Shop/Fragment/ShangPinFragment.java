@@ -44,11 +44,12 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
 
     private View inflate;
-    private TextView tv_yuan_price;
+    private TextView tv_yuan_price,tv_manjian2,tv_manjian1;
     private RecyclerView rec_shangpin_tuijian;
     private String token,tel,id;
     private int shopid;
     private List<ShopYouHuiQuan.ResultBean> myouhuiquan;
+    private ShopDetail.ResultBean.MallProductBean mallProduct;
 
     public ShangPinFragment() {
     }
@@ -80,6 +81,14 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                             ShopYouHuiQuan youhuiquan = gson.fromJson(body, ShopYouHuiQuan.class);
                             if (youhuiquan.getStatus() == 1){
                                 myouhuiquan = youhuiquan.getResult();
+                                if (myouhuiquan.size()>1){
+                                    tv_manjian1.setText(myouhuiquan.get(0).getServiceRegulations());
+                                    tv_manjian2.setText(myouhuiquan.get(1).getServiceRegulations());
+                                }else if(myouhuiquan.size() ==1){
+                                    tv_manjian1.setText(myouhuiquan.get(0).getServiceRegulations());
+                                }else if (myouhuiquan.size()<0){
+                                    tv_manjian1.setText("暂无优惠券");
+                                }
                             }
                         }
                     });
@@ -87,10 +96,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initUI() {
         tv_yuan_price = inflate.findViewById(R.id.tv_yuan_price);
+        tv_manjian1 = inflate.findViewById(R.id.tv_manjian1);
+        tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
 
         inflate.findViewById(R.id.bt_detail_lingquan).setOnClickListener(this);
         inflate.findViewById(R.id.bt_detail_fuwu).setOnClickListener(this);
         inflate.findViewById(R.id.bt_detail_guige).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_jiagouwuche).setOnClickListener(this);
 
         rec_shangpin_tuijian = inflate.findViewById(R.id.rec_shangpin_tuijian);
         tv_yuan_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG );
@@ -110,7 +122,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         Gson gson = new Gson();
                         ShopDetail shopdetail = gson.fromJson(response.body(), ShopDetail.class);
                         if (shopdetail.getStatus() == 1) {
-
+                             mallProduct = shopdetail.getResult().getMallProduct();
                         }
                     }
                     @Override
@@ -164,7 +176,30 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                             .show();
                 }
                 break;
+            case R.id.bt_jiagouwuche:
+                if (!utils.isDoubleClick()){
+                    JiaRuGouWuChe();
+                }
+                break;
         }
+    }
+
+    private void JiaRuGouWuChe() {
+        int storeId = mallProduct.getStoreId();
+        Map<String,String> map = new HashMap<>();
+        map.put("productId",String.valueOf(shopid));
+        map.put("storeId",String.valueOf(storeId));
+        map.put("productNum",String.valueOf(3));
+        map.put("createBy",id);
+        map.put("createBy",id);
+        OkGo.<String>post(Contacts.URl1+"")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
     }
 
     @Override
