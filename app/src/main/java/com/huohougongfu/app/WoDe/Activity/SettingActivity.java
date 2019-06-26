@@ -22,12 +22,19 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_bianji).setOnClickListener(this);
+        findViewById(R.id.bt_shouhuodizhi).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_finish:
+
+                finish();
+                break;
+            case R.id.bt_shouhuodizhi:
+                intent.setClass(SettingActivity.this,AddressActivity.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.bt_bianji:

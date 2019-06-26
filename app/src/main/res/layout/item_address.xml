@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_toLeftOf="@+id/bt_bianji_address"
+        android:layout_marginVertical="8dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/icon_size_20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_dizhi_name"
+                android:text="寄与爱茶人"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_dizhi_phone"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="17355651212"
+                android:textColor="#818181"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_morendizhi"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/icon_size_20dp"
+                android:text="默认"
+                android:textSize="10sp"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:background="@drawable/kaquan_kuang"
+                android:textColor="@color/colorRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_dizhi_address"
+            android:layout_marginTop="@dimen/dp_4"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="广东省 深圳市 龙岗区 龙岗街道 南联路75号金晖连创A栋407"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/bt_bianji_address"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+        
+        <View
+            android:layout_gravity="center_vertical"
+            android:background="#BBBBBB"
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:text="编辑"
+            android:layout_marginHorizontal="12dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+        
+    </LinearLayout>
+
+</RelativeLayout>

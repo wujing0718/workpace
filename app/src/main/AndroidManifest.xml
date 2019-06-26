@@ -117,7 +117,8 @@
         <activity android:name=".QuanZi.Activity.QuanZiDetailActivity" />
         <activity android:name=".WoDe.Activity.SettingActivity" />
         <activity android:name=".WoDe.Activity.PersonalActivity" />
-        <activity android:name=".WoDe.Activity.AddressActivity"></activity>
+        <activity android:name=".WoDe.Activity.AddressActivity" />
+        <activity android:name=".WoDe.Activity.AddRegionActivity"></activity>
     </application>
 
 </manifest>

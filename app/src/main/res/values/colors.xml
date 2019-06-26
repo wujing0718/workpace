@@ -15,6 +15,7 @@
     <color name="colorGreen">#8BC34A</color>
     <color name="colorRed">#F55754</color>
     <color name="colortab">#33000000</color>
-
+    <color name="kaquanzi">#CDCDCD</color>
+    <color name="zhuanzeng">#818181</color>
     <color name="divider">#ffd2d2d2</color>
 </resources>

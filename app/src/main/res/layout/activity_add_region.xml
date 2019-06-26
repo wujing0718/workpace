@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.AddRegionActivity">
+
+    <RelativeLayout
+        android:background="#F7F7F7"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="添加收货地址"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/bt_baocun_dizhi"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="保存"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/dizhi_kuang"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <EditText
+            android:id="@+id/edt_shouhuoren"
+            android:paddingLeft="12dp"
+            android:hint="收货人"
+            android:layout_toLeftOf="@+id/img_renwu"
+            android:textSize="14sp"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="#818181"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+        
+        <ImageView
+            android:layout_marginRight="12dp"
+            android:id="@+id/img_renwu"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_wode2"
+            android:layout_width="22dp"
+            android:layout_height="22dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/dizhi_kuang"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <EditText
+            android:id="@+id/edt_dizhi_phone"
+            android:paddingLeft="12dp"
+            android:phoneNumber="true"
+            android:maxLength="11"
+            android:hint="手机号码"
+            android:text=""
+            android:layout_toLeftOf="@+id/img_xiayibu1"
+            android:textSize="14sp"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="#818181"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <ImageView
+            android:id="@+id/img_xiayibu1"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_xiayibu"
+            android:layout_width="8dp"
+            android:layout_height="13dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bt_xuanze_dizhi"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/dizhi_kuang"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/tv_dizhi"
+            android:text="所在地区"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/img_xiayibu2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/img_xiayibu2"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_xiayibu"
+            android:layout_width="8dp"
+            android:layout_height="13dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginHorizontal="12dp"
+        android:background="@drawable/dizhi_kuang"
+        android:layout_width="match_parent"
+        android:layout_height="88dp">
+
+        <EditText
+            android:id="@+id/edt_xiangxidizhi"
+            android:paddingLeft="12dp"
+            android:hint="输入详细地址"
+            android:gravity="top"
+            android:textSize="12sp"
+            android:paddingTop="@dimen/dp_10"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="#E4E4E4"
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/dizhi_kuang"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:text="设为默认地址"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/bt_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/bt_switch"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            style="@style/SwitchButtonStyle"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            app:kswThumbColor="@color/colorWhite"
+            app:kswBackColor="#00E266"
+            android:checked="false"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
