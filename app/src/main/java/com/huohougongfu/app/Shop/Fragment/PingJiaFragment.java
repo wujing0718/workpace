@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
+import com.huohougongfu.app.Gson.PingJia;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.PingJiaAdapter;
@@ -26,6 +28,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +39,8 @@ public class PingJiaFragment extends Fragment {
 
     private View inflate;
     private RecyclerView rec_detail_pingjia;
+    private String token,tel,id;
+    private int shopid;
 
     public PingJiaFragment() {
     }
@@ -45,6 +50,10 @@ public class PingJiaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_ping_jia, container, false);
+        token = MyApp.instance.getString("token");
+        tel = MyApp.instance.getString("phone");
+        id = String.valueOf(MyApp.instance.getInt("id"));
+        shopid = getArguments().getInt("id");
         initUI();
         initData();
         return inflate;
@@ -56,18 +65,18 @@ public class PingJiaFragment extends Fragment {
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
+        map.put("id",String.valueOf(44));
+        map.put("page","1");
+        OkGo.<String>get(Contacts.URl1+"/selectAppraise")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        ShangPinGson shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-                        if (shangPinGson.getCode() == 200) {
-                            initRec(shangPinGson.getData());
+                        PingJia shangPinGson = gson.fromJson(response.body(), PingJia.class);
+                        if (shangPinGson.getStatus() == 1) {
+                            initRec(shangPinGson.getResult().getList());
                         }
                     }
                     @Override
@@ -78,12 +87,12 @@ public class PingJiaFragment extends Fragment {
                 });
     }
 
-    private void initRec(ShangPinGson.DataBean data) {
+    private void initRec(List<PingJia.ResultBean.ListBean> list) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_detail_pingjia.setLayoutManager(layoutmanager);
-        PingJiaAdapter pingjiaadapter = new PingJiaAdapter(R.layout.item_detail_pingjia,data.getList());
+        PingJiaAdapter pingjiaadapter = new PingJiaAdapter(R.layout.item_detail_pingjia,list);
         rec_detail_pingjia.setAdapter(pingjiaadapter);
 //        pingjiaadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 //            @Override

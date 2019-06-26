@@ -188,7 +188,6 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
             rl.setVisibility(View.GONE);
         }
     }
-
     /**
      * 判断是否要弹出删除的dialog
      * 通过bean类中的DatasBean的isSelect_shop属性，判断店铺是否被选中；
@@ -199,7 +198,6 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
         //true为有，则需要刷新数据；反之，则不需要；
         boolean hasSelect = false;
         //创建临时的List，用于存储没有被选中的购物车数据
-        List<ShoppingCarDataBean.ResultBean> datasTemp = new ArrayList<>();
         String str = "";
         for (int i = 0; i < datas.size(); i++) {
             List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = datas.get(i).getProducts();
@@ -209,7 +207,7 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
                     ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
                     boolean isSelect = goodsBean.getIsSelect();
                     if (isSelect) {
-                        str += goods.get(y).getProductId()+",";
+                        str += goods.get(y).getId()+",";
                         hasSelect = true;
                     }
                 }
@@ -217,24 +215,23 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
                 //跳出本次循环，继续下次循环。
                 continue;
             }else{
-                datasTemp.add(datas.get(i).clone());
-                datasTemp.get(datasTemp.size() - 1).setProducts(new ArrayList<ShoppingCarDataBean.ResultBean.ProductsBean>());
+//                datasTemp.add(datas.get(i).clone());
+//                datasTemp.get(datasTemp.size() - 1).setProducts(new ArrayList<ShoppingCarDataBean.ResultBean.ProductsBean>());
             }
             for (int y = 0; y < goods.size(); y++) {
                 ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
                 boolean isSelect = goodsBean.getIsSelect();
                 if (isSelect) {
-                    str += goods.get(y).getProductId()+",";
+                    str += goods.get(y).getId()+",";
                     hasSelect = true;
                 }else{
-                    datasTemp.get(datasTemp.size() - 1).getProducts().add(goodsBean);
                 }
             }
         }
 
         if (hasSelect) {
             String substring = str.substring(0, str.length() - 1);
-            OkGo.<String>post(Contacts.URl1+"/deleteByid")
+            OkGo.<String>get(Contacts.URl1+"/deleteByid")
                     .params("ids",substring)
                     .execute(new StringCallback() {
                         @Override

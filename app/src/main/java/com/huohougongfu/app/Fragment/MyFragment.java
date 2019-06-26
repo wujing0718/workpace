@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.utils;
-import com.huohougongfu.app.WoDe.SettingActivity;
+import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 
 /**
  * A simple {@link Fragment} subclass.

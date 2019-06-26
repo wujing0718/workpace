@@ -80,19 +80,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <RelativeLayout
-                        android:id="@+id/bt_detail_shoucang"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                    <!--<RelativeLayout-->
+                        <!--android:id="@+id/bt_detail_shoucang"-->
+                        <!--android:layout_width="50dp"-->
+                        <!--android:layout_height="50dp">-->
 
-                        <ImageView
-                            android:src="@mipmap/img_back"
-                            android:layout_centerInParent="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        <!--<ImageView-->
+                            <!--android:src="@mipmap/img_back"-->
+                            <!--android:layout_centerInParent="true"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
 
 
-                    </RelativeLayout>
+                    <!--</RelativeLayout>-->
 
                     <RelativeLayout
                         android:id="@+id/bt_detail_fenxiang"
@@ -100,10 +100,10 @@
                         android:layout_height="50dp">
 
                         <ImageView
-                            android:src="@mipmap/img_back"
+                            android:src="@mipmap/img_fenxiang"
                             android:layout_centerInParent="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
 
 
                     </RelativeLayout>
@@ -218,9 +218,9 @@
                         android:layout_marginRight="15dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:src="@mipmap/img_xiayibu"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
                     
 
                 </RelativeLayout>
@@ -273,9 +273,9 @@
                         android:layout_marginRight="15dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:src="@mipmap/img_xiayibu"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
 
 
                 </RelativeLayout>
@@ -328,9 +328,9 @@
                         android:layout_marginRight="15dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:src="@mipmap/img_xiayibu"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
 
 
                 </RelativeLayout>
@@ -654,7 +654,7 @@
 
                 <ImageView
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_kefu"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
 

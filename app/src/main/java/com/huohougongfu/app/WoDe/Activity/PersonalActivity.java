@@ -1,4 +1,4 @@
-package com.huohougongfu.app.WoDe;
+package com.huohougongfu.app.WoDe.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.View;
 
 import com.huohougongfu.app.R;
 
-public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+public class PersonalActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_personal);
         initUI();
     }
 

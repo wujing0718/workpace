@@ -83,18 +83,17 @@
                     android:textColor="#ee1d23"
                     android:textSize="14dp" />
 
-
-                <com.huohougongfu.app.Utils.AmountView
+                <!--使用默认UI属性-->
+                <com.mcxtzhang.lib.AnimShopButton
                     android:id="@+id/amountview"
                     android:layout_marginRight="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_gravity="right"
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="26dp"
-                    app:btnTextSize="12sp"
-                    app:btnWidth="30dp"
-                    app:tvWidth="50dp"/>
+                    android:layout_height="wrap_content"
+                    app:maxCount="3"/>
+
                 <View
                     android:id="@+id/view"
                     android:layout_width="match_parent"

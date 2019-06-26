@@ -111,5 +111,7 @@ dependencies {
     implementation 'com.haozhang.libary:android-slanted-textview:1.2'
     //小刀
     implementation 'com.jakewharton:butterknife:8.8.1'
+    //购物车按钮
+    implementation 'com.github.mcxtzhang:AnimShopButton:V1.2.0'
 
 }

@@ -82,13 +82,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //设置默认显示内容
         setDefaultFragment();
         initUI();
-        //设置定位监听
-        initbanner();
+
         return inflate;
     }
 
     @Override
     public void onResume() {
+        //设置定位监听
+        initbanner();
         initLoc();
         super.onResume();
     }

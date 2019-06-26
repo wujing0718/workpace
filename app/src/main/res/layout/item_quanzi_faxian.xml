@@ -23,13 +23,14 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:src="@mipmap/img_back"
+                android:src="@mipmap/img_dingwei"
                 android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
             <TextView
                 android:text="深圳"
+                android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

@@ -72,7 +72,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initYouHuiQuan() {
             OkGo.<String>get(Contacts.URl1+"/selectCoupon")
-                    .params("id",String.valueOf(1))
+                    .params("id",String.valueOf(shopid))
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {

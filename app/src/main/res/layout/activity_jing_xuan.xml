@@ -20,8 +20,8 @@
             <ImageView
                 android:src="@mipmap/img_back"
                 android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="@dimen/icon_size_20dp"
+                android:layout_height="@dimen/icon_size_20dp" />
 
         </RelativeLayout>
 

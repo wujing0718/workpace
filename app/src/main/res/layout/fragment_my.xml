@@ -26,9 +26,9 @@
 
             <ImageView
                 android:layout_centerInParent="true"
-                android:src="@mipmap/img_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:src="@mipmap/img_setting"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </RelativeLayout>
 
@@ -40,9 +40,9 @@
 
             <ImageView
                 android:layout_centerInParent="true"
-                android:src="@mipmap/img_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:src="@mipmap/img_xiaoxi"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
         </RelativeLayout>
 
@@ -331,9 +331,9 @@
 
                     <ImageView
                         android:layout_centerInParent="true"
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:src="@mipmap/img_shoucang"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
 
                 </RelativeLayout>
 
@@ -518,9 +518,9 @@
 
                         <ImageView
                             android:layout_marginLeft="12dp"
-                            android:src="@mipmap/img_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:src="@mipmap/img_xiayibu"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp" />
 
                     </LinearLayout>
 
@@ -703,9 +703,9 @@
 
                         <ImageView
                             android:layout_marginLeft="12dp"
-                            android:src="@mipmap/img_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:src="@mipmap/img_xiayibu"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp" />
 
                     </LinearLayout>
 
@@ -846,9 +846,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
                     android:layout_centerVertical="true"
-                    android:background="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:background="@mipmap/img_xiayibu"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" />
 
             </RelativeLayout>
 

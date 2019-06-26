@@ -6,7 +6,7 @@
     android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WoDe.SettingActivity">
+    tools:context=".WoDe.Activity.SettingActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -26,8 +26,8 @@
                 <ImageView
                     android:src="@mipmap/img_back"
                     android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
             </RelativeLayout>
 
@@ -195,6 +195,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/bt_bianji"
                     android:layout_marginRight="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_gravity="right"
@@ -245,9 +246,9 @@
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
 
             </RelativeLayout>
 
@@ -267,9 +268,9 @@
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
 
             </RelativeLayout>
 
@@ -289,9 +290,9 @@
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
 
             </RelativeLayout>
 
@@ -311,9 +312,9 @@
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
 
             </RelativeLayout>
 
@@ -333,9 +334,9 @@
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
 
             </RelativeLayout>
 
@@ -355,9 +356,9 @@
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
 
             </RelativeLayout>
 

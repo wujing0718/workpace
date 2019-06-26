@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.huohougongfu.app.Gson.ShoppingCarDataBean;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.AmountView;
+import com.mcxtzhang.lib.AnimShopButton;
+import com.mcxtzhang.lib.IOnAddDelListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -198,9 +200,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                 ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
                 boolean isSelect = goodsBean.getIsSelect();
                 if (isSelect) {
-                    String num = String.valueOf(goodsBean.getProductNum());
+                    String num = String.valueOf(goodsBean.getNum());
                     String price = String.valueOf(goodsBean.getPrice());
-
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
 
@@ -309,15 +310,15 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         final boolean isSelect_shop = datasBean.getIsSelect_shop();
         final ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = datasBean.getProducts().get(childPosition);
         //商品图片
-        String goods_image = goodsBean.getCouverUrl();
+        String goods_image = goodsBean.getCoverUrl();
         //商品ID
-        final String goods_id = String.valueOf(goodsBean.getProductId());
+        final String goods_id = String.valueOf(goodsBean.getId());
         //商品名称
         String goods_name = goodsBean.getName();
         //商品价格
         String goods_price = String.valueOf(goodsBean.getPrice());
         //商品数量
-        String goods_num = String.valueOf(goodsBean.getProductNum());
+        String goods_num = String.valueOf(goodsBean.getNum());
         //商品是否被选中
         final boolean isSelect = goodsBean.getIsSelect();
 
@@ -334,11 +335,11 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder.tvPriceValue.setText("");
         }
-//        if (goods_num != null) {
-//            childViewHolder.tvEditBuyNumber.setText(goods_num);
-//        } else {
-//            childViewHolder.tvEditBuyNumber.setText("");
-//        }
+        if (goods_num != null) {
+            childViewHolder.amountview.setCount(goodsBean.getNum());
+            childViewHolder.amountview.setMaxCount(goodsBean.getStock());
+        } else {
+        }
 
         //商品是否被选中
         if (isSelect) {
@@ -358,16 +359,38 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                 notifyDataSetChanged();
             }
         });
-        childViewHolder.amountview.setGoods_storage(data.get(groupPosition).getProductNum());
-        childViewHolder.amountview.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+        childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {
             @Override
-            public void onAmountChange(View view, int amount) {
-                    goodsBean.setProductNum(amount);
+            public void onAddSuccess(int i) {
+                goodsBean.setNum(i);
+                goodsBean.setIsSelect(true);
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onAddFailed(int i, FailType failType) {
+
+            }
+
+            @Override
+            public void onDelSuccess(int i) {
+                if (i == 0){
+                    datasBean.setIsSelect_shop(false);
+                    goodsBean.setIsSelect(false);
+                    childViewHolder.amountview.setCount(0);
+                    notifyDataSetChanged();
+                }else{
+                    goodsBean.setNum(i);
                     goodsBean.setIsSelect(true);
                     notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onDelFaild(int i, FailType failType) {
+
             }
         });
-
 
         if (childPosition == data.get(groupPosition).getProducts().size() - 1) {
             childViewHolder.view1.setVisibility(View.GONE);
@@ -389,7 +412,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         ImageView ivEditAdd;
         View view1;
         View viewLast;
-        AmountView amountview;
+        AnimShopButton amountview;
 
         ChildViewHolder(View view) {
             ivSelect = view.findViewById(R.id.iv_select);

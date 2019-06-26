@@ -67,9 +67,11 @@
                         android:layout_height="wrap_content" />
 
                     <ImageView
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:src="@mipmap/img_shengjiang"
+                        android:layout_marginLeft="2dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp" />
 
                 </LinearLayout>
 
@@ -97,9 +99,11 @@
                         android:layout_height="wrap_content" />
 
                     <ImageView
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/img_shaixuan"
+                        android:layout_marginLeft="2dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp" />
 
                 </LinearLayout>
 

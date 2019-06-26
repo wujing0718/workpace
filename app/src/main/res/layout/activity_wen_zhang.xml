@@ -23,25 +23,41 @@
             <ImageView
                 android:src="@mipmap/img_back"
                 android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
 
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/bt_shop_sousuo"
-            android:hint="Search"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:paddingHorizontal="@dimen/dp_10"
-            android:background="@drawable/sousuo_kuang"
-            android:drawableLeft="@mipmap/img_back"
-            android:layout_gravity="center_vertical"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="28dp">
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/quanzi_sousuokuang"
+            android:layout_height="wrap_content">
 
-        </EditText>
+            <ImageView
+                android:id="@+id/img_sousuo"
+                android:src="@mipmap/img_sousuo"
+                android:layout_width="14dp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:layout_height="14dp" />
+
+            <EditText
+                android:layout_toRightOf="@+id/img_sousuo"
+                android:id="@+id/bt_shop_sousuo"
+                android:hint="Search"
+                android:textSize="12sp"
+                android:background="@null"
+                android:paddingHorizontal="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="28dp">
+
+            </EditText>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -55,9 +71,9 @@
 
                 <ImageView
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_gengduo"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
 
 
             </RelativeLayout>
