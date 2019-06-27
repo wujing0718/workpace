@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     private Banner banner;
     private List<Integer> mlist = new ArrayList<>();
     private RecyclerView rec_cainixihuan,rec_quanbupinpai;
+    private View head_teyue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +47,19 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                 finish();
             }
         });
+        inituUI();
         initData();
         initbanner();
     }
+
+    private void inituUI() {
+        rec_quanbupinpai = findViewById(R.id.rec_quanbupinpai);
+        head_teyue = getLayoutInflater().inflate(R.layout.head_teyue, (ViewGroup) rec_quanbupinpai.getParent(), false);
+        rec_cainixihuan = head_teyue.findViewById(R.id.rec_cainixihuan);
+        banner = head_teyue.findViewById(R.id.banner);
+
+    }
+
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("service","App.Mixed_Jinse.Zx");
@@ -74,7 +86,6 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     }
 
     private void initbanner() {
-        banner = findViewById(R.id.banner);
 //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
         Map<String,String> map = new HashMap<>();
@@ -137,7 +148,6 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     }
 
     private void initRec(ShangPinGson.DataBean data) {
-        rec_cainixihuan = findViewById(R.id.rec_cainixihuan);
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -148,7 +158,6 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     }
 
     private void initRec2(ShangPinGson.DataBean data) {
-        rec_quanbupinpai = findViewById(R.id.rec_quanbupinpai);
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(TeYuePinPaiActivity.this){
             @Override
@@ -160,6 +169,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         //设置RecyclerView 布局
         rec_quanbupinpai.setLayoutManager(layoutmanager);
         PinPaiAdapter pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,data.getList());
+        pinPaiItemAdapter.addHeaderView(head_teyue);
         rec_quanbupinpai.setAdapter(pinPaiItemAdapter);
     }
 

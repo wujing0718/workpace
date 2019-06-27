@@ -71,15 +71,16 @@
                     <TextView
                         android:text="筛选"
                         android:textSize="14sp"
-                        android:layout_gravity=""
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/colorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <ImageView
-                        android:src="@mipmap/img_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:src="@mipmap/img_shaixuan"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp" />
 
                 </LinearLayout>
 

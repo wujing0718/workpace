@@ -103,8 +103,14 @@ public class ChaYinFragment extends Fragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TextView bt_serviceRegulations = view.findViewById(R.id.bt_serviceRegulations);
+//                TextView tv_guize = view.findViewById(R.id.tv_guize);
                 switch (view.getId()){
                     case R.id.bt_serviceRegulations:
+//                        if (tv_guize.getVisibility() == View.GONE){
+//                            tv_guize.setVisibility(View.VISIBLE);
+//                        }else{
+//                            tv_guize.setVisibility(View.GONE);
+//                        }
                         new XPopup.Builder(getContext())
                                 .atView(bt_serviceRegulations)
                                 .hasShadowBg(false) // 去掉半透明背景
@@ -147,7 +153,7 @@ public class ChaYinFragment extends Fragment {
     }
 
     private void initUI() {
-         rec_wodequan = inflate.findViewById(R.id.rec_wodequan);
+        rec_wodequan = inflate.findViewById(R.id.rec_wodequan);
          rec_woshoudaoquan = inflate.findViewById(R.id.rec_woshoudaoquan);
     }
 

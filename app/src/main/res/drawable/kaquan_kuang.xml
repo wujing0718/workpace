@@ -7,7 +7,7 @@
         android:color="#BBBBBB" />
 
     <!-- 形状颜色（如果需要的是空心矩形, 则形状颜色设置为透明） -->
-    <solid android:color="#AAAAAA" />
+    <solid android:color="@color/colorWhite" />
     <corners android:radius="3dp" />
 
 </shape>

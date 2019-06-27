@@ -11,7 +11,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/img_quan_photo"
@@ -29,96 +29,123 @@
             android:layerType="software"
             android:background="@drawable/kaquan_xuxian"/>
 
-        <RelativeLayout
-            android:layout_width="200dp"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_quan_title"
-                    android:text="绿茶券"
-                    android:maxLines="1"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/colorZi"
-                    android:textSize="17sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:id="@+id/tv_quan_jieshao"
-                    android:text="免费领取一杯绿茶免费领取一杯绿茶"
-                    android:textColor="@color/kaquanzi"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_quan_title"
+                            android:text="绿茶券"
+                            android:maxLines="1"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/colorZi"
+                            android:textSize="17sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:id="@+id/tv_quan_jieshao"
+                            android:text="免费领取一杯绿茶免费领取一杯绿茶"
+                            android:textColor="@color/kaquanzi"
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_quan_endTime"
+                        android:layout_marginBottom="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:text="有效日期至2020-5-12"
+                        android:textColor="@color/kaquanzi"
+                        android:textSize="11sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+
+                    <LinearLayout
+                        android:id="@+id/bt_zhuanzeng"
+                        android:paddingVertical="@dimen/dp_4"
+                        android:paddingHorizontal="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="转增"
+                            android:textSize="11sp"
+                            android:textColor="@color/zhuanzeng"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:src="@mipmap/img_zhuanzeng"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/bt_serviceRegulations"
+                        android:textSize="11sp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/kaquanzi"
+                        android:text="使用规则"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:layout_height="20dp" />
+
+
+                </RelativeLayout>
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_quan_endTime"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentBottom="true"
-                android:text="有效日期至2020-5-12"
-                android:textColor="@color/kaquanzi"
+                android:id="@+id/tv_guize"
+                android:visibility="gone"
+                android:textColor="#A0A0A0"
                 android:textSize="11sp"
+                android:layout_marginRight="8dp"
+                android:layout_marginVertical="4dp"
+                android:text="规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则规则"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_gravity="right"
-            android:layout_width="match_parent"
-            android:layout_height="100dp">
-
-            <LinearLayout
-                android:id="@+id/bt_zhuanzeng"
-                android:paddingVertical="@dimen/dp_4"
-                android:paddingHorizontal="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="转增"
-                    android:textSize="11sp"
-                    android:textColor="@color/zhuanzeng"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:src="@mipmap/img_zhuanzeng"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/bt_serviceRegulations"
-                android:textSize="11sp"
-                android:layout_marginBottom="3dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/kaquanzi"
-                android:text="使用规则"
-                android:gravity="center"
-                android:layout_width="60dp"
-                android:layout_height="20dp" />
-
-
-        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
