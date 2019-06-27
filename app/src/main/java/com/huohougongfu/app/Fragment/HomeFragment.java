@@ -25,22 +25,18 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.huohougongfu.app.Activity.DaKaActivity;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.BannerGson;
-import com.huohougongfu.app.PopupView.QianDao;
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.ShouYe.Activity.ChaTaiActivity;
 import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
 import com.huohougongfu.app.ShouYe.Activity.PleaseTeaActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
-import com.kyleduo.switchbutton.SwitchButton;
-import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.suke.widget.SwitchButton;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -168,9 +164,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         banner = inflate.findViewById(R.id.banner);
         bt_switch = inflate.findViewById(R.id.bt_switch);
-        bt_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (!isChecked) {
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();

@@ -1,5 +1,6 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,20 +14,25 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.AddRess;
 import com.huohougongfu.app.Gson.JsonBean;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GetJsonDataUtil;
-import com.kyleduo.switchbutton.SwitchButton;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
+import com.suke.widget.SwitchButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,12 +49,15 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
     private String provinceName,cityName,areaName;
     private SwitchButton bt_switch;
     private int isDefault = 0;
+    private AddRess.ResultBean resultBean;
+    private TextView tv_zhuangtai;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_region);
         id = MyApp.instance.getInt("id");
+        resultBean = (AddRess.ResultBean) getIntent().getSerializableExtra("地址");
         //解析数据 （省市区三级联动）
         initJsonData();
         initUI();
@@ -56,6 +65,7 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
 
     private void initUI() {
         tv_dizhi = findViewById(R.id.tv_dizhi);
+        tv_zhuangtai = findViewById(R.id.tv_zhuangtai);
         edt_shouhuoren = findViewById(R.id.edt_shouhuoren);
         edt_dizhi_phone = findViewById(R.id.edt_dizhi_phone);
         edt_xiangxidizhi = findViewById(R.id.edt_xiangxidizhi);
@@ -63,17 +73,71 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.bt_baocun_dizhi).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         bt_switch = findViewById(R.id.bt_switch);
-        bt_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        bt_switch.setShadowEffect(true);//disable shadow effect
+        bt_switch.setEnableEffect(false);
+        bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked){
-                    isDefault = 1;
+                    SelectDialog.show(AddRegionActivity.this, "提示", "是否设置为默认地址",
+                            "确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    isDefault = 1;
+                                    bt_switch.setChecked(true);
+                                }
+                            },
+                            "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    bt_switch.setChecked(false);
+                                }
+                            });
                 }else{
                     isDefault = 0;
                 }
             }
         });
-
+        if (resultBean!=null){
+            tv_dizhi.setText(resultBean.getProvinceName()+" "+resultBean.getCityName()+" "+resultBean.getAreaName());
+            provinceName = resultBean.getProvinceName();
+            cityName = resultBean.getCityName();
+            areaName = resultBean.getAreaName();
+            edt_shouhuoren.setText(resultBean.getReceiverName());
+            edt_dizhi_phone.setText(resultBean.getPhone());
+            edt_xiangxidizhi.setText(resultBean.getDetailAddr());
+            tv_zhuangtai.setText("修改");
+            if (resultBean.getIsDefault() == 1){
+                bt_switch.setChecked(true);
+            }else{
+                bt_switch.setChecked(false);
+            }
+        }else{
+            tv_zhuangtai.setText("保存");
+            bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                    if (isChecked){
+                        SelectDialog.show(AddRegionActivity.this, "提示", "是否设置为默认地址",
+                                "确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        isDefault = 1;
+                                        bt_switch.setChecked(true);
+                                    }
+                                },
+                                "取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        bt_switch.setChecked(false);
+                                    }
+                                });
+                    }else{
+                        isDefault = 0;
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -99,11 +163,81 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
                 name = edt_shouhuoren.getText().toString();
                 phone = edt_dizhi_phone.getText().toString();
                 xiangxidizhi = edt_xiangxidizhi.getText().toString();
-                initBaoCun();
+                if (resultBean!=null){
+                    initXiuGai(resultBean.getId());
+                }else{
+                    initBaoCun();
+                }
                 break;
             case R.id.bt_finish:
                 finish();
                 break;
+        }
+    }
+
+    private void initXiuGai(int dizhiid) {
+        if (!name.isEmpty()){
+            if (!phone.isEmpty()){
+                if (RegexUtils.isMobileExact(phone)){
+                    if (!tv_dizhi.toString().isEmpty()){
+                        if (!xiangxidizhi.isEmpty()){
+                            SelectDialog.show(AddRegionActivity.this, "提示", "是否修改收货地址", "确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Map<String,String> map = new HashMap<>();
+                                    map.put("id",String.valueOf(dizhiid));
+                                    map.put("createBy",String.valueOf(id));
+                                    map.put("provinceName",provinceName);
+                                    map.put("cityName",cityName);
+                                    map.put("areaName",areaName);
+                                    map.put("detailAddr",xiangxidizhi);
+                                    map.put("receiverName",name);
+                                    map.put("phone",phone);
+                                    map.put("isDefault",String.valueOf(isDefault));
+                                    OkGo.<String>post(Contacts.URl1+"/receiveAddress/update")
+                                            .params(map)
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
+                                                    WaitDialog.dismiss();
+                                                    String body = response.body();
+                                                    try {
+                                                        JSONObject jsonObject = new JSONObject(body);
+                                                        if (jsonObject.getInt("status") == 1){
+                                                            ToastUtils.showShort("修改成功");
+                                                        }
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onStart(Request<String, ? extends Request> request) {
+                                                    WaitDialog.show(AddRegionActivity.this, "载入中...");
+                                                    super.onStart(request);
+                                                }
+                                            });
+                                }
+                            }, "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                        }else{
+                            ToastUtils.showShort("请输入详细地址");
+                        }
+                    }else{
+                        ToastUtils.showShort("请选择所在区域");
+                    }
+                }else{
+                    ToastUtils.showShort("请输入正确手机号");
+                }
+            }else{
+                ToastUtils.showShort("请输入收货人手机号");
+            }
+        }else{
+            ToastUtils.showShort("请输入收货人姓名");
         }
     }
 
@@ -113,29 +247,48 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
                 if (RegexUtils.isMobileExact(phone)){
                     if (!tv_dizhi.toString().isEmpty()){
                         if (!xiangxidizhi.isEmpty()){
-                            Map<String,String> map = new HashMap<>();
-                            map.put("createBy",String.valueOf(id));
-                            map.put("provinceName",provinceName);
-                            map.put("cityName",cityName);
-                            map.put("areaName",areaName);
-                            map.put("detailAddr",xiangxidizhi);
-                            map.put("receiverName",name);
-                            map.put("phone",phone);
-                            map.put("isDefault",String.valueOf(isDefault));
-                            OkGo.<String>post(Contacts.URl1+"/receiveAddress/add")
-                                    .params(map)
-                                    .execute(new StringCallback() {
+                            SelectDialog.show(AddRegionActivity.this, "提示", "是否保存当前收货地址",
+                                    "确定", new DialogInterface.OnClickListener() {
                                         @Override
-                                        public void onSuccess(Response<String> response) {
-                                            String body = response.body();
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(body);
-                                                if (jsonObject.getInt("status") == 1){
-                                                    ToastUtils.showShort("添加成功");
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Map<String,String> map = new HashMap<>();
+                                            map.put("createBy",String.valueOf(id));
+                                            map.put("provinceName",provinceName);
+                                            map.put("cityName",cityName);
+                                            map.put("areaName",areaName);
+                                            map.put("detailAddr",xiangxidizhi);
+                                            map.put("receiverName",name);
+                                            map.put("phone",phone);
+                                            map.put("isDefault",String.valueOf(isDefault));
+                                            OkGo.<String>post(Contacts.URl1+"/receiveAddress/add")
+                                                    .params(map)
+                                                    .execute(new StringCallback() {
+                                                        @Override
+                                                        public void onSuccess(Response<String> response) {
+                                                            WaitDialog.dismiss();
+                                                            String body = response.body();
+                                                            try {
+                                                                JSONObject jsonObject = new JSONObject(body);
+                                                                if (jsonObject.getInt("status") == 1){
+                                                                    ToastUtils.showShort("添加成功");
+                                                                }
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onStart(Request<String, ? extends Request> request) {
+                                                            WaitDialog.show(AddRegionActivity.this, "载入中...");
+                                                            super.onStart(request);
+                                                        }
+                                                    });
+                                        }
+                                    },
+                                    "取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
                                         }
                                     });
                         }else{

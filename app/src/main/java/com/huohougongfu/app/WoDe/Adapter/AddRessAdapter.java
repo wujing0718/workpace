@@ -12,6 +12,7 @@ import com.huohougongfu.app.R;
 import java.util.List;
 
 public class AddRessAdapter extends BaseQuickAdapter<AddRess.ResultBean,BaseViewHolder> {
+
     public AddRessAdapter(int layoutResId, @Nullable List<AddRess.ResultBean> data) {
         super(layoutResId, data);
     }
@@ -19,6 +20,7 @@ public class AddRessAdapter extends BaseQuickAdapter<AddRess.ResultBean,BaseView
     @Override
     protected void convert(BaseViewHolder helper, AddRess.ResultBean item) {
         int isDefault = item.getIsDefault();
+        helper.addOnClickListener(R.id.bt_bianji_address);
         TextView tv_morendizhi = helper.getView(R.id.tv_morendizhi);
         tv_morendizhi.setVisibility(View.GONE);
         if (isDefault ==1){

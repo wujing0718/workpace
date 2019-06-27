@@ -42,6 +42,7 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/tv_zhuangtai"
                 android:text="保存"
                 android:textColor="@color/colorBlack"
                 android:textSize="14sp"
@@ -184,16 +185,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.kyleduo.switchbutton.SwitchButton
+        <com.suke.widget.SwitchButton
             android:id="@+id/bt_switch"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            style="@style/SwitchButtonStyle"
             android:layout_marginRight="@dimen/dp_10"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            app:kswThumbColor="@color/colorWhite"
-            app:kswBackColor="#00E266"
+            app:sb_show_indicator="false"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
             android:checked="false"/>
 
     </RelativeLayout>

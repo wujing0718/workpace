@@ -169,32 +169,37 @@
                     <TextView
                         android:textSize="14sp"
                         android:text="买茶"
+                        android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="5dp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="#CCBA91"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <com.kyleduo.switchbutton.SwitchButton
+                    <com.suke.widget.SwitchButton
                         android:id="@+id/bt_switch"
-                        style="@style/SwitchButtonStyle"
-                        android:layout_width="70dp"
-                        android:layout_height="30dp"
-                        app:kswThumbColor="#CCBA91"
-                        app:kswBackColor = "@color/colorWhite"
-                        android:checked="true"/>
-
-                    <!--app:kswTintColor="@color/colorHui"-->
+                        android:layout_width="60dp"
+                        android:layout_height="34dp"
+                        app:sb_show_indicator = "false"
+                        app:sb_checked_color = "@color/colorWhite"
+                        app:sb_checkline_color = "#CCBA91"
+                        app:sb_uncheck_color = "#CCBA91"
+                        app:sb_border_width = "1dp"
+                        app:sb_checkline_width="4dp"
+                        app:sb_uncheckcircle_width="4dp"
+                        app:sb_uncheckcircle_color = "@color/colorWhite"
+                        app:sb_checked = "true"
+                        app:sb_button_color = "#CCBA91"/>
 
                     <TextView
                         android:text="泡茶"
                         android:textSize="14sp"
+                        android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="6dp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="#CCBA91"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-
 
                 </LinearLayout>
 
@@ -223,7 +228,7 @@
             android:layout_marginBottom="36dp"
             android:layout_marginRight="16dp"
             app:cardCornerRadius="30dp"
-            app:cardElevation="6dp"
+            app:cardElevation="10dp"
             app:cardPreventCornerOverlap="true"
             android:layout_width="60dp"
             android:layout_height="60dp">

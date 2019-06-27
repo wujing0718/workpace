@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -38,11 +39,22 @@ public class DaShiZhuanChang extends AppCompatActivity {
     private List<Integer> mlist = new ArrayList<>();
     private RecyclerView rec_cainixihuan,rec_dashizhuanchang;
     private EditText bt_dashi_sousuo;
+    private View head_dashizhuanchang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_da_shi_zhuan_chang);
+        initUI();
+        initData();
+        initbanner();
+    }
+
+    private void initUI() {
+        rec_dashizhuanchang = findViewById(R.id.rec_dashizhuanchang);
+        head_dashizhuanchang = getLayoutInflater().inflate(R.layout.head_teyue, (ViewGroup) rec_dashizhuanchang.getParent(), false);
+        rec_cainixihuan = head_dashizhuanchang.findViewById(R.id.rec_cainixihuan);
+        banner = head_dashizhuanchang.findViewById(R.id.banner);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,9 +67,8 @@ public class DaShiZhuanChang extends AppCompatActivity {
         }else{
             KeyboardUtils.hideSoftInput(this);
         }
-        initData();
-        initbanner();
     }
+
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("service","App.Mixed_Jinse.Zx");
@@ -84,40 +95,9 @@ public class DaShiZhuanChang extends AppCompatActivity {
     }
 
     private void initbanner() {
-        banner = findViewById(R.id.banner);
 //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
         Map<String,String> map = new HashMap<>();
-//        map.put("channel","wh");
-//        OkGo.<String>post(Contacts.bannerurl)
-//                .params(map)
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        String body = response.body();
-//                        Gson gson = new Gson();
-//                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
-//                        if (bannergson.getCode()==200){
-//                            if (bannergson.getData()!=null){
-//                                mlist.clear();
-//                                mbannertitle.clear();
-//                                for (int i = 0;i < bannergson.getData().size();i++){
-//                                    mlist.add(bannergson.getData().get(i).getImg());
-//                                    mtaburl.add(bannergson.getData().get(i).getUrl());
-//                                    mbannertitle.add(bannergson.getData().get(i).getTitle());
-//                                }
-//                            }
-//                            initBanner(mbannertitle,mlist,mtaburl);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onStart(Request<String, ? extends Request> request) {
-////                        ProgressBar.setVisibility(View.VISIBLE);
-//                        super.onStart(request);
-//                    }
-
-//                    private void initBanner(List<String> mbannertitle, List<String> mlist, List<String> mtaburl) {
         mlist.add(R.mipmap.ic_launcher);
         mlist.add(R.mipmap.ic_launcher);
         mlist.add(R.mipmap.ic_launcher);
@@ -132,22 +112,12 @@ public class DaShiZhuanChang extends AppCompatActivity {
             public void OnBannerClick(int position) {
                 if (!utils.isDoubleClick()) {
                     ToastUtils.showShort("Banner"+position);
-//                                    Intent intent = new Intent();
-//                                    intent.putExtra("id", 3);
-//                                    intent.putExtra("collect", 2);
-//                                    intent = intent.setClass(getActivity(), DetailActivity.class);
-//                                    intent.putExtra("title", mbannertitle.get(position));
-//                                    intent.putExtra("url", mtaburl.get(position));
-//                                    startActivity(intent);
                 }
             }
         });
-//                    }
-//                });
     }
 
     private void initRec(ShangPinGson.DataBean data) {
-        rec_cainixihuan = findViewById(R.id.rec_cainixihuan);
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -158,7 +128,6 @@ public class DaShiZhuanChang extends AppCompatActivity {
     }
 
     private void initRec2(ShangPinGson.DataBean data) {
-        rec_dashizhuanchang = findViewById(R.id.rec_dashizhuanchang);
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(DaShiZhuanChang.this){
             @Override
@@ -170,6 +139,8 @@ public class DaShiZhuanChang extends AppCompatActivity {
         //设置RecyclerView 布局
         rec_dashizhuanchang.setLayoutManager(layoutmanager);
         ShangPinTuiJianAdapter pinPaiItemAdapter = new ShangPinTuiJianAdapter(R.layout.item_dashizhuanchang,data.getList());
+        pinPaiItemAdapter.addHeaderView(head_dashizhuanchang);
+
         rec_dashizhuanchang.setAdapter(pinPaiItemAdapter);
     }
 }

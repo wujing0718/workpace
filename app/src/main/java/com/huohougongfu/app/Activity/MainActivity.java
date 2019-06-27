@@ -17,7 +17,9 @@
         import android.os.Bundle;
         import android.view.KeyEvent;
         import android.view.MenuItem;
+        import android.view.MotionEvent;
         import android.view.View;
+        import android.view.WindowInsets;
         import android.widget.Toast;
 
         import com.gyf.barlibrary.ImmersionBar;
@@ -26,6 +28,7 @@
         import com.huohougongfu.app.Fragment.QuanZiFragment;
         import com.huohougongfu.app.Fragment.ShopFragment;
         import com.huohougongfu.app.R;
+        import com.huohougongfu.app.Utils.NoScrollViewPager;
 
         import java.lang.reflect.Field;
         import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;
     private BottomNavigationView bottomNavigationView;
-    private ViewPager viewPager;
+    private NoScrollViewPager viewPager;
     private MenuItem menuItem;
     private ImmersionBar immersionber;
 
@@ -53,12 +56,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setSelectedItemId(R.id.tab_two);
         disableShiftMode(bottomNavigationView);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-//        findViewById(R.id.navigation_center_image).setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                return false;
-//            }
-//        });
         findViewById(R.id.navigation_center_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

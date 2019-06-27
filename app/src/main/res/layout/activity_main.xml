@@ -9,14 +9,14 @@
     android:layout_height="match_parent"
     tools:openDrawer="start">
 
-    <android.support.v4.view.ViewPager
+    <com.huohougongfu.app.Utils.NoScrollViewPager
         android:id="@+id/viewpager"
         android:layout_above="@+id/framelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UnknownId">
 
-    </android.support.v4.view.ViewPager>
+    </com.huohougongfu.app.Utils.NoScrollViewPager>
 
     <FrameLayout
         android:id="@+id/framelayout"

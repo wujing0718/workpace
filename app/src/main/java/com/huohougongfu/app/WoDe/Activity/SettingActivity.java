@@ -35,7 +35,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.bt_shouhuodizhi:
                 intent.setClass(SettingActivity.this,AddressActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.bt_bianji:
                 intent.setClass(SettingActivity.this,PersonalActivity.class);

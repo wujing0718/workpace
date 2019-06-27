@@ -1,8 +1,9 @@
 package com.huohougongfu.app.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AddRess {
+public class AddRess implements Serializable{
     /**
      * msg : 操作成功
      * result : [{"id":60,"provinceName":"广东省","cityName":"深圳市","areaName":"龙岗区","detailAddr":"南联路75号金晖连创社区","receiverName":"吴敬","phone":"13888888888","isDefault":0,"createBy":43,"createTime":"2019-06-26T08:19:54.000+0000","updateTime":"2019-06-26T08:27:34.000+0000"},{"id":61,"provinceName":"湖北省","cityName":"武汉市","areaName":"\b洪山区","detailAddr":"\b光谷","receiverName":"测试\b1","phone":"13888888888","isDefault":0,"createBy":43,"createTime":"2019-06-26T08:27:34.000+0000","updateTime":"2019-06-26T09:26:48.000+0000"}]
@@ -37,7 +38,7 @@ public class AddRess {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable {
         /**
          * id : 60
          * provinceName : 广东省
