@@ -18,6 +18,7 @@
             
             <com.youth.banner.Banner
                 android:id="@+id/banner"
+                app:image_scale_type="fit_xy"
                 android:layout_width="match_parent"
                 android:layout_height="370dp">
 
@@ -44,7 +45,8 @@
 
                     <TextView
                         android:id="@+id/tv_detail_price"
-                        android:text="189"
+                        android:text=""
+                        android:layout_marginLeft="4dp"
                         android:textSize="30sp"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/colorBlack"
@@ -55,7 +57,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:id="@+id/tv_yuan_price"
                         android:layout_marginBottom="2dp"
-                        android:text="¥189"
+                        android:text=""
                         android:textColor="@color/colorHui"
                         android:textSize="12sp"
                         android:layout_gravity="bottom"
@@ -119,7 +121,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:textSize="14sp"
                 android:layout_marginTop="15dp"
-                android:text="白茶寿眉茶叶陈年太姥山老白茶春季寿眉茶一饼300克两行字的站位"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -133,7 +135,7 @@
                     <TextView
                         android:textColor="@color/colorHui"
                         android:layout_centerVertical="true"
-                        android:text="快递：0.00"
+                        android:text="快递："
                         android:textSize="12sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -142,7 +144,7 @@
                     android:id="@+id/tv_detail_xiaoliang"
                     android:layout_centerInParent="true"
                     android:textColor="@color/colorHui"
-                    android:text="销量：10w"
+                    android:text="销量："
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -152,7 +154,7 @@
                     android:textColor="@color/colorHui"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="地址：广东深圳"
+                    android:text="地址："
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -418,7 +420,7 @@
 
                                 <TextView
                                     android:id="@+id/tv_dianpu_name"
-                                    android:text="XXX牌"
+                                    android:text=""
                                     android:textSize="17sp"
                                     android:textColor="@color/colorBlack"
                                     android:layout_width="wrap_content"
@@ -426,7 +428,7 @@
 
                                 <TextView
                                     android:id="@+id/tv_dianpu_jianjie"
-                                    android:text="品牌简介or没有"
+                                    android:text=""
                                     android:textSize="12sp"
                                     android:textColor="@color/colorBlack"
                                     android:layout_width="wrap_content"
@@ -677,9 +679,45 @@
 
         </android.support.v7.widget.CardView>
 
+        <android.support.v7.widget.CardView
+            android:id="@+id/bt_shoucang"
+            android:layout_toRightOf="@+id/bt_kefu"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="6dp"
+            app:cardPreventCornerOverlap="true"
+            android:layout_width="44dp"
+            android:layout_height="44dp">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/img_shoucang"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:text="收藏"
+                    android:textSize="10sp"
+                    android:layout_marginTop="2dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
         <LinearLayout
             android:gravity="center_vertical"
-            android:layout_toRightOf="@+id/bt_kefu"
+            android:layout_toRightOf="@+id/bt_shoucang"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -702,7 +740,7 @@
 
                     <TextView
                         android:text="加入购物车"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginTop="4dp"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/colorBlack"
@@ -716,6 +754,7 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/bt_goumai"
                 android:layout_weight="1"
+                app:cardBackgroundColor="#CCBA91"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_gravity="center_vertical"
                 app:cardCornerRadius="20dp"
@@ -731,10 +770,10 @@
 
                     <TextView
                         android:text="立即购买"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginTop="4dp"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -745,7 +784,6 @@
 
 
         </LinearLayout>
-
 
     </RelativeLayout>
 

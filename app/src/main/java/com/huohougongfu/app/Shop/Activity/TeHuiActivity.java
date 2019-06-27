@@ -85,6 +85,7 @@ public class TeHuiActivity extends AppCompatActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
+                intent.putExtra("id",result.getList().get(position).getId());
                 intent.setClass(TeHuiActivity.this,ShangPinDetailActivity.class);
                 startActivity(intent);
             }

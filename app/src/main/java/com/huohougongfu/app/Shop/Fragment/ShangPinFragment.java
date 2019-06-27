@@ -87,6 +87,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     //商品详情轮播图
     private void initBanner(ShopDetail.ResultBean.MallProductBean mallProduct)  {
+        bannerlist.clear();
         String[]  mbanner = mallProduct.getProductPicture().split(",");
         bannerlist.add(mallProduct.getCoverUrl());
         for (int i = 0;i<mbanner.length;i++){
@@ -179,7 +180,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initView(ShopDetail.ResultBean.MallProductBean mallProduct) {
         tv_detail_price.setText(String.valueOf(mallProduct.getPrice()));
-        tv_yuan_price.setText(String.valueOf(mallProduct.getMarketPrice()));
+        tv_yuan_price.setText("¥"+String.valueOf(mallProduct.getMarketPrice()));
 
         tv_detail_name.setText(mallProduct.getName());
         tv_detail_xiaoliang.setText("销量："+mallProduct.getSellNum());
@@ -240,7 +241,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_detail_guige:
                 if (!utils.isDoubleClick()){
                     new XPopup.Builder(getContext())
-                            .asCustom(new GuiGe(getContext()))
+                            .asCustom(new GuiGe(getContext(),mallProduct))
                             .show();
                 }
                 break;

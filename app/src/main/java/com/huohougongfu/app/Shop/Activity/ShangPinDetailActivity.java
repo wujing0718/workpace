@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Shop.Activity;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Fragment.SimpleCardFragment;
 import com.huohougongfu.app.MyApp;
@@ -17,6 +19,7 @@ import com.huohougongfu.app.Shop.Fragment.CanShuFragment;
 import com.huohougongfu.app.Shop.Fragment.PingJiaFragment;
 import com.huohougongfu.app.Shop.Fragment.ShangPinFragment;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -33,16 +36,27 @@ public class ShangPinDetailActivity extends AppCompatActivity {
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private int shopid;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shang_pin_detail);
         shopid = getIntent().getIntExtra("id", 0);
+        intent = new Intent();
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(ShangPinDetailActivity.this,GouWuCheActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

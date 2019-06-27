@@ -109,6 +109,9 @@
         <activity android:name=".Shop.Activity.LeiMuActivity" />
         <activity android:name=".Shop.Activity.DaShiZhuanChang" />
         <activity android:name=".Activity.WangJiMiMa" />
+        <activity
+            android:name=".Activity.PubActivity"
+            android:theme="@style/PubTheme" />
         <activity android:name=".UploadPictures.PlusImageActivity" />
         <activity android:name=".QuanZi.Activity.WenZhangActivity" />
         <activity android:name=".Activity.DaKaActivity" />
@@ -118,7 +121,8 @@
         <activity android:name=".WoDe.Activity.SettingActivity" />
         <activity android:name=".WoDe.Activity.PersonalActivity" />
         <activity android:name=".WoDe.Activity.AddressActivity" />
-        <activity android:name=".WoDe.Activity.AddRegionActivity"></activity>
+        <activity android:name=".WoDe.Activity.AddRegionActivity" />
+        <activity android:name=".Activity.FaBuArticleActivity"></activity>
     </application>
 
 </manifest>

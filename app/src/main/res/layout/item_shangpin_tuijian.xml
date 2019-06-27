@@ -11,6 +11,7 @@
     <ImageView
         android:id="@+id/img_shangpin_photo"
         android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
         android:layout_width="100dp"
         android:layout_height="88dp" />
 

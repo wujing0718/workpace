@@ -53,12 +53,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setSelectedItemId(R.id.tab_two);
         disableShiftMode(bottomNavigationView);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+//        findViewById(R.id.navigation_center_image).setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                return false;
+//            }
+//        });
         findViewById(R.id.navigation_center_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,FaBuActivity.class);
-                startActivity(intent);
+                PubActivity.show(MainActivity.this);
             }
         });
     }
