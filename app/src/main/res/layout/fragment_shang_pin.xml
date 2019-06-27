@@ -8,8 +8,8 @@
     tools:context=".Shop.Fragment.ShangPinFragment">
 
     <android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
         android:orientation="vertical"
@@ -139,6 +139,7 @@
                         android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_detail_xiaoliang"
                     android:layout_centerInParent="true"
                     android:textColor="@color/colorHui"
                     android:text="销量：10w"
@@ -147,6 +148,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_detail_address"
                     android:textColor="@color/colorHui"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -387,7 +389,7 @@
                 <android.support.v7.widget.CardView
                     app:cardCornerRadius="8dp"
                     android:layout_margin="20dp"
-                    app:cardBackgroundColor="@color/colorHui"
+                    app:cardElevation="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="70dp">
 
@@ -400,6 +402,7 @@
                             android:layout_height="match_parent">
 
                             <ImageView
+                                android:id="@+id/img_dianp_logo"
                                 android:layout_marginLeft="15dp"
                                 android:layout_gravity="center_vertical"
                                 android:src="@mipmap/ic_launcher"
@@ -414,6 +417,7 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:id="@+id/tv_dianpu_name"
                                     android:text="XXX牌"
                                     android:textSize="17sp"
                                     android:textColor="@color/colorBlack"
@@ -421,6 +425,7 @@
                                     android:layout_height="wrap_content" />
 
                                 <TextView
+                                    android:id="@+id/tv_dianpu_jianjie"
                                     android:text="品牌简介or没有"
                                     android:textSize="12sp"
                                     android:textColor="@color/colorBlack"
@@ -618,6 +623,7 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
+                    android:layout_marginBottom="80dp"
                     android:id="@+id/rec_shangpin_tuijian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
