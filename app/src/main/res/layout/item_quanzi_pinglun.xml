@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginVertical="@dimen/dp_10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_pinglun_touxiang"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40" />
+
+                <TextView
+                    android:text="V"
+                    android:gravity="center"
+                    android:background="@drawable/wode_dengji"
+                    android:layout_gravity="bottom|right"
+                    android:textColor="@color/colorRed"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_pinglun_name"
+                        android:text="八马茶业"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_marginLeft="6dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/img_vip"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:visibility="gone"
+                        android:text=".1"
+                        android:textSize="12sp"
+                        android:textColor="#F5C211"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_pinglun_content"
+                        android:layout_toLeftOf="@+id/tv_pinglun_time"
+                        android:text="真的吗？看起来就很美。下次带我一起去吧~"
+                        android:textSize="12sp"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_pinglun_time"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="昨天 22:18"
+                        android:textSize="11sp"
+                        android:textColor="#818181"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+</RelativeLayout>

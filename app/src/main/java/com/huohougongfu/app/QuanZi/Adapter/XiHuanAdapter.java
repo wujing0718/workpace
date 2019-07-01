@@ -1,38 +1,27 @@
 package com.huohougongfu.app.QuanZi.Adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
-import com.huohougongfu.app.Gson.ShangPinGson;
-import com.huohougongfu.app.Gson.ShopGson;
+import com.huohougongfu.app.Gson.QuanZiXiHuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
-import com.luck.picture.lib.tools.ScreenUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
 
-public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.DatasBean.ListBean,BaseViewHolder> {
+public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.ListBean,BaseViewHolder> {
 
-    private List<QuanZiFaXian.ResultBean.DatasBean.ListBean> data1;
-    public FaXianAdapter(int layoutResId, @Nullable List<QuanZiFaXian.ResultBean.DatasBean.ListBean> data) {
+    private List<QuanZiXiHuan.ResultBean.ListBean> data1;
+    public XiHuanAdapter(int layoutResId, @Nullable List<QuanZiXiHuan.ResultBean.ListBean> data) {
         super(layoutResId, data);
         this.data1 = data;
     }
@@ -48,7 +37,7 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, QuanZiFaXian.ResultBean.DatasBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, QuanZiXiHuan.ResultBean.ListBean item) {
         helper.addOnClickListener(R.id.bt_dianzan);
         View view_dingwei = helper.getView(R.id.view_dingwei);
         ImageView img_quanzi_photo = helper.getView(R.id.img_quanzi_photo);
@@ -97,14 +86,14 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
     }
 
     //下面两个方法提供给页面刷新和加载时调用
-    public void add(List<QuanZiFaXian.ResultBean.DatasBean.ListBean> data) {
+    public void add(List<QuanZiXiHuan.ResultBean.ListBean> data) {
         //增加数据
         int position = data1.size();
         data1.addAll(position, data);
         notifyItemRangeChanged(position,data.size());
     }
 
-    public void refresh(List<QuanZiFaXian.ResultBean.DatasBean.ListBean> data) {
+    public void refresh(List<QuanZiXiHuan.ResultBean.ListBean> data) {
         //刷新数据
         data1.remove(data1);
         data1.addAll(data);

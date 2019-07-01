@@ -15,11 +15,13 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/img_wenzhang_touxiang"
             android:src="@mipmap/ic_launcher"
             android:layout_width="22dp"
             android:layout_height="22dp" />
 
         <TextView
+            android:id="@+id/tv_wenzhang_name"
             android:text="八马茶业"
             android:textSize="12sp"
             android:layout_marginLeft="7dp"
@@ -31,6 +33,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_wenzhang_content"
         android:text="八马茶业股份有限公司源于百年前名扬东业股份有限公司源于百年前名扬东南亚的信记茶行茶行。"
         android:maxLines="4"
         android:layout_marginTop="@dimen/dp_10"
@@ -40,6 +43,7 @@
         android:layout_height="wrap_content" />
 
     <ImageView
+        android:id="@+id/img_wenzhang_photo"
         android:scaleType="fitXY"
         android:layout_marginTop="@dimen/dp_10"
         android:src="@mipmap/ic_launcher"
@@ -52,6 +56,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_wenzhang_time"
             android:textSize="11sp"
             android:text="2019-6-10   13:20"
             android:textColor="#818181"

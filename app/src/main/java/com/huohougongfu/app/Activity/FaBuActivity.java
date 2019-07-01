@@ -69,6 +69,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
     boolean isFirstLoc = true;
     private String lat;
     private String lon;
+    private String citycode;
 
 
     @Override
@@ -77,6 +78,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_fa_bu);
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
+        citycode = MyApp.instance.getString("citycode");
         id = String.valueOf(MyApp.instance.getInt("id"));
         mContext = this;
         findViewById(R.id.bt_fabu).setOnClickListener(this);
@@ -246,11 +248,13 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
             Map<String,String> map = new HashMap<>();
             map.put("content",content);
             map.put("tel",tel);
-            map.put("id",id);
+            map.put("type","1");
+            map.put("mId",id);
             map.put("token",token);
             map.put("longitude",String.valueOf(lon));
             map.put("latitude",String.valueOf(lat));
-            OkGo.<String>post(Contacts.URl1+"/circle/dynamic/pub")
+            map.put("cityCode",citycode);
+            OkGo.<String>post(Contacts.URl1+"/circle/pub")
                     .tag(this)//
                     .isMultipart(true)
                     .params(map)

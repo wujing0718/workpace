@@ -26,6 +26,7 @@ import com.huohougongfu.app.Activity.DaKaActivity;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Gson.BannerGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
 import com.huohougongfu.app.ShouYe.Activity.PleaseTeaActivity;
@@ -106,17 +107,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         double lon1 = aMapLocation.getLongitude();//获取经度
                         lat = String.valueOf(lat1);
                         lon = String.valueOf(lon1);
+                        MyApp.instance.put("citycode",aMapLocation.getCityCode(),true);
                         if (isFirstLoc) {
                             //获取定位信息
                             StringBuffer buffer = new StringBuffer();
                             buffer.append(aMapLocation.getCountry() + ""
                                     + aMapLocation.getProvince() + ""
                                     + aMapLocation.getCity() + ""
+                                    + aMapLocation.getCityCode()+""
                                     + aMapLocation.getProvince() + ""
                                     + aMapLocation.getDistrict() + ""
                                     + aMapLocation.getStreet() + ""
                                     + aMapLocation.getStreetNum());
-                            LogUtils.e(lat+"经纬度"+lon);
+
+//                            LogUtils.e(buffer);
                             isFirstLoc = false;
                         }
                     }else {
@@ -155,6 +159,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
+
         amap = inflate.findViewById(R.id.amap);
         inflate.findViewById(R.id.bt_pleasetea).setOnClickListener(this);
         inflate.findViewById(R.id.bt_daka).setOnClickListener(this);

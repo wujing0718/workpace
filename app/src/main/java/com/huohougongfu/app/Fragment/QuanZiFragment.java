@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.JingXuanActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangActivity;
 import com.huohougongfu.app.QuanZi.Fragment.FaXianFragment;
@@ -32,13 +33,13 @@ import java.util.List;
 public class QuanZiFragment extends Fragment implements View.OnClickListener {
 
     private final String[] mTitles = {"发现", "同城", "关注","喜欢"};
-    private final String[] mchannel = {"www", "news", "zhengce","personage"};
-
+//    private final String[] mchannel = {"www", "news", "zhengce","personage"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private View inflate;
     private Intent intent;
+    private String citycode;
 
     public QuanZiFragment() {
         // Required empty public constructor
@@ -52,6 +53,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener {
         View statusBar = inflate.findViewById(R.id.statusBarView);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
+        citycode = MyApp.instance.getString("citycode");
         intent = new Intent();
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);
@@ -64,12 +66,11 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener {
         mtabtitle.clear();
         SlidingTabLayout stl = inflate.findViewById(R.id.stl);
         ViewPager mViewPager = inflate.findViewById(R.id.vp);
-
-//        mFragments.add(TongChengFragment.newInstance("news"));
-//        mFragments.add(GuanZhuFragment.newInstance("zhengce"));
-//        mFragments.add(XiHuanFragment.newInstance("personage"));
+        mFragments.add(FaXianFragment.newInstance(""));
+        mFragments.add(TongChengFragment.newInstance(citycode));
+        mFragments.add(GuanZhuFragment.newInstance("zhengce"));
+        mFragments.add(XiHuanFragment.newInstance("personage"));
         for (int i = 0;i<mTitles.length;i++){
-            mFragments.add(FaXianFragment.newInstance(mchannel[i]));
             mtabtitle.add(mTitles[i]);
         }
         mAdapter = new MyPagerAdapter(getChildFragmentManager(),mFragments,mtabtitle);
