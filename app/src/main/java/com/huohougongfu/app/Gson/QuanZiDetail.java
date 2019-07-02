@@ -2,9 +2,10 @@ package com.huohougongfu.app.Gson;
 
 public class QuanZiDetail  {
 
+
     /**
      * msg : 操作成功
-     * result : {"id":15,"type":3,"title":null,"content":"动态内容","picture":"http://oss.irving.net.cn/tea/1561019267337.jpeg","createTime":"2019-06-20 16:27:38","updateTime":"2019-06-28 14:26:41","longitude":114.261847,"latitude":22.725384,"address":null,"cityCode":null,"member":{"userId":15,"nickName":"测试账号131","personalProfile":null,"phone":null,"photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"isPraise":null,"praiseNum":null,"mid":43}
+     * result : {"id":23,"type":2,"title":null,"content":"文章内容","picture":"http://oss.irving.net.cn/tea/1561972956971.jpg","pictureWidth":971,"pictureHeight":675,"createTime":"2019-07-01 17:22:35","updateTime":"2019-07-01 17:22:35","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":23,"nickName":"测试账号131","personalProfile":null,"phone":null,"photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"isPraise":null,"praiseNum":null,"commentNum":null,"isSift":null,"mid":43}
      * status : 1
      */
 
@@ -38,37 +39,45 @@ public class QuanZiDetail  {
 
     public static class ResultBean {
         /**
-         * id : 15
-         * type : 3
+         * id : 23
+         * type : 2
          * title : null
-         * content : 动态内容
-         * picture : http://oss.irving.net.cn/tea/1561019267337.jpeg
-         * createTime : 2019-06-20 16:27:38
-         * updateTime : 2019-06-28 14:26:41
-         * longitude : 114.261847
-         * latitude : 22.725384
+         * content : 文章内容
+         * picture : http://oss.irving.net.cn/tea/1561972956971.jpg
+         * pictureWidth : 971
+         * pictureHeight : 675
+         * createTime : 2019-07-01 17:22:35
+         * updateTime : 2019-07-01 17:22:35
+         * longitude : null
+         * latitude : null
          * address : null
          * cityCode : null
-         * member : {"userId":15,"nickName":"测试账号131","personalProfile":null,"phone":null,"photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null}
+         * member : {"userId":23,"nickName":"测试账号131","personalProfile":null,"phone":null,"photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null}
          * isPraise : null
          * praiseNum : null
+         * commentNum : null
+         * isSift : null
          * mid : 43
          */
 
         private int id;
         private int type;
-        private Object title;
+        private String title;
         private String content;
         private String picture;
+        private int pictureWidth;
+        private int pictureHeight;
         private String createTime;
         private String updateTime;
-        private double longitude;
-        private double latitude;
-        private Object address;
-        private Object cityCode;
+        private Object longitude;
+        private Object latitude;
+        private String address;
+        private String cityCode;
         private MemberBean member;
-        private Object isPraise;
-        private Object praiseNum;
+        private int isPraise;
+        private int praiseNum;
+        private int commentNum;
+        private int isSift;
         private int mid;
 
         public int getId() {
@@ -87,11 +96,11 @@ public class QuanZiDetail  {
             this.type = type;
         }
 
-        public Object getTitle() {
+        public String getTitle() {
             return title;
         }
 
-        public void setTitle(Object title) {
+        public void setTitle(String title) {
             this.title = title;
         }
 
@@ -111,6 +120,22 @@ public class QuanZiDetail  {
             this.picture = picture;
         }
 
+        public int getPictureWidth() {
+            return pictureWidth;
+        }
+
+        public void setPictureWidth(int pictureWidth) {
+            this.pictureWidth = pictureWidth;
+        }
+
+        public int getPictureHeight() {
+            return pictureHeight;
+        }
+
+        public void setPictureHeight(int pictureHeight) {
+            this.pictureHeight = pictureHeight;
+        }
+
         public String getCreateTime() {
             return createTime;
         }
@@ -127,35 +152,35 @@ public class QuanZiDetail  {
             this.updateTime = updateTime;
         }
 
-        public double getLongitude() {
+        public Object getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(double longitude) {
+        public void setLongitude(Object longitude) {
             this.longitude = longitude;
         }
 
-        public double getLatitude() {
+        public Object getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(double latitude) {
+        public void setLatitude(Object latitude) {
             this.latitude = latitude;
         }
 
-        public Object getAddress() {
+        public String getAddress() {
             return address;
         }
 
-        public void setAddress(Object address) {
+        public void setAddress(String address) {
             this.address = address;
         }
 
-        public Object getCityCode() {
+        public String getCityCode() {
             return cityCode;
         }
 
-        public void setCityCode(Object cityCode) {
+        public void setCityCode(String cityCode) {
             this.cityCode = cityCode;
         }
 
@@ -167,20 +192,36 @@ public class QuanZiDetail  {
             this.member = member;
         }
 
-        public Object getIsPraise() {
+        public int getIsPraise() {
             return isPraise;
         }
 
-        public void setIsPraise(Object isPraise) {
+        public void setIsPraise(int isPraise) {
             this.isPraise = isPraise;
         }
 
-        public Object getPraiseNum() {
+        public int getPraiseNum() {
             return praiseNum;
         }
 
-        public void setPraiseNum(Object praiseNum) {
+        public void setPraiseNum(int praiseNum) {
             this.praiseNum = praiseNum;
+        }
+
+        public int getCommentNum() {
+            return commentNum;
+        }
+
+        public void setCommentNum(int commentNum) {
+            this.commentNum = commentNum;
+        }
+
+        public int getIsSift() {
+            return isSift;
+        }
+
+        public void setIsSift(int isSift) {
+            this.isSift = isSift;
         }
 
         public int getMid() {
@@ -193,7 +234,7 @@ public class QuanZiDetail  {
 
         public static class MemberBean {
             /**
-             * userId : 15
+             * userId : 23
              * nickName : 测试账号131
              * personalProfile : null
              * phone : null

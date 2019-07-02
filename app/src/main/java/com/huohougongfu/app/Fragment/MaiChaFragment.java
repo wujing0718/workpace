@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Adapter.ShouYeAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.R;
@@ -66,7 +67,7 @@ public class MaiChaFragment extends Fragment {
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+//                        WaitDialog.show(getContext(), "载入中...");
                         super.onStart(request);
                     }
                 });

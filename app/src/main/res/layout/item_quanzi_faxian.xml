@@ -109,13 +109,13 @@
 
             <TextView
                 android:id="@+id/tv_xihuan_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="@dimen/dp_10"
                 android:text="12"
-                android:textSize="12sp"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 

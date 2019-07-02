@@ -34,12 +34,14 @@ public class WenZhangActivity extends AppCompatActivity {
     private SmartRefreshLayout smartrefreshlayout;
     private int page = 2;
     private WenZhangAdapter wenzhangadapter;
+    private int mId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wen_zhang);
         phone = SPUtils.getInstance("登录").getString("phone");
+        mId = SPUtils.getInstance("登录").getInt("id");
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +57,7 @@ public class WenZhangActivity extends AppCompatActivity {
         Map<String, String> map = new HashMap<>();
         map.put("type","2");
         map.put("pageNo","1");
+        map.put("mId",String.valueOf(mId));
         map.put("pageSize","4");
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
@@ -104,6 +107,7 @@ public class WenZhangActivity extends AppCompatActivity {
         Map<String, String> map = new HashMap<>();
         map.put("type","2");
         map.put("pageNo",String.valueOf(page++));
+        map.put("mId",String.valueOf(mId));
         map.put("pageSize","4");
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)

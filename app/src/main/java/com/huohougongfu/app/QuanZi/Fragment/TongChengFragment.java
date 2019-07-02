@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
@@ -18,6 +19,8 @@ import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Adapter.FaXianAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -31,7 +34,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TongChengFragment extends Fragment {
+public class TongChengFragment extends Fragment implements IListener {
 
 
     private View inflate;
@@ -48,18 +51,21 @@ public class TongChengFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_tong_cheng, container, false);
         channel = getArguments().getString("ARGS");
         mId = MyApp.instance.getInt("id");
         initUI();
-        initData();
+        initData("");
         return inflate;
     }
 
-    private void initData() {
+    private void initData(String condition) {
         Map<String, String> map = new HashMap<>();
         //搜索
+        if (!condition.isEmpty()){
+            map.put("condition",condition);
+        }
         map.put("cityCode","340");
         map.put("pageNo","1");
         map.put("mId",String.valueOf(mId));
@@ -112,5 +118,12 @@ public class TongChengFragment extends Fragment {
         TongChengFragment fragment = new TongChengFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if(audience_cnt == 3){
+            initData(status);
+        }
     }
 }

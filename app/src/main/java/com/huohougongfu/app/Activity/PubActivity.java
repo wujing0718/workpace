@@ -171,7 +171,9 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
                 ToastUtils.showShort("文章");
                 break;
             case R.id.ll_pub_vedio:
-                ToastUtils.showShort("视频");
+                intent.setClass(PubActivity.this,FaBuVedioActivity.class);
+                startActivity(intent);
+                dismiss();
                 break;
             case R.id.rl_main:
                 dismiss();

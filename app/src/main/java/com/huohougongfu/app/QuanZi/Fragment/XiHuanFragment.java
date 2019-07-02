@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,6 +23,8 @@ import com.huohougongfu.app.QuanZi.Adapter.FaXianAdapter;
 import com.huohougongfu.app.QuanZi.Adapter.XiHuanAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -41,7 +44,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class XiHuanFragment extends Fragment {
+public class XiHuanFragment extends Fragment implements IListener {
 
 
     private View inflate;
@@ -60,15 +63,21 @@ public class XiHuanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_xi_huan, container, false);
         mId = String.valueOf(MyApp.instance.getInt("id"));
         initUI();
-        initData();
+        initData("");
         return inflate;
     }
 
-    private void initData() {
+
+    private void initData(String condition) {
         Map<String, String> map = new HashMap<>();
+        //搜索
+        if (!condition.isEmpty()){
+            map.put("condition",condition);
+        }
         map.put("pageNo","1");
         map.put("pageSize","4");
         map.put("mId",mId);
@@ -87,7 +96,6 @@ public class XiHuanFragment extends Fragment {
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        smartrefreshlayout.autoRefresh();
                         WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
@@ -118,10 +126,11 @@ public class XiHuanFragment extends Fragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ImageView img_faixan_shoucang = view.findViewById(R.id.img_faixan_shoucang);
+                TextView tv_dianzan_num = view.findViewById(R.id.tv_xihuan_num);
                 if (xihuan.getResult().getList().get(position).getIsPraise() == 0){
-                    initDianZan("1",xihuan.getResult().getList().get(position),img_faixan_shoucang);
+                    initDianZan("1",xihuan.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
                 }else{
-                    initQuXiaoDianZan("0",xihuan.getResult().getList().get(position),img_faixan_shoucang);
+                    initQuXiaoDianZan("0",xihuan.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
                 }
             }
         });
@@ -129,7 +138,8 @@ public class XiHuanFragment extends Fragment {
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                initData();
+                refreshlayout.setNoMoreData(true);
+                initData("");
             }
         });
         //加载更多
@@ -143,7 +153,7 @@ public class XiHuanFragment extends Fragment {
     }
 
     //取消点赞
-    private void initQuXiaoDianZan(String type, QuanZiXiHuan.ResultBean.ListBean listBean, ImageView img_faixan_shoucang) {
+    private void initQuXiaoDianZan(String type, QuanZiXiHuan.ResultBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
@@ -157,6 +167,9 @@ public class XiHuanFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                String num = tv_dianzan_num.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer-1));
                                 listBean.setIsPraise(0);
                                 img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan);
                                 ToastUtils.showShort("取消点赞");
@@ -172,7 +185,7 @@ public class XiHuanFragment extends Fragment {
     }
 
     //点赞
-    private void initDianZan(String type,QuanZiXiHuan.ResultBean.ListBean listBean, ImageView img_faixan_shoucang) {
+    private void initDianZan(String type, QuanZiXiHuan.ResultBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
@@ -186,6 +199,9 @@ public class XiHuanFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                String num = tv_dianzan_num.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer+1));
                                 ToastUtils.showShort("点赞成功");
                                 listBean.setIsPraise(1);
                                 img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan2);
@@ -218,7 +234,7 @@ public class XiHuanFragment extends Fragment {
                             faXianAdapter.add(faxian.getResult().getList());
                             smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                         }else {
-                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                            smartrefreshlayout. finishLoadMore();
                         }
                     }
                 });
@@ -235,5 +251,12 @@ public class XiHuanFragment extends Fragment {
         XiHuanFragment fragment = new XiHuanFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if(audience_cnt == 3){
+            initData(status);
+        }
     }
 }

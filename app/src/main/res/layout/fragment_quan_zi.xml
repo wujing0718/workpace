@@ -55,10 +55,12 @@
 
             <EditText
                 android:layout_toRightOf="@+id/img_sousuo"
-                android:id="@+id/bt_shop_sousuo"
+                android:id="@+id/edt_quanzi_sousuo"
                 android:hint="Search"
                 android:textSize="12sp"
                 android:background="@null"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:paddingHorizontal="@dimen/dp_10"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"

@@ -50,6 +50,9 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private RecyclerView rec_wenzhang_pinglun;
     private EditText edt_quanzi_pinglun;
     private int mid;
+    private View view_pinglun_fasong;
+    private View view_detail_weizhi;
+    private TextView pinglunnum,xihuannum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +67,14 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_gengduo).setOnClickListener(this);
+        pinglunnum = findViewById(R.id.tv_detail_pinglunnum);
+        xihuannum = findViewById(R.id.tv_detail_xihuannum);
         edt_quanzi_pinglun = findViewById(R.id.edt_quanzi_pinglun);
+        view_detail_weizhi = findViewById(R.id.view_detail_weizhi);
         findViewById(R.id.bt_fasong_pinglun).setOnClickListener(this);
         rec_wenzhang_pinglun = findViewById(R.id.rec_wenzhang_pinglun);
         view_detail_pinglun = findViewById(R.id.view_detail_pinglun);
+        view_pinglun_fasong = findViewById(R.id.view_pinglun_fasong);
         banner = findViewById(R.id.banner);
         img_quanzi_touxiang = findViewById(R.id.img_quanzi_touxiang);
         tv_quanzi_name = findViewById(R.id.tv_quanzi_name);
@@ -75,6 +82,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         tv_quanzi_content = findViewById(R.id.tv_quanzi_content);
         tv_quanzi_weizhi = findViewById(R.id.tv_quanzi_weizhi);
         tv_quanzi_time = findViewById(R.id.tv_quanzi_time);
+        findViewById(R.id.bt_zhankaipinglun).setOnClickListener(this);
         initPingLun();
     }
 
@@ -92,7 +100,6 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                         Gson gson = new Gson();
                         PingLunGson pinglun = gson.fromJson(body, PingLunGson.class);
                         if (pinglun.getStatus() == 1){
-                            view_detail_pinglun.setVisibility(View.VISIBLE);
                             initRec(pinglun.getResult().getList());
                         }
                     }
@@ -110,7 +117,11 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initData() {
-        OkGo.<String>get(Contacts.URl1+"/circle/data/info/"+dId)
+        Map<String ,String> map = new HashMap<>();
+        map.put("dId",String.valueOf(dId));
+        map.put("mId",String.valueOf(mid));
+        OkGo.<String>post(Contacts.URl1+"/circle/data/info")
+                .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -125,11 +136,21 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initView(QuanZiDetail.ResultBean result) {
-        String picture = result.getPicture();
-        String[] split = picture.split(",");
-        if (split.length>0) {
-            for (int i = 0; i < split.length; i++) {
-                mbanner.add(split[i]);
+        xihuannum.setText(String.valueOf(result.getPraiseNum()));
+        pinglunnum.setText(String.valueOf(result.getCommentNum()));
+        if (result.getAddress() !=null){
+            view_detail_weizhi.setVisibility(View.VISIBLE);
+            tv_quanzi_weizhi.setText(result.getAddress());
+        }else{
+            view_detail_weizhi.setVisibility(View.GONE);
+        }
+        if (result!=null){
+            String picture = result.getPicture();
+            String[] split = picture.split(",");
+            if (split.length>0) {
+                for (int i = 0; i < split.length; i++) {
+                    mbanner.add(split[i]);
+                }
             }
         }
         //加载网络图片
@@ -161,6 +182,10 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                         ToastUtils.showShort("请输入评论内容");
                     }
                 }
+                break;
+            case R.id.bt_zhankaipinglun:
+                view_detail_pinglun.setVisibility(View.VISIBLE);
+                view_pinglun_fasong.setVisibility(View.VISIBLE);
                 break;
         }
     }

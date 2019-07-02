@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".QuanZi.Activity.QuanZiDetailActivity">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -77,7 +82,6 @@
 
                         <ImageView
                             android:id="@+id/img_quanzi_touxiang"
-                            android:src="@mipmap/ic_launcher"
                             android:layout_width="@dimen/dp_40"
                             android:layout_height="@dimen/dp_40" />
 
@@ -107,7 +111,7 @@
 
                             <TextView
                                 android:id="@+id/tv_quanzi_name"
-                                android:text="八马茶业"
+                                android:text=""
                                 android:textSize="14sp"
                                 android:textColor="@color/colorBlack"
                                 android:layout_width="wrap_content"
@@ -133,7 +137,7 @@
                         <TextView
 
                             android:id="@+id/tv_quanzi_chenghu"
-                            android:text="认证茶艺师"
+                            android:text=""
                             android:textSize="11sp"
                             android:layout_marginTop="4dp"
                             android:textColor="#818181"
@@ -151,6 +155,7 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
+                        android:id="@+id/view_detail_weizhi"
                         android:layout_gravity="center_vertical"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -164,7 +169,7 @@
 
                         <TextView
                             android:id="@+id/tv_quanzi_weizhi"
-                            android:text="深圳"
+                            android:text=""
                             android:textSize="@dimen/text_size_12sp"
                             android:layout_marginLeft="@dimen/layout_margin_2dp"
                             android:layout_gravity="center_vertical"
@@ -197,7 +202,6 @@
                 android:textColor="@color/colorBlack"
                 android:lineSpacingExtra="4dp"
                 android:textSize="@dimen/text_size_12sp"
-                android:text="是一家集种植、研发、生产和销售于一体的全产业链、全茶类连锁企业。产品覆盖乌龙茶、绿茶、红茶、白茶、普洱、花茶等各类茶叶产品以及茶具、茶食品等。八马茶业股份有限公司是铁观音制茶专家，创始人之一王文礼是国家级非物质文化遗产安溪铁观音制作技艺代表性传承人。公司定位中国好茶，致力于成为全茶类消费品服务商，开发全茶类产品，布局十大名茶产区，推动完成名茶体系建设，从铁观音第一做到中国茶代表，经过多年的品牌建设及销售渠道拓展，现已成为国内茶行业龙头企业之一。"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -209,7 +213,7 @@
 
                 <TextView
                     android:id="@+id/tv_quanzi_time"
-                    android:text="2019年5月20日 22:18"
+                    android:text=""
                     android:textSize="11sp"
                     android:textColor="#818181"
                     android:layout_width="wrap_content"
@@ -232,8 +236,9 @@
                             android:layout_height="14dp" />
 
                         <TextView
+                            android:id="@+id/tv_detail_pinglunnum"
                             android:layout_marginLeft="@dimen/dp_4"
-                            android:text="20k"
+                            android:text="1"
                             android:textColor="@color/colorBlack"
                             android:textSize="10sp"
                             android:layout_width="wrap_content"
@@ -253,7 +258,8 @@
                             android:layout_height="14dp" />
 
                         <TextView
-                            android:text="100k"
+                            android:id="@+id/tv_detail_xihuannum"
+                            android:text="2"
                             android:textColor="@color/colorBlack"
                             android:textSize="10sp"
                             android:layout_marginLeft="4dp"
@@ -292,36 +298,6 @@
 
                     </android.support.v7.widget.RecyclerView>
 
-                    <RelativeLayout
-                        android:layout_gravity="bottom"
-                        android:background="#E8E8E8"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp">
-
-                        <EditText
-                            android:id="@+id/edt_quanzi_pinglun"
-                            android:layout_toLeftOf="@+id/bt_fasong_pinglun"
-                            android:paddingLeft="@dimen/dp_10"
-                            android:layout_marginHorizontal="15dp"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/quanzi_banyuan"
-                            android:hint="我也来说一句~"
-                            android:textSize="12sp"
-                            android:layout_width="match_parent"
-                            android:layout_height="34dp" />
-
-                        <Button
-                            android:text="发送"
-                            android:gravity="center"
-                            android:textSize="14sp"
-                            android:background="@drawable/kaquan_kuang"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:id="@+id/bt_fasong_pinglun"
-                            android:layout_width="60dp"
-                            android:layout_height="30dp" />
-
-                    </RelativeLayout>
 
                 </FrameLayout>
 
@@ -330,4 +306,53 @@
 
         </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bt_zhankaipinglun"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TextView
+            android:text="展开查看评论"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_pinglun_fasong"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="#E8E8E8"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <EditText
+            android:id="@+id/edt_quanzi_pinglun"
+            android:layout_toLeftOf="@+id/bt_fasong_pinglun"
+            android:paddingLeft="@dimen/dp_10"
+            android:layout_marginHorizontal="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/quanzi_banyuan"
+            android:hint="我也来说一句~"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="34dp" />
+
+        <Button
+            android:text="发送"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:background="@drawable/kaquan_kuang"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/bt_fasong_pinglun"
+            android:layout_width="60dp"
+            android:layout_height="30dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

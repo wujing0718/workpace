@@ -33,7 +33,6 @@ public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.List
         int screenWidth = MyApp.context.getResources().getDisplayMetrics().widthPixels;
         //Item的宽度，或图片的宽度
         int width = screenWidth/2;
-
     }
 
     @Override

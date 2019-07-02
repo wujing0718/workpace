@@ -92,7 +92,7 @@
 
         <ImageView
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/img_dingwei"
             android:layout_width="12dp"
             android:layout_height="12dp" />
 

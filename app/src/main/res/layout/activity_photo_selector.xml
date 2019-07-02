@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectVideo.PhotoSelectorActivity">
+
+    <RelativeLayout
+        android:id="@+id/ly_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        >
+        <TextView android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="返回"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/colorBlack"
+            android:clickable="true"
+            android:onClick="goBack"
+            />
+        <TextView android:id="@+id/tv_top_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="相机胶卷"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:drawableRight="@drawable/bg_btn_arrow_selector1"
+            android:textColor="@color/colorBlack"
+            android:drawablePadding="2dp"
+            android:onClick="popImageDir"
+            />
+        <Button android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下一步"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_zhuce_blue"
+            android:layout_margin="8dp"
+            android:textColor="@color/colorWhite"
+            android:onClick="goNext"
+            android:padding="3dp"
+            />
+    </RelativeLayout>
+
+    <GridView
+        android:layout_below="@id/ly_top_bar"
+        android:id="@+id/gv_photos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:visibility="visible">
+    </GridView>
+
+
+</RelativeLayout>
