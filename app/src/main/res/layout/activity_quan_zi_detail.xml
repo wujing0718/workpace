@@ -6,6 +6,8 @@
     android:id="@+id/smartrefreshlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".QuanZi.Activity.QuanZiDetailActivity">
 
     <android.support.v4.widget.NestedScrollView
@@ -179,17 +181,24 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:text="+关注"
-                        android:textSize="12sp"
+                    <RelativeLayout
+                        android:id="@+id/bt_guanzhu"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="2dp"
-                        android:textColor="@color/colorBlack"
-                        android:background="@drawable/login_kuang"
-                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="+关注"
+                            android:textSize="12sp"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="2dp"
+                            android:textColor="@color/colorBlack"
+                            android:background="@drawable/login_kuang"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -206,74 +215,92 @@
                 android:layout_height="wrap_content" />
 
             <RelativeLayout
-                android:layout_marginVertical="@dimen/icon_size_20dp"
+                android:layout_marginVertical="5dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="30dp">
 
                 <TextView
                     android:id="@+id/tv_quanzi_time"
-                    android:text=""
+                    android:layout_centerVertical="true"
                     android:textSize="11sp"
                     android:textColor="#818181"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:orientation="horizontal"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:src="@mipmap/img_pinglun"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp" />
-
-                        <TextView
-                            android:id="@+id/tv_detail_pinglunnum"
-                            android:layout_marginLeft="@dimen/dp_4"
-                            android:text="1"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="10sp"
+                        <LinearLayout
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_marginLeft="15dp"
+                                android:src="@mipmap/img_pinglun"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp" />
 
-                    <LinearLayout
-                        android:layout_marginLeft="15dp"
-                        android:orientation="horizontal"
+                            <TextView
+                                android:id="@+id/tv_detail_pinglunnum"
+                                android:layout_marginLeft="@dimen/dp_4"
+                                android:text="1"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="10sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/bt_dianzan"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:src="@mipmap/img_shoucang"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp" />
-
-                        <TextView
-                            android:id="@+id/tv_detail_xihuannum"
-                            android:text="2"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="10sp"
-                            android:layout_marginLeft="4dp"
+                        <LinearLayout
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="15dp"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/img_shoucang"
+                                android:src="@mipmap/img_shoucang"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp" />
+
+                            <TextView
+                                android:id="@+id/tv_detail_xihuannum"
+                                android:text="2"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="10sp"
+                                android:layout_marginLeft="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 
             </RelativeLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/view_detail_pinglun"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -308,23 +335,22 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <RelativeLayout
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bt_zhankaipinglun"
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
+    <!--<RelativeLayout-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:id="@+id/bt_zhankaipinglun"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30dp">-->
 
-        <TextView
-            android:text="展开查看评论"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:text="展开查看评论"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/view_pinglun_fasong"
-        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="#E8E8E8"
         android:layout_width="match_parent"
@@ -334,7 +360,7 @@
             android:id="@+id/edt_quanzi_pinglun"
             android:layout_toLeftOf="@+id/bt_fasong_pinglun"
             android:paddingLeft="@dimen/dp_10"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
             android:background="@drawable/quanzi_banyuan"
             android:hint="我也来说一句~"
@@ -346,6 +372,7 @@
             android:text="发送"
             android:gravity="center"
             android:textSize="14sp"
+            android:layout_marginHorizontal="15dp"
             android:background="@drawable/kaquan_kuang"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

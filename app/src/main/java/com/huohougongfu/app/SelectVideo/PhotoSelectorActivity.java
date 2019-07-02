@@ -144,7 +144,6 @@ public class PhotoSelectorActivity extends AppCompatActivity {
 
     private void loadVedioImagesList() {
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 Cursor cursor = getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
@@ -208,7 +207,6 @@ public class PhotoSelectorActivity extends AppCompatActivity {
         PhotoSelectorAdapter adapter = new PhotoSelectorAdapter(PhotoSelectorActivity.this, imageDir);
         gvPhotos.setAdapter(adapter);
         adapter.setOnItemCheckdedChangedListener(new PhotoSelectorAdapter.onItemCheckedChangedListener() {
-
             @Override
             public void onItemCheckChanged(CompoundButton chBox, boolean isCheced, ImageDir imageDir, String path) {
                 if (isCheced) {
@@ -304,6 +302,9 @@ public class PhotoSelectorActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("selectPaths", getSelectedPicture());
+        setResult(RESULT_OK, intent);
         finish();
     }
 

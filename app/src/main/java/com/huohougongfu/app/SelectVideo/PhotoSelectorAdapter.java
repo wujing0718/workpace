@@ -70,12 +70,11 @@ public class PhotoSelectorAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHodler) convertView.getTag();
         }
-
-            viewHolder.photoView.setScaleType(ScaleType.CENTER_CROP);
+        viewHolder.chSelect.setChecked(false);
+        viewHolder.photoView.setScaleType(ScaleType.CENTER_CROP);
             viewHolder.chSelect.setVisibility(View.VISIBLE);
             viewHolder.chSelect.setTag(position);
             String path = getItem(position);
-            viewHolder.chSelect.setChecked(false);
             viewHolder.chSelect.setOnCheckedChangeListener(null);
             viewHolder.chSelect.setChecked(imageDir.selectedFiles.contains(path));
             viewHolder.chSelect.setOnCheckedChangeListener(new OnCheckedChangeListener() {

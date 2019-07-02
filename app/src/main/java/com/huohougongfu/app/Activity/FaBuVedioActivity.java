@@ -38,10 +38,12 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.v2.BottomMenu;
 import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.luck.picture.lib.photoview.PhotoView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.squareup.picasso.Picasso;
 import com.zyf.vc.ui.PlayVideoActiviy;
 import com.zyf.vc.ui.RecorderActivity;
@@ -70,7 +72,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private static final int REQUEST_TAKE_VIDEO_CODE = 1001;
     private String contents,titles,token,select_path,select_type;
     private ArrayList<String> selectedVedioPaths = new ArrayList<String>();
-    private File file;
+    private File file = null;
     private View gif1,v;
     private BackgroundBlurPopupWindow mPopupWindow;
     private int mId;
@@ -123,9 +125,11 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                     if (selectedVedioPaths.size()>0){
                         select_path = selectedVedioPaths.get(0);
                         file = new File(select_path);
-                        if (select_path.isEmpty()){
+                        boolean exists = file.exists();
+                        if (!exists){
                             rl_look_see.setVisibility(View.GONE);
                             start.setVisibility(View.VISIBLE);
+                            ToastUtils.showShort("该视频错误");
                         }else {
                             rl_look_see.setVisibility(View.VISIBLE);
                             start.setVisibility(View.GONE);
@@ -226,7 +230,6 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.rl_commit:
                 initVedio();
-                ToastUtils.showShort(file.getPath());
                 break;
             case R.id.bt_shanchu:
                 rl_look_see.setVisibility(View.GONE);
@@ -236,34 +239,45 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initVedio() {
+        String title = et_title.getText().toString();
         Map<String,String> map = new HashMap<>();
-        map.put("content","");
-        map.put("type","3");
-        map.put("mId",String.valueOf(mId));
-        OkGo.<String>post(Contacts.URl1+"/circle/pub")
-                .tag(this)//
-                .isMultipart(true)
-                .params(map)
-                .params("file",file)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                ToastUtils.showShort("上传成功");
-                                finish();
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
+        if (file!=null){
+            map.put("content",title);
+            map.put("type","3");
+            map.put("mId",String.valueOf(mId));
+            OkGo.<String>post(Contacts.URl1+"/circle/pub")
+                    .tag(this)//
+                    .isMultipart(true)
+                    .params(map)
+                    .params("file",file)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            WaitDialog.dismiss();
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    ToastUtils.showShort("上传成功");
+                                    finish();
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
 
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            WaitDialog.show(FaBuVedioActivity.this, "上传中...");
+                            super.onStart(request);
+                        }
+                    });
+        }else{
+            ToastUtils.showShort("请选择上传的视频");
+        }
     }
 
     private void checkTakeMediaPermission(){

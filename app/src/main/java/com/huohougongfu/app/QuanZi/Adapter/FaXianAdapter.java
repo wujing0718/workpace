@@ -22,6 +22,7 @@ import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.utils;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.squareup.picasso.Picasso;
 
@@ -88,10 +89,10 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
         }else{
             Picasso.get().load(R.mipmap.ic_launcher).into(img_quanzi_photo);
         }
-
+        String time = utils.transForDate2(Long.valueOf(item.getCreateTime()));
         helper.setText(R.id.tv_faxian_name,item.getMember().getNickName());
         helper.setText(R.id.tv_faxian_content,item.getContent());
-        helper.setText(R.id.tv_faxian_time,item.getCreateTime());
+        helper.setText(R.id.tv_faxian_time,time);
         helper.setText(R.id.tv_xihuan_num,String.valueOf(item.getPraiseNum()));
 
     }

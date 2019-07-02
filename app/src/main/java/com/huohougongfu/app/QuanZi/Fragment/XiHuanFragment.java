@@ -79,7 +79,7 @@ public class XiHuanFragment extends Fragment implements IListener {
             map.put("condition",condition);
         }
         map.put("pageNo","1");
-        map.put("pageSize","4");
+        map.put("pageSize","10");
         map.put("mId",mId);
         OkGo.<String>post(Contacts.URl1+"/circle/praise/list")
                 .params(map)
@@ -111,14 +111,13 @@ public class XiHuanFragment extends Fragment implements IListener {
         rec_xiuhuan.setLayoutManager(layoutManager);
         //关闭RecyclerView动画效果
         rec_xiuhuan.setItemAnimator(null);
-        faXianAdapter = new XiHuanAdapter(R.layout.item_quanzi_faxian,xihuan.getResult().getList());
+        faXianAdapter = new XiHuanAdapter(R.layout.item_quanzi_faxian,xihuan.getResult().getDatas().getList());
         rec_xiuhuan.setAdapter(faXianAdapter);
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
                 Intent intent = new Intent();
-                intent.putExtra("dId",xihuan.getResult().getList().get(position).getId());
+                intent.putExtra("dId",xihuan.getResult().getDatas().getList().get(position).getId());
                 startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
             }
         });
@@ -127,10 +126,10 @@ public class XiHuanFragment extends Fragment implements IListener {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ImageView img_faixan_shoucang = view.findViewById(R.id.img_faixan_shoucang);
                 TextView tv_dianzan_num = view.findViewById(R.id.tv_xihuan_num);
-                if (xihuan.getResult().getList().get(position).getIsPraise() == 0){
-                    initDianZan("1",xihuan.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                if (xihuan.getResult().getDatas().getList().get(position).getIsPraise() == 0){
+                    initDianZan("1",xihuan.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
                 }else{
-                    initQuXiaoDianZan("0",xihuan.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                    initQuXiaoDianZan("0",xihuan.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
                 }
             }
         });
@@ -153,7 +152,7 @@ public class XiHuanFragment extends Fragment implements IListener {
     }
 
     //取消点赞
-    private void initQuXiaoDianZan(String type, QuanZiXiHuan.ResultBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+    private void initQuXiaoDianZan(String type, QuanZiXiHuan.ResultBean.DatasBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
@@ -185,7 +184,7 @@ public class XiHuanFragment extends Fragment implements IListener {
     }
 
     //点赞
-    private void initDianZan(String type, QuanZiXiHuan.ResultBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+    private void initDianZan(String type, QuanZiXiHuan.ResultBean.DatasBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
@@ -230,8 +229,8 @@ public class XiHuanFragment extends Fragment implements IListener {
                         String body = response.body();
                         Gson gson = new Gson();
                         QuanZiXiHuan faxian = gson.fromJson(body, QuanZiXiHuan.class);
-                        if (faxian.getResult().getList().size()>0){
-                            faXianAdapter.add(faxian.getResult().getList());
+                        if (faxian.getResult().getDatas().getList().size()>0){
+                            faXianAdapter.add(faxian.getResult().getDatas().getList());
                             smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                         }else {
                             smartrefreshlayout. finishLoadMore();

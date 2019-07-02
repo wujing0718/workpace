@@ -26,6 +26,7 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -39,6 +40,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,8 +83,8 @@ public class FaXianFragment extends Fragment implements IListener {
         if (!condition.isEmpty()){
             map.put("condition",condition);
         }
-        map.put("pageNo","1");
-        map.put("pageSize","4");
+        map.put("pageNo","2");
+        map.put("pageSize","10");
         map.put("mId",mId);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
@@ -121,11 +123,15 @@ public class FaXianFragment extends Fragment implements IListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String picture = faxian.getResult().getDatas().getList().get(position).getPicture();
                 String substring = picture.substring(picture.length() - 3, picture.length());
-                if (!substring.equalsIgnoreCase("mp4")){
+                if (faxian.getResult().getDatas().getList().get(position).getType() == 2){
                     Intent intent = new Intent();
                     intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
                     startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
-                }else{
+                }else if(faxian.getResult().getDatas().getList().get(position).getType() == 1){
+                    Intent intent = new Intent();
+                    intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
+                    startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
+                }else if (faxian.getResult().getDatas().getList().get(position).getType() == 3){
                     Intent intent = new Intent();
                     intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
                     startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
@@ -140,7 +146,9 @@ public class FaXianFragment extends Fragment implements IListener {
                 if (faxian.getResult().getDatas().getList().get(position).getIsPraise() == 0){
                     initDianZan("1",faxian.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
                 }else{
-                    initQuXiaoDianZan("0",faxian.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                    if (!utils.isDoubleClick()){
+                        initQuXiaoDianZan("0",faxian.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                    }
                 }
             }
         });

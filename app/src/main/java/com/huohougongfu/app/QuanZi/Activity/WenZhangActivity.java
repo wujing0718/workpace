@@ -1,5 +1,6 @@
 package com.huohougongfu.app.QuanZi.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MallGson;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
@@ -87,6 +89,14 @@ public class WenZhangActivity extends AppCompatActivity {
         rec_quanzi_wenzhang.setLayoutManager(layoutmanager);
         wenzhangadapter = new WenZhangAdapter(R.layout.item_quanzi_wenzhang,wenzhang.getResult().getDatas().getList());
         rec_quanzi_wenzhang.setAdapter(wenzhangadapter);
+        wenzhangadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.putExtra("dId",wenzhang.getResult().getDatas().getList().get(position).getId());
+                startActivity(intent.setClass(WenZhangActivity.this,QuanZiDetailActivity.class));
+            }
+        });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

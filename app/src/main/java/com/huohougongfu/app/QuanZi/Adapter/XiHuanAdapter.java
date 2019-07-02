@@ -12,16 +12,17 @@ import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.Gson.QuanZiXiHuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
 
-public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.ListBean,BaseViewHolder> {
+public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.DatasBean.ListBean,BaseViewHolder> {
 
-    private List<QuanZiXiHuan.ResultBean.ListBean> data1;
-    public XiHuanAdapter(int layoutResId, @Nullable List<QuanZiXiHuan.ResultBean.ListBean> data) {
+    private List<QuanZiXiHuan.ResultBean.DatasBean.ListBean> data1;
+    public XiHuanAdapter(int layoutResId, @Nullable List<QuanZiXiHuan.ResultBean.DatasBean.ListBean> data) {
         super(layoutResId, data);
         this.data1 = data;
     }
@@ -36,7 +37,7 @@ public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.List
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, QuanZiXiHuan.ResultBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, QuanZiXiHuan.ResultBean.DatasBean.ListBean item) {
         helper.addOnClickListener(R.id.bt_dianzan);
         View view_dingwei = helper.getView(R.id.view_dingwei);
         ImageView img_quanzi_photo = helper.getView(R.id.img_quanzi_photo);
@@ -76,23 +77,23 @@ public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.List
         }else{
             Picasso.get().load(R.mipmap.ic_launcher).into(img_quanzi_photo);
         }
-
+        String time = utils.transForDate2(Long.valueOf(item.getCreateTime()));
         helper.setText(R.id.tv_faxian_name,item.getMember().getNickName());
         helper.setText(R.id.tv_faxian_content,item.getContent());
-        helper.setText(R.id.tv_faxian_time,item.getCreateTime());
+        helper.setText(R.id.tv_faxian_time,time);
         helper.setText(R.id.tv_xihuan_num,String.valueOf(item.getPraiseNum()));
 
     }
 
     //下面两个方法提供给页面刷新和加载时调用
-    public void add(List<QuanZiXiHuan.ResultBean.ListBean> data) {
+    public void add(List<QuanZiXiHuan.ResultBean.DatasBean.ListBean> data) {
         //增加数据
         int position = data1.size();
         data1.addAll(position, data);
         notifyItemRangeChanged(position,data.size());
     }
 
-    public void refresh(List<QuanZiXiHuan.ResultBean.ListBean> data) {
+    public void refresh(List<QuanZiXiHuan.ResultBean.DatasBean.ListBean> data) {
         //刷新数据
         data1.remove(data1);
         data1.addAll(data);

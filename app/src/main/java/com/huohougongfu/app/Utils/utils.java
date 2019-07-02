@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 public class utils {
     private static long lastClickTime;
-    private final static int SPACE_TIME = 500;
+    private final static int SPACE_TIME = 1000;
 
     public static void initLastClickTime() {
         lastClickTime = 0;
@@ -33,7 +33,7 @@ public class utils {
     /*
      * 将时间戳转换为时间
      */
-    public static String transForDate2(Integer ms) {
+    public static String transForDate2(Long ms) {
         String str = "";
         if (ms != null) {
             long msl = (long) ms * 1000;

@@ -15,15 +15,18 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
+import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.PingLunAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -49,17 +52,19 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private View view_detail_pinglun;
     private RecyclerView rec_wenzhang_pinglun;
     private EditText edt_quanzi_pinglun;
-    private int mid;
+    private int mId;
     private View view_pinglun_fasong;
     private View view_detail_weizhi;
     private TextView pinglunnum,xihuannum;
+    private QuanZiDetail detail;
+    private ImageView img_shoucang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_zi_detail);
         dId = getIntent().getIntExtra("dId", 0);
-         mid = MyApp.instance.getInt("id");
+         mId = MyApp.instance.getInt("id");
         initUI();
         initData();
     }
@@ -67,8 +72,11 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_gengduo).setOnClickListener(this);
+        findViewById(R.id.bt_guanzhu).setOnClickListener(this);
+        findViewById(R.id.bt_dianzan).setOnClickListener(this);
         pinglunnum = findViewById(R.id.tv_detail_pinglunnum);
         xihuannum = findViewById(R.id.tv_detail_xihuannum);
+        img_shoucang = findViewById(R.id.img_shoucang);
         edt_quanzi_pinglun = findViewById(R.id.edt_quanzi_pinglun);
         view_detail_weizhi = findViewById(R.id.view_detail_weizhi);
         findViewById(R.id.bt_fasong_pinglun).setOnClickListener(this);
@@ -82,7 +90,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         tv_quanzi_content = findViewById(R.id.tv_quanzi_content);
         tv_quanzi_weizhi = findViewById(R.id.tv_quanzi_weizhi);
         tv_quanzi_time = findViewById(R.id.tv_quanzi_time);
-        findViewById(R.id.bt_zhankaipinglun).setOnClickListener(this);
+//        findViewById(R.id.bt_zhankaipinglun).setOnClickListener(this);
         initPingLun();
     }
 
@@ -109,7 +117,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
     private void initRec(List<PingLunGson.ResultBean.ListBean> list) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
-        android.support.v7.widget.LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
         rec_wenzhang_pinglun.setLayoutManager(layoutmanager);
         PingLunAdapter pingLunAdapter = new PingLunAdapter(R.layout.item_quanzi_pinglun, list);
@@ -119,18 +127,30 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private void initData() {
         Map<String ,String> map = new HashMap<>();
         map.put("dId",String.valueOf(dId));
-        map.put("mId",String.valueOf(mid));
+        map.put("mId",String.valueOf(mId));
         OkGo.<String>post(Contacts.URl1+"/circle/data/info")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
-                        QuanZiDetail detail = gson.fromJson(body, QuanZiDetail.class);
+                        detail = gson.fromJson(body, QuanZiDetail.class);
                         if (detail.getStatus() == 1){
                             initView(detail.getResult());
+                            if (detail.getResult().getIsPraise() == 1){
+                                img_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                            }else{
+                                img_shoucang.setImageResource(R.mipmap.img_xihuan);
+                            }
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(QuanZiDetailActivity.this,"载入中...");
+                        super.onStart(request);
                     }
                 });
     }
@@ -158,8 +178,9 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setImageLoader(new GlideImageLoader())
                 .start();
+        String time = utils.transForDate2(Long.valueOf(result.getCreateTime()));
         tv_quanzi_content.setText(result.getContent());
-        tv_quanzi_time.setText(result.getCreateTime());
+        tv_quanzi_time.setText(time);
         tv_quanzi_name.setText(result.getMember().getNickName());
         Glide.with(QuanZiDetailActivity.this).load(result.getMember().getPhoto()).into(img_quanzi_touxiang);
 
@@ -170,6 +191,20 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()){
             case R.id.bt_finish:
                 finish();
+                break;
+            case R.id.bt_guanzhu:
+                if (!utils.isDoubleClick()){
+
+                }
+                break;
+            case R.id.bt_dianzan:
+                if (!utils.isDoubleClick()){
+                    if (detail.getResult().getIsPraise() == 1){
+                        initQuXiaoDianZan("0");
+                    }else{
+                        initDianZan("1");
+                    }
+                }
                 break;
             case R.id.bt_gengduo:
                 break;
@@ -183,17 +218,81 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                     }
                 }
                 break;
-            case R.id.bt_zhankaipinglun:
-                view_detail_pinglun.setVisibility(View.VISIBLE);
-                view_pinglun_fasong.setVisibility(View.VISIBLE);
-                break;
+//            case R.id.bt_zhankaipinglun:
+//                view_detail_pinglun.setVisibility(View.VISIBLE);
+//                view_pinglun_fasong.setVisibility(View.VISIBLE);
+//                break;
         }
+    }
+
+    //取消点赞
+    private void initQuXiaoDianZan(String type) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(detail.getResult().getId()));
+        map.put("mId",String.valueOf(mId));
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                String num = xihuannum.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                xihuannum.setText(String.valueOf(integer-1));
+                                detail.getResult().setIsPraise(0);
+                                img_shoucang.setImageResource(R.mipmap.img_xihuan);
+                                ToastUtils.showShort("取消点赞");
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //点赞
+    private void initDianZan(String type) {
+        String num = xihuannum.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(detail.getResult().getId()));
+        map.put("mId",String.valueOf(mId));
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("点赞成功");
+                                Integer integer = Integer.valueOf(num);
+                                xihuannum.setText(String.valueOf(integer+1));
+                                detail.getResult().setIsPraise(1);
+                                img_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initFaSongPingLun(String pinglun_content) {
         Map<String,String> map = new HashMap<>();
         map.put("dataId",String.valueOf(dId));
-        map.put("mId",String.valueOf(mid));
+        map.put("mId",String.valueOf(mId));
         map.put("content",pinglun_content);
         OkGo.<String>post(Contacts.URl1+"/circle/comment")
                 .params(map)
