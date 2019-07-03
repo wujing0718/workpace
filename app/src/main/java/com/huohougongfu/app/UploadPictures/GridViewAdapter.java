@@ -64,7 +64,7 @@ public class GridViewAdapter extends android.widget.BaseAdapter implements OnIte
             String picUrl = mList.get(position); //图片路径
             Glide.with(mContext).load(picUrl).into(iv);
         } else {
-            iv.setImageResource(R.mipmap.ic_launcher);//最后一个显示加号图片
+            iv.setImageResource(R.mipmap.takingpictures);//最后一个显示加号图片
         }
         return convertView;
     }

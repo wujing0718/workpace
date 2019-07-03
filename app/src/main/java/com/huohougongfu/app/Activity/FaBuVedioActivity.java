@@ -94,6 +94,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         start = findViewById(R.id.start);
         start.setOnClickListener(this);
         findViewById(R.id.bt_shanchu).setOnClickListener(this);
+        findViewById(R.id.bt_finish).setOnClickListener(this);
         pathTv = findViewById(R.id.path);
         rl_commit = findViewById(R.id.rl_commit);
         rl_commit.setOnClickListener(this);
@@ -234,6 +235,9 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
             case R.id.bt_shanchu:
                 rl_look_see.setVisibility(View.GONE);
                 start.setVisibility(View.VISIBLE);
+                break;
+            case R.id.bt_finish:
+                finish();
                 break;
         }
     }

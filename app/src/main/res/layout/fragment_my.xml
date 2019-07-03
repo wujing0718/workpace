@@ -9,7 +9,7 @@
 
     <View
         android:id="@+id/statusBarView"
-        android:background="#33000000"
+        android:background="@color/colorBlack"
         android:layout_width="match_parent"
         android:layout_height="10dp">
 

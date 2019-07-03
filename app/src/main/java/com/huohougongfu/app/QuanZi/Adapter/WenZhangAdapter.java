@@ -12,6 +12,7 @@ import com.huohougongfu.app.Gson.MallGson;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,10 +51,10 @@ public class WenZhangAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Da
         }else{
             Picasso.get().load(R.mipmap.ic_launcher).into(img_wenzhang_photo);
         }
-
+        String time = utils.transForDate2(Long.valueOf(item.getCreateTime()));
         helper.setText(R.id.tv_wenzhang_name,item.getMember().getNickName());
-        helper.setText(R.id.tv_wenzhang_content,item.getContent());
-        helper.setText(R.id.tv_wenzhang_time,item.getCreateTime());
+        helper.setText(R.id.tv_wenzhang_content,item.getTitle());
+        helper.setText(R.id.tv_wenzhang_time,time);
     }
 
     //下面两个方法提供给页面刷新和加载时调用

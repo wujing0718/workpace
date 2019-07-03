@@ -5,7 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,6 +21,7 @@ import com.huohougongfu.app.QuanZi.Adapter.WenZhangAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.MallAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -37,6 +43,8 @@ public class WenZhangActivity extends AppCompatActivity {
     private int page = 2;
     private WenZhangAdapter wenzhangadapter;
     private int mId;
+    private EditText edt_shop_sousuo;
+    private InputMethodManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,23 +52,58 @@ public class WenZhangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wen_zhang);
         phone = SPUtils.getInstance("登录").getString("phone");
         mId = SPUtils.getInstance("登录").getInt("id");
+        manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        edt_shop_sousuo = findViewById(R.id.edt_shop_sousuo);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         rec_quanzi_wenzhang = findViewById(R.id.rec_quanzi_wenzhang);
-        initData();
-    }
+        initData("");
+        edt_shop_sousuo.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    //先隐藏键盘
+                    if (manager.isActive()) {
+                        manager.hideSoftInputFromWindow(edt_shop_sousuo.getApplicationWindowToken(), 0);
+                    }
+                    initData(edt_shop_sousuo.getText().toString());
+                }
+                //记得返回false
+                return false;
+            }
+        });
+        edt_shop_sousuo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    private void initData() {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().isEmpty()){
+                    initData("");
+                    manager.hideSoftInputFromWindow(edt_shop_sousuo.getApplicationWindowToken(), 0);
+                }
+            }
+        });
+    }
+    private void initData(String sousuo) {
         Map<String, String> map = new HashMap<>();
         map.put("type","2");
         map.put("pageNo","1");
         map.put("mId",String.valueOf(mId));
         map.put("pageSize","4");
+        map.put("condition",sousuo);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {
@@ -94,14 +137,14 @@ public class WenZhangActivity extends AppCompatActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.putExtra("dId",wenzhang.getResult().getDatas().getList().get(position).getId());
-                startActivity(intent.setClass(WenZhangActivity.this,QuanZiDetailActivity.class));
+                startActivity(intent.setClass(WenZhangActivity.this,WenZhangDetailActivity.class));
             }
         });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                initData();
+                initData("");
                 smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
             }
         });
@@ -113,6 +156,7 @@ public class WenZhangActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initAdd() {
         Map<String, String> map = new HashMap<>();
         map.put("type","2");
@@ -132,7 +176,7 @@ public class WenZhangActivity extends AppCompatActivity {
                             wenzhangadapter.add(faxian.getResult().getDatas().getList());
                             smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                         }else {
-                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                            smartrefreshlayout. finishLoadMore();
                         }
                     }
                 });

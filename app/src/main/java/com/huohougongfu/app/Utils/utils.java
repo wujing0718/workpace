@@ -7,8 +7,12 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.huohougongfu.app.MyApp;
 

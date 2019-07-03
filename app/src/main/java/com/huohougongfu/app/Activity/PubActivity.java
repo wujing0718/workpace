@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.UIUtils;
+import com.huohougongfu.app.Utils.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,17 +164,25 @@ public class PubActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ll_pub_photo:
-                intent.setClass(PubActivity.this,FaBuActivity.class);
-                startActivity(intent);
-                dismiss();
+                if (!utils.isDoubleClick()){
+                    intent.setClass(PubActivity.this,FaBuActivity.class);
+                    startActivity(intent);
+                    dismiss();
+                }
                 break;
             case R.id.ll_pub_wenzhang:
-                ToastUtils.showShort("文章");
+                if (!utils.isDoubleClick()){
+                    intent.setClass(PubActivity.this,FaBuArticleActivity.class);
+                    startActivity(intent);
+                    dismiss();
+                }
                 break;
             case R.id.ll_pub_vedio:
-                intent.setClass(PubActivity.this,FaBuVedioActivity.class);
-                startActivity(intent);
-                dismiss();
+                if (!utils.isDoubleClick()){
+                    intent.setClass(PubActivity.this,FaBuVedioActivity.class);
+                    startActivity(intent);
+                    dismiss();
+                }
                 break;
             case R.id.rl_main:
                 dismiss();

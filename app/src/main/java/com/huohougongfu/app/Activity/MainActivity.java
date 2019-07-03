@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         immersionber = ImmersionBar.with(this);
-        immersionber.statusBarDarkFont(true).init();
+        immersionber.statusBarDarkFont(false).init();
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         bottomNavigationView.setItemIconTintList(null);
         viewPager = findViewById(R.id.viewpager);

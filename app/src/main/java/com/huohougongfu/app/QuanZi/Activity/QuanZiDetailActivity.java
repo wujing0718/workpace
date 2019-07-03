@@ -44,7 +44,6 @@ import java.util.Map;
 
 public class QuanZiDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private int dId;
     private Banner banner;
     private ImageView img_quanzi_touxiang;
     private TextView tv_quanzi_name,tv_quanzi_chenghu,tv_quanzi_weizhi,tv_quanzi_time,tv_quanzi_content;
@@ -53,6 +52,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private RecyclerView rec_wenzhang_pinglun;
     private EditText edt_quanzi_pinglun;
     private int mId;
+    private int dId;
     private View view_pinglun_fasong;
     private View view_detail_weizhi;
     private TextView pinglunnum,xihuannum;

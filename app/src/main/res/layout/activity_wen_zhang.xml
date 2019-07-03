@@ -46,9 +46,11 @@
 
             <EditText
                 android:layout_toRightOf="@+id/img_sousuo"
-                android:id="@+id/bt_shop_sousuo"
+                android:id="@+id/edt_shop_sousuo"
                 android:hint="Search"
                 android:textSize="12sp"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:background="@null"
                 android:paddingHorizontal="@dimen/dp_10"
                 android:layout_centerVertical="true"

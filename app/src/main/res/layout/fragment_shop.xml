@@ -12,7 +12,7 @@
 
         <View
             android:id="@+id/statusBarView"
-            android:background="#33000000"
+            android:background="@color/colorBlack"
             android:layout_width="match_parent"
             android:layout_height="10dp">
 
@@ -20,6 +20,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:background="@color/colorBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

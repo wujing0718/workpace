@@ -138,10 +138,11 @@
         <activity android:name=".WoDe.Activity.AddRegionActivity" />
         <activity android:name=".Activity.FaBuArticleActivity" />
         <activity android:name=".Activity.FaBuVedioActivity" />
-        <activity android:name=".QuanZi.Activity.VedioDetailActivity"
+        <activity
+            android:name=".QuanZi.Activity.VedioDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait">
-</activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".QuanZi.Activity.WenZhangDetailActivity"></activity>
     </application>
 
 </manifest>

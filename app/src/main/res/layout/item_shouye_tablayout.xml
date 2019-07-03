@@ -103,7 +103,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/img_yezi"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp" />
 
@@ -133,7 +133,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/img_shui"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp" />
 
@@ -163,7 +163,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/img_wendu"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp" />
 

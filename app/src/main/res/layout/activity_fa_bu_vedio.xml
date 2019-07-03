@@ -18,7 +18,7 @@
             android:layout_height="50dp">
 
             <RelativeLayout
-                android:id="@+id/back"
+                android:id="@+id/bt_finish"
                 android:layout_width="50dp"
                 android:layout_height="50dp">
 

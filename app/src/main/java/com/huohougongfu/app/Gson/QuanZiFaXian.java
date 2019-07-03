@@ -287,7 +287,7 @@ public class QuanZiFaXian {
 
                 private int id;
                 private int type;
-                private Object title;
+                private String title;
                 private String content;
                 private String picture;
                 private String createTime;
@@ -317,11 +317,11 @@ public class QuanZiFaXian {
                     this.type = type;
                 }
 
-                public Object getTitle() {
+                public String getTitle() {
                     return title;
                 }
 
-                public void setTitle(Object title) {
+                public void setTitle(String title) {
                     this.title = title;
                 }
 
