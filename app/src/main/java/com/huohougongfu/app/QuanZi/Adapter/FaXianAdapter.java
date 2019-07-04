@@ -44,7 +44,7 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
         //屏幕的宽度(px值）
         int screenWidth = MyApp.context.getResources().getDisplayMetrics().widthPixels;
         //Item的宽度，或图片的宽度
-        int width = screenWidth/2;
+        int width = screenWidth/2+10;
 
     }
 

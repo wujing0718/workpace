@@ -23,6 +23,9 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.enums.PopupPosition;
+import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -58,6 +61,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private TextView pinglunnum,xihuannum;
     private QuanZiDetail detail;
     private ImageView img_shoucang;
+    private View bt_gengduo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,8 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
-        findViewById(R.id.bt_gengduo).setOnClickListener(this);
+        bt_gengduo = findViewById(R.id.bt_gengduo);
+        bt_gengduo.setOnClickListener(this);
         findViewById(R.id.bt_guanzhu).setOnClickListener(this);
         findViewById(R.id.bt_dianzan).setOnClickListener(this);
         pinglunnum = findViewById(R.id.tv_detail_pinglunnum);
@@ -207,6 +212,23 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case R.id.bt_gengduo:
+                new XPopup.Builder(QuanZiDetailActivity.this)
+                        .hasShadowBg(false)
+//                        .popupAnimation(PopupAnimation.NoAnimation) //NoAnimation表示禁用动画
+//                        .isCenterHorizontal(true) //是否与目标水平居中对齐
+                        .offsetY(-10)
+                        .offsetX(00)
+                        .popupPosition(PopupPosition.Left) //手动指定弹窗的位置
+                        .atView(bt_gengduo)  // 依附于所点击的View，内部会自动判断在上方或者下方显示
+                        .asAttachList(new String[]{"分享", "举报"},
+                                new int[]{},
+                                new OnSelectListener() {
+                                    @Override
+                                    public void onSelect(int position, String text) {
+                                        ToastUtils.showShort(text);
+                                    }
+                                })
+                        .show();
                 break;
             case R.id.bt_fasong_pinglun:
                 String pinglun_content = edt_quanzi_pinglun.getText().toString();

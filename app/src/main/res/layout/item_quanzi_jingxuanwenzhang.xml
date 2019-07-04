@@ -13,6 +13,7 @@
         android:layout_height="160dp">
 
             <ImageView
+                android:id="@+id/img_jingxuan_wenzhang_photo"
                 android:src="@mipmap/ic_launcher"
                 android:scaleType="fitXY"
                 android:layout_width="330dp"
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_jingxuan_wenzhang_title"
                 android:text="中国名茶的种类"
                 android:textColor="@color/colorWhite"
                 android:textSize="14sp"
