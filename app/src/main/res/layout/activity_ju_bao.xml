@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".QuanZi.Activity.JuBaoActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <RelativeLayout
+                android:id="@+id/bt_finish"
+                android:layout_width="50dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_back_white"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:text="举报"
+                android:textSize="17sp"
+                android:textColor="@color/colorWhite"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp">
+
+            <TextView
+                android:text="投诉"
+                android:layout_marginLeft="12dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_tousu_usrname"
+                android:text="测试123"
+                android:textSize="14sp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_gravity="center_vertical"
+                android:textColor="#3592FF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@drawable/xiadan_kuang"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_tousu_photo"
+                android:layout_marginVertical="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_width="68dp"
+                android:layout_height="68dp" />
+
+            <TextView
+                android:id="@+id/tv_tousu_title"
+                android:layout_gravity="center_vertical"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:text=""
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:text="投诉类型"
+            android:layout_marginTop="@dimen/icon_size_20dp"
+            android:layout_marginLeft="@dimen/sp_12"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.huohougongfu.app.Utils.MultiLineRadioGroup
+            android:id="@+id/radio_jubao"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginHorizontal="38dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radiobutton1"
+                    android:layout_weight="1"
+                    android:text="垃圾营销"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton2"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="30dp"
+                    android:text="色情低俗"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton3"
+                    android:layout_weight="1"
+                    android:text="虚假欺骗"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginVertical="@dimen/dp_10"
+                android:layout_marginHorizontal="38dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radiobutton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:background="@drawable/selector_paocha"
+                    android:text="广告骚扰"
+                    android:textColor="@drawable/text_drawable_selector" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton5"
+                    android:layout_weight="1"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:layout_marginHorizontal="30dp"
+                    android:text="政治敏感"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton6"
+                    android:layout_weight="1"
+                    android:text="违法信息"
+                    android:button="@null"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginHorizontal="38dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radiobutton7"
+                    android:layout_weight="1"
+                    android:text="侵权投诉"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton8"
+                    android:layout_weight="1"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:layout_marginHorizontal="30dp"
+                    android:text="违禁内容"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton9"
+                    android:layout_weight="1"
+                    android:text="其他违规"
+                    android:maxEms="4"
+                    android:textColor="@drawable/text_drawable_selector"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:background="@drawable/selector_paocha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+
+        </com.huohougongfu.app.Utils.MultiLineRadioGroup>
+
+        <TextView
+            android:text="联系方式"
+            android:layout_marginTop="@dimen/icon_size_20dp"
+            android:layout_marginLeft="@dimen/sp_12"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/edt_phone"
+                    android:layout_marginHorizontal="38dp"
+                    android:background="@drawable/kaquan_kuang"
+                    android:hint="输入您的手机号"
+                    android:phoneNumber="true"
+                    android:textSize="14sp"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:gravity="center_vertical"
+                    android:layout_marginVertical="@dimen/dp_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+        <TextView
+            android:text="请留下您的联系方式，以便我们及时对您的举报信息做出反馈"
+            android:layout_marginHorizontal="38dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_tijiao"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/icon_size_40dp"
+            android:layout_marginHorizontal="38dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="50dp"
+            android:background="#CCBA91"
+            android:text="提交"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+
+</FrameLayout>

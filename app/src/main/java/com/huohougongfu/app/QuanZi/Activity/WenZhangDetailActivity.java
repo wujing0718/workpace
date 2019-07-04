@@ -1,5 +1,6 @@
 package com.huohougongfu.app.QuanZi.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.FaBuArticleActivity;
+import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
 import com.huohougongfu.app.MyApp;
@@ -53,6 +55,9 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private RecyclerView rec_wenzhang_pinglun;
     private PingLunGson pinglun;
     private EditText edt_quanzi_pinglun;
+    private Intent intent;
+    private TextView tv_guanzhu;
+    private List<Integer> guanzhuId = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +65,44 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_wen_zhang_detail);
         dId = getIntent().getIntExtra("dId", 0);
         mId = MyApp.instance.getInt("id");
+        intent = new Intent();
         initUI();
         initPingLun();
-        initData();
+    }
+
+    private void initISGuanZhu(int userId) {
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(userId));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention/list")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        GuanZhu guanZhu = gson.fromJson(body, GuanZhu.class);
+                        if (guanZhu.getStatus() == 1){
+                            if (guanZhu.getResult().size()>0){
+                                guanzhuId = guanZhu.getResult();
+                                tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                                tv_guanzhu.setText("已关注");
+                                tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+                            }else{
+                            }
+                        }
+                    }
+                });
     }
 
     private void initUI() {
         img_quanzi_touxiang = findViewById(R.id.img_quanzi_touxiang);
+        tv_guanzhu = findViewById(R.id.tv_guanzhu);
         view_wenzhang = findViewById(R.id.view_wenzhang);
         tv_quanzi_name = findViewById(R.id.tv_quanzi_name);
         tv_quanzi_chenghu = findViewById(R.id.tv_quanzi_chenghu);
         findViewById(R.id.bt_finish).setOnClickListener(this);
+        findViewById(R.id.bt_guanzhu).setOnClickListener(this);
         bt_gengduo = findViewById(R.id.bt_gengduo);
         bt_gengduo.setOnClickListener(this);
         edt_quanzi_pinglun = findViewById(R.id.edt_quanzi_pinglun);
@@ -92,6 +124,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                         detail = gson.fromJson(body, QuanZiDetail.class);
                         if (detail.getStatus() == 1){
                             initView(detail.getResult());
+                            initISGuanZhu(detail.getResult().getMember().getUserId());
 //                            if (detail.getResult().getIsPraise() == 1){
 //                                img_shoucang.setImageResource(R.mipmap.img_xihuan2);
 //                            }else{
@@ -122,6 +155,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                         Gson gson = new Gson();
                         PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
                         if (pinglun1.getStatus() == 1){
+                            initData();
                             pinglun = pinglun1;
                         }
                     }
@@ -184,7 +218,16 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
-                                        ToastUtils.showShort(text);
+                                        if ("分享".equals(text)){
+
+                                        }else if ("举报".equals(text)){
+                                            intent.putExtra("dataId",String.valueOf(dId));
+                                            intent.putExtra("username",detail.getResult().getMember().getNickName());
+                                            intent.putExtra("photo",detail.getResult().getPicture());
+                                            intent.putExtra("title",detail.getResult().getTitle());
+                                            intent.setClass(WenZhangDetailActivity.this,JuBaoActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
                                 })
                         .show();
@@ -199,8 +242,76 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                     }
                 }
                 break;
+            case R.id.bt_guanzhu:
+                if (!utils.isDoubleClick()){
+                    if (guanzhuId.size()>0){
+                        initNoGuanZhu(0);
+                    }else{
+                        initGuanZhu(1);
+                    }
+                }
+                break;
         }
     }
+
+    private void initGuanZhu(int type) {
+        int userId = detail.getResult().getMember().getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(type));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                guanzhuId.add(0);
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                                tv_guanzhu.setText("已关注");
+                                tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void initNoGuanZhu(int type) {
+        int userId = detail.getResult().getMember().getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(type));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                tv_guanzhu.setText("+关注");
+                                guanzhuId.clear();
+                                tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+                                tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 
     private void initFaSongPingLun(String pinglun_content) {
         Map<String,String> map = new HashMap<>();

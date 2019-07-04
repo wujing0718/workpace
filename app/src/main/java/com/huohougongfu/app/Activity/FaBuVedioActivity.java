@@ -89,7 +89,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initView() {
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.bt_finish);
         back.setOnClickListener(this);
         start = findViewById(R.id.start);
         start.setOnClickListener(this);

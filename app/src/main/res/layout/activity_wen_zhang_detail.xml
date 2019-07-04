@@ -178,10 +178,11 @@
                     <TextView
                         android:text="+关注"
                         android:textSize="12sp"
+                        android:id="@+id/tv_guanzhu"
+                        android:background="@drawable/guanzhu"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="2dp"
                         android:textColor="@color/colorBlack"
-                        android:background="@drawable/login_kuang"
                         android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
