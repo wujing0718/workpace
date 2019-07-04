@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.HomeFragment">
 
@@ -16,13 +17,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.youth.banner.Banner
-                android:id="@+id/banner"
-                app:image_scale_type="center_crop"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="195dp">
+                android:layout_height="200dp">
 
-            </com.youth.banner.Banner>
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    app:image_scale_type="center_crop"
+                    android:layout_width="match_parent"
+                    android:layout_height="195dp">
+
+                </com.youth.banner.Banner>
+
+                <ImageView
+                    android:layout_gravity="bottom"
+                    android:src="@mipmap/img_bolang"
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_marginTop="10dp"
