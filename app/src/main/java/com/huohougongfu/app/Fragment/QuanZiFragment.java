@@ -20,6 +20,7 @@ import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.JingXuanActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangActivity;
+import com.huohougongfu.app.QuanZi.Activity.ZhaoRenActivity;
 import com.huohougongfu.app.QuanZi.Fragment.FaXianFragment;
 import com.huohougongfu.app.QuanZi.Fragment.GuanZhuFragment;
 import com.huohougongfu.app.QuanZi.Fragment.TongChengFragment;
@@ -71,6 +72,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         intent = new Intent();
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_quanzi_zhaoren).setOnClickListener(this);
         edt_quanzi_sousuo = inflate.findViewById(R.id.edt_quanzi_sousuo);
         edt_quanzi_sousuo.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -128,6 +130,12 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
             case R.id.bt_jingxuan:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getContext(),JingXuanActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_quanzi_zhaoren:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getContext(),ZhaoRenActivity.class);
                     startActivity(intent);
                 }
                 break;

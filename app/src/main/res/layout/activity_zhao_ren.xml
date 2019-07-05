@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".QuanZi.Activity.ZhaoRenActivity">
+
+    <LinearLayout
+        android:background="@color/colorBlack"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="44dp"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:src="@mipmap/img_back_white"
+                android:layout_centerInParent="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/quanzi_sousuokuang"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_sousuo"
+                android:src="@mipmap/img_sousuo"
+                android:layout_width="14dp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:layout_height="14dp" />
+
+            <EditText
+                android:layout_toRightOf="@+id/img_sousuo"
+                android:id="@+id/edt_quanzi_sousuo"
+                android:hint="搜索"
+                android:textSize="12sp"
+                android:background="@null"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:paddingHorizontal="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="28dp">
+
+            </EditText>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="44dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_xiaoxi"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_zhaoren"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

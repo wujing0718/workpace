@@ -143,11 +143,10 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".QuanZi.Activity.WenZhangDetailActivity" />
-
-        <activity android:name=".QuanZi.Activity.JuBaoActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
-
-        </activity>
+        <activity
+            android:name=".QuanZi.Activity.JuBaoActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+        <activity android:name=".QuanZi.Activity.ZhaoRenActivity"></activity>
     </application>
 
 </manifest>
