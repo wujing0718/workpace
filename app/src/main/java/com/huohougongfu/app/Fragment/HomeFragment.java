@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                     + aMapLocation.getStreet() + ""
                                     + aMapLocation.getStreetNum());
 
-//                            LogUtils.e(buffer);
+                            LogUtils.e(buffer);
                             isFirstLoc = false;
                         }
                     }else {

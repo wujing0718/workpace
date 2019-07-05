@@ -59,7 +59,7 @@ public class MyApp extends Application {
         instances = this;
         UMConfigure.init(this,"5a12384aa40fa3551f0001d1"
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setWeixin("wxa36e44f4072c4818", "3baf1193c85774b3fd9d18447d76cab0");
         instance = SPUtils.getInstance("登录");
         super.onCreate();
     }

@@ -103,6 +103,7 @@ public class GuanZhuFragment extends Fragment implements IListener {
                         super.onStart(request);
                     }
                 });
+
     }
 
     private void initRec(GuanZhuDongTai faxian) {
