@@ -42,6 +42,7 @@ public class TongChengFragment extends Fragment implements IListener {
     private String channel;
     private SmartRefreshLayout smartrefreshlayout;
     private int mId;
+    private String token;
 
     public TongChengFragment() {
         // Required empty public constructor
@@ -55,6 +56,7 @@ public class TongChengFragment extends Fragment implements IListener {
         inflate = inflater.inflate(R.layout.fragment_tong_cheng, container, false);
         channel = getArguments().getString("ARGS");
         mId = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         initUI();
         initData("");
         return inflate;
@@ -70,6 +72,7 @@ public class TongChengFragment extends Fragment implements IListener {
         map.put("pageNo","1");
         map.put("mId",String.valueOf(mId));
         map.put("pageSize","4");
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {

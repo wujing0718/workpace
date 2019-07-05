@@ -21,6 +21,7 @@ import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.QuanZi.Adapter.FaXianAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -57,6 +58,7 @@ public class FaXianFragment extends Fragment implements IListener {
     private int page = 2;
     private FaXianAdapter faXianAdapter;
     private String mId;
+    private String token;
 
     public FaXianFragment() {
     }
@@ -68,6 +70,7 @@ public class FaXianFragment extends Fragment implements IListener {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_fa_xian, container, false);
         mId = String.valueOf(MyApp.instance.getInt("id"));
+        token = MyApp.instance.getString("token");
         initUI();
         initData("");
         return inflate;
@@ -83,9 +86,10 @@ public class FaXianFragment extends Fragment implements IListener {
         if (!condition.isEmpty()){
             map.put("condition",condition);
         }
-        map.put("pageNo","2");
+        map.put("pageNo","1");
         map.put("pageSize","10");
         map.put("mId",mId);
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {
@@ -121,18 +125,19 @@ public class FaXianFragment extends Fragment implements IListener {
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String picture = faxian.getResult().getDatas().getList().get(position).getPicture();
-                String substring = picture.substring(picture.length() - 3, picture.length());
                 if (faxian.getResult().getDatas().getList().get(position).getType() == 2){
                     Intent intent = new Intent();
                     intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
-                    startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
+                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    startActivity(intent.setClass(getActivity(),WenZhangDetailActivity.class));
                 }else if(faxian.getResult().getDatas().getList().get(position).getType() == 1){
                     Intent intent = new Intent();
+                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
                     intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
                     startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
                 }else if (faxian.getResult().getDatas().getList().get(position).getType() == 3){
                     Intent intent = new Intent();
+                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
                     intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
                     startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
                 }
@@ -175,6 +180,8 @@ public class FaXianFragment extends Fragment implements IListener {
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",mId);
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -208,6 +215,8 @@ public class FaXianFragment extends Fragment implements IListener {
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",mId);
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -238,6 +247,8 @@ public class FaXianFragment extends Fragment implements IListener {
         map.put("pageNo",String.valueOf(page++));
         map.put("pageSize","4");
         map.put("mId",mId);
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {

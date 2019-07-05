@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MallGson;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.WenZhangAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.MallAdapter;
@@ -45,6 +46,7 @@ public class WenZhangActivity extends AppCompatActivity {
     private int mId;
     private EditText edt_shop_sousuo;
     private InputMethodManager manager;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class WenZhangActivity extends AppCompatActivity {
         phone = SPUtils.getInstance("登录").getString("phone");
         mId = SPUtils.getInstance("登录").getInt("id");
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        token = MyApp.instance.getString("token");
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +107,7 @@ public class WenZhangActivity extends AppCompatActivity {
         map.put("mId",String.valueOf(mId));
         map.put("pageSize","4");
         map.put("condition",sousuo);
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {
@@ -137,6 +141,7 @@ public class WenZhangActivity extends AppCompatActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.putExtra("dId",wenzhang.getResult().getDatas().getList().get(position).getId());
+                intent.putExtra("userid",wenzhang.getResult().getDatas().getList().get(position).getMember().getUserId());
                 startActivity(intent.setClass(WenZhangActivity.this,WenZhangDetailActivity.class));
             }
         });
@@ -162,7 +167,8 @@ public class WenZhangActivity extends AppCompatActivity {
         map.put("type","2");
         map.put("pageNo",String.valueOf(page++));
         map.put("mId",String.valueOf(mId));
-        map.put("pageSize","4");
+        map.put("pageSize","10");
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {

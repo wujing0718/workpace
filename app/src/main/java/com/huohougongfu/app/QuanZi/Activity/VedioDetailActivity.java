@@ -23,6 +23,7 @@ public class VedioDetailActivity extends AppCompatActivity {
 
     private JzvdStd jzvdStd;
     private int dId,mid;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class VedioDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vedio_detail);
         dId = getIntent().getIntExtra("dId", 0);
         mid = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         jzvdStd = findViewById(R.id.jz);
         initData();
     }
@@ -38,6 +40,7 @@ public class VedioDetailActivity extends AppCompatActivity {
         Map<String ,String> map = new HashMap<>();
         map.put("dId",String.valueOf(dId));
         map.put("mId",String.valueOf(mid));
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data/info")
                 .params(map)
                 .execute(new StringCallback() {

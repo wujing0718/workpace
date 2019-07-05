@@ -43,7 +43,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class
+WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int mId;
     private int dId;
@@ -57,42 +58,20 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private EditText edt_quanzi_pinglun;
     private Intent intent;
     private TextView tv_guanzhu;
-    private List<Integer> guanzhuId = new ArrayList<>();
+    private int userid;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wen_zhang_detail);
         dId = getIntent().getIntExtra("dId", 0);
+        userid = getIntent().getIntExtra("userid", 0);
         mId = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         intent = new Intent();
         initUI();
         initPingLun();
-    }
-
-    private void initISGuanZhu(int userId) {
-        Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(mId));
-        map.put("attentionId",String.valueOf(userId));
-        OkGo.<String>post(Contacts.URl1+"/circle/attention/list")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        Gson gson = new Gson();
-                        GuanZhu guanZhu = gson.fromJson(body, GuanZhu.class);
-                        if (guanZhu.getStatus() == 1){
-                            if (guanZhu.getResult().size()>0){
-                                guanzhuId = guanZhu.getResult();
-                                tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
-                                tv_guanzhu.setText("已关注");
-                                tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
-                            }else{
-                            }
-                        }
-                    }
-                });
     }
 
     private void initUI() {
@@ -113,6 +92,9 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         Map<String ,String> map = new HashMap<>();
         map.put("dId",String.valueOf(dId));
         map.put("mId",String.valueOf(mId));
+        map.put("userId",String.valueOf(userid));
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/data/info")
                 .params(map)
                 .execute(new StringCallback() {
@@ -124,12 +106,6 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                         detail = gson.fromJson(body, QuanZiDetail.class);
                         if (detail.getStatus() == 1){
                             initView(detail.getResult());
-                            initISGuanZhu(detail.getResult().getMember().getUserId());
-//                            if (detail.getResult().getIsPraise() == 1){
-//                                img_shoucang.setImageResource(R.mipmap.img_xihuan2);
-//                            }else{
-//                                img_shoucang.setImageResource(R.mipmap.img_xihuan);
-//                            }
                         }
                     }
 
@@ -145,6 +121,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         Map<String,String> map = new HashMap<>();
         map.put("dataId",String.valueOf(dId));
         map.put("pageNo","1");
+        map.put("token",token);
         map.put("pageSize","10");
         OkGo.<String>post(Contacts.URl1+"/circle/comments/list")
                 .params(map)
@@ -167,10 +144,19 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         String content = result.getContent();
         String picture = result.getPicture();
         String[] split1 = picture.split(",");
-        String[] mcontent = content.split(",,");
+        String[] mcontent = content.split("わわ");
+        if (result.getMember().getIsAttention() ==1){
+            tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+            tv_guanzhu.setText("已关注");
+            tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+        }else{
+            tv_guanzhu.setText("+关注");
+            tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+            tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+        }
         int temp = 0;
             for (int i = 0;i<mcontent.length;i++){
-                if ("@&$".equals(mcontent[i])){
+                if ("ゐゑを".equals(mcontent[i])){
                     ImageView imageView = new ImageView(WenZhangDetailActivity.this);
                     Glide.with(WenZhangDetailActivity.this).load(split1[temp]).into(imageView);
                     temp+=1;
@@ -244,9 +230,9 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.bt_guanzhu:
                 if (!utils.isDoubleClick()){
-                    if (guanzhuId.size()>0){
+                    if (detail.getResult().getMember().getIsAttention() == 1){
                         initNoGuanZhu(0);
-                    }else{
+                    }else if (detail.getResult().getMember().getIsAttention() == 0){
                         initGuanZhu(1);
                     }
                 }
@@ -260,6 +246,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         map.put("mId",String.valueOf(mId));
         map.put("attentionId",String.valueOf(userId));
         map.put("type",String.valueOf(type));
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
@@ -268,7 +255,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
-                                guanzhuId.add(0);
+                                detail.getResult().getMember().setIsAttention(1);
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
                                 tv_guanzhu.setText("已关注");
@@ -289,6 +276,8 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         map.put("mId",String.valueOf(mId));
         map.put("attentionId",String.valueOf(userId));
         map.put("type",String.valueOf(type));
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
@@ -299,7 +288,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                             if (jsonObject.getInt("status") == 1){
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 tv_guanzhu.setText("+关注");
-                                guanzhuId.clear();
+                                detail.getResult().getMember().setIsAttention(0);
                                 tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
                                 tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
                             }else{
@@ -318,6 +307,8 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         map.put("dataId",String.valueOf(dId));
         map.put("mId",String.valueOf(mId));
         map.put("content",pinglun_content);
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/comment")
                 .params(map)
                 .execute(new StringCallback() {

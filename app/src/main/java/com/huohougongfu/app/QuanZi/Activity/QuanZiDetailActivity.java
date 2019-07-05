@@ -70,6 +70,8 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_guanzhu;
     private Intent intent;
     private List<Integer> guanzhuId = new ArrayList<>();
+    private int userid;
+    private String token;
 
 
     @Override
@@ -77,35 +79,13 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_zi_detail);
         dId = getIntent().getIntExtra("dId", 0);
+        userid = getIntent().getIntExtra("userid", 0);
         mId = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
+
         intent = new Intent();
         initUI();
         initData();
-    }
-
-    private void initISGuanZhu(int userId) {
-        Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(mId));
-        map.put("attentionId",String.valueOf(userId));
-        OkGo.<String>post(Contacts.URl1+"/circle/attention/list")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        Gson gson = new Gson();
-                        GuanZhu guanZhu = gson.fromJson(body, GuanZhu.class);
-                        if (guanZhu.getStatus() == 1){
-                            if (guanZhu.getResult().size()>0){
-                                guanzhuId = guanZhu.getResult();
-                                tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
-                                tv_guanzhu.setText("已关注");
-                                tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
-                            }else{
-                            }
-                        }
-                    }
-                });
     }
 
     private void initUI() {
@@ -170,6 +150,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         Map<String ,String> map = new HashMap<>();
         map.put("dId",String.valueOf(dId));
         map.put("mId",String.valueOf(mId));
+        map.put("userId",String.valueOf(userid));
         OkGo.<String>post(Contacts.URl1+"/circle/data/info")
                 .params(map)
                 .execute(new StringCallback() {
@@ -181,7 +162,6 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                         detail = gson.fromJson(body, QuanZiDetail.class);
                         if (detail.getStatus() == 1){
                             initView(detail.getResult());
-                            initISGuanZhu(detail.getResult().getMember().getUserId());
                             if (detail.getResult().getIsPraise() == 1){
                                 img_shoucang.setImageResource(R.mipmap.img_xihuan2);
                             }else{
@@ -216,6 +196,15 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         }
+        if (result.getMember().getIsAttention() ==1){
+            tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+            tv_guanzhu.setText("已关注");
+            tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+        }else{
+            tv_guanzhu.setText("+关注");
+            tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+            tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+        }
         //加载网络图片
         banner.setImages(mbanner)
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
@@ -225,6 +214,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         tv_quanzi_content.setText(result.getContent());
         tv_quanzi_time.setText(time);
         tv_quanzi_name.setText(result.getMember().getNickName());
+        tv_quanzi_chenghu.setText(result.getMember().getMaster().getLevel());
         Glide.with(QuanZiDetailActivity.this).load(result.getMember().getPhoto()).into(img_quanzi_touxiang);
 
     }
@@ -237,9 +227,9 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.bt_guanzhu:
                 if (!utils.isDoubleClick()){
-                    if (guanzhuId.size()>0){
+                    if (detail.getResult().getMember().getIsAttention() == 1){
                         initNoGuanZhu(0);
-                    }else{
+                    }else if (detail.getResult().getMember().getIsAttention() == 0){
                         initGuanZhu(1);
                     }
                 }
@@ -304,6 +294,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         map.put("mId",String.valueOf(mId));
         map.put("attentionId",String.valueOf(userId));
         map.put("type",String.valueOf(type));
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
@@ -312,7 +303,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
-                                guanzhuId.add(0);
+                                detail.getResult().getMember().setIsAttention(1);
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
                                 tv_guanzhu.setText("已关注");
@@ -333,6 +324,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         map.put("mId",String.valueOf(mId));
         map.put("attentionId",String.valueOf(userId));
         map.put("type",String.valueOf(type));
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
@@ -342,8 +334,8 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
                                 ToastUtils.showShort(jsonObject.getString("msg"));
+                                detail.getResult().getMember().setIsAttention(0);
                                 tv_guanzhu.setText("+关注");
-                                guanzhuId.clear();
                                 tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
                                 tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
                             }else{
@@ -360,6 +352,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private void initQuXiaoDianZan(String type) {
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
+        map.put("token",token);
         map.put("dataId",String.valueOf(detail.getResult().getId()));
         map.put("mId",String.valueOf(mId));
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
@@ -394,6 +387,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         map.put("type",type);
         map.put("dataId",String.valueOf(detail.getResult().getId()));
         map.put("mId",String.valueOf(mId));
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -424,6 +418,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         map.put("dataId",String.valueOf(dId));
         map.put("mId",String.valueOf(mId));
         map.put("content",pinglun_content);
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/comment")
                 .params(map)
                 .execute(new StringCallback() {

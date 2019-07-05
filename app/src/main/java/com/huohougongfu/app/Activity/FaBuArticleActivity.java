@@ -58,12 +58,14 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
     private EditText edt_wenzhang_title;
     private String title;
     private String content = "";
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fa_bu_article);
         mId = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         citycode = MyApp.instance.getString("citycode");
         initUI();
     }
@@ -109,11 +111,11 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
             case R.id.bt_fabu:
                 title = edt_wenzhang_title.getText().toString();
                 for (int i =0;i<meditview.size();i++){
-                    if (meditview.get(i).equals(",,@&$,,")){
-                        content += "@&$,,";
+                    if (meditview.get(i).equals("わわゐゑをわわ")){
+                        content += "ゐゑをわわ";
                     }else{
                         EditText editText = (EditText) meditview.get(i);
-                        content += editText.getText().toString()+",,";
+                        content += editText.getText().toString()+"わわ";
                     }
                 }
                 if (!TextUtils.isEmpty(title)){
@@ -136,7 +138,9 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
             map.put("title",title);
             map.put("mId",String.valueOf(mId));
             map.put("cityCode",citycode);
-            OkGo.<String>post(Contacts.URl1+"/circle/pub")
+            map.put("token",token);
+
+        OkGo.<String>post(Contacts.URl1+"/circle/pub")
                     .tag(this)
                     .isMultipart(true)
                     .params(map)
@@ -199,7 +203,7 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
             //被压缩后的图片路径
             if (localMedia.isCompressed()) {
                 compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                meditview.add(",,@&$,,");
+                meditview.add("わわゐゑをわわ");
                 mphotopath.add(new File(compressPath));
                 ImageView imageView = new ImageView(FaBuArticleActivity.this);
                 Glide.with(FaBuArticleActivity.this).load(compressPath).into(imageView);

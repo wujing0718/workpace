@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.MultiLineRadioGroup;
@@ -35,6 +36,7 @@ public class JuBaoActivity extends AppCompatActivity implements MultiLineRadioGr
     private  int type = 0;
     private EditText edt_phone;
     private String phone;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class JuBaoActivity extends AppCompatActivity implements MultiLineRadioGr
         username = getIntent().getStringExtra("username");
         title = getIntent().getStringExtra("title");
         photo = getIntent().getStringExtra("photo");
-
+        token = MyApp.instance.getString("token");
         initUI();
     }
 
@@ -97,6 +99,7 @@ public class JuBaoActivity extends AppCompatActivity implements MultiLineRadioGr
         map.put("dataId",String.valueOf(dataId));
         map.put("type",String.valueOf(type));
         map.put("tel",phone);
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/report")
                 .params(map)
                 .execute(new StringCallback() {

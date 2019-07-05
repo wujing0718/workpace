@@ -1,11 +1,6 @@
 package com.huohougongfu.app.Gson;
 
 public class QuanZiDetail  {
-    /**
-     * msg : 操作成功
-     * result : {"id":63,"type":2,"title":"5图库轮我绿裤子","content":"@&$,,@&$,,第2点，就是驾照换证时间，汽车是需要年审的，而之前驾照也是需要年审的，但是现在驾照只需要按时换证就可以了，家找上面都是有有效日期的，大家如果发现驾照快到有效期了，就要及时去车管所办理换证，车主要在驾照有效期内才能上路行驶，另外，有效期前90天就可以办理换证了，如果过了有效期没有换证，但是超期在一年内也是可以办理换证的，但是如果是超期3年，那驾照就等于作废了。,,@&$,,第2点，就是驾照换证时间，汽车是需要年审的，而之前驾照也是需要年审的，但是现在驾照只需要按时换证就可以了，家找上面都是有有效日期的，大家如果发现驾照快到有效期了，就要及时去车管所办理换证，车主要在驾照有效期内才能上路行驶，另外，有效期前90天就可以办理换证了，如果过了有效期没有换证，但是超期在一年内也是可以办理换证的，但是如果是超期3年，那驾照就等于作废了。,,,,@&$,,","picture":"http://oss.irving.net.cn/tea/1562139463207.jpeg,http://oss.irving.net.cn/tea/1562139457514.jpg,http://oss.irving.net.cn/tea/1562139456739.jpg,http://oss.irving.net.cn/tea/1562139463309.jpeg","pictureWidth":1560,"pictureHeight":2080,"createTime":"1562139456000","updateTime":"2019-07-03 16:30:21","longitude":null,"latitude":null,"address":null,"cityCode":"","member":{"userId":63,"nickName":"测试账号131","personalProfile":null,"phone":null,"photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"isPraise":1,"praiseNum":0,"commentNum":0,"isSift":true,"browseCount":5,"mid":43}
-     * status : 1
-     */
 
     private String msg;
     private ResultBean result;
@@ -36,28 +31,6 @@ public class QuanZiDetail  {
     }
 
     public static class ResultBean {
-        /**
-         * id : 63
-         * type : 2
-         * title : 5图库轮我绿裤子
-         * content : @&$,,@&$,,第2点，就是驾照换证时间，汽车是需要年审的，而之前驾照也是需要年审的，但是现在驾照只需要按时换证就可以了，家找上面都是有有效日期的，大家如果发现驾照快到有效期了，就要及时去车管所办理换证，车主要在驾照有效期内才能上路行驶，另外，有效期前90天就可以办理换证了，如果过了有效期没有换证，但是超期在一年内也是可以办理换证的，但是如果是超期3年，那驾照就等于作废了。,,@&$,,第2点，就是驾照换证时间，汽车是需要年审的，而之前驾照也是需要年审的，但是现在驾照只需要按时换证就可以了，家找上面都是有有效日期的，大家如果发现驾照快到有效期了，就要及时去车管所办理换证，车主要在驾照有效期内才能上路行驶，另外，有效期前90天就可以办理换证了，如果过了有效期没有换证，但是超期在一年内也是可以办理换证的，但是如果是超期3年，那驾照就等于作废了。,,,,@&$,,
-         * picture : http://oss.irving.net.cn/tea/1562139463207.jpeg,http://oss.irving.net.cn/tea/1562139457514.jpg,http://oss.irving.net.cn/tea/1562139456739.jpg,http://oss.irving.net.cn/tea/1562139463309.jpeg
-         * pictureWidth : 1560
-         * pictureHeight : 2080
-         * createTime : 1562139456000
-         * updateTime : 2019-07-03 16:30:21
-         * longitude : null
-         * latitude : null
-         * address : null
-         * cityCode :
-         * member : {"userId":63,"nickName":"测试账号131","personalProfile":null,"phone":null,"photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null}
-         * isPraise : 1
-         * praiseNum : 0
-         * commentNum : 0
-         * isSift : true
-         * browseCount : 5
-         * mid : 43
-         */
 
         private int id;
         private int type;
@@ -248,16 +221,12 @@ public class QuanZiDetail  {
              * phone : null
              * photo : http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png
              * realName : null
-             * idcard : null
              * teaRiceMe : null
              * teaRicePresent : null
              * commission : null
              * income : null
              * qq : null
-             * qqToken : null
              * wechat : null
-             * wechatToken : null
-             * rongToken : null
              * place : null
              * integral : null
              * isMaster : null
@@ -269,8 +238,11 @@ public class QuanZiDetail  {
              * qrcode : null
              * createTime : null
              * updateTime : null
+             * isSift : null
              * buyMoney : null
              * records : null
+             * master : {"id":null,"mId":null,"name":null,"portrait":null,"level":"茶艺爱好者","introduceContent":null,"createTime":null,"updateTime":null}
+             * isAttention : 0
              */
 
             private int userId;
@@ -279,16 +251,12 @@ public class QuanZiDetail  {
             private Object phone;
             private String photo;
             private Object realName;
-            private Object idcard;
             private Object teaRiceMe;
             private Object teaRicePresent;
             private Object commission;
             private Object income;
             private Object qq;
-            private Object qqToken;
             private Object wechat;
-            private Object wechatToken;
-            private Object rongToken;
             private Object place;
             private Object integral;
             private Object isMaster;
@@ -300,8 +268,11 @@ public class QuanZiDetail  {
             private Object qrcode;
             private Object createTime;
             private Object updateTime;
+            private Object isSift;
             private Object buyMoney;
             private Object records;
+            private MasterBean master;
+            private int isAttention;
 
             public int getUserId() {
                 return userId;
@@ -351,14 +322,6 @@ public class QuanZiDetail  {
                 this.realName = realName;
             }
 
-            public Object getIdcard() {
-                return idcard;
-            }
-
-            public void setIdcard(Object idcard) {
-                this.idcard = idcard;
-            }
-
             public Object getTeaRiceMe() {
                 return teaRiceMe;
             }
@@ -399,36 +362,12 @@ public class QuanZiDetail  {
                 this.qq = qq;
             }
 
-            public Object getQqToken() {
-                return qqToken;
-            }
-
-            public void setQqToken(Object qqToken) {
-                this.qqToken = qqToken;
-            }
-
             public Object getWechat() {
                 return wechat;
             }
 
             public void setWechat(Object wechat) {
                 this.wechat = wechat;
-            }
-
-            public Object getWechatToken() {
-                return wechatToken;
-            }
-
-            public void setWechatToken(Object wechatToken) {
-                this.wechatToken = wechatToken;
-            }
-
-            public Object getRongToken() {
-                return rongToken;
-            }
-
-            public void setRongToken(Object rongToken) {
-                this.rongToken = rongToken;
             }
 
             public Object getPlace() {
@@ -519,6 +458,14 @@ public class QuanZiDetail  {
                 this.updateTime = updateTime;
             }
 
+            public Object getIsSift() {
+                return isSift;
+            }
+
+            public void setIsSift(Object isSift) {
+                this.isSift = isSift;
+            }
+
             public Object getBuyMoney() {
                 return buyMoney;
             }
@@ -533,6 +480,108 @@ public class QuanZiDetail  {
 
             public void setRecords(Object records) {
                 this.records = records;
+            }
+
+            public MasterBean getMaster() {
+                return master;
+            }
+
+            public void setMaster(MasterBean master) {
+                this.master = master;
+            }
+
+            public int getIsAttention() {
+                return isAttention;
+            }
+
+            public void setIsAttention(int isAttention) {
+                this.isAttention = isAttention;
+            }
+
+            public static class MasterBean {
+                /**
+                 * id : null
+                 * mId : null
+                 * name : null
+                 * portrait : null
+                 * level : 茶艺爱好者
+                 * introduceContent : null
+                 * createTime : null
+                 * updateTime : null
+                 */
+
+                private Object id;
+                private Object mId;
+                private Object name;
+                private Object portrait;
+                private String level;
+                private Object introduceContent;
+                private Object createTime;
+                private Object updateTime;
+
+                public Object getId() {
+                    return id;
+                }
+
+                public void setId(Object id) {
+                    this.id = id;
+                }
+
+                public Object getMId() {
+                    return mId;
+                }
+
+                public void setMId(Object mId) {
+                    this.mId = mId;
+                }
+
+                public Object getName() {
+                    return name;
+                }
+
+                public void setName(Object name) {
+                    this.name = name;
+                }
+
+                public Object getPortrait() {
+                    return portrait;
+                }
+
+                public void setPortrait(Object portrait) {
+                    this.portrait = portrait;
+                }
+
+                public String getLevel() {
+                    return level;
+                }
+
+                public void setLevel(String level) {
+                    this.level = level;
+                }
+
+                public Object getIntroduceContent() {
+                    return introduceContent;
+                }
+
+                public void setIntroduceContent(Object introduceContent) {
+                    this.introduceContent = introduceContent;
+                }
+
+                public Object getCreateTime() {
+                    return createTime;
+                }
+
+                public void setCreateTime(Object createTime) {
+                    this.createTime = createTime;
+                }
+
+                public Object getUpdateTime() {
+                    return updateTime;
+                }
+
+                public void setUpdateTime(Object updateTime) {
+                    this.updateTime = updateTime;
+                }
             }
         }
     }

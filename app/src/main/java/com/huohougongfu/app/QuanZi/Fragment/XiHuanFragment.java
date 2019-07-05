@@ -54,6 +54,7 @@ public class XiHuanFragment extends Fragment implements IListener {
     private int page = 2;
     private XiHuanAdapter faXianAdapter;
     private String mId;
+    private String token;
 
     public XiHuanFragment() {
         // Required empty public constructor
@@ -66,6 +67,7 @@ public class XiHuanFragment extends Fragment implements IListener {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_xi_huan, container, false);
         mId = String.valueOf(MyApp.instance.getInt("id"));
+        token = MyApp.instance.getString("token");
         initUI();
         initData("");
         return inflate;
@@ -81,6 +83,8 @@ public class XiHuanFragment extends Fragment implements IListener {
         map.put("pageNo","1");
         map.put("pageSize","10");
         map.put("mId",mId);
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/praise/list")
                 .params(map)
                 .execute(new StringCallback() {
@@ -157,6 +161,7 @@ public class XiHuanFragment extends Fragment implements IListener {
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",mId);
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -189,6 +194,8 @@ public class XiHuanFragment extends Fragment implements IListener {
         map.put("type",type);
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",mId);
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -220,6 +227,8 @@ public class XiHuanFragment extends Fragment implements IListener {
         map.put("pageNo",String.valueOf(page++));
         map.put("pageSize","4");
         map.put("mId",mId);
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/praise/list")
                 .params(map)
                 .execute(new StringCallback() {

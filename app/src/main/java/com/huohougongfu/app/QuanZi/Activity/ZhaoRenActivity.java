@@ -5,17 +5,27 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.WenZhangAdapter;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +34,38 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
 
     private RecyclerView rec_zhaoren;
     private ZhaoRenAdapter zhaorendadapter;
+    private int mId;
+    private List<Integer> result = new ArrayList<>();
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhao_ren);
+        mId = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         initUI();
+        initISGuanZhu();
         initData();
     }
-
+    private void initISGuanZhu() {
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention/list")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        GuanZhu guanZhu = gson.fromJson(body, GuanZhu.class);
+                        if (guanZhu.getStatus() == 1){
+                            result = guanZhu.getResult();
+                        }
+                    }
+                });
+    }
+    
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
         rec_zhaoren = findViewById(R.id.rec_zhaoren);
@@ -43,6 +76,7 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
         map.put("condition","");
         map.put("pageNo","1");
         map.put("pageSize","10");
+        map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/find/people")
                 .params(map)
                 .execute(new StringCallback() {
@@ -64,9 +98,142 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
         rec_zhaoren.setLayoutManager(layoutmanager);
-        zhaorendadapter = new ZhaoRenAdapter(R.layout.item_quanzi_zhaoren,list);
+        zhaorendadapter = new ZhaoRenAdapter(R.layout.item_quanzi_zhaoren,list,result);
         rec_zhaoren.setAdapter(zhaorendadapter);
+        zhaorendadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView bt_zhaoren_gaunzhu = view.findViewById(R.id.bt_zhaoren_gaunzhu);
+                if (!utils.isDoubleClick()){
+                    if (list.get(position).getIsAttention() == 1){
+                        initNoGuanZhu(0,list.get(position),bt_zhaoren_gaunzhu);
+                    }else if (list.get(position).getIsAttention() == 0){
+                        initGuanZhu(1,list.get(position),bt_zhaoren_gaunzhu);
+                    }
+                }
+            }
+        });
     }
+
+    private void initGuanZhu(int type, ZhaoRenGson.ResultBean.ListBean listBean, TextView bt_zhaoren_gaunzhu) {
+        int userId = listBean.getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(type));
+        map.put("token",token);
+
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                listBean.setIsAttention(1);
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                                bt_zhaoren_gaunzhu.setText("已关注");
+                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void initNoGuanZhu(int type, ZhaoRenGson.ResultBean.ListBean listBean, TextView bt_zhaoren_gaunzhu) {
+        int userId = listBean.getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(type));
+        map.put("token",token);
+
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                listBean.setIsAttention(0);
+                                bt_zhaoren_gaunzhu.setText("+关注");
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.guanzhu);
+                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+//    private void initGuanZhu(int type) {
+//        int userId = detail.getResult().getMember().getUserId();
+//        Map<String,String> map =new HashMap<>();
+//        map.put("mId",String.valueOf(mId));
+//        map.put("attentionId",String.valueOf(userId));
+//        map.put("type",String.valueOf(type));
+//        OkGo.<String>post(Contacts.URl1+"/circle/attention")
+//                .params(map)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response.body());
+//                            if (jsonObject.getInt("status") == 1){
+//                                guanzhuId.add(0);
+//                                ToastUtils.showShort(jsonObject.getString("msg"));
+//                                tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+//                                tv_guanzhu.setText("已关注");
+//                                tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+//                            }else{
+//                                ToastUtils.showShort(jsonObject.getString("msg"));
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//    }
+//
+//    private void initNoGuanZhu(int type) {
+//        int userId = detail.getResult().getMember().getUserId();
+//        Map<String,String> map =new HashMap<>();
+//        map.put("mId",String.valueOf(mId));
+//        map.put("attentionId",String.valueOf(userId));
+//        map.put("type",String.valueOf(type));
+//        OkGo.<String>post(Contacts.URl1+"/circle/attention")
+//                .params(map)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response.body());
+//                            if (jsonObject.getInt("status") == 1){
+//                                ToastUtils.showShort(jsonObject.getString("msg"));
+//                                tv_guanzhu.setText("+关注");
+//                                guanzhuId.clear();
+//                                tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+//                                tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+//                            }else{
+//                                ToastUtils.showShort(jsonObject.getString("msg"));
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//    }
 
     @Override
     public void onClick(View v) {

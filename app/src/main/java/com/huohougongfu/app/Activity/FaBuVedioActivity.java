@@ -83,6 +83,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_fa_bu_vedio);
         findViewById(R.id.start).setOnClickListener(this);
         mId = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         initView();
         init();
         BackgroundBlurPopupWindows();
@@ -249,6 +250,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
             map.put("content",title);
             map.put("type","3");
             map.put("mId",String.valueOf(mId));
+            map.put("token",token);
             OkGo.<String>post(Contacts.URl1+"/circle/pub")
                     .tag(this)//
                     .isMultipart(true)

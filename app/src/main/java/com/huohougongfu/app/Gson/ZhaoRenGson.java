@@ -201,20 +201,16 @@ public class ZhaoRenGson {
 
             private int userId;
             private String nickName;
-            private Object personalProfile;
+            private String personalProfile;
             private String phone;
             private String photo;
             private String realName;
-            private Object idcard;
             private double teaRiceMe;
             private Object teaRicePresent;
             private double commission;
             private double income;
-            private String qq;
-            private String qqToken;
-            private String wechat;
-            private String wechatToken;
-            private String rongToken;
+            private Object qq;
+            private Object wechat;
             private String place;
             private Object integral;
             private boolean isMaster;
@@ -230,7 +226,7 @@ public class ZhaoRenGson {
             private double buyMoney;
             private Object records;
             private MasterBean master;
-            private String jobTitle;
+            private int isAttention;
 
             public int getUserId() {
                 return userId;
@@ -248,11 +244,11 @@ public class ZhaoRenGson {
                 this.nickName = nickName;
             }
 
-            public Object getPersonalProfile() {
+            public String getPersonalProfile() {
                 return personalProfile;
             }
 
-            public void setPersonalProfile(Object personalProfile) {
+            public void setPersonalProfile(String personalProfile) {
                 this.personalProfile = personalProfile;
             }
 
@@ -278,14 +274,6 @@ public class ZhaoRenGson {
 
             public void setRealName(String realName) {
                 this.realName = realName;
-            }
-
-            public Object getIdcard() {
-                return idcard;
-            }
-
-            public void setIdcard(Object idcard) {
-                this.idcard = idcard;
             }
 
             public double getTeaRiceMe() {
@@ -320,44 +308,20 @@ public class ZhaoRenGson {
                 this.income = income;
             }
 
-            public String getQq() {
+            public Object getQq() {
                 return qq;
             }
 
-            public void setQq(String qq) {
+            public void setQq(Object qq) {
                 this.qq = qq;
             }
 
-            public String getQqToken() {
-                return qqToken;
-            }
-
-            public void setQqToken(String qqToken) {
-                this.qqToken = qqToken;
-            }
-
-            public String getWechat() {
+            public Object getWechat() {
                 return wechat;
             }
 
-            public void setWechat(String wechat) {
+            public void setWechat(Object wechat) {
                 this.wechat = wechat;
-            }
-
-            public String getWechatToken() {
-                return wechatToken;
-            }
-
-            public void setWechatToken(String wechatToken) {
-                this.wechatToken = wechatToken;
-            }
-
-            public String getRongToken() {
-                return rongToken;
-            }
-
-            public void setRongToken(String rongToken) {
-                this.rongToken = rongToken;
             }
 
             public String getPlace() {
@@ -480,21 +444,31 @@ public class ZhaoRenGson {
                 this.master = master;
             }
 
-            public String getJobTitle() {
-                return jobTitle;
+            public int getIsAttention() {
+                return isAttention;
             }
 
-            public void setJobTitle(String jobTitle) {
-                this.jobTitle = jobTitle;
+            public void setIsAttention(int isAttention) {
+                this.isAttention = isAttention;
             }
 
             public static class MasterBean {
+                /**
+                 * id : null
+                 * mId : null
+                 * name : null
+                 * portrait : null
+                 * level : 茶艺爱好者
+                 * introduceContent : null
+                 * createTime : 2019-05-30T06:26:02.000+0000
+                 * updateTime : 2019-07-04T03:36:17.000+0000
+                 */
 
                 private Object id;
+                private Object mId;
                 private Object name;
                 private Object portrait;
-                private Object type;
-                private Object grade;
+                private String level;
                 private Object introduceContent;
                 private String createTime;
                 private String updateTime;
@@ -505,6 +479,14 @@ public class ZhaoRenGson {
 
                 public void setId(Object id) {
                     this.id = id;
+                }
+
+                public Object getMId() {
+                    return mId;
+                }
+
+                public void setMId(Object mId) {
+                    this.mId = mId;
                 }
 
                 public Object getName() {
@@ -523,20 +505,12 @@ public class ZhaoRenGson {
                     this.portrait = portrait;
                 }
 
-                public Object getType() {
-                    return type;
+                public String getLevel() {
+                    return level;
                 }
 
-                public void setType(Object type) {
-                    this.type = type;
-                }
-
-                public Object getGrade() {
-                    return grade;
-                }
-
-                public void setGrade(Object grade) {
-                    this.grade = grade;
+                public void setLevel(String level) {
+                    this.level = level;
                 }
 
                 public Object getIntroduceContent() {

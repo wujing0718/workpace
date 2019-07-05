@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/tv_zhaoren_name"
-                android:text="陈大霞"
+                android:text=""
                 android:textColor="@color/colorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -39,7 +39,7 @@
 
                 <TextView
                     android:id="@+id/tv_zhaoren_chenghu"
-                    android:text="茶艺爱好者"
+                    android:text=""
                     android:textSize="12sp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -50,11 +50,11 @@
                     android:layout_gravity="center_vertical"
                     android:background="#818181"
                     android:layout_width="1dp"
-                    android:layout_height="@dimen/icon_size_20dp"/>
+                    android:layout_height="14dp"/>
 
                 <TextView
                     android:id="@+id/tv_zhaoren_weizhi"
-                    android:text="深圳"
+                    android:text=""
                     android:textSize="12sp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"

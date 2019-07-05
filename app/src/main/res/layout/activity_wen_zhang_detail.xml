@@ -125,7 +125,6 @@
 
 
                     <TextView
-
                         android:id="@+id/tv_quanzi_chenghu"
                         android:text=""
                         android:textSize="11sp"

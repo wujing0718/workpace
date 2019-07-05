@@ -44,14 +44,13 @@ public class JingXuanActivity extends AppCompatActivity {
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-//        if (!condition.isEmpty()){
-//            map.put("condition",condition);
-//        }
         map.put("pageNo","1");
         map.put("pageSize","10");
         map.put("isSift","1");
         map.put("mId",mId);
         map.put("type","2");
+        map.put("token",token);
+
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {
