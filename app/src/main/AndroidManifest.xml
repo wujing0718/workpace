@@ -54,6 +54,11 @@
             android:value="53a5a806e4b0ede28c93f942046ec1b2">
             //开发者申请的key
         </meta-data>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5d1efbd54ca357a016000105" />
+
         //微信
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -72,6 +77,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"

@@ -9,10 +9,12 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.JingXuanRen;
 import com.huohougongfu.app.Gson.MyCaQuan;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.JingXuanAdapter;
+import com.huohougongfu.app.QuanZi.Adapter.JingXuanRenAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.MyKaQuanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
@@ -50,7 +52,6 @@ public class JingXuanActivity extends AppCompatActivity {
         map.put("mId",mId);
         map.put("type","2");
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {
@@ -69,6 +70,36 @@ public class JingXuanActivity extends AppCompatActivity {
                         super.onStart(request);
                     }
                 });
+        map.remove("isSift");
+        map.remove("type");
+        OkGo.<String>post(Contacts.URl1+"/circle/findPeople")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        JingXuanRen jingxuanren = gson.fromJson(response.body(), JingXuanRen.class);
+                        if (jingxuanren.getStatus() == 1) {
+                            initRecRen(jingxuanren.getResult().getList());
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(JingXuanActivity.this, "载入中...");
+                        super.onStart(request);
+                    }
+                });
+    }
+
+    private void initRecRen(List<JingXuanRen.ResultBean.ListBean> list) {
+        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        //设置RecyclerView 布局
+        rec_tuijianyonghu.setLayoutManager(layoutmanager);
+        JingXuanRenAdapter jingXuanRenAdapter = new JingXuanRenAdapter(R.layout.item_quanzi_zhaoren,list);
+        rec_tuijianyonghu.setAdapter(jingXuanRenAdapter);
     }
 
     private void initRec(QuanZiFaXian faxian) {

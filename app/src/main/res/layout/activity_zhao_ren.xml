@@ -47,7 +47,7 @@
 
             <EditText
                 android:layout_toRightOf="@+id/img_sousuo"
-                android:id="@+id/edt_quanzi_sousuo"
+                android:id="@+id/edt_zhaoren_sousuo"
                 android:hint="搜索"
                 android:textSize="12sp"
                 android:background="@null"

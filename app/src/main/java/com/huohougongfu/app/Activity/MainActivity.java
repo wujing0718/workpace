@@ -2,6 +2,7 @@
 
         import android.Manifest;
         import android.annotation.SuppressLint;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.os.Build;
         import android.support.annotation.NonNull;
@@ -13,8 +14,10 @@
         import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentPagerAdapter;
         import android.support.v4.view.ViewPager;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
+        import android.util.Log;
         import android.view.KeyEvent;
         import android.view.MenuItem;
         import android.view.MotionEvent;
@@ -22,6 +25,7 @@
         import android.view.WindowInsets;
         import android.widget.Toast;
 
+        import com.blankj.utilcode.util.ToastUtils;
         import com.gyf.barlibrary.ImmersionBar;
         import com.huohougongfu.app.Fragment.HomeFragment;
         import com.huohougongfu.app.Fragment.MyFragment;
@@ -29,11 +33,15 @@
         import com.huohougongfu.app.Fragment.ShopFragment;
         import com.huohougongfu.app.R;
         import com.huohougongfu.app.Utils.NoScrollViewPager;
+        import com.mylhyl.acp.Acp;
+        import com.mylhyl.acp.AcpListener;
+        import com.mylhyl.acp.AcpOptions;
 
         import java.lang.reflect.Field;
         import java.util.ArrayList;
+        import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
+        public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
 
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;

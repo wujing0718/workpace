@@ -1,5 +1,6 @@
 package com.huohougongfu.app;
 
+import android.Manifest;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
@@ -56,10 +57,17 @@ public class MyApp extends Application {
         DialogSettings.style = STYLE_IOS;
         context = this;
         Utils.init(getApplicationContext());
+        UMConfigure.setLogEnabled(true);
         instances = this;
-        UMConfigure.init(this,"5a12384aa40fa3551f0001d1"
+        UMConfigure.init(this,"5d1efbd54ca357a016000105"
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        //微信
         PlatformConfig.setWeixin("wxa36e44f4072c4818", "3baf1193c85774b3fd9d18447d76cab0");
+        //QQ
+        PlatformConfig.setQQZone("1107763346", "pPudlhFSifMTHqjm");
+        //新浪
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+
         instance = SPUtils.getInstance("登录");
         super.onCreate();
     }

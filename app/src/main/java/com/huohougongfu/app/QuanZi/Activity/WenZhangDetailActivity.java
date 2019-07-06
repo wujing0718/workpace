@@ -1,12 +1,15 @@
 package com.huohougongfu.app.QuanZi.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,8 +18,6 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.huohougongfu.app.Activity.FaBuArticleActivity;
-import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
 import com.huohougongfu.app.MyApp;
@@ -32,6 +33,11 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,8 +49,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.luck.picture.lib.tools.Constant.WRITE_EXTERNAL_STORAGE;
+
 public class
-WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener {
+WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener ,UMShareListener{
 
     private int mId;
     private int dId;
@@ -204,8 +212,27 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
+                                        if(Build.VERSION.SDK_INT>=23){
+                                            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,
+                                                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
+                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
+                                                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
+                                            ActivityCompat.requestPermissions(WenZhangDetailActivity.this,mPermissionList,123);
+                                        }
                                         if ("分享".equals(text)){
-
+                                            UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
+                                            web.setTitle("火后功夫");//标题
+                                            web.setDescription("123456");//描述
+                                            if (TextUtils.isEmpty("")) {
+                                                web.setThumb(new UMImage(WenZhangDetailActivity.this, R.mipmap.img_back));  //本地缩略图
+                                            } else {
+                                                web.setThumb(new UMImage(WenZhangDetailActivity.this, ""));  //网络缩略图
+                                            }
+                                            new ShareAction(WenZhangDetailActivity.this)
+                                                    .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                                    SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                                    .withMedia(web)
+                                                    .setCallback(WenZhangDetailActivity.this).open();
                                         }else if ("举报".equals(text)){
                                             intent.putExtra("dataId",String.valueOf(dId));
                                             intent.putExtra("username",detail.getResult().getMember().getNickName());
@@ -331,4 +358,24 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                 });
     }
 
+    //分享回调
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+
+    }
 }

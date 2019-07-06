@@ -4,7 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -13,10 +16,10 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
-import com.huohougongfu.app.QuanZi.Adapter.WenZhangAdapter;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -35,45 +38,46 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
     private RecyclerView rec_zhaoren;
     private ZhaoRenAdapter zhaorendadapter;
     private int mId;
-    private List<Integer> result = new ArrayList<>();
     private String token;
+    private InputMethodManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhao_ren);
+        manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
         initUI();
-        initISGuanZhu();
-        initData();
+        initData("");
     }
-    private void initISGuanZhu() {
-        Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(mId));
-        OkGo.<String>post(Contacts.URl1+"/circle/attention/list")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        Gson gson = new Gson();
-                        GuanZhu guanZhu = gson.fromJson(body, GuanZhu.class);
-                        if (guanZhu.getStatus() == 1){
-                            result = guanZhu.getResult();
-                        }
-                    }
-                });
-    }
-    
+
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
         rec_zhaoren = findViewById(R.id.rec_zhaoren);
+        EditText edt_zhaoren_sousuo = findViewById(R.id.edt_zhaoren_sousuo);
+        edt_zhaoren_sousuo.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    //先隐藏键盘
+                    if (manager.isActive()) {
+                        manager.hideSoftInputFromWindow(edt_zhaoren_sousuo.getApplicationWindowToken(), 0);
+                    }
+                    //自己需要的操作
+                    initData(edt_zhaoren_sousuo.getText().toString());
+                }
+                //记得返回false
+                return false;
+            }
+        });
     }
 
-    private void initData() {
+    private void initData(String condition) {
         Map<String,String> map = new HashMap<>();
-        map.put("condition","");
+        if (!condition.isEmpty()){
+            map.put("condition",condition);
+        }
         map.put("pageNo","1");
         map.put("pageSize","10");
         map.put("token",token);
@@ -86,9 +90,12 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
                         Gson gson = new Gson();
                         ZhaoRenGson zhaoRenGson = gson.fromJson(body, ZhaoRenGson.class);
                         if (zhaoRenGson.getStatus() ==1){
-                            initRec(zhaoRenGson.getResult().getList());
+                            if (!zhaoRenGson.getResult().getList().isEmpty()){
+                                initRec(zhaoRenGson.getResult().getList());
+                            }else{
+                                ToastUtils.showShort("暂无此人");
+                            }
                         }
-
                     }
                 });
     }
@@ -98,7 +105,7 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
         rec_zhaoren.setLayoutManager(layoutmanager);
-        zhaorendadapter = new ZhaoRenAdapter(R.layout.item_quanzi_zhaoren,list,result);
+        zhaorendadapter = new ZhaoRenAdapter(R.layout.item_quanzi_zhaoren,list);
         rec_zhaoren.setAdapter(zhaorendadapter);
         zhaorendadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
