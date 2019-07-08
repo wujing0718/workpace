@@ -41,6 +41,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -138,6 +139,8 @@ public class FaXianFragment extends Fragment implements IListener {
                 }else if (faxian.getResult().getDatas().getList().get(position).getType() == 3){
                     Intent intent = new Intent();
                     intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    intent.putExtra("小视频",faxian.getResult().getDatas().getList().get(position));
+                    intent.putExtra("position",position);
                     intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
                     startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
                 }

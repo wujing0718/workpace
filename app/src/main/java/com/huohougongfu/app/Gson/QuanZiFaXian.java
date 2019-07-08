@@ -1,8 +1,9 @@
 package com.huohougongfu.app.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class QuanZiFaXian {
+public class QuanZiFaXian implements Serializable {
 
     /**
      * msg : 操作成功
@@ -38,7 +39,7 @@ public class QuanZiFaXian {
         this.status = status;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * condition : null
          * cityCode : null
@@ -83,28 +84,7 @@ public class QuanZiFaXian {
             this.type = type;
         }
 
-        public static class DatasBean {
-            /**
-             * total : 5
-             * list : [{"id":2,"type":1,"title":null,"content":"动态","picture":"1111","createTime":"2019-06-10 11:50:56","updateTime":"2019-06-24 17:36:39","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":2,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null},{"id":3,"type":1,"title":null,"content":"22222","picture":"2222","createTime":"2019-06-10 11:52:53","updateTime":"2019-06-24 17:36:42","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":3,"nickName":null,"personalProfile":null,"phone":null,"photo":"","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":"1"},{"id":4,"type":1,"title":null,"content":"动态","picture":"http://oss.irving.net.cn/tea/1560997020198.jpg,http://oss.irving.net.cn/tea/1560997074984.png","createTime":"2019-06-20 10:17:56","updateTime":"2019-06-24 17:36:44","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":4,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null},{"id":5,"type":1,"title":null,"content":"动态","picture":"http://oss.irving.net.cn/tea/1561013861646.png,http://oss.irving.net.cn/tea/1561013864476.png","createTime":"2019-06-20 14:57:40","updateTime":"2019-06-24 17:36:45","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":5,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null}]
-             * pageNum : 1
-             * pageSize : 4
-             * size : 4
-             * startRow : 1
-             * endRow : 4
-             * pages : 2
-             * prePage : 0
-             * nextPage : 2
-             * isFirstPage : true
-             * isLastPage : false
-             * hasPreviousPage : false
-             * hasNextPage : true
-             * navigatePages : 8
-             * navigatepageNums : [1,2]
-             * navigateFirstPage : 1
-             * navigateLastPage : 2
-             */
-
+        public static class DatasBean implements Serializable{
             private int total;
             private int pageNum;
             private int pageSize;
@@ -268,7 +248,7 @@ public class QuanZiFaXian {
                 this.navigatepageNums = navigatepageNums;
             }
 
-            public static class ListBean {
+            public static class ListBean implements Serializable{
                 /**
                  * id : 2
                  * type : 1
@@ -421,7 +401,7 @@ public class QuanZiFaXian {
                     this.mid = mid;
                 }
 
-                public static class MemberBean {
+                public static class MemberBean implements Serializable{
                     /**
                      * userId : 2
                      * nickName : null

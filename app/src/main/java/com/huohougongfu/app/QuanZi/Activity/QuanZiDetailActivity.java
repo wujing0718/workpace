@@ -1,11 +1,15 @@
 package com.huohougongfu.app.QuanZi.Activity;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +40,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -49,7 +58,7 @@ import java.util.Map;
 
 import static com.huohougongfu.app.R.drawable.yiguanzhu;
 
-public class QuanZiDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class QuanZiDetailActivity extends AppCompatActivity implements View.OnClickListener,UMShareListener {
 
     private Banner banner;
     private ImageView img_quanzi_touxiang;
@@ -257,7 +266,27 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
+                                        if(Build.VERSION.SDK_INT>=23){
+                                            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,
+                                                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
+                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
+                                                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
+                                            ActivityCompat.requestPermissions(QuanZiDetailActivity.this,mPermissionList,123);
+                                        }
                                         if ("分享".equals(text)){
+                                            UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
+                                            web.setTitle("火后功夫");//标题
+                                            web.setDescription("123456");//描述
+                                            if (TextUtils.isEmpty("")) {
+                                                web.setThumb(new UMImage(QuanZiDetailActivity.this, R.mipmap.img_back));  //本地缩略图
+                                            } else {
+                                                web.setThumb(new UMImage(QuanZiDetailActivity.this, ""));  //网络缩略图
+                                            }
+                                            new ShareAction(QuanZiDetailActivity.this)
+                                                    .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                                            SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                                    .withMedia(web)
+                                                    .setCallback(QuanZiDetailActivity.this).open();
 
                                         }else if ("举报".equals(text)){
                                             intent.putExtra("dataId",String.valueOf(dId));
@@ -439,5 +468,25 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+
     }
 }
