@@ -24,7 +24,7 @@
 
             <ImageView
                 android:layout_centerInParent="true"
-                android:src="@mipmap/img_back"
+                android:src="@mipmap/img_back_white"
                 android:layout_width="@dimen/icon_size_20dp"
                 android:layout_height="@dimen/icon_size_20dp" />
 
@@ -74,7 +74,7 @@
 
             <ImageView
                 android:layout_gravity="center"
-                android:id="@+id/img_video_shoucang"
+                android:id="@+id/img_video_touxiang"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:layout_marginBottom="@dimen/dp_4"
@@ -83,8 +83,9 @@
                 />
 
             <ImageView
+                android:id="@+id/bt_guanzhu"
                 android:layout_gravity="center_horizontal|bottom"
-                android:src="@mipmap/img_back_white"
+                android:src="@mipmap/img_vedio_guanzhu"
                 android:layout_width="@dimen/icon_size_20dp"
                 android:layout_height="@dimen/icon_size_20dp" />
 
@@ -173,21 +174,13 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_vedio_title"
                 android:text="八马茶业"
                 android:textSize="21sp"
                 android:textColor="@color/colorWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
@@ -196,7 +189,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_vedio_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -208,9 +201,12 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/tv_chakanxiangqing"
                 android:text="查看详情 →"
                 android:textColor="#E51C23"
                 android:textSize="@dimen/text_size_12sp"
+                android:paddingHorizontal="@dimen/dp_10"
+                android:paddingVertical="2dp"
                 android:layout_gravity="right|bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -259,6 +255,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_vedio_time"
             android:textColor="#CDCDCD"
             android:text="2019年5月20日 22:18"
             android:textSize="11sp"
@@ -278,6 +275,7 @@
                 android:layout_height="14dp" />
 
             <TextView
+                android:id="@+id/tv_vedio_weizhi"
                 android:text="深圳"
                 android:textSize="12sp"
                 android:layout_marginLeft="4dp"

@@ -130,6 +130,9 @@ public class GuanZhuFragment extends Fragment implements IListener {
                     startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
                 }else if (faxian.getResult().getList().get(position).getType() == 3){
                     Intent intent = new Intent();
+                    intent.putExtra("userid",faxian.getResult().getList().get(position).getMember().getUserId());
+                    intent.putExtra("视频",faxian.getResult().getList().get(position));
+                    intent.putExtra("position",position);
                     intent.putExtra("dId",faxian.getResult().getList().get(position).getId());
                     startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
                 }

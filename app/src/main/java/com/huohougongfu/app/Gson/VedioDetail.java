@@ -252,7 +252,7 @@ public class VedioDetail {
             private String updateTime;
             private Object longitude;
             private Object latitude;
-            private Object address;
+            private String address;
             private Object cityCode;
             private MemberBean member;
             private int isPraise;
@@ -350,11 +350,11 @@ public class VedioDetail {
                 this.latitude = latitude;
             }
 
-            public Object getAddress() {
+            public String getAddress() {
                 return address;
             }
 
-            public void setAddress(Object address) {
+            public void setAddress(String address) {
                 this.address = address;
             }
 
@@ -482,7 +482,7 @@ public class VedioDetail {
                 private Object buyMoney;
                 private Object records;
                 private Object master;
-                private Object isAttention;
+                private int isAttention;
                 private Object fanCount;
 
                 public int getUserId() {
@@ -701,11 +701,11 @@ public class VedioDetail {
                     this.master = master;
                 }
 
-                public Object getIsAttention() {
+                public int getIsAttention() {
                     return isAttention;
                 }
 
-                public void setIsAttention(Object isAttention) {
+                public void setIsAttention(int isAttention) {
                     this.isAttention = isAttention;
                 }
 

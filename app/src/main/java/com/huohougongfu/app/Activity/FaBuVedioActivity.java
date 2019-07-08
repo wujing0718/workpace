@@ -64,7 +64,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private RelativeLayout back,rl_commit;
     private ImageView start;
     private TextView pathTv;
-    private EditText et_contents,et_title;
+    private EditText et_title,et_content;
     private ImageView video_looksee;
     private FrameLayout rl_look_see;
 
@@ -73,7 +73,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private String contents,titles,token,select_path,select_type;
     private ArrayList<String> selectedVedioPaths = new ArrayList<String>();
     private File file = null;
-    private View gif1,v;
+    private View v;
     private BackgroundBlurPopupWindow mPopupWindow;
     private int mId;
 
@@ -100,11 +100,12 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         rl_commit = findViewById(R.id.rl_commit);
         rl_commit.setOnClickListener(this);
         et_title = findViewById(R.id.et_title);
+        et_content = findViewById(R.id.et_content);
+
         rl_look_see = findViewById(R.id.rl_look_see);
         rl_look_see.setOnClickListener(this);
         video_looksee = findViewById(R.id.video_looksee);
         video_looksee.setOnClickListener(this);
-        gif1 = findViewById(R.id.gif1);
     }
 
     private void BackgroundBlurPopupWindows(){
@@ -178,7 +179,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                     video1.setUp( path, "",JzvdStd.SCREEN_WINDOW_NORMAL);
                     video1.thumbImageView.setImageBitmap(bitmap);
                     JzvdStd.releaseAllVideos();
-                    Toast.makeText(FaBuVedioActivity.this,"视频已保存在"+path,Toast.LENGTH_LONG).show();
+//                    Toast.makeText(FaBuVedioActivity.this,"视频已保存在"+path,Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -245,9 +246,11 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
 
     private void initVedio() {
         String title = et_title.getText().toString();
+        String content = et_content.getText().toString();
         Map<String,String> map = new HashMap<>();
         if (file!=null){
-            map.put("content",title);
+            map.put("title",title);
+            map.put("content",content);
             map.put("type","3");
             map.put("mId",String.valueOf(mId));
             map.put("token",token);

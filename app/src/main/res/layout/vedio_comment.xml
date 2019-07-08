@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bg_round"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:layout_above="@+id/view_vdio_pinglun"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="20dp"
+                android:id="@+id/rec_vedio_comment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_vdio_pinglun"
+        android:background="@color/colorBlack"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <EditText
+            android:layout_toLeftOf="@+id/bt_fasong_pinglun"
+            android:hint="我也来说一句~"
+            android:textSize="12sp"
+            android:paddingLeft="14dp"
+            android:id="@+id/edt_vedio_pinglun"
+            android:layout_marginHorizontal="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/vedio_pinglun_kuang"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+        
+        <Button
+            android:id="@+id/bt_fasong_pinglun"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="发送"
+            android:background="@color/white"
+            android:textSize="14sp"
+            android:layout_width="60dp"
+            android:layout_height="30dp" />
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
