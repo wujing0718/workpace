@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.PingLunGson;
@@ -153,6 +154,82 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         rec_wenzhang_pinglun.setLayoutManager(layoutmanager);
         PingLunAdapter pingLunAdapter = new PingLunAdapter(R.layout.item_quanzi_pinglun, list);
         rec_wenzhang_pinglun.setAdapter(pingLunAdapter);
+        pingLunAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView dianzannum = view.findViewById(R.id.tv_pinglun_dianzannum);
+                ImageView img_pinglun_dianzan = view.findViewById(R.id.img_pinglun_dianzan);
+                if (list.get(position).getIsPraise() == 1){
+                    initQuXiaoPinglunDianZan(0,list.get(position),dianzannum,img_pinglun_dianzan);
+                }else if (list.get(position).getIsPraise() == 0){
+                    initPinglunDianZan(1,list.get(position),dianzannum,img_pinglun_dianzan);
+                }
+            }
+        });
+    }
+
+    private void initPinglunDianZan(int i, PingLunGson.ResultBean.ListBean listBean, TextView dianzannum, ImageView img_pinglun_dianzan) {
+        String num = dianzannum.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("commentId",String.valueOf(listBean.getId()));
+        map.put("commentMId",String.valueOf(listBean.getMember().getUserId()));
+        map.put("type",String.valueOf(i));
+        OkGo.<String>post(Contacts.URl1+"/circle/comment/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("点赞成功");
+                                Integer integer = Integer.valueOf(num);
+                                dianzannum.setText(String.valueOf(integer+1));
+                                listBean.setIsPraise(1);
+                                img_pinglun_dianzan.setImageResource(R.mipmap.img_dianzanok);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void initQuXiaoPinglunDianZan(int i, PingLunGson.ResultBean.ListBean listBean, TextView dianzannum, ImageView img_pinglun_dianzan) {
+        String num = dianzannum.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("commentId",String.valueOf(listBean.getId()));
+        map.put("commentMId",String.valueOf(listBean.getMember().getUserId()));
+        map.put("type",String.valueOf(i));
+        OkGo.<String>post(Contacts.URl1+"/circle/comment/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("取消点赞");
+                                Integer integer = Integer.valueOf(num);
+                                dianzannum.setText(String.valueOf(integer-1));
+                                listBean.setIsPraise(0);
+                                img_pinglun_dianzan.setImageResource(R.mipmap.img_dianzan);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initData() {

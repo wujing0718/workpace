@@ -237,6 +237,8 @@ public class PingLunGson {
             private String content;
             private String createTime;
             private MemberBean member;
+            private int praiseNum;
+            private int isPraise;
             private int mid;
 
             public int getId() {
@@ -285,6 +287,22 @@ public class PingLunGson {
 
             public void setMid(int mid) {
                 this.mid = mid;
+            }
+
+            public int getPraiseNum() {
+                return praiseNum;
+            }
+
+            public void setPraiseNum(int praiseNum) {
+                this.praiseNum = praiseNum;
+            }
+
+            public int getIsPraise() {
+                return isPraise;
+            }
+
+            public void setIsPraise(int isPraise) {
+                this.isPraise = isPraise;
             }
 
             public static class MemberBean {
