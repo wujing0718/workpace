@@ -4,7 +4,10 @@
         import android.annotation.SuppressLint;
         import android.content.DialogInterface;
         import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.net.Uri;
         import android.os.Build;
+        import android.provider.Settings;
         import android.support.annotation.NonNull;
         import android.support.design.internal.BottomNavigationItemView;
         import android.support.design.internal.BottomNavigationMenuView;
@@ -31,6 +34,7 @@
         import com.huohougongfu.app.Fragment.MyFragment;
         import com.huohougongfu.app.Fragment.QuanZiFragment;
         import com.huohougongfu.app.Fragment.ShopFragment;
+        import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
         import com.huohougongfu.app.R;
         import com.huohougongfu.app.Utils.NoScrollViewPager;
         import com.mylhyl.acp.Acp;
@@ -64,6 +68,13 @@
         bottomNavigationView.setSelectedItemId(R.id.tab_two);
         disableShiftMode(bottomNavigationView);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        if(Build.VERSION.SDK_INT>=23){
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS,Manifest.permission.ACCESS_FINE_LOCATION};
+            ActivityCompat.requestPermissions(MainActivity.this,mPermissionList,123);
+        }
         findViewById(R.id.navigation_center_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +83,26 @@
         });
     }
 
-    @SuppressLint("RestrictedApi")
+        //请求权限后的回调:
+            @Override
+            public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+                if (requestCode==123){
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//允许
+
+                        return;
+                    } else if (grantResults[0]==PackageManager.PERMISSION_DENIED){//拒绝
+                        Intent intent = new Intent();  intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
+                    return;
+                }
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            }
+
+            @SuppressLint("RestrictedApi")
     public void disableShiftMode(BottomNavigationView navigationView) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
         try {

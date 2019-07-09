@@ -54,7 +54,8 @@ public class TeHuiActivity extends AppCompatActivity {
         map.put("id",id);
         map.put("token",token);
         map.put("page", "1");
-        OkGo.<String>get(Contacts.URl1+"selectSalesPromotion")
+        map.put("pageSize", "10");
+        OkGo.<String>get(Contacts.URl1+"querySalesPromotion")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -113,7 +114,8 @@ public class TeHuiActivity extends AppCompatActivity {
         map.put("tel",tel);
         map.put("id",id);
         map.put("token",token);
-        OkGo.<String>get(Contacts.URl1+"selectSalesPromotion")
+        map.put("pageSize", "10");
+        OkGo.<String>get(Contacts.URl1+"querySalesPromotion")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

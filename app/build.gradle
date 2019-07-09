@@ -19,13 +19,12 @@ android {
         //RenderScript支持库未启用，要启用模糊效果，请在您的app的Gradle配置文件中添加以下语句：
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
+        signingConfig signingConfigs.config
     }
     allprojects {
         repositories {
@@ -42,6 +41,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         debug {
             signingConfig signingConfigs.config
@@ -50,6 +50,8 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+    productFlavors {
     }
 }
 
@@ -99,7 +101,7 @@ dependencies {
     implementation 'com.github.LinweiJ:ViewPagerIndicator:0.1.0'
     //友盟
     implementation 'com.umeng.umsdk:analytics:8.0.2'
-    implementation  'com.umeng.umsdk:common:2.1.0'
+    implementation 'com.umeng.umsdk:common:2.1.0'
     //高德3D地图
     implementation 'com.amap.api:3dmap:latest.integration'
     //高德定位
@@ -120,7 +122,5 @@ dependencies {
     //购物车按钮
     implementation 'com.github.mcxtzhang:AnimShopButton:V1.2.0'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-
     implementation 'com.github.DingMouRen:LayoutManagerGroup:1e6f4f96eb'
-
 }

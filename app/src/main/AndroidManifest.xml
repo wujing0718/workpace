@@ -51,8 +51,7 @@
         //高德
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="53a5a806e4b0ede28c93f942046ec1b2">
-            //开发者申请的key
+            android:value="b77977ecc90aea5fb6cefb4cf2b94de2">
         </meta-data>
 
         <meta-data
