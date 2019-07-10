@@ -102,51 +102,66 @@
             android:text="产品一直都很好产品一直都很好产品一直都很好产品一直都很好产品一直都很好产品"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        
-        <RelativeLayout
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+
+        <GridView
+            android:numColumns="3"
+            android:layout_marginTop="@dimen/dp_10"
+            android:id="@+id/grv_pinglun_photo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </GridView>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:background="@color/colorHui"
-                android:layout_width="1dp"
-                android:layout_centerVertical="true"
-                android:layout_height="16dp"/>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:background="@color/colorHui"
+                    android:layout_width="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_height="16dp"/>
+
+                <TextView
+                    android:text="卖家回复"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorHui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_huifu_time"
+                    android:text="2019-06-10"
+                    android:textSize="12sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorHui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
 
             <TextView
-                android:text="卖家回复"
+                android:id="@+id/tv_huifu_content"
+                android:text="谢谢亲的支持，我们会继续加油上新更好更优质的产品的，也希望亲能继续支持"
+                android:layout_marginTop="6dp"
                 android:textSize="12sp"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorHui"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/tv_huifu_time"
-                android:text="2019-06-10"
-                android:textSize="12sp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorHui"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_huifu_content"
-            android:text="谢谢亲的支持，我们会继续加油上新更好更优质的产品的，也希望亲能继续支持"
-            android:layout_marginTop="6dp"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
+        </LinearLayout>
+        
     </LinearLayout>
 
 </LinearLayout>

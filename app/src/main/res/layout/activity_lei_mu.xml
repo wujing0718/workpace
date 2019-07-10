@@ -11,6 +11,7 @@
     tools:context=".Shop.Activity.LeiMuActivity">
 
     <LinearLayout
+        android:background="@color/colorBlack"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="44dp">
@@ -21,7 +22,7 @@
             android:layout_height="44dp">
 
             <ImageView
-                android:src="@mipmap/img_back"
+                android:src="@mipmap/img_back_white"
                 android:layout_centerInParent="true"
                 android:layout_width="@dimen/icon_size_20dp"
                 android:layout_height="@dimen/icon_size_20dp" />
@@ -71,7 +72,7 @@
 
                 <ImageView
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/img_gouwuche"
+                    android:src="@mipmap/img_gouwuche_white"
                     android:layout_width="22dp"
                     android:layout_height="22dp" />
 

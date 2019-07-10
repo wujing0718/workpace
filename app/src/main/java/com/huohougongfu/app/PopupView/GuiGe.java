@@ -16,6 +16,7 @@ import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.R;
 import com.lxj.xpopup.core.BottomPopupView;
+import com.lxj.xpopup.util.XPopupUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -124,5 +125,10 @@ public class GuiGe extends BottomPopupView {
 //        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT , LinearLayout.LayoutParams.WRAP_CONTENT);
 //        rlp.setMargins(20,0,20,0);
 //        codeBtn.setLayoutParams( rlp );
+    }
+
+    @Override
+    protected int getMaxHeight() {
+        return (int) (XPopupUtils.getWindowHeight(getContext()) * .65f);
     }
 }

@@ -13,6 +13,7 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.YouHuiQuanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.lxj.xpopup.core.BottomPopupView;
+import com.lxj.xpopup.util.XPopupUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -82,5 +83,9 @@ public class YouHuiQuan extends BottomPopupView {
                         String body = response.body();
                     }
                 });
+    }
+    @Override
+    protected int getMaxHeight() {
+        return (int) (XPopupUtils.getWindowHeight(getContext()) * .65f);
     }
 }

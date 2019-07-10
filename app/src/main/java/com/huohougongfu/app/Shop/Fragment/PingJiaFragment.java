@@ -65,7 +65,7 @@ public class PingJiaFragment extends Fragment {
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("id",String.valueOf(shopid));
+        map.put("id",String.valueOf(44));
         map.put("page","1");
         map.put("pageSize","10");
         OkGo.<String>get(Contacts.URl2+"/selectAppraise")
