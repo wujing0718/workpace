@@ -74,7 +74,7 @@ public class YouHuiQuan extends BottomPopupView {
         Map<String,String> map = new HashMap();
         map.put("couponsId",couponsId);
         map.put("tel",tel);
-        OkGo.<String>post(Contacts.URl1+"/member/collectStamps")
+        OkGo.<String>post(Contacts.URl2+"/member/collectStamps")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

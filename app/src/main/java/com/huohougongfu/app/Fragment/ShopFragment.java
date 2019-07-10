@@ -107,7 +107,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         map.put("id",id);
         map.put("token",token);
         map.put("pageSize", "10");
-        OkGo.<String>get(Contacts.URl1+"querySiftAndExpand")
+        OkGo.<String>get(Contacts.URl2+"querySiftAndExpand")
                 .params(map)
                 .execute(new StringCallback() {
             @Override
@@ -169,8 +169,8 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         map.put("tel",tel);
         map.put("id",id);
         map.put("token",token);
-        map.put("pageSize", "10");
-        OkGo.<String>get(Contacts.URl1+"querySiftAndExpand")
+        map.put("pageSize","10");
+        OkGo.<String>get(Contacts.URl2+"querySiftAndExpand")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

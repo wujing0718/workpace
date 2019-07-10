@@ -73,7 +73,7 @@ public class CanShuFragment extends Fragment {
         map.put("tel",tel);
         map.put("id",String.valueOf(shopid));
         map.put("token",token);
-        OkGo.<String>get(Contacts.URl1+"selectProductAttribute")
+        OkGo.<String>get(Contacts.URl2+"selectProductAttribute")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

@@ -37,6 +37,8 @@
         import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
         import com.huohougongfu.app.R;
         import com.huohougongfu.app.Utils.NoScrollViewPager;
+        import com.huohougongfu.app.Utils.PermissionPageUtils;
+        import com.kongzue.dialog.v2.SelectDialog;
         import com.mylhyl.acp.Acp;
         import com.mylhyl.acp.AcpListener;
         import com.mylhyl.acp.AcpOptions;
@@ -58,6 +60,13 @@
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(Build.VERSION.SDK_INT>=23){
+            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
+                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
+            ActivityCompat.requestPermissions(MainActivity.this,mPermissionList,123);
+        }
         immersionber = ImmersionBar.with(this);
         immersionber.statusBarDarkFont(false).init();
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
@@ -68,13 +77,7 @@
         bottomNavigationView.setSelectedItemId(R.id.tab_two);
         disableShiftMode(bottomNavigationView);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-        if(Build.VERSION.SDK_INT>=23){
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
-                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS,Manifest.permission.ACCESS_FINE_LOCATION};
-            ActivityCompat.requestPermissions(MainActivity.this,mPermissionList,123);
-        }
+
         findViewById(R.id.navigation_center_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,16 +90,20 @@
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
                 if (requestCode==123){
-                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//允许
-
-                        return;
-                    } else if (grantResults[0]==PackageManager.PERMISSION_DENIED){//拒绝
-                        Intent intent = new Intent();  intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", getPackageName(), null);
-                        intent.setData(uri);
-                        startActivity(intent);
-                    }
-                    return;
+                        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//允许
+                            return;
+                        } else if (grantResults[0]==PackageManager.PERMISSION_DENIED){//拒绝
+                            SelectDialog.show(MainActivity.this, "提示", "需要打开权限", "确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    PermissionPageUtils.toAppSetting(MainActivity.this);
+                                }
+                            }, "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                        }
                 }
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 

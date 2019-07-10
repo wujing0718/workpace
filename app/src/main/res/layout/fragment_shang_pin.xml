@@ -133,6 +133,7 @@
                 android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_detail_kuaidi"
                         android:textColor="@color/colorHui"
                         android:layout_centerVertical="true"
                         android:text="快递："

@@ -14,11 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopDetail;
+import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
@@ -54,7 +57,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
 
     private View inflate;
-    private TextView tv_yuan_price,tv_manjian2,tv_manjian1,tv_detail_price,tv_detail_name
+    private TextView tv_yuan_price,tv_manjian2,tv_manjian1,tv_detail_price,tv_detail_name,tv_detail_kuaidi
             ,tv_dianpu_name,tv_dianpu_jianjie,tv_detail_xiaoliang,tv_detail_address;
     private RecyclerView rec_shangpin_tuijian;
     private String token,tel,id;
@@ -62,9 +65,10 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private List<ShopYouHuiQuan.ResultBean> myouhuiquan;
     private List<String> bannerlist = new ArrayList<>();
 
-    private ShopDetail.ResultBean.MallProductBean mallProduct;
+    private ShopDetail.ResultBean.ProductDetailInfoBean mallProduct;
     private Banner banner;
     private ImageView img_dianp_logo;
+    private ShopGuiGe.ResultBean guige;
 
     public ShangPinFragment() {
     }
@@ -81,12 +85,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         shopid = getArguments().getInt("id");
         initData();
         initUI();
-        initYouHuiQuan();
         return inflate;
     }
 
     //商品详情轮播图
-    private void initBanner(ShopDetail.ResultBean.MallProductBean mallProduct)  {
+    private void initBanner(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct)  {
         bannerlist.clear();
         String[]  mbanner = mallProduct.getProductPicture().split(",");
         bannerlist.add(mallProduct.getCoverUrl());
@@ -102,9 +105,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     /*
         优惠券列表数据
      */
-    private void initYouHuiQuan() {
-            OkGo.<String>get(Contacts.URl1+"/selectCoupon")
-                    .params("id",String.valueOf(shopid))
+    private void initYouHuiQuan(int storeId) {
+            OkGo.<String>get(Contacts.URl2+"/selectCoupon")
+                    .params("id",String.valueOf(storeId))
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
@@ -130,6 +133,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_detail_price = inflate.findViewById(R.id.tv_detail_price);
         tv_yuan_price = inflate.findViewById(R.id.tv_yuan_price);
         tv_detail_name = inflate.findViewById(R.id.tv_detail_name);
+        tv_detail_kuaidi = inflate.findViewById(R.id.tv_detail_kuaidi);
 
         img_dianp_logo = inflate.findViewById(R.id.img_dianp_logo);
         tv_dianpu_name = inflate.findViewById(R.id.tv_dianpu_name);
@@ -155,7 +159,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         map.put("tel",tel);
         map.put("id",String.valueOf(shopid));
         map.put("token",token);
-        OkGo.<String>get(Contacts.URl1+"selectDetailById")
+        map.put("showNum","10");
+        OkGo.<String>get(Contacts.URl2+"queryProductDetail")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -164,9 +169,10 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         Gson gson = new Gson();
                         ShopDetail shopdetail = gson.fromJson(response.body(), ShopDetail.class);
                         if (shopdetail.getStatus() == 1) {
-                             mallProduct = shopdetail.getResult().getMallProduct();
+                             mallProduct = shopdetail.getResult().getProductDetailInfo();
+                            initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
                             initBanner(mallProduct);
-                            initRec(shopdetail.getResult().getRecommendation());
+                            initRec(shopdetail.getResult().getRecommend());
                             initView(mallProduct);
                         }
                     }
@@ -176,24 +182,45 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         super.onStart(request);
                     }
                 });
+        map.remove("showNum");
+        //规格
+        OkGo.<String>get(Contacts.URl2+"selectStandardWithProductInfo")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        ShopGuiGe shopdetail = gson.fromJson(response.body(), ShopGuiGe.class);
+                        if (shopdetail.getStatus() == 1) {
+                            guige = shopdetail.getResult();
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
+
     }
 
-    private void initView(ShopDetail.ResultBean.MallProductBean mallProduct) {
+    private void initView(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct) {
         tv_detail_price.setText(String.valueOf(mallProduct.getPrice()));
         tv_yuan_price.setText("¥"+String.valueOf(mallProduct.getMarketPrice()));
-
+        tv_detail_kuaidi.setText("快递："+mallProduct.getDefaultTranCost());
         tv_detail_name.setText(mallProduct.getName());
         tv_detail_xiaoliang.setText("销量："+mallProduct.getSellNum());
         tv_detail_address.setText("地址："+mallProduct.getStoreAddress());
-
-        Picasso.get().load(mallProduct.getStoreLogo()).into(img_dianp_logo);
+        RequestOptions options = new RequestOptions().circleCrop();
+        Glide.with(getActivity()).load(mallProduct.getStoreLogo()).apply(options).into(img_dianp_logo);
         tv_dianpu_name.setText(mallProduct.getStoreName());
         tv_dianpu_jianjie.setText(mallProduct.getStoreBoard());
 
     }
 
 
-    private void initRec(List<ShopDetail.ResultBean.RecommendationBean> recommendation) {
+    private void initRec(List<ShopDetail.ResultBean.RecommendBean> recommendation) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -226,9 +253,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         switch (v.getId()){
             case R.id.bt_detail_lingquan:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .asCustom(new YouHuiQuan(getContext(),myouhuiquan))
-                            .show();
+                    if (myouhuiquan!=null){
+                        new XPopup.Builder(getContext())
+                                .asCustom(new YouHuiQuan(getContext(),myouhuiquan))
+                                .show();
+                    }else{
+                        ToastUtils.showShort("暂无优惠券");
+                    }
                 }
                 break;
             case R.id.bt_detail_fuwu:
@@ -241,7 +272,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_detail_guige:
                 if (!utils.isDoubleClick()){
                     new XPopup.Builder(getContext())
-                            .asCustom(new GuiGe(getContext(),mallProduct))
+                            .asCustom(new GuiGe(getContext(),guige))
                             .show();
                 }
                 break;

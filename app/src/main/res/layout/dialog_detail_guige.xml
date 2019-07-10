@@ -100,48 +100,49 @@
             android:layout_height="wrap_content" />
 
         <RadioGroup
+            android:id="@+id/gadiogroup"
             android:orientation="horizontal"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RadioButton
-                android:layout_gravity="center_vertical"
-                android:button="@null"
-                android:text="16g"
-                android:gravity="center"
-                android:paddingHorizontal="6dp"
-                android:textSize="12sp"
-                android:textColor="@color/colorBlack"
-                android:background="@drawable/selector_paocha"
-                android:layout_width="60dp"
-                android:layout_height="30dp" />
+            <!--<RadioButton-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:button="@null"-->
+                <!--android:text="16g"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingHorizontal="6dp"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:background="@drawable/selector_paocha"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="30dp" />-->
 
-            <RadioButton
-                android:layout_marginHorizontal="10dp"
-                android:layout_gravity="center_vertical"
-                android:button="@null"
-                android:text="18g"
-                android:gravity="center"
-                android:paddingHorizontal="6dp"
-                android:textSize="12sp"
-                android:textColor="@color/colorBlack"
-                android:background="@drawable/selector_paocha"
-                android:layout_width="60dp"
-                android:layout_height="30dp" />
+            <!--<RadioButton-->
+                <!--android:layout_marginHorizontal="10dp"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:button="@null"-->
+                <!--android:text="18g"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingHorizontal="6dp"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:background="@drawable/selector_paocha"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="30dp" />-->
 
-            <RadioButton
-                android:layout_gravity="center_vertical"
-                android:button="@null"
-                android:text="20g"
-                android:gravity="center"
-                android:paddingHorizontal="6dp"
-                android:textSize="12sp"
-                android:textColor="@color/colorBlack"
-                android:background="@drawable/selector_paocha"
-                android:layout_width="60dp"
-                android:layout_height="30dp" />
+            <!--<RadioButton-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:button="@null"-->
+                <!--android:text="20g"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingHorizontal="6dp"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:background="@drawable/selector_paocha"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="30dp" />-->
 
 
         </RadioGroup>

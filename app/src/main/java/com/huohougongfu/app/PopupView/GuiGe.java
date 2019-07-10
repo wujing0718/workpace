@@ -1,24 +1,38 @@
 package com.huohougongfu.app.PopupView;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.huohougongfu.app.Gson.ShopDetail;
+import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.R;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GuiGe extends BottomPopupView {
-    private ShopDetail.ResultBean.MallProductBean mallProduct;
+    private ShopGuiGe.ResultBean mallProduct;
     private ImageView img_guige_photo;
     private TextView tv_guige_name,tv_guige_price,tv_guige_kucun;
+    private List<String> list=new ArrayList<String>();
+    private Context context;
+    private RadioGroup gadiogroup;
 
-    public GuiGe(@NonNull Context context, ShopDetail.ResultBean.MallProductBean mallProduct) {
+    public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct) {
         super(context);
         this.mallProduct = mallProduct;
+        this.context = context;
     }
     @Override
     protected int getImplLayoutId() {
@@ -33,10 +47,18 @@ public class GuiGe extends BottomPopupView {
 
     private void initUI() {
         img_guige_photo = findViewById(R.id.img_guige_photo);
+        gadiogroup = findViewById(R.id.gadiogroup);
         tv_guige_name = findViewById(R.id.tv_guige_name);
         tv_guige_price = findViewById(R.id.tv_guige_price);
         tv_guige_kucun = findViewById(R.id.tv_guige_kucun);
+        if(mallProduct.getProductStandard()!=null){
+            for (int i = 0; i <mallProduct.getProductStandard().size() ; i++) {
+                list.add(mallProduct.getProductStandard().get(i).getStandard());
+            }
+        }else{
 
+        }
+        addview(gadiogroup);
         //初始化
         findViewById(R.id.bt_gouwuche).setOnClickListener(new OnClickListener() {
             @Override
@@ -56,9 +78,51 @@ public class GuiGe extends BottomPopupView {
                 dismiss();
             }
         });
-        Picasso.get().load(mallProduct.getCoverUrl()).into(img_guige_photo);
-        tv_guige_name.setText(mallProduct.getName());
-        tv_guige_price.setText("¥"+mallProduct.getPrice());
+        Picasso.get().load(mallProduct.getProductInfo().getCoverUrl()).into(img_guige_photo);
+        tv_guige_name.setText(mallProduct.getProductInfo().getName());
+        tv_guige_price.setText("¥"+mallProduct.getProductInfo().getPrice());
 //        tv_guige_kucun.setText(mallProduct.getPrice());
+    }
+
+    private void addview(RadioGroup gadiogroup) {
+        int index=0;
+        for(String ss:list){
+            RadioButton  button=new RadioButton(context);
+            setRaidBtnAttribute(button,ss,index);
+            gadiogroup.addView(button);
+            LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) button
+                    .getLayoutParams();
+            layoutParams.setMargins(20, 0,  20, 0);//4个参数按顺序分别是左上右下
+            button.setLayoutParams(layoutParams);
+            index++;
+        }
+    }
+
+    private void setRaidBtnAttribute( final RadioButton codeBtn, String btnContent, int id ){
+        if( null == codeBtn ){
+            return;
+        }
+        codeBtn.setBackgroundResource(R.drawable.selector_paocha);
+//        codeBtn.setTextColor(this.getResources().getColorStateList(R.drawable.color_radiobutton));
+        codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //codeBtn.setTextSize( ( textSize > 16 )?textSize:24 );
+        codeBtn.setId(id);
+        if (id == 0){
+            codeBtn.setChecked(true);
+            tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
+        }
+        codeBtn.setText( btnContent );
+        codeBtn.setPadding(20,6,20,6);
+        codeBtn.setGravity( Gravity.CENTER );
+        codeBtn.setOnClickListener( new OnClickListener( ) {
+            @Override
+            public void onClick(View v) {
+                tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(id).getStandardPrice());
+            }
+        });
+        //DensityUtilHelps.Dp2Px(this,40)
+//        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT , LinearLayout.LayoutParams.WRAP_CONTENT);
+//        rlp.setMargins(20,0,20,0);
+//        codeBtn.setLayoutParams( rlp );
     }
 }

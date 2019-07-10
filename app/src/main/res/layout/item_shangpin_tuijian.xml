@@ -45,6 +45,7 @@
             android:id="@+id/tv_shangpin_price"
             android:text="189"
             android:textSize="18sp"
+            android:layout_marginLeft="@dimen/dp_4"
             android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
