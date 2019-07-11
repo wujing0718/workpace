@@ -249,7 +249,11 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                 String pinglun_content = edt_quanzi_pinglun.getText().toString();
                 if (!utils.isDoubleClick()){
                     if (!pinglun_content.isEmpty()){
-                        initFaSongPingLun(pinglun_content);
+                        if (!"".equals(token)){
+                            initFaSongPingLun(pinglun_content);
+                        }else{
+                            ToastUtils.showShort(R.string.denglu);
+                        }
                     }else{
                         ToastUtils.showShort("请输入评论内容");
                     }
@@ -257,10 +261,14 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.bt_guanzhu:
                 if (!utils.isDoubleClick()){
-                    if (detail.getResult().getMember().getIsAttention() == 1){
-                        initNoGuanZhu(0);
-                    }else if (detail.getResult().getMember().getIsAttention() == 0){
-                        initGuanZhu(1);
+                    if (!"".equals(token)){
+                        if (detail.getResult().getMember().getIsAttention() == 1){
+                            initNoGuanZhu(0);
+                        }else if (detail.getResult().getMember().getIsAttention() == 0){
+                            initGuanZhu(1);
+                        }
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
                     }
                 }
                 break;

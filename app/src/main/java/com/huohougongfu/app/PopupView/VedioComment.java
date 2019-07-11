@@ -8,8 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.MyApp;
@@ -107,6 +110,89 @@ public class VedioComment extends BottomPopupView {
                 initFaSongPingLun();
             }
         });
+        pingLunAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                ImageView img_pinglun_dianzan = view.findViewById(R.id.img_pinglun_dianzan);
+                TextView tv_pinglun_dianzannum = view.findViewById(R.id.tv_pinglun_dianzannum);
+                if (!utils.isDoubleClick()){
+                    if (!"".equals(token)){
+                        if (list.get(position).getIsPraise() == 1){
+                            initQuXiaoDianZan("0",img_pinglun_dianzan,tv_pinglun_dianzannum,list.get(position));
+                        }else{
+                            initDianZan("1",img_pinglun_dianzan,tv_pinglun_dianzannum,list.get(position));
+                        }
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                    }
+                }
+            }
+        });
+    }
+
+    //取消点赞
+    private void initQuXiaoDianZan(String type, ImageView img_pinglun_dianzan, TextView tv_pinglun_dianzannum, PingLunGson.ResultBean.ListBean id) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("token",token);
+        map.put("dataId",String.valueOf(id.getId()));
+        map.put("mId",String.valueOf(mId));
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                String num = tv_pinglun_dianzannum.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                tv_pinglun_dianzannum.setText(String.valueOf(integer-1));
+                                id.setIsPraise(0);
+                                img_pinglun_dianzan.setImageResource(R.mipmap.img_xihuan);
+                                ToastUtils.showShort("取消点赞");
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+    //点赞
+    private void initDianZan(String type, ImageView img_pinglun_dianzan, TextView tv_pinglun_dianzannum, PingLunGson.ResultBean.ListBean id) {
+        String num = tv_pinglun_dianzannum.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(id.getId()));
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("点赞成功");
+                                Integer integer = Integer.valueOf(num);
+                                tv_pinglun_dianzannum.setText(String.valueOf(integer+1));
+                                id.setIsPraise(1);
+                                img_pinglun_dianzan.setImageResource(R.mipmap.img_xihuan2);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initFaSongPingLun() {

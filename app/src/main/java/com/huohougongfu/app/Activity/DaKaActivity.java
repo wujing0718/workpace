@@ -14,95 +14,104 @@ import com.huohougongfu.app.Gson.DaKaOne;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 public class DaKaActivity extends AppCompatActivity {
 
     private int id;
     private ImageView img1,img2,img3,img4,img5,img6,img7;
-    private TextView tv_yidaka;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_da_ka);
         id = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
+
         initUI();
         initData();
     }
 
     private void initData() {
-        OkGo.<String>post(Contacts.URl1+"/index/punch/info")
-                .params("id",String.valueOf(id))
-                .execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                String body = response.body();
-                Gson gson = new Gson();
-                DaKa daKa = gson.fromJson(body, DaKa.class);
-                if (daKa.getStatus() == 1){
-                    if (daKa.getResult().getIsPunch() == 1 ){
-                        findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtils.showShort("今日已打卡");
+        if (!"".equals(token)) {
+            OkGo.<String>post(Contacts.URl1+"/index/punch/info")
+                    .params("id",String.valueOf(id))
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            WaitDialog.dismiss();
+                            String body = response.body();
+                            Gson gson = new Gson();
+                            DaKa daKa = gson.fromJson(body, DaKa.class);
+                            if (daKa.getStatus() == 1){
+                                if (daKa.getResult().getIsPunch() == 1 ){
+                                    TextView bt_daka = findViewById(R.id.bt_daka);
+                                    bt_daka.setText("已打卡");
+                                    bt_daka.setClickable(false);
+                                }else{
+                                    findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            initDaKa();
+                                        }
+                                    });
+                                }
+                                if (daKa.getResult().getArr().get(0) == 0){
+                                    img1.setImageResource(R.mipmap.img_nodaka);
+                                }else if (daKa.getResult().getArr().get(0) == 1){
+                                    img1.setImageResource(R.mipmap.img_yiqiandao);
+                                }
+                                if (daKa.getResult().getArr().get(1) == 0){
+                                    img2.setImageResource(R.mipmap.img_nodaka);
+                                }else if (daKa.getResult().getArr().get(1) == 1){
+                                    img2.setImageResource(R.mipmap.img_yiqiandao);
+                                }
+                                if (daKa.getResult().getArr().get(2) == 0){
+                                    img3.setImageResource(R.mipmap.img_nodaka);
+                                }else if (daKa.getResult().getArr().get(2) == 1){
+                                    img3.setImageResource(R.mipmap.img_yiqiandao);
+                                }
+                                if (daKa.getResult().getArr().get(3) == 0){
+                                    img4.setImageResource(R.mipmap.img_nodaka);
+                                }else if (daKa.getResult().getArr().get(3) == 1){
+                                    img4.setImageResource(R.mipmap.img_yiqiandao);
+                                }
+                                if (daKa.getResult().getArr().get(4) == 0){
+                                    img5.setImageResource(R.mipmap.img_nodaka);
+                                }else if (daKa.getResult().getArr().get(4) == 1){
+                                    img5.setImageResource(R.mipmap.img_yiqiandao);
+                                }
+                                if (daKa.getResult().getArr().get(5) == 0){
+                                    img6.setImageResource(R.mipmap.img_nodaka);
+                                }else if (daKa.getResult().getArr().get(5) == 1){
+                                    img6.setImageResource(R.mipmap.img_yiqiandao);
+                                }
+                                if (daKa.getResult().getArr().get(6) == 0){
+                                    img7.setImageResource(R.mipmap.img_nodaka);
+                                }else if (daKa.getResult().getArr().get(6) == 1){
+                                    img7.setImageResource(R.mipmap.img_yiqiandao);
+                                }
                             }
-                        });
-                        tv_yidaka.setVisibility(View.VISIBLE);
-                    }else{
-                        findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                initDaKa();
-                            }
-                        });
-                        tv_yidaka.setVisibility(View.GONE);
-                    }
-                    if (daKa.getResult().getArr().get(0) == 0){
-                        img1.setImageResource(R.mipmap.ic_launcher);
-                    }else if (daKa.getResult().getArr().get(0) == 1){
-                        img1.setImageResource(R.mipmap.img_back);
-                    }
-                    if (daKa.getResult().getArr().get(1) == 0){
-                        img2.setImageResource(R.mipmap.ic_launcher);
-                    }else if (daKa.getResult().getArr().get(1) == 1){
-                        img2.setImageResource(R.mipmap.img_back);
-                    }
-                    if (daKa.getResult().getArr().get(2) == 0){
-                        img3.setImageResource(R.mipmap.ic_launcher);
-                    }else if (daKa.getResult().getArr().get(2) == 1){
-                        img3.setImageResource(R.mipmap.img_back);
-                    }
-                    if (daKa.getResult().getArr().get(3) == 0){
-                        img4.setImageResource(R.mipmap.ic_launcher);
-                    }else if (daKa.getResult().getArr().get(3) == 1){
-                        img4.setImageResource(R.mipmap.img_back);
-                    }
-                    if (daKa.getResult().getArr().get(4) == 0){
-                        img5.setImageResource(R.mipmap.ic_launcher);
-                    }else if (daKa.getResult().getArr().get(4) == 1){
-                        img5.setImageResource(R.mipmap.img_back);
-                    }
-                    if (daKa.getResult().getArr().get(5) == 0){
-                        img6.setImageResource(R.mipmap.ic_launcher);
-                    }else if (daKa.getResult().getArr().get(5) == 1){
-                        img6.setImageResource(R.mipmap.img_back);
-                    }
-                    if (daKa.getResult().getArr().get(6) == 0){
-                        img7.setImageResource(R.mipmap.ic_launcher);
-                    }else if (daKa.getResult().getArr().get(6) == 1){
-                        img7.setImageResource(R.mipmap.img_back);
-                    }
-                }
-            }
-        });
+                        }
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            WaitDialog.show(DaKaActivity.this,"请稍后。。。");
+                            super.onStart(request);
+                        }
+                    });
+        }else{
+            ToastUtils.showShort(R.string.denglu);
+        }
 
     }
 
     private void initUI() {
-        tv_yidaka = findViewById(R.id.tv_yidaka);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,46 +134,53 @@ public class DaKaActivity extends AppCompatActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         DaKaOne daKa = gson.fromJson(body, DaKaOne.class);
                         if (daKa.getStatus() == 1){
                             if (daKa.getResult().get(0) == 0){
-                                img1.setImageResource(R.mipmap.ic_launcher);
+                                img1.setImageResource(R.mipmap.img_nodaka);
                             }else if (daKa.getResult().get(0) == 1){
-                                img1.setImageResource(R.mipmap.img_back);
+                                img1.setImageResource(R.mipmap.img_yiqiandao);
                             }
                             if (daKa.getResult().get(1) == 0){
-                                img2.setImageResource(R.mipmap.ic_launcher);
+                                img2.setImageResource(R.mipmap.img_nodaka);
                             }else if (daKa.getResult().get(1) == 1){
-                                img2.setImageResource(R.mipmap.img_back);
+                                img2.setImageResource(R.mipmap.img_yiqiandao);
                             }
                             if (daKa.getResult().get(2) == 0){
-                                img3.setImageResource(R.mipmap.ic_launcher);
+                                img3.setImageResource(R.mipmap.img_nodaka);
                             }else if (daKa.getResult().get(2) == 1){
-                                img3.setImageResource(R.mipmap.img_back);
+                                img3.setImageResource(R.mipmap.img_yiqiandao);
                             }
                             if (daKa.getResult().get(3) == 0){
-                                img4.setImageResource(R.mipmap.ic_launcher);
+                                img4.setImageResource(R.mipmap.img_nodaka);
                             }else if (daKa.getResult().get(3) == 1){
-                                img4.setImageResource(R.mipmap.img_back);
+                                img4.setImageResource(R.mipmap.img_yiqiandao);
                             }
                             if (daKa.getResult().get(4) == 0){
-                                img5.setImageResource(R.mipmap.ic_launcher);
+                                img5.setImageResource(R.mipmap.img_nodaka);
                             }else if (daKa.getResult().get(4) == 1){
-                                img5.setImageResource(R.mipmap.img_back);
+                                img5.setImageResource(R.mipmap.img_yiqiandao);
                             }
                             if (daKa.getResult().get(5) == 0){
-                                img6.setImageResource(R.mipmap.ic_launcher);
+                                img6.setImageResource(R.mipmap.img_nodaka);
                             }else if (daKa.getResult().get(5) == 1){
-                                img6.setImageResource(R.mipmap.img_back);
+                                img6.setImageResource(R.mipmap.img_yiqiandao);
                             }
                             if (daKa.getResult().get(6) == 0){
-                                img7.setImageResource(R.mipmap.ic_launcher);
+                                img7.setImageResource(R.mipmap.img_nodaka);
                             }else if (daKa.getResult().get(6) == 1){
-                                img7.setImageResource(R.mipmap.img_back);
+                                img7.setImageResource(R.mipmap.img_yiqiandao);
                             }
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(DaKaActivity.this,"请稍后。。。");
+                        super.onStart(request);
                     }
                 });
     }

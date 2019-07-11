@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginVertical="@dimen/layout_margin_5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/img_duihao"
+            android:layout_width="16dp"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:id="@+id/tv_fuwu_key"
+            android:text="正品保证"
+            android:layout_marginLeft="20dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_fuwu_val"
+        android:textSize="12sp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="@dimen/dp_4"
+        android:textColor="@color/colorBlack"
+        android:layout_marginRight="20dp"
+        android:text="商品已使用但质量及瑕疵问题无法界定责任，或者商品完好，可在确认收货后30天内申请无忧退款"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

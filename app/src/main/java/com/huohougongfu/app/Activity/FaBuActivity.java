@@ -244,47 +244,51 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initFaBu() {
         String content = edt_content.getText().toString();
-        if (!mphoto.isEmpty()){
-            Map<String,String> map = new HashMap<>();
-            map.put("content",content);
-            map.put("tel",tel);
-            map.put("type","1");
-            map.put("mId",id);
-            map.put("token",token);
-            map.put("longitude",String.valueOf(lon));
-            map.put("latitude",String.valueOf(lat));
-            map.put("cityCode",citycode);
-            OkGo.<String>post(Contacts.URl1+"/circle/pub")
-                    .tag(this)//
-                    .isMultipart(true)
-                    .params(map)
-                    .addFileParams("file",mphoto)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            String body = response.body();
-                            JSONObject jsonObject = null;
-                            try {
-                                jsonObject = new JSONObject(body);
-                                if (jsonObject.getInt("status") == 1){
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
-                                    finish();
-                                }else{
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
+        if (!"".equals(token)) {
+            if (!mphoto.isEmpty()) {
+                Map<String, String> map = new HashMap<>();
+                map.put("content", content);
+                map.put("tel", tel);
+                map.put("type", "1");
+                map.put("mId", id);
+                map.put("token", token);
+                map.put("longitude", String.valueOf(lon));
+                map.put("latitude", String.valueOf(lat));
+                map.put("cityCode", citycode);
+                OkGo.<String>post(Contacts.URl1 + "/circle/pub")
+                        .tag(this)//
+                        .isMultipart(true)
+                        .params(map)
+                        .addFileParams("file", mphoto)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                String body = response.body();
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(body);
+                                    if (jsonObject.getInt("status") == 1) {
+                                        ToastUtils.showShort(jsonObject.getString("msg"));
+                                        finish();
+                                    } else {
+                                        ToastUtils.showShort(jsonObject.getString("msg"));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
-                        }
 
-                        @Override
-                        public void onStart(Request<String, ? extends Request> request) {
-                            WaitDialog.show(FaBuActivity.this, "载入中...");
-                            super.onStart(request);
-                        }
-                    });
+                            @Override
+                            public void onStart(Request<String, ? extends Request> request) {
+                                WaitDialog.show(FaBuActivity.this, "载入中...");
+                                super.onStart(request);
+                            }
+                        });
+            } else {
+                ToastUtils.showShort("请选择上传的图片");
+            }
         }else{
-            ToastUtils.showShort("请选择上传的图片");
+            ToastUtils.showShort(R.string.denglu);
         }
     }
 }

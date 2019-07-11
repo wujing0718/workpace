@@ -76,7 +76,11 @@ public class JuBaoActivity extends AppCompatActivity implements MultiLineRadioGr
                     if (type != 0){
                         if (!phone.isEmpty()){
                             if (RegexUtils.isMobileExact(phone)){
-                                initTiJiao();
+                                if (!"".equals(token)) {
+                                    initTiJiao();
+                                    }else{
+                                    ToastUtils.showShort(R.string.denglu);
+                                    }
                             }else{
                                 ToastUtils.showShort("请输入正确手机号");
                             }

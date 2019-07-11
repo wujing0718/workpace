@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorHui"
+    android:background="@mipmap/img_daka_bg"
     android:layout_height="match_parent"
     tools:context=".Activity.DaKaActivity">
 
-
     <RelativeLayout
+        android:id="@+id/view_daka_tab"
         android:layout_width="match_parent"
         android:layout_height="44dp">
 
@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:src="@mipmap/img_back"
+                android:src="@mipmap/img_back_white"
                 android:layout_centerInParent="true"
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
@@ -30,122 +30,186 @@
             android:text="每日打卡"
             android:textSize="17sp"
             android:layout_centerInParent="true"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_lianxuqiandao"
+        android:layout_marginTop="@dimen/icon_size_20dp"
+        android:layout_below="@+id/view_daka_tab"
+        android:layout_centerHorizontal="true"
+        android:text="连续签到七天，茶米翻倍"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <FrameLayout
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/tv_lianxuqiandao"
         android:layout_width="match_parent"
-        android:layout_height="380dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:background="@color/colorWhite"
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="18dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="400dp">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_width="210dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/bt_daka"
-                    android:text="每日打卡"
-                    android:textColor="@color/colorBlack"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:background="@drawable/xiadan_kuang"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp" />
-
-                <TextView
-                    android:id="@+id/tv_yidaka"
-                    android:textSize="14sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/colorBlack"
-                    android:text="今日已打卡，再接再厉哦~"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginBottom="40dp"
-                android:layout_marginHorizontal="30dp"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/img1"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-
-                <ImageView
-                    android:id="@+id/img2"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-
-                <ImageView
-                    android:id="@+id/img3"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-
-                <ImageView
-                    android:id="@+id/img4"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-
-                <ImageView
-                    android:id="@+id/img5"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-
-                <ImageView
-                    android:id="@+id/img6"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-
-                <ImageView
-                    android:id="@+id/img7"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-
-
-            </LinearLayout>
 
 
         </RelativeLayout>
 
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/img_duigou"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/img_chamitai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="已连续签到"
+                    android:textSize="14sp"
+                    android:layout_marginVertical="@dimen/dp_10"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:src="@mipmap/img_riqi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/icon_size_20dp"
+                        android:layout_marginHorizontal="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img1"
+                            android:layout_weight="1"
+                            android:src="@mipmap/img_nodaka"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                        <ImageView
+                            android:id="@+id/img2"
+                            android:layout_weight="1"
+                            android:src="@mipmap/img_nodaka"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                        <ImageView
+                            android:id="@+id/img3"
+                            android:layout_weight="1"
+                            android:src="@mipmap/img_nodaka"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                        <ImageView
+                            android:id="@+id/img4"
+                            android:layout_weight="1"
+                            android:src="@mipmap/img_nodaka"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                        <ImageView
+                            android:id="@+id/img5"
+                            android:layout_weight="1"
+                            android:src="@mipmap/img_nodaka"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                        <ImageView
+                            android:id="@+id/img6"
+                            android:layout_weight="1"
+                            android:src="@mipmap/img_nodaka"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                        <ImageView
+                            android:id="@+id/img7"
+                            android:layout_weight="1"
+                            android:src="@mipmap/img_nodaka"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/bt_daka"
+                        android:text="立即签到"
+                        android:layout_marginTop="@dimen/icon_size_20dp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:background="@mipmap/img_qiandao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp" />
+
+                    <TextView
+                        android:padding="6dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_gravity="center_horizontal"
+                        android:text="查看茶米规则"
+                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="18dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="612"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="我的茶米"
+                    android:textSize="10sp"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </FrameLayout>
 
     </FrameLayout>
 

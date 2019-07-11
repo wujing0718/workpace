@@ -313,19 +313,27 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.bt_guanzhu:
                 if (!utils.isDoubleClick()){
-                    if (detail.getResult().getMember().getIsAttention() == 1){
+                    if (!"".equals(token)){
+                        if (detail.getResult().getMember().getIsAttention() == 1){
                         initNoGuanZhu(0);
                     }else if (detail.getResult().getMember().getIsAttention() == 0){
                         initGuanZhu(1);
+                    }
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
                     }
                 }
                 break;
             case R.id.bt_dianzan:
                 if (!utils.isDoubleClick()){
-                    if (detail.getResult().getIsPraise() == 1){
+                    if (!"".equals(token)){
+                        if (detail.getResult().getIsPraise() == 1){
                         initQuXiaoDianZan("0");
                     }else{
                         initDianZan("1");
+                    }
+                }else{
+                    ToastUtils.showShort(R.string.denglu);
                     }
                 }
                 break;
@@ -381,7 +389,11 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                 String pinglun_content = edt_quanzi_pinglun.getText().toString();
                 if (!utils.isDoubleClick()){
                     if (!pinglun_content.isEmpty()){
-                        initFaSongPingLun(pinglun_content);
+                        if (!"".equals(token)){
+                            initFaSongPingLun(pinglun_content);
+                        }else{
+                            ToastUtils.showShort(R.string.denglu);
+                        }
                     }else{
                         ToastUtils.showShort("请输入评论内容");
                     }

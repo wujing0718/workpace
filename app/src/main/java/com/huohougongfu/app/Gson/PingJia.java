@@ -4,12 +4,6 @@ import java.util.List;
 
 public class PingJia {
 
-    /**
-     * msg : 操作成功
-     * result : {"total":1,"list":[{"id":1,"productId":44,"appraiseContent":"66","video":"魔**威","picture":"图片1","appraiseCategory":1,"describeScore":"描述评分","logisticsScore":"物流评分","serviceScore":"服务态度评分","appraiserId":1,"photo":"头像1","levelMember":"等级1","createTime":"2019-06-17T08:35:57.000+0000","updateTime":"2019-06-22T09:33:43.000+0000"}],"pageNum":1,"pageSize":3,"size":1,"startRow":1,"endRow":1,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1}
-     * status : 1
-     */
-
     private String msg;
     private ResultBean result;
     private int status;
@@ -39,26 +33,6 @@ public class PingJia {
     }
 
     public static class ResultBean {
-        /**
-         * total : 1
-         * list : [{"id":1,"productId":44,"appraiseContent":"66","video":"魔**威","picture":"图片1","appraiseCategory":1,"describeScore":"描述评分","logisticsScore":"物流评分","serviceScore":"服务态度评分","appraiserId":1,"photo":"头像1","levelMember":"等级1","createTime":"2019-06-17T08:35:57.000+0000","updateTime":"2019-06-22T09:33:43.000+0000"}]
-         * pageNum : 1
-         * pageSize : 3
-         * size : 1
-         * startRow : 1
-         * endRow : 1
-         * pages : 1
-         * prePage : 0
-         * nextPage : 0
-         * isFirstPage : true
-         * isLastPage : true
-         * hasPreviousPage : false
-         * hasNextPage : false
-         * navigatePages : 8
-         * navigatepageNums : [1]
-         * navigateFirstPage : 1
-         * navigateLastPage : 1
-         */
 
         private int total;
         private int pageNum;
@@ -224,24 +198,9 @@ public class PingJia {
         }
 
         public static class ListBean {
-            /**
-             * id : 1
-             * productId : 44
-             * appraiseContent : 66
-             * video : 魔**威
-             * picture : 图片1
-             * appraiseCategory : 1
-             * describeScore : 描述评分
-             * logisticsScore : 物流评分
-             * serviceScore : 服务态度评分
-             * appraiserId : 1
-             * photo : 头像1
-             * levelMember : 等级1
-             * createTime : 2019-06-17T08:35:57.000+0000
-             * updateTime : 2019-06-22T09:33:43.000+0000
-             */
 
             private int id;
+            private String level;
             private int productId;
             private String appraiseContent;
             private String video;
@@ -255,6 +214,10 @@ public class PingJia {
             private String levelMember;
             private String createTime;
             private String updateTime;
+            private int favour;
+            private String answerContent;
+            private String answerTime;
+            private boolean status;
 
             public int getId() {
                 return id;
@@ -286,6 +249,14 @@ public class PingJia {
 
             public void setVideo(String video) {
                 this.video = video;
+            }
+
+            public String getLevel() {
+                return level;
+            }
+
+            public void setLevel(String level) {
+                this.level = level;
             }
 
             public String getPicture() {
@@ -366,6 +337,38 @@ public class PingJia {
 
             public void setUpdateTime(String updateTime) {
                 this.updateTime = updateTime;
+            }
+
+            public int getFavour() {
+                return favour;
+            }
+
+            public void setFavour(int favour) {
+                this.favour = favour;
+            }
+
+            public String getAnswerContent() {
+                return answerContent;
+            }
+
+            public void setAnswerContent(String answerContent) {
+                this.answerContent = answerContent;
+            }
+
+            public String getAnswerTime() {
+                return answerTime;
+            }
+
+            public void setAnswerTime(String answerTime) {
+                this.answerTime = answerTime;
+            }
+
+            public boolean getStatus() {
+                return status;
+            }
+
+            public void setStatus(boolean status) {
+                this.status = status;
             }
         }
     }

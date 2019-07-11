@@ -111,11 +111,15 @@ public class JingXuanActivity extends AppCompatActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TextView bt_zhaoren_gaunzhu = view.findViewById(R.id.bt_zhaoren_gaunzhu);
-                if (!utils.isDoubleClick()){
-                    if (list.get(position).getIsAttention() == 1){
-                        initNoGuanZhu(0,list.get(position),bt_zhaoren_gaunzhu);
-                    }else if (list.get(position).getIsAttention() == 0){
-                        initGuanZhu(1,list.get(position),bt_zhaoren_gaunzhu);
+                if (!"".equals(token)) {
+                    if (!utils.isDoubleClick()){
+                        if (list.get(position).getIsAttention() == 1){
+                            initNoGuanZhu(0,list.get(position),bt_zhaoren_gaunzhu);
+                        }else if (list.get(position).getIsAttention() == 0){
+                            initGuanZhu(1,list.get(position),bt_zhaoren_gaunzhu);
+                        }
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
                     }
                 }
             }

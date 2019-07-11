@@ -416,12 +416,16 @@ public class VedioDetailActivity extends AppCompatActivity {
                 holder.bt_video_dianzan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (shipindetail.getList().get(i).getIsPraise() == 0){
-                            initDianZan("1",shipindetail.getList().get(i));
-                        }else{
-                            if (!utils.isDoubleClick()){
-                                initQuXiaoDianZan("0",shipindetail.getList().get(i));
+                        if (!"".equals(token)){
+                            if (shipindetail.getList().get(i).getIsPraise() == 0){
+                                initDianZan("1",shipindetail.getList().get(i));
+                            }else{
+                                if (!utils.isDoubleClick()){
+                                    initQuXiaoDianZan("0",shipindetail.getList().get(i));
+                                }
                             }
+                        }else{
+                            ToastUtils.showShort(R.string.denglu);
                         }
                     }
                 });
@@ -429,10 +433,14 @@ public class VedioDetailActivity extends AppCompatActivity {
                 holder.bt_video_pinglun.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new XPopup.Builder(VedioDetailActivity.this)
-                                .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
-                                .asCustom(new VedioComment(VedioDetailActivity.this,dId)/*.enableDrag(false)*/)
-                                .show();
+                        if (!"".equals(token)){
+                            new XPopup.Builder(VedioDetailActivity.this)
+                                    .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
+                                    .asCustom(new VedioComment(VedioDetailActivity.this,dId)/*.enableDrag(false)*/)
+                                    .show();
+                        }else{
+                            ToastUtils.showShort(R.string.denglu);
+                        }
                     }
                 });
 
@@ -452,11 +460,15 @@ public class VedioDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                             if (!utils.isDoubleClick()){
-                                if (shipindetail.getList().get(i).getMember().getIsAttention() == 1){
-                                    initNoGuanZhu(0,shipindetail.getList().get(i),i);
-                                }else if (shipindetail.getList().get(i).getMember().getIsAttention() == 0)
-                                    initGuanZhu(1,shipindetail.getList().get(i),i);
-                        }
+                                if (!"".equals(token)){
+                                    if (shipindetail.getList().get(i).getMember().getIsAttention() == 1){
+                                        initNoGuanZhu(0,shipindetail.getList().get(i),i);
+                                    }else if (shipindetail.getList().get(i).getMember().getIsAttention() == 0)
+                                        initGuanZhu(1,shipindetail.getList().get(i),i);
+                                }
+                                }else{
+                                    ToastUtils.showShort(R.string.denglu);
+                            }
                     }
                 });
             }

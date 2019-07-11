@@ -23,7 +23,6 @@ public class PingLunAdapter extends BaseQuickAdapter<PingLunGson.ResultBean.List
         helper.addOnClickListener(R.id.bt_dianzan);
         ImageView img_pinglun_touxiang = helper.getView(R.id.img_pinglun_touxiang);
         ImageView img_pinglun_dianzan = helper.getView(R.id.img_pinglun_dianzan);
-
         Glide.with(MyApp.context).load(item.getMember().getPhoto()).into(img_pinglun_touxiang);
         if (item.getIsPraise() == 1){
             img_pinglun_dianzan.setImageResource(R.mipmap.img_dianzanok);

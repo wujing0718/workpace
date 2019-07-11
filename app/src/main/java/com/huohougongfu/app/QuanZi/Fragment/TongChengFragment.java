@@ -9,6 +9,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -21,12 +23,16 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -108,6 +114,92 @@ public class TongChengFragment extends Fragment implements IListener {
                 startActivity(new Intent().setClass(getActivity(),QuanZiDetailActivity.class));
             }
         });
+        faXianAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                ImageView img_faixan_shoucang = view.findViewById(R.id.img_faixan_shoucang);
+                TextView tv_dianzan_num = view.findViewById(R.id.tv_xihuan_num);
+                if (!"".equals(token)){
+                    if (faxian.getResult().getDatas().getList().get(position).getIsPraise() == 0){
+                        initDianZan("1",faxian.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                    }else{
+                        if (!utils.isDoubleClick()){
+                            initQuXiaoDianZan("0",faxian.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                        }
+                    }
+                }else{
+                    ToastUtils.showShort(R.string.denglu);
+                }
+            }
+        });
+    }
+
+    //取消点赞
+    private void initQuXiaoDianZan(String type, QuanZiFaXian.ResultBean.DatasBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(listBean.getId()));
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                String num = tv_dianzan_num.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer-1));
+                                listBean.setIsPraise(0);
+                                img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan);
+                                ToastUtils.showShort("取消点赞");
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //点赞
+    private void initDianZan(String type, QuanZiFaXian.ResultBean.DatasBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+        String num = tv_dianzan_num.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(listBean.getId()));
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("点赞成功");
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer+1));
+                                listBean.setIsPraise(1);
+                                img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initUI() {

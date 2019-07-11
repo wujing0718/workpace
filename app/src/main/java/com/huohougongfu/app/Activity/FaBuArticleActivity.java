@@ -109,23 +109,29 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
             case R.id.bt_fabu:
-                title = edt_wenzhang_title.getText().toString();
-                for (int i =0;i<meditview.size();i++){
-                    if (meditview.get(i).equals("わわゐゑをわわ")){
-                        content += "ゐゑをわわ";
+                if(!utils.isDoubleClick()){
+                    if (!"".equals(token)) {
+                        title = edt_wenzhang_title.getText().toString();
+                        for (int i =0;i<meditview.size();i++){
+                            if (meditview.get(i).equals("わわゐゑをわわ")){
+                                content += "ゐゑをわわ";
+                            }else{
+                                EditText editText = (EditText) meditview.get(i);
+                                content += editText.getText().toString()+"わわ";
+                            }
+                        }
+                        if (!TextUtils.isEmpty(title)){
+                            if (!TextUtils.isEmpty(content)){
+                                initFaBu(content);
+                            }else{
+                                ToastUtils.showShort("发布内容不能为空");
+                            }
+                        }else{
+                            ToastUtils.showShort("发布标题不能为空");
+                        }
                     }else{
-                        EditText editText = (EditText) meditview.get(i);
-                        content += editText.getText().toString()+"わわ";
+                        ToastUtils.showShort(R.string.denglu);
                     }
-                }
-                if (!TextUtils.isEmpty(title)){
-                    if (!TextUtils.isEmpty(content)){
-                        initFaBu(content);
-                    }else{
-                        ToastUtils.showShort("发布内容不能为空");
-                    }
-                }else{
-                    ToastUtils.showShort("发布标题不能为空");
                 }
                 break;
         }
@@ -139,7 +145,6 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
             map.put("mId",String.valueOf(mId));
             map.put("cityCode",citycode);
             map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/pub")
                     .tag(this)
                     .isMultipart(true)

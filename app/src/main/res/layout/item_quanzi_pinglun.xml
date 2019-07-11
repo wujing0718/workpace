@@ -87,10 +87,10 @@
 
                         <ImageView
                             android:id="@+id/img_pinglun_dianzan"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/img_dianzan"
                             android:layout_width="14dp"
-                            android:layout_height="14dp" />
+                            android:layout_height="11dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/img_dianzan" />
 
                         <TextView
                             android:id="@+id/tv_pinglun_dianzannum"

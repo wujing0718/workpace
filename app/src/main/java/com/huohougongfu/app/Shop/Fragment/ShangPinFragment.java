@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +22,15 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopDetail;
+import com.huohougongfu.app.Gson.ShopFuWuGson;
 import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
 import com.huohougongfu.app.PopupView.YouHuiQuan;
+import com.huohougongfu.app.QuanZi.Activity.JuBaoActivity;
+import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.ShopTuiJianAdapter;
@@ -42,6 +46,11 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.squareup.picasso.Picasso;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -53,12 +62,12 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShangPinFragment extends Fragment implements View.OnClickListener,IListener {
+public class ShangPinFragment extends Fragment implements View.OnClickListener,IListener ,UMShareListener {
 
 
     private View inflate;
     private TextView tv_yuan_price,tv_manjian2,tv_manjian1,tv_detail_price,tv_detail_name,tv_detail_kuaidi
-            ,tv_dianpu_name,tv_dianpu_jianjie,tv_detail_xiaoliang,tv_detail_address;
+            ,tv_dianpu_name,tv_dianpu_jianjie,tv_detail_xiaoliang,tv_detail_address,tv_fuwu1,tv_fuwu2;
     private RecyclerView rec_shangpin_tuijian;
     private String token,tel,id;
     private int shopid;
@@ -69,6 +78,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private Banner banner;
     private ImageView img_dianp_logo;
     private ShopGuiGe.ResultBean guige;
+    private ShopFuWuGson.ResultBean fuwu;
+    private View bt_detail_fuwu;
+    private ImageView img_shangpin_detail;
 
     public ShangPinFragment() {
     }
@@ -83,9 +95,26 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
         shopid = getArguments().getInt("id");
+        initFuWu();
         initData();
         initUI();
         return inflate;
+    }
+
+    private void initFuWu() {
+        OkGo.<String>get(Contacts.URl2+"selectBasicService")
+                .params("id",String.valueOf(shopid))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ShopFuWuGson fuwu1 = gson.fromJson(body, ShopFuWuGson.class);
+                        if (fuwu1.getStatus() == 1){
+                            fuwu = fuwu1.getResult();
+                        }
+                    }
+                });
     }
 
     //商品详情轮播图
@@ -134,19 +163,23 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_yuan_price = inflate.findViewById(R.id.tv_yuan_price);
         tv_detail_name = inflate.findViewById(R.id.tv_detail_name);
         tv_detail_kuaidi = inflate.findViewById(R.id.tv_detail_kuaidi);
-
+        img_shangpin_detail = inflate.findViewById(R.id.img_shangpin_detail);
         img_dianp_logo = inflate.findViewById(R.id.img_dianp_logo);
         tv_dianpu_name = inflate.findViewById(R.id.tv_dianpu_name);
         tv_dianpu_jianjie = inflate.findViewById(R.id.tv_dianpu_jianjie);
         tv_detail_xiaoliang = inflate.findViewById(R.id.tv_detail_xiaoliang);
         tv_detail_address = inflate.findViewById(R.id.tv_detail_address);
+        tv_fuwu1 = inflate.findViewById(R.id.tv_fuwu1);
+        tv_fuwu2 = inflate.findViewById(R.id.tv_fuwu2);
+
 
         tv_manjian1 = inflate.findViewById(R.id.tv_manjian1);
         tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
-        
+        inflate.findViewById(R.id.bt_detail_fenxiang).setOnClickListener(this);
         banner = inflate.findViewById(R.id.banner);
         inflate.findViewById(R.id.bt_detail_lingquan).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_detail_fuwu).setOnClickListener(this);
+        bt_detail_fuwu = inflate.findViewById(R.id.bt_detail_fuwu);
+        bt_detail_fuwu.setOnClickListener(this);
         inflate.findViewById(R.id.bt_detail_guige).setOnClickListener(this);
         inflate.findViewById(R.id.bt_jiagouwuche).setOnClickListener(this);
 
@@ -216,9 +249,20 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         Glide.with(getActivity()).load(mallProduct.getStoreLogo()).apply(options).into(img_dianp_logo);
         tv_dianpu_name.setText(mallProduct.getStoreName());
         tv_dianpu_jianjie.setText(mallProduct.getStoreBoard());
+        Glide.with(getActivity()).load(mallProduct.getRemark()).into(img_shangpin_detail);
 
+        if (fuwu!=null){
+            bt_detail_fuwu.setVisibility(View.VISIBLE);
+            if (fuwu.getBasicService().size()>1){
+                tv_fuwu1.setText(fuwu.getBasicService().get(0).getKey());
+                tv_fuwu2.setText(fuwu.getBasicService().get(1).getKey());
+            }else if (fuwu.getBasicService().size()==1){
+                tv_fuwu1.setText(fuwu.getBasicService().get(0).getKey());
+            }
+        }else{
+            bt_detail_fuwu.setVisibility(View.GONE);
+        }
     }
-
 
     private void initRec(List<ShopDetail.ResultBean.RecommendBean> recommendation) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
@@ -265,7 +309,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_detail_fuwu:
                 if (!utils.isDoubleClick()){
                     new XPopup.Builder(getContext())
-                            .asCustom(new FuWu(getContext()))
+                            .asCustom(new FuWu(getContext(),fuwu))
                             .show();
                 }
                 break;
@@ -279,6 +323,24 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_jiagouwuche:
                 if (!utils.isDoubleClick()){
                     JiaRuGouWuChe();
+                }
+                break;
+            case R.id.bt_detail_fenxiang:
+                if (!utils.isDoubleClick()){
+                    UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
+                    web.setTitle("火后功夫");//标题
+                    web.setDescription("123456");//描述
+                    if (TextUtils.isEmpty("")) {
+                        web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
+                    } else {
+                        web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                    }
+                    new ShareAction(getActivity())
+                            .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                    SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                            .withMedia(web)
+                            .setCallback(this).open();
+
                 }
                 break;
         }
@@ -307,5 +369,25 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         if (audience_cnt == 0) {
             ToastUtils.showShort(status);
         }
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+
     }
 }

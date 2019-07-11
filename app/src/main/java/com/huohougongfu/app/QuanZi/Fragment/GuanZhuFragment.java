@@ -143,12 +143,16 @@ public class GuanZhuFragment extends Fragment implements IListener {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ImageView img_faixan_shoucang = view.findViewById(R.id.img_faixan_shoucang);
                 TextView tv_dianzan_num = view.findViewById(R.id.tv_xihuan_num);
-                if (faxian.getResult().getList().get(position).getIsPraise() == 0){
-                    initDianZan("1",faxian.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
-                }else{
-                    if (!utils.isDoubleClick()){
-                        initQuXiaoDianZan("0",faxian.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                if (!"".equals(token)){
+                    if (faxian.getResult().getList().get(position).getIsPraise() == 0){
+                        initDianZan("1",faxian.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                    }else{
+                        if (!utils.isDoubleClick()){
+                            initQuXiaoDianZan("0",faxian.getResult().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                        }
                     }
+                }else{
+                    ToastUtils.showShort(R.string.denglu);
                 }
             }
         });

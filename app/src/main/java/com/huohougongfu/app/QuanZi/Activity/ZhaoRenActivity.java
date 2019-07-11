@@ -112,10 +112,14 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TextView bt_zhaoren_gaunzhu = view.findViewById(R.id.bt_zhaoren_gaunzhu);
                 if (!utils.isDoubleClick()){
-                    if (list.get(position).getIsAttention() == 1){
-                        initNoGuanZhu(0,list.get(position),bt_zhaoren_gaunzhu);
-                    }else if (list.get(position).getIsAttention() == 0){
-                        initGuanZhu(1,list.get(position),bt_zhaoren_gaunzhu);
+                    if (!"".equals(token)){
+                        if (list.get(position).getIsAttention() == 1){
+                            initNoGuanZhu(0,list.get(position),bt_zhaoren_gaunzhu);
+                        }else if (list.get(position).getIsAttention() == 0){
+                            initGuanZhu(1,list.get(position),bt_zhaoren_gaunzhu);
+                        }
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
                     }
                 }
             }
@@ -129,7 +133,6 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
         map.put("attentionId",String.valueOf(userId));
         map.put("type",String.valueOf(type));
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {

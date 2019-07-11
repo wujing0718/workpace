@@ -3,15 +3,22 @@ package com.huohougongfu.app.Shop.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ShopCanShu;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Adapter.CanShuContentAdapter;
+import com.huohougongfu.app.Shop.Adapter.CanShuNameAdapter;
+import com.huohougongfu.app.Shop.Adapter.ShopAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -20,6 +27,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,8 +39,9 @@ public class CanShuFragment extends Fragment {
     private View inflate;
     private String token,tel,id;
     private int shopid;
-    private TextView tv_producedDate,tv_expirationDate,tv_storageWay,tv_productionLicenseCode,tv_productStandardCode,tv_factoryName,tv_factoryAddress
-            ,tv_burdenSheet,tv_foodAdditives,tv_netContent,tv_brand,tv_category,tv_producedAddress,tv_packageType;
+    private RecyclerView rec_canshu_name,rec_canshu_content;
+    private CanShuNameAdapter nameadapter;
+    private CanShuContentAdapter contentadapter;
 
     public CanShuFragment() {
         // Required empty public constructor
@@ -53,18 +62,8 @@ public class CanShuFragment extends Fragment {
     }
 
     private void initUI() {
-        tv_producedDate = inflate.findViewById(R.id.tv_producedDate);
-        tv_expirationDate = inflate.findViewById(R.id.tv_expirationDate);
-        tv_storageWay = inflate.findViewById(R.id.tv_storageWay);
-        tv_productionLicenseCode = inflate.findViewById(R.id.tv_productionLicenseCode);
-        tv_productStandardCode = inflate.findViewById(R.id.tv_productStandardCode);
-        tv_factoryAddress = inflate.findViewById(R.id.tv_factoryAddress);
-        tv_burdenSheet = inflate.findViewById(R.id.tv_burdenSheet);
-        tv_netContent = inflate.findViewById(R.id.tv_netContent);
-        tv_brand = inflate.findViewById(R.id.tv_brand);
-        tv_category = inflate.findViewById(R.id.tv_category);
-        tv_producedAddress = inflate.findViewById(R.id.tv_producedAddress);
-        tv_packageType = inflate.findViewById(R.id.tv_packageType);
+        rec_canshu_name = inflate.findViewById(R.id.rec_canshu_name);
+        rec_canshu_content = inflate.findViewById(R.id.rec_canshu_content);
 
     }
 
@@ -82,18 +81,10 @@ public class CanShuFragment extends Fragment {
                         Gson gson = new Gson();
                         ShopCanShu canshu = gson.fromJson(response.body(), ShopCanShu.class);
                         if (canshu.getStatus() == 1) {
-                            tv_producedDate.setText(canshu.getResult().getProducedDate());
-                            tv_expirationDate.setText(canshu.getResult().getExpirationDate());
-                            tv_storageWay.setText(canshu.getResult().getStorageWay());
-                            tv_productionLicenseCode.setText(canshu.getResult().getProductionLicenseCode());
-                            tv_productStandardCode.setText(canshu.getResult().getProductStandardCode());
-                            tv_factoryAddress.setText(canshu.getResult().getFactoryAddress());
-                            tv_burdenSheet.setText(canshu.getResult().getBurdenSheet());
-                            tv_netContent.setText(canshu.getResult().getNetContent());
-                            tv_brand.setText(canshu.getResult().getBrand());
-                            tv_category.setText(canshu.getResult().getCategory());
-                            tv_producedAddress.setText(canshu.getResult().getProducedAddress());
-                            tv_packageType.setText(canshu.getResult().getPackageType());
+                            if (canshu.getResult()!=null) {
+                                initRecName(canshu);
+                                initRecContent(canshu);
+                            }
                         }
                     }
                     @Override
@@ -102,6 +93,24 @@ public class CanShuFragment extends Fragment {
                         super.onStart(request);
                     }
                 });
+    }
+
+    private void initRecContent(ShopCanShu canshu) {
+        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
+        //设置RecyclerView 布局
+        rec_canshu_content.setLayoutManager(layoutmanager);
+        nameadapter = new CanShuNameAdapter(canshu.getResult().getVal());
+        rec_canshu_content.setAdapter(nameadapter);
+    }
+
+    private void initRecName(ShopCanShu canshu) {
+        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
+        //设置RecyclerView 布局
+        rec_canshu_name.setLayoutManager(layoutmanager);
+        contentadapter = new CanShuContentAdapter(canshu.getResult().getKeys());
+        rec_canshu_name.setAdapter(contentadapter);
     }
 
     public static Fragment newInstance(int str){

@@ -248,44 +248,48 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         String title = et_title.getText().toString();
         String content = et_content.getText().toString();
         Map<String,String> map = new HashMap<>();
-        if (file!=null){
-            map.put("title",title);
-            map.put("content",content);
-            map.put("type","3");
-            map.put("mId",String.valueOf(mId));
-            map.put("token",token);
-            OkGo.<String>post(Contacts.URl1+"/circle/pub")
-                    .tag(this)//
-                    .isMultipart(true)
-                    .params(map)
-                    .params("file",file)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            WaitDialog.dismiss();
-                            String body = response.body();
-                            try {
-                                JSONObject jsonObject = new JSONObject(body);
-                                if (jsonObject.getInt("status") == 1){
-                                    ToastUtils.showShort("上传成功");
-                                    finish();
-                                }else{
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
+        if (!"".equals(token)) {
+            if (file!=null){
+                map.put("title",title);
+                map.put("content",content);
+                map.put("type","3");
+                map.put("mId",String.valueOf(mId));
+                map.put("token",token);
+                OkGo.<String>post(Contacts.URl1+"/circle/pub")
+                        .tag(this)//
+                        .isMultipart(true)
+                        .params(map)
+                        .params("file",file)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                WaitDialog.dismiss();
+                                String body = response.body();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(body);
+                                    if (jsonObject.getInt("status") == 1){
+                                        ToastUtils.showShort("上传成功");
+                                        finish();
+                                    }else{
+                                        ToastUtils.showShort(jsonObject.getString("msg"));
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
-                        }
 
-                        @Override
-                        public void onStart(Request<String, ? extends Request> request) {
-                            WaitDialog.show(FaBuVedioActivity.this, "上传中...");
-                            super.onStart(request);
-                        }
-                    });
+                            @Override
+                            public void onStart(Request<String, ? extends Request> request) {
+                                WaitDialog.show(FaBuVedioActivity.this, "上传中...");
+                                super.onStart(request);
+                            }
+                        });
+            }else{
+                ToastUtils.showShort("请选择上传的视频");
+            }
         }else{
-            ToastUtils.showShort("请选择上传的视频");
+            ToastUtils.showShort(R.string.denglu);
         }
     }
 
