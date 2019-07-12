@@ -128,6 +128,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private void initPingLun() {
         Map<String,String> map = new HashMap<>();
         map.put("dataId",String.valueOf(dId));
+        map.put("mId",String.valueOf(mId));
         map.put("pageNo","1");
         map.put("pageSize","10");
         OkGo.<String>post(Contacts.URl1+"/circle/comments/list")

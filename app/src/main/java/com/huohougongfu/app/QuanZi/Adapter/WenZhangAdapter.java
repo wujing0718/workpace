@@ -55,6 +55,11 @@ public class WenZhangAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Da
         helper.setText(R.id.tv_wenzhang_name,item.getMember().getNickName());
         helper.setText(R.id.tv_wenzhang_content,item.getTitle());
         helper.setText(R.id.tv_wenzhang_time,time);
+
+        helper.setText(R.id.tv_liulanliang_num,time);
+        helper.setText(R.id.tv_pinglum_num,time);
+        helper.setText(R.id.tv_xihuan_num,time);
+
     }
 
     //下面两个方法提供给页面刷新和加载时调用

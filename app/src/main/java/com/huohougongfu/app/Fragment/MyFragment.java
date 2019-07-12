@@ -10,9 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.MyZhuYe;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.MyDongTaiActivity;
 import com.huohougongfu.app.WoDe.Activity.SettingActivity;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,8 +32,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private View inflate;
     private ImageView img_my_touxiang;
-    private TextView tv_my_name,tv_my_vipnum,tv_my_id,tv_my_guanzhunum,tv_my_fensinum,tv_my_jianjie;
+    private TextView tv_my_name,tv_my_vipnum,tv_my_id,tv_my_guanzhunum,tv_my_fensinum,
+            tv_my_jianjie,tv_my_fenlei,tv_my_weizhi,tv_mydongtai_num;
     private Intent intent;
+    private int id;
+    private View view_weizhi;
 
     public MyFragment() {
         // Required empty public constructor
@@ -35,12 +48,57 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         inflate = inflater.inflate(R.layout.fragment_my, container, false);
+        id = MyApp.instance.getInt("id");
         View statusBar = inflate.findViewById(R.id.statusBarView);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
-        intent = new Intent();
         initUI();
+        intent = new Intent();
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
+    }
+
+    private void initData() {
+        OkGo.<String>get(Contacts.URl1+"/homepage/info/"+id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        MyZhuYe xinxi = gson.fromJson(body, MyZhuYe.class);
+                        if (xinxi.getStatus() == 1){
+                            initView(xinxi.getResult());
+                        }
+                    }
+                });
+    }
+
+    private void initView(MyZhuYe.ResultBean result) {
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        Glide.with(getActivity()).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
+        tv_my_name.setText(result.getNickName());
+        tv_my_vipnum.setText("1");
+
+        if (result.getPlace()!=null){
+            view_weizhi.setVisibility(View.VISIBLE);
+            tv_my_weizhi.setText(result.getPlace());
+        }else{
+            view_weizhi.setVisibility(View.GONE);
+        }
+        if (result.getPersonalProfile()!= null){
+            tv_my_jianjie.setText(result.getPersonalProfile());
+        }else{
+            tv_my_jianjie.setText("暂无简介");
+        }
+        tv_my_guanzhunum.setText(String.valueOf(result.getAttentionNum()));
+        tv_my_fensinum.setText(String.valueOf(result.getFanCount()));
+        tv_my_fenlei.setText(result.getMaster().getLevel());
+        tv_mydongtai_num.setText(String.valueOf(result.getDynamicNum()));
     }
 
     private void initUI() {
@@ -61,12 +119,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
 
         inflate.findViewById(R.id.bt_huiyuan_fenxiao).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_huiyuan_huodong).setOnClickListener(this);
         inflate.findViewById(R.id.bt_huiyuan_tuiguang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_huiyuan_kaidian).setOnClickListener(this);
 
-        inflate.findViewById(R.id.bt_my_fenxiang).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_gengduo).setOnClickListener(this);
 
+        view_weizhi = inflate.findViewById(R.id.view_weizhi);
         img_my_touxiang = inflate.findViewById(R.id.img_my_touxiang);
         tv_my_name = inflate.findViewById(R.id.tv_my_name);
         tv_my_vipnum = inflate.findViewById(R.id.tv_my_vipnum);
@@ -74,6 +132,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         tv_my_guanzhunum = inflate.findViewById(R.id.tv_my_guanzhunum);
         tv_my_fensinum = inflate.findViewById(R.id.tv_my_fensinum);
         tv_my_jianjie = inflate.findViewById(R.id.tv_my_jianjie);
+        tv_mydongtai_num = inflate.findViewById(R.id.tv_mydongtai_num);
+        tv_my_fenlei = inflate.findViewById(R.id.tv_my_fenlei);
+        tv_my_weizhi = inflate.findViewById(R.id.tv_my_weizhi);
 
 
     }
@@ -92,6 +153,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.bt_setting:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),SettingActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_my_dongtai:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),MyDongTaiActivity.class);
                     startActivity(intent);
                 }
                 break;

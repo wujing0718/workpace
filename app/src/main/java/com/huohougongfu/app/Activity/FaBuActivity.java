@@ -270,7 +270,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                                     if (jsonObject.getInt("status") == 1) {
                                         ToastUtils.showShort(jsonObject.getString("msg"));
                                         finish();
-                                    } else {
+                                    }else{
                                         ToastUtils.showShort(jsonObject.getString("msg"));
                                     }
                                 } catch (JSONException e) {

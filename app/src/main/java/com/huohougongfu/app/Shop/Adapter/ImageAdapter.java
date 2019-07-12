@@ -17,7 +17,7 @@ import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 
 import java.util.List;
 
-class ImageAdapter extends EasyAdapter<Object> {
+public class ImageAdapter extends EasyAdapter<Object> {
     private List<Object> mlist;
     public ImageAdapter(List<Object> mlist) {
         super(mlist, R.layout.item_pingjia_photo);

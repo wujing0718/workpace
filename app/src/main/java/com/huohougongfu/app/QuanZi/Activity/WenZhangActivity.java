@@ -105,7 +105,7 @@ public class WenZhangActivity extends AppCompatActivity {
         map.put("type","2");
         map.put("pageNo","1");
         map.put("mId",String.valueOf(mId));
-        map.put("pageSize","4");
+        map.put("pageSize","10");
         map.put("condition",sousuo);
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")

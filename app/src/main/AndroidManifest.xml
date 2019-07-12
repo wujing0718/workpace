@@ -28,6 +28,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+
+        <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:authorities="com.huohougongfu.app.FileProvider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/provider_paths" />-->
+        <!--</provider>-->
+
         <activity
             android:name=".Activity.MainActivity"
             android:windowSoftInputMode="adjustPan"
@@ -51,13 +62,10 @@
         //高德
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="b77977ecc90aea5fb6cefb4cf2b94de2">
-        </meta-data>
-
+            android:value="b77977ecc90aea5fb6cefb4cf2b94de2"></meta-data>
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5d1efbd54ca357a016000105" />
-
         //微信
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -76,7 +84,6 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -150,8 +157,9 @@
         <activity android:name=".QuanZi.Activity.WenZhangDetailActivity" />
         <activity
             android:name=".QuanZi.Activity.JuBaoActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
-        <activity android:name=".QuanZi.Activity.ZhaoRenActivity"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".QuanZi.Activity.ZhaoRenActivity" />
+        <activity android:name=".WoDe.Activity.MyDongTaiActivity"></activity>
     </application>
 
 </manifest>

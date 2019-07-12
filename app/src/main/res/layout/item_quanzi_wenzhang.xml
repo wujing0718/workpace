@@ -75,11 +75,12 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_liulanliang"
                     android:layout_width="14dp"
                     android:layout_height="14dp" />
 
                 <TextView
+                    android:id="@+id/tv_liulanliang_num"
                     android:text="20k"
                     android:textSize="10sp"
                     android:layout_marginLeft="4dp"
@@ -96,11 +97,12 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_pinglun"
                     android:layout_width="14dp"
                     android:layout_height="14dp" />
 
                 <TextView
+                    android:id="@+id/tv_pinglum_num"
                     android:text="20k"
                     android:textSize="10sp"
                     android:layout_marginLeft="4dp"
@@ -117,11 +119,12 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/img_xihuan"
                     android:layout_width="14dp"
                     android:layout_height="14dp" />
 
                 <TextView
+                    android:id="@+id/tv_xihuan_num"
                     android:text="20k"
                     android:textSize="10sp"
                     android:layout_marginLeft="4dp"
