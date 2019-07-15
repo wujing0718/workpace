@@ -21,6 +21,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDongTaiActivity;
 import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.lzy.okgo.OkGo;
@@ -159,12 +160,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //设置
             case R.id.bt_setting:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),SettingActivity.class);
                     startActivity(intent);
                 }
                 break;
+                //我的动态
             case R.id.bt_my_dongtai:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),MyDongTaiActivity.class);
@@ -177,8 +180,16 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     startActivity(intent);
                 }
                 break;
+                //我的收藏
             case R.id.bt_my_shoucang:
                 RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", "贝吉塔");
+                break;
+                //我的订单全部
+            case R.id.bt_dingdan_quanbu:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),MyDingDanActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

@@ -61,10 +61,10 @@
 
         </activity>
 
-        <service android:name="cn.jpush.android.service.PushService"
+        <service
+            android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
-            tools:node="replace" >
-        </service>
+            tools:node="replace" />
         //高德
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -212,8 +212,10 @@
                 <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
                 <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
             </intent-filter>
-
         </receiver>
+
+        <activity android:name=".WoDe.Activity.MyDingDanActivity" />
+        <activity android:name=".WoDe.Activity.DingDanDetailActivity"></activity>
     </application>
 
 </manifest>

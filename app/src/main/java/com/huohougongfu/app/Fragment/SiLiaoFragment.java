@@ -63,7 +63,6 @@ public class SiLiaoFragment extends Fragment {
 
                 return findUserById(userId);//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
             }
-
         }, true);
 
 

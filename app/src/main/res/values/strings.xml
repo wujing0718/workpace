@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name" translatable="false">火后工夫</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="denglu">请登录后操作</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="denglu" translatable="false">请登录后操作</string>
 
 </resources>
