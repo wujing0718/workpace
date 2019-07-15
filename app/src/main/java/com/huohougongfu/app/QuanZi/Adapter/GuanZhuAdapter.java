@@ -40,10 +40,14 @@ public class GuanZhuAdapter extends BaseQuickAdapter<GuanZhuDongTai.ResultBean.L
         } else {
             view_dingwei.setVisibility(View.GONE);
         }
-        if (item.getMember().getPhoto() != null) {
-            Picasso.get().load(R.mipmap.ic_launcher).into(img_faixan_touxiang);
-        } else {
-            Picasso.get().load(R.mipmap.ic_launcher).into(img_faixan_touxiang);
+        if (item.getMember().getPhoto()!=null){
+            RequestOptions options = new RequestOptions().circleCrop();
+            Glide.with(MyApp.context).load(item.getMember().getPhoto()).apply(options)
+                    .into(img_faixan_touxiang);
+        }else{
+            RequestOptions options = new RequestOptions().circleCrop();
+            Glide.with(MyApp.context).load(R.mipmap.img_wode1).apply(options)
+                    .into(img_faixan_touxiang);
         }
 
         if (item.getIsPraise() == 1) {

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
@@ -32,6 +33,7 @@ public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.List
         helper.setText(R.id.tv_zhaoren_chenghu,item.getMaster().getLevel());
         helper.setText(R.id.tv_zhaoren_weizhi,item.getPlace());
         ImageView img_zhaoren_photo = helper.getView(R.id.img_zhaoren_photo);
-        Glide.with(MyApp.context).load(item.getPhoto()).into(img_zhaoren_photo);
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        Glide.with(MyApp.context).load(item.getPhoto()).apply(requestOptions).into(img_zhaoren_photo);
     }
 }

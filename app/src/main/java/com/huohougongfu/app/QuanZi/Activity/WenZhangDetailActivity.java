@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.PingLunGson;
@@ -189,7 +190,8 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
         rec_wenzhang_pinglun.setAdapter(pingLunAdapter);
         view_wenzhang.addView(rec_wenzhang_pinglun);
         tv_quanzi_name.setText(result.getMember().getNickName());
-        Glide.with(WenZhangDetailActivity.this).load(result.getMember().getPhoto()).into(img_quanzi_touxiang);
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        Glide.with(WenZhangDetailActivity.this).load(result.getMember().getPhoto()).apply(requestOptions).into(img_quanzi_touxiang);
 
         pingLunAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -447,21 +449,17 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
     //分享回调
     @Override
     public void onStart(SHARE_MEDIA share_media) {
-
     }
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
-
     }
 
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
-
     }
 }

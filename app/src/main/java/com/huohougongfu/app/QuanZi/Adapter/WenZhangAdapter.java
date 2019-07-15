@@ -32,9 +32,11 @@ public class WenZhangAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Da
         ImageView img_wenzhang_touxiang = helper.getView(R.id.img_wenzhang_touxiang);
         String picture = item.getPicture();
         if (item.getMember().getPhoto()!=null){
-            Picasso.get().load(R.mipmap.ic_launcher).into(img_wenzhang_touxiang);
+            RequestOptions requestOptions = new RequestOptions().circleCrop();
+            Glide.with(MyApp.context).load(item.getMember().getPhoto()).apply(requestOptions).into(img_wenzhang_touxiang);
         }else{
-            Picasso.get().load(R.mipmap.ic_launcher).into(img_wenzhang_touxiang);
+            RequestOptions requestOptions = new RequestOptions().circleCrop();
+            Glide.with(MyApp.context).load(R.mipmap.img_wode1).apply(requestOptions).into(img_wenzhang_touxiang);
         }
         if (picture!= null){
             String[] split = picture.split(",");
@@ -56,9 +58,9 @@ public class WenZhangAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Da
         helper.setText(R.id.tv_wenzhang_content,item.getTitle());
         helper.setText(R.id.tv_wenzhang_time,time);
 
-        helper.setText(R.id.tv_liulanliang_num,time);
-        helper.setText(R.id.tv_pinglum_num,time);
-        helper.setText(R.id.tv_xihuan_num,time);
+        helper.setText(R.id.tv_liulanliang_num,String.valueOf(item.getPraiseNum()));
+        helper.setText(R.id.tv_pinglum_num,String.valueOf(item.getPraiseNum()));
+        helper.setText(R.id.tv_xihuan_num,String.valueOf(item.getPraiseNum()));
 
     }
 

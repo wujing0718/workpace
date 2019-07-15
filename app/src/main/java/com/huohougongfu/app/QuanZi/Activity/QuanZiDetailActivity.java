@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.GuanZhu;
@@ -97,6 +98,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         initUI();
         initData();
     }
+
 
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
@@ -302,7 +304,8 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         tv_quanzi_time.setText(time);
         tv_quanzi_name.setText(result.getMember().getNickName());
         tv_quanzi_chenghu.setText(result.getMember().getMaster().getLevel());
-        Glide.with(QuanZiDetailActivity.this).load(result.getMember().getPhoto()).into(img_quanzi_touxiang);
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        Glide.with(QuanZiDetailActivity.this).load(result.getMember().getPhoto()).apply(requestOptions).into(img_quanzi_touxiang);
 
     }
 
@@ -562,21 +565,17 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onStart(SHARE_MEDIA share_media) {
-
     }
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
-
     }
 
     @Override
     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
-
     }
 }

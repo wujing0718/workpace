@@ -12,9 +12,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.AmountView;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.squareup.picasso.Picasso;
@@ -29,6 +31,10 @@ public class GuiGe extends BottomPopupView {
     private List<String> list=new ArrayList<String>();
     private Context context;
     private RadioGroup gadiogroup;
+    private RadioButton button;
+    private int standardPrice;
+    private AmountView amountview;
+    private int amount = 1;
 
     public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct) {
         super(context);
@@ -52,6 +58,7 @@ public class GuiGe extends BottomPopupView {
         tv_guige_name = findViewById(R.id.tv_guige_name);
         tv_guige_price = findViewById(R.id.tv_guige_price);
         tv_guige_kucun = findViewById(R.id.tv_guige_kucun);
+        amountview = findViewById(R.id.amountview);
         if(mallProduct.getProductStandard()!=null){
             for (int i = 0; i <mallProduct.getProductStandard().size() ; i++) {
                 list.add(mallProduct.getProductStandard().get(i).getStandard());
@@ -64,13 +71,13 @@ public class GuiGe extends BottomPopupView {
         findViewById(R.id.bt_gouwuche).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                initGouWuChe();
             }
         });
         findViewById(R.id.bt_goumai).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+
             }
         });
         findViewById(R.id.bt_guanbi).setOnClickListener(new OnClickListener() {
@@ -81,14 +88,24 @@ public class GuiGe extends BottomPopupView {
         });
         Picasso.get().load(mallProduct.getProductInfo().getCoverUrl()).into(img_guige_photo);
         tv_guige_name.setText(mallProduct.getProductInfo().getName());
-        tv_guige_price.setText("¥"+mallProduct.getProductInfo().getPrice());
+        tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
 //        tv_guige_kucun.setText(mallProduct.getPrice());
+    }
+
+    private void initGouWuChe() {
+        amountview.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+            @Override
+            public void onAmountChange(View view, int amount1) {
+                amount = amount1;
+            }
+        });
+        ToastUtils.showShort(""+amount+standardPrice);
     }
 
     private void addview(RadioGroup gadiogroup) {
         int index=0;
         for(String ss:list){
-            RadioButton  button=new RadioButton(context);
+            button=new RadioButton(context);
             setRaidBtnAttribute(button,ss,index);
             gadiogroup.addView(button);
             LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) button
@@ -110,6 +127,7 @@ public class GuiGe extends BottomPopupView {
         codeBtn.setId(id);
         if (id == 0){
             codeBtn.setChecked(true);
+            standardPrice = mallProduct.getProductStandard().get(0).getStandardPrice();
             tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
         }
         codeBtn.setText( btnContent );
@@ -118,6 +136,7 @@ public class GuiGe extends BottomPopupView {
         codeBtn.setOnClickListener( new OnClickListener( ) {
             @Override
             public void onClick(View v) {
+                standardPrice = mallProduct.getProductStandard().get(id).getStandardPrice();
                 tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(id).getStandardPrice());
             }
         });

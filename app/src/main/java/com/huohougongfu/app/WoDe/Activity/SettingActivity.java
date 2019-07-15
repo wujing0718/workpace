@@ -94,9 +94,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         tv_my_jianjie = findViewById(R.id.tv_my_jianjie);
         tv_my_fenlei = findViewById(R.id.tv_my_fenlei);
         tv_my_weizhi = findViewById(R.id.tv_my_weizhi);
-        RequestOptions requestOptions = new RequestOptions().circleCrop();
-        Glide.with(SettingActivity.this).load(R.mipmap.ic_launcher).apply(requestOptions).into(img_my_touxiang);
-
 
     }
 
@@ -104,7 +101,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_finish:
-
                 finish();
                 break;
             case R.id.bt_shouhuodizhi:

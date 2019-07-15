@@ -176,6 +176,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_manjian1 = inflate.findViewById(R.id.tv_manjian1);
         tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
         inflate.findViewById(R.id.bt_detail_fenxiang).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_goumai).setOnClickListener(this);
         banner = inflate.findViewById(R.id.banner);
         inflate.findViewById(R.id.bt_detail_lingquan).setOnClickListener(this);
         bt_detail_fuwu = inflate.findViewById(R.id.bt_detail_fuwu);
@@ -314,6 +315,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 }
                 break;
             case R.id.bt_detail_guige:
+                if (!utils.isDoubleClick()){
+                    new XPopup.Builder(getContext())
+                            .asCustom(new GuiGe(getContext(),guige))
+                            .show();
+                }
+                break;
+            case R.id.bt_goumai:
                 if (!utils.isDoubleClick()){
                     new XPopup.Builder(getContext())
                             .asCustom(new GuiGe(getContext(),guige))

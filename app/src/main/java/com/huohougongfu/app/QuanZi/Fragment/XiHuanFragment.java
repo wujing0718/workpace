@@ -25,6 +25,7 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
+import com.huohougongfu.app.Utils.StaggeredDividerItemDecoration;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -117,6 +118,7 @@ public class XiHuanFragment extends Fragment implements IListener {
         rec_xiuhuan.setItemAnimator(null);
         faXianAdapter = new XiHuanAdapter(R.layout.item_quanzi_faxian,xihuan.getResult().getDatas().getList());
         rec_xiuhuan.setAdapter(faXianAdapter);
+        rec_xiuhuan.addItemDecoration(new StaggeredDividerItemDecoration(getActivity(), 5));
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
