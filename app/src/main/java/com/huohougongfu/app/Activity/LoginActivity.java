@@ -2,6 +2,7 @@ package com.huohougongfu.app.Activity;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -29,6 +31,10 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,7 +46,50 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView tv_login_code;
     private LoginActivity.TimerCount timerCount;
     private SPUtils instance;
+    private static final int MSG_SET_ALIAS = 1001;
 
+    //设置别名
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+//                    Log.d(TAG, "Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(),
+                            (String) msg.obj,
+                            null,
+                            mAliasCallback);
+                    break;
+                default:
+//                    Log.i(TAG, "Unhandled msg - " + msg.what);
+            }
+        }
+    };
+
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs ;
+            switch (code) {
+                case 0:
+                    logs = "设置成功";
+                    LogUtils.e(alias);
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    LogUtils.e(logs);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+            }
+//            ExampleUtil.showToast(logs, getApplicationContext());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +233,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         finish();
+                                        // 调用 Handler 来异步设置别名
+                                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
                                         ToastUtils.showShort("登录成功");
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
@@ -230,6 +281,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         MyApp.instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
+                                        // 调用 Handler 来异步设置别名
+                                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
                                         finish();
                                         ToastUtils.showShort("登录成功");
                                     }else{

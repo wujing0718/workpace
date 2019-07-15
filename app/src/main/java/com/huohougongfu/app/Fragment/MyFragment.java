@@ -2,6 +2,7 @@ package com.huohougongfu.app.Fragment;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.MyZhuYe;
+import com.huohougongfu.app.Gson.RongYunUsetInfo;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -23,6 +26,11 @@ import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import java.util.concurrent.CountDownLatch;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +64,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         intent = new Intent();
         return inflate;
     }
+
 
     @Override
     public void onResume() {
@@ -103,7 +112,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     private void initUI() {
         inflate.findViewById(R.id.bt_setting).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_duihua).setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_gouwuche).setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_shoucang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_kabao).setOnClickListener(this);
@@ -111,6 +119,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_my_dongtai).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_quanbu).setOnClickListener(this);
         inflate.findViewById(R.id.bt_huiyuan_quanbu).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
 
         inflate.findViewById(R.id.bt_dingdan_daifukuan).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_daifahuo).setOnClickListener(this);
@@ -161,6 +170,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     intent.setClass(getActivity(),MyDongTaiActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.bt_xiaoxi:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),XiaoXiActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_my_shoucang:
+                RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", "贝吉塔");
                 break;
         }
     }

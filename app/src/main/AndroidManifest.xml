@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- 定位包、导航包需要的额外权限（注：基础权限也需要） -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -29,15 +30,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
-        <!--<provider-->
-            <!--android:name="android.support.v4.content.FileProvider"-->
-            <!--android:authorities="com.huohougongfu.app.FileProvider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/provider_paths" />-->
-        <!--</provider>-->
+        <!-- <provider -->
+        <!-- android:name="android.support.v4.content.FileProvider" -->
+        <!-- android:authorities="com.huohougongfu.app.FileProvider" -->
+        <!-- android:exported="false" -->
+        <!-- android:grantUriPermissions="true"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
+        <!-- android:resource="@xml/rc_file_path" /> -->
+        <!-- </provider> -->
 
         <activity
             android:name=".Activity.MainActivity"
@@ -48,24 +49,34 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <data -->
+            <!-- android:host="com.huohougongfu.app" -->
+            <!-- android:pathPrefix="/conversation/" -->
+            <!-- android:scheme="rong" /> -->
+            <!-- </intent-filter> -->
+
         </activity>
 
-        <!-- <provider -->
-        <!-- android:name="android.support.v4.content.FileProvider" -->
-        <!-- android:authorities="com.huohougongfu.app.provider" -->
-        <!-- android:exported="false" -->
-        <!-- android:grantUriPermissions="true"> -->
-        <!-- <meta-data -->
-        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
-        <!-- android:resource="@xml/provider_paths"/> -->
-        <!-- </provider> -->
+        <service android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" >
+        </service>
         //高德
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="b77977ecc90aea5fb6cefb4cf2b94de2"></meta-data>
+            android:value="b77977ecc90aea5fb6cefb4cf2b94de2" />
+        //友盟
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5d1efbd54ca357a016000105" />
+        //融云
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="x18ywvqfxcr0c" />
         //微信
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -106,6 +117,23 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+
+        <!-- 会话界面 -->
+        <activity
+            android:name=".RongYun.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.huohougongfu.app"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
             </intent-filter>
         </activity>
         <activity
@@ -159,7 +187,33 @@
             android:name=".QuanZi.Activity.JuBaoActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".QuanZi.Activity.ZhaoRenActivity" />
-        <activity android:name=".WoDe.Activity.MyDongTaiActivity"></activity>
+        <activity android:name=".WoDe.Activity.MyDongTaiActivity" />
+        <activity android:name=".Activity.XiaoXiActivity">
+
+            <!-- android:exported="true"> -->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <data -->
+            <!-- android:host="com.huohougongfu.app" -->
+            <!-- android:pathPrefix="/conversationlist/" -->
+            <!-- android:scheme="rong" /> -->
+            <!-- </intent-filter> -->
+            <!-- &gt; -->
+        </activity>
+
+        <receiver
+            android:name=".RongYun.SealNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>

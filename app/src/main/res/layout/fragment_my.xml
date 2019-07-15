@@ -33,7 +33,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/bt_duihua"
+            android:id="@+id/bt_xiaoxi"
             android:layout_alignParentRight="true"
             android:layout_width="50dp"
             android:layout_height="44dp">
@@ -75,7 +75,6 @@
 
                         <ImageView
                             android:id="@+id/img_my_touxiang"
-                            android:src="@mipmap/compose_photo_photograph"
                             android:layout_width="@dimen/layout_margin_64dp"
                             android:layout_height="@dimen/layout_margin_64dp" />
 

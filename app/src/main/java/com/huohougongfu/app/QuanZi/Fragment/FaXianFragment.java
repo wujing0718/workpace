@@ -106,7 +106,7 @@ public class FaXianFragment extends Fragment implements IListener {
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+//                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });

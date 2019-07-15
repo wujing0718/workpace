@@ -22,8 +22,15 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64", 'mips', 'mips64'
         }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "6e4fe7bb593af0aeb46f9d0c", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
         signingConfig signingConfigs.config
     }
     allprojects {
@@ -87,6 +94,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.lxj:xpopup:1.7.13'
     implementation project(path: ':media')
+    implementation project(path: ':IMKit')
+    implementation project(path: ':IMLib')
     //购物车控件
     implementation 'com.octopus:amountview:0.0.2'
     implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
@@ -125,4 +134,8 @@ dependencies {
     implementation 'com.github.mcxtzhang:AnimShopButton:V1.2.0'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.github.DingMouRen:LayoutManagerGroup:1e6f4f96eb'
+    //    极光
+    implementation 'cn.jiguang.sdk:jpush:3.1.6'
+    //     此处以JPush 3.1.6 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:1.2.5'
 }
