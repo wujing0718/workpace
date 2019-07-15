@@ -36,7 +36,7 @@ public class RecorderActivity extends AppCompatActivity implements IVideoRecorde
 
     private static final int PLAY_VIDEO_REQUEST_CODE = 100;
 
-    private static int MAX_TIME = 30;
+    private static int MAX_TIME = 15;
 
     private Camera mCamera;
 
@@ -83,7 +83,7 @@ public class RecorderActivity extends AppCompatActivity implements IVideoRecorde
         open_light = (ImageView) findViewById(R.id.open_light);
         cancel_btn = (ImageView) findViewById(R.id.cancel_btn);
 
-        record_pb.setRunningTime(MAX_TIME);
+        record_pb.setRunningTime(15);
         record_pb.setOnFinishListener(new RecordProgressBar.OnFinishListener() {
             @Override
             public void onFinish() {
@@ -287,8 +287,8 @@ public class RecorderActivity extends AppCompatActivity implements IVideoRecorde
 
         // Step 5: Set the preview output
         mMediaRecorder.setPreviewDisplay(mPreview.getHolder().getSurface());
-
-        mMediaRecorder.setMaxDuration(MAX_TIME*1000);
+        //拍摄15s的视频
+        mMediaRecorder.setMaxDuration(15000);
 
         if(mPreview.getCameraState() == 0) {
             mMediaRecorder.setOrientationHint(90);
