@@ -37,6 +37,8 @@ import java.util.TimerTask;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -222,6 +224,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             MyApp.instance.put("token",register.getResult().getToken(),true);
                             intent.setClass(RegisterActivity.this,MainActivity.class);
                             startActivity(intent);
+                            //融云登录
+                            RongIM.connect(register.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
+                                //token1参数报错
+                                @Override
+                                public void onTokenIncorrect() {
+                                    Log.e("TAG","参数错误");
+                                }
+
+                                @Override
+                                public void onSuccess(String s) {
+                                    Log.e("TAG","成功");
+                                    // 连接成功，说明你已成功连接到融云Server
+                                }
+
+                                @Override
+                                public void onError(RongIMClient.ErrorCode errorCode) {
+                                    Log.e("TAG","失败");
+                                }
+                            });
                             // 调用 Handler 来异步设置别名
                             mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(register.getResult().getUserInfo().getUserId())));
                             finish();

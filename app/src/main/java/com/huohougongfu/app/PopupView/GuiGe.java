@@ -13,16 +13,26 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.Gson.ShopGuiGe;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.AmountView;
+import com.huohougongfu.app.Utils.Contacts;
+import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GuiGe extends BottomPopupView {
     private ShopGuiGe.ResultBean mallProduct;
@@ -35,6 +45,7 @@ public class GuiGe extends BottomPopupView {
     private int standardPrice;
     private AmountView amountview;
     private int amount = 1;
+    private int storeId,shopid,standarid;
 
     public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct) {
         super(context);
@@ -66,6 +77,12 @@ public class GuiGe extends BottomPopupView {
         }else{
 
         }
+        amountview.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+            @Override
+            public void onAmountChange(View view, int amount1) {
+                amount = amount1;
+            }
+        });
         addview(gadiogroup);
         //初始化
         findViewById(R.id.bt_gouwuche).setOnClickListener(new OnClickListener() {
@@ -88,18 +105,40 @@ public class GuiGe extends BottomPopupView {
         });
         Picasso.get().load(mallProduct.getProductInfo().getCoverUrl()).into(img_guige_photo);
         tv_guige_name.setText(mallProduct.getProductInfo().getName());
-        tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
-//        tv_guige_kucun.setText(mallProduct.getPrice());
+        if (mallProduct.getProductStandard() !=null){
+            tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
+        }else{
+            tv_guige_price.setText(mallProduct.getNoStandard());
+        }
     }
 
     private void initGouWuChe() {
-        amountview.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
-            @Override
-            public void onAmountChange(View view, int amount1) {
-                amount = amount1;
-            }
-        });
-        ToastUtils.showShort(""+amount+standardPrice);
+        shopid = mallProduct.getProductInfo().getId();
+        storeId = mallProduct.getProductInfo().getStoreId();
+//        ToastUtils.showShort("数量"+amount+"规格id"+standarid+"商品id"+shopid+"店铺id"+storeId);
+        Map<String,String> map = new HashMap<>();
+        map.put("productId",String.valueOf(shopid));
+        map.put("storeId",String.valueOf(storeId));
+        map.put("productNum",String.valueOf(amount));
+        map.put("standardId",String.valueOf(standarid));
+        map.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+        OkGo.<String>post(Contacts.URl2+"addCart")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                dismiss();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void addview(RadioGroup gadiogroup) {
@@ -128,6 +167,7 @@ public class GuiGe extends BottomPopupView {
         if (id == 0){
             codeBtn.setChecked(true);
             standardPrice = mallProduct.getProductStandard().get(0).getStandardPrice();
+            standarid = mallProduct.getProductStandard().get(0).getId();
             tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
         }
         codeBtn.setText( btnContent );
@@ -137,6 +177,7 @@ public class GuiGe extends BottomPopupView {
             @Override
             public void onClick(View v) {
                 standardPrice = mallProduct.getProductStandard().get(id).getStandardPrice();
+                standarid = mallProduct.getProductStandard().get(id).getId();
                 tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(id).getStandardPrice());
             }
         });

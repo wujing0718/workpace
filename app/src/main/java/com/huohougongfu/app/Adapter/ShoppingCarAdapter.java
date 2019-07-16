@@ -1,6 +1,7 @@
 package com.huohougongfu.app.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -10,10 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.huohougongfu.app.Gson.ShoppingCarDataBean;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.mcxtzhang.lib.AnimShopButton;
 import com.mcxtzhang.lib.IOnAddDelListener;
@@ -25,6 +29,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
+
 /**
  * 购物车的adapter
  * 因为使用的是ExpandableListView，所以继承BaseExpandableListAdapter
@@ -35,7 +41,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
     private final LinearLayout llSelectAll;
     private final ImageView ivSelectAll;
     private final Button btnOrder;
-    private final Button btnDelete;
+    private final Button btnDelete,bt_shoucangjia;
     private final RelativeLayout rlTotalPrice;
     private final TextView tvTotalPrice;
     private List<ShoppingCarDataBean.ResultBean> data;
@@ -44,7 +50,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
 
     public ShoppingCarAdapter(Context context, LinearLayout llSelectAll,
                               ImageView ivSelectAll, Button btnOrder, Button btnDelete,
-                              RelativeLayout rlTotalPrice, TextView tvTotalPrice) {
+                              RelativeLayout rlTotalPrice, TextView tvTotalPrice,Button bt_shoucangjia) {
         this.context = context;
         this.llSelectAll = llSelectAll;
         this.ivSelectAll = ivSelectAll;
@@ -52,6 +58,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         this.btnDelete = btnDelete;
         this.rlTotalPrice = rlTotalPrice;
         this.tvTotalPrice = tvTotalPrice;
+        this.bt_shoucangjia = bt_shoucangjia;
+
     }
 
     /**
@@ -89,7 +97,6 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         GroupViewHolder groupViewHolder;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_shopping_car_group, null);
-
             groupViewHolder = new GroupViewHolder(convertView);
             convertView.setTag(groupViewHolder);
         } else {
@@ -101,10 +108,17 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         //店铺名称
         String store_name = datasBean.getStoreName();
 
+        String storeLogo = datasBean.getStoreLogo();
         if (store_name != null) {
             groupViewHolder.tvStoreName.setText(store_name);
         } else {
             groupViewHolder.tvStoreName.setText("");
+        }
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        if (storeLogo != null) {
+            Glide.with(context).load(storeLogo).apply(requestOptions).into(groupViewHolder.img_dianp_logo);
+        } else {
+            Glide.with(context).load(R.mipmap.img_wode2).apply(requestOptions).into(groupViewHolder.img_dianp_logo);
         }
 
         //店铺内的商品都选中的时候，店铺的也要选中
@@ -236,7 +250,10 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                      * 实际开发中，如果有被选中的商品，
                      * 则跳转到确认订单页面，完成后续订单流程。
                      */
-                    ToastUtils.showShort("跳转到确认订单页面，完成后续订单流程");
+                    LogUtils.e(temp.get(0).getName());
+                    Intent intent = new Intent();
+                    intent.setClass(context,XiaDanActivity.class);
+                    startActivity(intent);
                 } else {
                     ToastUtils.showShort("请选择要购买的商品");
                 }
@@ -255,18 +272,30 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-
+        //收藏的点击事件
+        bt_shoucangjia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * 实际开发中，通过回调请求后台接口实现删除操作
+                 */
+                if (mCollectionListener!= null) {
+                    mCollectionListener.onCollection();
+                }
+            }
+        });
         return convertView;
     }
 
     static class GroupViewHolder {
-        ImageView ivSelect;
+        ImageView ivSelect,img_dianp_logo;
         TextView tvStoreName;
         LinearLayout ll;
 
         GroupViewHolder(View view) {
             ivSelect = view.findViewById(R.id.iv_select);
             tvStoreName = view.findViewById(R.id.tv_store_name);
+            img_dianp_logo = view.findViewById(R.id.img_dianpu_logo);
             ll = view.findViewById(R.id.ll);
         }
     }
@@ -321,7 +350,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         String goods_num = String.valueOf(goodsBean.getNum());
         //商品是否被选中
         final boolean isSelect = goodsBean.getIsSelect();
-
+        String standard = goodsBean.getStandard();
         Glide.with(context)
                 .load(goods_image)
                 .into(childViewHolder.ivPhoto);
@@ -330,6 +359,13 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder.tvName.setText("");
         }
+
+        if (standard != null) {
+            childViewHolder.tv_standard.setText(standard);
+        } else {
+            childViewHolder.tv_standard.setText("");
+        }
+
         if (goods_price != null) {
             childViewHolder.tvPriceValue.setText(goods_price);
         } else {
@@ -407,7 +443,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         ImageView ivSelect;
         ImageView ivPhoto;
         TextView tvName;
-        TextView tvPriceKey;
+        TextView tvPriceKey,tv_standard;
         TextView tvPriceValue;
         ImageView ivEditAdd;
         View view1;
@@ -423,6 +459,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             view1 = view.findViewById(R.id.view);
             viewLast = view.findViewById(R.id.view_last);
             amountview = view.findViewById(R.id.amountview);
+            tv_standard = view.findViewById(R.id.tv_standard);
 
         }
     }
@@ -449,6 +486,16 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
     }
 
     private OnDeleteListener mDeleteListener;
+    //收藏夹的回调
+    public interface OnCollectionListener {
+        void onCollection();
+    }
+
+    public void setOnCollectionListener(OnCollectionListener listener) {
+        mCollectionListener = listener;
+    }
+
+    private OnCollectionListener mCollectionListener;
 
     //修改商品数量的回调
     public interface OnChangeCountListener {

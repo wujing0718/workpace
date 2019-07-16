@@ -11,11 +11,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.Utils;
@@ -35,7 +37,10 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
+import java.util.Set;
+
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.utils.RongOperationPermissionUtils;
 import io.rong.imlib.RongIMClient;
@@ -52,6 +57,7 @@ import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
 public class MyApp extends Application {
 
     public static Context context;
+    private static final int MSG_SET_ALIAS = 1001;
     static {//static 代码段可以防止内存泄露
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
@@ -70,6 +76,48 @@ public class MyApp extends Application {
             }
         });
     }
+    //设置别名
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+//                    Log.d(TAG, "Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(),
+                            (String) msg.obj,
+                            null,
+                            mAliasCallback);
+                    break;
+                default:
+//                    Log.i(TAG, "Unhandled msg - " + msg.what);
+            }
+        }
+    };
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs ;
+            switch (code) {
+                case 0:
+                    logs = "设置成功";
+                    LogUtils.e(logs);
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    LogUtils.e(logs);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+            }
+//            ExampleUtil.showToast(logs, getApplicationContext());
+        }
+    };
+
 
     private static MyApp instances;
     public static SPUtils instance;
@@ -100,26 +148,33 @@ public class MyApp extends Application {
         instance = SPUtils.getInstance("登录");
         String rongToken = instance.getString("rongToken");
         // token 就是你刚刚获取的token
-        RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
-            //token1参数报错
-            @Override
-            public void onTokenIncorrect() {
-                Log.e("TAG","参数错误");
-            }
+        if (!"".equals(rongToken)){
+            RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
+                //token1参数报错
+                @Override
+                public void onTokenIncorrect() {
+                    Log.e("TAG","参数错误");
+                }
 
-            @Override
-            public void onSuccess(String s) {
-                Log.e("TAG","成功");
-                // 连接成功，说明你已成功连接到融云Server
-            }
+                @Override
+                public void onSuccess(String s) {
+                    Log.e("TAG","成功");
+                    // 连接成功，说明你已成功连接到融云Server
+                }
 
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("TAG","失败");
-            }
-        });
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                    Log.e("TAG","失败");
+                }
+            });
+        }
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
         RongPushClient.sendNotification(this,new PushNotificationMessage());
+// 调用 Handler 来异步设置别名
+        int id = MyApp.instance.getInt("id");
+        if (id!=0){
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(id)));
+        }
         super.onCreate();
     }
     private class MyReceiveMessageListener implements RongIMClient.OnReceiveMessageListener {

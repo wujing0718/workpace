@@ -19,6 +19,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.PingJiaAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -110,9 +111,13 @@ public class PingJiaFragment extends Fragment {
                 ImageView img_dianzan = view.findViewById(R.id.img_dianzan);
                 TextView tv_dianzan_num = view.findViewById(R.id.tv_dianzan_num);
                 if (list.get(position).getStatus()){
-                    initNoDianZan(list.get(position), img_dianzan, tv_dianzan_num);
+                    if (!utils.isDoubleClick()){
+                        initNoDianZan(list.get(position), img_dianzan, tv_dianzan_num);
+                    }
                 }else{
-                    initDianZan(list.get(position),img_dianzan,tv_dianzan_num);
+                    if (!utils.isDoubleClick()){
+                        initDianZan(list.get(position),img_dianzan,tv_dianzan_num);
+                    }
                 }
             }
         });

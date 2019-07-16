@@ -57,6 +57,7 @@ public class ShoppingCarDataBean implements Cloneable {
         private String storeName;
         private String storeLogo;
         private int productNum;
+        private int cartId;
         private List<ProductsBean> products;
 
         private boolean isSelect_shop;      //店铺是否在购物车中被选中
@@ -83,6 +84,14 @@ public class ShoppingCarDataBean implements Cloneable {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public int getCartId() {
+            return cartId;
+        }
+
+        public void setCartId(int cartId) {
+            this.cartId = cartId;
         }
 
         public String getStoreName() {
@@ -131,6 +140,7 @@ public class ShoppingCarDataBean implements Cloneable {
             private int storeId;
             private int num;
             private int stock;
+            private String standard;
             private String coverUrl;
             private boolean isSelect;        //商品是否在购物车中被选中
 
@@ -172,6 +182,14 @@ public class ShoppingCarDataBean implements Cloneable {
 
             public void setCoverUrl(String coverUrl) {
                 this.coverUrl = coverUrl;
+            }
+
+            public String getStandard() {
+                return standard;
+            }
+
+            public void setStandard(String standard) {
+                this.standard = standard;
             }
 
             public String getName() {

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.ChaMi;
 import com.huohougongfu.app.Gson.DaKa;
 import com.huohougongfu.app.Gson.DaKaOne;
 import com.huohougongfu.app.MyApp;
@@ -20,11 +21,16 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DaKaActivity extends AppCompatActivity {
 
     private int id;
     private ImageView img1,img2,img3,img4,img5,img6,img7;
     private String token;
+    private TextView tv_chami_num;
+    private String tel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +38,40 @@ public class DaKaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_da_ka);
         id = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
-
+        tel = MyApp.instance.getString("phone");
+        tv_chami_num = findViewById(R.id.tv_chami_num);
         initUI();
+        initChaMi();
         initData();
     }
+
+    private void initChaMi() {
+        Map<String,String> map = new HashMap<>();
+        map.put("id",String.valueOf(id));
+        map.put("token",token);
+        map.put("tel",tel);
+        OkGo.<String>post(Contacts.URl1+"/wallet/teaRice")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ChaMi chaMi = gson.fromJson(body, ChaMi.class);
+                        if (chaMi.getStatus() == 1){
+                            tv_chami_num.setText(String.valueOf(chaMi.getResult().getMe()));
+                        }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(DaKaActivity.this, "载入中...");
+                        super.onStart(request);
+                    }
+                });
+    }
+
 
     private void initData() {
         if (!"".equals(token)) {

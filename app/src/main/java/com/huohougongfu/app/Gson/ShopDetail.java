@@ -72,6 +72,8 @@ public class ShopDetail {
             private String storeName;
             private String storeAddress;
             private String stock;
+            private int isCollection;
+
 
             public double getDefaultTranCost() {
                 return defaultTranCost;
@@ -79,6 +81,13 @@ public class ShopDetail {
 
             public void setDefaultTranCost(double defaultTranCost) {
                 this.defaultTranCost = defaultTranCost;
+            }
+            public int getIsCollection() {
+                return isCollection;
+            }
+
+            public void setIsCollection(int isCollection) {
+                this.isCollection = isCollection;
             }
 
             public int getId() {

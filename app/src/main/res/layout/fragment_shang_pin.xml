@@ -72,15 +72,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp">
 
-                    <TextView
-                        android:paddingVertical="3dp"
-                        android:layout_gravity="center_vertical"
-                        android:paddingHorizontal="8dp"
-                        android:background="@drawable/kaquan_kuang"
-                        android:text="放入仓库"
-                        android:textColor="@color/colorBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:paddingVertical="3dp"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:paddingHorizontal="8dp"-->
+                        <!--android:background="@drawable/kaquan_kuang"-->
+                        <!--android:text="放入仓库"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
                     <!--<RelativeLayout-->
                         <!--android:id="@+id/bt_detail_shoucang"-->
@@ -701,12 +701,14 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/img_dian_shoucang"
                     android:layout_gravity="center_horizontal"
                     android:src="@mipmap/img_shoucang"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
 
                 <TextView
+                    android:id="@+id/tv_dian_shoucang"
                     android:text="收藏"
                     android:textSize="10sp"
                     android:layout_marginTop="2dp"

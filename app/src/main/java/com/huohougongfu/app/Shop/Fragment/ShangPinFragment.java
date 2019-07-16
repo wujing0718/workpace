@@ -19,8 +19,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
-import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
-import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.Gson.ShopFuWuGson;
 import com.huohougongfu.app.Gson.ShopGuiGe;
@@ -29,8 +27,6 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
 import com.huohougongfu.app.PopupView.YouHuiQuan;
-import com.huohougongfu.app.QuanZi.Activity.JuBaoActivity;
-import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.ShopTuiJianAdapter;
@@ -45,7 +41,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
-import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -53,6 +48,9 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,6 +79,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private ShopFuWuGson.ResultBean fuwu;
     private View bt_detail_fuwu;
     private ImageView img_shangpin_detail;
+    private ImageView img_dian_shoucang;
+    private TextView tv_dian_shoucang;
 
     public ShangPinFragment() {
     }
@@ -177,10 +177,14 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
         inflate.findViewById(R.id.bt_detail_fenxiang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_goumai).setOnClickListener(this);
+        img_dian_shoucang = inflate.findViewById(R.id.img_dian_shoucang);
+        tv_dian_shoucang = inflate.findViewById(R.id.tv_dian_shoucang);
+
         banner = inflate.findViewById(R.id.banner);
         inflate.findViewById(R.id.bt_detail_lingquan).setOnClickListener(this);
         bt_detail_fuwu = inflate.findViewById(R.id.bt_detail_fuwu);
         bt_detail_fuwu.setOnClickListener(this);
+        inflate.findViewById(R.id.bt_shoucang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_detail_guige).setOnClickListener(this);
         inflate.findViewById(R.id.bt_jiagouwuche).setOnClickListener(this);
 
@@ -205,9 +209,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         if (shopdetail.getStatus() == 1) {
                              mallProduct = shopdetail.getResult().getProductDetailInfo();
                             initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
-                            initBanner(mallProduct);
                             initRec(shopdetail.getResult().getRecommend());
-                            initView(mallProduct);
+                            if (mallProduct!=null){
+                                initBanner(mallProduct);
+                                initView(mallProduct);
+                            }
                         }
                     }
                     @Override
@@ -252,6 +258,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_dianpu_jianjie.setText(mallProduct.getStoreBoard());
         Glide.with(getActivity()).load(mallProduct.getRemark()).into(img_shangpin_detail);
 
+        if (mallProduct.getIsCollection()==1){
+            tv_dian_shoucang.setText("已收藏");
+            img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
+        }else{
+            tv_dian_shoucang.setText("收藏");
+            img_dian_shoucang.setImageResource(R.mipmap.img_shoucang);
+        }
         if (fuwu!=null){
             bt_detail_fuwu.setVisibility(View.VISIBLE);
             if (fuwu.getBasicService().size()>1){
@@ -314,23 +327,28 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                             .show();
                 }
                 break;
+            case R.id.bt_shoucang:
+                if (!utils.isDoubleClick()){
+                        initShouCang();
+                }
+                break;
             case R.id.bt_detail_guige:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .asCustom(new GuiGe(getContext(),guige))
+                    XPopup.Builder builder = new XPopup.Builder(getContext());
+                    builder.asCustom(new GuiGe(getContext(),guige))
                             .show();
                 }
                 break;
             case R.id.bt_goumai:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .asCustom(new GuiGe(getContext(),guige))
-                            .show();
+
                 }
                 break;
             case R.id.bt_jiagouwuche:
                 if (!utils.isDoubleClick()){
-                    JiaRuGouWuChe();
+                    XPopup.Builder builder = new XPopup.Builder(getContext());
+                    builder.asCustom(new GuiGe(getContext(),guige))
+                            .show();
                 }
                 break;
             case R.id.bt_detail_fenxiang:
@@ -352,6 +370,34 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 }
                 break;
         }
+    }
+
+    private void initShouCang() {
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",String.valueOf(id));
+        map.put("storeId",String.valueOf(mallProduct.getStoreId()));
+        OkGo.<String>post(Contacts.URl2+"collectionStore")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if ("已取消关注".equals(jsonObject.getString("result"))){
+                                img_dian_shoucang.setImageResource(R.mipmap.img_shoucang);
+                                tv_dian_shoucang.setText("收藏");
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }else if ("再次收藏成功".equals(jsonObject.getString("result"))){
+                                img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                                tv_dian_shoucang.setText("已收藏");
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void JiaRuGouWuChe() {

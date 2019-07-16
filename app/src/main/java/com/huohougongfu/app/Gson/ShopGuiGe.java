@@ -42,9 +42,18 @@ public class ShopGuiGe {
          * productStandard : [{"id":1,"productId":45,"standardPrice":66,"standard":"16g"},{"id":9,"productId":45,"standardPrice":77,"standard":"18g"}]
          * productInfo : {"id":45,"name":"商品标题","categoryId":1,"price":1,"marketPrice":1,"coverUrl":"http://img2.imgtn.bdimg.com/it/u=180868167,273146879&fm=26&gp=0.jpg","sellNum":1560,"transId":2,"remark":"1","productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"storePicture":"https://werw/w/ge.jpg","storeLogo":"https://werw/w/ge.jpg","storeBoard":"店铺公告","storeName":"测试店铺","storeAddress":"广东深圳"}
          */
-
+        private String noStandard;
         private ProductInfoBean productInfo;
         private List<ProductStandardBean> productStandard;
+
+        public String getNoStandard() {
+            return noStandard;
+        }
+
+        public void setNoStandard(String noStandard) {
+            this.noStandard = noStandard;
+        }
+
 
         public ProductInfoBean getProductInfo() {
             return productInfo;

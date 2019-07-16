@@ -35,6 +35,8 @@ import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -231,6 +233,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         MyApp.instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
                                         MyApp.instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
+                                        //融云登录
+                                        RongIM.connect(login.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
+                                            //token1参数报错
+                                            @Override
+                                            public void onTokenIncorrect() {
+                                                Log.e("TAG","参数错误");
+                                            }
+
+                                            @Override
+                                            public void onSuccess(String s) {
+                                                Log.e("TAG","成功");
+                                                // 连接成功，说明你已成功连接到融云Server
+                                            }
+
+                                            @Override
+                                            public void onError(RongIMClient.ErrorCode errorCode) {
+                                                Log.e("TAG","失败");
+                                            }
+                                        });
                                         startActivity(intent);
                                         finish();
                                         // 调用 Handler 来异步设置别名
@@ -280,6 +301,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         MyApp.instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
                                         MyApp.instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
+                                        //融云登录
+                                        RongIM.connect(login.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
+                                            //token1参数报错
+                                            @Override
+                                            public void onTokenIncorrect() {
+                                                Log.e("TAG","参数错误");
+                                            }
+
+                                            @Override
+                                            public void onSuccess(String s) {
+                                                Log.e("TAG","成功");
+                                                // 连接成功，说明你已成功连接到融云Server
+                                            }
+
+                                            @Override
+                                            public void onError(RongIMClient.ErrorCode errorCode) {
+                                                Log.e("TAG","失败");
+                                            }
+                                        });
                                         startActivity(intent);
                                         // 调用 Handler 来异步设置别名
                                         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
@@ -307,7 +347,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 2000) {
-                Toast.makeText(LoginActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("再按一次退出程序");
                 firstTime = secondTime;
                 return true;
             } else {
