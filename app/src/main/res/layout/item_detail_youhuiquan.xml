@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="12dp"
@@ -13,19 +14,20 @@
         android:layout_height="100dp">
 
         <RelativeLayout
+            android:background="@mipmap/img_youhuiquan_bg"
             android:layout_width="match_parent"
             android:layout_height="100dp">
 
             <LinearLayout
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="30dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_youhuiquan_money"
-                    android:text="¥50"
+                    android:text=""
                     android:textSize="30sp"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
@@ -33,7 +35,7 @@
 
                 <TextView
                     android:id="@+id/tv_youhuiquan_serviceRegulations"
-                    android:text="订单金额满500可用"
+                    android:text=""
                     android:layout_marginTop="5dp"
                     android:textSize="12sp"
                     android:textColor="#555555"
@@ -42,7 +44,7 @@
 
                 <TextView
                     android:id="@+id/tv_youhuiquan_endTime"
-                    android:text="有效期2019.02.25-2019.7.31"
+                    android:text=""
                     android:layout_marginTop="2dp"
                     android:textSize="12sp"
                     android:textColor="#555555"
@@ -57,17 +59,17 @@
                 android:layout_width="100dp"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layerType="software"
-                    android:background="@drawable/kaquan_xuxian"/>
+                <!--<TextView-->
+                    <!--android:layout_width="2dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layerType="software"-->
+                    <!--android:background="@drawable/kaquan_xuxian"/>-->
 
                 <TextView
                     android:text="立即领取"
                     android:textSize="14sp"
                     android:layout_centerInParent="true"
-                    android:textColor="#101010"
+                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

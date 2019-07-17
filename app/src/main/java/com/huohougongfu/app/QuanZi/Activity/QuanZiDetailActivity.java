@@ -93,7 +93,6 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
         userid = getIntent().getIntExtra("userid", 0);
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
-
         intent = new Intent();
         initUI();
         initData();
@@ -237,9 +236,11 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
     private void initData() {
         Map<String ,String> map = new HashMap<>();
+        if (userid != 0){
+            map.put("userId",String.valueOf(userid));
+        }
         map.put("dId",String.valueOf(dId));
         map.put("mId",String.valueOf(mId));
-        map.put("userId",String.valueOf(userid));
         OkGo.<String>post(Contacts.URl1+"/circle/data/info")
                 .params(map)
                 .execute(new StringCallback() {

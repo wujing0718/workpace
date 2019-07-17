@@ -68,8 +68,8 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
     private EditText edt_quanzi_pinglun;
     private Intent intent;
     private TextView tv_guanzhu;
-    private int userid;
     private String token;
+    private int userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +100,11 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
 
     private void initData() {
         Map<String ,String> map = new HashMap<>();
+        if (userid != 0){
+            map.put("userId",String.valueOf(userid));
+        }
         map.put("dId",String.valueOf(dId));
         map.put("mId",String.valueOf(mId));
-        map.put("userId",String.valueOf(userid));
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data/info")
                 .params(map)

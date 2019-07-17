@@ -71,9 +71,8 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener {
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
+        map.put("showNum","3");
+        OkGo.<String>get(Contacts.URl2+"query/queryStoreList")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

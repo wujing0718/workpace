@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.OboutActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <RelativeLayout
+                android:id="@+id/bt_finish"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_back_white"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:textColor="@color/colorWhite"
+                android:text="关于"
+                android:textSize="17sp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_60"
+            android:src="@mipmap/img_logo"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="140dp" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginHorizontal="15dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/bt_gongnengjieshao"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:text="功能介绍"
+                    android:textSize="17sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bt_banbengengxin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:text="版本更新"
+                    android:textSize="17sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bt_yijianfankui"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:text="意见反馈"
+                    android:textSize="17sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp" />
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="联系官方：8896-5417"
+        android:textColor="@color/colorBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

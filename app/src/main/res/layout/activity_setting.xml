@@ -262,6 +262,7 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
+                android:id="@+id/bt_renzheng"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -307,6 +308,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bt_anquanzhongxin"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -329,6 +331,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bt_yonghuxieyi"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -351,6 +354,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bt_qingchuhuancun"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -363,16 +367,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_huancun"
+                    android:text="0KB"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/img_xiayibu"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bt_obout"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -400,6 +406,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/bt_tuichudenglu"
         android:text="退出当前账户"
         android:gravity="center"
         android:textColor="@color/colorWhite"

@@ -78,6 +78,7 @@ public class PingJiaFragment extends Fragment {
         map.put("id",String.valueOf(45));
         map.put("page","1");
         map.put("pageSize","10");
+        map.put("userId",String.valueOf(userid));
         OkGo.<String>get(Contacts.URl2+"/selectAppraise")
                 .params(map)
                 .execute(new StringCallback() {

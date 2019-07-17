@@ -88,12 +88,12 @@
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -215,7 +215,13 @@
 
         <activity android:name=".WoDe.Activity.MyDingDanActivity" />
         <activity android:name=".WoDe.Activity.DingDanDetailActivity" />
-        <activity android:name=".Shop.Activity.XiaDanActivity"></activity>
+        <activity android:name=".Shop.Activity.XiaDanActivity" />
+        <activity android:name=".WoDe.Activity.RenZhengActivity" />
+        <activity android:name=".WoDe.Activity.AnQuanZhongXinActivity" />
+        <activity android:name=".WoDe.Activity.XiuGaiMiMaActivity" />
+        <activity android:name=".WoDe.Activity.OboutActivity" />
+        <activity android:name=".WoDe.Activity.GongNengJieShao" />
+        <activity android:name=".WoDe.Activity.FanKuiActivity"></activity>
     </application>
 
 </manifest>

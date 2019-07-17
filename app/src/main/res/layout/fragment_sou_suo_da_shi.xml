@@ -29,27 +29,7 @@
 
             <TextView
                 android:layout_weight="1"
-                android:text="销量"
-                android:textColor="#101010"
-                android:textSize="14sp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:layout_weight="1"
-                android:text="好评"
-                android:textColor="#101010"
-                android:textSize="14sp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:layout_weight="1"
-                android:text="粉丝"
+                android:text="人气"
                 android:textColor="#101010"
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"

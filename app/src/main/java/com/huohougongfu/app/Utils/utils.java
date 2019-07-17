@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 
 public class utils {
     private static long lastClickTime;
-    private final static int SPACE_TIME = 1000;
+    private final static int SPACE_TIME = 500;
 
     public static void initLastClickTime() {
         lastClickTime = 0;

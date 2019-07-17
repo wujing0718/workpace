@@ -1,8 +1,9 @@
 package com.huohougongfu.app.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MyDongTai {
+public class MyDongTai implements Serializable{
     /**
      * msg : 操作成功
      * result : {"total":1,"list":[{"id":93,"type":1,"title":null,"content":"漂亮的很","picture":"http://oss.irving.net.cn/tea/1562834013033.jpeg,http://oss.irving.net.cn/tea/1562834004422.jpg,http://oss.irving.net.cn/tea/1562834003471.jpeg,http://oss.irving.net.cn/tea/1562834003698.jpg,http://oss.irving.net.cn/tea/1562834008713.jpeg,http://oss.irving.net.cn/tea/1562834006153.jpg","pictureWidth":800,"pictureHeight":800,"createTime":"2019-07-11 16:33:23","updateTime":"2019-07-11 16:33:23","longitude":114.261848,"latitude":22.725369,"address":null,"cityCode":"0755","member":null,"isPraise":null,"praiseNum":null,"commentNum":0,"isSift":null,"browseCount":3,"mid":46}],"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1}
@@ -37,7 +38,7 @@ public class MyDongTai {
         this.status = status;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * total : 1
          * list : [{"id":93,"type":1,"title":null,"content":"漂亮的很","picture":"http://oss.irving.net.cn/tea/1562834013033.jpeg,http://oss.irving.net.cn/tea/1562834004422.jpg,http://oss.irving.net.cn/tea/1562834003471.jpeg,http://oss.irving.net.cn/tea/1562834003698.jpg,http://oss.irving.net.cn/tea/1562834008713.jpeg,http://oss.irving.net.cn/tea/1562834006153.jpg","pictureWidth":800,"pictureHeight":800,"createTime":"2019-07-11 16:33:23","updateTime":"2019-07-11 16:33:23","longitude":114.261848,"latitude":22.725369,"address":null,"cityCode":"0755","member":null,"isPraise":null,"praiseNum":null,"commentNum":0,"isSift":null,"browseCount":3,"mid":46}]
@@ -222,7 +223,7 @@ public class MyDongTai {
             this.navigatepageNums = navigatepageNums;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable {
             /**
              * id : 93
              * type : 1

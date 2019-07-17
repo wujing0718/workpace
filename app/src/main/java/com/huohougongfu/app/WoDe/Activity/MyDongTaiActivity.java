@@ -1,14 +1,19 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyDongTai;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.WoDe.Adapter.MyDongTaiAdapter;
@@ -86,6 +91,26 @@ public class MyDongTaiActivity extends AppCompatActivity {
         rec_wode_dongtai.setLayoutManager(layoutmanager);
          myDongTaiAdapter = new MyDongTaiAdapter(R.layout.item_wode_dongtai,list,MyDongTaiActivity.this);
         rec_wode_dongtai.setAdapter(myDongTaiAdapter);
+        myDongTaiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (list.get(position).getType() == 2){
+                    Intent intent = new Intent();
+                    intent.putExtra("dId",list.get(position).getId());
+                    startActivity(intent.setClass(MyDongTaiActivity.this,WenZhangDetailActivity.class));
+                }else if(list.get(position).getType() == 1){
+                    Intent intent = new Intent();
+                    intent.putExtra("dId",list.get(position).getId());
+                    startActivity(intent.setClass(MyDongTaiActivity.this,QuanZiDetailActivity.class));
+                }else if (list.get(position).getType() == 3){
+                    Intent intent = new Intent();
+                    intent.putExtra("小视频",list.get(position));
+                    intent.putExtra("position",position);
+                    intent.putExtra("dId",list.get(position).getId());
+                    startActivity(intent.setClass(MyDongTaiActivity.this,VedioDetailActivity.class));
+                }
+            }
+        });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

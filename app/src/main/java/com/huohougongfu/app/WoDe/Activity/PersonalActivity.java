@@ -179,35 +179,67 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         map.put("nickName",edt_wode_name.getText().toString());
         map.put("personalProfile",edt_wode_jianjie.getText().toString());
         map.put("place",cityName);
-        OkGo.<String>post(Contacts.URl1+"/my/personalInfo/edit")
-                .isMultipart(true)
-                .tag(this)
-                .params("file",touxiangurl)
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                ToastUtils.showShort("上传成功");
-                                finish();
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
+        if (touxiangurl!=null){
+            OkGo.<String>post(Contacts.URl1+"/my/personalInfo/edit")
+                    .isMultipart(true)
+                    .tag(this)
+                    .params("file",touxiangurl)
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            WaitDialog.dismiss();
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    ToastUtils.showShort("上传成功");
+                                    finish();
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(PersonalActivity.this,"请稍后。。。");
-                        super.onStart(request);
-                    }
-                });
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            WaitDialog.show(PersonalActivity.this,"请稍后。。。");
+                            super.onStart(request);
+                        }
+                    });
+        }else{
+            OkGo.<String>post(Contacts.URl1+"/my/personalInfo/edit")
+                    .isMultipart(true)
+                    .tag(this)
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            WaitDialog.dismiss();
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    ToastUtils.showShort("上传成功");
+                                    finish();
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            WaitDialog.show(PersonalActivity.this,"请稍后。。。");
+                            super.onStart(request);
+                        }
+                    });
+        }
+
 
     }
 

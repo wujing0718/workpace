@@ -245,6 +245,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             });
                             // 调用 Handler 来异步设置别名
                             mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(register.getResult().getUserInfo().getUserId())));
+                            // 点击恢复按钮后，极光推送服务会恢复正常工作
+                            JPushInterface.resumePush(getApplicationContext());
                             finish();
 //                            ToastUtils.showShort(register.getMsg());
                         }else{
