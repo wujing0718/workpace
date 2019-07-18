@@ -25,6 +25,6 @@ public class ShangPinTuiJianAdapter extends BaseQuickAdapter<ShangPinGson.DataBe
 
     @Override
     protected void convert(BaseViewHolder helper, ShangPinGson.DataBean.ListBean item) {
-
+        helper.addOnClickListener(R.id.bt_dashi_jianjie);
     }
 }

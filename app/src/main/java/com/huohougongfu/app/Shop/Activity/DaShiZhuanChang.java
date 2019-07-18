@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Shop.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.VibrateUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
@@ -140,7 +142,14 @@ public class DaShiZhuanChang extends AppCompatActivity {
         rec_dashizhuanchang.setLayoutManager(layoutmanager);
         ShangPinTuiJianAdapter pinPaiItemAdapter = new ShangPinTuiJianAdapter(R.layout.item_dashizhuanchang,data.getList());
         pinPaiItemAdapter.addHeaderView(head_dashizhuanchang);
-
+        pinPaiItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.setClass(DaShiZhuanChang.this,DaShiJianJieActivity.class);
+                startActivity(intent);
+            }
+        });
         rec_dashizhuanchang.setAdapter(pinPaiItemAdapter);
     }
 }

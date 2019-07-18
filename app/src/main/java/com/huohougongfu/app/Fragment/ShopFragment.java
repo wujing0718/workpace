@@ -204,8 +204,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         head_shangcheng.findViewById(R.id.bt_shangpin_dashi).setOnClickListener(this);
         head_shangcheng.findViewById(R.id.bt_shangpin_tehui).setOnClickListener(this);
         head_shangcheng.findViewById(R.id.bt_shangpin_leimu).setOnClickListener(this);
-
-
     }
 
     private void initbanner() {

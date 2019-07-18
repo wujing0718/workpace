@@ -104,7 +104,7 @@ public class MyDongTaiActivity extends AppCompatActivity {
                     startActivity(intent.setClass(MyDongTaiActivity.this,QuanZiDetailActivity.class));
                 }else if (list.get(position).getType() == 3){
                     Intent intent = new Intent();
-                    intent.putExtra("小视频",list.get(position));
+                    intent.putExtra("动态视频",list.get(position));
                     intent.putExtra("position",position);
                     intent.putExtra("dId",list.get(position).getId());
                     startActivity(intent.setClass(MyDongTaiActivity.this,VedioDetailActivity.class));

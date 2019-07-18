@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Shop.Activity.DaShiJianJieActivity">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/img_jianjie"
+                    android:layout_width="match_parent"
+                    android:layout_height="480dp" />
+
+                <TextView
+                    android:text="TA的主页"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:layout_marginTop="260dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:background="@drawable/login_kuang"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="+   关注"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:paddingVertical="@dimen/dp_4"
+                    android:layout_marginTop="330dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:background="@drawable/login_kuang"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="wrap_content" />
+
+
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_44">
+            
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_44">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_fenxiang"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_marginTop="420dp"
+        android:layout_width="@dimen/dp_320"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:paddingLeft="30dp"
+            android:paddingRight="@dimen/dp_50"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp_40"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="景甜"
+                    android:textSize="30sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="高级茶艺师、高级茶叶审评师"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textColor="#818181"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:text="      90后拥有别致人生的国家茶艺师，高级茶艺师，高级茶叶审评师，自幼受家庭传统文化的熏陶，对中国茶艺文化有独特的见解，曾参加上海市茶艺大赛，荣获亚军、季军等名次。亲自设计的高级茶席作品XX和XXXX在业内颇受好评。
+      曾受香格里拉、威斯汀等知名外资企业邀请讲解茶艺，现任XXXX资深茶艺老师。
+      X老师无论在生活、还是工作中都时刻领悟中国传统茶人精神，尽所能发扬茶德，通过独特的茶艺体验，结合传统教学理论，受到学院一致认可。"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>

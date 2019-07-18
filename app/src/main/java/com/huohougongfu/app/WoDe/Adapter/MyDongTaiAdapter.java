@@ -25,7 +25,6 @@ import java.util.List;
 
 public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,BaseViewHolder> {
     private Context context;
-    private List<Object> mlist = new ArrayList<>();
     private List<MyDongTai.ResultBean.ListBean> data1;
 
     public MyDongTaiAdapter(int layoutResId, @Nullable List<MyDongTai.ResultBean.ListBean> data, Context context) {
@@ -44,10 +43,11 @@ public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.List
             String[] split = item.getPicture().split(",");
             rec_dongtai_photo.setVisibility(View.VISIBLE);
             for (int i = 0; i < split.length; i++) {
+                List<Object> mlist = new ArrayList<>();
                 mlist.add(split[i]);
+                ImageAdapter pingJiaPhotoAdapter = new ImageAdapter(mlist);
+                rec_dongtai_photo.setAdapter(pingJiaPhotoAdapter);
             }
-            ImageAdapter pingJiaPhotoAdapter = new ImageAdapter(mlist);
-            rec_dongtai_photo.setAdapter(pingJiaPhotoAdapter);
         }else{
             rec_dongtai_photo.setVisibility(View.GONE);
         }

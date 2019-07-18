@@ -31,6 +31,7 @@ import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.GuanZhuDongTai;
+import com.huohougongfu.app.Gson.MyDongTai;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.Gson.VedioDetail;
 import com.huohougongfu.app.MyApp;
@@ -89,12 +90,15 @@ public class VedioDetailActivity extends AppCompatActivity {
     private SmartRefreshLayout refreshLayout;
     private int page = 2;
     private GuanZhuDongTai.ResultBean.ListBean shipin2;
+    private MyDongTai.ResultBean.ListBean dongtaishipin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vedio_detail);
         dId = getIntent().getIntExtra("dId", 0);
+
+        dongtaishipin = (MyDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("动态视频");
         shipin = (QuanZiFaXian.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("小视频");
         shipin2 = (GuanZhuDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("视频");
         mId = MyApp.instance.getInt("id");
@@ -227,6 +231,9 @@ public class VedioDetailActivity extends AppCompatActivity {
                     }else if (shipin2 != null){
                         Picasso.get().load(shipin2.getPicture())
                                 .into(viewHolderForAdapterPosition.img_thumb);
+                    }else if (dongtaishipin != null){
+                        Picasso.get().load(dongtaishipin.getPicture())
+                                .into(viewHolderForAdapterPosition.img_thumb);
                     }
                     viewHolderForAdapterPosition.img_thumb.setVisibility(View.VISIBLE);
                     viewHolderForAdapterPosition.img_play.animate().alpha(0f).start();
@@ -261,6 +268,14 @@ public class VedioDetailActivity extends AppCompatActivity {
                     .into(viewHolderForAdapterPosition.img_thumb);
             viewHolderForAdapterPosition.videoView.setVideoURI(
                     Uri.parse(shipin.getPicture()));
+            viewHolderForAdapterPosition.videoView.start();
+
+            viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
+        }else if (dongtaishipin != null){
+            Picasso.get().load(dongtaishipin.getPicture())
+                    .into(viewHolderForAdapterPosition.img_thumb);
+            viewHolderForAdapterPosition.videoView.setVideoURI(
+                    Uri.parse(dongtaishipin.getPicture()));
             viewHolderForAdapterPosition.videoView.start();
 
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);

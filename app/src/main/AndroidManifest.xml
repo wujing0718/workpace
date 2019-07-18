@@ -221,7 +221,8 @@
         <activity android:name=".WoDe.Activity.XiuGaiMiMaActivity" />
         <activity android:name=".WoDe.Activity.OboutActivity" />
         <activity android:name=".WoDe.Activity.GongNengJieShao" />
-        <activity android:name=".WoDe.Activity.FanKuiActivity"></activity>
+        <activity android:name=".WoDe.Activity.FanKuiActivity" />
+        <activity android:name=".Shop.Activity.DaShiJianJieActivity"></activity>
     </application>
 
 </manifest>
