@@ -51,6 +51,8 @@
                 android:hint="Search"
                 android:textSize="12sp"
                 android:background="@null"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:paddingHorizontal="@dimen/dp_10"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"
@@ -103,12 +105,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rec_dashizhuanchang"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/smartrefreshlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_dashizhuanchang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
     </LinearLayout>
 

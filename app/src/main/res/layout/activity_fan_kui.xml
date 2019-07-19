@@ -49,6 +49,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/edt_fankui"
             android:gravity="top"
             android:padding="@dimen/dp_10"
             android:maxLength="100"
@@ -70,6 +71,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/bt_fankui"
         android:text="提交"
         android:layout_marginBottom="@dimen/dp_20"
         android:layout_alignParentBottom="true"

@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/img_quanbudashi_photo"
             android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"
             android:layout_width="150dp"
@@ -31,12 +32,14 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_quanbudashi_name"
                     android:text="茶艺师"
                     android:textSize="17sp"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/tv_quanbudashi_level"
                     android:text="高级茶艺师"
                     android:textSize="14sp"
                     android:textColor="@color/colorBlack"
@@ -56,19 +59,22 @@
                     android:id="@+id/bt_dashi_jianjie"
                     android:text="简介"
                     android:textSize="12sp"
+                    android:textColor="@color/black"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="2dp"
-                    android:background="@drawable/kaquan_kuang"
+                    android:background="@drawable/black_kuang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/bt_dashi_zhuye"
                     android:layout_alignParentRight="true"
                     android:text="主页"
                     android:textSize="12sp"
+                    android:textColor="@color/white"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="2dp"
-                    android:background="@drawable/kaquan_kuang"
+                    android:background="@drawable/delete_kuang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

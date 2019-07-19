@@ -5,12 +5,28 @@
     android:paddingHorizontal="18dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    
-    <ImageView
-        android:id="@+id/img_cainixihuan_photo"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="48dp"
-        android:layout_height="48dp" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_dashi_touxiang"
+            android:layout_width="@dimen/layout_margin_64dp"
+            android:layout_height="@dimen/layout_margin_64dp" />
+
+        <TextView
+            android:text="V"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_4"
+            android:background="@drawable/wode_dengji"
+            android:layout_gravity="bottom|right"
+            android:textColor="@color/colorRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_cainixihuan_name"

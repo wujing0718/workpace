@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.Gson.TeYuePingPai;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -24,12 +25,12 @@ import java.util.List;
 import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.ResultListBean,BaseViewHolder> {
-    private  List<TeYuePingPai.ResultBean.ResultListBean> data;
+    private  List<TeYuePingPai.ResultBean.ResultListBean> data1;
     private List<TeYuePingPai.ResultBean.ResultListBean.ProductListBean> productList;
 
     public PinPaiAdapter(int layoutResId, @Nullable List<TeYuePingPai.ResultBean.ResultListBean> data) {
         super(layoutResId, data);
-        this.data = data;
+        this.data1 = data;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.Resu
         //设置RecyclerView 布局
         rec_pinpai_shangpin.setLayoutManager(layoutmanager);
         int firstVisibleItemPosition = layoutmanager.findFirstVisibleItemPosition()+1;
-        PinPaiItemAdapter shangPinTuiJianAdapter = new PinPaiItemAdapter(MyApp.getInstances(),data.get(firstVisibleItemPosition).getProductList());
+        PinPaiItemAdapter shangPinTuiJianAdapter = new PinPaiItemAdapter(MyApp.getInstances(),data1.get(firstVisibleItemPosition).getProductList());
         rec_pinpai_shangpin.setAdapter(shangPinTuiJianAdapter);
         shangPinTuiJianAdapter.setOnItemClickListener(new PinPaiItemAdapter.OnItemClickListener() {
             @Override
@@ -63,5 +64,18 @@ public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.Resu
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
     }
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<TeYuePingPai.ResultBean.ResultListBean> data) {
+        //增加数据
+        int position = data1.size();
+        data1.addAll(position, data);
+        notifyItemRangeChanged(position,data.size());
+    }
 
+    public void refresh(List<TeYuePingPai.ResultBean.ResultListBean> data) {
+        //刷新数据
+        data1.remove(data1);
+        data1.addAll(data);
+        notifyDataSetChanged();
+    }
 }

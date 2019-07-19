@@ -253,7 +253,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_detail_xiaoliang.setText("销量："+mallProduct.getSellNum());
         tv_detail_address.setText("地址："+mallProduct.getStoreAddress());
         RequestOptions options = new RequestOptions().circleCrop();
-        Glide.with(getActivity()).load(mallProduct.getStoreLogo()).apply(options).into(img_dianp_logo);
+        if(getContext()!=null){
+            Glide.with(getActivity()).load(mallProduct.getStoreLogo()).apply(options).into(img_dianp_logo);
+        }
         tv_dianpu_name.setText(mallProduct.getStoreName());
         tv_dianpu_jianjie.setText(mallProduct.getStoreBoard());
         Glide.with(getActivity()).load(mallProduct.getRemark()).into(img_shangpin_detail);
