@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -16,8 +17,10 @@ import com.huohougongfu.app.R;
 import java.util.List;
 
 public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.ListBean,BaseViewHolder> {
+    private List<ZhaoRenGson.ResultBean.ListBean> data1;
     public ZhaoRenAdapter(int layoutResId, @Nullable List<ZhaoRenGson.ResultBean.ListBean> data) {
         super(layoutResId, data);
+        this.data1 = data;
     }
 
     @Override
@@ -35,5 +38,20 @@ public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.List
         ImageView img_zhaoren_photo = helper.getView(R.id.img_zhaoren_photo);
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(item.getPhoto()).apply(requestOptions).into(img_zhaoren_photo);
+    }
+
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<ZhaoRenGson.ResultBean.ListBean> data) {
+        //增加数据
+        int position = data1.size();
+        data1.addAll(position, data);
+        notifyItemRangeChanged(position,data.size());
+    }
+
+    public void refresh(List<ZhaoRenGson.ResultBean.ListBean> data) {
+        //刷新数据
+        data1.remove(data1);
+        data1.addAll(data);
+        notifyDataSetChanged();
     }
 }

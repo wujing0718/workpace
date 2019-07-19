@@ -21,9 +21,12 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.MyCollectActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDongTaiActivity;
 import com.huohougongfu.app.WoDe.Activity.SettingActivity;
+import com.huohougongfu.app.WoDe.Activity.WoDeFenSiActivity;
+import com.huohougongfu.app.WoDe.Activity.WoDeGuanZhuActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -121,7 +124,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_dingdan_quanbu).setOnClickListener(this);
         inflate.findViewById(R.id.bt_huiyuan_quanbu).setOnClickListener(this);
         inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
-
+        inflate.findViewById(R.id.bt_wodeguanzhu).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_wodefensi).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_daifukuan).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_daifahuo).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_daishouhuo).setOnClickListener(this);
@@ -182,12 +186,28 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
                 //我的收藏
             case R.id.bt_my_shoucang:
-                RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", "贝吉塔");
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),MyCollectActivity.class);
+                    startActivity(intent);
+                }
+//                RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", "贝吉塔");
                 break;
                 //我的订单全部
             case R.id.bt_dingdan_quanbu:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),MyDingDanActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_wodeguanzhu:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),WoDeGuanZhuActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_wodefensi:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),WoDeFenSiActivity.class);
                     startActivity(intent);
                 }
                 break;

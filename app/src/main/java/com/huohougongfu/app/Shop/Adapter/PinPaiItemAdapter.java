@@ -7,21 +7,35 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
+import com.huohougongfu.app.Gson.MyCollect;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.Gson.TeYuePingPai;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.WoDe.Adapter.MyColleAdapter;
 
 import java.util.List;
 
 public class PinPaiItemAdapter extends RecyclerView.Adapter<PinPaiItemAdapter.ViewHolder> {
 
-    private List<ShangPinGson.DataBean.ListBean>  data;
+    private List<TeYuePingPai.ResultBean.ResultListBean.ProductListBean>  data;
     private Context context;
+    private PinPaiItemAdapter.OnItemClickListener mOnItemClickListener;
 
-    public PinPaiItemAdapter(Context context, List<ShangPinGson.DataBean.ListBean> item) {
-        this.data = data;
+    public void setOnItemClickListener(PinPaiItemAdapter.OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+    public interface OnItemClickListener {
+        void onItemClickListener(int pos);
+    }
+
+    public PinPaiItemAdapter(Context context, List<TeYuePingPai.ResultBean.ResultListBean.ProductListBean> productList) {
+        this.data = productList;
         this.context = context;
     }
     @NonNull
@@ -33,14 +47,19 @@ public class PinPaiItemAdapter extends RecyclerView.Adapter<PinPaiItemAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PinPaiItemAdapter.ViewHolder viewHolder, int i) {
-//        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
-//        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
-//        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        //设置RecyclerView 布局
-//        viewHolder.rec_pinpai_shangpin.setLayoutManager(layoutmanager);
-//        ShangPinTuiJianAdapter shangPinTuiJianAdapter = new ShangPinTuiJianAdapter(R.layout.item_shangpin_tuijian,data);
-//        viewHolder.rec_pinpai_shangpin.setAdapter(shangPinTuiJianAdapter);
+    public void onBindViewHolder(@NonNull PinPaiItemAdapter.ViewHolder viewHolder, final  int position) {
+
+        viewHolder.tv_shangpin_price.setText(String.valueOf(data.get(position).getPrice()));
+        viewHolder.tv_shangpin_title.setText(String.valueOf(data.get(position).getName()));
+        Glide.with(context).load(data.get(position).getCoverUrl()).into(viewHolder.img_shangpin_photo);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener!=null){
+                    mOnItemClickListener.onItemClickListener(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -49,10 +68,13 @@ public class PinPaiItemAdapter extends RecyclerView.Adapter<PinPaiItemAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        RecyclerView rec_pinpai_shangpin;
+        ImageView img_shangpin_photo;
+        TextView tv_shangpin_title,tv_shangpin_price;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rec_pinpai_shangpin = itemView.findViewById(R.id.rec_pinpai_shangpin);
+            img_shangpin_photo = itemView.findViewById(R.id.img_shangpin_photo);
+            tv_shangpin_title = itemView.findViewById(R.id.tv_shangpin_title);
+            tv_shangpin_price = itemView.findViewById(R.id.tv_shangpin_price);
         }
     }
 }

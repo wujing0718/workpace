@@ -222,7 +222,10 @@
         <activity android:name=".WoDe.Activity.OboutActivity" />
         <activity android:name=".WoDe.Activity.GongNengJieShao" />
         <activity android:name=".WoDe.Activity.FanKuiActivity" />
-        <activity android:name=".Shop.Activity.DaShiJianJieActivity"></activity>
+        <activity android:name=".Shop.Activity.DaShiJianJieActivity" />
+        <activity android:name=".WoDe.Activity.WoDeGuanZhuActivity" />
+        <activity android:name=".WoDe.Activity.WoDeFenSiActivity" />
+        <activity android:name=".WoDe.Activity.MyCollectActivity"></activity>
     </application>
 
 </manifest>

@@ -178,6 +178,8 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
                                 JSONObject jsonObject = new JSONObject(body);
                                 if (jsonObject.getInt("status") == 1){
                                     initData();
+                                }else if (jsonObject.getInt("status") == 0){
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

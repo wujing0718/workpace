@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
+import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.Gson.TeYuePingPai;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.PinPaiAdapter;
 import com.huohougongfu.app.Utils.Contacts;
@@ -36,6 +38,8 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     private List<Integer> mlist = new ArrayList<>();
     private RecyclerView rec_cainixihuan,rec_quanbupinpai;
     private View head_teyue;
+    private List<String> mbanner = new ArrayList<>();
+    private List<String> mbannerimg = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +65,16 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
-                .params(map)
+        OkGo.<String>get(Contacts.URl2+"query/brand/isSpecial")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        ShangPinGson shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-                        if (shangPinGson.getCode() == 200) {
-                            initRec(shangPinGson.getData());
-                            initRec2(shangPinGson.getData());
+                        TeYuePingPai shangPinGson = gson.fromJson(response.body(), TeYuePingPai.class);
+                        if (shangPinGson.getStatus() == 1) {
+                            initRec(shangPinGson.getResult().getIsSpecial());
+                            initRec2(shangPinGson.getResult().getResultList());
                         }
                     }
                     @Override
@@ -88,76 +88,52 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     private void initbanner() {
 //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        Map<String,String> map = new HashMap<>();
-//        map.put("channel","wh");
-//        OkGo.<String>post(Contacts.bannerurl)
-//                .params(map)
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        String body = response.body();
-//                        Gson gson = new Gson();
-//                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
-//                        if (bannergson.getCode()==200){
-//                            if (bannergson.getData()!=null){
-//                                mlist.clear();
-//                                mbannertitle.clear();
-//                                for (int i = 0;i < bannergson.getData().size();i++){
-//                                    mlist.add(bannergson.getData().get(i).getImg());
-//                                    mtaburl.add(bannergson.getData().get(i).getUrl());
-//                                    mbannertitle.add(bannergson.getData().get(i).getTitle());
-//                                }
-//                            }
-//                            initBanner(mbannertitle,mlist,mtaburl);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onStart(Request<String, ? extends Request> request) {
-////                        ProgressBar.setVisibility(View.VISIBLE);
-//                        super.onStart(request);
-//                    }
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/3")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
+                        if (bannergson.getStatus()==1){
+                            if (bannergson.getResult()!=null){
+                                mbanner.clear();
+                                for (int i = 0;i < bannergson.getResult().size();i++){
+                                    mbanner.add(bannergson.getResult().get(i).getPictureUrl());
+                                }
+                            }
+                            initBanner(mbanner);
+                        }
+                    }
 
-//                    private void initBanner(List<String> mbannertitle, List<String> mlist, List<String> mtaburl) {
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        mlist.add(R.mipmap.ic_launcher);
-        //加载网络图片
-        banner.setImages(mlist)
-                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                .setImageLoader(new GlideImageLoader())
-                .start();
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                if (!utils.isDoubleClick()) {
-                    ToastUtils.showShort("Banner"+position);
-//                                    Intent intent = new Intent();
-//                                    intent.putExtra("id", 3);
-//                                    intent.putExtra("collect", 2);
-//                                    intent = intent.setClass(getActivity(), DetailActivity.class);
-//                                    intent.putExtra("title", mbannertitle.get(position));
-//                                    intent.putExtra("url", mtaburl.get(position));
-//                                    startActivity(intent);
-                }
-            }
-        });
-//                    }
-//                });
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        ProgressBar.setVisibility(View.VISIBLE);
+                        super.onStart(request);
+                    }
+
+                    private void initBanner(List<String> mbanner) {
+                        //加载网络图片
+                        banner.setImages(mbanner)
+                                .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                                .setImageLoader(new GlideImageLoader())
+                                .start();
+                    }
+                });
+
     }
 
-    private void initRec(ShangPinGson.DataBean data) {
+    private void initRec(List<TeYuePingPai.ResultBean.IsSpecialBean> isSpecial) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
         //设置RecyclerView 布局
         rec_cainixihuan.setLayoutManager(layoutmanager);
-        ShangPinTuiJianAdapter shangPinTuiJianAdapter = new ShangPinTuiJianAdapter(R.layout.item_shop_cainixihuan,data.getList());
+        ShangPinTuiJianAdapter shangPinTuiJianAdapter = new ShangPinTuiJianAdapter(R.layout.item_shop_cainixihuan,isSpecial);
         rec_cainixihuan.setAdapter(shangPinTuiJianAdapter);
     }
 
-    private void initRec2(ShangPinGson.DataBean data) {
+    private void initRec2(List<TeYuePingPai.ResultBean.ResultListBean> resultList) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(TeYuePinPaiActivity.this){
             @Override
@@ -168,7 +144,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
         //设置RecyclerView 布局
         rec_quanbupinpai.setLayoutManager(layoutmanager);
-        PinPaiAdapter pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,data.getList());
+        PinPaiAdapter pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,resultList);
         pinPaiItemAdapter.addHeaderView(head_teyue);
         rec_quanbupinpai.setAdapter(pinPaiItemAdapter);
     }

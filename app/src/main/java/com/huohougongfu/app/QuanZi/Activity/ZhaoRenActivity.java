@@ -24,6 +24,10 @@ import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +44,8 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
     private int mId;
     private String token;
     private InputMethodManager manager;
+    private SmartRefreshLayout smartrefreshlayout;
+    private int page =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
         rec_zhaoren = findViewById(R.id.rec_zhaoren);
+        smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         EditText edt_zhaoren_sousuo = findViewById(R.id.edt_zhaoren_sousuo);
         edt_zhaoren_sousuo.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -80,6 +87,7 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
         }
         map.put("pageNo","1");
         map.put("pageSize","10");
+        map.put("mId",String.valueOf(mId));
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/find/people")
                 .params(map)
@@ -124,6 +132,46 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+//                initOkGO();
+                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String,String> map = new HashMap<>();
+        map.put("pageNo",String.valueOf(page++));
+        map.put("pageSize","10");
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/find/people")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ZhaoRenGson zhaoRenGson = gson.fromJson(body, ZhaoRenGson.class);
+                        if (zhaoRenGson.getResult().getList().size()>0){
+                            zhaorendadapter.add(zhaoRenGson.getResult().getList());
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }else {
+                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                        }
+                    }
+                });
     }
 
     private void initGuanZhu(int type, ZhaoRenGson.ResultBean.ListBean listBean, TextView bt_zhaoren_gaunzhu) {

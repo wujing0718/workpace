@@ -125,8 +125,8 @@ public class DaShiZhuanChang extends AppCompatActivity {
         layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
         //设置RecyclerView 布局
         rec_cainixihuan.setLayoutManager(layoutmanager);
-        ShangPinTuiJianAdapter shangPinTuiJianAdapter = new ShangPinTuiJianAdapter(R.layout.item_shop_cainixihuan,data.getList());
-        rec_cainixihuan.setAdapter(shangPinTuiJianAdapter);
+//        ShangPinTuiJianAdapter shangPinTuiJianAdapter = new ShangPinTuiJianAdapter(R.layout.item_shop_cainixihuan,data.getList());
+//        rec_cainixihuan.setAdapter(shangPinTuiJianAdapter);
     }
 
     private void initRec2(ShangPinGson.DataBean data) {
@@ -140,16 +140,16 @@ public class DaShiZhuanChang extends AppCompatActivity {
         layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
         //设置RecyclerView 布局
         rec_dashizhuanchang.setLayoutManager(layoutmanager);
-        ShangPinTuiJianAdapter pinPaiItemAdapter = new ShangPinTuiJianAdapter(R.layout.item_dashizhuanchang,data.getList());
-        pinPaiItemAdapter.addHeaderView(head_dashizhuanchang);
-        pinPaiItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent();
-                intent.setClass(DaShiZhuanChang.this,DaShiJianJieActivity.class);
-                startActivity(intent);
-            }
-        });
-        rec_dashizhuanchang.setAdapter(pinPaiItemAdapter);
+//        ShangPinTuiJianAdapter pinPaiItemAdapter = new ShangPinTuiJianAdapter(R.layout.item_dashizhuanchang,data.getList());
+//        pinPaiItemAdapter.addHeaderView(head_dashizhuanchang);
+//        pinPaiItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//            @Override
+//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+//                Intent intent = new Intent();
+//                intent.setClass(DaShiZhuanChang.this,DaShiJianJieActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        rec_dashizhuanchang.setAdapter(pinPaiItemAdapter);
     }
 }

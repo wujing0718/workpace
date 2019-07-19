@@ -220,6 +220,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/bt_wodeguanzhu"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -244,6 +245,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/bt_wodefensi"
                         android:layout_marginLeft="@dimen/icon_size_20dp"
                         android:orientation="vertical"
                         android:layout_width="wrap_content"

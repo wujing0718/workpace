@@ -187,6 +187,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         inflate.findViewById(R.id.bt_shoucang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_detail_guige).setOnClickListener(this);
         inflate.findViewById(R.id.bt_jiagouwuche).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_kefu).setOnClickListener(this);
 
         rec_shangpin_tuijian = inflate.findViewById(R.id.rec_shangpin_tuijian);
         tv_yuan_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG );
@@ -242,7 +243,6 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         super.onStart(request);
                     }
                 });
-
     }
 
     private void initView(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct) {
@@ -330,6 +330,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_shoucang:
                 if (!utils.isDoubleClick()){
                         initShouCang();
+                }
+                break;
+            case R.id.bt_kefu:
+                if (!utils.isDoubleClick()){
+                    initShouCang();
                 }
                 break;
             case R.id.bt_detail_guige:
