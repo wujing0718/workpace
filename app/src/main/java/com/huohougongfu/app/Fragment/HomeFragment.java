@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private String lon;
     private String token,id,phone;
     private ImmersionBar mImmersionBar;
+    private Fragment currentFragment;
 
     public HomeFragment() {
     }
@@ -172,6 +173,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+
                 if (!isChecked) {
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -186,6 +188,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
+
 
     private void initbanner() {
         //设置指示器位置
@@ -265,5 +268,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         }
     }
+
+
 
 }

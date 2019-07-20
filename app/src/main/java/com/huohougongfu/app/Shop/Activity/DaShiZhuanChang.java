@@ -179,6 +179,7 @@ public class DaShiZhuanChang extends AppCompatActivity {
     }
 
     private void initRec2(List<DSZhuanChang.ResultBean.AllMasterBean> allMaster) {
+        //BUG
         ViewGroup parentViewGroup = (ViewGroup) head_dashizhuanchang.getParent();
         if (parentViewGroup != null) {
             parentViewGroup.removeAllViews();
