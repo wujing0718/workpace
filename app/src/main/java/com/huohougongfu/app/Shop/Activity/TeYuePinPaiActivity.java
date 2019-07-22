@@ -16,6 +16,7 @@ import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.TeYuePingPai;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.PinPaiAdapter;
 import com.huohougongfu.app.Shop.Adapter.PingJiaAdapter;
@@ -54,6 +55,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     private InputMethodManager manager;
     private PinPaiAdapter pinPaiItemAdapter;
     private int page =2;
+    private int mId;
 
 
     @Override
@@ -61,6 +63,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_te_yue_pin_pai);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        mId = MyApp.instance.getInt("id");
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +104,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         map.put("page","1");
         map.put("pageSize","10");
         map.put("name",sousuo);
+        map.put("userId",String.valueOf(mId));
         OkGo.<String>get(Contacts.URl2+"query/brand/isSpecial")
                 .params(map)
                 .execute(new StringCallback() {
@@ -110,7 +114,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         TeYuePingPai shangPinGson = gson.fromJson(response.body(), TeYuePingPai.class);
                         if (shangPinGson.getStatus() == 1) {
-                            initRec(shangPinGson.getResult().getIsSpecial());
+                            initRec(shangPinGson.getResult().getIsSpecial().getList());
                             initRec2(shangPinGson.getResult().getResultList());
                         }
                     }
@@ -160,7 +164,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
 
     }
 
-    private void initRec(List<TeYuePingPai.ResultBean.IsSpecialBean> isSpecial) {
+    private void initRec(List<TeYuePingPai.ResultBean.IsSpecialBean.ListBean> isSpecial) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);

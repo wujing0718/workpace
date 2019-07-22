@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -25,14 +26,21 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.huohougongfu.app.Activity.DaKaActivity;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.Gson.BannerGson;
+import com.huohougongfu.app.Gson.JiQiLieBiao;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.Paocha;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.ChaTaiActivity;
+import com.huohougongfu.app.ShouYe.Activity.JiQiAcyivity;
 import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
 import com.huohougongfu.app.ShouYe.Activity.PleaseTeaActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -41,8 +49,14 @@ import com.suke.widget.SwitchButton;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static android.content.Context.CONTEXT_RESTRICTED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,16 +71,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private SwitchButton bt_switch;
     private Intent intent;
     private MapView amap;
-    //定位需要的声明
-    private AMapLocationClient mLocationClient = null;//定位发起端
-    private AMapLocationClientOption mLocationOption = null;//定位参数
-    private LocationSource.OnLocationChangedListener mListener = null;//定位监听器
-    boolean isFirstLoc = true;
-    private String lat;
-    private String lon;
+
     private String token,id,phone;
     private ImmersionBar mImmersionBar;
     private Fragment currentFragment;
+    private String lon,lat;
+    private JiQiLieBiao lieiao;
+    private TextView tv_jiqijuli,tv_jiqiweizhi;
 
     public HomeFragment() {
     }
@@ -77,10 +88,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_home, container, false);
         intent = new Intent();
+        lon = MyApp.instance.getString("lon");
+        lat = MyApp.instance.getString("lat");
         //设置默认显示内容
-        setDefaultFragment();
         initUI();
-
+        initJiQi();
         return inflate;
     }
 
@@ -88,85 +100,63 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         //设置定位监听
         initbanner();
-        initLoc();
         super.onResume();
     }
-    //定位
-    private void initLoc() {
-        //初始化定位
-        mLocationClient = new AMapLocationClient(getActivity().getApplicationContext());
-        //设置定位回调监听
-        mLocationClient.setLocationListener(new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation != null) {
-                    if (aMapLocation.getErrorCode() == 0) {
-                        //可在其中解析amapLocation获取相应内容。
-                        aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                        //获取纬度
-                        double lat1 = aMapLocation.getLatitude();
-                        double lon1 = aMapLocation.getLongitude();//获取经度
-                        lat = String.valueOf(lat1);
-                        lon = String.valueOf(lon1);
-                        MyApp.instance.put("citycode",aMapLocation.getCityCode(),true);
-                        if (isFirstLoc) {
-                            //获取定位信息
-                            StringBuffer buffer = new StringBuffer();
-                            buffer.append(aMapLocation.getCountry() + ""
-                                    + aMapLocation.getProvince() + ""
-                                    + aMapLocation.getCity() + ""
-                                    + aMapLocation.getCityCode()+""
-                                    + aMapLocation.getProvince() + ""
-                                    + aMapLocation.getDistrict() + ""
-                                    + aMapLocation.getStreet() + ""
-                                    + aMapLocation.getStreetNum());
 
-                            LogUtils.e(buffer);
-                            isFirstLoc = false;
-                        }
-                    }else {
-                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                        Log.e("地图错误","定位失败, 错误码:" + aMapLocation.getErrorCode() + ", 错误信息:"
-                                + aMapLocation.getErrorInfo());
-                    }
-                }
-            }
-        });
-        //初始化定位参数
-        mLocationOption = new AMapLocationClientOption();
-        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //设置是否返回地址信息（默认返回地址信息）
-        mLocationOption.setNeedAddress(true);
-        //设置是否只定位一次,默认为false
-        mLocationOption.setOnceLocation(true);
-        //设置是否强制刷新WIFI，默认为强制刷新
-        mLocationOption.setWifiActiveScan(true);
-        //设置是否允许模拟位置,默认为false，不允许模拟位置
-        mLocationOption.setMockEnable(false);
-        //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(2000);
-        //给定位客户端对象设置定位参数
-        mLocationClient.setLocationOption(mLocationOption);
-        //启动定位
-        mLocationClient.startLocation();
-    }
 
-    private void setDefaultFragment() {
+    private void setDefaultFragment(String equipmentId) {
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.layFrame, PaoChaFragment.newInstance("主页"));
+        transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(equipmentId));
         transaction.commit();
+    }
+
+    private void initJiQi() {
+        Map<String, String> map = new HashMap<>();
+        map.put("longitude",lon);
+        map.put("latitude", lat);
+        OkGo.<String>post(Contacts.URl1+"/machine/near")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
+                        if (lieiao.getStatus() == 1) {
+                            if (lieiao.getResult().size()>0){
+                                setDefaultFragment(lieiao.getResult().get(0).getEquipmentId());
+                                tv_jiqiweizhi.setText(lieiao.getResult().get(0).getDetailAddress()+"(No."+lieiao.getResult().get(0).getEquipmentId()+")");
+                                DecimalFormat formater = new DecimalFormat();
+                                formater.setMaximumFractionDigits(2);
+                                formater.setGroupingSize(0);
+                                formater.setRoundingMode(RoundingMode.FLOOR);
+                                String result = formater.format(Double.valueOf(lieiao.getResult().get(0).getDistance()));
+                                tv_jiqijuli.setText(result+"m");
+
+                            }
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
     }
 
     private void initUI() {
 
         amap = inflate.findViewById(R.id.amap);
+        tv_jiqijuli = inflate.findViewById(R.id.tv_jiqijuli);
+        tv_jiqiweizhi = inflate.findViewById(R.id.tv_jiqiweizhi);
+
         inflate.findViewById(R.id.bt_pleasetea).setOnClickListener(this);
         inflate.findViewById(R.id.bt_daka).setOnClickListener(this);
         inflate.findViewById(R.id.bt_mykabao).setOnClickListener(this);
         inflate.findViewById(R.id.bt_chatai).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingwei).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_xiadan).setOnClickListener(this);
 
         banner = inflate.findViewById(R.id.banner);
         bt_switch = inflate.findViewById(R.id.bt_switch);
@@ -188,7 +178,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
-
 
     private void initbanner() {
         //设置指示器位置
@@ -237,6 +226,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_xiadan:
+                if (!utils.isDoubleClick()){
+                    new XPopup.Builder(getContext())
+                            .asCustom(new Paocha(getContext()))
+                            .show();
+                }
+                break;
             case R.id.bt_pleasetea:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),PleaseTeaActivity.class);
@@ -257,18 +253,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_chatai:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),LoginActivity.class);
+                    intent.setClass(getActivity(),ChaTaiActivity.class);
                     startActivity(intent);
                 }
             case R.id.bt_dingwei:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),DingWeiActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(new Intent(getActivity(), DingWeiActivity.class), CONTEXT_RESTRICTED);
                 }
 
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CONTEXT_RESTRICTED){
+           JiQiLieBiao.ResultBean jiQiLieBiao =  (JiQiLieBiao.ResultBean)data.getSerializableExtra("data");
+           if (jiQiLieBiao!=null){
+               DecimalFormat formater = new DecimalFormat();
+               formater.setMaximumFractionDigits(2);
+               formater.setGroupingSize(0);
+               formater.setRoundingMode(RoundingMode.FLOOR);
+               String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
+               tv_jiqijuli.setText(result+"m");
+               tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getEquipmentId()+")");
 
-
+           }
+        }
+    }
 }

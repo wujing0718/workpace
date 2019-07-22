@@ -225,7 +225,8 @@
         <activity android:name=".Shop.Activity.DaShiJianJieActivity" />
         <activity android:name=".WoDe.Activity.WoDeGuanZhuActivity" />
         <activity android:name=".WoDe.Activity.WoDeFenSiActivity" />
-        <activity android:name=".WoDe.Activity.MyCollectActivity"></activity>
+        <activity android:name=".WoDe.Activity.MyCollectActivity" />
+        <activity android:name=".ShouYe.Activity.JiQiAcyivity"></activity>
     </application>
 
 </manifest>

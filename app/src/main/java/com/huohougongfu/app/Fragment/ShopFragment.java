@@ -130,6 +130,8 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initRec(ShopGson list) {
+
+
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         GridLayoutManager layoutmanager = new GridLayoutManager(getActivity(),2);
         //设置RecyclerView 布局

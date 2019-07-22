@@ -5,6 +5,7 @@
     android:layout_height="44dp">
 
     <TextView
+        android:id="@+id/tv_jiqi_weizhi"
         android:text="正中时代广场（No.183）"
         android:textSize="14sp"
         android:layout_marginLeft="15dp"
@@ -12,6 +13,19 @@
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginRight="@dimen/dp_15"
+        android:id="@+id/tv_jiqi_juli"
+        android:layout_alignParentRight="true"
+        android:text="距您200m"
+        android:textSize="14sp"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/colorBlack"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 
     <View

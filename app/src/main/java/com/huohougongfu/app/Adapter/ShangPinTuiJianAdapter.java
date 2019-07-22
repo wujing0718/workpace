@@ -19,17 +19,17 @@ import com.huohougongfu.app.Shop.Adapter.PinPaiItemAdapter;
 
 import java.util.List;
 
-public class ShangPinTuiJianAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.IsSpecialBean,BaseViewHolder> {
+public class ShangPinTuiJianAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.IsSpecialBean.ListBean,BaseViewHolder> {
 
-    private List<TeYuePingPai.ResultBean.IsSpecialBean> data;
+    private List<TeYuePingPai.ResultBean.IsSpecialBean.ListBean> data;
 
-    public ShangPinTuiJianAdapter(int layoutResId, @Nullable List<TeYuePingPai.ResultBean.IsSpecialBean> data) {
+    public ShangPinTuiJianAdapter(int layoutResId, @Nullable List<TeYuePingPai.ResultBean.IsSpecialBean.ListBean> data) {
         super(layoutResId, data);
         this.data = data;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TeYuePingPai.ResultBean.IsSpecialBean item) {
+    protected void convert(BaseViewHolder helper, TeYuePingPai.ResultBean.IsSpecialBean.ListBean item) {
         helper.addOnClickListener(R.id.bt_dashi_jianjie);
         ImageView img_cainixihuan_photo = helper.getView(R.id.img_dashi_touxiang);
         RequestOptions requestOptions = new RequestOptions().circleCrop();

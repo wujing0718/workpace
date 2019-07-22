@@ -22,15 +22,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <com.huohougongfu.app.Utils.SmoothCheckBox
-                    android:id="@+id/checkbox"
-                    android:layout_width="16dp"
-                    android:layout_height="14dp"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginLeft="12dp"
-                    android:layout_weight="1"
-                    app:color_checked="@color/colorBlack"
-                    app:color_tick="@color/colorWhite" />
+                <ImageView
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/unselect"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
 
                 <TextView
                     android:text="全选"

@@ -7,15 +7,12 @@
     android:layout_height="wrap_content">
 
 
-    <com.huohougongfu.app.Utils.SmoothCheckBox
-        android:id="@+id/checkbox"
-        android:layout_marginLeft="12dp"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+    <ImageView
+        android:layout_marginLeft="@dimen/dp_12"
         android:layout_gravity="center_vertical"
-        app:color_checked="@color/colorBlack"
-        app:color_tick="@color/colorWhite"
-        />
+        android:src="@mipmap/unselect"
+        android:layout_width="@dimen/dp_22"
+        android:layout_height="@dimen/dp_22" />
 
     <ImageView
         android:layout_marginLeft="12dp"

@@ -9,10 +9,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ViewPagerAdapter;
+import com.huohougongfu.app.Gson.Machine;
+import com.huohougongfu.app.Gson.TeaDetail;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.RotationPageTransformer;
 import com.lwj.widget.viewpagerindicator.ViewPagerIndicator;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +29,13 @@ import java.util.List;
  */
 public class PaoChaFragment extends Fragment {
 
-    private final String[] mTitles = {"绿茶", "乌龙茶", "红茶", "白茶", "黄茶", "黑茶", "X茶", "X茶"};
+    private final List<String> mtitles = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private ViewPagerAdapter mAdapter;
     private View inflate;
     private ViewPagerIndicator mViewPagerIndicator;
+    private String machineId;
 
     public PaoChaFragment() {
         // Required empty public constructor
@@ -38,18 +46,43 @@ public class PaoChaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_shou_ye, container, false);
-        initTablayout();
+        machineId = getArguments().getString("ARGS");
+        initData();
         return inflate;
     }
-        private void initTablayout() {
+
+    private void initData() {
+        OkGo.<String>get(Contacts.URl1+"/machine/info/"+machineId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        Machine machine = gson.fromJson(body, Machine.class);
+                        if (machine.getStatus() == 1){
+                            if (machine.getResult().size()>0){
+                                mtabtitle.clear();
+                                mtitles.clear();
+                                for (int i = 0; i < machine.getResult().size(); i++) {
+                                    TeaDetail teaDetail = gson.fromJson(machine.getResult().get(i), TeaDetail.class);
+                                    mtabtitle.add(teaDetail.getTeaName());
+                                    String s = machine.getResult().get(i);
+                                    mtitles.add(s);
+                                }
+                                initTablayout();
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void initTablayout() {
         mFragments.clear();
-        mtabtitle.clear();
         mViewPagerIndicator = inflate.findViewById(R.id.indicator_line);
 //        SlidingTabLayout stl = inflate.findViewById(R.id.stl);
         ViewPager mViewPager = inflate.findViewById(R.id.vp);
-        for (int i = 0;i<mTitles.length;i++){
-            mFragments.add(SimpleCardFragment.newInstance("分类"));
-            mtabtitle.add(mTitles[i]);
+        for (int i = 0;i<mtabtitle.size();i++){
+            mFragments.add(SimpleCardFragment.newInstance(mtitles.get(i)));
         }
             mAdapter = new ViewPagerAdapter(getChildFragmentManager(),mFragments);
             mViewPager.setAdapter(mAdapter);
