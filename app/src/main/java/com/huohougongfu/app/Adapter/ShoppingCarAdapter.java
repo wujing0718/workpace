@@ -136,6 +136,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         //因为set之后要重新get，所以这一块代码要放到一起执行
         //店铺是否在购物车中被选中
         final boolean isSelect_shop = datasBean.getIsSelect_shop();
+
         if (isSelect_shop) {
             groupViewHolder.ivSelect.setImageResource(R.mipmap.select);
         } else {
@@ -183,7 +184,6 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 isSelectAll = !isSelectAll;
-
                 if (isSelectAll) {
                     for (int i = 0; i < data.size(); i++) {
                         List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = data.get(i).getProducts();

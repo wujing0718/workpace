@@ -5,23 +5,41 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.huohougongfu.app.Gson.TeaDetail;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.AmountView;
+import com.huohougongfu.app.Utils.Contacts;
 import com.lxj.xpopup.animator.PopupAnimator;
 import com.lxj.xpopup.core.CenterPopupView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Paocha extends CenterPopupView implements View.OnClickListener {
-    private String yedi;
-    private String nongdu;
+    private String yedi ="1";
+    private String nongdu = "标准";
     private int amount = 1;
+    private TeaDetail teaDetail;
 
     private AmountView amountview;
+    private TextView tv_paocha_nameprice;
 
-    public Paocha(@NonNull Context context) {
+    public Paocha(@NonNull Context context, TeaDetail teaDetail) {
         super(context);
+        this.teaDetail = teaDetail;
     }
+
+
     // 返回自定义弹窗的布局
     @Override
     protected int getImplLayoutId() {
@@ -36,6 +54,7 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
     }
 
     private void initUI() {
+        tv_paocha_nameprice = findViewById(R.id.tv_paocha_nameprice);
         RadioGroup radiogroup_yedi = findViewById(R.id.radiogroup_yedi);
         RadioGroup radiogroup_nongdu = findViewById(R.id.radiogroup_nongdu);
         RadioButton radiobutton_youyedi = findViewById(R.id.radiobutton_youyedi);
@@ -52,15 +71,17 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
         });
         findViewById(R.id.bt_fangruchatai).setOnClickListener(this);
         findViewById(R.id.bt_lijixiadan).setOnClickListener(this);
-
+        radiobutton_youyedi.setChecked(true);
+        radiobutton_biaozhun.setChecked(true);
+        tv_paocha_nameprice.setText(teaDetail.getTeaName()+" ¥ "+teaDetail.getPrice());
         radiogroup_yedi.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (radiobutton_youyedi.getId() == checkedId){
-                    yedi = "有叶底";
+                    yedi = "1";
                 }
                 if (radiobutton_wuyedi.getId() == checkedId){
-                    yedi = "无叶底";
+                    yedi = "0";
                 }
             }
         });
@@ -119,11 +140,39 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_fangruchatai:
-                ToastUtils.showShort(yedi+nongdu+amount);
+                initJiaRuChaTai();
                 break;
             case R.id.bt_lijixiadan:
 
                 break;
         }
+    }
+
+    private void initJiaRuChaTai() {
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("teaId",String.valueOf(teaDetail.getTeaId()));
+        map.put("hasDust",String.valueOf(yedi));
+        map.put("concentration",String.valueOf(nongdu));
+        map.put("num",String.valueOf(amount));
+        OkGo.<String>post(Contacts.URl1+"/machine/teaTable/add")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                dismiss();
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 }

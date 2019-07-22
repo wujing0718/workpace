@@ -6,6 +6,7 @@
     tools:context=".Fragment.SimpleCardFragment">
 
     <include
+        android:id="@+id/bt_paocha"
         layout="@layout/item_shouye_tablayout"/>
 
 </FrameLayout>

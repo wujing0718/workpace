@@ -87,13 +87,13 @@
                 <!--使用默认UI属性-->
                 <com.mcxtzhang.lib.AnimShopButton
                     android:id="@+id/amountview"
-                    android:layout_marginRight="15dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:maxCount="3"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="17dp"
+                    app:maxCount="3" />
 
                 <View
                     android:id="@+id/view"

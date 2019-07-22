@@ -228,9 +228,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.bt_xiadan:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .asCustom(new Paocha(getContext()))
-                            .show();
+                    intent.setClass(getActivity(),PleaseTeaActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.bt_pleasetea:

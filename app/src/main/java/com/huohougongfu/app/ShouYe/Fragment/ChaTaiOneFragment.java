@@ -9,33 +9,32 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ChaTaiAdapter;
-import com.huohougongfu.app.Adapter.ShangPinAdapter;
-import com.huohougongfu.app.Fragment.SimpleCardFragment;
-import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.Gson.ChaTaiGson;
+import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
+import com.huohougongfu.app.Gson.ShopYouHuiQuan;
+import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.CTYouHuiQuan;
+import com.huohougongfu.app.PopupView.YouHuiQuan;
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
-import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
-import com.ocnyang.cartlayout.bean.ICartItem;
-import com.ocnyang.cartlayout.listener.CartOnCheckChangeListener;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,13 +44,17 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
 
 
     private View inflate;
-    private SmoothCheckBox mCheckBoxAll;
-    private RecyclerView rec_chatai;
+    private ListView rec_chatai;
     private ChaTaiAdapter shangPinAdapter;
-    private ShangPinGson shangPinGson;
-    private TextView mTvTotal;
+    private ChaTaiGson chatai;
+    private TextView mTvTotal,tv_manjian2,tv_manjian1;
     private Button mBtnSubmit;
     private ChaTaiAdapter mAdapter;
+    private View bt_checkbox;
+    private Button btn_go_to_pay;
+    private ImageView img_check;
+    private TextView tv_total_price;
+    private List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> myouhuiquan;
 
     public ChaTaiOneFragment() {
         // Required empty public constructor
@@ -62,33 +65,43 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_cha_tai_one, container, false);
+        initYouHuiQuan();
         initUI();
         initData();
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void initUI() {
         mTvTotal = inflate.findViewById(R.id.tv_total_price);
         mBtnSubmit =inflate.findViewById(R.id.btn_go_to_pay);
         inflate.findViewById(R.id.bt_checkbox).setOnClickListener(this);
-        mCheckBoxAll = inflate.findViewById(R.id.checkbox);
+        bt_checkbox = inflate.findViewById(R.id.bt_checkbox);
+        bt_checkbox.setOnClickListener(this);
+        btn_go_to_pay = inflate.findViewById(R.id.btn_go_to_pay);
+        btn_go_to_pay.setOnClickListener(this);
         mBtnSubmit.setOnClickListener(this);
+        inflate.findViewById(R.id.bt_detail_lingquan).setOnClickListener(this);
+        img_check = inflate.findViewById(R.id.img_check);
+        tv_total_price = inflate.findViewById(R.id.tv_total_price);
+        tv_manjian1 = inflate.findViewById(R.id.tv_manjian1);
+        tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
     }
 
     private void initData() {
-        Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
-                .params(map)
+        OkGo.<String>get(Contacts.URl1+"/machine/findTeaTable/"+MyApp.instance.getInt("id"))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-                        if (shangPinGson.getCode() == 200) {
-                            initRec(shangPinGson.getData());
+                        chatai = gson.fromJson(response.body(), ChaTaiGson.class);
+                        if (chatai.getStatus() == 1) {
+                            initRec(chatai.getResult());
                         }
                     }
                     @Override
@@ -99,21 +112,42 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                 });
     }
 
-    private void initRec(ShangPinGson.DataBean data) {
+    /*
+        优惠券列表数据
+     */
+    private void initYouHuiQuan() {
+        Map<String,String> map = new HashMap<>();
+        map.put("tel","13111111111");
+        map.put("mId",String.valueOf(43));
+        OkGo.<String>post(Contacts.URl1+"/machine/getPreferential")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ChaTaiYouHuiQuan youhuiquan = gson.fromJson(body, ChaTaiYouHuiQuan.class);
+                        if (youhuiquan.getStatus() == 1){
+                            myouhuiquan = youhuiquan.getResult().getCoupons();
+                            if (myouhuiquan.size()>1){
+                                tv_manjian1.setText(myouhuiquan.get(0).getServiceRegulations());
+                                tv_manjian2.setText(myouhuiquan.get(1).getServiceRegulations());
+                            }else if(myouhuiquan.size() ==1){
+                                tv_manjian1.setText(myouhuiquan.get(0).getServiceRegulations());
+                            }else if (myouhuiquan.size()<0){
+                                tv_manjian1.setText("暂无优惠券");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void initRec(List<ChaTaiGson.ResultBean> result) {
         rec_chatai = inflate.findViewById(R.id.rec_chatai);
-        rec_chatai.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ChaTaiAdapter(R.layout.item_shouye_chataione, data.getList());
-        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SmoothCheckBox checkbox = view.findViewById(R.id.checkbox);
-                if (checkbox.isChecked()){
-                    checkbox.setChecked(false);
-                }else{
-                    checkbox.setChecked(true);
-                }
-            }
-        });
+//        rec_chatai.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        rec_chatai.setHasFixedSize(true);
+        mAdapter = new ChaTaiAdapter(R.layout.item_shouye_chataione,bt_checkbox,btn_go_to_pay,result,getActivity(),img_check,tv_total_price);
+        mAdapter.setData(result);
         rec_chatai.setAdapter(mAdapter);
     }
 
@@ -128,16 +162,14 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.bt_checkbox:
+            case R.id.bt_detail_lingquan:
                 if (!utils.isDoubleClick()){
-                    if (mCheckBoxAll.isChecked()){
-                        //选中
-                        mAdapter.selectAll();
-                        mCheckBoxAll.setChecked(false,true);
+                    if (myouhuiquan!=null){
+                        new XPopup.Builder(getContext())
+                                .asCustom(new CTYouHuiQuan(getContext(),myouhuiquan))
+                                .show();
                     }else{
-                        //未选中
-                        mAdapter.revertSelected();
-                        mCheckBoxAll.setChecked(true,true);
+                        ToastUtils.showShort("暂无优惠券");
                     }
                 }
                 break;

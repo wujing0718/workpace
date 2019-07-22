@@ -31,6 +31,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
     private TextView teaname,teaprice,teaefficacy,teaWeight,waterWeight,temperature;
     private ImageView img_jiqi_photo;
     private String resultBean;
+    private TeaDetail teaDetail;
 
     public SimpleCardFragment() {
         // Required empty public constructor
@@ -49,7 +50,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
 
     private void initView() {
         Gson gson = new Gson();
-        TeaDetail teaDetail = gson.fromJson(resultBean, TeaDetail.class);
+        teaDetail = gson.fromJson(resultBean, TeaDetail.class);
         teaname.setText(teaDetail.getTeaName());
         teaprice.setText("¥"+teaDetail.getPrice());
         Glide.with(getActivity()).load(teaDetail.getPicture()).into(img_jiqi_photo);
@@ -60,6 +61,14 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
     }
 
     private void initUI() {
+        inflate.findViewById(R.id.bt_paocha).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new XPopup.Builder(getContext())
+                        .asCustom(new Paocha(getContext(),teaDetail))
+                        .show();
+            }
+        });
         teaname = inflate.findViewById(R.id.tv_jiqi_tea);
         teaprice = inflate.findViewById(R.id.tv_jiqi_price);
         teaefficacy = inflate.findViewById(R.id.tv_tea_efficacy);
