@@ -76,8 +76,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImmersionBar mImmersionBar;
     private Fragment currentFragment;
     private String lon,lat;
-    private JiQiLieBiao lieiao;
     private TextView tv_jiqijuli,tv_jiqiweizhi;
+    private JiQiLieBiao.ResultBean jiQiLieBiao;
 
     public HomeFragment() {
     }
@@ -122,9 +122,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
+                        JiQiLieBiao lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
                         if (lieiao.getStatus() == 1) {
                             if (lieiao.getResult().size()>0){
+                                jiQiLieBiao = lieiao.getResult().get(0);
                                 setDefaultFragment(lieiao.getResult().get(0).getEquipmentId());
                                 tv_jiqiweizhi.setText(lieiao.getResult().get(0).getDetailAddress()+"(No."+lieiao.getResult().get(0).getEquipmentId()+")");
                                 DecimalFormat formater = new DecimalFormat();
@@ -172,7 +173,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }else{
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(""));
+                    transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
                     transaction.commit();
                 }
             }
@@ -252,6 +253,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_chatai:
                 if (!utils.isDoubleClick()){
+                    intent.putExtra("machineId",jiQiLieBiao.getEquipmentId());
                     intent.setClass(getActivity(),ChaTaiActivity.class);
                     startActivity(intent);
                 }
@@ -266,7 +268,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CONTEXT_RESTRICTED){
-           JiQiLieBiao.ResultBean jiQiLieBiao =  (JiQiLieBiao.ResultBean)data.getSerializableExtra("data");
+           jiQiLieBiao =  (JiQiLieBiao.ResultBean)data.getSerializableExtra("data");
            if (jiQiLieBiao!=null){
                DecimalFormat formater = new DecimalFormat();
                formater.setMaximumFractionDigits(2);

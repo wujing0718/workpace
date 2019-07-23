@@ -82,7 +82,7 @@ public class PaoChaFragment extends Fragment {
 //        SlidingTabLayout stl = inflate.findViewById(R.id.stl);
         ViewPager mViewPager = inflate.findViewById(R.id.vp);
         for (int i = 0;i<mtabtitle.size();i++){
-            mFragments.add(SimpleCardFragment.newInstance(mtitles.get(i)));
+            mFragments.add(SimpleCardFragment.newInstance(mtitles.get(i),machineId));
         }
             mAdapter = new ViewPagerAdapter(getChildFragmentManager(),mFragments);
             mViewPager.setAdapter(mAdapter);

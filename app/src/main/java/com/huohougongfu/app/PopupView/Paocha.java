@@ -30,13 +30,14 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
     private String nongdu = "标准";
     private int amount = 1;
     private TeaDetail teaDetail;
-
+    private  String machineId;
     private AmountView amountview;
     private TextView tv_paocha_nameprice;
 
-    public Paocha(@NonNull Context context, TeaDetail teaDetail) {
+    public Paocha(@NonNull Context context, TeaDetail teaDetail, String machineId) {
         super(context);
         this.teaDetail = teaDetail;
+        this.machineId = machineId;
     }
 
 
@@ -152,6 +153,7 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("teaId",String.valueOf(teaDetail.getTeaId()));
+        map.put("machineId",String.valueOf(machineId));
         map.put("hasDust",String.valueOf(yedi));
         map.put("concentration",String.valueOf(nongdu));
         map.put("num",String.valueOf(amount));

@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -15,10 +16,10 @@
             android:layout_height="40dp">
 
             <ImageView
-                android:src="@mipmap/img_back"
+                android:src="@mipmap/img_guanbi"
                 android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
 
 
         </RelativeLayout>
@@ -31,20 +32,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <RelativeLayout
-            android:layout_alignParentRight="true"
-            android:id="@+id/bt_shuoming"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
+        <!--<RelativeLayout-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:id="@+id/bt_shuoming"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp">-->
 
-            <ImageView
-                android:src="@mipmap/img_back"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--<ImageView-->
+                <!--android:src="@mipmap/img_back"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_width="@dimen/dp_16"-->
+                <!--android:layout_height="@dimen/dp_16" />-->
 
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
 
     </RelativeLayout>
@@ -94,13 +95,120 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/dp_10"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginHorizontal="17dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/img_qianbao"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"/>
+
+                <TextView
+                    android:text="余额"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="(剩余：¥200.00)"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:textColor="#A0A0A0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginHorizontal="17dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/img_zhigubao"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"/>
+
+                <TextView
+                    android:text="支付宝"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginHorizontal="17dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/img_weixin"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"/>
+
+                <TextView
+                    android:text="微信"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
 
 
     </LinearLayout>
+
+    <TextView
+        android:text="立即付款"
+        android:textColor="@color/colorWhite"
+        android:gravity="center"
+        android:background="#CCBA91"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
 
 
 </LinearLayout>

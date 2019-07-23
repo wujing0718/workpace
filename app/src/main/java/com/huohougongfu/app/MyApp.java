@@ -91,7 +91,6 @@ public class MyApp extends Application {
                             mAliasCallback);
                     break;
                 default:
-//                    Log.i(TAG, "Unhandled msg - " + msg.what);
             }
         }
     };
@@ -102,14 +101,14 @@ public class MyApp extends Application {
             switch (code) {
                 case 0:
                     logs = "设置成功";
-                    LogUtils.e(logs);
+//                    LogUtils.e(logs);
                     // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
                     break;
                 case 6002:
                     logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
                     // 延迟 60 秒来调用 Handler 设置别名
                     mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
-                    LogUtils.e(logs);
+//                    LogUtils.e(logs);
                     break;
                 default:
                     logs = "Failed with errorCode = " + code;

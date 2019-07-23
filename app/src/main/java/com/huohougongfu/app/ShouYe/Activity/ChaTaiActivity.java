@@ -22,11 +22,13 @@ public class ChaTaiActivity extends AppCompatActivity {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
+    private String machineId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cha_tai);
+        machineId = getIntent().getStringExtra("machineId");
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,8 +42,8 @@ public class ChaTaiActivity extends AppCompatActivity {
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(ChaTaiOneFragment.newInstance(""));
-        mFragments.add(DingDanFragment.newInstance(""));
+        mFragments.add(ChaTaiOneFragment.newInstance(machineId));
+        mFragments.add(DingDanFragment.newInstance(machineId));
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
         }

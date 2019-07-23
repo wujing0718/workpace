@@ -1,6 +1,8 @@
 package com.huohougongfu.app.PopupView;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.YouHuiQuanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.lzy.okgo.OkGo;
@@ -23,16 +26,18 @@ import java.util.List;
 import java.util.Map;
 
 public class CTYouHuiQuan extends BottomPopupView {
+    private final Handler mHandler;
     private List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> mYouhuiquan;
     private RecyclerView rec_shop_youhuiquan;
     private Context context;
     private String token,tel,id;
 
 
-    public CTYouHuiQuan(@NonNull Context context, List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> shopid) {
+    public CTYouHuiQuan(@NonNull Context context, List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> shopid, Handler mHandler) {
         super(context);
         this.context = context;
         this.mYouhuiquan = shopid;
+        this.mHandler = mHandler;
     }
     @Override
     protected int getImplLayoutId() {
@@ -66,7 +71,12 @@ public class CTYouHuiQuan extends BottomPopupView {
         youHuiQuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                initLingQu(String.valueOf(mYouhuiquan.get(position).getId()));
+                Message msg = Message.obtain();
+                msg.what = 0;
+                msg.obj = mYouhuiquan.get(position);
+                mHandler.sendMessage(msg);
+                dismiss();
+//                initLingQu(String.valueOf(mYouhuiquan.get(position).getId()));
             }
         });
     }

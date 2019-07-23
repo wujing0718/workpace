@@ -26,12 +26,15 @@ import com.lxj.xpopup.XPopup;
 public class SimpleCardFragment extends Fragment implements View.OnClickListener {
 
     private static final String KEY = "title";
+    private static final String MachineId = "machineId";
+
     private View inflate;
 //    private Machine.ResultBean resultBean;
     private TextView teaname,teaprice,teaefficacy,teaWeight,waterWeight,temperature;
     private ImageView img_jiqi_photo;
     private String resultBean;
     private TeaDetail teaDetail;
+    private String machineId;
 
     public SimpleCardFragment() {
         // Required empty public constructor
@@ -43,6 +46,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_simple_card, container, false);
         resultBean = getArguments().getString(KEY);
+        machineId = getArguments().getString(MachineId);
         initUI();
         initView();
         return inflate;
@@ -65,7 +69,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 new XPopup.Builder(getContext())
-                        .asCustom(new Paocha(getContext(),teaDetail))
+                        .asCustom(new Paocha(getContext(),teaDetail,machineId))
                         .show();
             }
         });
@@ -79,10 +83,11 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
 
     }
 
-    public static Fragment newInstance(String str){
+    public static Fragment newInstance(String s, String machined){
         SimpleCardFragment fragment = new SimpleCardFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY,str);
+        bundle.putString(KEY,s);
+        bundle.putString(MachineId,machined);
         fragment.setArguments(bundle);
         return fragment;
     }

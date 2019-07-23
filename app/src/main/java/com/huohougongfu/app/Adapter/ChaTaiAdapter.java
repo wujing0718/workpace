@@ -1,68 +1,57 @@
 package com.huohougongfu.app.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.util.DiffUtil;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.ChaTaiGson;
-import com.huohougongfu.app.Gson.ShangPinGson;
-import com.huohougongfu.app.Gson.ShoppingCarDataBean;
+import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
-import com.huohougongfu.app.Utils.AmountView;
-import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.mcxtzhang.lib.AnimShopButton;
 import com.mcxtzhang.lib.IOnAddDelListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 public class ChaTaiAdapter extends BaseAdapter {
 
     private  int item_shouye_chataione;
-    private  View bt_checkbox;
+    private  View bt_checkbox,bt_chami_dikou;
     private  Button btn_go_to_pay;
     private  List<ChaTaiGson.ResultBean> list = new ArrayList<>();
     private Context context;
     private boolean isSelectAll = false;
-    private ImageView ivSelectAll;
+    private ImageView ivSelectAll,img_chami_check;
     private double total_price;
     private TextView tv_total_price;
-
-
+    private ChaTaiYouHuiQuan.ResultBean myouhuiquan;
+    private boolean isDikou = true;
+    private JSONArray array;
 
     public ChaTaiAdapter(int item_shouye_chataione, View bt_checkbox, Button btn_go_to_pay,
-                         List<ChaTaiGson.ResultBean> list, Context context, ImageView img_check, TextView tv_total_price) {
+                         List<ChaTaiGson.ResultBean> list, Context context, ImageView img_check,
+                         TextView tv_total_price, View bt_chami_dikou, ImageView img_chami_check, ChaTaiYouHuiQuan.ResultBean myouhuiquan) {
         this.item_shouye_chataione = item_shouye_chataione;
         this.bt_checkbox = bt_checkbox;
         this.btn_go_to_pay = btn_go_to_pay;
         this.context = context;
         this.ivSelectAll = img_check;
         this.tv_total_price =tv_total_price;
+        this.bt_chami_dikou =bt_chami_dikou;
+        this.img_chami_check =img_chami_check;
+        this.myouhuiquan =myouhuiquan;
 
     }
 
@@ -193,24 +182,112 @@ public class ChaTaiAdapter extends BaseAdapter {
             }
         });
 
-        //合计的计算
-        total_price = 0.0;
-        tv_total_price.setText("¥0.00");
-        for (int i = 0; i < list.size(); i++) {
-            ChaTaiGson.ResultBean resultBean = list.get(i);
-            boolean isSelect = resultBean.getIsSelect();
-            if (isSelect) {
-                String num = String.valueOf(resultBean.getNum());
-                String price = String.valueOf(resultBean.getTea().getPrice());
-                double v = Double.parseDouble(num);
-                double v1 = Double.parseDouble(price);
-                total_price = total_price + v * v1;
-
-                //让Double类型完整显示，不用科学计数法显示大写字母E
-                DecimalFormat decimalFormat = new DecimalFormat("0.00");
-                tv_total_price.setText("¥" + decimalFormat.format(total_price));
+        //结算回调
+        btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * 实际开发中，通过回调请求后台接口实现删除操作
+                 */
+                if (mChangeCountListener != null) {
+                    if (!isDikou){
+                        mChangeCountListener.onChangeCount(total_price,array,myouhuiquan.getTeaRice());
+                    }else{
+                        mChangeCountListener.onChangeCount(total_price,array,0);
+                    }
+                }
+            }
+        });
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        if (!isDikou){
+            //合计的计算
+            total_price = 0.00;
+            tv_total_price.setText("¥0.00");
+            array = new JSONArray();
+            for (int i = 0; i < list.size(); i++) {
+                ChaTaiGson.ResultBean resultBean = list.get(i);
+                boolean isSelect = resultBean.getIsSelect();
+                if (isSelect) {
+                    try {
+                        JSONObject object =new JSONObject();
+                        object.put("id",resultBean.getId());
+                        object.put("concentration",resultBean.getConcentration());
+                        object.put("hasDust",resultBean.getHasDust());
+                        object.put("num",resultBean.getNum());
+                        array.put(object);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String num = String.valueOf(resultBean.getNum());
+                    String price = String.valueOf(resultBean.getTea().getPrice());
+                    double dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                    double v = Double.parseDouble(num);
+                    double v1 = Double.parseDouble(price);
+                    total_price = total_price + v * v1;
+                    if (dikou>=total_price){
+                        tv_total_price.setText("¥" + decimalFormat.format(0.00));
+                    }else{
+                        tv_total_price.setText("¥" + decimalFormat.format(total_price-dikou));
+                    }
+                }
+            }
+        }else{
+            //合计的计算
+            total_price = 0.00;
+            tv_total_price.setText("¥0.00");
+            array = new JSONArray();
+            for (int i = 0; i < list.size(); i++) {
+                ChaTaiGson.ResultBean resultBean = list.get(i);
+                boolean isSelect = resultBean.getIsSelect();
+                if (isSelect) {
+                    try {
+                        JSONObject object =new JSONObject();
+                        object.put("id",resultBean.getId());
+                        object.put("concentration",resultBean.getConcentration());
+                        object.put("hasDust",resultBean.getHasDust());
+                        object.put("num",resultBean.getNum());
+                        array.put(object);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String num = String.valueOf(resultBean.getNum());
+                    String price = String.valueOf(resultBean.getTea().getPrice());
+                    double v = Double.parseDouble(num);
+                    double v1 = Double.parseDouble(price);
+                    total_price = total_price + v * v1;
+                    tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                }
             }
         }
+
+        bt_chami_dikou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Handler(context.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                        if (isDikou){
+                            double chamiprice = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                            if (chamiprice<=total_price){
+                                total_price = total_price-chamiprice;
+                                tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                            }else{
+                                tv_total_price.setText("¥" + 0.00);
+                            }
+                            img_chami_check.setImageResource(R.mipmap.select);
+                            isDikou = false;
+                        }else{
+                            tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                            img_chami_check.setImageResource(R.mipmap.unselect);
+                            isDikou = true;
+                        }
+                    }
+                });
+//                notifyDataSetChanged();
+            }
+        });
+
 
         //商品选择框的点击事件
         groupViewHolder.bt_chatai.setOnClickListener(new View.OnClickListener() {
@@ -225,32 +302,33 @@ public class ChaTaiAdapter extends BaseAdapter {
         });
 
         //去结算的点击事件
-        btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //创建临时的List，用于存储被选中的商品
-                List<ChaTaiGson.ResultBean> temp = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++) {
-                    ChaTaiGson.ResultBean goodsBean = list.get(i);
-                    boolean isSelect = goodsBean.getIsSelect();
-                    if (isSelect) {
-                        temp.add(goodsBean);
-                    }
-                }
-                if (temp != null && temp.size() > 0) {//如果有被选中的
-                    /**
-                     * 实际开发中，如果有被选中的商品，
-                     * 则跳转到确认订单页面，完成后续订单流程。
-                     */
-                    LogUtils.e(temp.get(0).getTea().getTeaName());
-                    Intent intent = new Intent();
-                    intent.setClass(context,XiaDanActivity.class);
-                    startActivity(intent);
-                } else {
-                    ToastUtils.showShort("请选择要购买的商品");
-                }
-            }
-        });
+//        btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //创建临时的List，用于存储被选中的商品
+//                List<ChaTaiGson.ResultBean> temp = new ArrayList<>();
+//                for (int i = 0; i < list.size(); i++) {
+//                    ChaTaiGson.ResultBean goodsBean = list.get(i);
+//                    boolean isSelect = goodsBean.getIsSelect();
+//                    if (isSelect) {
+//                        temp.add(goodsBean);
+//                    }
+//                }
+//                if (temp != null && temp.size() > 0) {//如果有被选中的
+//                    /**
+//                     * 实际开发中，如果有被选中的商品，
+//                     * 则跳转到确认订单页面，完成后续订单流程。
+//                     */
+//                    LogUtils.e(total_price+""+array.toString());
+////                    Intent intent = new Intent();
+////                    intent.setClass(context,XiaDanActivity.class);
+////                    startActivity(intent);
+//                } else {
+//                    ToastUtils.showShort("请选择要购买的商品");
+//                }
+//            }
+//        });
+
         return convertView;
     }
 
@@ -269,7 +347,18 @@ public class ChaTaiAdapter extends BaseAdapter {
             tv_chatai_hasDust = convertView.findViewById(R.id.tv_chatai_hasDust);
             tv_chatai_concentration = convertView.findViewById(R.id.tv_chatai_concentration);
             amountview = convertView.findViewById(R.id.amountview);
-
         }
     }
+
+
+    //修改商品数量的回调
+    public interface OnChangeCountListener {
+        void onChangeCount(double total_price, JSONArray array, int teaRice);
+    }
+
+    public void setOnChangeCountListener(ChaTaiAdapter.OnChangeCountListener listener) {
+        mChangeCountListener = listener;
+    }
+
+    private ChaTaiAdapter.OnChangeCountListener mChangeCountListener;
 }
