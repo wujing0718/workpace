@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
@@ -36,6 +38,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,8 +119,8 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         TeYuePingPai shangPinGson = gson.fromJson(response.body(), TeYuePingPai.class);
                         if (shangPinGson.getStatus() == 1) {
-                            initRec(shangPinGson.getResult().getIsSpecial().getList());
-                            initRec2(shangPinGson.getResult().getResultList());
+                            initRec(shangPinGson.getResult().getIsSpecial());
+                            initRec2(shangPinGson.getResult().getResultList().getList());
                         }
                     }
                     @Override
@@ -127,7 +132,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     }
 
     private void initbanner() {
-//设置指示器位置
+        //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
         OkGo.<String>get(Contacts.URl1+"/setting/banner/3")
                 .execute(new StringCallback() {
@@ -164,7 +169,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
 
     }
 
-    private void initRec(List<TeYuePingPai.ResultBean.IsSpecialBean.ListBean> isSpecial) {
+    private void initRec(List<TeYuePingPai.ResultBean.IsSpecialBean> isSpecial) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -174,7 +179,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         rec_cainixihuan.setAdapter(shangPinTuiJianAdapter);
     }
 
-    private void initRec2(List<TeYuePingPai.ResultBean.ResultListBean> resultList) {
+    private void initRec2(List<TeYuePingPai.ResultBean.ResultListBean.ListBean> resultList) {
         ViewGroup parentViewGroup = (ViewGroup) head_teyue.getParent();
         if (parentViewGroup != null) {
             parentViewGroup.removeAllViews();
@@ -193,6 +198,17 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         pinPaiItemAdapter.addHeaderView(head_teyue);
 
         rec_quanbupinpai.setAdapter(pinPaiItemAdapter);
+        pinPaiItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView bt_pinpai_guanzhu = view.findViewById(R.id.bt_pinpai_guanzhu);
+                if (resultList.get(position).getIsCollection() == 1){
+                    initNoGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
+                }else{
+                    initGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
+                }
+            }
+        });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -210,10 +226,57 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         });
     }
 
+    private void initGuanZhu(TextView bt_pinpai_guanzhu, TeYuePingPai.ResultBean.ResultListBean.ListBean listBean) {
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",String.valueOf(mId));
+        map.put("brandId",String.valueOf(listBean.getId()));
+        OkGo.<String>post(Contacts.URl1+"collectionBrand")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                bt_pinpai_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                                bt_pinpai_guanzhu.setText("已关注");
+                                listBean.setIsCollection(1);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void initNoGuanZhu(TextView bt_pinpai_guanzhu,TeYuePingPai.ResultBean.ResultListBean.ListBean listBean) {
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",String.valueOf(mId));
+        map.put("brandId",String.valueOf(listBean.getId()));
+        OkGo.<String>post(Contacts.URl1+"collectionBrand")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                bt_pinpai_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+                                bt_pinpai_guanzhu.setText("+关注");
+                                listBean.setIsCollection(0);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
     private void initAdd() {
         Map<String,String> map = new HashMap<>();
         map.put("page",String.valueOf(page++));
         map.put("pageSize","10");
+        map.put("userId",String.valueOf(mId));
         OkGo.<String>get(Contacts.URl2+"query/brand/isSpecial")
                 .params(map)
                 .execute(new StringCallback() {
@@ -223,8 +286,8 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         TeYuePingPai shangPinGson = gson.fromJson(response.body(), TeYuePingPai.class);
                         if (shangPinGson.getStatus() == 1) {
-                            if (shangPinGson.getResult().getResultList().size()>0){
-                                pinPaiItemAdapter.add(shangPinGson.getResult().getResultList());
+                            if (shangPinGson.getResult().getResultList().getList().size()>0){
+                                pinPaiItemAdapter.add(shangPinGson.getResult().getResultList().getList());
                                 smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                             }else {
                                 smartrefreshlayout. finishLoadmoreWithNoMoreData();

@@ -34,26 +34,26 @@ public class TeYuePingPai {
 
     public static class ResultBean {
 
-        private IsSpecialBean isSpecial;
-        private List<ResultListBean> resultList;
+        private ResultListBean resultList;
+        private List<IsSpecialBean> isSpecial;
 
-        public IsSpecialBean getIsSpecial() {
-            return isSpecial;
-        }
-
-        public void setIsSpecial(IsSpecialBean isSpecial) {
-            this.isSpecial = isSpecial;
-        }
-
-        public List<ResultListBean> getResultList() {
+        public ResultListBean getResultList() {
             return resultList;
         }
 
-        public void setResultList(List<ResultListBean> resultList) {
+        public void setResultList(ResultListBean resultList) {
             this.resultList = resultList;
         }
 
-        public static class IsSpecialBean {
+        public List<IsSpecialBean> getIsSpecial() {
+            return isSpecial;
+        }
+
+        public void setIsSpecial(List<IsSpecialBean> isSpecial) {
+            this.isSpecial = isSpecial;
+        }
+
+        public static class ResultListBean {
             private int total;
             private int pageNum;
             private int pageSize;
@@ -219,17 +219,17 @@ public class TeYuePingPai {
 
             public static class ListBean {
                 /**
-                 * id : 2
-                 * name : 品牌名称
-                 * isSpecial : 1
-                 * img : 图片
+                 * id : 1
+                 * name : 阿萨德
+                 * isSpecial : 0
+                 * img : 阿斯蒂芬
                  * story : 阿斯蒂芬
-                 * order : 0
-                 * createTime : 2019-06-20T08:47:09.000+0000
-                 * updateTime : 2019-07-19T01:38:59.000+0000
+                 * order : 1
+                 * createTime : 2019-06-14T05:43:21.000+0000
+                 * updateTime : 2019-07-19T01:38:50.000+0000
                  * address : 地址
-                 * isCollection : null
-                 * productList : null
+                 * isCollection : 0
+                 * productList : [{"id":1,"name":"测试","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":5909,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":1,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":19,"name":"测试19","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":2,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":1,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":21,"name":"测试21","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":4,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":1,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":20,"name":"测试20","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":3,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":2,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":24,"name":"测试24","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":25,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":2,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":25,"name":"测试25","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":25,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":2,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null}]
                  */
 
                 private int id;
@@ -241,8 +241,8 @@ public class TeYuePingPai {
                 private String createTime;
                 private String updateTime;
                 private String address;
-                private Object isCollection;
-                private Object productList;
+                private int isCollection;
+                private List<ProductListBean> productList;
 
                 public int getId() {
                     return id;
@@ -316,25 +316,604 @@ public class TeYuePingPai {
                     this.address = address;
                 }
 
-                public Object getIsCollection() {
+                public int getIsCollection() {
                     return isCollection;
                 }
 
-                public void setIsCollection(Object isCollection) {
+                public void setIsCollection(int isCollection) {
                     this.isCollection = isCollection;
                 }
 
-                public Object getProductList() {
+                public List<ProductListBean> getProductList() {
                     return productList;
                 }
 
-                public void setProductList(Object productList) {
+                public void setProductList(List<ProductListBean> productList) {
                     this.productList = productList;
+                }
+
+                public static class ProductListBean {
+                    /**
+                     * id : 1
+                     * name : 测试
+                     * storeName : null
+                     * categoryId : null
+                     * keywords : null
+                     * model : null
+                     * virtualNum : null
+                     * price : 5909.0
+                     * marketPrice : null
+                     * integral : null
+                     * stock : null
+                     * warningStock : null
+                     * coverUrl : http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg
+                     * state : null
+                     * showOrder : null
+                     * sellNum : null
+                     * isNew : null
+                     * unit : null
+                     * transId : null
+                     * createBy : null
+                     * createTime : null
+                     * updateBy : null
+                     * updateTime : null
+                     * del : null
+                     * isRecommend : null
+                     * isCheck : null
+                     * limitIntegral : null
+                     * subhead : null
+                     * remark : null
+                     * weight : null
+                     * count : null
+                     * sendIntegral : null
+                     * sendGrowth : null
+                     * productPicture : null
+                     * storeId : null
+                     * isSift : null
+                     * brandId : 1
+                     * mallStore : null
+                     * sellCount : null
+                     * num : null
+                     * basicService : null
+                     * productType : null
+                     * transName : null
+                     * priceType : null
+                     * deliveryType : null
+                     * defaultTransCost : null
+                     * branName : null
+                     * brandImg : null
+                     * brandIsSpecial : null
+                     * brandOrder : null
+                     * brandAddress : null
+                     * attributeId : null
+                     * standardId : null
+                     * userId : null
+                     * collectionNum : null
+                     * standard : null
+                     */
+
+                    private int id;
+                    private String name;
+                    private Object storeName;
+                    private Object categoryId;
+                    private Object keywords;
+                    private Object model;
+                    private Object virtualNum;
+                    private double price;
+                    private Object marketPrice;
+                    private Object integral;
+                    private Object stock;
+                    private Object warningStock;
+                    private String coverUrl;
+                    private Object state;
+                    private Object showOrder;
+                    private Object sellNum;
+                    private Object isNew;
+                    private Object unit;
+                    private Object transId;
+                    private Object createBy;
+                    private Object createTime;
+                    private Object updateBy;
+                    private Object updateTime;
+                    private Object del;
+                    private Object isRecommend;
+                    private Object isCheck;
+                    private Object limitIntegral;
+                    private Object subhead;
+                    private Object remark;
+                    private Object weight;
+                    private Object count;
+                    private Object sendIntegral;
+                    private Object sendGrowth;
+                    private Object productPicture;
+                    private Object storeId;
+                    private Object isSift;
+                    private int brandId;
+                    private Object mallStore;
+                    private Object sellCount;
+                    private Object num;
+                    private Object basicService;
+                    private Object productType;
+                    private Object transName;
+                    private Object priceType;
+                    private Object deliveryType;
+                    private Object defaultTransCost;
+                    private Object branName;
+                    private Object brandImg;
+                    private Object brandIsSpecial;
+                    private Object brandOrder;
+                    private Object brandAddress;
+                    private Object attributeId;
+                    private Object standardId;
+                    private Object userId;
+                    private Object collectionNum;
+                    private Object standard;
+
+                    public int getId() {
+                        return id;
+                    }
+
+                    public void setId(int id) {
+                        this.id = id;
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public Object getStoreName() {
+                        return storeName;
+                    }
+
+                    public void setStoreName(Object storeName) {
+                        this.storeName = storeName;
+                    }
+
+                    public Object getCategoryId() {
+                        return categoryId;
+                    }
+
+                    public void setCategoryId(Object categoryId) {
+                        this.categoryId = categoryId;
+                    }
+
+                    public Object getKeywords() {
+                        return keywords;
+                    }
+
+                    public void setKeywords(Object keywords) {
+                        this.keywords = keywords;
+                    }
+
+                    public Object getModel() {
+                        return model;
+                    }
+
+                    public void setModel(Object model) {
+                        this.model = model;
+                    }
+
+                    public Object getVirtualNum() {
+                        return virtualNum;
+                    }
+
+                    public void setVirtualNum(Object virtualNum) {
+                        this.virtualNum = virtualNum;
+                    }
+
+                    public double getPrice() {
+                        return price;
+                    }
+
+                    public void setPrice(double price) {
+                        this.price = price;
+                    }
+
+                    public Object getMarketPrice() {
+                        return marketPrice;
+                    }
+
+                    public void setMarketPrice(Object marketPrice) {
+                        this.marketPrice = marketPrice;
+                    }
+
+                    public Object getIntegral() {
+                        return integral;
+                    }
+
+                    public void setIntegral(Object integral) {
+                        this.integral = integral;
+                    }
+
+                    public Object getStock() {
+                        return stock;
+                    }
+
+                    public void setStock(Object stock) {
+                        this.stock = stock;
+                    }
+
+                    public Object getWarningStock() {
+                        return warningStock;
+                    }
+
+                    public void setWarningStock(Object warningStock) {
+                        this.warningStock = warningStock;
+                    }
+
+                    public String getCoverUrl() {
+                        return coverUrl;
+                    }
+
+                    public void setCoverUrl(String coverUrl) {
+                        this.coverUrl = coverUrl;
+                    }
+
+                    public Object getState() {
+                        return state;
+                    }
+
+                    public void setState(Object state) {
+                        this.state = state;
+                    }
+
+                    public Object getShowOrder() {
+                        return showOrder;
+                    }
+
+                    public void setShowOrder(Object showOrder) {
+                        this.showOrder = showOrder;
+                    }
+
+                    public Object getSellNum() {
+                        return sellNum;
+                    }
+
+                    public void setSellNum(Object sellNum) {
+                        this.sellNum = sellNum;
+                    }
+
+                    public Object getIsNew() {
+                        return isNew;
+                    }
+
+                    public void setIsNew(Object isNew) {
+                        this.isNew = isNew;
+                    }
+
+                    public Object getUnit() {
+                        return unit;
+                    }
+
+                    public void setUnit(Object unit) {
+                        this.unit = unit;
+                    }
+
+                    public Object getTransId() {
+                        return transId;
+                    }
+
+                    public void setTransId(Object transId) {
+                        this.transId = transId;
+                    }
+
+                    public Object getCreateBy() {
+                        return createBy;
+                    }
+
+                    public void setCreateBy(Object createBy) {
+                        this.createBy = createBy;
+                    }
+
+                    public Object getCreateTime() {
+                        return createTime;
+                    }
+
+                    public void setCreateTime(Object createTime) {
+                        this.createTime = createTime;
+                    }
+
+                    public Object getUpdateBy() {
+                        return updateBy;
+                    }
+
+                    public void setUpdateBy(Object updateBy) {
+                        this.updateBy = updateBy;
+                    }
+
+                    public Object getUpdateTime() {
+                        return updateTime;
+                    }
+
+                    public void setUpdateTime(Object updateTime) {
+                        this.updateTime = updateTime;
+                    }
+
+                    public Object getDel() {
+                        return del;
+                    }
+
+                    public void setDel(Object del) {
+                        this.del = del;
+                    }
+
+                    public Object getIsRecommend() {
+                        return isRecommend;
+                    }
+
+                    public void setIsRecommend(Object isRecommend) {
+                        this.isRecommend = isRecommend;
+                    }
+
+                    public Object getIsCheck() {
+                        return isCheck;
+                    }
+
+                    public void setIsCheck(Object isCheck) {
+                        this.isCheck = isCheck;
+                    }
+
+                    public Object getLimitIntegral() {
+                        return limitIntegral;
+                    }
+
+                    public void setLimitIntegral(Object limitIntegral) {
+                        this.limitIntegral = limitIntegral;
+                    }
+
+                    public Object getSubhead() {
+                        return subhead;
+                    }
+
+                    public void setSubhead(Object subhead) {
+                        this.subhead = subhead;
+                    }
+
+                    public Object getRemark() {
+                        return remark;
+                    }
+
+                    public void setRemark(Object remark) {
+                        this.remark = remark;
+                    }
+
+                    public Object getWeight() {
+                        return weight;
+                    }
+
+                    public void setWeight(Object weight) {
+                        this.weight = weight;
+                    }
+
+                    public Object getCount() {
+                        return count;
+                    }
+
+                    public void setCount(Object count) {
+                        this.count = count;
+                    }
+
+                    public Object getSendIntegral() {
+                        return sendIntegral;
+                    }
+
+                    public void setSendIntegral(Object sendIntegral) {
+                        this.sendIntegral = sendIntegral;
+                    }
+
+                    public Object getSendGrowth() {
+                        return sendGrowth;
+                    }
+
+                    public void setSendGrowth(Object sendGrowth) {
+                        this.sendGrowth = sendGrowth;
+                    }
+
+                    public Object getProductPicture() {
+                        return productPicture;
+                    }
+
+                    public void setProductPicture(Object productPicture) {
+                        this.productPicture = productPicture;
+                    }
+
+                    public Object getStoreId() {
+                        return storeId;
+                    }
+
+                    public void setStoreId(Object storeId) {
+                        this.storeId = storeId;
+                    }
+
+                    public Object getIsSift() {
+                        return isSift;
+                    }
+
+                    public void setIsSift(Object isSift) {
+                        this.isSift = isSift;
+                    }
+
+                    public int getBrandId() {
+                        return brandId;
+                    }
+
+                    public void setBrandId(int brandId) {
+                        this.brandId = brandId;
+                    }
+
+                    public Object getMallStore() {
+                        return mallStore;
+                    }
+
+                    public void setMallStore(Object mallStore) {
+                        this.mallStore = mallStore;
+                    }
+
+                    public Object getSellCount() {
+                        return sellCount;
+                    }
+
+                    public void setSellCount(Object sellCount) {
+                        this.sellCount = sellCount;
+                    }
+
+                    public Object getNum() {
+                        return num;
+                    }
+
+                    public void setNum(Object num) {
+                        this.num = num;
+                    }
+
+                    public Object getBasicService() {
+                        return basicService;
+                    }
+
+                    public void setBasicService(Object basicService) {
+                        this.basicService = basicService;
+                    }
+
+                    public Object getProductType() {
+                        return productType;
+                    }
+
+                    public void setProductType(Object productType) {
+                        this.productType = productType;
+                    }
+
+                    public Object getTransName() {
+                        return transName;
+                    }
+
+                    public void setTransName(Object transName) {
+                        this.transName = transName;
+                    }
+
+                    public Object getPriceType() {
+                        return priceType;
+                    }
+
+                    public void setPriceType(Object priceType) {
+                        this.priceType = priceType;
+                    }
+
+                    public Object getDeliveryType() {
+                        return deliveryType;
+                    }
+
+                    public void setDeliveryType(Object deliveryType) {
+                        this.deliveryType = deliveryType;
+                    }
+
+                    public Object getDefaultTransCost() {
+                        return defaultTransCost;
+                    }
+
+                    public void setDefaultTransCost(Object defaultTransCost) {
+                        this.defaultTransCost = defaultTransCost;
+                    }
+
+                    public Object getBranName() {
+                        return branName;
+                    }
+
+                    public void setBranName(Object branName) {
+                        this.branName = branName;
+                    }
+
+                    public Object getBrandImg() {
+                        return brandImg;
+                    }
+
+                    public void setBrandImg(Object brandImg) {
+                        this.brandImg = brandImg;
+                    }
+
+                    public Object getBrandIsSpecial() {
+                        return brandIsSpecial;
+                    }
+
+                    public void setBrandIsSpecial(Object brandIsSpecial) {
+                        this.brandIsSpecial = brandIsSpecial;
+                    }
+
+                    public Object getBrandOrder() {
+                        return brandOrder;
+                    }
+
+                    public void setBrandOrder(Object brandOrder) {
+                        this.brandOrder = brandOrder;
+                    }
+
+                    public Object getBrandAddress() {
+                        return brandAddress;
+                    }
+
+                    public void setBrandAddress(Object brandAddress) {
+                        this.brandAddress = brandAddress;
+                    }
+
+                    public Object getAttributeId() {
+                        return attributeId;
+                    }
+
+                    public void setAttributeId(Object attributeId) {
+                        this.attributeId = attributeId;
+                    }
+
+                    public Object getStandardId() {
+                        return standardId;
+                    }
+
+                    public void setStandardId(Object standardId) {
+                        this.standardId = standardId;
+                    }
+
+                    public Object getUserId() {
+                        return userId;
+                    }
+
+                    public void setUserId(Object userId) {
+                        this.userId = userId;
+                    }
+
+                    public Object getCollectionNum() {
+                        return collectionNum;
+                    }
+
+                    public void setCollectionNum(Object collectionNum) {
+                        this.collectionNum = collectionNum;
+                    }
+
+                    public Object getStandard() {
+                        return standard;
+                    }
+
+                    public void setStandard(Object standard) {
+                        this.standard = standard;
+                    }
                 }
             }
         }
 
-        public static class ResultListBean {
+        public static class IsSpecialBean {
+            /**
+             * id : 2
+             * name : 品牌名称
+             * isSpecial : 1
+             * img : 图片
+             * story : 阿斯蒂芬
+             * order : 0
+             * createTime : 2019-06-20T08:47:09.000+0000
+             * updateTime : 2019-07-19T01:38:59.000+0000
+             * address : 地址
+             * isCollection : null
+             * productList : null
+             */
 
             private int id;
             private String name;
@@ -345,8 +924,8 @@ public class TeYuePingPai {
             private String createTime;
             private String updateTime;
             private String address;
-            private int isCollection;
-            private List<ProductListBean> productList;
+            private Object isCollection;
+            private Object productList;
 
             public int getId() {
                 return id;
@@ -420,528 +999,20 @@ public class TeYuePingPai {
                 this.address = address;
             }
 
-            public int getIsCollection() {
+            public Object getIsCollection() {
                 return isCollection;
             }
 
-            public void setIsCollection(int isCollection) {
+            public void setIsCollection(Object isCollection) {
                 this.isCollection = isCollection;
             }
 
-            public List<ProductListBean> getProductList() {
+            public Object getProductList() {
                 return productList;
             }
 
-            public void setProductList(List<ProductListBean> productList) {
+            public void setProductList(Object productList) {
                 this.productList = productList;
-            }
-
-            public static class ProductListBean {
-
-                private int id;
-                private String name;
-                private Object storeName;
-                private int categoryId;
-                private String keywords;
-                private String model;
-                private int virtualNum;
-                private double price;
-                private double marketPrice;
-                private int integral;
-                private int stock;
-                private int warningStock;
-                private String coverUrl;
-                private int state;
-                private int showOrder;
-                private int sellNum;
-                private int isNew;
-                private String unit;
-                private int transId;
-                private int createBy;
-                private String createTime;
-                private int updateBy;
-                private String updateTime;
-                private int del;
-                private int isRecommend;
-                private int isCheck;
-                private double limitIntegral;
-                private String subhead;
-                private String remark;
-                private double weight;
-                private int count;
-                private double sendIntegral;
-                private double sendGrowth;
-                private String productPicture;
-                private int storeId;
-                private int isSift;
-                private int brandId;
-                private Object mallStore;
-                private Object sellCount;
-                private Object num;
-                private Object basicService;
-                private Object productType;
-                private Object transName;
-                private Object priceType;
-                private Object deliveryType;
-                private Object defaultTransCost;
-                private Object branName;
-                private Object brandImg;
-                private Object brandIsSpecial;
-                private Object brandOrder;
-                private Object brandAddress;
-                private Object attributeId;
-                private Object standardId;
-                private Object userId;
-                private Object collectionNum;
-                private Object standard;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public Object getStoreName() {
-                    return storeName;
-                }
-
-                public void setStoreName(Object storeName) {
-                    this.storeName = storeName;
-                }
-
-                public int getCategoryId() {
-                    return categoryId;
-                }
-
-                public void setCategoryId(int categoryId) {
-                    this.categoryId = categoryId;
-                }
-
-                public String getKeywords() {
-                    return keywords;
-                }
-
-                public void setKeywords(String keywords) {
-                    this.keywords = keywords;
-                }
-
-                public String getModel() {
-                    return model;
-                }
-
-                public void setModel(String model) {
-                    this.model = model;
-                }
-
-                public int getVirtualNum() {
-                    return virtualNum;
-                }
-
-                public void setVirtualNum(int virtualNum) {
-                    this.virtualNum = virtualNum;
-                }
-
-                public double getPrice() {
-                    return price;
-                }
-
-                public void setPrice(double price) {
-                    this.price = price;
-                }
-
-                public double getMarketPrice() {
-                    return marketPrice;
-                }
-
-                public void setMarketPrice(double marketPrice) {
-                    this.marketPrice = marketPrice;
-                }
-
-                public int getIntegral() {
-                    return integral;
-                }
-
-                public void setIntegral(int integral) {
-                    this.integral = integral;
-                }
-
-                public int getStock() {
-                    return stock;
-                }
-
-                public void setStock(int stock) {
-                    this.stock = stock;
-                }
-
-                public int getWarningStock() {
-                    return warningStock;
-                }
-
-                public void setWarningStock(int warningStock) {
-                    this.warningStock = warningStock;
-                }
-
-                public String getCoverUrl() {
-                    return coverUrl;
-                }
-
-                public void setCoverUrl(String coverUrl) {
-                    this.coverUrl = coverUrl;
-                }
-
-                public int getState() {
-                    return state;
-                }
-
-                public void setState(int state) {
-                    this.state = state;
-                }
-
-                public int getShowOrder() {
-                    return showOrder;
-                }
-
-                public void setShowOrder(int showOrder) {
-                    this.showOrder = showOrder;
-                }
-
-                public int getSellNum() {
-                    return sellNum;
-                }
-
-                public void setSellNum(int sellNum) {
-                    this.sellNum = sellNum;
-                }
-
-                public int getIsNew() {
-                    return isNew;
-                }
-
-                public void setIsNew(int isNew) {
-                    this.isNew = isNew;
-                }
-
-                public String getUnit() {
-                    return unit;
-                }
-
-                public void setUnit(String unit) {
-                    this.unit = unit;
-                }
-
-                public int getTransId() {
-                    return transId;
-                }
-
-                public void setTransId(int transId) {
-                    this.transId = transId;
-                }
-
-                public int getCreateBy() {
-                    return createBy;
-                }
-
-                public void setCreateBy(int createBy) {
-                    this.createBy = createBy;
-                }
-
-                public String getCreateTime() {
-                    return createTime;
-                }
-
-                public void setCreateTime(String createTime) {
-                    this.createTime = createTime;
-                }
-
-                public int getUpdateBy() {
-                    return updateBy;
-                }
-
-                public void setUpdateBy(int updateBy) {
-                    this.updateBy = updateBy;
-                }
-
-                public String getUpdateTime() {
-                    return updateTime;
-                }
-
-                public void setUpdateTime(String updateTime) {
-                    this.updateTime = updateTime;
-                }
-
-                public int getDel() {
-                    return del;
-                }
-
-                public void setDel(int del) {
-                    this.del = del;
-                }
-
-                public int getIsRecommend() {
-                    return isRecommend;
-                }
-
-                public void setIsRecommend(int isRecommend) {
-                    this.isRecommend = isRecommend;
-                }
-
-                public int getIsCheck() {
-                    return isCheck;
-                }
-
-                public void setIsCheck(int isCheck) {
-                    this.isCheck = isCheck;
-                }
-
-                public double getLimitIntegral() {
-                    return limitIntegral;
-                }
-
-                public void setLimitIntegral(double limitIntegral) {
-                    this.limitIntegral = limitIntegral;
-                }
-
-                public String getSubhead() {
-                    return subhead;
-                }
-
-                public void setSubhead(String subhead) {
-                    this.subhead = subhead;
-                }
-
-                public String getRemark() {
-                    return remark;
-                }
-
-                public void setRemark(String remark) {
-                    this.remark = remark;
-                }
-
-                public double getWeight() {
-                    return weight;
-                }
-
-                public void setWeight(double weight) {
-                    this.weight = weight;
-                }
-
-                public int getCount() {
-                    return count;
-                }
-
-                public void setCount(int count) {
-                    this.count = count;
-                }
-
-                public double getSendIntegral() {
-                    return sendIntegral;
-                }
-
-                public void setSendIntegral(double sendIntegral) {
-                    this.sendIntegral = sendIntegral;
-                }
-
-                public double getSendGrowth() {
-                    return sendGrowth;
-                }
-
-                public void setSendGrowth(double sendGrowth) {
-                    this.sendGrowth = sendGrowth;
-                }
-
-                public String getProductPicture() {
-                    return productPicture;
-                }
-
-                public void setProductPicture(String productPicture) {
-                    this.productPicture = productPicture;
-                }
-
-                public int getStoreId() {
-                    return storeId;
-                }
-
-                public void setStoreId(int storeId) {
-                    this.storeId = storeId;
-                }
-
-                public int getIsSift() {
-                    return isSift;
-                }
-
-                public void setIsSift(int isSift) {
-                    this.isSift = isSift;
-                }
-
-                public int getBrandId() {
-                    return brandId;
-                }
-
-                public void setBrandId(int brandId) {
-                    this.brandId = brandId;
-                }
-
-                public Object getMallStore() {
-                    return mallStore;
-                }
-
-                public void setMallStore(Object mallStore) {
-                    this.mallStore = mallStore;
-                }
-
-                public Object getSellCount() {
-                    return sellCount;
-                }
-
-                public void setSellCount(Object sellCount) {
-                    this.sellCount = sellCount;
-                }
-
-                public Object getNum() {
-                    return num;
-                }
-
-                public void setNum(Object num) {
-                    this.num = num;
-                }
-
-                public Object getBasicService() {
-                    return basicService;
-                }
-
-                public void setBasicService(Object basicService) {
-                    this.basicService = basicService;
-                }
-
-                public Object getProductType() {
-                    return productType;
-                }
-
-                public void setProductType(Object productType) {
-                    this.productType = productType;
-                }
-
-                public Object getTransName() {
-                    return transName;
-                }
-
-                public void setTransName(Object transName) {
-                    this.transName = transName;
-                }
-
-                public Object getPriceType() {
-                    return priceType;
-                }
-
-                public void setPriceType(Object priceType) {
-                    this.priceType = priceType;
-                }
-
-                public Object getDeliveryType() {
-                    return deliveryType;
-                }
-
-                public void setDeliveryType(Object deliveryType) {
-                    this.deliveryType = deliveryType;
-                }
-
-                public Object getDefaultTransCost() {
-                    return defaultTransCost;
-                }
-
-                public void setDefaultTransCost(Object defaultTransCost) {
-                    this.defaultTransCost = defaultTransCost;
-                }
-
-                public Object getBranName() {
-                    return branName;
-                }
-
-                public void setBranName(Object branName) {
-                    this.branName = branName;
-                }
-
-                public Object getBrandImg() {
-                    return brandImg;
-                }
-
-                public void setBrandImg(Object brandImg) {
-                    this.brandImg = brandImg;
-                }
-
-                public Object getBrandIsSpecial() {
-                    return brandIsSpecial;
-                }
-
-                public void setBrandIsSpecial(Object brandIsSpecial) {
-                    this.brandIsSpecial = brandIsSpecial;
-                }
-
-                public Object getBrandOrder() {
-                    return brandOrder;
-                }
-
-                public void setBrandOrder(Object brandOrder) {
-                    this.brandOrder = brandOrder;
-                }
-
-                public Object getBrandAddress() {
-                    return brandAddress;
-                }
-
-                public void setBrandAddress(Object brandAddress) {
-                    this.brandAddress = brandAddress;
-                }
-
-                public Object getAttributeId() {
-                    return attributeId;
-                }
-
-                public void setAttributeId(Object attributeId) {
-                    this.attributeId = attributeId;
-                }
-
-                public Object getStandardId() {
-                    return standardId;
-                }
-
-                public void setStandardId(Object standardId) {
-                    this.standardId = standardId;
-                }
-
-                public Object getUserId() {
-                    return userId;
-                }
-
-                public void setUserId(Object userId) {
-                    this.userId = userId;
-                }
-
-                public Object getCollectionNum() {
-                    return collectionNum;
-                }
-
-                public void setCollectionNum(Object collectionNum) {
-                    this.collectionNum = collectionNum;
-                }
-
-                public Object getStandard() {
-                    return standard;
-                }
-
-                public void setStandard(Object standard) {
-                    this.standard = standard;
-                }
             }
         }
     }
