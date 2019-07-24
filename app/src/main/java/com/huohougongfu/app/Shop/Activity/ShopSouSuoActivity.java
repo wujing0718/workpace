@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
 
-    private final String[] mTitles = {"商品", "品牌", "大师"};
+    private final String[] mTitles = {"商品", "店铺", "大师"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;

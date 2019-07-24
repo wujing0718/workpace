@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/img_sousuo_dianpu_logo"
             android:src="@mipmap/ic_launcher"
             android:layout_width="48dp"
             android:layout_height="48dp" />
@@ -26,11 +27,12 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="白茶"
-                android:textSize="14sp"
-                android:textColor="@color/colorBlack"
+                android:id="@+id/tv_sousuo_dianpu_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="白茶"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_marginTop="5dp"
@@ -39,6 +41,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_sousuo_dianpu_year"
                     android:text="5年老店"
                     android:textSize="11sp"
                     android:textColor="#818181"
@@ -54,6 +57,7 @@
                     android:layout_height="10dp"/>
 
                 <TextView
+                    android:id="@+id/tv_sousuo_dianpu_favorableRate"
                     android:text="好评率95%"
                     android:textSize="11sp"
                     android:textColor="#818181"
@@ -69,6 +73,7 @@
                     android:layout_height="10dp"/>
 
                 <TextView
+                    android:id="@+id/tv_sousuo_dianpu_fensNum"
                     android:text="粉丝数22w"
                     android:textSize="11sp"
                     android:textColor="#818181"
@@ -95,33 +100,15 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-    
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="130dp">
 
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="match_parent"
-            android:layout_height="110dp" />
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="match_parent"
-            android:layout_height="110dp" />
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="match_parent"
-            android:layout_height="110dp" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_dianpu_shangpin"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
-    
+        </android.support.v7.widget.RecyclerView>
+
     <View
         android:background="#F7F7F7"
         android:layout_width="match_parent"

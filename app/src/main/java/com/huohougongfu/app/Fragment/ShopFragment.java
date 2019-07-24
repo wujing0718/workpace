@@ -107,7 +107,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         map.put("id",id);
         map.put("token",token);
         map.put("pageSize", "10");
-        OkGo.<String>get(Contacts.URl2+"querySiftAndExpand")
+        OkGo.<String>get(Contacts.URl1+"querySiftAndExpand")
                 .params(map)
                 .execute(new StringCallback() {
             @Override
@@ -131,7 +131,10 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
 
     private void initRec(ShopGson list) {
 
-
+        ViewGroup parentViewGroup = (ViewGroup) head_shangcheng.getParent();
+        if (parentViewGroup != null) {
+            parentViewGroup.removeAllViews();
+        }
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         GridLayoutManager layoutmanager = new GridLayoutManager(getActivity(),2);
         //设置RecyclerView 布局

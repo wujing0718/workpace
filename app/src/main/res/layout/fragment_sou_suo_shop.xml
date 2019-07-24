@@ -18,9 +18,10 @@
             android:layout_height="44dp">
 
             <TextView
+                android:id="@+id/bt_shop_zonghe"
                 android:layout_weight="1"
                 android:text="综合"
-                android:textColor="#101010"
+                android:textColor="@color/sousuoTab"
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
@@ -28,6 +29,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/bt_shop_xiaoliang"
                 android:layout_weight="1"
                 android:text="销量"
                 android:textColor="#101010"
@@ -38,6 +40,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/bt_shop_xinpin"
                 android:layout_weight="1"
                 android:text="新品"
                 android:textColor="#101010"
@@ -48,6 +51,7 @@
                 android:layout_height="match_parent" />
 
             <RelativeLayout
+                android:id="@+id/bt_shop_jiage"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -59,6 +63,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_shop_jiage"
                         android:text="价格"
                         android:textSize="14sp"
                         android:layout_gravity=""
@@ -67,6 +72,7 @@
                         android:layout_height="wrap_content" />
 
                     <ImageView
+                        android:id="@+id/img_shop_sortPrice"
                         android:src="@mipmap/img_shengjiang"
                         android:layout_marginLeft="2dp"
                         android:layout_gravity="center_vertical"

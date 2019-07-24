@@ -199,6 +199,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         map.put("id",String.valueOf(shopid));
         map.put("token",token);
         map.put("showNum","10");
+        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         OkGo.<String>get(Contacts.URl2+"queryProductDetail")
                 .params(map)
                 .execute(new StringCallback() {

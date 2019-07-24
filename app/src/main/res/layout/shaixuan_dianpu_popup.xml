@@ -24,7 +24,7 @@
             android:layout_height="30dp">
 
             <TextView
-                android:text="商品分类"
+                android:text="商户分类"
                 android:textSize="14sp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
@@ -48,7 +48,7 @@
             android:layout_height="30dp">
 
             <TextView
-                android:text="价格区间"
+                android:text="好评率"
                 android:textSize="14sp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
@@ -60,7 +60,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_centerInParent="true"
@@ -68,30 +68,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/edt_zuigaojia"
-                    android:hint="最高价"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    android:background="@drawable/kaquan_kuang"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp" />
-
-                <View
-                    android:layout_marginHorizontal="5dp"
-                    android:background="@color/colorHui"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="12dp"
-                    android:layout_height="1dp"/>
-
-                <EditText
-                    android:id="@+id/edt_zuidijia"
-                    android:hint="最低价"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    android:background="@drawable/kaquan_kuang"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp" />
+                <com.zhy.view.flowlayout.TagFlowLayout
+                    android:id="@+id/id_flowlayout_haoping"
+                    zhy:max_select="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+                </com.zhy.view.flowlayout.TagFlowLayout>
 
             </LinearLayout>
 
@@ -113,6 +96,20 @@
 
         </RelativeLayout>
 
+        <!--<RadioButton-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="@dimen/dp_10"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:button="@null"-->
+            <!--android:text="深圳"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingHorizontal="6dp"-->
+            <!--android:textSize="12sp"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:background="@drawable/selector_paocha"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="30dp" />-->
+
         <com.zhy.view.flowlayout.TagFlowLayout
             android:id="@+id/id_flowlayout_fahuodi"
             zhy:max_select="1"
@@ -122,6 +119,7 @@
         </com.zhy.view.flowlayout.TagFlowLayout>
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_marginRight="@dimen/dp_10"

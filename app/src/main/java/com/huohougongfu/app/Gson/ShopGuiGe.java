@@ -3,9 +3,10 @@ package com.huohougongfu.app.Gson;
 import java.util.List;
 
 public class ShopGuiGe {
+
     /**
      * msg : 操作成功
-     * result : {"productStandard":[{"id":1,"productId":45,"standardPrice":66,"standard":"16g"},{"id":9,"productId":45,"standardPrice":77,"standard":"18g"}],"productInfo":{"id":45,"name":"商品标题","categoryId":1,"price":1,"marketPrice":1,"coverUrl":"http://img2.imgtn.bdimg.com/it/u=180868167,273146879&fm=26&gp=0.jpg","sellNum":1560,"transId":2,"remark":"1","productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"storePicture":"https://werw/w/ge.jpg","storeLogo":"https://werw/w/ge.jpg","storeBoard":"店铺公告","storeName":"测试店铺","storeAddress":"广东深圳"}}
+     * result : {"productStandard":[{"id":11,"productId":19,"standardPrice":10,"standard":"145g"},{"id":14,"productId":19,"standardPrice":34,"standard":"34g"},{"id":15,"productId":19,"standardPrice":55,"standard":"37g"},{"id":16,"productId":19,"standardPrice":77,"standard":"45g"}],"productInfo":{"defaultTranCost":null,"id":19,"name":"测试19","categoryId":2,"storePhone":"17823838523","price":2,"marketPrice":42,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","sellNum":12,"transId":6,"remark":"阿斯顿发失地发生地方","productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"storePicture":"https://werw/w/ge.jpg","storeLogo":"https://werw/w/ge.jpg","storeBoard":"店铺公告","storeName":"测试店铺","storeAddress":"广东深圳","stock":"12","isCollection":null,"createBy":null}}
      * status : 1
      */
 
@@ -39,21 +40,12 @@ public class ShopGuiGe {
 
     public static class ResultBean {
         /**
-         * productStandard : [{"id":1,"productId":45,"standardPrice":66,"standard":"16g"},{"id":9,"productId":45,"standardPrice":77,"standard":"18g"}]
-         * productInfo : {"id":45,"name":"商品标题","categoryId":1,"price":1,"marketPrice":1,"coverUrl":"http://img2.imgtn.bdimg.com/it/u=180868167,273146879&fm=26&gp=0.jpg","sellNum":1560,"transId":2,"remark":"1","productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"storePicture":"https://werw/w/ge.jpg","storeLogo":"https://werw/w/ge.jpg","storeBoard":"店铺公告","storeName":"测试店铺","storeAddress":"广东深圳"}
+         * productStandard : [{"id":11,"productId":19,"standardPrice":10,"standard":"145g"},{"id":14,"productId":19,"standardPrice":34,"standard":"34g"},{"id":15,"productId":19,"standardPrice":55,"standard":"37g"},{"id":16,"productId":19,"standardPrice":77,"standard":"45g"}]
+         * productInfo : {"defaultTranCost":null,"id":19,"name":"测试19","categoryId":2,"storePhone":"17823838523","price":2,"marketPrice":42,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","sellNum":12,"transId":6,"remark":"阿斯顿发失地发生地方","productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"storePicture":"https://werw/w/ge.jpg","storeLogo":"https://werw/w/ge.jpg","storeBoard":"店铺公告","storeName":"测试店铺","storeAddress":"广东深圳","stock":"12","isCollection":null,"createBy":null}
          */
-        private String noStandard;
+
         private ProductInfoBean productInfo;
         private List<ProductStandardBean> productStandard;
-
-        public String getNoStandard() {
-            return noStandard;
-        }
-
-        public void setNoStandard(String noStandard) {
-            this.noStandard = noStandard;
-        }
-
 
         public ProductInfoBean getProductInfo() {
             return productInfo;
@@ -73,15 +65,17 @@ public class ShopGuiGe {
 
         public static class ProductInfoBean {
             /**
-             * id : 45
-             * name : 商品标题
-             * categoryId : 1
-             * price : 1
-             * marketPrice : 1
-             * coverUrl : http://img2.imgtn.bdimg.com/it/u=180868167,273146879&fm=26&gp=0.jpg
-             * sellNum : 1560
-             * transId : 2
-             * remark : 1
+             * defaultTranCost : null
+             * id : 19
+             * name : 测试19
+             * categoryId : 2
+             * storePhone : 17823838523
+             * price : 2.0
+             * marketPrice : 42.0
+             * coverUrl : http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg
+             * sellNum : 12
+             * transId : 6
+             * remark : 阿斯顿发失地发生地方
              * productPicture : http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg
              * storeId : 1
              * storePicture : https://werw/w/ge.jpg
@@ -89,13 +83,18 @@ public class ShopGuiGe {
              * storeBoard : 店铺公告
              * storeName : 测试店铺
              * storeAddress : 广东深圳
+             * stock : 12
+             * isCollection : null
+             * createBy : null
              */
 
+            private Object defaultTranCost;
             private int id;
             private String name;
             private int categoryId;
-            private int price;
-            private int marketPrice;
+            private String storePhone;
+            private double price;
+            private double marketPrice;
             private String coverUrl;
             private int sellNum;
             private int transId;
@@ -107,6 +106,17 @@ public class ShopGuiGe {
             private String storeBoard;
             private String storeName;
             private String storeAddress;
+            private String stock;
+            private Object isCollection;
+            private Object createBy;
+
+            public Object getDefaultTranCost() {
+                return defaultTranCost;
+            }
+
+            public void setDefaultTranCost(Object defaultTranCost) {
+                this.defaultTranCost = defaultTranCost;
+            }
 
             public int getId() {
                 return id;
@@ -132,19 +142,27 @@ public class ShopGuiGe {
                 this.categoryId = categoryId;
             }
 
-            public int getPrice() {
+            public String getStorePhone() {
+                return storePhone;
+            }
+
+            public void setStorePhone(String storePhone) {
+                this.storePhone = storePhone;
+            }
+
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 
-            public int getMarketPrice() {
+            public double getMarketPrice() {
                 return marketPrice;
             }
 
-            public void setMarketPrice(int marketPrice) {
+            public void setMarketPrice(double marketPrice) {
                 this.marketPrice = marketPrice;
             }
 
@@ -235,14 +253,38 @@ public class ShopGuiGe {
             public void setStoreAddress(String storeAddress) {
                 this.storeAddress = storeAddress;
             }
+
+            public String getStock() {
+                return stock;
+            }
+
+            public void setStock(String stock) {
+                this.stock = stock;
+            }
+
+            public Object getIsCollection() {
+                return isCollection;
+            }
+
+            public void setIsCollection(Object isCollection) {
+                this.isCollection = isCollection;
+            }
+
+            public Object getCreateBy() {
+                return createBy;
+            }
+
+            public void setCreateBy(Object createBy) {
+                this.createBy = createBy;
+            }
         }
 
         public static class ProductStandardBean {
             /**
-             * id : 1
-             * productId : 45
-             * standardPrice : 66
-             * standard : 16g
+             * id : 11
+             * productId : 19
+             * standardPrice : 10
+             * standard : 145g
              */
 
             private int id;

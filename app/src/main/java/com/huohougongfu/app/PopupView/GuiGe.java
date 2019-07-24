@@ -108,7 +108,7 @@ public class GuiGe extends BottomPopupView {
         if (mallProduct.getProductStandard() !=null){
             tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
         }else{
-            tv_guige_price.setText(mallProduct.getNoStandard());
+//            tv_guige_price.setText(mallProduct.);
         }
     }
 

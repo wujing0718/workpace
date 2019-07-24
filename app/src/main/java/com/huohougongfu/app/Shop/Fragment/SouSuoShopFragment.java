@@ -3,6 +3,8 @@ package com.huohougongfu.app.Shop.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -52,11 +56,33 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     private RecyclerView rec_sousuo_shangpin;
     private int page = 2;
     private TeHuiAdapter teHuiAdapter;
+    Map<String, String> map = new HashMap<>();
+    private  String indexParams = "0";
+    private TextView bt_shop_zonghe,bt_shop_xiaoliang,bt_shop_xinpin,tv_shop_jiage;
+    private boolean isjiage;
+    private String sortPrice = "";
+    private ImageView img_shop_sortPrice;
 
     public SouSuoShopFragment() {
         // Required empty public constructor
     }
 
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    Map<String,String> map = (Map<String,String>)msg.obj;
+                    initData(map);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,21 +90,35 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_sou_suo_shop, container, false);
         initUI();
-        initData();
+        initData(map);
         return inflate;
     }
 
     private void initUI() {
+        img_shop_sortPrice = inflate.findViewById(R.id.img_shop_sortPrice);
+        bt_shop_zonghe = inflate.findViewById(R.id.bt_shop_zonghe);
+        tv_shop_jiage = inflate.findViewById(R.id.tv_shop_jiage);
+        bt_shop_zonghe.setOnClickListener(this);
+        bt_shop_xiaoliang = inflate.findViewById(R.id.bt_shop_xiaoliang);
+        bt_shop_xiaoliang.setOnClickListener(this);
+        bt_shop_xinpin = inflate.findViewById(R.id.bt_shop_xinpin);
+        bt_shop_xinpin.setOnClickListener(this);
+        inflate.findViewById(R.id.bt_shop_jiage).setOnClickListener(this);
+
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_sousuo_shangpin = inflate.findViewById(R.id.rec_sousuo_shangpin);
         inflate.findViewById(R.id.bt_sousuo_shaixuan).setOnClickListener(this);
     }
 
-    private void initData() {
-        Map<String, String> map = new HashMap<>();
+    private void initData(Map<String,String> map1) {
+        map.putAll(map1);
         map.put("page","1");
         map.put("pageSize","10");
-        OkGo.<String>get(Contacts.URl2+"query/queryProductList")
+        map.put("indexParams",indexParams);
+        if (!"".equals(sortPrice)){
+            map.put("sortPrice",sortPrice);
+        }
+        OkGo.<String>get(Contacts.URl2+"query/queryProductFilter")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -167,8 +207,59 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                 if (!utils.isDoubleClick()){
                     new XPopup.Builder(getContext())
                             .popupPosition(PopupPosition.Right)//右边
-                            .asCustom(new ShaiXuanDrawerPopupView(getContext()))
+                            .asCustom(new ShaiXuanDrawerPopupView(getContext(),mHandler))
                             .show();
+                }
+                break;
+            case R.id.bt_shop_zonghe:
+                if (!utils.isDoubleClick()){
+                    bt_shop_zonghe.setTextColor(getResources().getColor(R.color.sousuoTab));
+                    bt_shop_xiaoliang.setTextColor(getResources().getColor(R.color.colorBlack));
+                    bt_shop_xinpin.setTextColor(getResources().getColor(R.color.colorBlack));
+                    tv_shop_jiage.setTextColor(getResources().getColor(R.color.colorBlack));
+                    indexParams = "0";
+                    initData(map);
+                }
+                break;
+            case R.id.bt_shop_xiaoliang:
+                if (!utils.isDoubleClick()){
+                    bt_shop_zonghe.setTextColor(getResources().getColor(R.color.colorBlack));
+                    bt_shop_xiaoliang.setTextColor(getResources().getColor(R.color.sousuoTab));
+                    bt_shop_xinpin.setTextColor(getResources().getColor(R.color.colorBlack));
+                    tv_shop_jiage.setTextColor(getResources().getColor(R.color.colorBlack));
+                    indexParams = "1";
+                    initData(map);
+                }
+                break;
+            case R.id.bt_shop_xinpin:
+                if (!utils.isDoubleClick()){
+                    bt_shop_zonghe.setTextColor(getResources().getColor(R.color.colorBlack));
+                    bt_shop_xiaoliang.setTextColor(getResources().getColor(R.color.colorBlack));
+                    bt_shop_xinpin.setTextColor(getResources().getColor(R.color.sousuoTab));
+                    tv_shop_jiage.setTextColor(getResources().getColor(R.color.colorBlack));
+                    indexParams = "2";
+                    initData(map);
+                }
+                break;
+            case R.id.bt_shop_jiage:
+                if (!utils.isDoubleClick()){
+                    bt_shop_zonghe.setTextColor(getResources().getColor(R.color.colorBlack));
+                    bt_shop_xiaoliang.setTextColor(getResources().getColor(R.color.colorBlack));
+                    bt_shop_xinpin.setTextColor(getResources().getColor(R.color.colorBlack));
+                    tv_shop_jiage.setTextColor(getResources().getColor(R.color.sousuoTab));
+                    indexParams = "3";
+                    if (isjiage){
+                        sortPrice ="asc";
+                        isjiage = false;
+                        img_shop_sortPrice.setImageResource(R.mipmap.img_shop_asc);
+                        initData(map);
+                    }else{
+                        sortPrice ="desc";
+                        isjiage = true;
+                        img_shop_sortPrice.setImageResource(R.mipmap.img_shop_desc);
+                        initData(map);
+                    }
+
                 }
                 break;
         }

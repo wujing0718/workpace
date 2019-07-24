@@ -55,7 +55,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_sou_suo_da_shi, container, false);
         initUI();
-        initData();
+//        initData();
         return inflate;
     }
 
