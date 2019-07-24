@@ -18,9 +18,10 @@
             android:layout_height="44dp">
 
             <TextView
+                android:id="@+id/bt_dashi_zonghe"
                 android:layout_weight="1"
                 android:text="综合"
-                android:textColor="#101010"
+                android:textColor="@color/sousuoTab"
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
@@ -28,6 +29,7 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:id="@+id/bt_dashi_renqi"
                 android:layout_weight="1"
                 android:text="人气"
                 android:textColor="#101010"
@@ -38,6 +40,7 @@
                 android:layout_height="match_parent" />
 
             <RelativeLayout
+                android:id="@+id/bt_dashi_shaixuan"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

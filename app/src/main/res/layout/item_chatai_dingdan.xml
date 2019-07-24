@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_chatai_verificationCode"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/colorBlack"
                 android:text="8645 2274 4562 20"
@@ -35,6 +36,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_chatai_orderStatus"
             android:text="待支付"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -58,6 +60,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_chatai_teas"
             android:text="绿茶、红茶等"
             android:textSize="@dimen/sp_14"
             android:textColor="@color/colorBlack"
@@ -71,6 +74,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_chatai_teaNum"
                 android:text="共2件"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/colorBlack"
@@ -78,6 +82,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_chatai_orderTotal"
                 android:text="合计：¥30"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:textSize="@dimen/sp_14"
@@ -97,6 +102,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_chatai_createTime"
             android:textSize="12sp"
             android:layout_centerVertical="true"
             android:textColor="@color/colorHui"

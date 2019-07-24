@@ -62,6 +62,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     private boolean isjiage;
     private String sortPrice = "";
     private ImageView img_shop_sortPrice;
+    private String name;
 
     public SouSuoShopFragment() {
         // Required empty public constructor
@@ -117,6 +118,9 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         map.put("indexParams",indexParams);
         if (!"".equals(sortPrice)){
             map.put("sortPrice",sortPrice);
+        }
+        if (name!=null){
+            map.put("name",name);
         }
         OkGo.<String>get(Contacts.URl2+"query/queryProductFilter")
                 .params(map)
@@ -268,7 +272,8 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 0){
-            Log.e("==================",status);
+            name = status;
+            initData(map);
         }
     }
 }

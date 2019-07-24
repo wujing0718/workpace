@@ -55,6 +55,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
     private TextView bt_dianpu_zonghe,bt_dianpu_xiaoliang,bt_dianpu_haoping,bt_dianpu_renqi;
     Map<String, String> map = new HashMap<>();
     private  String indexParam = "0";
+    private String queryStoreName;
     public SouSuoPinPaiFragment() {
         // Required empty public constructor
     }
@@ -113,6 +114,9 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
         map.put("page","1");
         map.put("pageSize","10");
         map.put("indexParam",indexParam);
+        if (queryStoreName!=null){
+            map.put("queryStoreName",queryStoreName);
+        }
         OkGo.<String>get(Contacts.URl2+"query/indexfilter/queryIndexStore")
                 .params(map)
                 .execute(new StringCallback() {
@@ -161,7 +165,8 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 0){
-            Log.e("*******",status);
+            queryStoreName = status;
+            initData(map);
         }
     }
 

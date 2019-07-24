@@ -84,6 +84,7 @@ public class PaoChaFragment extends Fragment {
         for (int i = 0;i<mtabtitle.size();i++){
             mFragments.add(SimpleCardFragment.newInstance(mtitles.get(i),machineId));
         }
+        if(isAdded()){
             mAdapter = new ViewPagerAdapter(getChildFragmentManager(),mFragments);
             mViewPager.setAdapter(mAdapter);
             mViewPager.setPageTransformer(true,new RotationPageTransformer());//设置切换动画
@@ -95,6 +96,7 @@ public class PaoChaFragment extends Fragment {
                 public boolean onTouch(View v, MotionEvent event) {
                     return mViewPager.dispatchTouchEvent(event); }
             });
+        }
     }
 
     public static Fragment newInstance(String content) {

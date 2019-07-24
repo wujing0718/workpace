@@ -59,7 +59,7 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ListenerManager.getInstance().sendBroadCast(0,"123");
+                ListenerManager.getInstance().sendBroadCast(0,s.toString());
             }
         });
         initTablayout();

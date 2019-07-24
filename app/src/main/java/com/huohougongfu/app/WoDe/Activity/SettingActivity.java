@@ -75,7 +75,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initView(MyZhuYe.ResultBean result) {
         RequestOptions requestOptions = new RequestOptions().circleCrop();
-        Glide.with(this).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
+        Glide.with(MyApp.context).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
         tv_my_vipnum.setText("1");
 

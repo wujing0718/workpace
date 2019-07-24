@@ -6,12 +6,18 @@
     tools:context=".ShouYe.Fragment.DingDanFragment">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rec_chatai_dingdan"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_chatai_dingdan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+        </android.support.v7.widget.RecyclerView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </FrameLayout>

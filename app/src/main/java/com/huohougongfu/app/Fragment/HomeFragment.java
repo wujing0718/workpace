@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(equipmentId));
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     private void initJiQi() {
@@ -169,12 +169,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();
                     transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(""));
-                    transaction.commit();
+                    transaction.commitAllowingStateLoss();
                 }else{
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();
                     transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
-                    transaction.commit();
+                    transaction.commitAllowingStateLoss();
                 }
             }
         });

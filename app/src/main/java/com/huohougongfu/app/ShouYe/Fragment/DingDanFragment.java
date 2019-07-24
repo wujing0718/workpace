@@ -14,7 +14,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ChaTaiAdapter;
 import com.huohougongfu.app.Adapter.ChaTaiDingDanAdapter;
+import com.huohougongfu.app.Gson.ChaTaiDingDan;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.SmoothCheckBox;
@@ -34,9 +36,10 @@ public class DingDanFragment extends Fragment {
 
 
     private View inflate;
-    private ShangPinGson shangPinGson;
+    private ChaTaiDingDan shangPinGson;
     private RecyclerView rec_chatai_dingdan;
     private ChaTaiDingDanAdapter mAdapter;
+    private int mId;
 
     public DingDanFragment() {
         // Required empty public constructor
@@ -47,6 +50,7 @@ public class DingDanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_ding_dan, container, false);
+        mId = MyApp.instance.getInt("id");
         initData();
         return inflate;
 
@@ -54,18 +58,19 @@ public class DingDanFragment extends Fragment {
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
+        map.put("mId",String.valueOf(mId));
+        map.put("pageNo", "1");
+        map.put("pageSize", "10");
+        OkGo.<String>post(Contacts.URl1+"/machine/teaTable/orderList")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-                        if (shangPinGson.getCode() == 200) {
-                            initRec(shangPinGson.getData());
+                        shangPinGson = gson.fromJson(response.body(), ChaTaiDingDan.class);
+                        if (shangPinGson.getStatus() == 1) {
+                            initRec(shangPinGson.getResult());
                         }
                     }
                     @Override
@@ -76,7 +81,7 @@ public class DingDanFragment extends Fragment {
                 });
     }
 
-    private void initRec(ShangPinGson.DataBean data) {
+    private void initRec(ChaTaiDingDan.ResultBean data) {
         rec_chatai_dingdan = inflate.findViewById(R.id.rec_chatai_dingdan);
         rec_chatai_dingdan.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new ChaTaiDingDanAdapter(R.layout.item_chatai_dingdan, data.getList());
