@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -96,13 +97,20 @@ public class LeiMuActivity extends AppCompatActivity {
 }
     class HomeAdapter extends BaseAdapter {
 
+        private final LayoutInflater inflater;
         private Context context;
         private List<String> list = new ArrayList<>();
         private List<String> mlist = new ArrayList<>();
         private String[] content;
+        final int TYPE_1 = 0;
+        final int TYPE_2 = 1;
+        final int TYPE_3 = 2;
+        final int TYPE_4 = 3;
+
         public  HomeAdapter(Context context, String[] title) {
             this.context = context;
             this.content = title;
+            inflater = LayoutInflater.from(context);
         }
 
         @Override
@@ -120,26 +128,109 @@ public class LeiMuActivity extends AppCompatActivity {
             return position;
         }
 
-
+        @Override
+        public int getItemViewType(int position) {
+            if (position == 0)
+                return TYPE_1;
+            else if (position ==1)
+                return TYPE_2;
+            else if (position ==2)
+                return TYPE_3;
+            else
+                return TYPE_4;
+        }
+        //返回三个不同的布局
+        @Override
+        public int getViewTypeCount() {
+            // TODO Auto-generated method stub
+            return 4;
+        }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            HomeAdapter.ViewHold viewHold = null;
+            ViewHold1 viewHold1 = null;
+            ViewHold2 viewHold2 = null;
+            ViewHold3 viewHold3 = null;
+            ViewHold4 viewHold4 = null;
+            int type = getItemViewType(position);
             if (convertView == null) {
-                convertView = View.inflate(context, R.layout.item_home, null);
-                viewHold = new HomeAdapter.ViewHold();
-                viewHold.tv_title = convertView.findViewById(R.id.tv_title);
-                convertView.setTag(viewHold);
+                //按当前所需的样式，确定new的布局
+                switch (type) {
+                    case TYPE_1:
+                        convertView = inflater.inflate(R.layout.item_leimu_teyuepinpai, parent, false);
+                        viewHold1 = new ViewHold1();
+                        viewHold1.rec_leimu_teyuepinpai =convertView.findViewById(R.id.rec_leimu_teyuepinpai);
+                        convertView.setTag(viewHold1);
+                        break;
+                    case TYPE_2:
+                        convertView = inflater.inflate(R.layout.item_leimu_dashizhuanchang, parent, false);
+                        viewHold2 = new ViewHold2();
+                        viewHold2.rec_leimu_dashizhuanchang =convertView.findViewById(R.id.rec_leimu_dashizhuanchang);
+                        convertView.setTag(viewHold2);
+                        break;
+                    case TYPE_3:
+                        convertView = inflater.inflate(R.layout.item_leimi_ruzhudianpu, parent, false);
+                        viewHold3 = new ViewHold3();
+                        viewHold3.rec_leimu_ruzhudianpu =convertView.findViewById(R.id.rec_leimu_ruzhudianpu);
+                        convertView.setTag(viewHold3);
+                        break;
+                    case TYPE_4:
+                        convertView = inflater.inflate(R.layout.item_leimu_leibie, parent, false);
+                        viewHold4 = new ViewHold4();
+                        viewHold4.rec_leimu_leibie =convertView.findViewById(R.id.rec_leimu_leibie);
+                        convertView.setTag(viewHold4);
+                        break;
+                }
             } else {
-                viewHold = (HomeAdapter.ViewHold) convertView.getTag();
+                //有convertView，按样式，取得不用的布局
+                switch (type) {
+                    case TYPE_1:
+                        viewHold1 = (ViewHold1) convertView.getTag();
+                        break;
+                    case TYPE_2:
+                        viewHold2 = (ViewHold2) convertView.getTag();
+                        break;
+                    case TYPE_3:
+                        viewHold3 = (ViewHold3) convertView.getTag();
+                        break;
+                    case TYPE_4:
+                        viewHold4 = (ViewHold4) convertView.getTag();
+                        break;
+                }
             }
-            viewHold.tv_title.setText(content[position]);
+//            //设置资源
+//            switch (type) {
+//                case TYPE_1:
+//                    holder1.textView.setText(Integer.toString(position));
+//                    holder1.checkBox.setChecked(true);
+//                    break;
+//                case TYPE_2:
+//                    holder2.textView.setText(Integer.toString(position));
+//
+//                    break;
+//                case TYPE_3:
+//                    holder3.textView.setText(Integer.toString(position));
+//                    holder3.imageView.setBackgroundResource(R.mipmap.ic_launcher);
+//                    break;
+//            }
             //
             return convertView;
         }
 
-        private class ViewHold {
-            private TextView tv_title;
+        private class ViewHold1 {
+            private RecyclerView rec_leimu_teyuepinpai;
         }
+        private class ViewHold2 {
+            private RecyclerView rec_leimu_dashizhuanchang;
+        }
+        private class ViewHold3 {
+            private RecyclerView rec_leimu_ruzhudianpu;
+
+        }
+        private class ViewHold4 {
+            private RecyclerView rec_leimu_leibie;
+        }
+
+
         public List<String> getData() {
             return list;
         }

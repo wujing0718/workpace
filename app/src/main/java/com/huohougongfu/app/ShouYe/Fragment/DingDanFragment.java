@@ -1,6 +1,7 @@
 package com.huohougongfu.app.ShouYe.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import com.huohougongfu.app.Gson.ChaTaiDingDan;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.ChaTaiDingDanDetail;
+import com.huohougongfu.app.ShouYe.Activity.MaiChaDetailActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -88,8 +91,7 @@ public class DingDanFragment extends Fragment {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("待支付"+position);
-
+              startActivity( new Intent().setClass(getActivity(),ChaTaiDingDanDetail.class));
             }
         });
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
