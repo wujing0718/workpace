@@ -23,9 +23,9 @@ public class MenuAdapter extends BaseAdapter {
     public static final int NI_ORDER_ITEM_FOOT = 2;
     private Context context;
     private int selectItem = 0;
-    private String[] title;
+    private List<String> title;
     private List<Integer> mlist = new ArrayList<>();
-    public MenuAdapter(Context context, String[] title) {
+    public MenuAdapter(Context context, List<String> title) {
         this.context = context;
         this.title = title;
         mlist.add(0);
@@ -63,12 +63,12 @@ public class MenuAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return title.length;
+        return title.size();
     }
 
     @Override
     public Object getItem(int arg0) {
-        return title[arg0];
+        return title.get(arg0);
     }
 
     @Override
@@ -94,13 +94,13 @@ public class MenuAdapter extends BaseAdapter {
         }
 
         if (position == selectItem) {
-
-            holder.tv_name.setTextColor(context.getResources().getColor(R.color.colorRed));
+            holder.tv_name.setTextColor(context.getResources().getColor(R.color.sousuoTab));
+            holder.tv_name.setBackgroundResource(R.color.white);
         } else {
-
+            holder.tv_name.setBackgroundResource(R.color.colorHui);
             holder.tv_name.setTextColor(context.getResources().getColor(R.color.black));
         }
-        holder.tv_name.setText(title[position]);
+        holder.tv_name.setText(title.get(position));
         return convertView;
     }
 

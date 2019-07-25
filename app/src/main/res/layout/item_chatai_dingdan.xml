@@ -29,15 +29,16 @@
                 android:id="@+id/tv_chatai_verificationCode"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/colorBlack"
-                android:text="8645 2274 4562 20"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_chatai_orderStatus"
-            android:text="待支付"
+            android:text=""
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_gravity="right"

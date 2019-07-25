@@ -6,7 +6,10 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginHorizontal="@dimen/dp_15"
+        android:src="@mipmap/img_zhanweitu"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 

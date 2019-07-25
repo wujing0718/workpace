@@ -70,6 +70,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     private ChaTaiYouHuiQuan.ResultBean myouhuiquan;
     private String machineId;
     private ChaTaiYouHuiQuan.ResultBean.CouponsBean xuanzeyouhuiquan;
+    private View view_zhanweitu;
 
     public ChaTaiOneFragment() {
         // Required empty public constructor
@@ -126,7 +127,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         tv_chami_dikou = inflate.findViewById(R.id.tv_chami_dikou);
         img_chami_check = inflate.findViewById(R.id.img_chami_check);
         bt_chami_dikou = inflate.findViewById(R.id.bt_chami_dikou);
-//        bt_chami_dikou.setOnClickListener(this);
+        view_zhanweitu = inflate.findViewById(R.id.view_zhanweitu);
     }
 
     private void initData(ChaTaiYouHuiQuan.ResultBean myouhuiquan) {
@@ -143,6 +144,11 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                         chatai = gson.fromJson(response.body(), ChaTaiGson.class);
                         if (chatai.getStatus() == 1) {
                             initRec(chatai.getResult(),myouhuiquan);
+                            if (chatai.getResult().size()>0){
+                                view_zhanweitu.setVisibility(View.GONE);
+                            }else{
+                                view_zhanweitu.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                     @Override

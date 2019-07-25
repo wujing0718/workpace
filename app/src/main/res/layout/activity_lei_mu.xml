@@ -30,35 +30,15 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/quanzi_sousuokuang"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/img_sousuo"
-                android:src="@mipmap/img_sousuo"
-                android:layout_width="14dp"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_centerVertical="true"
-                android:layout_height="14dp" />
-
-            <EditText
-                android:layout_toRightOf="@+id/img_sousuo"
-                android:id="@+id/bt_leimu_sousuo"
-                android:hint="Search"
-                android:textSize="12sp"
-                android:background="@null"
-                android:paddingHorizontal="@dimen/dp_10"
-                android:layout_centerVertical="true"
-                android:layout_width="match_parent"
-                android:layout_height="28dp">
-
-            </EditText>
-
-        </RelativeLayout>
+       <TextView
+           android:layout_gravity="center_vertical"
+           android:text="全部类目"
+           android:textSize="17sp"
+           android:layout_weight="1"
+           android:gravity="center"
+           android:textColor="@color/colorWhite"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -108,14 +88,15 @@
         <ListView
             android:id="@+id/lv_menu"
             android:layout_width="0dp"
+            android:divider="@null"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/white" />
+            android:background="@color/colorHui" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:background="@color/white">
 
             <LinearLayout
@@ -124,6 +105,7 @@
 
                 <ListView
                     android:id="@+id/lv_home"
+                    android:divider="@null"
                     android:layout_marginRight="@dimen/dp_10"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />

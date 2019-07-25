@@ -43,6 +43,7 @@ public class DingDanFragment extends Fragment {
     private RecyclerView rec_chatai_dingdan;
     private ChaTaiDingDanAdapter mAdapter;
     private int mId;
+    private View view_zhanweitu;
 
     public DingDanFragment() {
         // Required empty public constructor
@@ -53,6 +54,7 @@ public class DingDanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_ding_dan, container, false);
+        view_zhanweitu = inflate.findViewById(R.id.view_zhanweitu);
         mId = MyApp.instance.getInt("id");
         initData();
         return inflate;
@@ -74,6 +76,11 @@ public class DingDanFragment extends Fragment {
                         shangPinGson = gson.fromJson(response.body(), ChaTaiDingDan.class);
                         if (shangPinGson.getStatus() == 1) {
                             initRec(shangPinGson.getResult());
+                            if(shangPinGson.getResult().getList().size()>0){
+                                view_zhanweitu.setVisibility(View.GONE);
+                            }else{
+                                view_zhanweitu.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                     @Override

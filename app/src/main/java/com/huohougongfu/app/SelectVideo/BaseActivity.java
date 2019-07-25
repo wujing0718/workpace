@@ -14,7 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
-public class BaseActivity extends AppCompatActivity {
+    public class BaseActivity extends AppCompatActivity {
 
     private final int mRequestCode = 1024;
     private RequestPermissionCallBack mRequestPermissionCallBack;

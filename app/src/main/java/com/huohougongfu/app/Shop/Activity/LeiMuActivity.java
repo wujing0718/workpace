@@ -3,6 +3,8 @@ package com.huohougongfu.app.Shop.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,20 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.QuanBuLeiMu;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
+import com.huohougongfu.app.Shop.Adapter.LeiMuDaShiZhuanChangAdapter;
+import com.huohougongfu.app.Shop.Adapter.LeiMuLeiBieAdapter;
+import com.huohougongfu.app.Shop.Adapter.LeiMuRuZhuDianPuAdapter;
+import com.huohougongfu.app.Shop.Adapter.LeiMuTeYuePinPaiAdapter;
 import com.huohougongfu.app.Shop.Adapter.MenuAdapter;
+import com.huohougongfu.app.Utils.Contacts;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
@@ -28,8 +42,9 @@ public class LeiMuActivity extends AppCompatActivity {
     private MenuAdapter menuAdapter;
     private HomeAdapter homeAdapter;
     private int scrollPosition = -1;
-    private String[] title = new String[]{"特约品牌","大师专场","入驻店铺","茶叶","茶器","茶食茶服","茶道","家具","其他"};
-    private String[] content = new String[]{"茶叶","茶器","茶食茶服","茶道","家具","其他","茶叶","茶器","茶食茶服","茶道","家具","其他","特约品牌","大师专场","入驻店铺","茶叶","茶器","茶食茶服","茶道","家具","其他"};
+    private List<String> title = new ArrayList<>();
+    private List<List<QuanBuLeiMu.ResultBean.ListBean>> content = new ArrayList<>();
+
 
     private ArrayList<Integer> showTitle;
 
@@ -43,15 +58,36 @@ public class LeiMuActivity extends AppCompatActivity {
                 finish();
             }
         });
-        initView();
+        initData();
     }
-    private void initView() {
+
+    private void initData() {
+        OkGo.<String>get(Contacts.URl1+"query/allCatory/queryAll")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        QuanBuLeiMu leimu = gson.fromJson(body, QuanBuLeiMu.class);
+                        if (leimu.getStatus() == 1){
+                            initView(leimu.getResult());
+                        }
+                    }
+                });
+    }
+
+    private void initView(List<QuanBuLeiMu.ResultBean> result) {
         showTitle = new ArrayList<>();
-        for (int i = 0; i < title.length; i++) {
+        for (int i = 0; i < result.size(); i++) {
             showTitle.add(i);
+            title.add(result.get(i).getName());
+            content.add(result.get(i).getList());
         }
         lv_menu =findViewById(R.id.lv_menu);
         lv_home =findViewById(R.id.lv_home);
+        //设置listview的滚动条隐藏
+        lv_menu.setVerticalScrollBarEnabled(false);
+        lv_home.setVerticalScrollBarEnabled(false);
         menuAdapter = new MenuAdapter(this,title);
         lv_menu.setAdapter(menuAdapter);
         homeAdapter = new HomeAdapter(LeiMuActivity.this,content);
@@ -101,26 +137,26 @@ public class LeiMuActivity extends AppCompatActivity {
         private Context context;
         private List<String> list = new ArrayList<>();
         private List<String> mlist = new ArrayList<>();
-        private String[] content;
+        private List<List<QuanBuLeiMu.ResultBean.ListBean>> content;
         final int TYPE_1 = 0;
         final int TYPE_2 = 1;
         final int TYPE_3 = 2;
         final int TYPE_4 = 3;
 
-        public  HomeAdapter(Context context, String[] title) {
+        public  HomeAdapter(Context context, List<List<QuanBuLeiMu.ResultBean.ListBean>> content) {
             this.context = context;
-            this.content = title;
+            this.content = content;
             inflater = LayoutInflater.from(context);
         }
 
         @Override
         public int getCount() {
-            return content.length;
+            return content.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return content[position];
+            return content.get(position);
         }
 
         @Override
@@ -197,21 +233,54 @@ public class LeiMuActivity extends AppCompatActivity {
                         break;
                 }
             }
-//            //设置资源
-//            switch (type) {
-//                case TYPE_1:
-//                    holder1.textView.setText(Integer.toString(position));
-//                    holder1.checkBox.setChecked(true);
-//                    break;
-//                case TYPE_2:
-//                    holder2.textView.setText(Integer.toString(position));
-//
-//                    break;
-//                case TYPE_3:
-//                    holder3.textView.setText(Integer.toString(position));
-//                    holder3.imageView.setBackgroundResource(R.mipmap.ic_launcher);
-//                    break;
-//            }
+            List<QuanBuLeiMu.ResultBean.ListBean> listBeans = content.get(position);
+            //设置资源
+            switch (type) {
+                case TYPE_1:
+                    LinearLayoutManager layoutmanager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false){
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    };
+                    viewHold1.rec_leimu_teyuepinpai.setLayoutManager(layoutmanager);
+                    LeiMuTeYuePinPaiAdapter leimutetuepinpai = new LeiMuTeYuePinPaiAdapter(R.layout.item_leimu_teyuepinpai_zi,listBeans);
+                    viewHold1.rec_leimu_teyuepinpai.setAdapter(leimutetuepinpai);
+                    break;
+                case TYPE_2:
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2){
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    };
+                    viewHold2.rec_leimu_dashizhuanchang.setLayoutManager(gridLayoutManager);
+                    LeiMuDaShiZhuanChangAdapter leimudashizhuanchang = new LeiMuDaShiZhuanChangAdapter(R.layout.item_leimu_dashizhuanchang_zi,listBeans);
+                    viewHold2.rec_leimu_dashizhuanchang.setAdapter(leimudashizhuanchang);
+                    break;
+                case TYPE_3:
+                    GridLayoutManager gridLayoutManager3 = new GridLayoutManager(context,3){
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    };
+                    viewHold3.rec_leimu_ruzhudianpu.setLayoutManager(gridLayoutManager3);
+                    LeiMuRuZhuDianPuAdapter leimuruzhudianpu = new LeiMuRuZhuDianPuAdapter(R.layout.item_leimu_ruzhudianpu_zi,listBeans);
+                    viewHold3.rec_leimu_ruzhudianpu.setAdapter(leimuruzhudianpu);
+                    break;
+                case TYPE_4:
+                    GridLayoutManager gridLayoutManager4 = new GridLayoutManager(context,3){
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    };
+                    viewHold4.rec_leimu_leibie.setLayoutManager(gridLayoutManager4);
+                    LeiMuLeiBieAdapter leimuruzhudianpu2 = new LeiMuLeiBieAdapter(R.layout.item_leimu_ruzhudianpu_zi,listBeans);
+                    viewHold4.rec_leimu_leibie.setAdapter(leimuruzhudianpu2);
+                    break;
+            }
             //
             return convertView;
         }

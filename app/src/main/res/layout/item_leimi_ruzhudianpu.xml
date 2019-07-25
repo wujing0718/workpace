@@ -6,11 +6,16 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginHorizontal="@dimen/dp_15"
+        android:src="@mipmap/img_zhanweitu"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginHorizontal="@dimen/dp_15"
         android:id="@+id/rec_leimu_ruzhudianpu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
