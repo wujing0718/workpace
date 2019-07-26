@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopGson;
@@ -17,6 +19,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.TeHuiAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -37,6 +40,7 @@ public class TeHuiActivity extends AppCompatActivity {
     private SmartRefreshLayout smartrefreshlayout;
     private int page = 2;
     private TeHuiAdapter tehuiadapter;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,7 @@ public class TeHuiActivity extends AppCompatActivity {
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
+        intent = new Intent();
         initUI();
         initData();
     }
@@ -146,6 +151,24 @@ public class TeHuiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(TeHuiActivity.this,GouWuCheActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(TeHuiActivity.this,XiaoXiActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
@@ -200,6 +201,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
+        inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
         inflate.findViewById(R.id.bt_shop_sousuo).setOnClickListener(this);
         inflate.findViewById(R.id.bt_gouwuche).setOnClickListener(this);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
@@ -293,6 +295,12 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
             case R.id.bt_gouwuche:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),GouWuCheActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_xiaoxi:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),XiaoXiActivity.class);
                     startActivity(intent);
                 }
                 break;

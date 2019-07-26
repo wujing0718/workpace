@@ -79,11 +79,15 @@ public class QuanBuLeiMu {
             private String img;
             private String story;
             private String order;
+
             private String level;
             private String photo;
             private String storeName;
             private String storeLogo;
             private String ico;
+            private String pic;
+            private int mId;
+
 
             private String createTime;
             private String updateTime;
@@ -91,6 +95,22 @@ public class QuanBuLeiMu {
             private Object isCollection;
             private Object productList;
             private List<ListBean> list;
+
+            public int getmId() {
+                return mId;
+            }
+
+            public void setmId(int mId) {
+                this.mId = mId;
+            }
+
+            public String getPic() {
+                return pic;
+            }
+
+            public void setPic(String pic) {
+                this.pic = pic;
+            }
 
             public String getIco() {
                 return ico;

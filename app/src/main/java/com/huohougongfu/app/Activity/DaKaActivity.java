@@ -21,6 +21,9 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +34,7 @@ public class DaKaActivity extends AppCompatActivity {
     private String token;
     private TextView tv_chami_num;
     private String tel;
+    private TextView bt_daka;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +94,7 @@ public class DaKaActivity extends AppCompatActivity {
                                     bt_daka.setText("已打卡");
                                     bt_daka.setClickable(false);
                                 }else{
-                                    findViewById(R.id.bt_daka).setOnClickListener(new View.OnClickListener() {
+                                    bt_daka.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             initDaKa();
@@ -155,6 +159,7 @@ public class DaKaActivity extends AppCompatActivity {
             }
         });
 
+        bt_daka = findViewById(R.id.bt_daka);
         img1 = findViewById(R.id.img1);
         img2 = findViewById(R.id.img2);
         img3 = findViewById(R.id.img3);
@@ -172,44 +177,53 @@ public class DaKaActivity extends AppCompatActivity {
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         String body = response.body();
-                        Gson gson = new Gson();
-                        DaKaOne daKa = gson.fromJson(body, DaKaOne.class);
-                        if (daKa.getStatus() == 1){
-                            if (daKa.getResult().get(0) == 0){
-                                img1.setImageResource(R.mipmap.img_nodaka);
-                            }else if (daKa.getResult().get(0) == 1){
-                                img1.setImageResource(R.mipmap.img_yiqiandao);
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                Gson gson = new Gson();
+                                DaKaOne daKa = gson.fromJson(body, DaKaOne.class);
+                                if (daKa.getStatus() == 1){
+                                    if (daKa.getResult().get(0) == 0){
+                                        img1.setImageResource(R.mipmap.img_nodaka);
+                                    }else if (daKa.getResult().get(0) == 1){
+                                        img1.setImageResource(R.mipmap.img_yiqiandao);
+                                    }
+                                    if (daKa.getResult().get(1) == 0){
+                                        img2.setImageResource(R.mipmap.img_nodaka);
+                                    }else if (daKa.getResult().get(1) == 1){
+                                        img2.setImageResource(R.mipmap.img_yiqiandao);
+                                    }
+                                    if (daKa.getResult().get(2) == 0){
+                                        img3.setImageResource(R.mipmap.img_nodaka);
+                                    }else if (daKa.getResult().get(2) == 1){
+                                        img3.setImageResource(R.mipmap.img_yiqiandao);
+                                    }
+                                    if (daKa.getResult().get(3) == 0){
+                                        img4.setImageResource(R.mipmap.img_nodaka);
+                                    }else if (daKa.getResult().get(3) == 1){
+                                        img4.setImageResource(R.mipmap.img_yiqiandao);
+                                    }
+                                    if (daKa.getResult().get(4) == 0){
+                                        img5.setImageResource(R.mipmap.img_nodaka);
+                                    }else if (daKa.getResult().get(4) == 1){
+                                        img5.setImageResource(R.mipmap.img_yiqiandao);
+                                    }
+                                    if (daKa.getResult().get(5) == 0){
+                                        img6.setImageResource(R.mipmap.img_nodaka);
+                                    }else if (daKa.getResult().get(5) == 1){
+                                        img6.setImageResource(R.mipmap.img_yiqiandao);
+                                    }
+                                    if (daKa.getResult().get(6) == 0){
+                                        img7.setImageResource(R.mipmap.img_nodaka);
+                                    }else if (daKa.getResult().get(6) == 1){
+                                        img7.setImageResource(R.mipmap.img_yiqiandao);
+                                    }
+                                }
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
                             }
-                            if (daKa.getResult().get(1) == 0){
-                                img2.setImageResource(R.mipmap.img_nodaka);
-                            }else if (daKa.getResult().get(1) == 1){
-                                img2.setImageResource(R.mipmap.img_yiqiandao);
-                            }
-                            if (daKa.getResult().get(2) == 0){
-                                img3.setImageResource(R.mipmap.img_nodaka);
-                            }else if (daKa.getResult().get(2) == 1){
-                                img3.setImageResource(R.mipmap.img_yiqiandao);
-                            }
-                            if (daKa.getResult().get(3) == 0){
-                                img4.setImageResource(R.mipmap.img_nodaka);
-                            }else if (daKa.getResult().get(3) == 1){
-                                img4.setImageResource(R.mipmap.img_yiqiandao);
-                            }
-                            if (daKa.getResult().get(4) == 0){
-                                img5.setImageResource(R.mipmap.img_nodaka);
-                            }else if (daKa.getResult().get(4) == 1){
-                                img5.setImageResource(R.mipmap.img_yiqiandao);
-                            }
-                            if (daKa.getResult().get(5) == 0){
-                                img6.setImageResource(R.mipmap.img_nodaka);
-                            }else if (daKa.getResult().get(5) == 1){
-                                img6.setImageResource(R.mipmap.img_yiqiandao);
-                            }
-                            if (daKa.getResult().get(6) == 0){
-                                img7.setImageResource(R.mipmap.img_nodaka);
-                            }else if (daKa.getResult().get(6) == 1){
-                                img7.setImageResource(R.mipmap.img_yiqiandao);
-                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
 

@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Shop.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
@@ -61,6 +64,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     private PinPaiAdapter pinPaiItemAdapter;
     private int page =2;
     private int mId;
+    private Intent intent;
 
 
     @Override
@@ -69,6 +73,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_te_yue_pin_pai);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mId = MyApp.instance.getInt("id");
+        intent = new Intent();
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +108,25 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                 return false;
             }
         });
+        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(TeYuePinPaiActivity.this,XiaoXiActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(TeYuePinPaiActivity.this,GouWuCheActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
     private void initData(String sousuo) {
         Map<String,String> map = new HashMap<>();

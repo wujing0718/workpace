@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
-import com.huohougongfu.app.Gson.DaShiFenLei;
+import com.huohougongfu.app.Gson.LeiMuDetailShaiXuan;
 import com.huohougongfu.app.Gson.ShopFenLei;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -29,33 +29,37 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ShaiXuanDaShiView extends DrawerPopupView implements View.OnClickListener {
+public class ShaiXuanLeiMuView extends DrawerPopupView implements View.OnClickListener {
     private final Handler mHandler;
-    private List<String> masterCategory;
     List<String> datas_fenlei = new ArrayList<>();
     List<String> datas_fahuodi = new ArrayList<>();
     private Map<String,String> map = new HashMap<>();
     private TagFlowLayout  id_flowlayout_fenlei;
     private String name;
+    private String namezi;
     private EditText zuigaojia,zuidijia;
     private String fahuodi;
+    private List<LeiMuDetailShaiXuan.ResultBean> productCategory;
     private TagAdapter<String> adapter2;
-    private TagAdapter<String> adapter1;
     private TagFlowLayout id_flowlayout_fahuodi;
+    private TagAdapter<String> adapter1;
 
-    public ShaiXuanDaShiView(@NonNull Context context, Handler mHandler) {
+    public ShaiXuanLeiMuView(@NonNull Context context, Handler mHandler, String name) {
         super(context);
         this.mHandler = mHandler;
+        this.namezi = name;
     }
     @Override
     protected int getImplLayoutId() {
-        return R.layout.shaixuan_dashi_popup;
+        return R.layout.shaixuan_drawer_popup;
     }
     @Override
     protected void onCreate() {
         super.onCreate();
         initData();
         id_flowlayout_fenlei = findViewById(R.id.id_flowlayout_fenlei);
+        zuigaojia = findViewById(R.id.edt_zuigaojia);
+        zuidijia = findViewById(R.id.edt_zuidijia);
         findViewById(R.id.bt_chongzhi).setOnClickListener(this);
         findViewById(R.id.bt_queding).setOnClickListener(this);
         id_flowlayout_fahuodi = findViewById(R.id.id_flowlayout_fahuodi);
@@ -92,18 +96,18 @@ public class ShaiXuanDaShiView extends DrawerPopupView implements View.OnClickLi
     }
 
     private void initData() {
-        OkGo.<String>get(Contacts.URl2 + "query/getCategoryFilter")
-                .params("typeName", "masterCategory")
+        OkGo.<String>get(Contacts.URl1 + "query/getSubCategoryByParentName")
+                .params("parentName", namezi)
                 .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
-                DaShiFenLei shopFenLei = new Gson().fromJson(body, DaShiFenLei.class);
+                LeiMuDetailShaiXuan shopFenLei = new Gson().fromJson(body, LeiMuDetailShaiXuan.class);
                 if (shopFenLei.getStatus() == 1) {
-                    List<String> masterCategory = shopFenLei.getResult().getMasterCategory();
-                    if (masterCategory.size() > 0) {
-                        for (int i = 0; i < masterCategory.size(); i++) {
-                            datas_fenlei.add(masterCategory.get(i));
+                    productCategory = shopFenLei.getResult();
+                    if (productCategory.size() > 0) {
+                        for (int i = 0; i < productCategory.size(); i++) {
+                            datas_fenlei.add(productCategory.get(i).getName());
                         }
                         adapter1 = new TagAdapter<String>(datas_fenlei) {
                             @Override
@@ -145,8 +149,18 @@ public class ShaiXuanDaShiView extends DrawerPopupView implements View.OnClickLi
                 id_flowlayout_fenlei.setAdapter(adapter1);
                 break;
             case R.id.bt_queding:
+                String hight = zuigaojia.getText().toString();
+                String lowest  = zuidijia.getText().toString();
+                if (!"".equals(hight) ||!"".equals(lowest)){
+                    Integer hightprice = Integer.valueOf(hight);
+                    Integer lowestprice = Integer.valueOf(lowest);
+                    if (lowestprice>=hightprice){
+                        ToastUtils.showShort("最低价不能大于最高价");
+                    }else{
+                    }
+                }
                     if (name !=null){
-                        map.put("subProductName",name);
+                        map.put("name",name);
                     }
                     if (fahuodi !=null){
                         map.put("address",fahuodi);

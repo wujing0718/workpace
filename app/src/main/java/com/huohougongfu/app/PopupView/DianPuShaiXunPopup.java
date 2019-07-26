@@ -27,6 +27,10 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
     public String fahuodi;
     private Context context;
     private Handler mHandler;
+    private TagFlowLayout id_flowlayout_fenlei,id_flowlayout_haoping,id_flowlayout_fahuodi;
+    private TagAdapter<String> adapter1;
+    private TagAdapter<String> adapter2;
+    private TagAdapter<String> adapter3;
 
     public DianPuShaiXunPopup(@NonNull Context context, Handler mHandler) {
         super(context);
@@ -44,9 +48,9 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
         super.onCreate();
         findViewById(R.id.bt_queding).setOnClickListener(this);
         findViewById(R.id.bt_chongzhi).setOnClickListener(this);
-        final TagFlowLayout id_flowlayout_fenlei = findViewById(R.id.id_flowlayout_fenlei);
-        final TagFlowLayout id_flowlayout_haoping = findViewById(R.id.id_flowlayout_haoping);
-        final TagFlowLayout id_flowlayout_fahuodi = findViewById(R.id.id_flowlayout_fahuodi);
+         id_flowlayout_fenlei = findViewById(R.id.id_flowlayout_fenlei);
+        id_flowlayout_haoping = findViewById(R.id.id_flowlayout_haoping);
+        id_flowlayout_fahuodi = findViewById(R.id.id_flowlayout_fahuodi);
         List<String> datas_fenlei = new ArrayList<>();
         List<String> datas_fahuodi = new ArrayList<>();
         List<String> datas_haoping = new ArrayList<>();
@@ -66,7 +70,7 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
         datas_haoping.add("98%-95%");
         datas_haoping.add("95%-90%");
         datas_haoping.add("其他");
-        TagAdapter<String> adapter1 = new TagAdapter<String>(datas_fenlei) {
+        adapter1 = new TagAdapter<String>(datas_fenlei) {
             @Override
             public View getView(FlowLayout parent, int position, String o) {
                 TextView view = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.item_tag, parent,false);
@@ -92,7 +96,7 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
                 }
             }
         });
-        TagAdapter<String> adapter2 = new TagAdapter<String>(datas_fahuodi) {
+        adapter2 = new TagAdapter<String>(datas_fahuodi) {
             @Override
             public View getView(FlowLayout parent, int position, String o) {
                 TextView view = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.item_fahuodi, parent,false);
@@ -114,7 +118,7 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
                 }
             }
         });
-        TagAdapter<String> adapter3 = new TagAdapter<String>(datas_haoping) {
+        adapter3 = new TagAdapter<String>(datas_haoping) {
             @Override
             public View getView(FlowLayout parent, int position, String o) {
                 TextView view = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.item_fahuodi, parent,false);
@@ -151,7 +155,11 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_chongzhi:
-
+                fenlei = "";
+                fahuodi = null;
+                haoping = "";
+                id_flowlayout_fahuodi.setAdapter(adapter2);
+                id_flowlayout_fenlei.setAdapter(adapter1);
                 break;
             case R.id.bt_queding:
                 Map<String,String> map = new HashMap<>();

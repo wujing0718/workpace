@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.DSZhuanChang;
 import com.huohougongfu.app.Gson.ShangPinGson;
@@ -24,6 +25,7 @@ import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
 import com.huohougongfu.app.Shop.Adapter.QuanBuDaShiAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -54,12 +56,14 @@ public class DaShiZhuanChang extends AppCompatActivity {
     private SmartRefreshLayout smartrefreshlayout;
     private QuanBuDaShiAdapter quanBuDaShiAdapter;
     private int page =2;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_da_shi_zhuan_chang);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        intent = new Intent();
         initUI();
         initData("");
         initbanner();
@@ -98,6 +102,24 @@ public class DaShiZhuanChang extends AppCompatActivity {
                 }
                 //记得返回false
                 return false;
+            }
+        });
+        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(DaShiZhuanChang.this,GouWuCheActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(DaShiZhuanChang.this,GouWuCheActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -202,6 +224,8 @@ public class DaShiZhuanChang extends AppCompatActivity {
                 Intent intent = new Intent();
                 switch (view.getId()){
                     case R.id.bt_dashi_jianjie:
+                        int dashiid = allMaster.get(position).getMId();
+                        intent.putExtra("id",String.valueOf(dashiid));
                         intent.setClass(DaShiZhuanChang.this,DaShiJianJieActivity.class);
                         startActivity(intent);
                         break;

@@ -21,6 +21,6 @@ public class LeiMuLeiBieAdapter extends BaseQuickAdapter<QuanBuLeiMu.ResultBean.
     protected void convert(BaseViewHolder helper, QuanBuLeiMu.ResultBean.ListBean item) {
         helper.setText(R.id.tv_dianpu_name,item.getName());
         ImageView img_dianpu_logo = helper.getView(R.id.img_dianpu_logo);
-        Glide.with(MyApp.context).load(item.getIco()).into(img_dianpu_logo);
+        Glide.with(MyApp.context).load(item.getPic()).into(img_dianpu_logo);
     }
 }

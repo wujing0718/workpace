@@ -39,6 +39,9 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
     private String name;
     private EditText zuigaojia,zuidijia;
     private String fahuodi;
+    private TagAdapter<String> adapter1;
+    private TagAdapter<String> adapter2;
+    private TagFlowLayout id_flowlayout_fahuodi;
 
     public ShaiXuanDrawerPopupView(@NonNull Context context, Handler mHandler) {
         super(context);
@@ -57,7 +60,7 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
         zuidijia = findViewById(R.id.edt_zuidijia);
         findViewById(R.id.bt_chongzhi).setOnClickListener(this);
         findViewById(R.id.bt_queding).setOnClickListener(this);
-        TagFlowLayout id_flowlayout_fahuodi = findViewById(R.id.id_flowlayout_fahuodi);
+        id_flowlayout_fahuodi = findViewById(R.id.id_flowlayout_fahuodi);
         datas_fahuodi.add("北京");
         datas_fahuodi.add("上海");
         datas_fahuodi.add("深圳");
@@ -65,7 +68,7 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
         datas_fahuodi.add("潮汕");
         datas_fahuodi.add("惠州");
         datas_fahuodi.add("南京");
-        TagAdapter<String> adapter2 = new TagAdapter<String>(datas_fahuodi) {
+        adapter2 = new TagAdapter<String>(datas_fahuodi) {
             @Override
             public View getView(FlowLayout parent, int position, String o) {
                 TextView view = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.item_fahuodi, parent,false);
@@ -104,7 +107,7 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                         for (int i = 0; i < productCategory.size(); i++) {
                             datas_fenlei.add(productCategory.get(i).getName());
                         }
-                        TagAdapter<String> adapter1 = new TagAdapter<String>(datas_fenlei) {
+                       adapter1 = new TagAdapter<String>(datas_fenlei) {
                             @Override
                             public View getView(FlowLayout parent, int position, String o) {
                                 TextView view = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.item_tag, parent, false);
@@ -136,7 +139,12 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_chongzhi:
-
+                name = null;
+                fahuodi = null;
+                zuigaojia.setText("");
+                zuidijia.setText("");
+                id_flowlayout_fahuodi.setAdapter(adapter2);
+                id_flowlayout_fenlei.setAdapter(adapter1);
                 break;
             case R.id.bt_queding:
                 String hight = zuigaojia.getText().toString();

@@ -349,7 +349,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_goumai:
                 if (!utils.isDoubleClick()){
-
+                    XPopup.Builder builder = new XPopup.Builder(getContext());
+                    builder.asCustom(new GuiGe(getContext(),guige))
+                            .show();
                 }
                 break;
             case R.id.bt_jiagouwuche:

@@ -1,6 +1,7 @@
 package com.huohougongfu.app.Shop.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,8 +16,11 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.QuanBuLeiMu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
@@ -26,6 +30,7 @@ import com.huohougongfu.app.Shop.Adapter.LeiMuRuZhuDianPuAdapter;
 import com.huohougongfu.app.Shop.Adapter.LeiMuTeYuePinPaiAdapter;
 import com.huohougongfu.app.Shop.Adapter.MenuAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -47,15 +52,35 @@ public class LeiMuActivity extends AppCompatActivity {
 
 
     private ArrayList<Integer> showTitle;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lei_mu);
+        intent = new Intent();
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(LeiMuActivity.this,GouWuCheActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!utils.isDoubleClick()){
+                    intent.setClass(LeiMuActivity.this,XiaoXiActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         initData();
@@ -246,6 +271,14 @@ public class LeiMuActivity extends AppCompatActivity {
                     viewHold1.rec_leimu_teyuepinpai.setLayoutManager(layoutmanager);
                     LeiMuTeYuePinPaiAdapter leimutetuepinpai = new LeiMuTeYuePinPaiAdapter(R.layout.item_leimu_teyuepinpai_zi,listBeans);
                     viewHold1.rec_leimu_teyuepinpai.setAdapter(leimutetuepinpai);
+                    leimutetuepinpai.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            intent.putExtra("name",listBeans.get(position).getName());
+                            intent.setClass(LeiMuActivity.this,LeiMuDetailActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                     break;
                 case TYPE_2:
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2){
@@ -257,6 +290,15 @@ public class LeiMuActivity extends AppCompatActivity {
                     viewHold2.rec_leimu_dashizhuanchang.setLayoutManager(gridLayoutManager);
                     LeiMuDaShiZhuanChangAdapter leimudashizhuanchang = new LeiMuDaShiZhuanChangAdapter(R.layout.item_leimu_dashizhuanchang_zi,listBeans);
                     viewHold2.rec_leimu_dashizhuanchang.setAdapter(leimudashizhuanchang);
+                    leimudashizhuanchang.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            int dashiid = listBeans.get(position).getId();
+                            intent.putExtra("id",String.valueOf(dashiid));
+                            intent.setClass(LeiMuActivity.this,DaShiJianJieActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                     break;
                 case TYPE_3:
                     GridLayoutManager gridLayoutManager3 = new GridLayoutManager(context,3){
@@ -268,6 +310,14 @@ public class LeiMuActivity extends AppCompatActivity {
                     viewHold3.rec_leimu_ruzhudianpu.setLayoutManager(gridLayoutManager3);
                     LeiMuRuZhuDianPuAdapter leimuruzhudianpu = new LeiMuRuZhuDianPuAdapter(R.layout.item_leimu_ruzhudianpu_zi,listBeans);
                     viewHold3.rec_leimu_ruzhudianpu.setAdapter(leimuruzhudianpu);
+                    leimuruzhudianpu.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            intent.putExtra("name",listBeans.get(position).getStoreName());
+                            intent.setClass(LeiMuActivity.this,LeiMuDetailActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                     break;
                 case TYPE_4:
                     GridLayoutManager gridLayoutManager4 = new GridLayoutManager(context,3){
@@ -279,6 +329,14 @@ public class LeiMuActivity extends AppCompatActivity {
                     viewHold4.rec_leimu_leibie.setLayoutManager(gridLayoutManager4);
                     LeiMuLeiBieAdapter leimuruzhudianpu2 = new LeiMuLeiBieAdapter(R.layout.item_leimu_ruzhudianpu_zi,listBeans);
                     viewHold4.rec_leimu_leibie.setAdapter(leimuruzhudianpu2);
+                    leimuruzhudianpu2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            intent.putExtra("name",listBeans.get(position).getName());
+                            intent.setClass(LeiMuActivity.this,LeiMuDetailActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                     break;
             }
             //

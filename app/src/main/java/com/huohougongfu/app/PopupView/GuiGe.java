@@ -1,6 +1,7 @@
 package com.huohougongfu.app.PopupView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
 import com.lxj.xpopup.XPopup;
@@ -94,7 +96,9 @@ public class GuiGe extends BottomPopupView {
         findViewById(R.id.bt_goumai).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                intent.setClass(context,XiaDanActivity.class);
+                context.startActivity(intent);
             }
         });
         findViewById(R.id.bt_guanbi).setOnClickListener(new OnClickListener() {
