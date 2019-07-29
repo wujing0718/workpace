@@ -19,6 +19,7 @@ import com.huohougongfu.app.Gson.MyZhuYe;
 import com.huohougongfu.app.Gson.RongYunUsetInfo;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.MyCollectActivity;
@@ -85,7 +86,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                         Gson gson = new Gson();
                         MyZhuYe xinxi = gson.fromJson(body, MyZhuYe.class);
                         if (xinxi.getStatus() == 1){
-                            initView(xinxi.getResult());
+                            if (xinxi.getResult()!=null){
+                                initView(xinxi.getResult());
+                            }
                         }
                     }
                 });
@@ -168,6 +171,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.bt_setting:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),SettingActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_my_kabao:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),MyKaBaoActivity.class);
                     startActivity(intent);
                 }
                 break;

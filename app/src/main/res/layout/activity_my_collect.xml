@@ -54,85 +54,97 @@
 
     </RelativeLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:layout_weight="1"
-        android:id="@+id/smartrefreshlayout"
+    <LinearLayout
+        android:id="@+id/view_collect"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rec_mycollect"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:layout_weight="1"
+            android:id="@+id/smartrefreshlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_mycollect"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            </android.support.v7.widget.RecyclerView>
 
-    <LinearLayout
-        android:id="@+id/ll_mycollection_bottom_dialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="#e6e6e6"
-        android:visibility="gone"
-        android:orientation="vertical">
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <View
+        <LinearLayout
+            android:id="@+id/ll_mycollection_bottom_dialog"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#e5e5e5"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:background="#e6e6e6"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="#ffffff">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e5e5e5"/>
 
-
-            <Button
-                android:id="@+id/btn_delete"
-                android:layout_width="80dp"
-                android:layout_height="33dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/button_shape"
-                android:gravity="center"
-                android:text="删除"
-                android:textColor="@color/white"
-                android:textSize="14sp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#ffffff">
 
 
-            <LinearLayout
-                android:layout_centerVertical="true"
-                android:id="@+id/select_all"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_30">
-
-                <ImageView
-                    android:id="@+id/img_select_all"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:src="@mipmap/unselect"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp" />
-
-                <TextView
-                    android:id="@+id/tv_select_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_gravity="center_vertical"
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="80dp"
+                    android:layout_height="33dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:text="全选"
-                    android:textColor="#000001"
+                    android:background="@drawable/button_shape"
+                    android:gravity="center"
+                    android:text="删除"
+                    android:textColor="@color/white"
                     android:textSize="14sp"/>
 
-            </LinearLayout>
 
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_centerVertical="true"
+                    android:id="@+id/select_all"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30">
+
+                    <ImageView
+                        android:id="@+id/img_select_all"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:src="@mipmap/unselect"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/tv_select_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="15dp"
+                        android:text="全选"
+                        android:textColor="#000001"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
+    <include
+        layout="@layout/include_zhanweitu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

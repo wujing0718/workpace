@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.DSZhuanChang;
@@ -198,6 +199,14 @@ public class DaShiZhuanChang extends AppCompatActivity {
         rec_cainixihuan.setLayoutManager(layoutmanager);
         DaShiLikeAdapter daShiLikeAdapter = new DaShiLikeAdapter(R.layout.item_shop_cainixihuan,yourLike);
         rec_cainixihuan.setAdapter(daShiLikeAdapter);
+        daShiLikeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                intent.putExtra("id",String.valueOf(yourLike.get(position).getStoreId()));
+                intent.setClass(DaShiZhuanChang.this,DiaPuZhuYeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initRec2(List<DSZhuanChang.ResultBean.AllMasterBean> allMaster) {
@@ -222,15 +231,17 @@ public class DaShiZhuanChang extends AppCompatActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
+                int dashiid = allMaster.get(position).getMId();
                 switch (view.getId()){
                     case R.id.bt_dashi_jianjie:
-                        int dashiid = allMaster.get(position).getMId();
                         intent.putExtra("id",String.valueOf(dashiid));
                         intent.setClass(DaShiZhuanChang.this,DaShiJianJieActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.bt_dashi_zhuye:
-                        ToastUtils.showShort("主页");
+                        intent.putExtra("id",String.valueOf(dashiid));
+                        intent.setClass(DaShiZhuanChang.this,DiaPuZhuYeActivity.class);
+                        startActivity(intent);
                         break;
                 }
 

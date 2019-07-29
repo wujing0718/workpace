@@ -14,6 +14,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -28,9 +31,11 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,9 +101,19 @@ public class GuiGe extends BottomPopupView {
         findViewById(R.id.bt_goumai).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(context,XiaDanActivity.class);
-                context.startActivity(intent);
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+                    jsonObject.put("productId",mallProduct.getProductInfo().getId());
+                    jsonObject.put("productNum",amount);
+                    jsonObject.put("standard",standarid);
+                    JSONArray jsonArray = new JSONArray();
+                    jsonArray.put(jsonObject);
+                    initXiaDan(jsonArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         findViewById(R.id.bt_guanbi).setOnClickListener(new OnClickListener() {
@@ -116,10 +131,28 @@ public class GuiGe extends BottomPopupView {
         }
     }
 
+    private void initXiaDan(JSONArray jsonObject) {
+        OkGo.<String>post(Contacts.URl1+"confirmOrder1")
+                .params("json",jsonObject.toString())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
+                        if (shopDingDan.getStatus() == 1){
+                            Intent intent = new Intent();
+                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
+                            intent.setClass(context,XiaDanActivity.class);
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+    }
+
     private void initGouWuChe() {
         shopid = mallProduct.getProductInfo().getId();
         storeId = mallProduct.getProductInfo().getStoreId();
-//        ToastUtils.showShort("数量"+amount+"规格id"+standarid+"商品id"+shopid+"店铺id"+storeId);
         Map<String,String> map = new HashMap<>();
         map.put("productId",String.valueOf(shopid));
         map.put("storeId",String.valueOf(storeId));

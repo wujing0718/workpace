@@ -35,6 +35,7 @@ public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.Resu
 
     @Override
     protected void convert(BaseViewHolder helper, TeYuePingPai.ResultBean.ResultListBean.ListBean item) {
+        helper.addOnClickListener(R.id.bt_pinpai);
         ImageView img_quanbu_logo = helper.getView(R.id.img_quanbu_logo);
         TextView bt_pinpai_guanzhu = helper.getView(R.id.bt_pinpai_guanzhu);
         RequestOptions requestOptions = new RequestOptions().circleCrop();

@@ -33,12 +33,15 @@ public class AddressActivity extends AppCompatActivity {
 
     private RecyclerView rec_shouhuodizhi;
     private int id;
+    private Bundle bundle;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
         id = MyApp.instance.getInt("id");
+        type = getIntent().getStringExtra("下单");
         findViewById(R.id.bt_add_dizhi).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +53,11 @@ public class AddressActivity extends AppCompatActivity {
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent_lg = getIntent();
+                bundle = new Bundle();
+                bundle.putString("地址","0");
+                setResult(RESULT_CANCELED,AddressActivity.this.getIntent().putExtras(bundle));
+                AddressActivity.this.finish();
             }
         });
     }
@@ -105,6 +112,19 @@ public class AddressActivity extends AppCompatActivity {
                 }
             }
         });
+        addRessAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if ("是".equals(type)){
+                    AddRess.ResultBean address = result.get(position);
+                    bundle = new Bundle();
+                    bundle.putString("地址","1");
+                    bundle.putSerializable("地址",address);
+                    setResult(RESULT_CANCELED,AddressActivity.this.getIntent().putExtras(bundle));
+                    AddressActivity.this.finish();
+                }
+            }
+        });
         addRessAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
@@ -123,6 +143,15 @@ public class AddressActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        bundle = new Bundle();
+        bundle.putString("地址","0");
+        setResult(RESULT_CANCELED,AddressActivity.this.getIntent().putExtras(bundle));
+        AddressActivity.this.finish();
+        super.onBackPressed();
     }
 
     private void initDelete(int id) {

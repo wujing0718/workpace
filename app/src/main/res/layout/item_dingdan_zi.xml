@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/dp_12"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_12"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_dingdan_photo"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_dingdan_title"
+                android:text="爱茶之人代购 黄山毛峰顶尖级毛峰 150g 袋装"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_dingdan_guige"
+                android:text="16g"
+                android:textSize="12sp"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_dingdan_price"
+                android:text="¥199.00"
+                android:textSize="17sp"
+                android:layout_marginTop="@dimen/dp_6"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginVertical="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="购买数量"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--使用默认UI属性-->
+        <com.mcxtzhang.lib.AnimShopButton
+            android:id="@+id/amountview"
+            app:hintBgColor="@color/colorBlack"
+            app:hintFgColor="@color/colorWhite"
+            app:addEnableBgColor="@color/colorBlack"
+            app:addEnableFgColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="17dp"
+            app:maxCount="999999" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.huohougongfu.app.View.ChildLiistView
+            android:id="@+id/rec_dingdan_zi"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.huohougongfu.app.View.ChildLiistView>
+
+        <View
+            android:background="#8E8E8E"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="配送方式"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="普通配送"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#818181"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_kuaidi"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="快递 免邮"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <View
+            android:background="#8E8E8E"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="订单备注"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:textSize="@dimen/sp_12"
+                    android:hint="选填，请先和商家协商一致"
+                    android:background="@null"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#818181"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:background="#8E8E8E"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="优惠券"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="满100减50"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#818181"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/img_xiayibu"
+                android:layout_width="14dp"
+                android:layout_height="14dp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#F8F8F8"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+</LinearLayout>

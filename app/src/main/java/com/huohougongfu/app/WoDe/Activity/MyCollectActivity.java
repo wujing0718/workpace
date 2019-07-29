@@ -55,6 +55,7 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
     private TextView mBtnDelete;
     private View ll_mycollection_bottom_dialog;
     private ImageView img_select_all;
+    private View view_collect;
 
 
     @Override
@@ -84,8 +85,12 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
                             if (myCollect.getResult().getList().size()==0){
                                 setBtnBackground(0);
                                 ll_mycollection_bottom_dialog.setVisibility(View.GONE);
+                                view_collect.setVisibility(View.GONE);
+                            }else{
+                                view_collect.setVisibility(View.VISIBLE);
+                                initRec(myCollect.getResult().getList());
+
                             }
-                            initRec(myCollect.getResult().getList());
                         }
                     }
                 });
@@ -103,6 +108,7 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
     }
 
     private void initUI() {
+        view_collect = findViewById(R.id.view_collect);
         ll_mycollection_bottom_dialog = findViewById(R.id.ll_mycollection_bottom_dialog);
         findViewById(R.id.bt_guanli).setOnClickListener(this);
         tv_guanli = findViewById(R.id.tv_guanli);

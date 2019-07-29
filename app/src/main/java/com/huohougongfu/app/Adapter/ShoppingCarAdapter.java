@@ -15,13 +15,25 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShoppingCarDataBean;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
+import com.huohougongfu.app.Utils.Contacts;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.mcxtzhang.lib.AnimShopButton;
 import com.mcxtzhang.lib.IOnAddDelListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +114,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
+
         final ShoppingCarDataBean.ResultBean datasBean = data.get(groupPosition);
         //店铺ID
         String store_id = String.valueOf(datasBean.getId());
@@ -250,10 +263,21 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                      * 实际开发中，如果有被选中的商品，
                      * 则跳转到确认订单页面，完成后续订单流程。
                      */
-                    LogUtils.e(temp.get(0).getName());
-                    Intent intent = new Intent();
-                    intent.setClass(context,XiaDanActivity.class);
-                    startActivity(intent);
+//                    LogUtils.e(temp.get(0).getName());
+                    JSONArray jsonArray = new JSONArray();
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        for (int i = 0; i < temp.size(); i++) {
+                            jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+                            jsonObject.put("productId",temp.get(i).getStoreId());
+                            jsonObject.put("productNum",temp.get(i).getNum());
+                            jsonObject.put("standard",temp.get(i).getStandard());
+                            jsonArray.put(jsonObject);
+                        }
+                        initXiaDan(jsonArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     ToastUtils.showShort("请选择要购买的商品");
                 }
@@ -286,6 +310,26 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         });
         return convertView;
     }
+
+    private void initXiaDan(JSONArray jsonObject) {
+        OkGo.<String>post(Contacts.URl1+"confirmOrder1")
+                .params("json",jsonObject.toString())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
+                        if (shopDingDan.getStatus() == 1){
+                            Intent intent = new Intent();
+                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
+                            intent.setClass(context,XiaDanActivity.class);
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+    }
+
 
     static class GroupViewHolder {
         ImageView ivSelect,img_dianp_logo;

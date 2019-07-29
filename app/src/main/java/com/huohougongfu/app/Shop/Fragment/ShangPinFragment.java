@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.Gson.ShopFuWuGson;
 import com.huohougongfu.app.Gson.ShopGuiGe;
@@ -28,6 +29,7 @@ import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
 import com.huohougongfu.app.PopupView.YouHuiQuan;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.DaShiZhuanChang;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.ShopTuiJianAdapter;
 import com.huohougongfu.app.Utils.Contacts;
@@ -182,6 +184,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
         banner = inflate.findViewById(R.id.banner);
         inflate.findViewById(R.id.bt_detail_lingquan).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_tade_dianpu).setOnClickListener(this);
         bt_detail_fuwu = inflate.findViewById(R.id.bt_detail_fuwu);
         bt_detail_fuwu.setOnClickListener(this);
         inflate.findViewById(R.id.bt_shoucang).setOnClickListener(this);
@@ -209,7 +212,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         Gson gson = new Gson();
                         ShopDetail shopdetail = gson.fromJson(response.body(), ShopDetail.class);
                         if (shopdetail.getStatus() == 1) {
-                             mallProduct = shopdetail.getResult().getProductDetailInfo();
+                            mallProduct = shopdetail.getResult().getProductDetailInfo();
                             initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
                             initRec(shopdetail.getResult().getRecommend());
                             if (mallProduct!=null){
@@ -361,6 +364,16 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                             .show();
                 }
                 break;
+
+            case R.id.bt_tade_dianpu:
+                if (!utils.isDoubleClick()){
+                    Intent intent = new Intent();
+                    intent.putExtra("id",String.valueOf(mallProduct.getStoreId()));
+                    intent.setClass(getActivity(),DiaPuZhuYeActivity.class);
+                    startActivity(intent);
+                }
+                break;
+
             case R.id.bt_detail_fenxiang:
                 if (!utils.isDoubleClick()){
                     UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
@@ -406,24 +419,6 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }
-                });
-    }
-
-    private void JiaRuGouWuChe() {
-        int storeId = mallProduct.getStoreId();
-        Map<String,String> map = new HashMap<>();
-        map.put("productId",String.valueOf(shopid));
-        map.put("storeId",String.valueOf(storeId));
-        map.put("productNum",String.valueOf(3));
-        map.put("createBy",id);
-        map.put("createBy",id);
-        OkGo.<String>post(Contacts.URl1+"")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-
                     }
                 });
     }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
@@ -201,6 +202,14 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         rec_cainixihuan.setLayoutManager(layoutmanager);
         ShangPinTuiJianAdapter shangPinTuiJianAdapter = new ShangPinTuiJianAdapter(R.layout.item_shop_cainixihuan,isSpecial);
         rec_cainixihuan.setAdapter(shangPinTuiJianAdapter);
+        shangPinTuiJianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                intent.putExtra("id",String.valueOf(isSpecial.get(position).getId()));
+                intent.setClass(TeYuePinPaiActivity.this,DiaPuZhuYeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initRec2(List<TeYuePingPai.ResultBean.ResultListBean.ListBean> resultList) {
@@ -226,10 +235,23 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TextView bt_pinpai_guanzhu = view.findViewById(R.id.bt_pinpai_guanzhu);
-                if (resultList.get(position).getIsCollection() == 1){
-                    initNoGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
-                }else{
-                    initGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
+                switch (view.getId()){
+                    case R.id.bt_pinpai:
+                        if (!utils.isDoubleClick()){
+                            intent.putExtra("id",String.valueOf(resultList.get(position).getId()));
+                            intent.setClass(TeYuePinPaiActivity.this,DiaPuZhuYeActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.bt_pinpai_guanzhu:
+                        if (!utils.isDoubleClick()){
+                            if (resultList.get(position).getIsCollection() == 1){
+                                initNoGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
+                            }else{
+                                initGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
+                            }
+                        }
+                        break;
                 }
             }
         });

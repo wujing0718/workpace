@@ -67,7 +67,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         Gson gson = new Gson();
                         MyZhuYe xinxi = gson.fromJson(body, MyZhuYe.class);
                         if (xinxi.getStatus() == 1){
-                            initView(xinxi.getResult());
+                            if (xinxi.getResult()!=null){
+                                initView(xinxi.getResult());
+                            }
                         }
                     }
                 });

@@ -10,7 +10,9 @@ import android.view.View;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
+import com.huohougongfu.app.Fragment.HuDongFragment;
 import com.huohougongfu.app.Fragment.SiLiaoFragment;
+import com.huohougongfu.app.Fragment.XiTongFragment;
 import com.huohougongfu.app.Gson.RongYunUsetInfo;
 import com.huohougongfu.app.QuanZi.Fragment.FaXianFragment;
 import com.huohougongfu.app.QuanZi.Fragment.GuanZhuFragment;
@@ -55,8 +57,8 @@ public class XiaoXiActivity extends AppCompatActivity {
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
         mFragments.add(SiLiaoFragment.newInstance(""));
-        mFragments.add(TongChengFragment.newInstance(""));
-        mFragments.add(GuanZhuFragment.newInstance("zhengce"));
+        mFragments.add(HuDongFragment.newInstance(""));
+        mFragments.add(XiTongFragment.newInstance("zhengce"));
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
         }
