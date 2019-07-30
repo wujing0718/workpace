@@ -144,13 +144,15 @@
                     android:layout_height="wrap_content">
                     
                     <ImageView
-                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/img_dianpu_shopguanli"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
 
                     <TextView
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="商品管理"
+                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/colorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -172,12 +174,14 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/img_dianpu_dingdanguanli"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
 
                     <TextView
                         android:layout_marginTop="@dimen/dp_10"
+                        android:layout_gravity="center_horizontal"
                         android:text="订单管理"
                         android:textColor="@color/colorBlack"
                         android:layout_width="wrap_content"
@@ -208,12 +212,14 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/img_dianpu_shoppingjia"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
 
                     <TextView
                         android:layout_marginTop="@dimen/dp_10"
+                        android:layout_gravity="center_horizontal"
                         android:text="商品评价"
                         android:textColor="@color/colorBlack"
                         android:layout_width="wrap_content"
@@ -236,11 +242,13 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/img_dianpu_tongji"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
 
                     <TextView
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="营业额统计"
                         android:textColor="@color/colorBlack"
@@ -273,13 +281,15 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/img_dianpu_setting"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
 
                     <TextView
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="店铺设置"
+                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/colorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -301,13 +311,15 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/img_dianpu_zhiyin"
                         android:layout_width="60dp"
                         android:layout_height="60dp" />
 
                     <TextView
                         android:layout_marginTop="@dimen/dp_10"
                         android:text="新手指引"
+                        android:layout_gravity="center_horizontal"
                         android:textColor="@color/colorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

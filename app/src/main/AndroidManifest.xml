@@ -232,7 +232,9 @@
         <activity android:name=".ShouYe.Activity.ChaTaiDingDanDetail" />
         <activity android:name=".Shop.Activity.LeiMuDetailActivity" />
         <activity android:name=".Activity.DiaPuZhuYeActivity" />
-        <activity android:name=".WoDe.Activity.MyDianPuActivity"></activity>
+        <activity android:name=".WoDe.Activity.MyDianPuActivity" />
+        <activity android:name=".WoDe.Activity.DingDanGuanLi" />
+        <activity android:name=".WoDe.Activity.ShopPingJiaActivity"></activity>
     </application>
 
 </manifest>

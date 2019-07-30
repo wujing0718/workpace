@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.ShopPingJiaActivity">
+
+    <RelativeLayout
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/dp_44">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="商品评价"
+            android:textSize="17sp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_shop_pingjia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <include
+        layout="@layout/include_zhanweitu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
