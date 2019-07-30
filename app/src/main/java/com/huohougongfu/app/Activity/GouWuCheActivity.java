@@ -134,15 +134,15 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
         boolean hasSelect = false;
         //创建临时的List，用于存储没有被选中的购物车数据
         String str = "";
-        for (int i = 0; i < datas.size(); i++) {
-            List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = datas.get(i).getProducts();
-            boolean isSelect_shop = datas.get(i).getIsSelect_shop();
+        for (int i = 0; i < datas.get(0).getMallStores().size(); i++) {
+            List<ShoppingCarDataBean.ResultBean.MallStoresBean> mallStores = datas.get(0).getMallStores();
+            boolean isSelect_shop = mallStores.get(i).getIsSelect_shop();
             if (isSelect_shop) {
-                for (int y = 0; y < goods.size(); y++) {
-                    ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
-                    boolean isSelect = goodsBean.getIsSelect();
+                for (int y = 0; y < mallStores.get(i).getMallProducts().size(); y++) {
+                    ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean mallProductsBean = mallStores.get(i).getMallProducts().get(y);
+                    boolean isSelect = mallProductsBean.getIsSelect();
                     if (isSelect) {
-                        str += goods.get(y).getId()+",";
+                        str += mallProductsBean.getId()+",";
                         hasSelect = true;
                     }
                 }
@@ -153,11 +153,11 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
 //                datasTemp.add(datas.get(i).clone());
 //                datasTemp.get(datasTemp.size() - 1).setProducts(new ArrayList<ShoppingCarDataBean.ResultBean.ProductsBean>());
             }
-            for (int y = 0; y < goods.size(); y++) {
-                ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
+            for (int y = 0; y < mallStores.get(i).getMallProducts().size(); y++) {
+                ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = mallStores.get(i).getMallProducts().get(y);
                 boolean isSelect = goodsBean.getIsSelect();
                 if (isSelect) {
-                    str += goods.get(y).getId()+",";
+                    str += goodsBean.getId()+",";
                     hasSelect = true;
                 }else{
                 }
@@ -204,7 +204,7 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
         map.put("createBy",id);
         map.put("token",token);
         map.put("tel",tel);
-        OkGo.<String>get(Contacts.URl2+"selectCart")
+        OkGo.<String>get(Contacts.URl2+"queryCartByCreate")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -228,7 +228,7 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
     private void initExpandableListViewData(List<ShoppingCarDataBean.ResultBean> datas) {
         if (datas != null && datas.size() > 0) {
             //刷新数据时，保持当前位置
-            shoppingCarAdapter.setData(datas);
+            shoppingCarAdapter.setData(datas.get(0).getMallStores());
             //使所有组展开
             for (int i = 0; i < shoppingCarAdapter.getGroupCount(); i++) {
                 elvShoppingCar.expandGroup(i);
@@ -271,15 +271,15 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
         boolean hasSelect = false;
         //创建临时的List，用于存储没有被选中的购物车数据
         String str = "";
-        for (int i = 0; i < datas.size(); i++) {
-            List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = datas.get(i).getProducts();
-            boolean isSelect_shop = datas.get(i).getIsSelect_shop();
+        for (int i = 0; i < datas.get(0).getMallStores().size(); i++) {
+            ShoppingCarDataBean.ResultBean.MallStoresBean goods = datas.get(0).getMallStores().get(i);
+            boolean isSelect_shop = goods.getIsSelect_shop();
             if (isSelect_shop) {
-                for (int y = 0; y < goods.size(); y++) {
-                    ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
-                    boolean isSelect = goodsBean.getIsSelect();
+                for (int y = 0; y < goods.getMallProducts().size(); y++) {
+                    List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goodsBean = datas.get(0).getMallStores().get(i).getMallProducts();
+                    boolean isSelect = goodsBean.get(y).getIsSelect();
                     if (isSelect) {
-                        str += datas.get(i).getCartId()+",";
+                        str += goodsBean.get(y).getCartId()+",";
                         hasSelect = true;
                     }
                 }
@@ -290,11 +290,11 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
 //                datasTemp.add(datas.get(i).clone());
 //                datasTemp.get(datasTemp.size() - 1).setProducts(new ArrayList<ShoppingCarDataBean.ResultBean.ProductsBean>());
             }
-            for (int y = 0; y < goods.size(); y++) {
-                ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
-                boolean isSelect = goodsBean.getIsSelect();
+            for (int y = 0; y < goods.getMallProducts().size(); y++) {
+                List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goodsBean = datas.get(0).getMallStores().get(i).getMallProducts();
+                boolean isSelect = goodsBean.get(y).getIsSelect();
                 if (isSelect) {
-                    str += goods.get(y).getId()+",";
+                    str += goodsBean.get(y).getCartId()+",";
                     hasSelect = true;
                 }else{
                 }

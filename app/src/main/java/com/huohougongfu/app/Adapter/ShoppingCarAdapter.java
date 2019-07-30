@@ -56,7 +56,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
     private final Button btnDelete,bt_shoucangjia;
     private final RelativeLayout rlTotalPrice;
     private final TextView tvTotalPrice;
-    private List<ShoppingCarDataBean.ResultBean> data;
+    private List<ShoppingCarDataBean.ResultBean.MallStoresBean> data;
     private boolean isSelectAll = false;
     private double total_price;
 
@@ -74,14 +74,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
 
     }
 
-    /**
-     * 自定义设置数据方法；
-     * 通过notifyDataSetChanged()刷新数据，可保持当前位置
-     *
-     * @param data 需要刷新的数据
-     */
-    public void setData(List<ShoppingCarDataBean.ResultBean> data) {
-        this.data = data;
+    public void setData(List<ShoppingCarDataBean.ResultBean.MallStoresBean> mallStores) {
+        this.data = mallStores;
         notifyDataSetChanged();
     }
 
@@ -115,7 +109,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
 
-        final ShoppingCarDataBean.ResultBean datasBean = data.get(groupPosition);
+        final ShoppingCarDataBean.ResultBean.MallStoresBean datasBean = data.get(groupPosition);
         //店铺ID
         String store_id = String.valueOf(datasBean.getId());
         //店铺名称
@@ -135,8 +129,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         }
 
         //店铺内的商品都选中的时候，店铺的也要选中
-        for (int i = 0; i < datasBean.getProducts().size(); i++) {
-            ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = datasBean.getProducts().get(i);
+        for (int i = 0; i < datasBean.getMallProducts().size(); i++) {
+            ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = datasBean.getMallProducts().get(i);
             boolean isSelect = goodsBean.getIsSelect();
             if (isSelect) {
                 datasBean.setIsSelect_shop(true);
@@ -162,9 +156,9 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 datasBean.setIsSelect_shop(!isSelect_shop);
 
-                List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = datasBean.getProducts();
+                List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goods = datasBean.getMallProducts();
                 for (int i = 0; i < goods.size(); i++) {
-                    ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(i);
+                    ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = goods.get(i);
                     goodsBean.setIsSelect(!isSelect_shop);
                 }
                 notifyDataSetChanged();
@@ -174,9 +168,9 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         //当所有的选择框都是选中的时候，全选也要选中
         w:
         for (int i = 0; i < data.size(); i++) {
-            List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = data.get(i).getProducts();
+            List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goods = data.get(i).getMallProducts();
             for (int y = 0; y < goods.size(); y++) {
-                ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
+                ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = goods.get(y);
                 boolean isSelect = goodsBean.getIsSelect();
                 if (isSelect) {
                     isSelectAll = true;
@@ -199,17 +193,17 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                 isSelectAll = !isSelectAll;
                 if (isSelectAll) {
                     for (int i = 0; i < data.size(); i++) {
-                        List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = data.get(i).getProducts();
+                        List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goods = data.get(i).getMallProducts();
                         for (int y = 0; y < goods.size(); y++) {
-                            ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
+                            ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = goods.get(y);
                             goodsBean.setIsSelect(true);
                         }
                     }
                 } else {
                     for (int i = 0; i < data.size(); i++) {
-                        List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = data.get(i).getProducts();
+                        List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goods = data.get(i).getMallProducts();
                         for (int y = 0; y < goods.size(); y++) {
-                            ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
+                            ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = goods.get(y);
                             goodsBean.setIsSelect(false);
                         }
                     }
@@ -222,12 +216,12 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         total_price = 0.0;
         tvTotalPrice.setText("¥0.00");
         for (int i = 0; i < data.size(); i++) {
-            List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = data.get(i).getProducts();
+            List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goods = data.get(i).getMallProducts();
             for (int y = 0; y < goods.size(); y++) {
-                ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
+                ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = goods.get(y);
                 boolean isSelect = goodsBean.getIsSelect();
                 if (isSelect) {
-                    String num = String.valueOf(goodsBean.getNum());
+                    String num = String.valueOf(goodsBean.getCartProductNum());
                     String price = String.valueOf(goodsBean.getPrice());
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
@@ -246,11 +240,11 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 //创建临时的List，用于存储被选中的商品
-                List<ShoppingCarDataBean.ResultBean.ProductsBean> temp = new ArrayList<>();
+                List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> temp = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) {
-                    List<ShoppingCarDataBean.ResultBean.ProductsBean> goods = data.get(i).getProducts();
+                    List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goods = data.get(i).getMallProducts();
                     for (int y = 0; y < goods.size(); y++) {
-                        ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = goods.get(y);
+                        ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = goods.get(y);
                         boolean isSelect = goodsBean.getIsSelect();
                         if (isSelect) {
                             temp.add(goodsBean);
@@ -347,8 +341,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
     //------------------------------------------------------------------------------------------------
     @Override
     public int getChildrenCount(int groupPosition) {
-        if (data.get(groupPosition).getProducts() != null && data.get(groupPosition).getProducts().size() > 0) {
-            return data.get(groupPosition).getProducts().size();
+        if (data.get(groupPosition).getMallProducts() != null && data.get(groupPosition).getMallProducts().size() > 0) {
+            return data.get(groupPosition).getMallProducts().size();
         } else {
             return 0;
         }
@@ -356,7 +350,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return data.get(groupPosition).getProducts().get(childPosition);
+        return data.get(groupPosition).getMallProducts().get(childPosition);
     }
 
     @Override
@@ -374,14 +368,14 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        final ShoppingCarDataBean.ResultBean datasBean = data.get(groupPosition);
+        ShoppingCarDataBean.ResultBean.MallStoresBean mallStoresBean = data.get(groupPosition);
         //店铺ID
-        String store_id = String.valueOf(datasBean.getId());
+        String store_id = String.valueOf(mallStoresBean.getId());
         //店铺名称
-        String store_name = datasBean.getStoreName();
+        String store_name = mallStoresBean.getStoreName();
         //店铺是否在购物车中被选中
-        final boolean isSelect_shop = datasBean.getIsSelect_shop();
-        final ShoppingCarDataBean.ResultBean.ProductsBean goodsBean = datasBean.getProducts().get(childPosition);
+        final boolean isSelect_shop = mallStoresBean.getIsSelect_shop();
+        ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = mallStoresBean.getMallProducts().get(childPosition);
         //商品图片
         String goods_image = goodsBean.getCoverUrl();
         //商品ID
@@ -391,7 +385,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         //商品价格
         String goods_price = String.valueOf(goodsBean.getPrice());
         //商品数量
-        String goods_num = String.valueOf(goodsBean.getNum());
+        String goods_num = String.valueOf(goodsBean.getCartProductNum());
         //商品是否被选中
         final boolean isSelect = goodsBean.getIsSelect();
         String standard = goodsBean.getStandard();
@@ -416,8 +410,9 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             childViewHolder.tvPriceValue.setText("");
         }
         if (goods_num != null) {
-            childViewHolder.amountview.setCount(goodsBean.getNum());
-            childViewHolder.amountview.setMaxCount(goodsBean.getStock());
+            childViewHolder.amountview.setCount(goodsBean.getCartProductNum());
+            childViewHolder.amountview.setMaxCount(99999);
+//            childViewHolder.amountview.setMaxCount(goodsBean.getStock());
         } else {
         }
 
@@ -434,7 +429,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 goodsBean.setIsSelect(!isSelect);
                 if (!isSelect == false) {
-                    datasBean.setIsSelect_shop(false);
+                    mallStoresBean.setIsSelect_shop(false);
                 }
                 notifyDataSetChanged();
             }
@@ -442,7 +437,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {
             @Override
             public void onAddSuccess(int i) {
-                goodsBean.setNum(i);
+                goodsBean.setCartProductNum(i);
                 goodsBean.setIsSelect(true);
                 notifyDataSetChanged();
             }
@@ -455,12 +450,12 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             @Override
             public void onDelSuccess(int i) {
                 if (i == 0){
-                    datasBean.setIsSelect_shop(false);
+                    mallStoresBean.setIsSelect_shop(false);
                     goodsBean.setIsSelect(false);
                     childViewHolder.amountview.setCount(0);
                     notifyDataSetChanged();
                 }else{
-                    goodsBean.setNum(i);
+                    goodsBean.setCartProductNum(i);
                     goodsBean.setIsSelect(true);
                     notifyDataSetChanged();
                 }
@@ -472,7 +467,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        if (childPosition == data.get(groupPosition).getProducts().size() - 1) {
+        if (childPosition == data.get(groupPosition).getMallProducts().size() - 1) {
             childViewHolder.view1.setVisibility(View.GONE);
             childViewHolder.viewLast.setVisibility(View.VISIBLE);
         } else {

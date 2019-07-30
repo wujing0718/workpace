@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.MyZhuYe;
 import com.huohougongfu.app.Gson.RongYunUsetInfo;
@@ -23,6 +24,7 @@ import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.MyCollectActivity;
+import com.huohougongfu.app.WoDe.Activity.MyDianPuActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDongTaiActivity;
 import com.huohougongfu.app.WoDe.Activity.SettingActivity;
@@ -32,6 +34,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 import io.rong.imkit.RongIM;
@@ -78,7 +82,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
-        OkGo.<String>get(Contacts.URl1+"/homepage/info/"+id)
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(id));
+        map.put("userId",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl1+"/homepage/info/")
+                .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -171,6 +179,18 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             case R.id.bt_setting:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),SettingActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_my_gouwuche:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),GouWuCheActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_my_dianpu:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),MyDianPuActivity.class);
                     startActivity(intent);
                 }
                 break;

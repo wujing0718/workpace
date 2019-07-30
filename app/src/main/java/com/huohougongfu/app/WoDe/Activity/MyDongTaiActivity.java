@@ -86,45 +86,50 @@ public class MyDongTaiActivity extends AppCompatActivity {
     }
 
     private void initRec(List<MyDongTai.ResultBean.ListBean> list) {
-        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
-        LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
-        rec_wode_dongtai.setLayoutManager(layoutmanager);
-         myDongTaiAdapter = new MyDongTaiAdapter(R.layout.item_wode_dongtai,list,MyDongTaiActivity.this);
-        rec_wode_dongtai.setAdapter(myDongTaiAdapter);
-        myDongTaiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (list.get(position).getType() == 2){
-                    Intent intent = new Intent();
-                    intent.putExtra("dId",list.get(position).getId());
-                    startActivity(intent.setClass(MyDongTaiActivity.this,WenZhangDetailActivity.class));
-                }else if(list.get(position).getType() == 1){
-                    Intent intent = new Intent();
-                    intent.putExtra("dId",list.get(position).getId());
-                    startActivity(intent.setClass(MyDongTaiActivity.this,QuanZiDetailActivity.class));
-                }else if (list.get(position).getType() == 3){
-                    Intent intent = new Intent();
-                    intent.putExtra("动态视频",list.get(position));
-                    intent.putExtra("position",position);
-                    intent.putExtra("dId",list.get(position).getId());
-                    startActivity(intent.setClass(MyDongTaiActivity.this,VedioDetailActivity.class));
+        if (list.size()>0){
+            smartrefreshlayout.setVisibility(View.VISIBLE);
+//创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+            LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
+            rec_wode_dongtai.setLayoutManager(layoutmanager);
+            myDongTaiAdapter = new MyDongTaiAdapter(R.layout.item_wode_dongtai,list,MyDongTaiActivity.this);
+            rec_wode_dongtai.setAdapter(myDongTaiAdapter);
+            myDongTaiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    if (list.get(position).getType() == 2){
+                        Intent intent = new Intent();
+                        intent.putExtra("dId",list.get(position).getId());
+                        startActivity(intent.setClass(MyDongTaiActivity.this,WenZhangDetailActivity.class));
+                    }else if(list.get(position).getType() == 1){
+                        Intent intent = new Intent();
+                        intent.putExtra("dId",list.get(position).getId());
+                        startActivity(intent.setClass(MyDongTaiActivity.this,QuanZiDetailActivity.class));
+                    }else if (list.get(position).getType() == 3){
+                        Intent intent = new Intent();
+                        intent.putExtra("动态视频",list.get(position));
+                        intent.putExtra("position",position);
+                        intent.putExtra("dId",list.get(position).getId());
+                        startActivity(intent.setClass(MyDongTaiActivity.this,VedioDetailActivity.class));
+                    }
                 }
-            }
-        });
-        //刷新
-        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                initData();
-            }
-        });
-        //加载更多
-        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                initAdd();
-            }
-        });
+            });
+            //刷新
+            smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(RefreshLayout refreshlayout) {
+                    initData();
+                }
+            });
+            //加载更多
+            smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+                @Override
+                public void onLoadmore(RefreshLayout refreshlayout) {
+                    initAdd();
+                }
+            });
+        }else{
+            smartrefreshlayout.setVisibility(View.GONE);
+        }
     }
 
     private void initAdd() {

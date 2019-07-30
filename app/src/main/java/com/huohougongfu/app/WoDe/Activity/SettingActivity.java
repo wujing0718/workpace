@@ -30,6 +30,8 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
@@ -59,7 +61,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initData() {
-        OkGo.<String>get(Contacts.URl1+"/homepage/info/"+id)
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(id));
+        map.put("userId",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl1+"/homepage/info/")
+                .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

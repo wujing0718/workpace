@@ -340,7 +340,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_kefu:
                 if (!utils.isDoubleClick()){
-                    initShouCang();
+//                    initShouCang();
                 }
                 break;
             case R.id.bt_detail_guige:
@@ -397,9 +397,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initShouCang() {
         Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(id));
-        map.put("storeId",String.valueOf(mallProduct.getStoreId()));
-        OkGo.<String>post(Contacts.URl2+"collectionStore")
+        map.put("pids",String.valueOf(shopid));
+        map.put("mId",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl2+"moveToCollection")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

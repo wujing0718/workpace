@@ -202,7 +202,7 @@ public class DaShiZhuanChang extends AppCompatActivity {
         daShiLikeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                intent.putExtra("id",String.valueOf(yourLike.get(position).getStoreId()));
+                intent.putExtra("id",String.valueOf(yourLike.get(position).getId()));
                 intent.setClass(DaShiZhuanChang.this,DiaPuZhuYeActivity.class);
                 startActivity(intent);
             }
