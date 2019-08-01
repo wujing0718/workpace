@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Shop.Activity.DianPuSettingActivity">
+    tools:context=".WoDe.Activity.DianPuSettingActivity">
 
     <RelativeLayout
         android:background="@color/colorBlack"
@@ -14,6 +14,7 @@
         android:layout_height="@dimen/dp_44">
 
         <RelativeLayout
+            android:id="@+id/bt_finish"
             android:layout_width="@dimen/dp_50"
             android:layout_height="44dp">
 

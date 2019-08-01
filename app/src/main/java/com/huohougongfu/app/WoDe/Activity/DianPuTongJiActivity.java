@@ -22,6 +22,12 @@ public class DianPuTongJiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dian_pu_tong_ji);
+        findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         findViewById(R.id.bt_tongji_riqi).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

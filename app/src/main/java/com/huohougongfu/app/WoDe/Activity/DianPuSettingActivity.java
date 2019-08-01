@@ -1,4 +1,4 @@
-package com.huohougongfu.app.Shop.Activity;
+package com.huohougongfu.app.WoDe.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.TeBieShuoMingActivity;
 import com.huohougongfu.app.Utils.utils;
-import com.huohougongfu.app.WoDe.Activity.DianPuMainJianActivity;
-import com.huohougongfu.app.WoDe.Activity.FuWuXuanXiangActivity;
-import com.huohougongfu.app.WoDe.Activity.YunFeiSettingActivity;
 
 public class DianPuSettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,7 +30,7 @@ public class DianPuSettingActivity extends AppCompatActivity implements View.OnC
         findViewById(R.id.bt_dianpu_fuwuxuanxiang).setOnClickListener(this);
         findViewById(R.id.bt_dianpu_yunfei_setting).setOnClickListener(this);
         findViewById(R.id.bt_dianpu_manjian_youhui).setOnClickListener(this);
-
+        findViewById(R.id.bt_finish).setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +64,9 @@ public class DianPuSettingActivity extends AppCompatActivity implements View.OnC
                     intent.setClass(DianPuSettingActivity.this,DianPuMainJianActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.bt_finish:
+                finish();
                 break;
         }
     }

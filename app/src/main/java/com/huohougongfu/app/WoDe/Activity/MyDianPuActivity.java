@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.Shop.Activity.DianPuSettingActivity;
 import com.huohougongfu.app.Utils.utils;
 
 public class MyDianPuActivity extends AppCompatActivity implements View.OnClickListener {

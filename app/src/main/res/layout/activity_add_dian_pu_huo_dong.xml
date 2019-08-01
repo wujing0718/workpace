@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.AddDianPuHuoDongActivity">
+
+    <RelativeLayout
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="50dp"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:src="@mipmap/img_back_white"
+                android:layout_centerInParent="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="添加店铺活动"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/bt_wancheng"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/tv_guanli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="完成"
+                android:textColor="@color/colorWhite"
+                android:textSize="17sp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginHorizontal="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_huodongmingcheng"
+                android:text="活动名称"
+                android:textColor="@color/colorBlack"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_centerVertical="true"
+                android:hint="请输入名称"
+                android:textSize="14sp"
+                android:gravity="right|center_vertical"
+                android:layout_toRightOf="@+id/tv_huodongmingcheng"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:background="#E8E8E8"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <RelativeLayout
+            android:id="@+id/starttime"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:text="开始时间"
+                android:textColor="@color/colorBlack"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_starttime"
+                    android:text=""
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="@dimen/dp_8"
+                    android:layout_height="13dp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:background="#E8E8E8"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <RelativeLayout
+            android:id="@+id/oldertime"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:text="结束时间"
+                android:textColor="@color/colorBlack"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_endtime"
+                    android:text=""
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/img_xiayibu"
+                    android:layout_width="@dimen/dp_8"
+                    android:layout_height="13dp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:background="#E8E8E8"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:text="满减金额"
+                android:textColor="@color/colorBlack"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="满"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:hint="输入金额"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="@dimen/dp_4"
+                    android:background="@drawable/shuru_kuang"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:text="减"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:hint="输入金额"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="@dimen/dp_4"
+                    android:background="@drawable/shuru_kuang"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

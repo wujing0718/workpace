@@ -62,7 +62,7 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
     @NonNull
     @Override
     public DianPuHuoDongAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_my_collect, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_dianpu_huodong_guanli, viewGroup, false);
         DianPuHuoDongAdapter.ViewHolder holder = new DianPuHuoDongAdapter.ViewHolder(view);
         return holder;
     }

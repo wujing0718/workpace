@@ -1,6 +1,7 @@
 package com.huohougongfu.app.WoDe.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -145,6 +146,10 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.bt_finish:
                 finish();
+                break;
+            case R.id.bt_dianpu_tianjia_huodong:
+                Intent intent = new Intent();
+                startActivity(intent.setClass(DianPuMainJianActivity.this,AddDianPuHuoDongActivity.class));
                 break;
         }
     }
