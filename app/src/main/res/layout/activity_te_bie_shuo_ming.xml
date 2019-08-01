@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Shop.Activity.TeBieShuoMingActivity">
+
+    <RelativeLayout
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:textColor="@color/colorWhite"
+            android:text="特别说明"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/bt_queding"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="44dp">
+
+            <TextView
+                android:text="确定"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edt_fankui"
+        android:gravity="top"
+        android:layout_marginTop="@dimen/dp_40"
+        android:padding="@dimen/dp_10"
+        android:maxLength="100"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:hint="请输入特别说明"
+        android:textSize="12sp"
+        android:background="@drawable/black_kuang"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200" />
+
+    <TextView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_gravity="right"
+        android:text="(最多100字)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

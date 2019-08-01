@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.DianPuSettingActivity;
 import com.huohougongfu.app.Utils.utils;
 
 public class MyDianPuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -52,6 +53,18 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
             case R.id.bt_my_dianpu_shoppingjia:
                 if (!utils.isDoubleClick()){
                     intent.setClass(MyDianPuActivity.this,ShopPingJiaActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_my_dianpu_tongji:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(MyDianPuActivity.this,DianPuTongJiActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_my_dianpu_setting:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(MyDianPuActivity.this,DianPuSettingActivity.class);
                     startActivity(intent);
                 }
                 break;

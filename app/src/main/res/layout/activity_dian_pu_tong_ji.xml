@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.DianPuTongJiActivity">
+
+    <RelativeLayout
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/dp_44">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="营业额统计"
+            android:textSize="17sp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="290dp" />
+
+    <LinearLayout
+        android:id="@+id/bt_tongji_riqi"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="2019-7-8"
+            android:textColor="@color/colorBlack"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_26"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_40"
+            android:textColor="@color/colorBlack"
+            android:text="本周总营业额：1888.88元"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="@dimen/dp_36"
+            android:textSize="17sp"
+            android:text="本月总营业额：1888.88元"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

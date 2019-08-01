@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.FuWuXuanXiangActivity">
+
+    <RelativeLayout
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="服务选项"
+            android:textColor="@color/colorWhite"
+            android:layout_centerInParent="true"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorWhite"
+                android:text="确定"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bt_xinyongka"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:text="支持信用卡支付"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:textColor="@color/colorBlack"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/img_check_xinyongka"
+            android:src="@mipmap/unselect"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="16dp"
+            android:layout_height="16dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:background="#E8E8E8"
+        android:layout_marginHorizontal="@dimen/dp_15"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"/>
+
+    <RelativeLayout
+        android:id="@+id/bt_xuanze_time"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:text="发货时间"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:textColor="@color/colorBlack"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+       <RelativeLayout
+           android:layout_marginRight="@dimen/dp_15"
+           android:layout_alignParentRight="true"
+           android:layout_centerVertical="true"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:id="@+id/tv_fahuo_time"
+               android:text="24小时内"
+               android:layout_marginRight="15dp"
+               android:textColor="#A0A0A0"
+               android:layout_centerVertical="true"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+
+           <ImageView
+               android:layout_centerVertical="true"
+               android:layout_toRightOf="@+id/tv_fahuo_time"
+               android:src="@mipmap/img_xiayibu"
+               android:layout_width="8dp"
+               android:layout_height="@dimen/dp_13" />
+
+       </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

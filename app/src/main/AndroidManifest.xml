@@ -234,7 +234,16 @@
         <activity android:name=".Activity.DiaPuZhuYeActivity" />
         <activity android:name=".WoDe.Activity.MyDianPuActivity" />
         <activity android:name=".WoDe.Activity.DingDanGuanLi" />
-        <activity android:name=".WoDe.Activity.ShopPingJiaActivity"></activity>
+        <activity android:name=".WoDe.Activity.ShopPingJiaActivity" />
+        <activity android:name=".WoDe.Activity.DianPuTongJiActivity" />
+        <activity android:name=".Shop.Activity.DianPuSettingActivity" />
+        <activity android:name=".Shop.Activity.TeBieShuoMingActivity" />
+        <activity android:name=".WoDe.Activity.FuWuXuanXiangActivity" />
+        <activity
+            android:name=".WoDe.Activity.YunFeiSettingActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".WoDe.Activity.DiQuXuanZeActivity" />
+        <activity android:name=".WoDe.Activity.DianPuMainJianActivity"></activity>
     </application>
 
 </manifest>
