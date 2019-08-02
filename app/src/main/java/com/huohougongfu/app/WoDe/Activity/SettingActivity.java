@@ -147,7 +147,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.bt_renzheng:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(SettingActivity.this,RenZhengActivity.class);
+                    intent.setClass(SettingActivity.this,RealNameActivity.class);
                     startActivity(intent);
                 }
                 break;

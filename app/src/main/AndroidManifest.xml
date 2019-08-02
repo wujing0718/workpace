@@ -218,7 +218,6 @@
         <activity
             android:name=".Shop.Activity.XiaDanActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".WoDe.Activity.RenZhengActivity" />
         <activity android:name=".WoDe.Activity.AnQuanZhongXinActivity" />
         <activity android:name=".WoDe.Activity.XiuGaiMiMaActivity" />
         <activity android:name=".WoDe.Activity.OboutActivity" />
@@ -244,7 +243,11 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".WoDe.Activity.DiQuXuanZeActivity" />
         <activity android:name=".WoDe.Activity.DianPuMainJianActivity" />
-        <activity android:name=".WoDe.Activity.AddDianPuHuoDongActivity"></activity>
+        <activity android:name=".WoDe.Activity.AddDianPuHuoDongActivity" />
+        <activity
+            android:name=".WoDe.Activity.RealNameActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".WoDe.Activity.ChaShiRenZhengActivity"></activity>
     </application>
 
 </manifest>

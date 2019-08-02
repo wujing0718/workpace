@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.RealNameActivity">
+
+    <RelativeLayout
+        android:id="@+id/view_renzheng_tab"
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/dp_44">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="认证"
+            android:textSize="17sp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/view_renzheng_tab"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="165dp" />
+
+            <include
+                android:layout_gravity="bottom"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_50"
+                layout="@layout/item_gerenrenzheng"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <include
+                android:layout_gravity="center"
+                layout="@layout/item_shenfenleixing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/bt_tijiao"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBlack"
+        android:text="提交"
+        android:textSize="17sp"
+        android:textColor="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44" />
+
+</RelativeLayout>

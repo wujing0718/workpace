@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:text="姓名"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_16"
+            android:id="@+id/tv_xingie"
+            android:text="性别"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_16"
+            android:id="@+id/tv_shengri"
+            android:text="生日"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_16"
+            android:id="@+id/tv_youxiang"
+            android:text="邮箱"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_16"
+            android:id="@+id/tv_shenfenzheng"
+            android:text="身份证号"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40">
+
+            <EditText
+                android:id="@+id/edt_renzheng_name"
+                android:hint="请输入姓名"
+                android:layout_marginLeft="@dimen/dp_42"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/dp_10"
+                android:textColorHint="#818181"
+                android:textSize="14sp"
+                android:background="@drawable/black_kuang"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40">
+
+
+            <TextView
+                android:id="@+id/bt_xingbie_xuanze"
+                android:text="请选择性别"
+                android:paddingLeft="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:textColor="#818181"
+                android:layout_marginLeft="@dimen/dp_42"
+                android:layout_centerVertical="true"
+                android:background="@drawable/black_kuang"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40">
+
+            <TextView
+                android:id="@+id/bt_shengri_xuanze"
+                android:text="请选择生日"
+                android:paddingLeft="@dimen/dp_10"
+                android:textSize="14sp"
+                android:textColor="#818181"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_42"
+                android:layout_centerVertical="true"
+                android:background="@drawable/black_kuang"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40">
+
+            <EditText
+                android:id="@+id/edt_renzheng_youxiang"
+                android:hint="请输入邮箱"
+                android:textColorHint="#818181"
+                android:textSize="14sp"
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_42"
+                android:layout_centerVertical="true"
+                android:background="@drawable/black_kuang"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40">
+
+            <EditText
+                android:id="@+id/edt_renzheng_shenfenzheng"
+                android:hint="请输入身份证号"
+                android:textColorHint="#818181"
+                android:textSize="14sp"
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_42"
+                android:layout_centerVertical="true"
+                android:background="@drawable/black_kuang"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
