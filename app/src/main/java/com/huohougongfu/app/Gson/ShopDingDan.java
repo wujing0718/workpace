@@ -5,7 +5,6 @@ import java.util.List;
 
 public class ShopDingDan implements Serializable {
 
-
     private String msg;
     private ResultBean result;
     private int status;
@@ -35,11 +34,6 @@ public class ShopDingDan implements Serializable {
     }
 
     public static class ResultBean implements Serializable{
-        /**
-         * teaRice : 36957.0
-         * orderList : [{"id":null,"orderId":"d201907271121440062841","attrFirstId":null,"attrSecondId":null,"standard":"11","productId":19,"storeId":null,"productPrice":2,"productDiscountPrice":null,"discount":null,"productName":"测试19","productPicUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","productSkuData":null,"productNum":1,"subtotal":null,"integral":0,"createBy":43,"createTime":"2019-07-27T03:21:44.000+0000","updateBy":null,"updateTime":null,"payStatus":0,"delayReceiveDay":null,"escrowTradeNo":null,"outTradeNo":null,"payChannel":null,"payTime":null,"mallStores":[{"id":null,"storeLogo":null,"storeName":null,"info":null,"year":null,"favorableRate":null,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"mallProducts":[{"id":19,"name":"测试19","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":2,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"num":1,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":"11","transportTemplate":{"id":5,"name":"中通","priceType":1,"deliveryType":1,"delFlag":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"defaultTransCost":null}}],"ccoverUrl":null}],"cartId":null}]
-         * defaultAddress : {"id":null,"provinceId":null,"provinceName":"吉林省","cityId":null,"cityName":"吉林省","areaId":null,"areaName":"九台市","detailAddr":"行logo你这女","receiverName":"灏盟","phone":"13111111111","isDefault":1,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null}
-         */
 
         private double teaRice;
         private DefaultAddressBean defaultAddress;
@@ -70,25 +64,8 @@ public class ShopDingDan implements Serializable {
         }
 
         public static class DefaultAddressBean implements Serializable{
-            /**
-             * id : null
-             * provinceId : null
-             * provinceName : 吉林省
-             * cityId : null
-             * cityName : 吉林省
-             * areaId : null
-             * areaName : 九台市
-             * detailAddr : 行logo你这女
-             * receiverName : 灏盟
-             * phone : 13111111111
-             * isDefault : 1
-             * createBy : null
-             * createTime : null
-             * updateBy : null
-             * updateTime : null
-             */
 
-            private int id;
+            private Object id;
             private Object provinceId;
             private String provinceName;
             private Object cityId;
@@ -104,11 +81,11 @@ public class ShopDingDan implements Serializable {
             private Object updateBy;
             private Object updateTime;
 
-            public int getId() {
+            public Object getId() {
                 return id;
             }
 
-            public void setId(int id) {
+            public void setId(Object id) {
                 this.id = id;
             }
 
@@ -233,7 +210,7 @@ public class ShopDingDan implements Serializable {
             private Object attrSecondId;
             private String standard;
             private int productId;
-            private Object storeId;
+            private int storeId;
             private double productPrice;
             private Object productDiscountPrice;
             private Object discount;
@@ -253,8 +230,12 @@ public class ShopDingDan implements Serializable {
             private Object outTradeNo;
             private Object payChannel;
             private Object payTime;
+            private MallStoreBean mallStore;
+            private Object total;
             private Object cartId;
-            private List<MallStoresBean> mallStores;
+            private Object standardId;
+            private Object couponsId;
+            private Object couponId;
 
             public Object getId() {
                 return id;
@@ -304,11 +285,11 @@ public class ShopDingDan implements Serializable {
                 this.productId = productId;
             }
 
-            public Object getStoreId() {
+            public int getStoreId() {
                 return storeId;
             }
 
-            public void setStoreId(Object storeId) {
+            public void setStoreId(int storeId) {
                 this.storeId = storeId;
             }
 
@@ -464,6 +445,22 @@ public class ShopDingDan implements Serializable {
                 this.payTime = payTime;
             }
 
+            public MallStoreBean getMallStore() {
+                return mallStore;
+            }
+
+            public void setMallStore(MallStoreBean mallStore) {
+                this.mallStore = mallStore;
+            }
+
+            public Object getTotal() {
+                return total;
+            }
+
+            public void setTotal(Object total) {
+                this.total = total;
+            }
+
             public Object getCartId() {
                 return cartId;
             }
@@ -472,17 +469,33 @@ public class ShopDingDan implements Serializable {
                 this.cartId = cartId;
             }
 
-            public List<MallStoresBean> getMallStores() {
-                return mallStores;
+            public Object getStandardId() {
+                return standardId;
             }
 
-            public void setMallStores(List<MallStoresBean> mallStores) {
-                this.mallStores = mallStores;
+            public void setStandardId(Object standardId) {
+                this.standardId = standardId;
             }
 
-            public static class MallStoresBean implements Serializable{
+            public Object getCouponsId() {
+                return couponsId;
+            }
 
-                private Object id;
+            public void setCouponsId(Object couponsId) {
+                this.couponsId = couponsId;
+            }
+
+            public Object getCouponId() {
+                return couponId;
+            }
+
+            public void setCouponId(Object couponId) {
+                this.couponId = couponId;
+            }
+
+            public static class MallStoreBean implements Serializable{
+
+                private int id;
                 private String storeLogo;
                 private String storeName;
                 private Object info;
@@ -493,24 +506,17 @@ public class ShopDingDan implements Serializable {
                 private Object appraiseCategory;
                 private Object productId;
                 private Object coverUrl;
+                private Object visitNum;
+                private Object visitNumOfDay;
+                private String serviceRegulations;
                 private Object ccoverUrl;
-                private boolean isSelect;
-
                 private List<MallProductsBean> mallProducts;
 
-                public boolean getIsSelect() {
-                    return isSelect;
-                }
-
-                public void setIsSelect(boolean isSelect) {
-                    this.isSelect = isSelect;
-                }
-
-                public Object getId() {
+                public int getId() {
                     return id;
                 }
 
-                public void setId(Object id) {
+                public void setId(int id) {
                     this.id = id;
                 }
 
@@ -594,6 +600,30 @@ public class ShopDingDan implements Serializable {
                     this.coverUrl = coverUrl;
                 }
 
+                public Object getVisitNum() {
+                    return visitNum;
+                }
+
+                public void setVisitNum(Object visitNum) {
+                    this.visitNum = visitNum;
+                }
+
+                public Object getVisitNumOfDay() {
+                    return visitNumOfDay;
+                }
+
+                public void setVisitNumOfDay(Object visitNumOfDay) {
+                    this.visitNumOfDay = visitNumOfDay;
+                }
+
+                public String getServiceRegulations() {
+                    return serviceRegulations;
+                }
+
+                public void setServiceRegulations(String serviceRegulations) {
+                    this.serviceRegulations = serviceRegulations;
+                }
+
                 public Object getCcoverUrl() {
                     return ccoverUrl;
                 }
@@ -622,7 +652,7 @@ public class ShopDingDan implements Serializable {
                     private double price;
                     private Object marketPrice;
                     private Object integral;
-                    private int stock;
+                    private Object stock;
                     private Object warningStock;
                     private String coverUrl;
                     private Object state;
@@ -652,6 +682,8 @@ public class ShopDingDan implements Serializable {
                     private Object mallStore;
                     private Object sellCount;
                     private Object cartId;
+                    private int cartProductNum;
+                    private Object buyNum;
                     private int num;
                     private Object basicService;
                     private Object productType;
@@ -669,17 +701,7 @@ public class ShopDingDan implements Serializable {
                     private Object userId;
                     private Object collectionNum;
                     private String standard;
-                    private boolean isSelect;
-
                     private TransportTemplateBean transportTemplate;
-
-                    public boolean getIsSelect() {
-                        return isSelect;
-                    }
-
-                    public void setIsSelect(boolean isSelect) {
-                        this.isSelect = isSelect;
-                    }
 
                     public int getId() {
                         return id;
@@ -761,11 +783,11 @@ public class ShopDingDan implements Serializable {
                         this.integral = integral;
                     }
 
-                    public int getStock() {
+                    public Object getStock() {
                         return stock;
                     }
 
-                    public void setStock(int stock) {
+                    public void setStock(Object stock) {
                         this.stock = stock;
                     }
 
@@ -1001,6 +1023,22 @@ public class ShopDingDan implements Serializable {
                         this.cartId = cartId;
                     }
 
+                    public int getCartProductNum() {
+                        return cartProductNum;
+                    }
+
+                    public void setCartProductNum(int cartProductNum) {
+                        this.cartProductNum = cartProductNum;
+                    }
+
+                    public Object getBuyNum() {
+                        return buyNum;
+                    }
+
+                    public void setBuyNum(Object buyNum) {
+                        this.buyNum = buyNum;
+                    }
+
                     public int getNum() {
                         return num;
                     }
@@ -1146,18 +1184,6 @@ public class ShopDingDan implements Serializable {
                     }
 
                     public static class TransportTemplateBean implements Serializable{
-                        /**
-                         * id : 5
-                         * name : 中通
-                         * priceType : 1
-                         * deliveryType : 1
-                         * delFlag : null
-                         * createBy : null
-                         * createTime : null
-                         * updateBy : null
-                         * updateTime : null
-                         * defaultTransCost : null
-                         */
 
                         private int id;
                         private String name;

@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="身份证照"
+                    android:text="职称选择"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -125,15 +125,78 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.zhy.view.flowlayout.TagFlowLayout
-                        android:id="@+id/id_flowlayout_zhicheng"
-                        app:max_select="1"
+                    <com.huohougongfu.app.Utils.MultiLineRadioGroup
+                        app:child_values="@array/childvalues"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp">
-                    </com.zhy.view.flowlayout.TagFlowLayout>
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/radio_pingchashi"
+                                android:text="评茶师"
+                                android:clickable="true"
+                                android:button="@null"
+                                android:drawableLeft="@drawable/selector_renzehng"
+                                android:textColor="@drawable/text_drawable_selector_renzheng"
+                                android:paddingVertical="@dimen/dp_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <RadioButton
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:id="@+id/radio_zhichashi"
+                                android:text="制茶师"
+                                android:button="@null"
+                                android:clickable="true"
+                                android:drawableLeft="@drawable/selector_renzehng"
+                                android:textColor="@drawable/text_drawable_selector_renzheng"
+                                android:paddingVertical="@dimen/dp_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/radio_chayishi"
+                                android:text="茶艺师"
+                                android:clickable="true"
+                                android:button="@null"
+                                android:drawableLeft="@drawable/selector_renzehng"
+                                android:textColor="@drawable/text_drawable_selector_renzheng"
+                                android:paddingVertical="@dimen/dp_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <RadioButton
+                                android:layout_marginLeft="@dimen/dp_20"
+                                android:id="@+id/radio_jiangren"
+                                android:text="匠     人"
+                                android:button="@null"
+                                android:clickable="true"
+                                android:drawableLeft="@drawable/selector_renzehng"
+                                android:textColor="@drawable/text_drawable_selector_renzheng"
+                                android:paddingVertical="@dimen/dp_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </com.huohougongfu.app.Utils.MultiLineRadioGroup>
 
                     <LinearLayout
+                        android:layout_marginLeft="@dimen/dp_20"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -158,6 +221,122 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="擅长类目"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <CheckBox
+                                android:id="@+id/check_baicha"
+                                android:layout_weight="1"
+                                android:button="@drawable/selector_renzehng"
+                                android:text="白茶"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <CheckBox
+                                android:id="@+id/check_lvcha"
+                                android:layout_weight="1"
+                                android:button="@drawable/selector_renzehng"
+                                android:text="绿茶"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <CheckBox
+                                android:id="@+id/check_huangcha"
+                                android:layout_weight="1"
+                                android:button="@drawable/selector_renzehng"
+                                android:text="黄茶"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <CheckBox
+                                android:id="@+id/check_wulongcha"
+                                android:layout_weight="1"
+                                android:button="@drawable/selector_renzehng"
+                                android:text="乌龙茶"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <CheckBox
+                                android:id="@+id/check_hongcha"
+                                android:layout_weight="1"
+                                android:button="@drawable/selector_renzehng"
+                                android:text="红茶"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <CheckBox
+                                android:id="@+id/check_heicha"
+                                android:layout_weight="1"
+                                android:button="@drawable/selector_renzehng"
+                                android:text="黑茶"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/unselect"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp" />
+
+                        <EditText
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:hint="其他"
+                            android:textSize="14sp"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:background="@drawable/kaquan_kuang"
+                            android:layout_width="100dp"
+                            android:layout_height="@dimen/dp_30" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

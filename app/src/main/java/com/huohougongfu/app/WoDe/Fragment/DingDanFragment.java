@@ -15,17 +15,24 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ChaTaiDingDanAdapter;
 import com.huohougongfu.app.Fragment.SiLiaoFragment;
+import com.huohougongfu.app.Gson.MyDingDan;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
+import com.huohougongfu.app.WoDe.Adapter.MyDingDanAdapter;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,10 +42,12 @@ public class DingDanFragment extends Fragment {
 
 
     private View inflate;
-    private ShangPinGson shangPinGson;
+    private MyDingDan mydingdan;
     private RecyclerView rec_chatai_dingdan;
-    private ChaTaiDingDanAdapter mAdapter;
+    private MyDingDanAdapter mydingdanadapter;
     private Intent intent;
+    private String orderStatus;
+    private int id;
 
     public DingDanFragment() {
         // Required empty public constructor
@@ -49,57 +58,134 @@ public class DingDanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_my_ding_dan, container, false);
+        orderStatus = getArguments().getString("ARGS");
+        id = MyApp.instance.getInt("id");
         intent = new Intent();
-//        initData();
+        rec_chatai_dingdan = inflate.findViewById(R.id.rec_mydingdan);
+        initData();
         return inflate;
     }
-//    private void initData() {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("service","App.Mixed_Jinse.Zx");
-//        map.put("channel", "www");
-//        OkGo.<String>post(Contacts.URl)
-//                .params(map)
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        WaitDialog.dismiss();
-//                        Gson gson = new Gson();
-//                        shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-//                        if (shangPinGson.getCode() == 200) {
-//                            initRec(shangPinGson.getData());
-//                        }
-//                    }
-//                    @Override
-//                    public void onStart(Request<String, ? extends Request> request) {
-//                        WaitDialog.show(getActivity(), "载入中...");
-//                        super.onStart(request);
-//                    }
-//                });
-//    }
+    private void initData() {
+        Map<String, String> map = new HashMap<>();
+        map.put("createBy",String.valueOf(id));
+        if (!"".equals(orderStatus)){
+            map.put("orderStatus",orderStatus);
+        }
+        OkGo.<String>get(Contacts.URl1+"order/selectMyOrderAll1")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        mydingdan = gson.fromJson(response.body(), MyDingDan.class);
+                        if (mydingdan.getStatus() == 1) {
+                            if (mydingdan.getResult().size()>0){
+                                rec_chatai_dingdan.setVisibility(View.VISIBLE);
+                                initRec(mydingdan.getResult());
+                            }else{
+                                rec_chatai_dingdan.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
+    }
 
-//    private void initRec(ShangPinGson.DataBean data) {
-//        rec_chatai_dingdan = inflate.findViewById(R.id.rec_mydingdan);
-//        rec_chatai_dingdan.setLayoutManager(new LinearLayoutManager(getActivity()));
-////        mAdapter = new ChaTaiDingDanAdapter(R.layout.item_dingdan, data.getList());
-//        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                intent.setClass(getActivity(),DingDanDetailActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-//            @Override
-//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                ToastUtils.showShort("确认支付"+position);
-//            }
-//        });
-//        rec_chatai_dingdan.setAdapter(mAdapter);
-//    }
+    private void initRec(List<MyDingDan.ResultBean> result) {
+        if (result.size()>0){
+            rec_chatai_dingdan.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mydingdanadapter = new MyDingDanAdapter(R.layout.item_dingdan, result);
+            mydingdanadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    intent.putExtra("orderNo",result.get(position).getOrderNo());
+                    intent.putExtra("orderStatus",result.get(position).getOrderStatus());
+                    intent.setClass(getActivity(),DingDanDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+            mydingdanadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    switch (view.getId()){
+                        case R.id.bt_anniu_one:
+                            if (result.get(position).getOrderStatus()==1||result.get(position).getOrderStatus()==0){
+                                initQuanXiao(result.get(position).getOrderNo());
+                            }
+                            break;
+                        case R.id.bt_anniu_two:
+                            if (result.get(position).getOrderStatus()==-4){
+                                initDelete(result.get(position).getOrderNo());
+                            }
+                            break;
+                    }
+                }
+            });
+            rec_chatai_dingdan.setAdapter(mydingdanadapter);
+        }else{
+            rec_chatai_dingdan.setVisibility(View.GONE);
+        }
+    }
+    //  取消订单
+    private void initQuanXiao(String orderNo) {
+        Map<String,String> map = new HashMap<>();
+        map.put("createBy",String.valueOf(id));
+        map.put("orderNo",orderNo);
+        OkGo.<String>post(Contacts.URl1+"order/cancelOrder")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                mydingdanadapter.notifyDataSetChanged();
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
-    public static Fragment newInstance(String content) {
+    //  删除订单
+    private void initDelete(String orderNo) {
+        Map<String,String> map = new HashMap<>();
+        map.put("createBy",String.valueOf(id));
+        map.put("orderNo",orderNo);
+        OkGo.<String>post(Contacts.URl1+"order/deleteOrder")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                mydingdanadapter.notifyDataSetChanged();
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    public static Fragment newInstance(String orderStatus) {
         Bundle args = new Bundle();
-        args.putString("ARGS", content);
+        args.putString("ARGS", orderStatus);
         DingDanFragment fragment = new DingDanFragment();
         fragment.setArguments(args);
         return fragment;

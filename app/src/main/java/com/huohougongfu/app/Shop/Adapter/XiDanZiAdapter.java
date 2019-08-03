@@ -26,7 +26,7 @@ import java.util.List;
 
 public class XiDanZiAdapter extends BaseAdapter {
     private final Context context;
-    private List<ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean> list;
+    private List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> list;
     private TextView tv_total_price;
     private boolean isDikou = true;
     private double total_price,teaRice;
@@ -45,7 +45,7 @@ public class XiDanZiAdapter extends BaseAdapter {
 //    }
 
 
-    public void setData(List<ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean> list) {
+    public void setData(List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -120,7 +120,7 @@ public class XiDanZiAdapter extends BaseAdapter {
             tv_total_price.setText("¥0.00");
 //            array = new JSONArray();
             for (int i = 0; i < list.size(); i++) {
-                ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean mallProductsBean = list.get(i);
+                ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = list.get(i);
 //                if (isSelect) {
 //                    try {
 //                        JSONObject object =new JSONObject();
@@ -151,7 +151,7 @@ public class XiDanZiAdapter extends BaseAdapter {
             tv_total_price.setText("¥0.00");
 //            array = new JSONArray();
             for (int i = 0; i < list.size(); i++) {
-                ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean mallProductsBean = list.get(i);
+                ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = list.get(i);
 //                ChaTaiGson.ResultBean resultBean = list.get(i);
 //                boolean isSelect = resultBean.getIsSelect();
 ////                if (isSelect) {

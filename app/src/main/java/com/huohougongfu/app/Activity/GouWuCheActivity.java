@@ -228,7 +228,7 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
     private void initExpandableListViewData(List<ShoppingCarDataBean.ResultBean> datas) {
         if (datas != null && datas.size() > 0) {
             //刷新数据时，保持当前位置
-            shoppingCarAdapter.setData(datas.get(0).getMallStores());
+            shoppingCarAdapter.setData(datas.get(0));
             //使所有组展开
             for (int i = 0; i < shoppingCarAdapter.getGroupCount(); i++) {
                 elvShoppingCar.expandGroup(i);

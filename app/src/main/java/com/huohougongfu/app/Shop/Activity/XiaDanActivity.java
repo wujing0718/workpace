@@ -75,7 +75,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initRec() {
-        tv_total_price.setText("10000");
+        tv_total_price.setText("1000");
         xiaDanAdapter = new XiaDanAdapter(this,bt_chami_dikou,btn_go_to_pay,tv_chami_dikou,
                 img_chami_check,tv_total_price,resultBean.getTeaRice());
         rec_xiadan.setAdapter(xiaDanAdapter);

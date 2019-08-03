@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Shop.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -63,7 +64,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private JSONArray array;
     private boolean isSelectAll = false;
     private  int transId ;
-    private List<ShopDingDan.ResultBean.OrderListBean.MallStoresBean> data;
+    private List<ShopDingDan.ResultBean.OrderListBean> data;
 
     public XiaDanAdapter(Context context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
                          ImageView img_chami_check, TextView tv_total_price, double teaRice) {
@@ -73,7 +74,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         this.tv_chami_dikou = tv_chami_dikou;
         this.img_chami_check = img_chami_check;
         this.tvTotalPrice = tv_total_price;
-        this.transId = transId;
     }
 
     /**
@@ -84,7 +84,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
      * @param transId
      */
     public void setData(ShopDingDan.ResultBean list, int transId) {
-        data = list.getOrderList().get(0).getMallStores();
+        data = list.getOrderList();
         this.list = list;
         this.transId = transId;
         notifyDataSetChanged();
@@ -120,13 +120,13 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
 
-        ShopDingDan.ResultBean.OrderListBean.MallStoresBean mallStoresBean = data.get(groupPosition);
+        ShopDingDan.ResultBean.OrderListBean mallStoresBean = data.get(groupPosition);
         //店铺ID
-        String store_id = String.valueOf(mallStoresBean.getId());
+        String store_id = String.valueOf(mallStoresBean.getMallStore().getId());
         //店铺名称
-        String store_name = mallStoresBean.getStoreName();
+        String store_name = mallStoresBean.getMallStore().getStoreName();
 
-        String storeLogo = mallStoresBean.getStoreLogo();
+        String storeLogo = mallStoresBean.getMallStore().getStoreLogo();
         if (store_name != null) {
             groupViewHolder.tvStoreName.setText(store_name);
         } else {
@@ -146,9 +146,9 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
             tvTotalPrice.setText("¥0.00");
             array = new JSONArray();
             for (int i = 0; i < data.size(); i++) {
-                List<ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean> mallProducts = data.get(i).getMallProducts();
+                List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
                 for (int y = 0; y < mallProducts.size(); y++) {
-                    ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean mallProductsBean = mallProducts.get(y);
+                    ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
                         String num = String.valueOf(mallProductsBean.getNum());
                         String price = String.valueOf(mallProductsBean.getPrice());
                     double dikou  = teaRice*0.01;
@@ -168,15 +168,14 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
             tvTotalPrice.setText("¥0.00");
             array = new JSONArray();
             for (int i = 0; i < data.size(); i++) {
-                List<ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean> mallProducts = data.get(i).getMallProducts();
+                List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
                 for (int y = 0; y < mallProducts.size(); y++) {
-                    ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean mallProductsBean = mallProducts.get(y);
+                    ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
                     String num = String.valueOf(mallProductsBean.getNum());
                     String price = String.valueOf(mallProductsBean.getPrice());
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
-                    //让Double类型完整显示，不用科学计数法显示大写字母E
                     tvTotalPrice.setText("¥" + decimalFormat.format(total_price));
                 }
             }
@@ -214,11 +213,11 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 //创建临时的List，用于存储被选中的商品
-                List<ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean> temp = new ArrayList<>();
+                List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> temp = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) {
-                    List<ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean> mallProducts = data.get(i).getMallProducts();
+                    List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
                     for (int y = 0; y < mallProducts.size(); y++) {
-                        ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean mallProductsBean = mallProducts.get(y);
+                        ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
                         temp.add(mallProductsBean);
                     }
                 }
@@ -261,7 +260,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     }
 
     private void initXiaDan(JSONArray jsonObject) {
-        LogUtils.e(jsonObject.toString());
         OkGo.<String>post(Contacts.URl1+"submitOrder")
                 .params("json",jsonObject.toString())
                 .execute(new StringCallback() {
@@ -270,12 +268,12 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                         String body = response.body();
                         Gson gson = new Gson();
                         ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
-//                        if (shopDingDan.getStatus() == 1){
-//                            Intent intent = new Intent();
-//                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
-//                            intent.setClass(context,XiaDanActivity.class);
-//                            context.startActivity(intent);
-//                        }
+                        if (shopDingDan.getStatus() == 1){
+                            Intent intent = new Intent();
+                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
+                            intent.setClass(context,XiaDanActivity.class);
+                            context.startActivity(intent);
+                        }
                     }
                 });
     }
@@ -295,8 +293,8 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     //------------------------------------------------------------------------------------------------
     @Override
     public int getChildrenCount(int groupPosition) {
-        if (data.get(groupPosition).getMallProducts() != null && data.get(groupPosition).getMallProducts().size() > 0) {
-            return data.get(groupPosition).getMallProducts().size();
+        if (data.get(groupPosition).getMallStore().getMallProducts() != null && data.get(groupPosition).getMallStore().getMallProducts().size() > 0) {
+            return data.get(groupPosition).getMallStore().getMallProducts().size();
         } else {
             return 0;
         }
@@ -304,7 +302,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return data.get(groupPosition).getMallProducts().get(childPosition);
+        return data.get(groupPosition).getMallStore().getMallProducts().get(childPosition);
     }
 
     @Override
@@ -322,7 +320,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        ShopDingDan.ResultBean.OrderListBean.MallStoresBean.MallProductsBean mallProductsBean1 = data.get(groupPosition).getMallProducts().get(childPosition);
+        ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean1 = data.get(groupPosition).getMallStore().getMallProducts().get(childPosition);
         childViewHolder.tv_dingdan_title.setText(mallProductsBean1.getName());
         childViewHolder.tv_dingdan_guige.setText(mallProductsBean1.getStandard());
         childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getPrice()));

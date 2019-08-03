@@ -20,12 +20,14 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/img_dianpu_logo"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/photo_check_default"
                 android:layout_width="@dimen/dp_22"
                 android:layout_height="@dimen/dp_22" />
 
             <TextView
+                android:id="@+id/tv_dianpu_name"
                 android:text="爱茶之人代购"
                 android:textSize="14sp"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -44,6 +46,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_dianpu_zhuangtai"
             android:layout_alignParentRight="true"
             android:text="交易完成"
             android:textColor="@color/colorBlack"
@@ -54,6 +57,7 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rec_item_dingdan_liebiao"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginHorizontal="8dp"
         android:layout_width="match_parent"
@@ -67,6 +71,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_dingdan_num"
             android:text="共计：3件商品"
             android:textSize="14sp"
             android:layout_gravity="center_vertical"
@@ -83,6 +88,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_dingdan_price"
                 android:text="合计：¥597.00"
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"
@@ -91,6 +97,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_dingdan_youfeiprice"
                 android:text="（含运费¥10.00）"
                 android:textSize="11sp"
                 android:layout_gravity="right"
@@ -114,6 +121,7 @@
         <TextView
             android:text="联系卖家"
             android:textSize="12sp"
+            android:visibility="gone"
             android:paddingHorizontal="@dimen/dp_10"
             android:paddingVertical="2dp"
             android:background="@drawable/black_di"
@@ -122,7 +130,8 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="联系卖家"
+            android:id="@+id/bt_anniu_one"
+            android:text="查看物流"
             android:textSize="12sp"
             android:layout_marginHorizontal="@dimen/dp_20"
             android:paddingHorizontal="@dimen/dp_10"
@@ -133,7 +142,8 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="联系卖家"
+            android:id="@+id/bt_anniu_two"
+            android:text="删除订单"
             android:textSize="12sp"
             android:paddingHorizontal="@dimen/dp_10"
             android:paddingVertical="2dp"

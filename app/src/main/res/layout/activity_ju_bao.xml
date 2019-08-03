@@ -109,6 +109,7 @@
 
         <com.huohougongfu.app.Utils.MultiLineRadioGroup
             android:id="@+id/radio_jubao"
+            app:child_layout="@layout/child"
             android:orientation="vertical"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"

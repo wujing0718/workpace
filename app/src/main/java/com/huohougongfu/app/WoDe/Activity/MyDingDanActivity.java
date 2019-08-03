@@ -16,6 +16,8 @@ import java.util.List;
 
 public class MyDingDanActivity extends AppCompatActivity {
     private final String[] mTitles = {"全部", "待付款", "待发货", "待收货", "待评价"};
+    private final String[] orderStatus = {"","0", "1", "2", "3"};
+
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
@@ -39,7 +41,7 @@ public class MyDingDanActivity extends AppCompatActivity {
         ViewPager mViewPager = findViewById(R.id.vp);
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
-            mFragments.add(DingDanFragment.newInstance(""));
+            mFragments.add(DingDanFragment.newInstance(orderStatus[i]));
         }
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(),mFragments,mtabtitle);
         mViewPager.setAdapter(mAdapter);

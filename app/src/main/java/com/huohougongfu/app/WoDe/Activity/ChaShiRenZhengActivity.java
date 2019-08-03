@@ -27,31 +27,6 @@ public class ChaShiRenZhengActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cha_shi_ren_zheng);
-        initData();
-        initUI();
-        
-    }
 
-    private void initData() {
-        datas_zhicheng.add("评茶师");
-        datas_zhicheng.add("制茶师");
-        datas_zhicheng.add("茶艺师");
-        datas_zhicheng.add("匠人");
-    }
-
-    private void initUI() {
-        id_flowlayout_zhicheng = findViewById(R.id.id_flowlayout_zhicheng);
-        zhichengadapter = new TagAdapter<String>(datas_zhicheng) {
-            @Override
-            public View getView(FlowLayout parent, int position, String o) {
-                View inflate = LayoutInflater.from(ChaShiRenZhengActivity.this).inflate(R.layout.item_renzheng, parent, false);
-                TextView item_name = inflate.findViewById(R.id.item_name);
-                ImageView img_renzheng = inflate.findViewById(R.id.img_renzheng);
-                img_renzheng.setImageResource(R.drawable.selector_renzehng);
-                item_name.setText(o);
-                return inflate;
-            }
-        };
-        id_flowlayout_zhicheng.setAdapter(zhichengadapter);
     }
 }

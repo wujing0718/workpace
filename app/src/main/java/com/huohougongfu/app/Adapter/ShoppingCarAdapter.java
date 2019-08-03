@@ -59,6 +59,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
     private List<ShoppingCarDataBean.ResultBean.MallStoresBean> data;
     private boolean isSelectAll = false;
     private double total_price;
+    private ShoppingCarDataBean.ResultBean mallStores;
 
     public ShoppingCarAdapter(Context context, LinearLayout llSelectAll,
                               ImageView ivSelectAll, Button btnOrder, Button btnDelete,
@@ -74,8 +75,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
 
     }
 
-    public void setData(List<ShoppingCarDataBean.ResultBean.MallStoresBean> mallStores) {
-        this.data = mallStores;
+    public void setData(ShoppingCarDataBean.ResultBean mallStores) {
+        this.data = mallStores.getMallStores();
         notifyDataSetChanged();
     }
 
@@ -263,9 +264,12 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                     try {
                         for (int i = 0; i < temp.size(); i++) {
                             jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                            jsonObject.put("productId",temp.get(i).getStoreId());
-                            jsonObject.put("productNum",temp.get(i).getNum());
+                            jsonObject.put("productId",temp.get(i).getId());
+                            jsonObject.put("productNum",temp.get(i).getCartProductNum());
+                            jsonObject.put("cartId",temp.get(i).getCartId());
                             jsonObject.put("standard",temp.get(i).getStandard());
+                            jsonObject.put("standardId",temp.get(i).getStandardId());
+                            jsonObject.put("storeId",store_id);
                             jsonArray.put(jsonObject);
                         }
                         initXiaDan(jsonArray);
