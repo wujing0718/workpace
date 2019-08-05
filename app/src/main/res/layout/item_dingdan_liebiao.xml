@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_marginTop="@dimen/dp_12"
     android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/img_dingdan_photo"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
-
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_marginHorizontal="@dimen/dp_10"
+        <ImageView
+            android:id="@+id/img_dingdan_photo"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:textColor="@color/colorBlack"
@@ -34,43 +39,55 @@
                     android:layout_width="@dimen/dp_170"
                     android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_alignParentRight="true"
-                android:orientation="vertical"
+                <LinearLayout
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_dingdan_shangpin_price"
+                        android:text="¥198"
+                        android:textColor="@color/colorBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dp_6"
+                        android:id="@+id/tv_dingdan_shangpin_num"
+                        android:layout_gravity="right"
+                        android:text="x1"
+                        android:textSize="@dimen/text_size_12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_dingdan_shangpin_guige"
+                android:text="250g"
+                android:textSize="@dimen/text_size_12sp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/tv_dingdan_shangpin_price"
-                    android:text="¥198"
-                    android:textColor="@color/colorBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:id="@+id/tv_dingdan_shangpin_num"
-                    android:layout_gravity="right"
-                    android:text="x1"
-                    android:textSize="@dimen/text_size_12sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_dingdan_shangpin_guige"
-            android:text="250g"
-            android:textSize="@dimen/text_size_12sp"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_shenqingshouhou"
+        android:text="申请售后"
+        android:layout_gravity="right"
+        android:paddingHorizontal="@dimen/dp_10"
+        android:paddingVertical="4dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/black_di"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

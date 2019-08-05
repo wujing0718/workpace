@@ -3,25 +3,43 @@ package com.huohougongfu.app.WoDe.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.MyDingDanDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.WoDe.Adapter.MyDingDanDetailAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class DingDanDetailActivity extends AppCompatActivity {
+public class DingDanDetailActivity extends AppCompatActivity implements OnClickListener {
 
     private String orderNo;
     private int id,orderStatus;
+    private TextView tv_shouhuo_name,tv_shouhuo_phone,tv_shouhuo_address,tv_orderNo,tv_logisticsFee,tv_orderAmountTotal,tv_payTime
+            ,tv_createTime,tv_serviceRegulations,tv_order_AmountTotal;
+    private RecyclerView rec_dingdan_detail;
+    private ImageView img_dianpu_logo;
+    private TextView tv_dianpu_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +55,118 @@ public class DingDanDetailActivity extends AppCompatActivity {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("orderNo",orderNo);
-        map.put("orderStatus",String.valueOf(orderStatus));
         map.put("createBy",String.valueOf(id));
-        OkGo.<String>get(Contacts.URl1+"order/orderDetailAllByStatus")
+        OkGo.<String>get(Contacts.URl1 + "order/orderDetailAllByStatus")
                 .params(map)
                 .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        response.body();
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                Gson gson = new Gson();
+                MyDingDanDetail mydongdandetail = gson.fromJson(body, MyDingDanDetail.class);
+                if (mydongdandetail.getStatus() == 1) {
+                    if (mydongdandetail.getResult().size()>0){
+                        initView(mydongdandetail.getResult());
+                        initRec(mydongdandetail.getResult().get(0));
                     }
-                });
+                }
+            }
+        });
+    }
+
+    private void initRec(MyDingDanDetail.ResultBean resultBean) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rec_dingdan_detail.setLayoutManager(layoutManager);
+        MyDingDanDetailAdapter myDingDanDetailAdapter = new MyDingDanDetailAdapter(R.layout.item_dingdan_liebiao, resultBean.getMallStores().getMallProducts(),orderStatus);
+        rec_dingdan_detail.setAdapter(myDingDanDetailAdapter);
+        myDingDanDetailAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.setClass(DingDanDetailActivity.this,ShenQingShouHouActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initView(List<MyDingDanDetail.ResultBean> result) {
+        tv_orderNo.setText(result.get(0).getOrderNo());
+        tv_createTime.setText(result.get(0).getCreateTime());
+        tv_logisticsFee.setText(String.valueOf(result.get(0).getLogisticsFee()));
+        tv_orderAmountTotal.setText("¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
+        tv_order_AmountTotal.setText("共计：¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
+        tv_payTime.setText(result.get(0).getPayTime());
+        tv_serviceRegulations.setText(result.get(0).getServiceRegulations());
+        tv_shouhuo_name.setText(result.get(0).getReceiverName());
+        tv_shouhuo_phone.setText(result.get(0).getPhone());
+        tv_shouhuo_address.setText(result.get(0).getReceiverName()+result.get(0).getAreaName()+result.get(0).getDetailAddr());
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        Glide.with(MyApp.context).load(result.get(0).getMallStores().getStoreLogo()).apply(requestOptions).into(img_dianpu_logo);
+        tv_dianpu_name.setText(result.get(0).getMallStores().getStoreName());
     }
 
     private void initUI() {
-        findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
+        View view_logistics = findViewById(R.id.view_logistics);
+        TextView tv_dingdan_zhuangtai = findViewById(R.id.tv_dingdan_zhuangtai);
+        TextView tv_dingdan_caozuo1 = findViewById(R.id.tv_dingdan_caozuo1);
+        tv_dingdan_caozuo1.setOnClickListener(this);
+        TextView tv_dingdan_caozuo2 = findViewById(R.id.tv_dingdan_caozuo2);
+        tv_dingdan_caozuo2.setOnClickListener(this);
+        if (orderStatus == 0){
+            tv_dingdan_caozuo1.setText("取消订单");
+            tv_dingdan_caozuo2.setText("确认付款");
+            view_logistics.setVisibility(View.GONE);
+            tv_dingdan_zhuangtai.setText("待付款");
+        }else if (orderStatus == 1){
+            tv_dingdan_caozuo1.setText("取消订单");
+            tv_dingdan_caozuo2.setText("提醒发货");
+            tv_dingdan_zhuangtai.setText("待发货");
+            view_logistics.setVisibility(View.GONE);
+        }else if (orderStatus == 2){
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
+            tv_dingdan_caozuo2.setText("确认收货");
+            tv_dingdan_zhuangtai.setText("待签收");
+            view_logistics.setVisibility(View.VISIBLE);
+        }else if (orderStatus == 3){
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
+            tv_dingdan_caozuo2.setText("评价");
+            tv_dingdan_zhuangtai.setText("已完成");
+            view_logistics.setVisibility(View.VISIBLE);
+        }else if (orderStatus == -2){
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
+            tv_dingdan_caozuo2.setText("退货中");
+            tv_dingdan_zhuangtai.setText("退货中");
+            view_logistics.setVisibility(View.VISIBLE);
+        }else if (orderStatus == -1){
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
+            tv_dingdan_caozuo2.setText("退货中");
+            tv_dingdan_zhuangtai.setText("退货中");
+            view_logistics.setVisibility(View.VISIBLE);
+        }
+        img_dianpu_logo = findViewById(R.id.img_dianpu_logo);
+        tv_dianpu_name = findViewById(R.id.tv_dianpu_name);
+
+         tv_orderNo = findViewById(R.id.tv_orderNo);
+         tv_logisticsFee = findViewById(R.id.tv_logisticsFee);
+         tv_orderAmountTotal = findViewById(R.id.tv_orderAmountTotal);
+        tv_order_AmountTotal = findViewById(R.id.tv_order_AmountTotal);
+
+        tv_payTime = findViewById(R.id.tv_payTime);
+         tv_createTime = findViewById(R.id.tv_createTime);
+         tv_serviceRegulations = findViewById(R.id.tv_serviceRegulations);
+
+
+        rec_dingdan_detail = findViewById(R.id.rec_dingdan_detail);
+        tv_shouhuo_name = findViewById(R.id.tv_shouhuo_name);
+        tv_shouhuo_phone = findViewById(R.id.tv_shouhuo_phone);
+        tv_shouhuo_address = findViewById(R.id.tv_shouhuo_address);
+        findViewById(R.id.bt_finish).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        findViewById(R.id.bt_fuzhi_dingdanhao).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bt_fuzhi_dingdanhao).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ToastUtils.showShort("复制成功");
@@ -68,5 +178,18 @@ public class DingDanDetailActivity extends AppCompatActivity {
                 cm.setPrimaryClip(mClipData);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_dingdan_caozuo2:
+                if (orderStatus == 3){
+                    Intent intent = new Intent();
+                    intent.setClass(DingDanDetailActivity.this,DingDanPingJiaActivity.class);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 }

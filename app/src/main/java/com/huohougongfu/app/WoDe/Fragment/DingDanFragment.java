@@ -1,6 +1,7 @@
 package com.huohougongfu.app.WoDe.Fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,11 +19,19 @@ import com.huohougongfu.app.Fragment.SiLiaoFragment;
 import com.huohougongfu.app.Gson.MyDingDan;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.FuHuoShiJian;
+import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.DataCleanManager;
+import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
+import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
+import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanAdapter;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -62,9 +71,15 @@ public class DingDanFragment extends Fragment {
         id = MyApp.instance.getInt("id");
         intent = new Intent();
         rec_chatai_dingdan = inflate.findViewById(R.id.rec_mydingdan);
-        initData();
         return inflate;
     }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
+    }
+
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("createBy",String.valueOf(id));
@@ -90,7 +105,7 @@ public class DingDanFragment extends Fragment {
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+//                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -115,12 +130,23 @@ public class DingDanFragment extends Fragment {
                     switch (view.getId()){
                         case R.id.bt_anniu_one:
                             if (result.get(position).getOrderStatus()==1||result.get(position).getOrderStatus()==0){
-                                initQuanXiao(result.get(position).getOrderNo());
+                                initQuanXiao(result.get(position).getOrderNo(),result.get(position).getOrderStatus());
+                            }else if (result.get(position).getOrderStatus()==2||result.get(position).getOrderStatus()==3){
+                                ToastUtils.showShort("查看物流");
+                            }else if (result.get(position).getOrderStatus() == -1){
+                                ToastUtils.showShort("查看物流");
                             }
                             break;
                         case R.id.bt_anniu_two:
                             if (result.get(position).getOrderStatus()==-4){
                                 initDelete(result.get(position).getOrderNo());
+                            }else if(result.get(position).getOrderStatus() == 3){
+                                intent.setClass(getActivity(),DingDanPingJiaActivity.class);
+                                startActivity(intent);
+                            }else  if (result.get(position).getOrderStatus() == 0){
+                                ToastUtils.showShort("确认付款");
+                            }else  if (result.get(position).getOrderStatus() == -1){
+                                ToastUtils.showShort("删除订单");
                             }
                             break;
                     }
@@ -132,53 +158,47 @@ public class DingDanFragment extends Fragment {
         }
     }
     //  取消订单
-    private void initQuanXiao(String orderNo) {
-        Map<String,String> map = new HashMap<>();
-        map.put("createBy",String.valueOf(id));
-        map.put("orderNo",orderNo);
-        OkGo.<String>post(Contacts.URl1+"order/cancelOrder")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                                mydingdanadapter.notifyDataSetChanged();
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+    private void initQuanXiao(String orderNo, int orderStatus) {
+        new XPopup.Builder(getActivity())
+                .asCustom(new QuXiaoDingDan(getActivity(),orderStatus,orderNo))
+                .show();
     }
 
     //  删除订单
     private void initDelete(String orderNo) {
-        Map<String,String> map = new HashMap<>();
-        map.put("createBy",String.valueOf(id));
-        map.put("orderNo",orderNo);
-        OkGo.<String>post(Contacts.URl1+"order/deleteOrder")
-                .params(map)
-                .execute(new StringCallback() {
+        SelectDialog.show(getActivity(), "提示", "是否删除订单",
+                "确定", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                                mydingdanadapter.notifyDataSetChanged();
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!utils.isDoubleClick()){
+                            Map<String,String> map = new HashMap<>();
+                            map.put("createBy",String.valueOf(id));
+                            map.put("orderNo",orderNo);
+                            OkGo.<String>post(Contacts.URl1+"order/deleteOrder")
+                                    .params(map)
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onSuccess(Response<String> response) {
+                                            String body = response.body();
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(body);
+                                                if (jsonObject.getInt("status") == 1){
+                                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                                    mydingdanadapter.notifyDataSetChanged();
+                                                }else{
+                                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
                         }
+                    }
+                },
+                "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                     }
                 });
     }

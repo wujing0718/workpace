@@ -247,7 +247,10 @@
         <activity
             android:name=".WoDe.Activity.RealNameActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".WoDe.Activity.ChaShiRenZhengActivity"></activity>
+        <activity android:name=".WoDe.Activity.ChaShiRenZhengActivity" />
+        <activity android:name=".WoDe.Activity.LogisticsActivity" />
+        <activity android:name=".WoDe.Activity.ShenQingShouHouActivity" />
+        <activity android:name=".WoDe.Activity.DingDanPingJiaActivity"></activity>
     </application>
 
 </manifest>

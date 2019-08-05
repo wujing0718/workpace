@@ -115,6 +115,8 @@ dependencies {
     implementation 'com.amap.api:3dmap:latest.integration'
     //高德定位
     implementation 'com.amap.api:location:latest.integration'
+    //ratingber 五星
+    implementation 'com.xingliuhua:xlhratingbar_lib:1.0.1'
     //上传图片
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     implementation 'com.github.Awent:PhotoPick-Master:v1.095'
