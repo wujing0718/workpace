@@ -8,7 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.Contacts;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -21,6 +26,7 @@ public class ChaShiRenZhengActivity extends AppCompatActivity {
     private TagFlowLayout id_flowlayout_zhicheng;
     private List<String> datas_zhicheng = new ArrayList<>();
     private TagAdapter<String> zhichengadapter;
+    private int id;
 
 
     @Override

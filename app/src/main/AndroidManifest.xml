@@ -238,19 +238,18 @@
         <activity android:name=".WoDe.Activity.DianPuSettingActivity" />
         <activity android:name=".Shop.Activity.TeBieShuoMingActivity" />
         <activity android:name=".WoDe.Activity.FuWuXuanXiangActivity" />
+        <activity android:name=".WoDe.Activity.RealNameActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity
             android:name=".WoDe.Activity.YunFeiSettingActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".WoDe.Activity.DiQuXuanZeActivity" />
         <activity android:name=".WoDe.Activity.DianPuMainJianActivity" />
         <activity android:name=".WoDe.Activity.AddDianPuHuoDongActivity" />
-        <activity
-            android:name=".WoDe.Activity.RealNameActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".WoDe.Activity.ChaShiRenZhengActivity" />
         <activity android:name=".WoDe.Activity.LogisticsActivity" />
         <activity android:name=".WoDe.Activity.ShenQingShouHouActivity" />
-        <activity android:name=".WoDe.Activity.DingDanPingJiaActivity"></activity>
+        <activity android:name=".WoDe.Activity.DingDanPingJiaActivity" />
     </application>
 
 </manifest>

@@ -38,33 +38,35 @@
 
     <LinearLayout
         android:layout_below="@+id/view_renzheng_tab"
-            android:orientation="vertical"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="165dp" />
 
-            <ImageView
-                android:src="@mipmap/ic_launcher"
-                android:scaleType="fitXY"
-                android:layout_width="match_parent"
-                android:layout_height="165dp" />
+        <include
+            android:id="@+id/view_geren_renzheng"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_50"
+            layout="@layout/item_gerenrenzheng"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-            <include
-                android:layout_gravity="bottom"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginRight="@dimen/dp_50"
-                layout="@layout/item_gerenrenzheng"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+        <include
+            android:id="@+id/view_renzheng"
+            android:layout_gravity="center"
+            layout="@layout/item_shenfenleixing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-            <include
-                android:layout_gravity="center"
-                layout="@layout/item_shenfenleixing"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/bt_tijiao"

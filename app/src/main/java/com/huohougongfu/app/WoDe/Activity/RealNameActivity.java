@@ -12,11 +12,18 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.RenZhengZhuangTai;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.XingBie;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.lxj.xpopup.XPopup;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,14 +50,21 @@ public class RealNameActivity extends AppCompatActivity implements View.OnClickL
         }
 
     };
+    private int id;
+    private View view_geren_renzheng,view_renzheng;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_real_name);
+        id = MyApp.instance.getInt("id");
+        initData();
         initUI();
     }
 
     private void initUI() {
+        view_geren_renzheng = findViewById(R.id.view_geren_renzheng);
+        view_renzheng = findViewById(R.id.view_renzheng);
         findViewById(R.id.bt_chashi_renzheng).setOnClickListener(this);
         findViewById(R.id.bt_shanghu_renzheng).setOnClickListener(this);
         bt_xingbie_xuanze = findViewById(R.id.bt_xingbie_xuanze);
@@ -59,6 +73,51 @@ public class RealNameActivity extends AppCompatActivity implements View.OnClickL
         bt_shengri_xuanze.setOnClickListener(this);
 
     }
+
+    private void initData() {
+        OkGo.<String>get(Contacts.URl1+"/my/certificationStatus/"+id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        RenZhengZhuangTai renZhengZhuangTai = gson.fromJson(body, RenZhengZhuangTai.class);
+                        if (renZhengZhuangTai.getStatus() == 1){
+                            if (renZhengZhuangTai.getResult().getPerson().getCode() == 0){
+                                view_geren_renzheng.setVisibility(View.VISIBLE);
+                                view_renzheng.setVisibility(View.GONE);
+                            }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+                                if (renZhengZhuangTai.getResult().getStore().getCode() ==3 && renZhengZhuangTai.getResult().getMaster().getCode() ==3){
+                                    view_geren_renzheng.setVisibility(View.GONE);
+                                    view_renzheng.setVisibility(View.VISIBLE);
+                                }else if (renZhengZhuangTai.getResult().getMaster().getCode() == 0) {
+                                    //茶师认证失败
+                                    //跳转失败页面
+                                }
+                else if (renZhengZhuangTai.getResult().getStore().getCode() == 0) {
+                                    //商户认证失败
+                                    //跳转商户失败界面
+                                }
+                else if (renZhengZhuangTai.getResult().getMaster().getCode() == 1 || renZhengZhuangTai.getResult().getStore().getCode() ==1) {
+                                    //茶师认证或者商户认证审核中
+                                    //茶师认证或者商户审核中界面
+                                }
+                else if (renZhengZhuangTai.getResult().getMaster().getCode() ==2) {
+                                    //茶师认证成功界面
+                                }
+                else if (renZhengZhuangTai.getResult().getStore().getCode() ==2) {
+                                    //商户认证成功界面
+                                }
+                else {
+                                    view_geren_renzheng.setVisibility(View.GONE);
+                                    view_renzheng.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    }
+                });
+    }
+
 
     @Override
     public void onClick(View v) {
