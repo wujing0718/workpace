@@ -21,7 +21,7 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChaShiRenZhengActivity extends AppCompatActivity {
+public class ChaShiRenZhengActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TagFlowLayout id_flowlayout_zhicheng;
     private List<String> datas_zhicheng = new ArrayList<>();
@@ -33,6 +33,19 @@ public class ChaShiRenZhengActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cha_shi_ren_zheng);
+        initUI();
+    }
 
+    private void initUI() {
+        findViewById(R.id.bt_finish).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt_finish:
+                finish();
+                break;
+        }
     }
 }

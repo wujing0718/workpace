@@ -65,6 +65,7 @@ public class RealNameActivity extends AppCompatActivity implements View.OnClickL
     private void initUI() {
         view_geren_renzheng = findViewById(R.id.view_geren_renzheng);
         view_renzheng = findViewById(R.id.view_renzheng);
+        findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_chashi_renzheng).setOnClickListener(this);
         findViewById(R.id.bt_shanghu_renzheng).setOnClickListener(this);
         bt_xingbie_xuanze = findViewById(R.id.bt_xingbie_xuanze);
@@ -148,6 +149,9 @@ public class RealNameActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.bt_shanghu_renzheng:
                 ToastUtils.showShort("456");
+                break;
+            case R.id.bt_finish:
+                finish();
                 break;
         }
     }
