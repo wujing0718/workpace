@@ -70,7 +70,7 @@ public class PictureSelectorConfig {
      *
      * @param activity
      */
-    public static void initSingleConfig(Activity activity) {
+    public static void initSingleConfig(Activity activity,int type) {
         // 进入相册 以下是例子：用不到的api可以不写
         PictureSelector.create(activity)
                 .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()
@@ -109,7 +109,7 @@ public class PictureSelectorConfig {
 //                .videoQuality()// 视频录制质量 0 or 1 int
 //                .videoSecond()// 显示多少秒以内的视频or音频也可适用 int 
 //                .recordVideoSecond()//视频秒数录制 默认60s int
-                .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
+                .forResult(type);//结果回调onActivityResult code
     }
 
 }

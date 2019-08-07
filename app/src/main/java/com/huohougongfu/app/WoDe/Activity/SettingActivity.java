@@ -19,6 +19,7 @@ import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.XieYiActivity;
 import com.huohougongfu.app.Gson.JsonBean;
 import com.huohougongfu.app.Gson.MyZhuYe;
+import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -44,6 +45,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private int id;
     private View view_weizhi;
     private TextView tv_huancun;
+    private RenZhengZhuangTai renZhengZhuangTai;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,15 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                                 initView(xinxi.getResult());
                             }
                         }
+                    }
+                });
+        OkGo.<String>get(Contacts.URl1+"/my/certificationStatus/"+id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        renZhengZhuangTai = gson.fromJson(body, RenZhengZhuangTai.class);
                     }
                 });
     }
@@ -147,8 +158,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.bt_renzheng:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(SettingActivity.this,RealNameActivity.class);
-                    startActivity(intent);
+                    //认证
+                    initReView();
                 }
                 break;
             case R.id.bt_anquanzhongxin:
@@ -217,6 +228,58 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
                 }
                 break;
+        }
+    }
+
+    private void initReView() {
+        if (renZhengZhuangTai!=null){
+            if (renZhengZhuangTai.getStatus() == 1){
+                if (renZhengZhuangTai.getResult().getPerson().getCode() == 0){
+                    intent.setClass(SettingActivity.this,GeRenRenZhengActivity.class);
+                    startActivity(intent);
+                }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+                    if (renZhengZhuangTai.getResult().getStore().getCode() ==3 && renZhengZhuangTai.getResult().getMaster().getCode() ==3){
+                        intent.setClass(SettingActivity.this,RealNameActivity.class);
+                        startActivity(intent);
+                    }else if (renZhengZhuangTai.getResult().getMaster().getCode() == 0) {
+                        //茶师认证失败
+                        intent.putExtra("code","茶师认证失败");
+                        intent.setClass(SettingActivity.this,FailedViewActivity.class);
+                        startActivity(intent);
+                    } else if (renZhengZhuangTai.getResult().getStore().getCode() == 0) {
+                        //商户认证失败
+                        intent.putExtra("code","商户认证失败");
+                        intent.setClass(SettingActivity.this,FailedViewActivity.class);
+                        startActivity(intent);
+                    } else if (renZhengZhuangTai.getResult().getMaster().getCode() == 1 || renZhengZhuangTai.getResult().getStore().getCode() ==1) {
+                        //茶师认证或者商户认证审核中
+                        //茶师认证或者商户审核中界面
+                        finish();
+                        intent.setClass(SettingActivity.this,ReviewViewActivity.class);
+                        startActivity(intent);
+                    } else  if (renZhengZhuangTai.getResult().getStore().getCode() ==2) {
+                        if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() == 2){
+                            //特约品牌认证成功界面
+                            intent.putExtra("code","特约品牌认证成功");
+                            intent.setClass(SettingActivity.this,SucceedViewActivity.class);
+                            startActivity(intent);
+                        }else{
+                            //商户认证成功界面
+                            intent.putExtra("code","商户认证成功");
+                            intent.setClass(SettingActivity.this,SucceedViewActivity.class);
+                            startActivity(intent);
+                        }
+                    } else if (renZhengZhuangTai.getResult().getMaster().getCode() ==2){
+                        //茶师认证成功界面
+                        intent.putExtra("code","茶师认证成功");
+                        intent.setClass(SettingActivity.this,SucceedViewActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(SettingActivity.this,RealNameActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            }
         }
     }
 }

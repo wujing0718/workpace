@@ -2,12 +2,6 @@ package com.huohougongfu.app.Gson;
 
 public class RenZhengZhuangTai {
 
-    /**
-     * msg : 操作成功
-     * result : {"person":{"code":2,"info":{"realName":"汪","level":"发多少","idCard":"421333********3333"}},"specialBrand":{"code":3},"store":{"code":2,"info":{"realName":"汪","bankCard":"111111********1111","idCard":"421333********3333","storeName":"店铺名称1"}},"master":{"code":2,"info":{"realName":"汪","specialty":"发多少","level":"发多少","idCard":"421333********3333","photo":"http://oss.irving.net.cn/tea/1564739194592.jpg"}}}
-     * status : 1
-     */
-
     private String msg;
     private ResultBean result;
     private int status;
@@ -39,9 +33,9 @@ public class RenZhengZhuangTai {
     public static class ResultBean {
         /**
          * person : {"code":2,"info":{"realName":"汪","level":"发多少","idCard":"421333********3333"}}
-         * specialBrand : {"code":3}
+         * specialBrand : {"code":3,"info":{"realName":"汪","bankCard":"111111********1111","idCard":"421333********3333","storeName":"店铺名称1"}}
          * store : {"code":2,"info":{"realName":"汪","bankCard":"111111********1111","idCard":"421333********3333","storeName":"店铺名称1"}}
-         * master : {"code":2,"info":{"realName":"汪","specialty":"发多少","level":"发多少","idCard":"421333********3333","photo":"http://oss.irving.net.cn/tea/1564739194592.jpg"}}
+         * master : {"info":{"realName":"汪","specialty":"发多少","level":"发多少","idCard":"421333********3333","photo":"http://oss.irving.net.cn/tea/1564739194592.jpg"},"code":1}
          */
 
         private PersonBean person;
@@ -146,22 +140,6 @@ public class RenZhengZhuangTai {
         public static class SpecialBrandBean {
             /**
              * code : 3
-             */
-
-            private int code;
-
-            public int getCode() {
-                return code;
-            }
-
-            public void setCode(int code) {
-                this.code = code;
-            }
-        }
-
-        public static class StoreBean {
-            /**
-             * code : 2
              * info : {"realName":"汪","bankCard":"111111********1111","idCard":"421333********3333","storeName":"店铺名称1"}
              */
 
@@ -231,10 +209,10 @@ public class RenZhengZhuangTai {
             }
         }
 
-        public static class MasterBean {
+        public static class StoreBean {
             /**
              * code : 2
-             * info : {"realName":"汪","specialty":"发多少","level":"发多少","idCard":"421333********3333","photo":"http://oss.irving.net.cn/tea/1564739194592.jpg"}
+             * info : {"realName":"汪","bankCard":"111111********1111","idCard":"421333********3333","storeName":"店铺名称1"}
              */
 
             private int code;
@@ -257,6 +235,78 @@ public class RenZhengZhuangTai {
             }
 
             public static class InfoBeanXX {
+                /**
+                 * realName : 汪
+                 * bankCard : 111111********1111
+                 * idCard : 421333********3333
+                 * storeName : 店铺名称1
+                 */
+
+                private String realName;
+                private String bankCard;
+                private String idCard;
+                private String storeName;
+
+                public String getRealName() {
+                    return realName;
+                }
+
+                public void setRealName(String realName) {
+                    this.realName = realName;
+                }
+
+                public String getBankCard() {
+                    return bankCard;
+                }
+
+                public void setBankCard(String bankCard) {
+                    this.bankCard = bankCard;
+                }
+
+                public String getIdCard() {
+                    return idCard;
+                }
+
+                public void setIdCard(String idCard) {
+                    this.idCard = idCard;
+                }
+
+                public String getStoreName() {
+                    return storeName;
+                }
+
+                public void setStoreName(String storeName) {
+                    this.storeName = storeName;
+                }
+            }
+        }
+
+        public static class MasterBean {
+            /**
+             * info : {"realName":"汪","specialty":"发多少","level":"发多少","idCard":"421333********3333","photo":"http://oss.irving.net.cn/tea/1564739194592.jpg"}
+             * code : 1
+             */
+
+            private InfoBeanXXX info;
+            private int code;
+
+            public InfoBeanXXX getInfo() {
+                return info;
+            }
+
+            public void setInfo(InfoBeanXXX info) {
+                this.info = info;
+            }
+
+            public int getCode() {
+                return code;
+            }
+
+            public void setCode(int code) {
+                this.code = code;
+            }
+
+            public static class InfoBeanXXX {
                 /**
                  * realName : 汪
                  * specialty : 发多少

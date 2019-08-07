@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.SucceedViewActivity">
+
+    <RelativeLayout
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="认证"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_renzheng_chenggong"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/dp_100"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="恭喜您认证成功！"
+                android:textStyle="bold"
+                android:textColor="#F6C969"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_renzheng_name"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="姓名：李佳佳"
+                android:textColor="@color/colorBlack"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_renzheng_level"
+                android:layout_marginVertical="@dimen/dp_10"
+                android:text="职称：茶艺爱好者"
+                android:textColor="@color/colorBlack"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_renzheng_shanchang"
+                android:text="擅长：白茶、制茶、茶艺"
+                android:textColor="@color/colorBlack"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_renzheng_idCard"
+                android:layout_gravity="center_horizontal"
+                android:text="身份证号：411522*******065"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/bt_zanburenzheng"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@color/colorWhite"
+                android:textColor="@color/colorBlack"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/bt_jixurenzheng"
+                android:background="@color/colorBlack"
+                android:textColor="@color/colorWhite"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

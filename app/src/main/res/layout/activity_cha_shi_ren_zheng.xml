@@ -69,27 +69,31 @@
                 <LinearLayout
                     android:layout_marginLeft="20dp"
                     android:orientation="vertical"
-                    android:layout_width="@dimen/dp_220"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/img_positive"
                             android:src="@mipmap/positive"
                             android:layout_width="@dimen/dp_100"
-                            android:layout_height="@dimen/dp_60" />
+                            android:layout_height="@dimen/dp_100" />
+
                         <ImageView
+                            android:id="@+id/img_reverse"
                             android:layout_marginLeft="@dimen/dp_30"
                             android:src="@mipmap/reverse"
                             android:layout_width="@dimen/dp_100"
-                            android:layout_height="@dimen/dp_60" />
+                            android:layout_height="@dimen/dp_100" />
 
                     </LinearLayout>
 
                     <TextView
+                        android:layout_marginRight="50dp"
                         android:layout_marginTop="@dimen/dp_10"
                         android:textSize="12sp"
                         android:text="个人身份证照片正反面各一张，保证身份证号码、照片清晰可见"
@@ -103,7 +107,7 @@
 
             <View
                 android:layout_marginTop="@dimen/dp_20"
-                android:background="#F8F8F8"
+                android:background="#E8E8E8"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"/>
 
@@ -126,6 +130,7 @@
                     android:layout_height="wrap_content">
 
                     <com.huohougongfu.app.Utils.MultiLineRadioGroup
+                        android:id="@+id/radio_zhicheng"
                         app:child_values="@array/childvalues"
                         android:layout_marginLeft="@dimen/dp_20"
                         android:orientation="vertical"
@@ -197,32 +202,36 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/radio_qita"
+                                android:button="@null"
+                                android:drawablePadding="@dimen/dp_6"
+                                android:clickable="true"
+                                android:drawableLeft="@drawable/selector_renzehng"
+                                android:textColor="@drawable/text_drawable_selector_renzheng"
+                                android:paddingVertical="@dimen/dp_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <EditText
+                                android:id="@+id/edt_zhicheng_qita"
+                                android:hint="其他"
+                                android:textSize="14sp"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:background="@drawable/kaquan_kuang"
+                                android:layout_width="100dp"
+                                android:layout_height="24dp" />
+
+                        </LinearLayout>
+
 
                     </com.huohougongfu.app.Utils.MultiLineRadioGroup>
-
-                    <LinearLayout
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:layout_marginLeft="@dimen/dp_20"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/unselect"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp" />
-
-                        <EditText
-                            android:layout_marginLeft="@dimen/dp_8"
-                            android:hint="其他"
-                            android:textSize="14sp"
-                            android:paddingLeft="@dimen/dp_10"
-                            android:background="@drawable/kaquan_kuang"
-                            android:layout_width="100dp"
-                            android:layout_height="24dp" />
-                        
-                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -330,20 +339,25 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/dp_10"
                         android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/unselect"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp" />
+                        <CheckBox
+                            android:id="@+id/check_qita"
+                            android:button="@null"
+                            android:drawablePadding="@dimen/dp_6"
+                            android:clickable="true"
+                            android:drawableLeft="@drawable/selector_renzehng"
+                            android:textColor="@drawable/text_drawable_selector_renzheng"
+                            android:paddingVertical="@dimen/dp_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                         <EditText
-                            android:layout_marginLeft="@dimen/dp_8"
+                            android:id="@+id/edt_shanchang_qita"
                             android:hint="其他"
                             android:textSize="14sp"
                             android:paddingLeft="@dimen/dp_10"
@@ -353,10 +367,74 @@
 
                     </LinearLayout>
 
+
                 </LinearLayout>
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="资质证明"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_yingyezizhi"
+                            android:src="@mipmap/img_yingyezizhi"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp" />
+
+                        <ImageView
+                            android:id="@+id/img_qitazizhi"
+                            android:layout_marginLeft="@dimen/dp_20"
+                            android:src="@mipmap/img_qitazizhi"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:textSize="12sp"
+                        android:layout_marginRight="50dp"
+                        android:text="文案：注意事项特别说明文案：注意事项特别说明"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bt_chashi_tijiao"
+                android:layout_marginTop="@dimen/dp_30"
+                android:text="提交"
+                android:textSize="17sp"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorBlack"
+                android:layout_width="match_parent"
+                android:layout_height="44dp" />
 
         </LinearLayout>
 

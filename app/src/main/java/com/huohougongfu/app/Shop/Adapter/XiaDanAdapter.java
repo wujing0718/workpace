@@ -234,13 +234,15 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                         for (int i = 0; i < temp.size(); i++) {
                             jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
                             jsonObject.put("orderNo",list.getOrderList().get(0).getOrderId());
-                            jsonObject.put("productId",temp.get(i).getStoreId());
+                            jsonObject.put("productId",temp.get(i).getId());
                             jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
                             jsonObject.put("standard",temp.get(i).getStandard());
                             jsonObject.put("buynum",temp.get(i).getNum());
                             jsonObject.put("teaRice",teaRice);
                             if (transId == 0){
-                                jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
+                                if (temp.get(i).getTransportTemplate()!=null){
+                                    jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
+                                }
                             }else{
                                 jsonObject.put("transId",transId);
                             }
