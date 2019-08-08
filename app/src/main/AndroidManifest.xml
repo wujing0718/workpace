@@ -256,7 +256,8 @@
         <activity android:name=".WoDe.Activity.ReviewViewActivity" />
         <activity android:name=".WoDe.Activity.GeRenRenZhengActivity" />
         <activity android:name=".WoDe.Activity.ShangHuRenZhengActivity" />
-        <activity android:name=".WoDe.Activity.SpecialBrandActivity"></activity>
+        <activity android:name=".WoDe.Activity.SpecialBrandActivity" />
+        <activity android:name=".WoDe.Activity.ShopPingJiaDetailActivity"></activity>
     </application>
 
 </manifest>

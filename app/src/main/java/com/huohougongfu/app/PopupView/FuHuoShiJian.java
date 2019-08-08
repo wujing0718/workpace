@@ -99,7 +99,7 @@ public class FuHuoShiJian extends BottomPopupView implements View.OnClickListene
                 if (!utils.isDoubleClick()){
                     Message msg = Message.obtain();
                     msg.what = 0;
-                    msg.obj = "24小时内";
+                    msg.obj = "24";
                     mHandler.sendMessage(msg);
                     dismiss();
                 }
@@ -108,7 +108,7 @@ public class FuHuoShiJian extends BottomPopupView implements View.OnClickListene
                 if (!utils.isDoubleClick()){
                     Message msg = Message.obtain();
                     msg.what = 0;
-                    msg.obj = "3天内";
+                    msg.obj = "3";
                     mHandler.sendMessage(msg);
                     dismiss();
                 }
@@ -117,7 +117,7 @@ public class FuHuoShiJian extends BottomPopupView implements View.OnClickListene
                 if (!utils.isDoubleClick()){
                     Message msg = Message.obtain();
                     msg.what = 0;
-                    msg.obj = "7天内";
+                    msg.obj = "7";
                     mHandler.sendMessage(msg);
                     dismiss();
                 }
@@ -126,7 +126,7 @@ public class FuHuoShiJian extends BottomPopupView implements View.OnClickListene
                 if (!utils.isDoubleClick()){
                     Message msg = Message.obtain();
                     msg.what = 0;
-                    msg.obj = "15天内";
+                    msg.obj = "15";
                     mHandler.sendMessage(msg);
                     dismiss();
                 }
@@ -135,7 +135,7 @@ public class FuHuoShiJian extends BottomPopupView implements View.OnClickListene
                 if (!utils.isDoubleClick()){
                     Message msg = Message.obtain();
                     msg.what = 0;
-                    msg.obj = "30天内";
+                    msg.obj = "30";
                     mHandler.sendMessage(msg);
                     dismiss();
                 }

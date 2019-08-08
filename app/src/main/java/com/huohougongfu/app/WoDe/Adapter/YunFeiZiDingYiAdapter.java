@@ -1,9 +1,9 @@
 package com.huohougongfu.app.WoDe.Adapter;
 
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAdapter.ViewHolder> {
 
-    private List<String> list;
+    private List<String> list = new ArrayList<>();
     private List<String> mlist = new ArrayList<>();
     private List<String> mHandler = new ArrayList<>();
     private HttpCookie bean;
@@ -58,6 +59,7 @@ public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAd
 //      在list中添加数据，并通知条目加入一条
         mlist.add(position, "");
         notifyItemRangeChanged(position, list.size());
+
     }
 
     //  删除数据
@@ -71,9 +73,10 @@ public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAd
         this.mHandler = dizhi;
         String fahuocity = "";
         for (int y = 0; y <mHandler.size() ; y++) {
-            fahuocity = fahuocity+" "+mHandler.get(y);
+            fahuocity = fahuocity+""+mHandler.get(y)+"，";
         }
-        list.set(position,fahuocity);
+        String substring = fahuocity.substring(0, fahuocity.length() - 1);
+        list.set(position,substring);
         notifyDataSetChanged();
     }
 
@@ -91,9 +94,6 @@ public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAd
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (listener != null) {
-//                    listener.onTextChange(position);
-//                }
             }
 
             @Override
@@ -105,6 +105,7 @@ public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAd
                 }
             }
         };
+
         viewHodel.edt_zidingyi_youfei.addTextChangedListener(textWatcher);
         viewHodel.edt_zidingyi_youfei.setTag(textWatcher);
 
@@ -123,6 +124,13 @@ public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAd
                 }
             }
         });
+
+
+//
+//        Message msg = Message.obtain();
+//        msg.what = 0;
+//        msg.obj = customSettings;
+//        handler.sendMessage(msg);
     }
 
     @Override
@@ -140,6 +148,16 @@ public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAd
             edt_zidingyi_youfei = itemView.findViewById(R.id.edt_zidingyi_youfei);
         }
     }
+
+//    public interface OnQueDingListener {
+//        void onChangeQueDing(List<String> list, List<String> mlist);
+//    }
+//
+//    public void setOnQueDingListener(YunFeiZiDingYiAdapter.OnQueDingListener listener) {
+//        mQueDingListener = listener;
+//    }
+//
+//    private YunFeiZiDingYiAdapter.OnQueDingListener mQueDingListener;
 
     public interface OnCountListener {
         void onChangeCount(int i);

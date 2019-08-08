@@ -17,7 +17,6 @@
             android:paddingHorizontal="@dimen/dp_6"
             android:gravity="center"
             android:textSize="12sp"
-            android:text=""
             android:maxLines="1"
             android:paddingVertical="6dp"
             android:layout_gravity="center_vertical"

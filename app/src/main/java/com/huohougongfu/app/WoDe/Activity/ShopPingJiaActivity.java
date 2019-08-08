@@ -1,11 +1,13 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyCollect;
 import com.huohougongfu.app.MyApp;
@@ -69,6 +71,14 @@ public class ShopPingJiaActivity extends AppCompatActivity {
         rec_shop_pingjia.setLayoutManager(layoutManager);
         DianPuShopPingJiaAdapter dianPuShopPingJiaAdapter = new DianPuShopPingJiaAdapter(R.layout.item_dianpu_shop_pingjia, list);
         rec_shop_pingjia.setAdapter(dianPuShopPingJiaAdapter);
+        dianPuShopPingJiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.setClass(ShopPingJiaActivity.this,ShopPingJiaDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

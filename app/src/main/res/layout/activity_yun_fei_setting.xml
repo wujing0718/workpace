@@ -35,6 +35,7 @@
             android:layout_height="wrap_content" />
 
         <RelativeLayout
+            android:id="@+id/bt_queding"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/dp_50"
             android:layout_height="match_parent">
@@ -65,7 +66,8 @@
             <ImageView
                 android:id="@+id/img_check_jichuyoufei"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/unselect"
+                android:src="@mipmap/select"
+                android:visibility="gone"
                 android:layout_width="22dp"
                 android:layout_height="22dp" />
 
@@ -80,9 +82,11 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/edt_jichu_yunfei"
             android:paddingRight="@dimen/dp_15"
             android:background="@null"
             android:hint="请输入金额"
+            android:text="0"
             android:gravity="right|center_vertical"
             android:textSize="14sp"
             android:layout_centerVertical="true"
@@ -113,7 +117,8 @@
             <ImageView
                 android:id="@+id/img_check_manjianbaoyou"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/unselect"
+                android:src="@mipmap/select"
+                android:visibility="gone"
                 android:layout_width="22dp"
                 android:layout_height="22dp" />
 
@@ -131,6 +136,8 @@
             android:paddingRight="@dimen/dp_15"
             android:background="@null"
             android:hint="请输入金额"
+            android:text="0"
+            android:id="@+id/edt_manjian_baoyou"
             android:gravity="right|center_vertical"
             android:textSize="14sp"
             android:layout_centerVertical="true"
@@ -162,6 +169,7 @@
                 android:id="@+id/img_check_zidingyi"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/unselect"
+                android:visibility="gone"
                 android:layout_width="22dp"
                 android:layout_height="22dp" />
 

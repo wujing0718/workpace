@@ -35,6 +35,7 @@
             android:layout_height="wrap_content" />
 
         <RelativeLayout
+            android:id="@+id/bt_queding"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/dp_50"
             android:layout_height="match_parent">
