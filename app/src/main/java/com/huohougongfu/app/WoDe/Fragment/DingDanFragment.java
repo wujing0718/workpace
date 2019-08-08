@@ -59,7 +59,6 @@ public class DingDanFragment extends Fragment {
     private int id;
 
     public DingDanFragment() {
-        // Required empty public constructor
     }
 
 
@@ -71,12 +70,12 @@ public class DingDanFragment extends Fragment {
         id = MyApp.instance.getInt("id");
         intent = new Intent();
         rec_chatai_dingdan = inflate.findViewById(R.id.rec_mydingdan);
+        initData();
         return inflate;
     }
 
     @Override
     public void onResume() {
-        initData();
         super.onResume();
     }
 

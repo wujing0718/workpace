@@ -20,6 +20,7 @@ import java.util.List;
 public class DingDanGuanLi extends AppCompatActivity {
 
     private final String[] mTitles = {"待发货", "未完成", "已发货","售后"};
+    private final String[] status = {"1", "2", "3","4"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
@@ -42,7 +43,7 @@ public class DingDanGuanLi extends AppCompatActivity {
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
         for (int i = 0;i<mTitles.length;i++){
-            mFragments.add(DingDanGuanLiFragment.newInstance("zhengce"));
+            mFragments.add(DingDanGuanLiFragment.newInstance(status[i]));
             mtabtitle.add(mTitles[i]);
         }
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(),mFragments,mtabtitle);

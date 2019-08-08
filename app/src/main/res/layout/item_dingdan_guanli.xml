@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/black_kuang"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="@dimen/dp_10"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_dingdan_bianhao"
+                android:text="订单编号：78945612312345"
+                android:textSize="14sp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_dianpu_zhuangtai"
+            android:layout_alignParentRight="true"
+            android:text="交易完成"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rec_item_dingdan_liebiao"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginHorizontal="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_dingdan_num"
+            android:text="共计：3件商品"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginRight="8dp"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_dingdan_price"
+                android:text="合计：¥597.00"
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_dingdan_youfeiprice"
+                android:text="（含运费¥10.00）"
+                android:textSize="11sp"
+                android:layout_gravity="right"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+            
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginRight="@dimen/layout_margin_8dp"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="联系卖家"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:paddingVertical="2dp"
+            android:background="@drawable/black_di"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/bt_anniu_one"
+            android:text="查看物流"
+            android:textSize="12sp"
+            android:layout_marginHorizontal="@dimen/dp_20"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:paddingVertical="2dp"
+            android:background="@drawable/black_di"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/bt_anniu_two"
+            android:text="删除订单"
+            android:textSize="12sp"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:paddingVertical="2dp"
+            android:background="@drawable/black_di"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
