@@ -71,6 +71,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     private String machineId;
     private ChaTaiYouHuiQuan.ResultBean.CouponsBean xuanzeyouhuiquan;
     private View view_zhanweitu;
+    private View view_chataione;
 
     public ChaTaiOneFragment() {
         // Required empty public constructor
@@ -128,6 +129,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         img_chami_check = inflate.findViewById(R.id.img_chami_check);
         bt_chami_dikou = inflate.findViewById(R.id.bt_chami_dikou);
         view_zhanweitu = inflate.findViewById(R.id.view_zhanweitu);
+        view_chataione = inflate.findViewById(R.id.view_chataione);
     }
 
     private void initData(ChaTaiYouHuiQuan.ResultBean myouhuiquan) {
