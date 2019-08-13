@@ -212,6 +212,7 @@ public class ChaTaiAdapter extends BaseAdapter {
                         JSONObject object =new JSONObject();
                         object.put("id",resultBean.getId());
                         object.put("concentration",resultBean.getConcentration());
+                        object.put("teaId",resultBean.getTeaId());
                         object.put("hasDust",resultBean.getHasDust());
                         object.put("num",resultBean.getNum());
                         array.put(object);
@@ -244,6 +245,7 @@ public class ChaTaiAdapter extends BaseAdapter {
                         JSONObject object =new JSONObject();
                         object.put("id",resultBean.getId());
                         object.put("concentration",resultBean.getConcentration());
+                        object.put("teaId",resultBean.getTeaId());
                         object.put("hasDust",resultBean.getHasDust());
                         object.put("num",resultBean.getNum());
                         array.put(object);

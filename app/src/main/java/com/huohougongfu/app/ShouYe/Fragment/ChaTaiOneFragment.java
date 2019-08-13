@@ -235,6 +235,8 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                                 new XPopup.Builder(getContext())
                                         .asCustom(new ChaTaiZhiFu(getContext(),jsonObject.getString("result")))
                                         .show();
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

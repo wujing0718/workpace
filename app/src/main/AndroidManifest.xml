@@ -260,7 +260,10 @@
         <activity android:name=".WoDe.Activity.ShopPingJiaDetailActivity" />
         <activity android:name=".WoDe.Activity.ShopGuanLIActivity" />
         <activity android:name=".WoDe.Activity.JinTuiKuanActivity" />
-        <activity android:name=".WoDe.Activity.TuiHuoTuiKuanActivity"></activity>
+        <activity android:name=".WoDe.Activity.TuiHuoTuiKuanActivity" />
+        <activity android:name=".WoDe.Activity.TianJiaShangPinActivity" />
+        <activity android:name=".WoDe.Activity.ShopFenLeiActivity" />
+        <activity android:name=".WoDe.Activity.ShopCanShuActivity"></activity>
     </application>
 
 </manifest>

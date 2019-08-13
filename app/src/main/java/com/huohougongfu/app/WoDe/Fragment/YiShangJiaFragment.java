@@ -28,6 +28,7 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.WoDe.Activity.ShopGuanLIActivity;
+import com.huohougongfu.app.WoDe.Activity.TianJiaShangPinActivity;
 import com.huohougongfu.app.WoDe.Adapter.ShopGuanLiAdapter;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -67,6 +68,8 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
     private int index = 0;
     private TextView tv_shangchuan_shop,tv_tiaoxuan_shop;
     private String status;
+    private View view;
+
 
     public YiShangJiaFragment() {
         // Required empty public constructor
@@ -88,6 +91,7 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
     }
 
     private void initUI() {
+        view = inflate.findViewById(R.id.view);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_shangpin_tehui= inflate.findViewById(R.id.rec_shangpin_tehui);
         tv_shangchuan_shop = inflate.findViewById(R.id.tv_shangchuan_shop);
@@ -113,7 +117,12 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                         Gson gson = new Gson();
                         ShopGuanLiLieBiao shangPinGson = gson.fromJson(response.body(), ShopGuanLiLieBiao.class);
                         if (shangPinGson.getStatus() == 1) {
-                            initRec(shangPinGson.getResult());
+                            if (shangPinGson.getResult().getList().size()>0){
+                                view.setVisibility(View.VISIBLE);
+                                initRec(shangPinGson.getResult());
+                            }else{
+                                view.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override
@@ -229,23 +238,35 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_shangchuan_shop:
-                if (status.equals("仓库")){
-                    if (!isGuanLi){
-                        //下架
-                        initXiaJia();
-                    }else{
-                        ToastUtils.showShort("上传商品");
+                if (status!=null){
+                    if (status.equals("仓库")){
+                        if (!isGuanLi){
+                            //下架
+                            initXiaJia();
+                        }else{
+                            Intent intent = new Intent();
+                            intent.setClass(getActivity(),TianJiaShangPinActivity.class);
+                            startActivity(intent);
+                        }
                     }
+                }else{
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(),TianJiaShangPinActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.bt_tiaoxuan_shop:
-                if (status.equals("仓库")){
-                    if (isGuanLi){
-                        ToastUtils.showShort("挑选商品");
-                    }else{
-                        //删除
-                        initDelete();
+                if (status!=null){
+                    if (status.equals("仓库")){
+                        if (isGuanLi){
+                            ToastUtils.showShort("挑选商品");
+                        }else{
+                            //删除
+                            initDelete();
+                        }
                     }
+                }else{
+
                 }
                 break;
         }
