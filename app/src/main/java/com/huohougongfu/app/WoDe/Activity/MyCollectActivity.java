@@ -273,7 +273,6 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
                     tv_select_all.setText("取消全选");
                     img_select_all.setImageResource(R.mipmap.select);
                 }
-
             } else {
                 myLive.setSelect(false);
                 index--;

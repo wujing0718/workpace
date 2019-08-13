@@ -3,6 +3,7 @@ package com.huohougongfu.app.WoDe.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,12 +21,19 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyDingDanDetail;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanDetailAdapter;
+import com.kongzue.dialog.v2.SelectDialog;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +48,9 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     private RecyclerView rec_dingdan_detail;
     private ImageView img_dianpu_logo;
     private TextView tv_dianpu_name;
+    private TextView tv_dingdan_caozuo2;
+    private TextView tv_dingdan_caozuo1;
+    private MyDingDanDetail mydongdandetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +74,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
             public void onSuccess(Response<String> response) {
                 String body = response.body();
                 Gson gson = new Gson();
-                MyDingDanDetail mydongdandetail = gson.fromJson(body, MyDingDanDetail.class);
+                mydongdandetail = gson.fromJson(body, MyDingDanDetail.class);
                 if (mydongdandetail.getStatus() == 1) {
                     if (mydongdandetail.getResult().size()>0){
                         initView(mydongdandetail.getResult());
@@ -82,9 +93,30 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         myDingDanDetailAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent();
-                intent.setClass(DingDanDetailActivity.this,ShenQingShouHouActivity.class);
-                startActivity(intent);
+                switch (view.getId()){
+                    case R.id.tv_shenqingshouhou:
+                        if (!utils.isDoubleClick()){
+                            Intent intent = new Intent();
+                            intent.putExtra("shop",mydongdandetail.getResult().get(0).getMallStores().getMallProducts().get(position));
+                            intent.putExtra("orderNo",orderNo);
+                            intent.putExtra("orderStatus",orderStatus);
+                            intent.setClass(DingDanDetailActivity.this,ShenQingShouHouActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    case R.id.tv_pingjia:
+                        if (!utils.isDoubleClick()){
+                            //已签收跳转评价
+                            Intent intent = new Intent();
+                            intent.putExtra("shopid",mydongdandetail.getResult().get(0).getMallStores().getMallProducts().get(position).getId());
+                            intent.putExtra("storeName",mydongdandetail.getResult().get(0).getMallStores().getStoreName());
+                            intent.putExtra("storeLogo",mydongdandetail.getResult().get(0).getMallStores().getStoreLogo());
+                            intent.setClass(DingDanDetailActivity.this,DingDanPingJiaActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
+                }
+
             }
         });
     }
@@ -108,9 +140,9 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     private void initUI() {
         View view_logistics = findViewById(R.id.view_logistics);
         TextView tv_dingdan_zhuangtai = findViewById(R.id.tv_dingdan_zhuangtai);
-        TextView tv_dingdan_caozuo1 = findViewById(R.id.tv_dingdan_caozuo1);
+        tv_dingdan_caozuo1 = findViewById(R.id.tv_dingdan_caozuo1);
         tv_dingdan_caozuo1.setOnClickListener(this);
-        TextView tv_dingdan_caozuo2 = findViewById(R.id.tv_dingdan_caozuo2);
+        tv_dingdan_caozuo2 = findViewById(R.id.tv_dingdan_caozuo2);
         tv_dingdan_caozuo2.setOnClickListener(this);
         if (orderStatus == 0){
             tv_dingdan_caozuo1.setText("取消订单");
@@ -130,6 +162,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         }else if (orderStatus == 3){
             tv_dingdan_caozuo1.setVisibility(View.GONE);
             tv_dingdan_caozuo2.setText("评价");
+            tv_dingdan_caozuo2.setVisibility(View.GONE);
             tv_dingdan_zhuangtai.setText("已完成");
             view_logistics.setVisibility(View.VISIBLE);
         }else if (orderStatus == -2){
@@ -141,6 +174,11 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
             tv_dingdan_caozuo1.setVisibility(View.GONE);
             tv_dingdan_caozuo2.setText("退货中");
             tv_dingdan_zhuangtai.setText("退货中");
+            view_logistics.setVisibility(View.VISIBLE);
+        }else if (orderStatus == -4){
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
+            tv_dingdan_caozuo2.setText("删除订单");
+            tv_dingdan_zhuangtai.setText("已取消");
             view_logistics.setVisibility(View.VISIBLE);
         }
         img_dianpu_logo = findViewById(R.id.img_dianpu_logo);
@@ -184,12 +222,107 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_dingdan_caozuo2:
-                if (orderStatus == 3){
-                    Intent intent = new Intent();
-                    intent.setClass(DingDanDetailActivity.this,DingDanPingJiaActivity.class);
-                    startActivity(intent);
+                if(orderStatus == -4){
+                    //删除订单
+                    initDelete(orderNo);
+                }else if (orderStatus == 2){
+                    initQueRen(orderNo);
+                }else if (orderStatus == 0){
+                    ToastUtils.showShort("确认订单");
+                }else if (orderStatus == 1){
+                    ToastUtils.showShort("提醒发货");
                 }
                 break;
+                case R.id.tv_dingdan_caozuo1:
+                    if (orderStatus == 0){
+                        initQuanXiao(orderNo,orderStatus);
+                    }else if (orderStatus == 1){
+                        initQuanXiao(orderNo,orderStatus);
+                    }
+                    break;
         }
     }
+    //  取消订单
+    private void initQuanXiao(String orderNo, int orderStatus) {
+        new XPopup.Builder(DingDanDetailActivity.this)
+                .asCustom(new QuXiaoDingDan(DingDanDetailActivity.this,orderStatus,orderNo))
+                .show();
+    }
+    //  删除订单
+    private void initDelete(String orderNo) {
+        SelectDialog.show(DingDanDetailActivity.this, "提示", "是否删除订单",
+                "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!utils.isDoubleClick()){
+                            Map<String,String> map = new HashMap<>();
+                            map.put("createBy",String.valueOf(id));
+                            map.put("orderNo",orderNo);
+                            OkGo.<String>post(Contacts.URl1+"order/deleteOrder")
+                                    .params(map)
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onSuccess(Response<String> response) {
+                                            String body = response.body();
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(body);
+                                                if (jsonObject.getInt("status") == 1){
+                                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                                    finish();
+                                                }else{
+                                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                },
+                "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+    }
+    //  确认订单
+    private void initQueRen(String orderNo) {
+        SelectDialog.show(DingDanDetailActivity.this, "提示", "是否确认收货",
+                "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!utils.isDoubleClick()){
+                            Map<String,String> map = new HashMap<>();
+                            map.put("createBy",String.valueOf(id));
+                            map.put("orderNo",orderNo);
+                            OkGo.<String>post(Contacts.URl1+"order/confirmReciver")
+                                    .params(map)
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onSuccess(Response<String> response) {
+                                            String body = response.body();
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(body);
+                                                if (jsonObject.getInt("status") == 1){
+                                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                                    finish();
+                                                }else{
+                                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                },
+                "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+    }
+
 }

@@ -14,20 +14,14 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
-import com.huohougongfu.app.Adapter.ChaTaiDingDanAdapter;
-import com.huohougongfu.app.Fragment.SiLiaoFragment;
 import com.huohougongfu.app.Gson.MyDingDan;
-import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.MyApp;
-import com.huohougongfu.app.PopupView.FuHuoShiJian;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
-import com.huohougongfu.app.Utils.DataCleanManager;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
-import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -145,7 +139,7 @@ public class DingDanFragment extends Fragment {
                             }else  if (result.get(position).getOrderStatus() == 0){
                                 ToastUtils.showShort("确认付款");
                             }else  if (result.get(position).getOrderStatus() == -1){
-                                ToastUtils.showShort("删除订单");
+                                initDelete(result.get(position).getOrderNo());
                             }
                             break;
                     }

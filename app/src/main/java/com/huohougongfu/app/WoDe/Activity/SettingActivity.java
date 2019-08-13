@@ -11,11 +11,13 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XieYiActivity;
 import com.huohougongfu.app.Gson.JsonBean;
 import com.huohougongfu.app.Gson.MyZhuYe;
@@ -46,12 +48,18 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private View view_weizhi;
     private TextView tv_huancun;
     private RenZhengZhuangTai renZhengZhuangTai;
+    private String token,phone;
+    private TextView bt_tuichudenglu;
+    private SPUtils instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        instance = SPUtils.getInstance("登录");
         id = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
+        phone = MyApp.instance.getString("phone");
         intent = new Intent();
         initUI();
     }
@@ -118,7 +126,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.bt_shouhuodizhi).setOnClickListener(this);
         findViewById(R.id.bt_renzheng).setOnClickListener(this);
         findViewById(R.id.bt_anquanzhongxin).setOnClickListener(this);
-        findViewById(R.id.bt_tuichudenglu).setOnClickListener(this);
+        bt_tuichudenglu = findViewById(R.id.bt_tuichudenglu);
+        bt_tuichudenglu.setOnClickListener(this);
+        if (!token.isEmpty()){
+            bt_tuichudenglu.setText("退出当前账户");
+        }else{
+            bt_tuichudenglu.setText("登录");
+        }
         findViewById(R.id.bt_qingchuhuancun).setOnClickListener(this);
         findViewById(R.id.bt_obout).setOnClickListener(this);
         findViewById(R.id.bt_yonghuxieyi).setOnClickListener(this);
@@ -206,26 +220,34 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.bt_tuichudenglu:
                 if (!utils.isDoubleClick()){
-                    SelectDialog.show(SettingActivity.this, "提示", "是否退出登录",
-                            "确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if(!utils.isDoubleClick()){
-                                        //如果断开连接后，有新消息时，不想收到任何推送通知，调用 logout() 方法。
-                                        RongIM.getInstance().logout();
-                                        JPushInterface.stopPush(SettingActivity.this);
-                                        intent.setClass(SettingActivity.this,LoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                    if (!token.isEmpty()){
+                        SelectDialog.show(SettingActivity.this, "提示", "是否退出登录",
+                                "确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if(!utils.isDoubleClick()){
+                                            //如果断开连接后，有新消息时，不想收到任何推送通知，调用 logout() 方法。
+                                            instance.clear(true);
+                                            RongIM.getInstance().logout();
+                                            JPushInterface.stopPush(SettingActivity.this);
+                                            intent.setClass(SettingActivity.this,LoginActivity.class);
+                                            startActivity(intent);
+                                            MainActivity.activity.finish();
+                                            finish();
+                                        }
                                     }
-                                }
-                            },
-                            "取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-
+                                },
+                                "取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                    }else{
+                        JPushInterface.stopPush(SettingActivity.this);
+                        intent.setClass(SettingActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
                 break;
         }

@@ -10,6 +10,7 @@
     tools:context=".WoDe.Activity.ShenQingShouHouActivity">
 
     <ImageView
+        android:id="@+id/img_shop_photo"
         android:src="@mipmap/ic_launcher"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100" />
@@ -22,8 +23,9 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_shop_title"
             android:layout_marginRight="16dp"
-            android:text="八马茶  黄山毛峰2019新茶高山绿茶茶叶春茶特级250g"
+            android:text=""
             android:textColor="@color/colorBlack"
             android:maxLines="2"
             android:ellipsize="end"
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_shop_guige"
             android:text="16g"
             android:layout_marginTop="@dimen/dp_10"
             android:textColor="#CDCDCD"

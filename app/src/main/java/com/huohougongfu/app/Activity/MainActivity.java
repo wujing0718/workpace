@@ -62,6 +62,7 @@
     private NoScrollViewPager viewPager;
     private MenuItem menuItem;
     private ImmersionBar immersionber;
+    public static MainActivity activity;
             //定位需要的声明
             private AMapLocationClient mLocationClient = null;//定位发起端
             private AMapLocationClientOption mLocationOption = null;//定位参数
@@ -82,6 +83,7 @@
             ActivityCompat.requestPermissions(MainActivity.this,mPermissionList,123);
         }
         initLoc();
+        activity = this;
         immersionber = ImmersionBar.with(this);
         immersionber.statusBarDarkFont(false).init();
         bottomNavigationView = findViewById(R.id.bottomnavigationview);

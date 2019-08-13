@@ -101,6 +101,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/bt_yue"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
@@ -138,9 +139,20 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/check_yue"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:button="@null"
+                android:background="@drawable/selector_checkbox"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/bt_alipay"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
@@ -167,9 +179,20 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/check_ali"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:button="@null"
+                android:background="@drawable/selector_checkbox"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/bt_weixin"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
@@ -196,13 +219,23 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <CheckBox
+                android:id="@+id/check_weixin"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:button="@null"
+                android:background="@drawable/selector_checkbox"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
 
+        </RelativeLayout>
 
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/bt_pay"
         android:text="立即付款"
         android:textColor="@color/colorWhite"
         android:gravity="center"

@@ -24,11 +24,17 @@ public class MyDingDanDetailAdapter extends BaseQuickAdapter<MyDingDanDetail.Res
     @Override
     protected void convert(BaseViewHolder helper, MyDingDanDetail.ResultBean.MallStoresBean.MallProductsBean item) {
         TextView tv_shenqingshouhou = helper.getView(R.id.tv_shenqingshouhou);
+        TextView tv_pingjia = helper.getView(R.id.tv_pingjia);
         helper.addOnClickListener(R.id.tv_shenqingshouhou);
-        if (orderStatus == 3 || orderStatus ==4){
+        helper.addOnClickListener(R.id.tv_pingjia);
+        if (orderStatus ==4){
             tv_shenqingshouhou.setVisibility(View.VISIBLE);
+        }else if (orderStatus == 3){
+            tv_shenqingshouhou.setVisibility(View.VISIBLE);
+            tv_pingjia.setVisibility(View.VISIBLE);
         }else{
             tv_shenqingshouhou.setVisibility(View.GONE);
+            tv_pingjia.setVisibility(View.GONE);
         }
         ImageView img_dingdan_photo = helper.getView(R.id.img_dingdan_photo);
         helper.setText(R.id.tv_dingdan_shangpin_title,item.getName());

@@ -137,7 +137,7 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
                         if (lieiao.getStatus() == 1) {
                             if (lieiao.getResult().size()>0){
                                 initRec(lieiao);
-                                tv_jiqiweizhi.setText(lieiao.getResult().get(0).getDetailAddress()+"(No."+lieiao.getResult().get(0).getEquipmentId()+")");
+                                tv_jiqiweizhi.setText(lieiao.getResult().get(0).getDetailAddress()+"(No."+lieiao.getResult().get(0).getDetailAddress()+")");
                                 DecimalFormat formater = new DecimalFormat();
                                 formater.setMaximumFractionDigits(2);
                                 formater.setGroupingSize(0);

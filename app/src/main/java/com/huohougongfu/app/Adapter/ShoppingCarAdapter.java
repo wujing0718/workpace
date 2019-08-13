@@ -258,24 +258,24 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                      * 实际开发中，如果有被选中的商品，
                      * 则跳转到确认订单页面，完成后续订单流程。
                      */
-//                    LogUtils.e(temp.get(0).getName());
-                    JSONArray jsonArray = new JSONArray();
-                    JSONObject jsonObject = new JSONObject();
-                    try {
+
+                        JSONArray jsonArray = new JSONArray();
                         for (int i = 0; i < temp.size(); i++) {
-                            jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                            jsonObject.put("productId",temp.get(i).getId());
-                            jsonObject.put("productNum",temp.get(i).getCartProductNum());
-                            jsonObject.put("cartId",temp.get(i).getCartId());
-                            jsonObject.put("standard",temp.get(i).getStandard());
-                            jsonObject.put("standardId",temp.get(i).getStandardId());
-                            jsonObject.put("storeId",store_id);
-                            jsonArray.put(jsonObject);
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+                                jsonObject.put("productId",temp.get(i).getId());
+                                jsonObject.put("productNum",temp.get(i).getCartProductNum());
+                                jsonObject.put("cartId",temp.get(i).getCartId());
+                                jsonObject.put("standard",temp.get(i).getStandard());
+                                jsonObject.put("standardId",temp.get(i).getStandardId());
+                                jsonObject.put("storeId",store_id);
+                                jsonArray.put(jsonObject);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                         initXiaDan(jsonArray);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                 } else {
                     ToastUtils.showShort("请选择要购买的商品");
                 }

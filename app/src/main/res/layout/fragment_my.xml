@@ -132,28 +132,28 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_marginTop="2dp"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                        <!--<LinearLayout-->
+                            <!--android:layout_marginTop="2dp"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content">-->
 
-                            <TextView
-                                android:text="ID："
-                                android:textColor="#818181"
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                            <!--<TextView-->
+                                <!--android:text="ID："-->
+                                <!--android:textColor="#818181"-->
+                                <!--android:textSize="12sp"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content" />-->
 
-                            <TextView
-                                android:id="@+id/tv_my_id"
-                                android:text="123456"
-                                android:textColor="#818181"
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                            <!--<TextView-->
+                                <!--android:id="@+id/tv_my_id"-->
+                                <!--android:text="123456"-->
+                                <!--android:textColor="#818181"-->
+                                <!--android:textSize="12sp"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content" />-->
 
-                        </LinearLayout>
+                        <!--</LinearLayout>-->
 
                         <LinearLayout
                             android:layout_marginTop="6dp"
@@ -194,7 +194,9 @@
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/bt_dianpu"
                                 android:text="店铺"
+                                android:visibility="gone"
                                 android:layout_marginLeft="5dp"
                                 android:paddingVertical="2dp"
                                 android:paddingHorizontal="@dimen/dp_4"
@@ -227,7 +229,7 @@
 
                         <TextView
                             android:id="@+id/tv_my_guanzhunum"
-                            android:text=""
+                            android:text="0"
                             android:textColor="@color/colorBlack"
                             android:textSize="20sp"
                             android:layout_gravity="center_horizontal"
@@ -253,7 +255,7 @@
 
                         <TextView
                             android:id="@+id/tv_my_fensinum"
-                            android:text=""
+                            android:text="0"
                             android:textColor="@color/colorBlack"
                             android:textSize="20sp"
                             android:layout_gravity="center_horizontal"
@@ -300,7 +302,7 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:layout_gravity="center_vertical"
-                    android:text="这里是我的个性签名啊一二三四五六七八九十一二三四五六七八九十"
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -422,7 +424,7 @@
 
                             <TextView
                                 android:layout_marginLeft="@dimen/icon_size_20dp"
-                                android:text="50"
+                                android:text="0"
                                 android:textSize="12sp"
                                 android:textColor="@color/colorWhite"
                                 android:layout_width="wrap_content"
@@ -477,7 +479,7 @@
                             <TextView
                                 android:id="@+id/tv_mydongtai_num"
                                 android:layout_marginLeft="@dimen/icon_size_20dp"
-                                android:text="10"
+                                android:text="0"
                                 android:textSize="12sp"
                                 android:textColor="@color/colorWhite"
                                 android:layout_width="wrap_content"

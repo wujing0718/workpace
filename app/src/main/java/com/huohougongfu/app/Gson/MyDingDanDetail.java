@@ -1,8 +1,9 @@
 package com.huohougongfu.app.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MyDingDanDetail {
+public class MyDingDanDetail implements Serializable{
 
     private String msg;
     private int status;
@@ -32,7 +33,7 @@ public class MyDingDanDetail {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * id : null
          * orderNo : 23
@@ -467,7 +468,7 @@ public class MyDingDanDetail {
             this.deliveryType = deliveryType;
         }
 
-        public static class MallStoresBean {
+        public static class MallStoresBean implements Serializable{
             /**
              * id : 1
              * storeLogo : https://werw/w/ge.jpg
@@ -632,7 +633,7 @@ public class MyDingDanDetail {
                 this.mallProducts = mallProducts;
             }
 
-            public static class MallProductsBean {
+            public static class MallProductsBean implements Serializable {
                 /**
                  * id : 34
                  * name : 测试34
@@ -738,7 +739,7 @@ public class MyDingDanDetail {
                 private Object cartId;
                 private Object cartProductNum;
                 private Object buyNum;
-                private Object num;
+                private int num;
                 private Object basicService;
                 private Object productType;
                 private Object transName;
@@ -751,7 +752,7 @@ public class MyDingDanDetail {
                 private Object brandOrder;
                 private Object brandAddress;
                 private Object attributeId;
-                private Object standardId;
+                private int standardId;
                 private Object userId;
                 private Object collectionNum;
                 private String standard;
@@ -1093,11 +1094,11 @@ public class MyDingDanDetail {
                     this.buyNum = buyNum;
                 }
 
-                public Object getNum() {
+                public int getNum() {
                     return num;
                 }
 
-                public void setNum(Object num) {
+                public void setNum(int num) {
                     this.num = num;
                 }
 
@@ -1197,11 +1198,11 @@ public class MyDingDanDetail {
                     this.attributeId = attributeId;
                 }
 
-                public Object getStandardId() {
+                public int getStandardId() {
                     return standardId;
                 }
 
-                public void setStandardId(Object standardId) {
+                public void setStandardId(int standardId) {
                     this.standardId = standardId;
                 }
 

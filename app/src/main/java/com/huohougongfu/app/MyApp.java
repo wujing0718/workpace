@@ -139,6 +139,7 @@ public class MyApp extends Application {
         JPushInterface.setDebugMode(true);
         //微信
         PlatformConfig.setWeixin("wxa36e44f4072c4818", "3baf1193c85774b3fd9d18447d76cab0");
+        //微信支付初始化
         //QQ
         PlatformConfig.setQQZone("1107763346", "pPudlhFSifMTHqjm");
         //新浪

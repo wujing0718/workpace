@@ -1,8 +1,8 @@
 package com.huohougongfu.app.PopupView;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

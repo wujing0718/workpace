@@ -39,11 +39,11 @@
         <FrameLayout
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/bg_pub_tweet">
+            android:background="@drawable/bg_pub_article">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:tint="@color/white"
                 android:contentDescription="发布动弹"
@@ -84,8 +84,8 @@
             android:background="@drawable/bg_pub_article">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:tint="@color/white"
                 android:src="@mipmap/ic_new_article" />
@@ -122,11 +122,11 @@
         <FrameLayout
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/bg_pub_blog">
+            android:background="@drawable/bg_pub_article">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:tint="@color/white"
                 android:src="@mipmap/ic_new_blog" />

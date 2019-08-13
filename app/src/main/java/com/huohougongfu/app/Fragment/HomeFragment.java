@@ -276,7 +276,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                formater.setRoundingMode(RoundingMode.FLOOR);
                String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
                tv_jiqijuli.setText(result+"m");
-               tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getEquipmentId()+")");
+               tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getDetailAddress()+")");
                setDefaultFragment(jiQiLieBiao.getEquipmentId());
            }
         }

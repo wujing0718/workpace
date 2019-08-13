@@ -233,7 +233,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 new XPopup.Builder(getContext())
-                                        .asCustom(new ChaTaiZhiFu(getContext()))
+                                        .asCustom(new ChaTaiZhiFu(getContext(),jsonObject.getString("result")))
                                         .show();
                             }
                         } catch (JSONException e) {

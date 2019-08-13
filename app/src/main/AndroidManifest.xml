@@ -257,7 +257,10 @@
         <activity android:name=".WoDe.Activity.GeRenRenZhengActivity" />
         <activity android:name=".WoDe.Activity.ShangHuRenZhengActivity" />
         <activity android:name=".WoDe.Activity.SpecialBrandActivity" />
-        <activity android:name=".WoDe.Activity.ShopPingJiaDetailActivity"></activity>
+        <activity android:name=".WoDe.Activity.ShopPingJiaDetailActivity" />
+        <activity android:name=".WoDe.Activity.ShopGuanLIActivity" />
+        <activity android:name=".WoDe.Activity.JinTuiKuanActivity" />
+        <activity android:name=".WoDe.Activity.TuiHuoTuiKuanActivity"></activity>
     </application>
 
 </manifest>

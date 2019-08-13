@@ -14,6 +14,7 @@
         android:layout_height="44dp">
 
         <RelativeLayout
+            android:id="@+id/bt_finish"
             android:layout_width="@dimen/dp_50"
             android:layout_height="44dp">
 
@@ -48,6 +49,7 @@
         android:layout_height="@dimen/dp_10"/>
 
     <LinearLayout
+        android:id="@+id/bt_jintuikuan"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="80dp">
@@ -55,7 +57,7 @@
         <ImageView
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/img_jintuikuan"
             android:layout_width="24dp"
             android:layout_height="24dp" />
 
@@ -94,6 +96,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/bt_tuihuotuikuan"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="80dp">
@@ -101,7 +104,7 @@
         <ImageView
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/img_tuihuotuikuan"
             android:layout_width="24dp"
             android:layout_height="24dp" />
 

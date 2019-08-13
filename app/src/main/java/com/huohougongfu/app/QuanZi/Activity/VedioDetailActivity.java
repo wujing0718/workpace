@@ -27,6 +27,7 @@ import android.widget.VideoView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.dingmouren.layoutmanagergroup.viewpager.OnViewPagerListener;
 import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.google.gson.Gson;
@@ -343,7 +344,9 @@ public class VedioDetailActivity extends AppCompatActivity {
                 }else{
                     holder.tv_vedio_title.setText("");
                 }
-                Glide.with(VedioDetailActivity.this).load(shipindetail.getList().get(i).getMember().getPhoto()).into(holder.img_video_touxiang);
+                RequestOptions requestOptions = new RequestOptions().circleCrop();
+                Glide.with(VedioDetailActivity.this).load(shipindetail.getList().get(i).getMember().getPhoto())
+                        .apply(requestOptions).into(holder.img_video_touxiang);
                 holder.tv_vedio_content.setText(shipindetail.getList().get(i).getContent());
                 holder.tv_video_dianzan.setText(String.valueOf(shipindetail.getList().get(i).getPraiseNum()));
                 holder.tv_video_pinglun.setText(String.valueOf(shipindetail.getList().get(i).getCommentNum()));

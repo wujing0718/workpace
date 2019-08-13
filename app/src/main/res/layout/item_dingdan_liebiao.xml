@@ -79,15 +79,36 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_shenqingshouhou"
-        android:text="申请售后"
+    <LinearLayout
         android:layout_gravity="right"
-        android:paddingHorizontal="@dimen/dp_10"
-        android:paddingVertical="4dp"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/black_di"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_shenqingshouhou"
+            android:text="申请售后"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:paddingVertical="4dp"
+            android:visibility="gone"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/black_di"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_pingjia"
+            android:text="评价"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_gravity="right"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:paddingVertical="4dp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/black_di"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </LinearLayout>
