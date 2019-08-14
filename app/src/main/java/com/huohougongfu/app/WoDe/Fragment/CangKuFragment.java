@@ -27,6 +27,8 @@ import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.WoDe.Activity.ShopGuanLIActivity;
 import com.huohougongfu.app.WoDe.Activity.TianJiaShangPinActivity;
+import com.huohougongfu.app.WoDe.Activity.TiaoXuanShopActivity;
+import com.huohougongfu.app.WoDe.Adapter.CangKuGuanLiAdapter;
 import com.huohougongfu.app.WoDe.Adapter.ShopGuanLiAdapter;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -48,13 +50,13 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAdapter.OnItemClickListener,View.OnClickListener {
+public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiAdapter.OnItemClickListener,View.OnClickListener {
 
     private View inflate;
     private String token,tel,id;
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_shangpin_tehui;
-    private ShopGuanLiAdapter tehuiadapter;
+    private CangKuGuanLiAdapter tehuiadapter;
     /** Fragment当前状态是否可见 */
     protected boolean isVisible;
     protected boolean isGuanLi = true;
@@ -66,6 +68,7 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
     private TextView tv_shangchuan_shop,tv_tiaoxuan_shop;
     private String status;
     private View view;
+    private Intent intent;
 
     public CangKuFragment() {
     }
@@ -80,6 +83,7 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
+         intent = new Intent();
         initUI();
         initData();
         return inflate;
@@ -134,7 +138,7 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
         GridLayoutManager layoutmanager = new GridLayoutManager(getActivity(),2);
         //设置RecyclerView 布局
         rec_shangpin_tehui.setLayoutManager(layoutmanager);
-        tehuiadapter = new ShopGuanLiAdapter(R.layout.item_shangpin,result.getList());
+        tehuiadapter = new CangKuGuanLiAdapter(R.layout.item_shangpin,result.getList());
         rec_shangpin_tehui.setAdapter(tehuiadapter);
         tehuiadapter.notifyAdapter(result.getList(),false);
         tehuiadapter.setOnItemClickListener(this);
@@ -181,26 +185,32 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
             if (audience_cnt == 4){
                 if (status.equals("仓库")){
                     if (isGuanLi){
-                        isGuanLi = false ;
-                        editorStatus = true;
-                        tehuiadapter.setEditMode(1);
-                        tv_shangchuan_shop.setText("上架");
+                        if (tehuiadapter!=null){
+                            isGuanLi = false ;
+                            editorStatus = true;
+                            tehuiadapter.setEditMode(1);
+                            tv_shangchuan_shop.setText("上架");
+                        }
                         tv_tiaoxuan_shop.setText("删除");
                     }else{
-                        isGuanLi = true ;
-                        editorStatus = false;
-                        tehuiadapter.setEditMode(0);
-                        tv_shangchuan_shop.setText("上传商品");
-                        tv_tiaoxuan_shop.setText("挑选商品");
+                        if (tehuiadapter!=null){
+                            isGuanLi = true ;
+                            editorStatus = false;
+                            tehuiadapter.setEditMode(0);
+                            tv_shangchuan_shop.setText("上传商品");
+                            tv_tiaoxuan_shop.setText("挑选商品");
+                        }
                     }
                 }
             }
         }else{
-            isGuanLi = true ;
-            editorStatus = false;
-            tehuiadapter.setEditMode(0);
-            tv_shangchuan_shop.setText("上传商品");
-            tv_tiaoxuan_shop.setText("挑选商品");
+            if (tehuiadapter!=null){
+                isGuanLi = true ;
+                editorStatus = false;
+                tehuiadapter.setEditMode(0);
+                tv_shangchuan_shop.setText("上传商品");
+                tv_tiaoxuan_shop.setText("挑选商品");
+            }
         }
     }
 
@@ -219,10 +229,10 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
 //            setBtnBackground(index);
             tehuiadapter.notifyDataSetChanged();
         }else{
-            Intent intent = new Intent();
-            intent.putExtra("id",myLiveList.get(pos).getId());
-            intent.setClass(getActivity(),ShangPinDetailActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent();
+//            intent.putExtra("id",myLiveList.get(pos).getId());
+//            intent.setClass(getActivity(),ShangPinDetailActivity.class);
+//            startActivity(intent);
         }
     }
 
@@ -235,12 +245,10 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
                         //上架
                         initShangJia();
                     }else{
-                        Intent intent = new Intent();
                         intent.setClass(getActivity(),TianJiaShangPinActivity.class);
                         startActivity(intent);
                     }
                 }else{
-                    Intent intent = new Intent();
                     intent.setClass(getActivity(),TianJiaShangPinActivity.class);
                     startActivity(intent);
                 }
@@ -248,11 +256,15 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
             case R.id.bt_tiaoxuan_shop:
                 if (status.equals("仓库")){
                     if (isGuanLi){
-                        ToastUtils.showShort("挑选商品");
+                        intent.setClass(getActivity(),TiaoXuanShopActivity.class);
+                        startActivity(intent);
                     }else{
                         //删除
                         initDelete();
                     }
+                }else{
+                    intent.setClass(getActivity(),TiaoXuanShopActivity.class);
+                    startActivity(intent);
                 }
                 break;
         }
@@ -260,65 +272,76 @@ public class CangKuFragment extends Fragment implements IListener ,ShopGuanLiAda
 
     private void initDelete() {
         String ids ="";
-        for (int i = 0; i < tehuiadapter.getMyLiveList().size(); i++) {
+        for (int i = tehuiadapter.getMyLiveList().size(), j =0 ; i > j; i--) {
             ShopGuanLiLieBiao.ResultBean.ListBean myLive = tehuiadapter.getMyLiveList().get(i-1);
             if (myLive.isSelect()) {
                 ids = myLive.getId()+","+ids;
             }
         }
-        String substring = ids.substring(0, ids.length() - 1);
-        Map<String,String> map = new HashMap<>();
-        map.put("ids",substring);
-        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
-        OkGo.<String>post(Contacts.URl1+"productManage/deleteProductBatch")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                initData();
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
+        if (!"".equals(ids)){
+            String substring = ids.substring(0, ids.length() - 1);
+            Map<String,String> map = new HashMap<>();
+            map.put("ids",substring);
+            map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+            OkGo.<String>post(Contacts.URl1+"productManage/deleteProductBatch")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    initData();
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+        }else{
+            ToastUtils.showShort("请选择删除的商品");
+        }
     }
 
     private void initShangJia() {
         String ids ="";
-        for (int i = 0; i < tehuiadapter.getMyLiveList().size(); i++) {
-            ids = tehuiadapter.getMyLiveList().get(i).getId()+","+ids;
+        for (int i = tehuiadapter.getMyLiveList().size(), j =0 ; i > j; i--) {
+            ShopGuanLiLieBiao.ResultBean.ListBean myLive = tehuiadapter.getMyLiveList().get(i-1);
+            if (myLive.isSelect()) {
+                ids = myLive.getId()+","+ids;
+            }
         }
-        String substring = ids.substring(0, ids.length() - 1);
-        Map<String,String> map = new HashMap<>();
-        map.put("ids",substring);
-        map.put("status","1");
-        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
-        OkGo.<String>post(Contacts.URl1+"productManage/productOut")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                initData();
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
+        if (!"".equals(ids)){
+            String substring = ids.substring(0, ids.length() - 1);
+            Map<String,String> map = new HashMap<>();
+            map.put("ids",substring);
+            map.put("status","1");
+            map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+            OkGo.<String>post(Contacts.URl1+"productManage/productOut")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    initData();
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+        }else{
+            ToastUtils.showShort("请选择上架的商品");
+        }
     }
 }

@@ -1,29 +1,27 @@
-package com.huohougongfu.app.Shop.Fragment;
-
+package com.huohougongfu.app.WoDe.Activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.TeiHuiGson;
-import com.huohougongfu.app.PopupView.ShaiXuanDrawerPopupView;
+import com.huohougongfu.app.PopupView.TiaoXuanShopShaiXuan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.TeHuiAdapter;
 import com.huohougongfu.app.Utils.Contacts;
-import com.huohougongfu.app.Utils.IListener;
-import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
@@ -31,7 +29,6 @@ import com.lxj.xpopup.enums.PopupPosition;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -40,13 +37,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class SouSuoShopFragment extends Fragment implements View.OnClickListener ,IListener {
+public class TiaoXuanShopActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-    private View inflate;
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_sousuo_shangpin;
     private int page = 2;
@@ -58,10 +50,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     private String sortPrice = "";
     private ImageView img_shop_sortPrice;
     private String name;
-
-    public SouSuoShopFragment() {
-        // Required empty public constructor
-    }
 
     Handler mHandler = new Handler() {
 
@@ -79,31 +67,14 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         }
 
     };
+    private EditText bt_shop_sousuo;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        ListenerManager.getInstance().registerListtener(this);
-        inflate = inflater.inflate(R.layout.fragment_sou_suo_shop, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tiao_xuan_shop);
         initUI();
         initData(map);
-        return inflate;
-    }
-
-    private void initUI() {
-        img_shop_sortPrice = inflate.findViewById(R.id.img_shop_sortPrice);
-        bt_shop_zonghe = inflate.findViewById(R.id.bt_shop_zonghe);
-        tv_shop_jiage = inflate.findViewById(R.id.tv_shop_jiage);
-        bt_shop_zonghe.setOnClickListener(this);
-        bt_shop_xiaoliang = inflate.findViewById(R.id.bt_shop_xiaoliang);
-        bt_shop_xiaoliang.setOnClickListener(this);
-        bt_shop_xinpin = inflate.findViewById(R.id.bt_shop_xinpin);
-        bt_shop_xinpin.setOnClickListener(this);
-        inflate.findViewById(R.id.bt_shop_jiage).setOnClickListener(this);
-
-        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
-        rec_sousuo_shangpin = inflate.findViewById(R.id.rec_sousuo_shangpin);
-        inflate.findViewById(R.id.bt_sousuo_shaixuan).setOnClickListener(this);
     }
 
     private void initData(Map<String,String> map1) {
@@ -111,6 +82,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         map.put("page","1");
         map.put("pageSize","10");
         map.put("indexParams",indexParams);
+        map.put("ofManger","1");
         if (!"".equals(sortPrice)){
             map.put("sortPrice",sortPrice);
         }
@@ -129,17 +101,12 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                             initRec(shop.getResult());
                         }
                     }
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
-                        super.onStart(request);
-                    }
                 });
     }
 
     private void initRec(TeiHuiGson.ResultBean data) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
-        GridLayoutManager layoutmanager = new GridLayoutManager(getActivity(),2);
+        GridLayoutManager layoutmanager = new GridLayoutManager(TiaoXuanShopActivity.this,2);
         //设置RecyclerView 布局
         rec_sousuo_shangpin.setLayoutManager(layoutmanager);
         teHuiAdapter = new TeHuiAdapter(R.layout.item_shangpin,data.getList());
@@ -149,7 +116,9 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.putExtra("id",data.getList().get(position).getId());
-                intent.setClass(getActivity(),ShangPinDetailActivity.class);
+                intent.putExtra("commission",String.valueOf(data.getList().get(position).getCommission()));
+                intent.putExtra("挑选","挑选");
+                intent.setClass(TiaoXuanShopActivity.this,ShangPinDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -171,10 +140,9 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     }
 
     private void initAdd() {
-        Map<String, String> map = new HashMap<>();
+        map.remove("page");
         map.put("page",String.valueOf(page++));
-        map.put("pageSize","10");
-        OkGo.<String>get(Contacts.URl2+"query/queryProductList")
+        OkGo.<String>get(Contacts.URl2+"query/queryProductFilter")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -192,22 +160,53 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                 });
     }
 
-    public static Fragment newInstance(String content) {
-        Bundle args = new Bundle();
-        args.putString("ARGS", content);
-        SouSuoShopFragment fragment = new SouSuoShopFragment();
-        fragment.setArguments(args);
-        return fragment;
+    private void initUI() {
+        findViewById(R.id.bt_finish).setOnClickListener(this);
+        bt_shop_sousuo = findViewById(R.id.bt_shop_sousuo);
+        img_shop_sortPrice = findViewById(R.id.img_shop_sortPrice);
+        bt_shop_zonghe = findViewById(R.id.bt_shop_zonghe);
+        tv_shop_jiage = findViewById(R.id.tv_shop_jiage);
+        bt_shop_zonghe.setOnClickListener(this);
+        bt_shop_xiaoliang = findViewById(R.id.bt_shop_xiaoliang);
+        bt_shop_xiaoliang.setOnClickListener(this);
+        bt_shop_xinpin = findViewById(R.id.bt_shop_xinpin);
+        bt_shop_xinpin.setOnClickListener(this);
+        findViewById(R.id.bt_shop_jiage).setOnClickListener(this);
+
+        smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
+        rec_sousuo_shangpin = findViewById(R.id.rec_sousuo_shangpin);
+        findViewById(R.id.bt_sousuo_shaixuan).setOnClickListener(this);
+
+        bt_shop_sousuo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                name =  s.toString();
+                initData(map);
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_finish:
+                finish();
+                break;
             case R.id.bt_sousuo_shaixuan:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
+                    new XPopup.Builder(TiaoXuanShopActivity.this)
                             .popupPosition(PopupPosition.Right)//右边
-                            .asCustom(new ShaiXuanDrawerPopupView(getContext(),mHandler))
+                            .asCustom(new TiaoXuanShopShaiXuan(TiaoXuanShopActivity.this,mHandler))
                             .show();
                 }
                 break;
@@ -265,14 +264,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
 
                 }
                 break;
-        }
-    }
-
-    @Override
-    public void notifyAllActivity(int audience_cnt, String status) {
-        if (audience_cnt == 0){
-            name = status;
-            initData(map);
         }
     }
 }

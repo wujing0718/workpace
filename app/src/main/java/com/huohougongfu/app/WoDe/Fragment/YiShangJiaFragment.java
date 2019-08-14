@@ -29,6 +29,7 @@ import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.WoDe.Activity.ShopGuanLIActivity;
 import com.huohougongfu.app.WoDe.Activity.TianJiaShangPinActivity;
+import com.huohougongfu.app.WoDe.Activity.TiaoXuanShopActivity;
 import com.huohougongfu.app.WoDe.Adapter.ShopGuanLiAdapter;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -69,6 +70,7 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
     private TextView tv_shangchuan_shop,tv_tiaoxuan_shop;
     private String status;
     private View view;
+    private Intent intent;
 
 
     public YiShangJiaFragment() {
@@ -190,26 +192,33 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
             if (audience_cnt == 4){
                 if (status.equals("已上架")){
                     if (isGuanLi){
-                        isGuanLi = false ;
-                        editorStatus = true;
-                        tehuiadapter.setEditMode(1);
-                        tv_shangchuan_shop.setText("下架");
-                        tv_tiaoxuan_shop.setText("删除");
+                        if (tehuiadapter!=null){
+                            isGuanLi = false ;
+                            editorStatus = true;
+                            tehuiadapter.setEditMode(1);
+                            tv_shangchuan_shop.setText("下架");
+                            tv_tiaoxuan_shop.setText("删除");
+                        }
+
                     }else{
-                        isGuanLi = true ;
-                        editorStatus = false;
-                        tehuiadapter.setEditMode(0);
-                        tv_shangchuan_shop.setText("上传商品");
-                        tv_tiaoxuan_shop.setText("挑选商品");
+                        if (tehuiadapter!=null){
+                            isGuanLi = true ;
+                            editorStatus = false;
+                            tehuiadapter.setEditMode(0);
+                            tv_shangchuan_shop.setText("上传商品");
+                            tv_tiaoxuan_shop.setText("挑选商品");
+                        }
                     }
                 }
             }
         }else{
-            isGuanLi = true ;
-            editorStatus = false;
-            tehuiadapter.setEditMode(0);
-            tv_shangchuan_shop.setText("上传商品");
-            tv_tiaoxuan_shop.setText("挑选商品");
+            if (tehuiadapter!=null){
+                isGuanLi = true ;
+                editorStatus = false;
+                tehuiadapter.setEditMode(0);
+                tv_shangchuan_shop.setText("上传商品");
+                tv_tiaoxuan_shop.setText("挑选商品");
+            }
         }
     }
 
@@ -227,46 +236,49 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                 }
                 tehuiadapter.notifyDataSetChanged();
             }else{
-                Intent intent = new Intent();
-                intent.putExtra("id",myLiveList.get(pos).getId());
-                intent.setClass(getActivity(),ShangPinDetailActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent();
+//                intent.putExtra("id",myLiveList.get(pos).getId());
+//                intent.setClass(getActivity(),ShangPinDetailActivity.class);
+//                startActivity(intent);
             }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.bt_shangchuan_shop:
-                if (status!=null){
-                    if (status.equals("仓库")){
-                        if (!isGuanLi){
+                if (status != null) {
+                    if (status.equals("仓库")) {
+                        if (!isGuanLi) {
                             //下架
                             initXiaJia();
-                        }else{
-                            Intent intent = new Intent();
-                            intent.setClass(getActivity(),TianJiaShangPinActivity.class);
+                        } else {
+                            intent.setClass(getActivity(), TianJiaShangPinActivity.class);
                             startActivity(intent);
                         }
                     }
-                }else{
-                    Intent intent = new Intent();
-                    intent.setClass(getActivity(),TianJiaShangPinActivity.class);
+                } else {
+                    intent = new Intent();
+                    intent.setClass(getActivity(), TianJiaShangPinActivity.class);
                     startActivity(intent);
                 }
                 break;
             case R.id.bt_tiaoxuan_shop:
-                if (status!=null){
-                    if (status.equals("仓库")){
-                        if (isGuanLi){
-                            ToastUtils.showShort("挑选商品");
-                        }else{
+                if (status != null) {
+                    if (status.equals("仓库")) {
+                        if (isGuanLi) {
+                            intent = new Intent();
+                            intent.setClass(getActivity(), TiaoXuanShopActivity.class);
+                            startActivity(intent);
+                        } else {
                             //删除
                             initDelete();
                         }
                     }
-                }else{
-
+                } else {
+                    intent = new Intent();
+                    intent.setClass(getActivity(), TiaoXuanShopActivity.class);
+                    startActivity(intent);
                 }
                 break;
         }
@@ -280,29 +292,33 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                 ids = myLive.getId()+","+ids;
             }
         }
-        String substring = ids.substring(0, ids.length() - 1);
-        Map<String,String> map = new HashMap<>();
-        map.put("ids",substring);
-        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
-        OkGo.<String>post(Contacts.URl1+"productManage/deleteProductBatch")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                initData();
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
+        if (!"".equals(ids)){
+            String substring = ids.substring(0, ids.length() - 1);
+            Map<String,String> map = new HashMap<>();
+            map.put("ids",substring);
+            map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+            OkGo.<String>post(Contacts.URl1+"productManage/deleteProductBatch")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    initData();
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+        }else{
+            ToastUtils.showShort("请选择删除的商品");
+        }
     }
 
     private void initXiaJia() {
@@ -313,29 +329,34 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                 ids = myLive.getId()+","+ids;
             }
         }
-        String substring = ids.substring(0, ids.length() - 1);
-        Map<String,String> map = new HashMap<>();
-        map.put("ids",substring);
-        map.put("status","0");
-        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
-        OkGo.<String>post(Contacts.URl1+"productManage/productOut")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                initData();
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
+        if (!"".equals(ids)){
+            String substring = ids.substring(0, ids.length() - 1);
+            Map<String,String> map = new HashMap<>();
+            map.put("ids",substring);
+            map.put("status","0");
+            map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+            OkGo.<String>post(Contacts.URl1+"productManage/productOut")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    initData();
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+        }else{
+            ToastUtils.showShort("请选择下架的商品");
+
+        }
     }
 }

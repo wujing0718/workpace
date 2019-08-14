@@ -3,6 +3,11 @@ package com.huohougongfu.app.Gson;
 import java.util.List;
 
 public class TeiHuiGson {
+    /**
+     * msg : 操作成功
+     * result : {"total":37,"list":[{"id":1,"name":"测试","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":5909,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:18:59.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:14.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":19,"name":"测试19","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":2,"marketPrice":42,"integral":24,"stock":10,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:34.000+0000","updateBy":1,"updateTime":"2019-08-14T06:18:10.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":1,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":20,"name":"测试20","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":3,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:38.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:20.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":21,"name":"测试21","storeName":"测试店铺","categoryId":1,"keywords":"测试","model":"1","virtualNum":2,"price":4,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":0,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:39.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:22.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":1,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":22,"name":"测试22","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":2.5,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":0,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:41.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:23.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":1,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":23,"name":"测试23","storeName":"测试店铺2","categoryId":1,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:44.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:26.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":1,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":24,"name":"测试24","storeName":"测试店铺2","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:46.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:28.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":25,"name":"测试25","storeName":"测试店铺2","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:48.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:32.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":26,"name":"测试26","storeName":"测试店铺2","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:49.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:33.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":27,"name":"测试27","storeName":"测试店铺","categoryId":1,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":0,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:50.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:35.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}],"pageNum":1,"pageSize":10,"size":10,"startRow":1,"endRow":10,"pages":4,"prePage":0,"nextPage":2,"isFirstPage":true,"isLastPage":false,"hasPreviousPage":false,"hasNextPage":true,"navigatePages":8,"navigatepageNums":[1,2,3,4],"navigateFirstPage":1,"navigateLastPage":4}
+     * status : 1
+     */
 
     private String msg;
     private ResultBean result;
@@ -33,6 +38,27 @@ public class TeiHuiGson {
     }
 
     public static class ResultBean {
+        /**
+         * total : 37
+         * list : [{"id":1,"name":"测试","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":5909,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:18:59.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:14.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":19,"name":"测试19","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":2,"marketPrice":42,"integral":24,"stock":10,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:34.000+0000","updateBy":1,"updateTime":"2019-08-14T06:18:10.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":1,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":20,"name":"测试20","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":3,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:38.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:20.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":21,"name":"测试21","storeName":"测试店铺","categoryId":1,"keywords":"测试","model":"1","virtualNum":2,"price":4,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":0,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:39.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:22.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":1,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":22,"name":"测试22","storeName":"测试店铺","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":2.5,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":0,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:41.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:23.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":1,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":23,"name":"测试23","storeName":"测试店铺2","categoryId":1,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":5,"createBy":1,"createTime":"2019-06-05T08:20:44.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:26.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":1,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":24,"name":"测试24","storeName":"测试店铺2","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:46.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:28.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":25,"name":"测试25","storeName":"测试店铺2","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:48.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:32.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":26,"name":"测试26","storeName":"测试店铺2","categoryId":2,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":1,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:49.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:33.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":2,"isSift":0,"brandId":1,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":27,"name":"测试27","storeName":"测试店铺","categoryId":1,"keywords":"测试","model":"1","virtualNum":2,"price":25,"marketPrice":42,"integral":24,"stock":12,"warningStock":212,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":1,"showOrder":12,"sellNum":12,"isNew":0,"unit":"1","transId":6,"createBy":1,"createTime":"2019-06-05T08:20:50.000+0000","updateBy":1,"updateTime":"2019-07-26T01:20:35.000+0000","del":0,"isRecommend":1,"isCheck":1,"limitIntegral":2020,"subhead":"202","remark":"阿斯顿发失地发生地方","weight":2,"count":2,"sendIntegral":2,"sendGrowth":2,"productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"isSift":1,"brandId":2,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":0,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}]
+         * pageNum : 1
+         * pageSize : 10
+         * size : 10
+         * startRow : 1
+         * endRow : 10
+         * pages : 4
+         * prePage : 0
+         * nextPage : 2
+         * isFirstPage : true
+         * isLastPage : false
+         * hasPreviousPage : false
+         * hasNextPage : true
+         * navigatePages : 8
+         * navigatepageNums : [1,2,3,4]
+         * navigateFirstPage : 1
+         * navigateLastPage : 4
+         */
+
         private int total;
         private int pageNum;
         private int pageSize;
@@ -198,48 +224,58 @@ public class TeiHuiGson {
 
         public static class ListBean {
             /**
-             * id : 22
-             * name : 测试22
-             * storeName : null
-             * categoryId : null
-             * keywords : null
-             * model : 测试店铺
-             * virtualNum : null
-             * price : 2.5
-             * marketPrice : null
-             * integral : null
-             * stock : null
-             * warningStock : null
-             * coverUrl : http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg
-             * state : null
-             * showOrder : null
+             * id : 1
+             * name : 测试
+             * storeName : 测试店铺
+             * categoryId : 2
+             * keywords : 测试
+             * model : 1
+             * virtualNum : 2
+             * price : 5909.0
+             * marketPrice : 42.0
+             * integral : 24
+             * stock : 12
+             * warningStock : 212
+             * coverUrl : http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg
+             * state : 1
+             * showOrder : 12
              * sellNum : 12
-             * isNew : null
-             * unit : null
-             * transId : null
-             * createBy : null
-             * createTime : null
-             * updateBy : null
-             * updateTime : null
-             * del : null
-             * isRecommend : null
-             * isCheck : null
-             * limitIntegral : null
-             * subhead : null
-             * remark : null
-             * weight : null
-             * count : null
-             * sendIntegral : null
-             * sendGrowth : null
-             * productPicture : null
+             * isNew : 1
+             * unit : 1
+             * transId : 5
+             * createBy : 1
+             * createTime : 2019-06-05T08:18:59.000+0000
+             * updateBy : 1
+             * updateTime : 2019-07-26T01:20:14.000+0000
+             * del : 0
+             * isRecommend : 1
+             * isCheck : 1
+             * limitIntegral : 2020.0
+             * subhead : 202
+             * remark : 阿斯顿发失地发生地方
+             * weight : 2.0
+             * count : 2
+             * sendIntegral : 2.0
+             * sendGrowth : 2.0
+             * productPicture : http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg
              * storeId : 1
-             * isSift : null
-             * brandId : null
+             * isSift : 0
+             * brandId : 1
              * mallStore : null
              * sellCount : null
+             * cartId : null
+             * cartProductNum : null
+             * buyNum : null
+             * commission : null
+             * reSell : null
+             * ofCheap : null
+             * detailDescribe : null
+             * detailPic : null
+             * sendAddress : null
+             * categoryName : null
              * num : null
              * basicService : null
-             * productType : null
+             * productType : 0
              * transName : null
              * priceType : null
              * deliveryType : null
@@ -254,50 +290,61 @@ public class TeiHuiGson {
              * userId : null
              * collectionNum : null
              * standard : null
+             * transportTemplate : null
              */
 
             private int id;
             private String name;
-            private Object storeName;
-            private Object categoryId;
-            private Object keywords;
+            private String storeName;
+            private int categoryId;
+            private String keywords;
             private String model;
-            private Object virtualNum;
+            private int virtualNum;
             private double price;
-            private Object marketPrice;
-            private Object integral;
-            private Object stock;
-            private Object warningStock;
+            private double marketPrice;
+            private int integral;
+            private int stock;
+            private int warningStock;
             private String coverUrl;
-            private Object state;
-            private Object showOrder;
+            private int state;
+            private int showOrder;
             private int sellNum;
-            private Object isNew;
-            private Object unit;
-            private Object transId;
-            private Object createBy;
-            private Object createTime;
-            private Object updateBy;
-            private Object updateTime;
-            private Object del;
-            private Object isRecommend;
-            private Object isCheck;
-            private Object limitIntegral;
-            private Object subhead;
-            private Object remark;
-            private Object weight;
-            private Object count;
-            private Object sendIntegral;
-            private Object sendGrowth;
-            private Object productPicture;
+            private int isNew;
+            private String unit;
+            private int transId;
+            private int createBy;
+            private String createTime;
+            private int updateBy;
+            private String updateTime;
+            private int del;
+            private int isRecommend;
+            private int isCheck;
+            private double limitIntegral;
+            private String subhead;
+            private String remark;
+            private double weight;
+            private int count;
+            private double sendIntegral;
+            private double sendGrowth;
+            private String productPicture;
             private int storeId;
-            private Object isSift;
-            private Object brandId;
+            private int isSift;
+            private int brandId;
             private Object mallStore;
             private Object sellCount;
+            private Object cartId;
+            private Object cartProductNum;
+            private Object buyNum;
+            private Object commission;
+            private Object reSell;
+            private int ofCheap;
+            private Object detailDescribe;
+            private Object detailPic;
+            private Object sendAddress;
+            private Object categoryName;
             private Object num;
             private Object basicService;
-            private Object productType;
+            private int productType;
             private Object transName;
             private Object priceType;
             private Object deliveryType;
@@ -312,16 +359,7 @@ public class TeiHuiGson {
             private Object userId;
             private Object collectionNum;
             private Object standard;
-
-            public boolean isSelect;
-
-            public boolean isSelect() {
-                return isSelect;
-            }
-
-            public void setSelect(boolean isSelect) {
-                this.isSelect = isSelect;
-            }
+            private Object transportTemplate;
 
             public int getId() {
                 return id;
@@ -339,27 +377,27 @@ public class TeiHuiGson {
                 this.name = name;
             }
 
-            public Object getStoreName() {
+            public String getStoreName() {
                 return storeName;
             }
 
-            public void setStoreName(Object storeName) {
+            public void setStoreName(String storeName) {
                 this.storeName = storeName;
             }
 
-            public Object getCategoryId() {
+            public int getCategoryId() {
                 return categoryId;
             }
 
-            public void setCategoryId(Object categoryId) {
+            public void setCategoryId(int categoryId) {
                 this.categoryId = categoryId;
             }
 
-            public Object getKeywords() {
+            public String getKeywords() {
                 return keywords;
             }
 
-            public void setKeywords(Object keywords) {
+            public void setKeywords(String keywords) {
                 this.keywords = keywords;
             }
 
@@ -371,11 +409,11 @@ public class TeiHuiGson {
                 this.model = model;
             }
 
-            public Object getVirtualNum() {
+            public int getVirtualNum() {
                 return virtualNum;
             }
 
-            public void setVirtualNum(Object virtualNum) {
+            public void setVirtualNum(int virtualNum) {
                 this.virtualNum = virtualNum;
             }
 
@@ -387,35 +425,35 @@ public class TeiHuiGson {
                 this.price = price;
             }
 
-            public Object getMarketPrice() {
+            public double getMarketPrice() {
                 return marketPrice;
             }
 
-            public void setMarketPrice(Object marketPrice) {
+            public void setMarketPrice(double marketPrice) {
                 this.marketPrice = marketPrice;
             }
 
-            public Object getIntegral() {
+            public int getIntegral() {
                 return integral;
             }
 
-            public void setIntegral(Object integral) {
+            public void setIntegral(int integral) {
                 this.integral = integral;
             }
 
-            public Object getStock() {
+            public int getStock() {
                 return stock;
             }
 
-            public void setStock(Object stock) {
+            public void setStock(int stock) {
                 this.stock = stock;
             }
 
-            public Object getWarningStock() {
+            public int getWarningStock() {
                 return warningStock;
             }
 
-            public void setWarningStock(Object warningStock) {
+            public void setWarningStock(int warningStock) {
                 this.warningStock = warningStock;
             }
 
@@ -427,19 +465,19 @@ public class TeiHuiGson {
                 this.coverUrl = coverUrl;
             }
 
-            public Object getState() {
+            public int getState() {
                 return state;
             }
 
-            public void setState(Object state) {
+            public void setState(int state) {
                 this.state = state;
             }
 
-            public Object getShowOrder() {
+            public int getShowOrder() {
                 return showOrder;
             }
 
-            public void setShowOrder(Object showOrder) {
+            public void setShowOrder(int showOrder) {
                 this.showOrder = showOrder;
             }
 
@@ -451,147 +489,147 @@ public class TeiHuiGson {
                 this.sellNum = sellNum;
             }
 
-            public Object getIsNew() {
+            public int getIsNew() {
                 return isNew;
             }
 
-            public void setIsNew(Object isNew) {
+            public void setIsNew(int isNew) {
                 this.isNew = isNew;
             }
 
-            public Object getUnit() {
+            public String getUnit() {
                 return unit;
             }
 
-            public void setUnit(Object unit) {
+            public void setUnit(String unit) {
                 this.unit = unit;
             }
 
-            public Object getTransId() {
+            public int getTransId() {
                 return transId;
             }
 
-            public void setTransId(Object transId) {
+            public void setTransId(int transId) {
                 this.transId = transId;
             }
 
-            public Object getCreateBy() {
+            public int getCreateBy() {
                 return createBy;
             }
 
-            public void setCreateBy(Object createBy) {
+            public void setCreateBy(int createBy) {
                 this.createBy = createBy;
             }
 
-            public Object getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(Object createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
 
-            public Object getUpdateBy() {
+            public int getUpdateBy() {
                 return updateBy;
             }
 
-            public void setUpdateBy(Object updateBy) {
+            public void setUpdateBy(int updateBy) {
                 this.updateBy = updateBy;
             }
 
-            public Object getUpdateTime() {
+            public String getUpdateTime() {
                 return updateTime;
             }
 
-            public void setUpdateTime(Object updateTime) {
+            public void setUpdateTime(String updateTime) {
                 this.updateTime = updateTime;
             }
 
-            public Object getDel() {
+            public int getDel() {
                 return del;
             }
 
-            public void setDel(Object del) {
+            public void setDel(int del) {
                 this.del = del;
             }
 
-            public Object getIsRecommend() {
+            public int getIsRecommend() {
                 return isRecommend;
             }
 
-            public void setIsRecommend(Object isRecommend) {
+            public void setIsRecommend(int isRecommend) {
                 this.isRecommend = isRecommend;
             }
 
-            public Object getIsCheck() {
+            public int getIsCheck() {
                 return isCheck;
             }
 
-            public void setIsCheck(Object isCheck) {
+            public void setIsCheck(int isCheck) {
                 this.isCheck = isCheck;
             }
 
-            public Object getLimitIntegral() {
+            public double getLimitIntegral() {
                 return limitIntegral;
             }
 
-            public void setLimitIntegral(Object limitIntegral) {
+            public void setLimitIntegral(double limitIntegral) {
                 this.limitIntegral = limitIntegral;
             }
 
-            public Object getSubhead() {
+            public String getSubhead() {
                 return subhead;
             }
 
-            public void setSubhead(Object subhead) {
+            public void setSubhead(String subhead) {
                 this.subhead = subhead;
             }
 
-            public Object getRemark() {
+            public String getRemark() {
                 return remark;
             }
 
-            public void setRemark(Object remark) {
+            public void setRemark(String remark) {
                 this.remark = remark;
             }
 
-            public Object getWeight() {
+            public double getWeight() {
                 return weight;
             }
 
-            public void setWeight(Object weight) {
+            public void setWeight(double weight) {
                 this.weight = weight;
             }
 
-            public Object getCount() {
+            public int getCount() {
                 return count;
             }
 
-            public void setCount(Object count) {
+            public void setCount(int count) {
                 this.count = count;
             }
 
-            public Object getSendIntegral() {
+            public double getSendIntegral() {
                 return sendIntegral;
             }
 
-            public void setSendIntegral(Object sendIntegral) {
+            public void setSendIntegral(double sendIntegral) {
                 this.sendIntegral = sendIntegral;
             }
 
-            public Object getSendGrowth() {
+            public double getSendGrowth() {
                 return sendGrowth;
             }
 
-            public void setSendGrowth(Object sendGrowth) {
+            public void setSendGrowth(double sendGrowth) {
                 this.sendGrowth = sendGrowth;
             }
 
-            public Object getProductPicture() {
+            public String getProductPicture() {
                 return productPicture;
             }
 
-            public void setProductPicture(Object productPicture) {
+            public void setProductPicture(String productPicture) {
                 this.productPicture = productPicture;
             }
 
@@ -603,19 +641,19 @@ public class TeiHuiGson {
                 this.storeId = storeId;
             }
 
-            public Object getIsSift() {
+            public int getIsSift() {
                 return isSift;
             }
 
-            public void setIsSift(Object isSift) {
+            public void setIsSift(int isSift) {
                 this.isSift = isSift;
             }
 
-            public Object getBrandId() {
+            public int getBrandId() {
                 return brandId;
             }
 
-            public void setBrandId(Object brandId) {
+            public void setBrandId(int brandId) {
                 this.brandId = brandId;
             }
 
@@ -635,6 +673,86 @@ public class TeiHuiGson {
                 this.sellCount = sellCount;
             }
 
+            public Object getCartId() {
+                return cartId;
+            }
+
+            public void setCartId(Object cartId) {
+                this.cartId = cartId;
+            }
+
+            public Object getCartProductNum() {
+                return cartProductNum;
+            }
+
+            public void setCartProductNum(Object cartProductNum) {
+                this.cartProductNum = cartProductNum;
+            }
+
+            public Object getBuyNum() {
+                return buyNum;
+            }
+
+            public void setBuyNum(Object buyNum) {
+                this.buyNum = buyNum;
+            }
+
+            public Object getCommission() {
+                return commission;
+            }
+
+            public void setCommission(Object commission) {
+                this.commission = commission;
+            }
+
+            public Object getReSell() {
+                return reSell;
+            }
+
+            public void setReSell(Object reSell) {
+                this.reSell = reSell;
+            }
+
+            public int getOfCheap() {
+                return ofCheap;
+            }
+
+            public void setOfCheap(int ofCheap) {
+                this.ofCheap = ofCheap;
+            }
+
+            public Object getDetailDescribe() {
+                return detailDescribe;
+            }
+
+            public void setDetailDescribe(Object detailDescribe) {
+                this.detailDescribe = detailDescribe;
+            }
+
+            public Object getDetailPic() {
+                return detailPic;
+            }
+
+            public void setDetailPic(Object detailPic) {
+                this.detailPic = detailPic;
+            }
+
+            public Object getSendAddress() {
+                return sendAddress;
+            }
+
+            public void setSendAddress(Object sendAddress) {
+                this.sendAddress = sendAddress;
+            }
+
+            public Object getCategoryName() {
+                return categoryName;
+            }
+
+            public void setCategoryName(Object categoryName) {
+                this.categoryName = categoryName;
+            }
+
             public Object getNum() {
                 return num;
             }
@@ -651,11 +769,11 @@ public class TeiHuiGson {
                 this.basicService = basicService;
             }
 
-            public Object getProductType() {
+            public int getProductType() {
                 return productType;
             }
 
-            public void setProductType(Object productType) {
+            public void setProductType(int productType) {
                 this.productType = productType;
             }
 
@@ -769,6 +887,14 @@ public class TeiHuiGson {
 
             public void setStandard(Object standard) {
                 this.standard = standard;
+            }
+
+            public Object getTransportTemplate() {
+                return transportTemplate;
+            }
+
+            public void setTransportTemplate(Object transportTemplate) {
+                this.transportTemplate = transportTemplate;
             }
         }
     }

@@ -261,9 +261,17 @@
         <activity android:name=".WoDe.Activity.ShopGuanLIActivity" />
         <activity android:name=".WoDe.Activity.JinTuiKuanActivity" />
         <activity android:name=".WoDe.Activity.TuiHuoTuiKuanActivity" />
-        <activity android:name=".WoDe.Activity.TianJiaShangPinActivity" />
+        <activity
+            android:name=".WoDe.Activity.TianJiaShangPinActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".WoDe.Activity.ShopFenLeiActivity" />
-        <activity android:name=".WoDe.Activity.ShopCanShuActivity"></activity>
+        <activity android:name=".WoDe.Activity.ShopCanShuActivity" />
+        <activity android:name=".WoDe.Activity.ShopDetailActivity" />
+        <activity
+            android:name=".WoDe.Activity.ShopGuiGeActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".WoDe.Activity.TiaoXuanShopActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
     </application>
 
 </manifest>

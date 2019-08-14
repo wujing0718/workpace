@@ -59,7 +59,6 @@ public class YunFeiZiDingYiAdapter extends RecyclerView.Adapter<YunFeiZiDingYiAd
 //      在list中添加数据，并通知条目加入一条
         mlist.add(position, "");
         notifyItemRangeChanged(position, list.size());
-
     }
 
     //  删除数据

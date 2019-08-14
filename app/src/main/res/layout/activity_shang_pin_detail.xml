@@ -63,6 +63,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bt_xiaoxi"
                 android:layout_weight="1"
                 android:layout_width="40dp"
                 android:layout_height="44dp">

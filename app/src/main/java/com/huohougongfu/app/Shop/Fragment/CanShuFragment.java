@@ -42,6 +42,7 @@ public class CanShuFragment extends Fragment {
     private RecyclerView rec_canshu_name,rec_canshu_content;
     private CanShuNameAdapter nameadapter;
     private CanShuContentAdapter contentadapter;
+    private View view_canshu;
 
     public CanShuFragment() {
         // Required empty public constructor
@@ -62,6 +63,7 @@ public class CanShuFragment extends Fragment {
     }
 
     private void initUI() {
+        view_canshu = inflate.findViewById(R.id.view_canshu);
         rec_canshu_name = inflate.findViewById(R.id.rec_canshu_name);
         rec_canshu_content = inflate.findViewById(R.id.rec_canshu_content);
 
@@ -82,9 +84,12 @@ public class CanShuFragment extends Fragment {
                         ShopCanShu canshu = gson.fromJson(response.body(), ShopCanShu.class);
                         if (canshu.getStatus() == 1) {
                             if (canshu.getResult()!=null) {
+                                view_canshu.setVisibility(View.VISIBLE);
                                 initRecName(canshu);
                                 initRecContent(canshu);
                             }
+                        }else{
+                            view_canshu.setVisibility(View.GONE);
                         }
                     }
                     @Override
@@ -113,10 +118,11 @@ public class CanShuFragment extends Fragment {
         rec_canshu_name.setAdapter(contentadapter);
     }
 
-    public static Fragment newInstance(int str){
+    public static Fragment newInstance(int str, String 挑选){
         CanShuFragment fragment = new CanShuFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id",str);
+        bundle.putString("挑选",挑选);
         fragment.setArguments(bundle);
         return fragment;
     }

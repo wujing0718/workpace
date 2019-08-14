@@ -31,6 +31,10 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     private ArrayList<String> provinceValues=new ArrayList<String>();
     private ArrayList<String> cityValues=new ArrayList<String>();
 
+    private ArrayList<String> countryValuesid=new ArrayList<String>();
+    private ArrayList<String> provinceValuesid=new ArrayList<String>();
+    private ArrayList<String> cityValuesid=new ArrayList<String>();
+
     private int countryPosition=0;
     private int provincePosition=0;
     private int cityPosition=0;
@@ -47,7 +51,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     private ShopFenLeiGson shopFenLeiGson;
     private int position1;
     private Bundle bundle;
-    private String categoryName;
+    private String categoryName ,categoryNameid;
 
 
     @Override
@@ -95,8 +99,10 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     private void setCity() {
         for (int i = 0; i < shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().size(); i++) {
             cityValues.add(shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().get(i).getName());
+            cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().get(i).getId()));
         }
         categoryName = shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().get(0).getName();
+        categoryNameid= String.valueOf(shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().get(0).getId());
         if(!(cityValues.isEmpty())){
             cityAdapter=new LevelListViewAdapter(this, cityValues, 3);
             cityAdapter.setSelectedPositionNoNotify(cityPosition, cityValues);
@@ -105,6 +111,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onItemClick(View view, int position) {
                     categoryName = cityValues.get(position);
+                    categoryNameid = cityValuesid.get(position);
                     cityAdapter.setSelectItem(position);
                     cityPosition = position;
                 }
@@ -114,6 +121,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     private void setProvince() {
             for (int i = 0; i < shopFenLeiGson.getResult().get(countryPosition).getList().size(); i++) {
                 provinceValues.add(shopFenLeiGson.getResult().get(countryPosition).getList().get(i).getName());
+                provinceValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(countryPosition).getList().get(i).getId()));
             }
         if(!(provinceValues.isEmpty())){
             provinceAdapter=new LevelListViewAdapter(this, provinceValues, 2);
@@ -144,9 +152,11 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                         provinceTime=0;//重置时间的记录
                     }
                     cityValues.clear();
+                    cityValuesid.clear();
                     if(!(provinceValues.isEmpty())){
                         for (int i = 0; i < shopFenLeiGson.getResult().get(countryPosition).getList().get(position).getList().size(); i++) {
                             cityValues.add(shopFenLeiGson.getResult().get(countryPosition).getList().get(position).getList().get(i).getName());
+                            cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(countryPosition).getList().get(position).getList().get(i).getId()));
                         }
                         cityAdapter.notifyDataSetChanged();
                         cityAdapter.setSelectedPositionNoNotify(0, cityValues);
@@ -187,9 +197,11 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                         countryTime=0;//重置时间的记录
                     }
                     provinceValues.clear();
+                    provinceValuesid.clear();
                     if(!(countryValues.isEmpty())){
                         for (int i = 0; i < shopFenLeiGson.getResult().get(position).getList().size(); i++) {
                             provinceValues.add(shopFenLeiGson.getResult().get(position).getList().get(i).getName());
+                            provinceValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getList().get(i).getId()));
                         }
                         provinceAdapter.notifyDataSetChanged();
                         provinceAdapter.setSelectedPositionNoNotify(0, provinceValues);
@@ -198,11 +210,14 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                         provinceAdapter.notifyDataSetChanged();
                     }
                     cityValues.clear();
+                    cityValuesid.clear();
                     if(!(provinceValues.isEmpty())){
                         for (int i = 0; i < shopFenLeiGson.getResult().get(position).getList().get(0).getList().size(); i++) {
                             cityValues.add(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getName());
+                            cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getId()));
                         }
                         categoryName = cityValues.get(0);
+                        categoryNameid  = cityValuesid.get(0);
                         cityAdapter.notifyDataSetChanged();
                         cityAdapter.setSelectedPositionNoNotify(0, cityValues);
                         lv_city.smoothScrollToPosition(0);
@@ -218,22 +233,28 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()){
             case R.id.bt_finish:
                 bundle = new Bundle();
-                bundle.putString("categoryName","");
-                setResult(0,ShopFenLeiActivity.this.getIntent().putExtras(bundle));
+                bundle.putString("categoryName",null);
+                bundle.putString("categoryNameid",null);
+                setResult(101,ShopFenLeiActivity.this.getIntent().putExtras(bundle));
                 ShopFenLeiActivity.this.finish();
                 break;
             case R.id.bt_queding:
                 if (!utils.isDoubleClick()){
                     if (cityValues.size()>0){
                         categoryName = cityValues.get(cityPosition);
+                        categoryNameid = cityValuesid.get(cityPosition);
                     }else if (provinceValues.size()>0){
                         categoryName = provinceValues.get(provincePosition);
+                        categoryNameid = provinceValuesid.get(provincePosition);
+
                     }else {
                         categoryName = countryValues.get(countryPosition);
+                        categoryNameid = countryValuesid.get(countryPosition);
                     }
                     bundle = new Bundle();
+                    bundle.putString("categoryNameid",categoryNameid);
                     bundle.putString("categoryName",categoryName);
-                    setResult(0,ShopFenLeiActivity.this.getIntent().putExtras(bundle));
+                    setResult(101,ShopFenLeiActivity.this.getIntent().putExtras(bundle));
                     ShopFenLeiActivity.this.finish();
                 }
                 break;
@@ -242,8 +263,9 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onBackPressed(){
         bundle = new Bundle();
-        bundle.putString("categoryName","");
-        setResult(0,ShopFenLeiActivity.this.getIntent().putExtras(bundle));
+        bundle.putString("categoryName",null);
+        bundle.putString("categoryNameid",null);
+        setResult(101,ShopFenLeiActivity.this.getIntent().putExtras(bundle));
         ShopFenLeiActivity.this.finish();
         super.onBackPressed();
     }

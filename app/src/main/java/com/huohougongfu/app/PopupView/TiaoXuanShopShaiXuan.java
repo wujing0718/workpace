@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ShopFenLei;
@@ -29,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnClickListener {
+public class TiaoXuanShopShaiXuan extends DrawerPopupView implements View.OnClickListener {
     private final Handler mHandler;
     private List<ShopFenLei.ResultBean.ProductCategoryBean> productCategory;
     List<String> datas_fenlei = new ArrayList<>();
@@ -42,14 +41,15 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
     private TagAdapter<String> adapter1;
     private TagAdapter<String> adapter2;
     private TagFlowLayout id_flowlayout_fahuodi;
+    private EditText yongjin_zuidijia,yongjin_zuigaojia;
 
-    public ShaiXuanDrawerPopupView(@NonNull Context context, Handler mHandler) {
+    public TiaoXuanShopShaiXuan(@NonNull Context context, Handler mHandler) {
         super(context);
         this.mHandler = mHandler;
     }
     @Override
     protected int getImplLayoutId() {
-        return R.layout.shaixuan_drawer_popup;
+        return R.layout.shaixuan_tiaoxuanshop_popup;
     }
     @Override
     protected void onCreate() {
@@ -58,6 +58,8 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
         id_flowlayout_fenlei = findViewById(R.id.id_flowlayout_fenlei);
         zuigaojia = findViewById(R.id.edt_zuigaojia);
         zuidijia = findViewById(R.id.edt_zuidijia);
+        yongjin_zuigaojia = findViewById(R.id.edt_yongjin_zuigaojia);
+        yongjin_zuidijia = findViewById(R.id.edt_yongjin_zuidijia);
         findViewById(R.id.bt_chongzhi).setOnClickListener(this);
         findViewById(R.id.bt_queding).setOnClickListener(this);
         id_flowlayout_fahuodi = findViewById(R.id.id_flowlayout_fahuodi);
@@ -143,12 +145,26 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                 fahuodi = null;
                 zuigaojia.setText("");
                 zuidijia.setText("");
+                yongjin_zuigaojia.setText("");
+                yongjin_zuidijia.setText("");
                 id_flowlayout_fahuodi.setAdapter(adapter2);
                 id_flowlayout_fenlei.setAdapter(adapter1);
                 break;
             case R.id.bt_queding:
                 String hight = zuigaojia.getText().toString();
                 String lowest  = zuidijia.getText().toString();
+                String yongjinhight = yongjin_zuigaojia.getText().toString();
+                String yongjinlowest  = yongjin_zuidijia.getText().toString();
+                if( !"".equals(yongjinhight) && !"".equals(yongjinlowest)){
+                    Integer yongjinhightprice = Integer.valueOf(yongjinhight);
+                    Integer yongjinlowestprice = Integer.valueOf(yongjinlowest);
+                    if (yongjinlowestprice>=yongjinhightprice){
+                        ToastUtils.showShort("最低价不能大于最高价");
+                    }else{
+                        map.put("lowerCommission",String.valueOf(yongjinlowestprice));
+                        map.put("highCommission",String.valueOf(yongjinhightprice));
+                    }
+                }
                 if (!"".equals(hight) && !"".equals(lowest)){
                     Integer hightprice = Integer.valueOf(hight);
                     Integer lowestprice = Integer.valueOf(lowest);

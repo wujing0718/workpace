@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Shop.Activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Fragment.ShopFragment;
 import com.huohougongfu.app.Fragment.SimpleCardFragment;
@@ -60,6 +63,22 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
             @Override
             public void afterTextChanged(Editable s) {
                 ListenerManager.getInstance().sendBroadCast(0,s.toString());
+            }
+        });
+        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(ShopSouSuoActivity.this,GouWuCheActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.bt_kefu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(ShopSouSuoActivity.this,XiaoXiActivity.class);
+                startActivity(intent);
             }
         });
         initTablayout();

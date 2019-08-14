@@ -83,6 +83,12 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private ImageView img_shangpin_detail;
     private ImageView img_dian_shoucang;
     private TextView tv_dian_shoucang;
+    private String 挑选;
+    private TextView bt_commission,tv_lijigoumai ;
+    private View bt_detail_fenxiang;
+    private String commission;
+    private View bt_shoucang;
+    private View bt_jiagouwuche;
 
     public ShangPinFragment() {
     }
@@ -97,6 +103,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
         shopid = getArguments().getInt("id");
+        挑选 = getArguments().getString("挑选");
+        commission = getArguments().getString("commission");
         initFuWu();
         initData();
         initUI();
@@ -174,10 +182,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_fuwu1 = inflate.findViewById(R.id.tv_fuwu1);
         tv_fuwu2 = inflate.findViewById(R.id.tv_fuwu2);
 
-
+        tv_lijigoumai = inflate.findViewById(R.id.tv_lijigoumai);
         tv_manjian1 = inflate.findViewById(R.id.tv_manjian1);
         tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
-        inflate.findViewById(R.id.bt_detail_fenxiang).setOnClickListener(this);
+        bt_detail_fenxiang = inflate.findViewById(R.id.bt_detail_fenxiang);
+        bt_detail_fenxiang.setOnClickListener(this);
         inflate.findViewById(R.id.bt_goumai).setOnClickListener(this);
         img_dian_shoucang = inflate.findViewById(R.id.img_dian_shoucang);
         tv_dian_shoucang = inflate.findViewById(R.id.tv_dian_shoucang);
@@ -187,13 +196,16 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         inflate.findViewById(R.id.bt_tade_dianpu).setOnClickListener(this);
         bt_detail_fuwu = inflate.findViewById(R.id.bt_detail_fuwu);
         bt_detail_fuwu.setOnClickListener(this);
-        inflate.findViewById(R.id.bt_shoucang).setOnClickListener(this);
+        bt_shoucang = inflate.findViewById(R.id.bt_shoucang);
+        bt_shoucang.setOnClickListener(this);
         inflate.findViewById(R.id.bt_detail_guige).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_jiagouwuche).setOnClickListener(this);
+        bt_jiagouwuche = inflate.findViewById(R.id.bt_jiagouwuche);
+        bt_jiagouwuche.setOnClickListener(this);
         inflate.findViewById(R.id.bt_kefu).setOnClickListener(this);
-
+        bt_commission = inflate.findViewById(R.id.bt_commission);
         rec_shangpin_tuijian = inflate.findViewById(R.id.rec_shangpin_tuijian);
         tv_yuan_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG );
+
     }
 
     private void initData() {
@@ -250,6 +262,22 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     }
 
     private void initView(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct) {
+        if (挑选!=null){
+            bt_commission.setVisibility(View.VISIBLE);
+            bt_detail_fenxiang.setVisibility(View.GONE);
+            tv_lijigoumai.setText("放入仓库");
+            if(!"null".equals(commission)){
+                bt_commission.setText("赚 ¥"+commission);
+            }else{
+                bt_commission.setText("");
+            }
+            bt_shoucang.setVisibility(View.GONE);
+            bt_jiagouwuche.setVisibility(View.GONE);
+        }else{
+            tv_lijigoumai.setText("立即购买");
+            bt_commission.setVisibility(View.GONE);
+            bt_detail_fenxiang.setVisibility(View.VISIBLE);
+        }
         tv_detail_price.setText(String.valueOf(mallProduct.getPrice()));
         tv_yuan_price.setText("¥"+String.valueOf(mallProduct.getMarketPrice()));
         tv_detail_kuaidi.setText("快递："+mallProduct.getDefaultTranCost());
@@ -304,10 +332,12 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     }
 
-    public static Fragment newInstance(int str){
+    public static Fragment newInstance(int str, String 挑选, String commission){
         ShangPinFragment fragment = new ShangPinFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id",str);
+        bundle.putString("挑选",挑选);
+        bundle.putString("commission",commission);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -352,9 +382,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_goumai:
                 if (!utils.isDoubleClick()){
-                    XPopup.Builder builder = new XPopup.Builder(getContext());
-                    builder.asCustom(new GuiGe(getContext(),guige))
-                            .show();
+                    if (挑选!=null){
+                        initAddCangKu();
+                    }else{
+                        XPopup.Builder builder = new XPopup.Builder(getContext());
+                        builder.asCustom(new GuiGe(getContext(),guige))
+                                .show();
+                    }
                 }
                 break;
             case R.id.bt_jiagouwuche:
@@ -364,7 +398,6 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                             .show();
                 }
                 break;
-
             case R.id.bt_tade_dianpu:
                 if (!utils.isDoubleClick()){
                     Intent intent = new Intent();
@@ -393,6 +426,31 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 }
                 break;
         }
+    }
+
+    private void initAddCangKu() {
+        Map<String,String> map = new HashMap<>();
+        map.put("pid",String.valueOf(shopid));
+        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+        OkGo.<String>post(Contacts.URl1+"productManage/putWarehouse")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                getActivity().finish();
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initShouCang() {

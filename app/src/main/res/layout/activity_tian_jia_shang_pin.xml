@@ -14,6 +14,7 @@
         android:layout_height="44dp">
 
         <RelativeLayout
+            android:id="@+id/bt_finish"
             android:layout_width="@dimen/dp_50"
             android:layout_height="@dimen/dp_44">
 
@@ -32,6 +33,22 @@
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/bt_tijiao"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_44">
+
+            <TextView
+                android:text="提交"
+                android:textSize="16sp"
+                android:textColor="@color/colorWhite"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
     
@@ -62,6 +79,8 @@
                         android:layout_height="wrap_content" />
 
                     <EditText
+                        android:id="@+id/edt_shop_title"
+                        android:paddingRight="@dimen/dp_14"
                         android:background="@null"
                         android:hint="请填写标题"
                         android:textSize="14sp"
@@ -78,28 +97,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <TextView
-                        android:text="现价"
-                        android:textColor="@color/colorBlack"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <EditText
-                        android:background="@null"
-                        android:hint="请输入金额"
-                        android:textSize="14sp"
-                        android:gravity="right|center_vertical"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="@dimen/dp_200"
-                        android:layout_height="@dimen/dp_50" />
-
-                </RelativeLayout>
 
                 <View
                     android:background="#E8E8E8"
@@ -107,25 +104,39 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/bt_shop_guige"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
 
                     <TextView
-                        android:text="原价"
-                        android:textColor="@color/colorBlack"
                         android:layout_centerVertical="true"
+                        android:text="规格"
+                        android:textColor="@color/colorBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <EditText
-                        android:background="@null"
-                        android:hint="请输入金额"
-                        android:textSize="14sp"
-                        android:gravity="right|center_vertical"
-                        android:layout_centerVertical="true"
+                    <LinearLayout
                         android:layout_alignParentRight="true"
-                        android:layout_width="@dimen/dp_200"
-                        android:layout_height="@dimen/dp_50" />
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_shuo_guige"
+                            android:text="请选择规格"
+                            android:textColor="@color/colorHui"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:src="@mipmap/img_xiayibu"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="@dimen/dp_8"
+                            android:layout_height="@dimen/dp_13" />
+
+                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -146,9 +157,11 @@
                         android:layout_height="wrap_content" />
 
                     <EditText
+                        android:id="@+id/edt_shop_num"
                         android:background="@null"
                         android:hint="请输入个数"
                         android:textSize="14sp"
+                        android:paddingRight="@dimen/dp_14"
                         android:gravity="right|center_vertical"
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
@@ -174,8 +187,10 @@
                         android:layout_height="wrap_content" />
 
                     <EditText
+                        android:id="@+id/edt_shop_yongjin"
                         android:background="@null"
                         android:hint="请输入金额"
+                        android:paddingRight="@dimen/dp_14"
                         android:textSize="14sp"
                         android:gravity="right|center_vertical"
                         android:layout_centerVertical="true"
@@ -282,6 +297,7 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/bt_fahuo_city"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
 
@@ -323,6 +339,7 @@
                     android:layout_height="1dp"/>
 
                 <RelativeLayout
+                    android:id="@+id/bt_shop_detail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
 
@@ -398,49 +415,48 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginTop="@dimen/dp_30"
-                android:layout_marginBottom="@dimen/dp_20"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
+            <!--<LinearLayout-->
+                <!--android:layout_marginTop="@dimen/dp_30"-->
+                <!--android:layout_marginBottom="@dimen/dp_20"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp">-->
 
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <!--<RelativeLayout-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
 
-                    <TextView
-                        android:layout_centerInParent="true"
-                        android:text="提交审核"
-                        android:paddingVertical="@dimen/dp_4"
-                        android:paddingHorizontal="@dimen/dp_20"
-                        android:textColor="@color/colorWhite"
-                        android:background="@drawable/delete_kuang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:text="提交审核"-->
+                        <!--android:paddingVertical="@dimen/dp_4"-->
+                        <!--android:paddingHorizontal="@dimen/dp_20"-->
+                        <!--android:textColor="@color/colorWhite"-->
+                        <!--android:background="@drawable/delete_kuang"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <!--<RelativeLayout-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
 
-                    <TextView
-                        android:layout_centerInParent="true"
-                        android:text="预览"
-                        android:paddingVertical="@dimen/dp_4"
-                        android:paddingHorizontal="@dimen/dp_20"
-                        android:textColor="@color/colorWhite"
-                        android:background="@drawable/delete_kuang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:text="预览"-->
+                        <!--android:paddingVertical="@dimen/dp_4"-->
+                        <!--android:paddingHorizontal="@dimen/dp_20"-->
+                        <!--android:textColor="@color/colorWhite"-->
+                        <!--android:background="@drawable/delete_kuang"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
-            </LinearLayout>
-            
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 

@@ -206,7 +206,6 @@ public class YunFeiSettingActivity extends AppCompatActivity implements View.OnC
     private void initAdd() {
         adapter.addData(list.size());
         adapter.addYouFei(mlist.size());
-
     }
 
     protected ArrayList<String> initData() {

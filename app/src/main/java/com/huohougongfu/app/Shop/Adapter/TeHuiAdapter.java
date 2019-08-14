@@ -3,6 +3,7 @@ package com.huohougongfu.app.Shop.Adapter;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -27,8 +28,19 @@ public class TeHuiAdapter extends BaseQuickAdapter<TeiHuiGson.ResultBean.ListBea
     @Override
     protected void convert(BaseViewHolder helper, TeiHuiGson.ResultBean.ListBean item) {
         SlantedTextView slanted = helper.getView(R.id.slanted);
-        slanted.setVisibility(View.VISIBLE);
-        slanted.setText("特惠");
+        TextView tv_yinli = helper.getView(R.id.tv_yinli);
+        if (item.getOfCheap() == 1){
+            slanted.setVisibility(View.VISIBLE);
+            slanted.setText("特惠");
+        }else{
+            slanted.setVisibility(View.GONE);
+        }
+        if (item.getCommission()!=null){
+            tv_yinli.setVisibility(View.VISIBLE);
+            tv_yinli.setText("赚 ¥"+item.getCommission());
+        }else{
+            tv_yinli.setVisibility(View.GONE);
+        }
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);
         helper.setText(R.id.tv_jingxuan_title,item.getName());

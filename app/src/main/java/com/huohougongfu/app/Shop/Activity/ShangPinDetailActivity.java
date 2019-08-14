@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Fragment.SimpleCardFragment;
 import com.huohougongfu.app.MyApp;
@@ -37,20 +38,34 @@ public class ShangPinDetailActivity extends AppCompatActivity {
     private MyPagerAdapter mAdapter;
     private int shopid;
     private Intent intent;
+    private String 挑选;
+    private String commission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shang_pin_detail);
         shopid = getIntent().getIntExtra("id", 0);
+        挑选 = getIntent().getStringExtra("挑选");
+        commission = getIntent().getStringExtra("commission");
         intent = new Intent();
-        findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
+        View bt_finish = findViewById(R.id.bt_finish);
+        bt_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+        View bt_gouwuche = findViewById(R.id.bt_gouwuche);
+        View bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.setClass(ShangPinDetailActivity.this,XiaoXiActivity.class);
+                startActivity(intent);
+            }
+        });
+        bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -59,7 +74,10 @@ public class ShangPinDetailActivity extends AppCompatActivity {
                 }
             }
         });
-
+        if (挑选!=null){
+            bt_gouwuche.setVisibility(View.GONE);
+            bt_xiaoxi.setVisibility(View.GONE);
+        }
         initTablayout();
     }
 
@@ -68,9 +86,9 @@ public class ShangPinDetailActivity extends AppCompatActivity {
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(ShangPinFragment.newInstance(shopid));
-        mFragments.add(CanShuFragment.newInstance(shopid));
-        mFragments.add(PingJiaFragment.newInstance(shopid));
+        mFragments.add(ShangPinFragment.newInstance(shopid,挑选,commission));
+        mFragments.add(CanShuFragment.newInstance(shopid,挑选));
+        mFragments.add(PingJiaFragment.newInstance(shopid,挑选));
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
         }

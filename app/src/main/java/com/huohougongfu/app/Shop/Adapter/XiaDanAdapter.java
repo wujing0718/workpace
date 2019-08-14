@@ -327,7 +327,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         childViewHolder.tv_dingdan_guige.setText(mallProductsBean1.getStandard());
         childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getPrice()));
         childViewHolder.amountview.setCount(mallProductsBean1.getNum());
-
+        Glide.with(context).load(mallProductsBean1.getCoverUrl()).into(childViewHolder.img_dingdan_photo);
         childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {
             @Override
             public void onAddSuccess(int i) {

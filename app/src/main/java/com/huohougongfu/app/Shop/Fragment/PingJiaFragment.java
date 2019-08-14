@@ -75,7 +75,7 @@ public class PingJiaFragment extends Fragment {
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("id",String.valueOf(45));
+        map.put("id",String.valueOf(shopid));
         map.put("page","1");
         map.put("pageSize","10");
         map.put("userId",String.valueOf(userid));
@@ -88,7 +88,12 @@ public class PingJiaFragment extends Fragment {
                         Gson gson = new Gson();
                         PingJia shangPinGson = gson.fromJson(response.body(), PingJia.class);
                         if (shangPinGson.getStatus() == 1) {
-                            initRec(shangPinGson.getResult().getList());
+                            if (shangPinGson.getResult().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(shangPinGson.getResult().getList());
+                            }
+                        }else{
+                            smartrefreshlayout.setVisibility(View.GONE);
                         }
                     }
                     @Override
@@ -198,7 +203,7 @@ public class PingJiaFragment extends Fragment {
 
     private void initAdd() {
         Map<String, String> map = new HashMap<>();
-        map.put("id",String.valueOf(44));
+        map.put("id",String.valueOf(shopid));
         map.put("page",String.valueOf(page++));
         map.put("pageSize","10");
         OkGo.<String>get(Contacts.URl2+"/selectAppraise")
@@ -227,10 +232,11 @@ public class PingJiaFragment extends Fragment {
     }
 
 
-    public static Fragment newInstance(int str){
+    public static Fragment newInstance(int str, String 挑选){
         PingJiaFragment fragment = new PingJiaFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id",str);
+        bundle.putString("挑选",挑选);
         fragment.setArguments(bundle);
         return fragment;
     }

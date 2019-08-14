@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.MyApp;
@@ -23,7 +22,6 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
-import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.lzy.okgo.OkGo;
@@ -52,7 +50,10 @@ public class GuiGe extends BottomPopupView {
     private int standardPrice;
     private AmountView amountview;
     private int amount = 1;
-    private int storeId,shopid,standarid;
+    private int storeId;
+    private int shopid;
+    private int standarid;
+    private String standard;
 
     public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct) {
         super(context);
@@ -105,8 +106,10 @@ public class GuiGe extends BottomPopupView {
                 try {
                     jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
                     jsonObject.put("productId",mallProduct.getProductInfo().getId());
+                    jsonObject.put("storeId",mallProduct.getProductInfo().getStoreId());
                     jsonObject.put("productNum",amount);
-                    jsonObject.put("standard",standarid);
+                    jsonObject.put("standardId",standarid);
+                    jsonObject.put("standard",standard);
                     JSONArray jsonArray = new JSONArray();
                     jsonArray.put(jsonObject);
                     initXiaDan(jsonArray);
@@ -205,6 +208,7 @@ public class GuiGe extends BottomPopupView {
             codeBtn.setChecked(true);
             standardPrice = mallProduct.getProductStandard().get(0).getStandardPrice();
             standarid = mallProduct.getProductStandard().get(0).getId();
+            standard = mallProduct.getProductStandard().get(0).getStandard();
             tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
         }
         codeBtn.setText( btnContent );
@@ -215,6 +219,7 @@ public class GuiGe extends BottomPopupView {
             public void onClick(View v) {
                 standardPrice = mallProduct.getProductStandard().get(id).getStandardPrice();
                 standarid = mallProduct.getProductStandard().get(id).getId();
+                standard = mallProduct.getProductStandard().get(id).getStandard();
                 tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(id).getStandardPrice());
             }
         });

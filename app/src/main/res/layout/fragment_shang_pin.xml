@@ -96,6 +96,16 @@
 
                     <!--</RelativeLayout>-->
 
+                    <TextView
+                        android:layout_marginRight="@dimen/dp_20"
+                        android:id="@+id/bt_commission"
+                        android:text="赚 ¥8.8"
+                        android:visibility="gone"
+                        android:textColor="@color/colorRed"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                     <RelativeLayout
                         android:id="@+id/bt_detail_fenxiang"
                         android:layout_width="50dp"
@@ -106,7 +116,6 @@
                             android:layout_centerInParent="true"
                             android:layout_width="20dp"
                             android:layout_height="20dp" />
-
 
                     </RelativeLayout>
 
@@ -723,6 +732,7 @@
         </android.support.v7.widget.CardView>
 
         <LinearLayout
+            android:layout_marginLeft="@dimen/dp_12"
             android:gravity="center_vertical"
             android:layout_toRightOf="@+id/bt_shoucang"
             android:orientation="horizontal"
@@ -759,6 +769,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:layout_marginLeft="@dimen/dp_10"
                 android:id="@+id/bt_goumai"
                 android:layout_weight="1"
                 app:cardBackgroundColor="#CCBA91"
@@ -776,6 +787,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_lijigoumai"
                         android:text="立即购买"
                         android:textSize="14sp"
                         android:layout_marginTop="4dp"
