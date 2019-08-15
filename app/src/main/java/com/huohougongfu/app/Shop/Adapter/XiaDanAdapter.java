@@ -74,6 +74,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         this.tv_chami_dikou = tv_chami_dikou;
         this.img_chami_check = img_chami_check;
         this.tvTotalPrice = tv_total_price;
+        this.teaRice = teaRice;
     }
 
     /**
@@ -184,9 +185,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         bt_chami_dikou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Handler(context.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
                         // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
                         if (isDikou){
                             double chamiprice = teaRice*0.01;
@@ -202,8 +200,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                             img_chami_check.setImageResource(R.mipmap.unselect);
                             isDikou = true;
                         }
-                    }
-                });
                 notifyDataSetChanged();
             }
         });

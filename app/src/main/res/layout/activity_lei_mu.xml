@@ -93,7 +93,7 @@
             android:divider="@null"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/colorHui" />
+            android:background="#E8E8E8" />
 
         <LinearLayout
             android:layout_width="0dp"

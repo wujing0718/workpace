@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -54,6 +55,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private Intent intent;
     private int id;
     private View view_weizhi;
+    private MyZhuYe xinxi;
 
     public MyFragment() {
         // Required empty public constructor
@@ -92,7 +94,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        MyZhuYe xinxi = gson.fromJson(body, MyZhuYe.class);
+                        xinxi = gson.fromJson(body, MyZhuYe.class);
                         if (xinxi.getStatus() == 1){
                             if (xinxi.getResult()!=null){
                                 initView(xinxi.getResult());
@@ -107,7 +109,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         Glide.with(getActivity()).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
         tv_my_vipnum.setText("1");
-
         if (result.getPlace()!=null){
             view_weizhi.setVisibility(View.VISIBLE);
             tv_my_weizhi.setText(result.getPlace());
@@ -190,8 +191,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_my_dianpu:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),MyDianPuActivity.class);
-                    startActivity(intent);
+                    if (xinxi.getResult().isIsMerchant() ==true){
+                        intent.setClass(getActivity(),MyDianPuActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort("尚未开店");
+                    }
                 }
                 break;
             case R.id.bt_my_kabao:

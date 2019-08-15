@@ -89,6 +89,7 @@
                 android:background="#e5e5e5"/>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="#ffffff">

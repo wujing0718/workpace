@@ -97,7 +97,7 @@ public class MenuAdapter extends BaseAdapter {
             holder.tv_name.setTextColor(context.getResources().getColor(R.color.sousuoTab));
             holder.tv_name.setBackgroundResource(R.color.white);
         } else {
-            holder.tv_name.setBackgroundResource(R.color.colorHui);
+            holder.tv_name.setBackgroundResource(R.color.e8e8e8);
             holder.tv_name.setTextColor(context.getResources().getColor(R.color.black));
         }
         holder.tv_name.setText(title.get(position));

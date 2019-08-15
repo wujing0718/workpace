@@ -59,6 +59,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -89,6 +91,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private String commission;
     private View bt_shoucang;
     private View bt_jiagouwuche;
+    private ShopDetail shopdetail;
 
     public ShangPinFragment() {
     }
@@ -222,7 +225,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        ShopDetail shopdetail = gson.fromJson(response.body(), ShopDetail.class);
+                        shopdetail = gson.fromJson(response.body(), ShopDetail.class);
                         if (shopdetail.getStatus() == 1) {
                             mallProduct = shopdetail.getResult().getProductDetailInfo();
                             initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
@@ -370,7 +373,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_kefu:
                 if (!utils.isDoubleClick()){
-//                    initShouCang();
+                    RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", shopdetail.getResult().getProductDetailInfo().getStoreName());
                 }
                 break;
             case R.id.bt_detail_guige:

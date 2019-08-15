@@ -53,10 +53,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imkit.model.Event;
+import io.rong.imlib.model.Conversation;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShopFragment extends Fragment implements View.OnClickListener {
+public class ShopFragment extends Fragment implements View.OnClickListener,IUnReadMessageObserver {
 
 
     private View inflate;
@@ -82,6 +87,13 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_shop, container, false);
         intent = new Intent();
+        final Conversation.ConversationType[] conversationTypes = {
+                Conversation.ConversationType.PRIVATE,
+                Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+                Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+        };
+        //未读消息
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
@@ -305,5 +317,15 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        int a = i;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

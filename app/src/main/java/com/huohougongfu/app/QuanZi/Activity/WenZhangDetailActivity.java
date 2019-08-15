@@ -70,6 +70,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
     private TextView tv_guanzhu;
     private String token;
     private int userid;
+    private TextView tv_quanzi_weizhi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
         view_wenzhang = findViewById(R.id.view_wenzhang);
         tv_quanzi_name = findViewById(R.id.tv_quanzi_name);
         tv_quanzi_chenghu = findViewById(R.id.tv_quanzi_chenghu);
+        tv_quanzi_weizhi = findViewById(R.id.tv_quanzi_weizhi);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_guanzhu).setOnClickListener(this);
         bt_gengduo = findViewById(R.id.bt_gengduo);
@@ -166,6 +168,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
             tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
             tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
         }
+        tv_quanzi_weizhi.setText(result.getAddress());
         int temp = 0;
             for (int i = 0;i<mcontent.length;i++){
                 if ("ゐゑを".equals(mcontent[i])){

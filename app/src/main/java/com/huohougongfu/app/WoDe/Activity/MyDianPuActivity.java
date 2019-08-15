@@ -47,8 +47,10 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
                         Gson gson = new Gson();
                         MyDianPu myDianPu = gson.fromJson(body, MyDianPu.class);
                         if (myDianPu.getStatus() == 1){
-                            tv_visitNum.setText(String.valueOf(myDianPu.getResult().getVisitNum()));
-                            tv_visitNumOfDay.setText(String.valueOf(myDianPu.getResult().getVisitNumOfDay()));
+                            if (myDianPu.getResult()!=null){
+                                tv_visitNum.setText(String.valueOf(myDianPu.getResult().getVisitNum()));
+                                tv_visitNumOfDay.setText(String.valueOf(myDianPu.getResult().getVisitNumOfDay()));
+                            }
                         }
                     }
                 });

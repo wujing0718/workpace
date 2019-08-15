@@ -30,6 +30,9 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +52,8 @@ public class TongChengFragment extends Fragment implements IListener {
     private SmartRefreshLayout smartrefreshlayout;
     private int mId;
     private String token;
+    private int page = 2;
+    private FaXianAdapter faXianAdapter;
 
     public TongChengFragment() {
         // Required empty public constructor
@@ -74,7 +79,7 @@ public class TongChengFragment extends Fragment implements IListener {
         if (!condition.isEmpty()){
             map.put("condition",condition);
         }
-        map.put("cityCode","340");
+        map.put("cityCode",MyApp.instance.getString("citycode"));
         map.put("pageNo","1");
         map.put("mId",String.valueOf(mId));
         map.put("pageSize","4");
@@ -106,7 +111,7 @@ public class TongChengFragment extends Fragment implements IListener {
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         // 绑定布局管理器
         rec_faxian.setLayoutManager(layoutManager);
-        FaXianAdapter faXianAdapter = new FaXianAdapter(R.layout.item_quanzi_faxian,faxian.getResult().getDatas().getList());
+        faXianAdapter = new FaXianAdapter(R.layout.item_quanzi_faxian,faxian.getResult().getDatas().getList());
         rec_faxian.setAdapter(faXianAdapter);
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -132,6 +137,47 @@ public class TongChengFragment extends Fragment implements IListener {
                 }
             }
         });
+
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initData("");
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String, String> map = new HashMap<>();
+        map.put("pageNo",String.valueOf(page++));
+        map.put("cityCode",MyApp.instance.getString("citycode"));
+        map.put("mId",String.valueOf(mId));
+        map.put("pageSize","4");
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/data")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        QuanZiFaXian faxian = gson.fromJson(body, QuanZiFaXian.class);
+                        if (faxian.getResult().getDatas().getList().size()>0){
+                            faXianAdapter.add(faxian.getResult().getDatas().getList());
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }else {
+                            smartrefreshlayout. finishLoadMore();
+                        }
+                    }
+                });
     }
 
     //取消点赞

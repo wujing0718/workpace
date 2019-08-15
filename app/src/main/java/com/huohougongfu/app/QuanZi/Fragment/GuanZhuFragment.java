@@ -180,7 +180,6 @@ public class GuanZhuFragment extends Fragment implements IListener {
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",mId);
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -247,7 +246,6 @@ public class GuanZhuFragment extends Fragment implements IListener {
         map.put("pageSize","10");
         map.put("mId",mId);
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/attention/dynamic")
                 .params(map)
                 .execute(new StringCallback() {

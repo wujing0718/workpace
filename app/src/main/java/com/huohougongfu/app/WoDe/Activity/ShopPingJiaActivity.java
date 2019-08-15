@@ -37,6 +37,12 @@ public class ShopPingJiaActivity extends AppCompatActivity {
     }
 
     private void initUI() {
+        findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         rec_shop_pingjia = findViewById(R.id.rec_shop_pingjia);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
     }

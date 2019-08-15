@@ -90,7 +90,6 @@ public class DaKaActivity extends AppCompatActivity {
                             DaKa daKa = gson.fromJson(body, DaKa.class);
                             if (daKa.getStatus() == 1){
                                 if (daKa.getResult().getIsPunch() == 1 ){
-                                    TextView bt_daka = findViewById(R.id.bt_daka);
                                     bt_daka.setText("已打卡");
                                     bt_daka.setClickable(false);
                                 }else{
@@ -180,6 +179,7 @@ public class DaKaActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                bt_daka.setText("已打卡");
                                 Gson gson = new Gson();
                                 DaKaOne daKa = gson.fromJson(body, DaKaOne.class);
                                 if (daKa.getStatus() == 1){

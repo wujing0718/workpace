@@ -188,7 +188,6 @@ public class FaXianFragment extends Fragment implements IListener {
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",mId);
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -252,10 +251,9 @@ public class FaXianFragment extends Fragment implements IListener {
     private void initAdd() {
         Map<String, String> map = new HashMap<>();
         map.put("pageNo",String.valueOf(page++));
-        map.put("pageSize","4");
+        map.put("pageSize","10");
         map.put("mId",mId);
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {

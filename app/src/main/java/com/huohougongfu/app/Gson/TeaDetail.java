@@ -1,6 +1,8 @@
 package com.huohougongfu.app.Gson;
 
-public class TeaDetail {
+import java.io.Serializable;
+
+public class TeaDetail implements Serializable {
     /**
      * teaName : 绿茶
      * price : 12.00
@@ -65,7 +67,7 @@ public class TeaDetail {
         this.efficacy = efficacy;
     }
 
-    public static class ConcentrationBean {
+    public static class ConcentrationBean implements Serializable{
         /**
          * teaWeight : 5
          * waterWeight : 200

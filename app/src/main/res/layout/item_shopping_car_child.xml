@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
@@ -12,6 +13,7 @@
         android:background="#ffffff">
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/iv_select"
             android:layout_width="35dp"
             android:layout_height="match_parent"
@@ -20,6 +22,7 @@
             android:src="@mipmap/unselect" />
 
         <RelativeLayout
+            android:layout_marginLeft="@dimen/dp_12"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -41,7 +44,7 @@
                 android:layout_toRightOf="@id/iv_photo"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="时空房间啊链接法兰克福骄傲拉开飞机阿里进来撒劫匪了卡减肥了看见拉杀劫匪垃圾费垃圾费啦"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="14dp" />
 
@@ -53,7 +56,7 @@
                 android:layout_below="@+id/tv_name"
                 android:textSize="12sp"
                 android:textColor="#818181"
-                android:text="150g"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -80,7 +83,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="2dp"
                     android:layout_toRightOf="@id/tv_price_key"
-                    android:text="499"
+                    android:text=""
                     android:textColor="#ee1d23"
                     android:textSize="14dp" />
 
@@ -98,13 +101,6 @@
                     android:layout_gravity="right"
                     android:layout_marginRight="17dp"
                     app:maxCount="9999999" />
-
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="#cccccc" />
 
             </RelativeLayout>
 

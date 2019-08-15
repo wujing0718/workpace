@@ -23,7 +23,6 @@ public class XiTongFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_xi_tong, container, false);
     }
     public static Fragment newInstance(String content) {

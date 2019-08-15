@@ -234,7 +234,9 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
             editorStatus = false;
             clearAll();
         }
-        mycollectadapter.setEditMode(mEditMode);
+        if (mycollectadapter!=null){
+            mycollectadapter.setEditMode(mEditMode);
+        }
     }
 
     private void clearAll() {

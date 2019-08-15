@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ChaTaiAdapter;
@@ -39,7 +35,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,7 +228,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 new XPopup.Builder(getContext())
-                                        .asCustom(new ChaTaiZhiFu(getContext(),jsonObject.getString("result")))
+                                        .asCustom(new ChaTaiZhiFu(getContext(),jsonObject.getString("result"), total_price))
                                         .show();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

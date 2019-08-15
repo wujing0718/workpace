@@ -235,16 +235,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         //融云登录
                                         RongIM.connect(login.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
-                                            //token1参数报错
+                                            //token参数报错
                                             @Override
                                             public void onTokenIncorrect() {
-                                                Log.e("TAG","参数错误");
+                                                //重新请求Token
                                             }
-
                                             @Override
                                             public void onSuccess(String s) {
                                                 Log.e("TAG","成功");
                                                 // 连接成功，说明你已成功连接到融云Server
+                                                startActivity(intent);
+                                                finish();
+                                                // 调用 Handler 来异步设置别名
+                                                mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
+                                                // 点击恢复按钮后，极光推送服务会恢复正常工作
+                                                JPushInterface.resumePush(getApplicationContext());
+                                                ToastUtils.showShort("登录成功");
                                             }
 
                                             @Override
@@ -252,13 +258,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 Log.e("TAG","失败");
                                             }
                                         });
-                                        startActivity(intent);
-                                        finish();
-                                        // 调用 Handler 来异步设置别名
-                                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
-                                        // 点击恢复按钮后，极光推送服务会恢复正常工作
-                                        JPushInterface.resumePush(getApplicationContext());
-                                        ToastUtils.showShort("登录成功");
+
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
                                     }
@@ -296,6 +296,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
                                     if (login.getStatus() == 1){
+                                        MyApp.instance.clear(true);
                                         MyApp.instance.put("id",login.getResult().getUserInfo().getUserId(),true);
                                         MyApp.instance.put("nickName",login.getResult().getUserInfo().getNickName(),true);
                                         MyApp.instance.put("phone",login.getResult().getUserInfo().getPhone(),true);
@@ -314,6 +315,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             @Override
                                             public void onSuccess(String s) {
                                                 Log.e("TAG","成功");
+                                                startActivity(intent);
+                                                // 调用 Handler 来异步设置别名
+                                                mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
+                                                // 点击恢复按钮后，极光推送服务会恢复正常工作
+                                                JPushInterface.resumePush(getApplicationContext());
+                                                finish();
+                                                ToastUtils.showShort("登录成功");
                                                 // 连接成功，说明你已成功连接到融云Server
                                             }
 
@@ -322,13 +330,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 Log.e("TAG","失败");
                                             }
                                         });
-                                        startActivity(intent);
-                                        // 调用 Handler 来异步设置别名
-                                        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
-                                        // 点击恢复按钮后，极光推送服务会恢复正常工作
-                                        JPushInterface.resumePush(getApplicationContext());
-                                        finish();
-                                        ToastUtils.showShort("登录成功");
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
                                     }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.QuanBuLeiMu;
@@ -49,7 +50,6 @@ public class LeiMuActivity extends AppCompatActivity {
     private int scrollPosition = -1;
     private List<String> title = new ArrayList<>();
     private List<List<QuanBuLeiMu.ResultBean.ListBean>> content = new ArrayList<>();
-
 
     private ArrayList<Integer> showTitle;
     private Intent intent;
@@ -274,8 +274,8 @@ public class LeiMuActivity extends AppCompatActivity {
                     leimutetuepinpai.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            intent.putExtra("name",listBeans.get(position).getName());
-                            intent.setClass(LeiMuActivity.this,LeiMuDetailActivity.class);
+                            intent.putExtra("id",String.valueOf(listBeans.get(position).getId()));
+                            intent.setClass(LeiMuActivity.this,DiaPuZhuYeActivity.class);
                             startActivity(intent);
                         }
                     });

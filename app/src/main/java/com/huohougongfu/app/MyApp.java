@@ -21,6 +21,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.Utils;
+import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.RongYun.ConversationActivity;
@@ -34,6 +35,8 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
@@ -53,11 +56,14 @@ import io.rong.push.rongpush.RongPush;
 
 import static com.kongzue.dialog.v2.DialogSettings.STYLE_IOS;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
+import static io.rong.imlib.RongIMClient.ErrorCode.RC_CONN_USER_OR_PASSWD_ERROR;
 
 public class MyApp extends Application {
 
     public static Context context;
     private static final int MSG_SET_ALIAS = 1001;
+    public static final String APP_ID = "wxa36e44f4072c4818";
+    public static IWXAPI wxapi;
     static {//static 代码段可以防止内存泄露
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
@@ -137,9 +143,11 @@ public class MyApp extends Application {
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
         JPushInterface.init(this);
         JPushInterface.setDebugMode(true);
+        //微信支付初始化
+        wxapi = WXAPIFactory.createWXAPI(this, APP_ID, true);
+        wxapi.registerApp(APP_ID);
         //微信
         PlatformConfig.setWeixin("wxa36e44f4072c4818", "3baf1193c85774b3fd9d18447d76cab0");
-        //微信支付初始化
         //QQ
         PlatformConfig.setQQZone("1107763346", "pPudlhFSifMTHqjm");
         //新浪
@@ -153,7 +161,7 @@ public class MyApp extends Application {
                 //token1参数报错
                 @Override
                 public void onTokenIncorrect() {
-                    Log.e("TAG","参数错误");
+                    Log.e("TAG","MyApp参数错误");
                 }
 
                 @Override
@@ -164,13 +172,17 @@ public class MyApp extends Application {
 
                 @Override
                 public void onError(RongIMClient.ErrorCode errorCode) {
-                    Log.e("TAG","失败");
+                    Log.e("TAG","=========="+errorCode);
+                    if (errorCode==RC_CONN_USER_OR_PASSWD_ERROR){
+                        instance.clear(true);
+                        startActivity(new Intent().setClass(context,LoginActivity.class));
+                    }
                 }
             });
         }
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
         RongPushClient.sendNotification(this,new PushNotificationMessage());
-// 调用 Handler 来异步设置别名
+        // 调用 Handler 来异步设置别名
         int id = MyApp.instance.getInt("id");
         if (id!=0){
             mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(id)));

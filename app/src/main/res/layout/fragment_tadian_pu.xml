@@ -7,38 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.TADianPu">
     
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="44dp">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="44dp">-->
 
-        <TextView
-            android:layout_marginLeft="@dimen/dp_12"
-            android:text="商品数：100"
-            android:textSize="12sp"
-            android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:layout_marginLeft="@dimen/dp_12"-->
+            <!--android:text="商品数：100"-->
+            <!--android:textSize="12sp"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
 
-        <TextView
-            android:layout_centerInParent="true"
-            android:text="悦茶坊茶艺师的店"
-            android:textColor="@color/colorBlack"
-            android:textSize="17sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:text="悦茶坊茶艺师的店"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:textSize="17sp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
 
-        <TextView
-            android:layout_marginRight="12dp"
-            android:textColor="@color/colorBlack"
-            android:layout_alignParentRight="true"
-            android:text="好评率：95%"
-            android:textSize="12sp"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:layout_marginRight="12dp"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:text="好评率：95%"-->
+            <!--android:textSize="12sp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smartrefreshlayout"

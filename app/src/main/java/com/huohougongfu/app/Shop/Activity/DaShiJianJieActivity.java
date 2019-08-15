@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Shop.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.DaShiJianJie;
 import com.huohougongfu.app.Gson.TeYuePingPai;
 import com.huohougongfu.app.MyApp;
@@ -104,7 +106,10 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                 }
             break;
             case R.id.bt_dashi_zhuye:
-                ToastUtils.showShort("主页");
+                Intent intent = new Intent();
+                intent.putExtra("id",String.valueOf(dashiid));
+                intent.setClass(DaShiJianJieActivity.this,DiaPuZhuYeActivity.class);
+                startActivity(intent);
                 break;
             case R.id.bt_finish:
                 finish();

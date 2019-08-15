@@ -58,7 +58,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/img_login_phone"
                         android:layout_width="16dp"
                         android:layout_height="16dp" />
 
@@ -90,7 +90,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/img_yanjing"
                         android:layout_width="16dp"
                         android:layout_height="16dp" />
 
@@ -130,7 +130,7 @@
 
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/img_yanzhengma"
                         android:layout_width="16dp"
                         android:layout_height="16dp" />
 

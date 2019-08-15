@@ -163,4 +163,6 @@ dependencies {
 
     //     此处以JPush 3.1.6 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.2.5'
+    //微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }

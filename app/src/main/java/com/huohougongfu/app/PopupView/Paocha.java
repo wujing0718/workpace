@@ -1,6 +1,7 @@
 package com.huohougongfu.app.PopupView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RadioButton;
@@ -11,6 +12,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.Gson.TeaDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.MyDingDanPaoChaActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
 import com.lxj.xpopup.animator.PopupAnimator;
@@ -26,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Paocha extends CenterPopupView implements View.OnClickListener {
+    private final Context context;
     private String yedi ="1";
     private String nongdu = "标准";
     private int amount = 1;
@@ -36,6 +39,7 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
 
     public Paocha(@NonNull Context context, TeaDetail teaDetail, String machineId) {
         super(context);
+        this.context= context;
         this.teaDetail = teaDetail;
         this.machineId = machineId;
     }
@@ -144,7 +148,15 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
                 initJiaRuChaTai();
                 break;
             case R.id.bt_lijixiadan:
-
+                Intent intent = new Intent();
+                intent.putExtra("yedi",yedi);
+                intent.putExtra("nongdu",nongdu);
+                intent.putExtra("num",amount);
+                intent.putExtra("machineId",machineId);
+                intent.putExtra("teaDetail",teaDetail);
+                intent.setClass(context,MyDingDanPaoChaActivity.class);
+                context.startActivity(intent);
+                dismiss();
                 break;
         }
     }

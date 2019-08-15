@@ -2,23 +2,30 @@ package com.huohougongfu.app.PopupView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.WXPay;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
+import com.huohougongfu.app.Utils.utils;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +35,7 @@ import java.util.Map;
 public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener {
     private final String result;
     private final Context context;
+    private final double total_price;
     private CheckBox check_yue,check_ali,check_weixin;
     private String alitoken;
     private static final int SDK_PAY_FLAG = 1001;
@@ -55,11 +63,14 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
             }
         }
     };
+    private TextView tv_total_price;
+    private String wxtoken;
 
-    public ChaTaiZhiFu(@NonNull Context context, String result) {
+    public ChaTaiZhiFu(@NonNull Context context, String result, double total_price) {
         super(context);
         this.result = result;
         this.context= context;
+        this.total_price = total_price;
     }
     @Override
     protected int getImplLayoutId() {
@@ -70,9 +81,12 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
     protected void onCreate() {
         super.onCreate();
         initALi();
+        initWX();
         check_yue = findViewById(R.id.check_yue);
         check_ali = findViewById(R.id.check_ali);
         check_weixin = findViewById(R.id.check_weixin);
+        tv_total_price = findViewById(R.id.tv_total_price);
+        tv_total_price.setText("¥"+total_price);
         check_yue.setClickable(false);
         check_ali.setClickable(false);
         check_weixin.setClickable(false);
@@ -95,6 +109,25 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 alitoken = jsonObject.getString("result");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void initWX(){
+        OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
+                .params("orderNo",result)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                wxtoken = jsonObject.getString("result");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -136,9 +169,34 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                 }else{
                     check_yue.setChecked(false);
                     check_ali.setChecked(false);
-                    ToastUtils.showShort("微信");
+                    initWXPay();
                 }
                 break;
+        }
+    }
+
+    private void initWXPay() {
+        if(!utils.isWeixinAvilible(MyApp.context)) {
+            Toast.makeText(context,"您未安装最新版本微信，不支持微信支付，请安装或升级微信版本",Toast.LENGTH_SHORT).show();
+        }else {
+            Gson gson = new Gson();
+            WXPay wxPay = gson.fromJson(wxtoken, WXPay.class);
+            Runnable payRunnable = new Runnable() {  //这里注意要放在子线程
+                @Override
+                public void run() {
+                    PayReq req = new PayReq();
+                    req.appId = wxPay.getAppid();
+                    req.partnerId = wxPay.getPartnerid();
+                    req.prepayId = wxPay.getPrepayid();
+                    req.nonceStr = wxPay.getNoncestr();
+                    req.timeStamp =String.valueOf(wxPay.getTimestamp());
+                    req.packageValue = wxPay.getPackageX();
+                    req.sign = wxPay.getSign();
+                    MyApp.wxapi.sendReq(req);
+                }
+            };
+            Thread payThread = new Thread(payRunnable);
+            payThread.start();
         }
     }
 
