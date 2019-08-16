@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
@@ -98,6 +99,33 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(),mFragments,mtabtitle);
         mViewPager.setAdapter(mAdapter);
         stl.setViewPager(mViewPager);
+        stl.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                bt_shop_sousuo.setText("");
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+                bt_shop_sousuo.setText("");
+            }
+        });
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                bt_shop_sousuo.setText("");
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override

@@ -472,10 +472,10 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         });
 
         if (childPosition == data.get(groupPosition).getMallProducts().size() - 1) {
-            childViewHolder.view1.setVisibility(View.GONE);
+//            childViewHolder.view1.setVisibility(View.GONE);
             childViewHolder.viewLast.setVisibility(View.VISIBLE);
         } else {
-            childViewHolder.view1.setVisibility(View.VISIBLE);
+//            childViewHolder.view1.setVisibility(View.VISIBLE);
             childViewHolder.viewLast.setVisibility(View.GONE);
         }
 
@@ -489,7 +489,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         TextView tvPriceKey,tv_standard;
         TextView tvPriceValue;
         ImageView ivEditAdd;
-        View view1;
+//        View view1;
         View viewLast;
         AnimShopButton amountview;
 
@@ -499,7 +499,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             tvName = view.findViewById(R.id.tv_name);
             tvPriceKey = view.findViewById(R.id.tv_price_key);
             tvPriceValue = view.findViewById(R.id.tv_price_value);
-            view1 = view.findViewById(R.id.view);
+//            view1 = view.findViewById(R.id.view);
             viewLast = view.findViewById(R.id.view_last);
             amountview = view.findViewById(R.id.amountview);
             tv_standard = view.findViewById(R.id.tv_standard);

@@ -34,6 +34,9 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
     private List<ShopFenLei.ResultBean.ProductCategoryBean> productCategory;
     List<String> datas_fenlei = new ArrayList<>();
     List<String> datas_fahuodi = new ArrayList<>();
+    List<Integer> fahuodiposition = new ArrayList<>();
+    List<Integer> fenleiiposition = new ArrayList<>();
+
     private Map<String,String> map = new HashMap<>();
     private TagFlowLayout  id_flowlayout_fenlei;
     private String name;
@@ -42,6 +45,8 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
     private TagAdapter<String> adapter1;
     private TagAdapter<String> adapter2;
     private TagFlowLayout id_flowlayout_fahuodi;
+    private Integer fahuodipos = 0;
+    private Integer fenleipos = 0;
 
     public ShaiXuanDrawerPopupView(@NonNull Context context, Handler mHandler) {
         super(context);
@@ -83,14 +88,15 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                 String replace = selectPosSet.toString().replace("[", "");
                 String s = replace.replaceAll("]", "");
                 if (!s.equals("")){
-                    Integer pos = Integer.valueOf(s);
-                    fahuodi = datas_fahuodi.get(pos);
+                    fahuodipos = Integer.valueOf(s);
+                    fahuodi = datas_fahuodi.get(fahuodipos);
                 }else{
                     fahuodi = null;
                 }
             }
         });
-        
+        adapter2.setSelectedList(fahuodipos);
+
     }
 
     private void initData() {
@@ -122,13 +128,14 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                                 String replace = selectPosSet.toString().replace("[", "");
                                 String s = replace.replaceAll("]", "");
                                 if (!s.equals("")){
-                                    Integer pos = Integer.valueOf(s);
-                                    name = datas_fenlei.get(pos);
+                                    fenleipos = Integer.valueOf(s);
+                                    name = datas_fenlei.get(fenleipos);
                                 }else{
                                     name = null;
                                 }
                             }
                         });
+                        adapter1.setSelectedList(fenleipos);
                     }
                 }
             }

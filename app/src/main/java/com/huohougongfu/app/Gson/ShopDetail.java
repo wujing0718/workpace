@@ -73,7 +73,25 @@ public class ShopDetail {
             private String storeAddress;
             private String stock;
             private int isCollection;
+            private String specialInstructions;
+            private int productCollection;
 
+
+            public String getSpecialInstructions() {
+                return specialInstructions;
+            }
+
+            public void setSpecialInstructions(String specialInstructions) {
+                this.specialInstructions = specialInstructions;
+            }
+
+            public int getProductCollection() {
+                return productCollection;
+            }
+
+            public void setProductCollection(int productCollection) {
+                this.productCollection = productCollection;
+            }
 
             public double getDefaultTranCost() {
                 return defaultTranCost;

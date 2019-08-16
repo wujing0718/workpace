@@ -295,7 +295,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_dianpu_jianjie.setText(mallProduct.getStoreBoard());
         Glide.with(getActivity()).load(mallProduct.getRemark()).into(img_shangpin_detail);
 
-        if (mallProduct.getIsCollection()==1){
+        if (mallProduct.getProductCollection()==1){
             tv_dian_shoucang.setText("已收藏");
             img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
         }else{
@@ -458,9 +458,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initShouCang() {
         Map<String,String> map = new HashMap<>();
-        map.put("pids",String.valueOf(shopid));
-        map.put("mId",String.valueOf(id));
-        OkGo.<String>post(Contacts.URl2+"moveToCollection")
+        map.put("productId",String.valueOf(shopid));
+        map.put("userId",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl2+"collectionProduct")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -471,6 +471,10 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                             if ("已取消关注".equals(jsonObject.getString("result"))){
                                 img_dian_shoucang.setImageResource(R.mipmap.img_shoucang);
                                 tv_dian_shoucang.setText("收藏");
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }else if ("商品收藏成功".equals(jsonObject.getString("result"))){
+                                img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                                tv_dian_shoucang.setText("已收藏");
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }else if ("再次收藏成功".equals(jsonObject.getString("result"))){
                                 img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);

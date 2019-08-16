@@ -83,16 +83,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />
 
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:paddingHorizontal="6dp"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
 
                 </RadioGroup>

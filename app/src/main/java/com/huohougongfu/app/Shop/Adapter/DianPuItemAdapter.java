@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.huohougongfu.app.Gson.SouSuoDianPu;
 import com.huohougongfu.app.Gson.TeYuePingPai;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 
 import java.util.List;
@@ -46,7 +47,9 @@ public class DianPuItemAdapter extends RecyclerView.Adapter<DianPuItemAdapter.Vi
 
 //        viewHolder.tv_shangpin_price.setText(String.valueOf(data.get(position).getPrice()));
 //        viewHolder.tv_shangpin_title.setText(String.valueOf(data.get(position).getName()));
-        Glide.with(context).load(data.get(position).getCoverUrl()).into(viewHolder.img_shangpin_photo);
+        if (data.get(position).getCoverUrl()!=null){
+            Glide.with(MyApp.context).load(data.get(position).getCoverUrl()).into(viewHolder.img_shangpin_photo);
+        }
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

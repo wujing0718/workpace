@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.SouSuoDianPu;
 import com.huohougongfu.app.PopupView.DianPuShaiXunPopup;
 import com.huohougongfu.app.R;
@@ -141,7 +142,8 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(),ShangPinDetailActivity.class);
+                intent.putExtra("id",String.valueOf(result.getList().get(position).getId()));
+                intent.setClass(getActivity(),DiaPuZhuYeActivity.class);
                 startActivity(intent);
             }
         });

@@ -11,8 +11,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MallGson;
@@ -23,6 +26,7 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.MallAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.ListenerManager;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -32,6 +36,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +59,8 @@ public class WenZhangActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wen_zhang);
-        phone = SPUtils.getInstance("登录").getString("phone");
-        mId = SPUtils.getInstance("登录").getInt("id");
+        phone = MyApp.instance.getString("phone");
+        mId = MyApp.instance.getInt("id");
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         token = MyApp.instance.getString("token");
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
@@ -145,6 +152,24 @@ public class WenZhangActivity extends AppCompatActivity {
                 startActivity(intent.setClass(WenZhangActivity.this,WenZhangDetailActivity.class));
             }
         });
+        wenzhangadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                ImageView img_faixan_shoucang = view.findViewById(R.id.img_xihuan);
+                TextView tv_dianzan_num = view.findViewById(R.id.tv_xihuan_num);
+                if (!"".equals(token)){
+                    if (wenzhang.getResult().getDatas().getList().get(position).getIsPraise() == 0){
+                        initDianZan("1",wenzhang.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                    }else{
+                        if (!utils.isDoubleClick()){
+                            initQuXiaoDianZan("0",wenzhang.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
+                        }
+                    }
+                }else{
+                    ToastUtils.showShort(R.string.denglu);
+                }
+            }
+        });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -160,6 +185,72 @@ public class WenZhangActivity extends AppCompatActivity {
                 initAdd();
             }
         });
+    }
+
+    //取消点赞
+    private void initQuXiaoDianZan(String type, QuanZiFaXian.ResultBean.DatasBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(listBean.getId()));
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                String num = tv_dianzan_num.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer-1));
+                                listBean.setIsPraise(0);
+                                img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan);
+                                ToastUtils.showShort("取消点赞");
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //点赞
+    private void initDianZan(String type, QuanZiFaXian.ResultBean.DatasBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+        String num = tv_dianzan_num.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(listBean.getId()));
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("点赞成功");
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer+1));
+                                listBean.setIsPraise(1);
+                                img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initAdd() {

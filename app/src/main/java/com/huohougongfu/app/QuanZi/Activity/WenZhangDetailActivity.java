@@ -43,18 +43,11 @@ import com.umeng.socialize.media.UMWeb;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static com.luck.picture.lib.tools.Constant.WRITE_EXTERNAL_STORAGE;
-
-public class
-WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener ,UMShareListener{
+public class WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener ,UMShareListener{
 
     private int mId;
     private int dId;
@@ -71,6 +64,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
     private String token;
     private int userid;
     private TextView tv_quanzi_weizhi;
+    private PingLunAdapter pingLunAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +76,6 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
         token = MyApp.instance.getString("token");
         intent = new Intent();
         initUI();
-        initPingLun();
     }
 
     private void initUI() {
@@ -98,6 +91,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
         bt_gengduo.setOnClickListener(this);
         edt_quanzi_pinglun = findViewById(R.id.edt_quanzi_pinglun);
         findViewById(R.id.bt_fasong_pinglun).setOnClickListener(this);
+        initData();
     }
 
     private void initData() {
@@ -118,7 +112,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                         Gson gson = new Gson();
                         detail = gson.fromJson(body, QuanZiDetail.class);
                         if (detail.getStatus() == 1){
-                            initView(detail.getResult());
+                            initPingLun(detail.getResult());
                         }
                     }
 
@@ -130,7 +124,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                 });
     }
 
-    private void initPingLun() {
+    private void initPingLun(QuanZiDetail.ResultBean detail) {
         Map<String,String> map = new HashMap<>();
         map.put("dataId",String.valueOf(dId));
         map.put("pageNo","1");
@@ -142,19 +136,26 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
                         if (pinglun1.getStatus() == 1){
-                            initData();
                             pinglun = pinglun1;
+                            initView(detail,pinglun1);
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(WenZhangDetailActivity.this,"载入中...");
+                        super.onStart(request);
                     }
                 });
 
     }
 
-    private void initView(QuanZiDetail.ResultBean result) {
+    private void initView(QuanZiDetail.ResultBean result,PingLunGson pinglun) {
         String content = result.getContent();
         String picture = result.getPicture();
         String[] split1 = picture.split(",");
@@ -169,6 +170,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
             tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
         }
         tv_quanzi_weizhi.setText(result.getAddress());
+        view_wenzhang.removeAllViews();
         int temp = 0;
             for (int i = 0;i<mcontent.length;i++){
                 if ("ゐゑを".equals(mcontent[i])){
@@ -191,7 +193,7 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
         rec_wenzhang_pinglun.setLayoutManager(layoutmanager);
-        PingLunAdapter pingLunAdapter = new PingLunAdapter(R.layout.item_quanzi_pinglun, pinglun.getResult().getList());
+        pingLunAdapter = new PingLunAdapter(R.layout.item_quanzi_pinglun, pinglun.getResult().getList());
         rec_wenzhang_pinglun.setAdapter(pingLunAdapter);
         view_wenzhang.addView(rec_wenzhang_pinglun);
         tv_quanzi_name.setText(result.getMember().getNickName());
@@ -438,8 +440,8 @@ WenZhangDetailActivity extends AppCompatActivity implements View.OnClickListener
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
-                                initPingLun();
                                 ToastUtils.showShort("评论成功");
+                                initPingLun(detail.getResult());
                                 edt_quanzi_pinglun.setText("");
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

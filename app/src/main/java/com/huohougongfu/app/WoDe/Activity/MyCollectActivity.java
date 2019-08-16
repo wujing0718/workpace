@@ -224,17 +224,17 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
 
     private void updataEditMode() {
         mEditMode = mEditMode == MYLIVE_MODE_CHECK ? MYLIVE_MODE_EDIT : MYLIVE_MODE_CHECK;
-        if (mEditMode == MYLIVE_MODE_EDIT) {
-            tv_guanli.setText("完成");
-            ll_mycollection_bottom_dialog.setVisibility(View.VISIBLE);
-            editorStatus = true;
-        } else {
-            tv_guanli.setText("管理");
-            ll_mycollection_bottom_dialog.setVisibility(View.GONE);
-            editorStatus = false;
-            clearAll();
-        }
         if (mycollectadapter!=null){
+            if (mEditMode == MYLIVE_MODE_EDIT) {
+                tv_guanli.setText("完成");
+                ll_mycollection_bottom_dialog.setVisibility(View.VISIBLE);
+                editorStatus = true;
+            } else {
+                tv_guanli.setText("管理");
+                ll_mycollection_bottom_dialog.setVisibility(View.GONE);
+                editorStatus = false;
+                clearAll();
+            }
             mycollectadapter.setEditMode(mEditMode);
         }
     }

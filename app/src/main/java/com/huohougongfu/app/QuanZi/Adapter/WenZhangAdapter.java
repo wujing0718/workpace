@@ -30,7 +30,16 @@ public class WenZhangAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Da
     protected void convert(BaseViewHolder helper, QuanZiFaXian.ResultBean.DatasBean.ListBean item) {
         ImageView img_wenzhang_photo = helper.getView(R.id.img_wenzhang_photo);
         ImageView img_wenzhang_touxiang = helper.getView(R.id.img_wenzhang_touxiang);
+        ImageView img_xihuan = helper.getView(R.id.img_xihuan);
+        helper.addOnClickListener(R.id.bt_dianzan);
         String picture = item.getPicture();
+
+        if (item.getIsPraise() == 1){
+            img_xihuan.setImageResource(R.mipmap.img_xihuan2);
+        }else{
+            img_xihuan.setImageResource(R.mipmap.img_xihuan);
+        }
+
         if (item.getMember().getPhoto()!=null){
             RequestOptions requestOptions = new RequestOptions().circleCrop();
             Glide.with(MyApp.context).load(item.getMember().getPhoto()).apply(requestOptions).into(img_wenzhang_touxiang);
@@ -57,10 +66,10 @@ public class WenZhangAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Da
         helper.setText(R.id.tv_wenzhang_name,item.getMember().getNickName());
         helper.setText(R.id.tv_wenzhang_content,item.getTitle());
         helper.setText(R.id.tv_wenzhang_time,time);
-
         helper.setText(R.id.tv_liulanliang_num,String.valueOf(item.getPraiseNum()));
         helper.setText(R.id.tv_pinglum_num,String.valueOf(item.getPraiseNum()));
         helper.setText(R.id.tv_xihuan_num,String.valueOf(item.getPraiseNum()));
+
 
     }
 

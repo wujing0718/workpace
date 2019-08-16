@@ -113,12 +113,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/bt_dianzan"
                 android:layout_marginLeft="15dp"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/img_xihuan"
                     android:src="@mipmap/img_xihuan"
                     android:layout_width="14dp"
                     android:layout_height="14dp" />

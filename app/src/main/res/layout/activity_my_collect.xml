@@ -79,6 +79,7 @@
             android:id="@+id/ll_mycollection_bottom_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_gravity="bottom"
             android:background="#e6e6e6"
             android:orientation="vertical">
@@ -89,7 +90,6 @@
                 android:background="#e5e5e5"/>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="#ffffff">

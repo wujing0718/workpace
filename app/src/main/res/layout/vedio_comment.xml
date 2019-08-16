@@ -41,6 +41,7 @@
             android:layout_height="30dp" />
         
         <Button
+            android:layout_marginRight="@dimen/dp_12"
             android:id="@+id/bt_fasong_pinglun"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

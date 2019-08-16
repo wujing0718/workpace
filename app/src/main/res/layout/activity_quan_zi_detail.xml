@@ -281,7 +281,7 @@
 
                             <ImageView
                                 android:id="@+id/img_shoucang"
-                                android:src="@mipmap/img_shoucang"
+                                android:src="@mipmap/img_xihuan"
                                 android:layout_width="14dp"
                                 android:layout_height="14dp" />
 

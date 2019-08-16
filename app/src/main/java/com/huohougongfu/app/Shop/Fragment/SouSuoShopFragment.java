@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.TeiHuiGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.ShaiXuanDrawerPopupView;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
@@ -27,6 +28,7 @@ import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.enums.PopupPosition;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -58,6 +60,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     private String sortPrice = "";
     private ImageView img_shop_sortPrice;
     private String name;
+    private BasePopupView xpopup;
 
     public SouSuoShopFragment() {
         // Required empty public constructor
@@ -87,6 +90,10 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         inflate = inflater.inflate(R.layout.fragment_sou_suo_shop, container, false);
         initUI();
         initData(map);
+        xpopup = new XPopup.Builder(getContext())
+                .popupPosition(PopupPosition.Right)//右边
+                .asCustom(new ShaiXuanDrawerPopupView(getContext(), mHandler));
+
         return inflate;
     }
 
@@ -131,7 +138,9 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+                        if (getActivity() != null) {
+                            WaitDialog.show(getActivity(), "载入中...");
+                        }
                         super.onStart(request);
                     }
                 });
@@ -205,10 +214,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         switch (v.getId()){
             case R.id.bt_sousuo_shaixuan:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .popupPosition(PopupPosition.Right)//右边
-                            .asCustom(new ShaiXuanDrawerPopupView(getContext(),mHandler))
-                            .show();
+                    xpopup.show();
                 }
                 break;
             case R.id.bt_shop_zonghe:

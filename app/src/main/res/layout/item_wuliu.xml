@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_marginHorizontal="@dimen/dp_6"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginVertical="@dimen/dp_15"
+            android:layout_gravity="center"
+            android:src="@mipmap/img_wuliu"
+            android:layout_width="22dp"
+            android:layout_height="22dp" />
+
+        <View
+            android:layout_gravity="center_horizontal"
+            android:background="@color/black"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:paddingVertical="@dimen/dp_15"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_wuliu"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/dp_14"
+            android:lineSpacingExtra="6dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="2019-7-15 20:21:54  快件已暂存至深圳龙岗南联金地龙城中央五栋十号店菜鸟驿站，如有疑问请联系17324401371"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

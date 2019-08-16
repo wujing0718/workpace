@@ -1,5 +1,6 @@
 package com.huohougongfu.app.QuanZi.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
@@ -60,6 +62,7 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
+        findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
         rec_zhaoren = findViewById(R.id.rec_zhaoren);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         EditText edt_zhaoren_sousuo = findViewById(R.id.edt_zhaoren_sousuo);
@@ -298,6 +301,11 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.bt_finish:
                 finish();
+                break;
+            case R.id.bt_xiaoxi:
+                Intent intent = new Intent();
+                intent.setClass(ZhaoRenActivity.this,XiaoXiActivity.class);
+                startActivity(intent);
                 break;
         }
     }

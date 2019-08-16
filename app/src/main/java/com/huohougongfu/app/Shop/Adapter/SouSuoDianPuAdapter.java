@@ -43,16 +43,18 @@ public class SouSuoDianPuAdapter extends BaseQuickAdapter<SouSuoDianPu.ResultBea
         //设置RecyclerView 布局
         rec_dianpu_shangpin.setLayoutManager(layoutmanager);
         int firstVisibleItemPosition = layoutmanager.findFirstVisibleItemPosition()+1;
-        DianPuItemAdapter shangPinTuiJianAdapter = new DianPuItemAdapter(MyApp.getInstances(),data.get(firstVisibleItemPosition).getMallProductList());
-        rec_dianpu_shangpin.setAdapter(shangPinTuiJianAdapter);
-//        shangPinTuiJianAdapter.setOnItemClickListener(new SouSuoDianPuAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClickListener(int pos) {
-//                Intent intent = new Intent();
-//                intent.putExtra("id",item.getMallProductList().get(pos).getId());
-//                intent.setClass(MyApp.context,ShangPinDetailActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        if (data.get(firstVisibleItemPosition).getMallProductList().size()>0){
+            DianPuItemAdapter shangPinTuiJianAdapter = new DianPuItemAdapter(MyApp.getInstances(),data.get(firstVisibleItemPosition).getMallProductList());
+            rec_dianpu_shangpin.setAdapter(shangPinTuiJianAdapter);
+            shangPinTuiJianAdapter.setOnItemClickListener(new DianPuItemAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(int pos) {
+                    Intent intent = new Intent();
+                    intent.putExtra("id",item.getMallProductList().get(pos).getId());
+                    intent.setClass(MyApp.context,ShangPinDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 }

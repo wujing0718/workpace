@@ -146,7 +146,7 @@ public class ShaiXuanDaShiView extends DrawerPopupView implements View.OnClickLi
                 break;
             case R.id.bt_queding:
                     if (name !=null){
-                        map.put("subProductName",name);
+                        map.put("masterCatory",name);
                     }
                     if (fahuodi !=null){
                         map.put("address",fahuodi);

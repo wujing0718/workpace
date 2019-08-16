@@ -139,6 +139,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
 
     private void initUI() {
         View view_logistics = findViewById(R.id.view_logistics);
+        view_logistics.setOnClickListener(this);
         TextView tv_dingdan_zhuangtai = findViewById(R.id.tv_dingdan_zhuangtai);
         tv_dingdan_caozuo1 = findViewById(R.id.tv_dingdan_caozuo1);
         tv_dingdan_caozuo1.setOnClickListener(this);
@@ -240,6 +241,12 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                         initQuanXiao(orderNo,orderStatus);
                     }
                     break;
+            case R.id.view_logistics:
+                if (!utils.isDoubleClick()){
+                    Intent intent = new Intent().setClass(DingDanDetailActivity.this, WuLiuActivity.class);
+                    startActivity(intent);
+                }
+                break;
         }
     }
     //  取消订单

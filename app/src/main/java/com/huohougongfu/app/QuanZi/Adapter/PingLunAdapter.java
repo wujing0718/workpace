@@ -9,14 +9,19 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.PingLunGson;
+import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PingLunAdapter extends BaseQuickAdapter<PingLunGson.ResultBean.ListBean,BaseViewHolder> {
+    private List<PingLunGson.ResultBean.ListBean> data1;
+
     public PingLunAdapter(int layoutResId, @Nullable List<PingLunGson.ResultBean.ListBean> data) {
         super(layoutResId, data);
+        this.data1 = data1;
     }
 
     @Override
@@ -43,5 +48,12 @@ public class PingLunAdapter extends BaseQuickAdapter<PingLunGson.ResultBean.List
         helper.setText(R.id.tv_pinglun_content,item.getContent());
         helper.setText(R.id.tv_pinglun_time,item.getCreateTime());
         helper.setText(R.id.tv_pinglun_dianzannum,String.valueOf(item.getPraiseNum()));
+    }
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<PingLunGson.ResultBean.ListBean> data) {
+        //增加数据
+        int position = data1.size();
+        data1.addAll(0, data);
+        notifyItemRangeChanged(position,data.size());
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.DaShi;
 import com.huohougongfu.app.Gson.DaShiSouSuo;
@@ -90,7 +91,6 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
     @Override
     public void onStart() {
         super.onStart();
-        String sousuo = getArguments().getString("SOUSUO");
     }
 
     private void initUI() {
@@ -142,7 +142,8 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(),ShangPinDetailActivity.class);
+                intent.putExtra("id",String.valueOf(result.getList().get(position).getId()));
+                intent.setClass(getActivity(),DiaPuZhuYeActivity.class);
                 startActivity(intent);
             }
         });
