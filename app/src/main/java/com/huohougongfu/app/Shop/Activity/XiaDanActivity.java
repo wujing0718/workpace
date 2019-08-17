@@ -26,6 +26,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class XiaDanActivity extends AppCompatActivity implements View.OnClickListener {
@@ -92,8 +93,10 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
         tv_total_price = findViewById(R.id.tv_total_price);
         bt_chami_dikou.setOnClickListener(this);
         btn_go_to_pay.setOnClickListener(this);
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String format = decimalFormat.format(resultBean.getTeaRice() * 0.01);
         tv_chami_dikou.setText("可用"+resultBean.getTeaRice()+"茶米抵扣"+
-                (resultBean.getTeaRice()*0.01)+"元");
+                format+"元");
         tv_shouhuo_name.setText(resultBean.getDefaultAddress().getReceiverName());
         tv_shouhuo_phone.setText(resultBean.getDefaultAddress().getPhone());
         tv_shouhuo_address.setText(resultBean.getDefaultAddress().getReceiverName()+resultBean.getDefaultAddress().getAreaName()+resultBean.getDefaultAddress().getDetailAddr());

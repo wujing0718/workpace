@@ -74,6 +74,7 @@ public class QuanBuLeiMu {
              */
 
             private int id;
+            private int userId;
             private String name;
             private String isSpecial;
             private String img;
@@ -95,6 +96,14 @@ public class QuanBuLeiMu {
             private Object isCollection;
             private Object productList;
             private List<ListBean> list;
+
+            public int getUserId() {
+                return userId;
+            }
+
+            public void setUserId(int userId) {
+                this.userId = userId;
+            }
 
             public int getmId() {
                 return mId;

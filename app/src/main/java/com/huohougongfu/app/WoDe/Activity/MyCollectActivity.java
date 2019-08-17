@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.WoDeCollect;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
@@ -70,17 +71,17 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(mId));
-        map.put("pageNo",String.valueOf(1));
+        map.put("userId",String.valueOf(mId));
+        map.put("page",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
-        OkGo.<String>post(Contacts.URl1+"/my/collection")
+        OkGo.<String>post(Contacts.URl1+"getCollectionProductList")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        MyCollect myCollect = gson.fromJson(body, MyCollect.class);
+                        WoDeCollect myCollect = gson.fromJson(body, WoDeCollect.class);
                         if (myCollect.getStatus() == 1){
                             if (myCollect.getResult().getList().size()==0){
                                 setBtnBackground(0);
@@ -89,14 +90,13 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
                             }else{
                                 view_collect.setVisibility(View.VISIBLE);
                                 initRec(myCollect.getResult().getList());
-
                             }
                         }
                     }
                 });
     }
 
-    private void initRec(List<MyCollect.ResultBean.ListBean> list) {
+    private void initRec(List<WoDeCollect.ResultBean.ListBean> list) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
@@ -155,8 +155,8 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         for (int i = mycollectadapter.getMyLiveList().size(), j =0 ; i > j; i--) {
-                            MyCollect.ResultBean.ListBean myLive = mycollectadapter.getMyLiveList().get(i-1);
-                            if (myLive.isSelect()) {
+                            WoDeCollect.ResultBean.ListBean myLive = mycollectadapter.getMyLiveList().get(i-1);
+                            if (myLive.getIsSelect()) {
                                 int id = myLive.getId();
                                 initDel(id);
                             }
@@ -172,9 +172,9 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
 
     private void initDel(int id) {
         Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(mId));
-        map.put("pId",String.valueOf(id));
-        OkGo.<String>post(Contacts.URl1+"/my/del/collection")
+        map.put("userId",String.valueOf(mId));
+        map.put("ids",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl1+"deleteByIds")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -200,7 +200,7 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
         if (mycollectadapter == null) return;
         if (!isSelectAll) {
             for (int i = 0, j = mycollectadapter.getMyLiveList().size(); i < j; i++) {
-                mycollectadapter.getMyLiveList().get(i).setSelect(true);
+                mycollectadapter.getMyLiveList().get(i).setIsSelect(true);
             }
             index = mycollectadapter.getMyLiveList().size();
             mBtnDelete.setEnabled(true);
@@ -209,7 +209,7 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
             isSelectAll = true;
         } else {
             for (int i = 0, j = mycollectadapter.getMyLiveList().size(); i < j; i++) {
-                mycollectadapter.getMyLiveList().get(i).setSelect(false);
+                mycollectadapter.getMyLiveList().get(i).setIsSelect(false);
             }
 
             index = 0;
@@ -263,20 +263,20 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
     }
 
     @Override
-    public void onItemClickListener(int pos, List<MyCollect.ResultBean.ListBean> myLiveList) {
+    public void onItemClickListener(int pos, List<WoDeCollect.ResultBean.ListBean> myLiveList) {
         if (editorStatus) {
-            MyCollect.ResultBean.ListBean myLive = myLiveList.get(pos);
-            boolean isSelect = myLive.isSelect();
+            WoDeCollect.ResultBean.ListBean myLive = myLiveList.get(pos);
+            boolean isSelect = myLive.getIsSelect();
             if (!isSelect) {
                 index++;
-                myLive.setSelect(true);
+                myLive.setIsSelect(true);
                 if (index == myLiveList.size()) {
                     isSelectAll = true;
                     tv_select_all.setText("取消全选");
                     img_select_all.setImageResource(R.mipmap.select);
                 }
             } else {
-                myLive.setSelect(false);
+                myLive.setIsSelect(false);
                 index--;
                 isSelectAll = false;
                 tv_select_all.setText("全选");

@@ -13,6 +13,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -204,8 +205,8 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void refreshAdapter(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
-            //被压缩后的图片路径
+        //被压缩后的图片路径
+        for (LocalMedia localMedia : picList)
             if (localMedia.isCompressed()) {
                 compressPath = localMedia.getCompressPath(); //压缩后的图片路径
                 meditview.add("わわゐゑをわわ");
@@ -213,7 +214,15 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                 ImageView imageView = new ImageView(FaBuArticleActivity.this);
                 Glide.with(FaBuArticleActivity.this).load(compressPath).into(imageView);
                 view_wenzhang.addView(imageView);
+                imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (imageView!=null){
+                            view_wenzhang.removeView(imageView);
+                        }
+                        return true;
+                    }
+                });
             }
-        }
     }
 }

@@ -65,6 +65,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private int userid;
     private TextView tv_quanzi_weizhi;
     private PingLunAdapter pingLunAdapter;
+    private TextView tv_wenzhang_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     }
 
     private void initUI() {
+        tv_wenzhang_title = findViewById(R.id.tv_wenzhang_title);
         img_quanzi_touxiang = findViewById(R.id.img_quanzi_touxiang);
         tv_guanzhu = findViewById(R.id.tv_guanzhu);
         view_wenzhang = findViewById(R.id.view_wenzhang);
@@ -169,6 +171,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
             tv_guanzhu.setBackgroundResource(R.drawable.guanzhu);
             tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
         }
+        tv_wenzhang_title.setText(result.getTitle());
         tv_quanzi_weizhi.setText(result.getAddress());
         view_wenzhang.removeAllViews();
         int temp = 0;

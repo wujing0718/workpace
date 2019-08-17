@@ -233,6 +233,7 @@ public class TeYuePingPai {
                  */
 
                 private int id;
+                private int userId;
                 private String name;
                 private String isSpecial;
                 private String img;
@@ -243,6 +244,13 @@ public class TeYuePingPai {
                 private String address;
                 private int isCollection;
                 private List<ProductListBean> productList;
+                public int getUserId() {
+                    return userId;
+                }
+
+                public void setUserId(int userId) {
+                    this.userId = userId;
+                }
 
                 public int getId() {
                     return id;
@@ -916,6 +924,7 @@ public class TeYuePingPai {
              */
 
             private int id;
+            private int userId;
             private String name;
             private String isSpecial;
             private String img;
@@ -926,6 +935,14 @@ public class TeYuePingPai {
             private String address;
             private Object isCollection;
             private Object productList;
+
+            public int getUserId() {
+                return userId;
+            }
+
+            public void setUserId(int userId) {
+                this.userId = userId;
+            }
 
             public int getId() {
                 return id;

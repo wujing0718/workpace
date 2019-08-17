@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.Code;
+import com.huohougongfu.app.Gson.JudgeGson;
 import com.huohougongfu.app.Gson.Login;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -27,7 +28,12 @@ import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginActivity.TimerCount timerCount;
     private SPUtils instance;
     private static final int MSG_SET_ALIAS = 1001;
+    public static LoginActivity activity;
 
     //设置别名
     private final Handler mHandler = new Handler() {
@@ -92,11 +99,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //            ExampleUtil.showToast(logs, getApplicationContext());
         }
     };
+    private UMShareAPI mShareAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        activity = this;
+        mShareAPI = UMShareAPI.get(this);
         instance = SPUtils.getInstance("登录");
         timerCount = new LoginActivity.TimerCount(60000, 1000);
         intent = new Intent();
@@ -111,7 +121,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = findViewById(R.id.edt_login_password);
 
         tv_login_code = findViewById(R.id.tv_login_code);
-        findViewById(R.id.bt_wexin).setOnClickListener(this);
+        findViewById(R.id.bt_qq).setOnClickListener(this);
+        findViewById(R.id.bt_weixin).setOnClickListener(this);
+        findViewById(R.id.bt_weibo).setOnClickListener(this);
 
         findViewById(R.id.bt_yanzhengmadenglu).setOnClickListener(this);
         findViewById(R.id.bt_zhaohuimima).setOnClickListener(this);
@@ -124,8 +136,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.bt_wexin:
-                ShareUtils.shareWeb(LoginActivity.this,"wwww.baidu.com","","","",R.mipmap.ic_launcher,SHARE_MEDIA.QQ);
+            case R.id.bt_weixin:
+                mShareAPI.getPlatformInfo(this,SHARE_MEDIA.WEIXIN,umAuthListener);
+                break;
+            case R.id.bt_qq:
+                mShareAPI.getPlatformInfo(this,SHARE_MEDIA.QQ,umAuthListener);
                 break;
             case R.id.bt_login:
                 if (!utils.isDoubleClick()){
@@ -180,6 +195,115 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
         }
+    }
+
+    UMAuthListener umAuthListener = new UMAuthListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> data) {
+            if (share_media == SHARE_MEDIA.WEIXIN){
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("uid",data.get("uid"));
+                    jsonObject.put("name",data.get("name"));
+                    jsonObject.put("iconurl",data.get("iconurl"));
+                    if ("男".equals(data.get("gender"))){
+                        jsonObject.put("unionGender","男");
+                    }else{
+                        jsonObject.put("unionGender","女");
+                    }
+                    initJudge(jsonObject,"weChat");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else if (share_media == SHARE_MEDIA.WEIXIN){
+
+            }
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media, int i) {
+
+        }
+    };
+
+    private void initJudge(JSONObject jsonObject, String type) {
+        Map<String,String> map = new HashMap<>();
+        map.put("json",jsonObject.toString());
+        map.put("type",type);
+        OkGo.<String>post(Contacts.URl1+"/member/thirdParty/login")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        JudgeGson judgeGson = new Gson().fromJson(body, JudgeGson.class);
+                        if (judgeGson.getStatus() == 1){
+                            if (judgeGson.getResult().isIsExist()){
+                                initLogin(judgeGson.getResult());
+                            }else{
+                                //绑定手机号
+                                Intent intent = new Intent();
+                                intent.putExtra("json",jsonObject.toString());
+                                intent.putExtra("type",type);
+                                intent.setClass(LoginActivity.this,BindActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void initLogin(JudgeGson.ResultBean result) {
+        MyApp.instance.clear(true);
+        MyApp.instance.put("id",result.getUserInfo().getUserId(),true);
+        MyApp.instance.put("nickName",result.getUserInfo().getNickName(),true);
+        MyApp.instance.put("phone",result.getUserInfo().getPhone(),true);
+        MyApp.instance.put("photo",result.getUserInfo().getPhoto(),true);
+        MyApp.instance.put("rongToken",result.getUserInfo().getRongToken(),true);
+        MyApp.instance.put("token",result.getToken(),true);
+        intent.setClass(LoginActivity.this,MainActivity.class);
+        //融云登录
+        RongIM.connect(result.getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
+            //token1参数报错
+            @Override
+            public void onTokenIncorrect() {
+                Log.e("TAG","参数错误");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.e("TAG","成功");
+                startActivity(intent);
+                // 调用 Handler 来异步设置别名
+                mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(result.getUserInfo().getUserId())));
+                // 点击恢复按钮后，极光推送服务会恢复正常工作
+                JPushInterface.resumePush(getApplicationContext());
+                finish();
+                ToastUtils.showShort("登录成功");
+                // 连接成功，说明你已成功连接到融云Server
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.e("TAG","失败");
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     private void initCode(String phone) {

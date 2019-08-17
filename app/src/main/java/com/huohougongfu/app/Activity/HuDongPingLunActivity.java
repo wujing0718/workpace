@@ -45,7 +45,7 @@ public class HuDongPingLunActivity extends AppCompatActivity {
         map.put("mId",String.valueOf(43));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
-        OkGo.<String>post(Contacts.URl1+"/my/interactive/praiseList")
+        OkGo.<String>post(Contacts.URl1+"/my/interactive/commentList")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

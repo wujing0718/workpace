@@ -4,10 +4,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.HuDongPingLun;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 
 import java.util.List;
@@ -22,14 +24,14 @@ public class HuDongDianZanAdapter extends BaseQuickAdapter<HuDongPingLun.ResultB
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         ImageView img_touxiang = helper.getView(R.id.img_touxiang);
         ImageView img_my_photo = helper.getView(R.id.img_my_photo);
-//        helper.setText(R.id.tv_name,item.getMember().getNickName());
-//        helper.setText(R.id.tv_my_fenlei,item.getMember().getMaster().getLevel());
-//        helper.setText(R.id.tv_my_weizhi,);
-//        helper.setText(R.id.tv_time,);
-//        helper.setText(R.id.tv_content,);
-//        helper.setText(R.id.tv_my_content,);
-
-
+        helper.setText(R.id.tv_name,item.getMember().getNickName());
+        helper.setText(R.id.tv_my_fenlei,item.getMember().getMaster().getLevel());
+        helper.setText(R.id.tv_my_weizhi,item.getMember().getPlace());
+        helper.setText(R.id.tv_time,item.getCreateTime());
+        helper.setText(R.id.tv_content,item.getMember().getMaster().getName()+"点赞了你的动态");
+        helper.setText(R.id.tv_my_content,item.getCircleData().getContent());
+        Glide.with(MyApp.context).load(item.getMember().getMaster().getPhoto()).apply(requestOptions).into(img_touxiang);
+        Glide.with(MyApp.context).load(item.getCircleData().getPicture()).into(img_my_photo);
 
     }
 }

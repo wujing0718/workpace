@@ -274,7 +274,7 @@ public class LeiMuActivity extends AppCompatActivity {
                     leimutetuepinpai.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            intent.putExtra("id",String.valueOf(listBeans.get(position).getId()));
+                            intent.putExtra("id",String.valueOf(listBeans.get(position).getUserId()));
                             intent.setClass(LeiMuActivity.this,DiaPuZhuYeActivity.class);
                             startActivity(intent);
                         }
@@ -313,8 +313,8 @@ public class LeiMuActivity extends AppCompatActivity {
                     leimuruzhudianpu.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            intent.putExtra("name",listBeans.get(position).getStoreName());
-                            intent.setClass(LeiMuActivity.this,LeiMuDetailActivity.class);
+                            intent.putExtra("id",String.valueOf(listBeans.get(position).getUserId()));
+                            intent.setClass(LeiMuActivity.this,DiaPuZhuYeActivity.class);
                             startActivity(intent);
                         }
                     });

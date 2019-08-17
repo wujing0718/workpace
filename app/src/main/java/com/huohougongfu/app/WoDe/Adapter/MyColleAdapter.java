@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.WoDeCollect;
 import com.huohougongfu.app.R;
 
 import java.util.ArrayList;
@@ -31,14 +32,14 @@ public class MyColleAdapter extends RecyclerView.Adapter<MyColleAdapter.ViewHold
     private int secret = 0;
     private String title = "";
     private Context context;
-    private List<MyCollect.ResultBean.ListBean> mMyLiveList;
+    private List<WoDeCollect.ResultBean.ListBean> mMyLiveList;
     private OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
     public interface OnItemClickListener {
-        void onItemClickListener(int pos,List<MyCollect.ResultBean.ListBean> myLiveList);
+        void onItemClickListener(int pos,List<WoDeCollect.ResultBean.ListBean> myLiveList);
 
     }
 
@@ -47,7 +48,7 @@ public class MyColleAdapter extends RecyclerView.Adapter<MyColleAdapter.ViewHold
     }
 
 
-    public void notifyAdapter(List<MyCollect.ResultBean.ListBean> myLiveList, boolean isAdd) {
+    public void notifyAdapter(List<WoDeCollect.ResultBean.ListBean> myLiveList, boolean isAdd) {
         if (!isAdd) {
             this.mMyLiveList = myLiveList;
         } else {
@@ -56,7 +57,7 @@ public class MyColleAdapter extends RecyclerView.Adapter<MyColleAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public List<MyCollect.ResultBean.ListBean> getMyLiveList() {
+    public List<WoDeCollect.ResultBean.ListBean> getMyLiveList() {
         if (mMyLiveList == null) {
             mMyLiveList = new ArrayList<>();
         }
@@ -73,22 +74,22 @@ public class MyColleAdapter extends RecyclerView.Adapter<MyColleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        final MyCollect.ResultBean.ListBean myLive = mMyLiveList.get(viewHolder.getAdapterPosition());
+        final WoDeCollect.ResultBean.ListBean myLive = mMyLiveList.get(viewHolder.getAdapterPosition());
 //        holder.mTvTitle.setText(myLive.getTitle());
 //        holder.mTvSource.setText(myLive.getSource());
         if (mEditMode == MYLIVE_MODE_CHECK) {
             viewHolder.iv_select.setVisibility(View.GONE);
         } else {
             viewHolder.iv_select.setVisibility(View.VISIBLE);
-            if (myLive.isSelect()) {
+            if (myLive.getIsSelect()) {
                 viewHolder.iv_select.setImageResource(R.mipmap.select);
             } else {
                 viewHolder.iv_select.setImageResource(R.mipmap.unselect);
             }
         }
-        Glide.with(context).load(myLive.getCoverUrl()).into(viewHolder.img_shangpin_photo);
-        viewHolder.tv_shangpin_title.setText(myLive.getName());
-        viewHolder.tv_shangpin_price.setText("¥"+String.valueOf(myLive.getPrice()));
+        Glide.with(context).load(myLive.getProductPicture()).into(viewHolder.img_shangpin_photo);
+        viewHolder.tv_shangpin_title.setText(myLive.getProductName());
+        viewHolder.tv_shangpin_price.setText("¥"+String.valueOf(myLive.getMarketPrice()));
         viewHolder.tv_shangpin_collect_num.setText(String.valueOf(myLive.getCollectionNum())+"人收藏");
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

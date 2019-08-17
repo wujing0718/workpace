@@ -29,11 +29,15 @@ import com.huohougongfu.app.Adapter.ShoppingCarAdapter;
 import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShoppingCarDataBean;
+import com.huohougongfu.app.Gson.TiJiaoDingDan;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
+import com.huohougongfu.app.PopupView.ShopZhiFu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.View.ChildLiistView;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -229,12 +233,19 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                     try {
                         for (int i = 0; i < temp.size(); i++) {
                             jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                            jsonObject.put("orderNo",list.getOrderList().get(0).getOrderId());
+                            jsonObject.put("orderId",list.getOrderList().get(0).getOrderId());
                             jsonObject.put("productId",temp.get(i).getId());
+
+                            jsonObject.put("storeId",temp.get(i).getStoreId());
                             jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
                             jsonObject.put("standard",temp.get(i).getStandard());
+                            jsonObject.put("standardId",temp.get(i).getStandardId());
                             jsonObject.put("buynum",temp.get(i).getNum());
-                            jsonObject.put("teaRice",teaRice);
+                            if(!isDikou){
+                                jsonObject.put("teaRice","1");
+                            }else{
+                                jsonObject.put("teaRice","0");
+                            }
                             if (transId == 0){
                                 if (temp.get(i).getTransportTemplate()!=null){
                                     jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
@@ -265,12 +276,15 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
+                        TiJiaoDingDan shopDingDan = gson.fromJson(body, TiJiaoDingDan.class);
                         if (shopDingDan.getStatus() == 1){
-                            Intent intent = new Intent();
-                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
-                            intent.setClass(context,XiaDanActivity.class);
-                            context.startActivity(intent);
+                            new XPopup.Builder(context)
+                                    .asCustom(new ShopZhiFu(context,shopDingDan.getResult(), total_price))
+                                    .show();
+//                            Intent intent = new Intent();
+//                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
+//                            intent.setClass(context,XiaDanActivity.class);
+//                            context.startActivity(intent);
                         }
                     }
                 });

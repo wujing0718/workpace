@@ -147,9 +147,9 @@ public class MyApp extends Application {
         wxapi = WXAPIFactory.createWXAPI(this, APP_ID, true);
         wxapi.registerApp(APP_ID);
         //微信
-        PlatformConfig.setWeixin("wxa36e44f4072c4818", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setWeixin("wxa36e44f4072c4818", "04c7a1e26430d3ca028fc6f17a83c331");
         //QQ
-        PlatformConfig.setQQZone("1107763346", "pPudlhFSifMTHqjm");
+        PlatformConfig.setQQZone("1109779232", "L0p9zDMbS68PwtQQ");
         //新浪
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
 

@@ -79,6 +79,7 @@ public class FaXianFragment extends Fragment implements IListener {
 
     @Override
     public void onResume() {
+        initData("");
         super.onResume();
     }
 

@@ -22,6 +22,7 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
+import com.huohougongfu.app.WoDe.Activity.WuLiuActivity;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -125,7 +126,8 @@ public class DingDanFragment extends Fragment {
                             if (result.get(position).getOrderStatus()==1||result.get(position).getOrderStatus()==0){
                                 initQuanXiao(result.get(position).getOrderNo(),result.get(position).getOrderStatus());
                             }else if (result.get(position).getOrderStatus()==2||result.get(position).getOrderStatus()==3){
-                                ToastUtils.showShort("查看物流");
+                                intent.setClass(getActivity(),WuLiuActivity.class);
+                                startActivity(intent);
                             }else if (result.get(position).getOrderStatus() == -1){
                                 ToastUtils.showShort("查看物流");
                             }

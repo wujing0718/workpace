@@ -205,7 +205,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         shangPinTuiJianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                intent.putExtra("id",String.valueOf(isSpecial.get(position).getId()));
+                intent.putExtra("id",String.valueOf(isSpecial.get(position).getUserId()));
                 intent.setClass(TeYuePinPaiActivity.this,DiaPuZhuYeActivity.class);
                 startActivity(intent);
             }
@@ -238,7 +238,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                 switch (view.getId()){
                     case R.id.bt_pinpai:
                         if (!utils.isDoubleClick()){
-                            intent.putExtra("id",String.valueOf(resultList.get(position).getId()));
+                            intent.putExtra("id",String.valueOf(resultList.get(position).getUserId()));
                             intent.setClass(TeYuePinPaiActivity.this,DiaPuZhuYeActivity.class);
                             startActivity(intent);
                         }

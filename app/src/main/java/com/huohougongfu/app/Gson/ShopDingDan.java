@@ -65,7 +65,7 @@ public class ShopDingDan implements Serializable {
 
         public static class DefaultAddressBean implements Serializable{
 
-            private Object id;
+            private int id;
             private Object provinceId;
             private String provinceName;
             private Object cityId;
@@ -81,11 +81,11 @@ public class ShopDingDan implements Serializable {
             private Object updateBy;
             private Object updateTime;
 
-            public Object getId() {
+            public int getId() {
                 return id;
             }
 
-            public void setId(Object id) {
+            public void setId(int id) {
                 this.id = id;
             }
 

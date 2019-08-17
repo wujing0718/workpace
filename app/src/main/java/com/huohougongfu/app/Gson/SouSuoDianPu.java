@@ -206,7 +206,7 @@ public class SouSuoDianPu {
             private String createTime;
             private Object info;
             private int year;
-            private double favorableRate;
+            private int favorableRate;
             private int fensNum;
             private Object sellNum;
             private Object appraiseCategory;
@@ -279,11 +279,11 @@ public class SouSuoDianPu {
                 this.year = year;
             }
 
-            public double getFavorableRate() {
+            public int getFavorableRate() {
                 return favorableRate;
             }
 
-            public void setFavorableRate(double favorableRate) {
+            public void setFavorableRate(int favorableRate) {
                 this.favorableRate = favorableRate;
             }
 
