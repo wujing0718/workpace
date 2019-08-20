@@ -141,14 +141,12 @@ public class ShopDetailActivity extends AppCompatActivity implements View.OnClic
                 bundle.putStringArrayList("Shopphoto",mPicList);
                 setResult(101,ShopDetailActivity.this.getIntent().putExtras(bundle));
                 ShopDetailActivity.this.finish();
-                super.onBackPressed();
                 break;
             case R.id.bt_finish:
                 bundle = new Bundle();
                 bundle.putStringArrayList("Shopphoto",null);
                 setResult(101,ShopDetailActivity.this.getIntent().putExtras(bundle));
                 ShopDetailActivity.this.finish();
-                super.onBackPressed();
                 break;
         }
     }

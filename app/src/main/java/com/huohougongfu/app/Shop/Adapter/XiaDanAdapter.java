@@ -155,7 +155,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                 for (int y = 0; y < mallProducts.size(); y++) {
                     ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
                         String num = String.valueOf(mallProductsBean.getNum());
-                        String price = String.valueOf(mallProductsBean.getPrice());
+                        String price = String.valueOf(mallProductsBean.getMarketPrice());
                     double dikou  = teaRice*0.01;
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
@@ -177,7 +177,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                 for (int y = 0; y < mallProducts.size(); y++) {
                     ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
                     String num = String.valueOf(mallProductsBean.getNum());
-                    String price = String.valueOf(mallProductsBean.getPrice());
+                    String price = String.valueOf(mallProductsBean.getMarketPrice());
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
@@ -335,7 +335,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean1 = data.get(groupPosition).getMallStore().getMallProducts().get(childPosition);
         childViewHolder.tv_dingdan_title.setText(mallProductsBean1.getName());
         childViewHolder.tv_dingdan_guige.setText(mallProductsBean1.getStandard());
-        childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getPrice()));
+        childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getMarketPrice()));
         childViewHolder.amountview.setCount(mallProductsBean1.getNum());
         Glide.with(context).load(mallProductsBean1.getCoverUrl()).into(childViewHolder.img_dingdan_photo);
         childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {

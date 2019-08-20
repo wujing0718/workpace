@@ -10,6 +10,10 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.WoDe.Adapter.GuiGeAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,12 +96,20 @@ public class ShopGuiGeActivity extends AppCompatActivity implements View.OnClick
                 initAdd();
                 break;
             case R.id.bt_tijiao:
-                ArrayList<String> customSettings = new ArrayList<>();
+                JSONArray jsonArray = new JSONArray();
                 for (int i = 0; i < mguige.size(); i++) {
                     if (!"".equals(mguige.get(i))){
                         if (!"".equals(mxianjia.get(i))){
                             if (!"".equals(myuanjia.get(i))){
-                                customSettings.add(mguige.get(i)+"~"+mxianjia.get(i)+"~"+myuanjia.get(i));
+                                JSONObject standards  = new JSONObject();
+                                try {
+                                    standards.put("standard",mguige.get(i));
+                                    standards.put("standardPrice",mxianjia.get(i));
+                                    standards.put("marketPrice",myuanjia.get(i));
+                                    jsonArray.put(standards);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }else{
                                 ToastUtils.showShort("请输入原价");
                             }
@@ -109,7 +121,7 @@ public class ShopGuiGeActivity extends AppCompatActivity implements View.OnClick
                     }
                 }
                 bundle = new Bundle();
-                bundle.putStringArrayList("Shopguige",customSettings);
+                bundle.putString("Shopguige",jsonArray.toString());
                 setResult(100,ShopGuiGeActivity.this.getIntent().putExtras(bundle));
                 ShopGuiGeActivity.this.finish();
                 super.onBackPressed();

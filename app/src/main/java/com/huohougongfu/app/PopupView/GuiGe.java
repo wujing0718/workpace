@@ -141,13 +141,24 @@ public class GuiGe extends BottomPopupView {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
-                        Gson gson = new Gson();
-                        ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
-                        if (shopDingDan.getStatus() == 1){
-                            Intent intent = new Intent();
-                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
-                            intent.setClass(context,XiaDanActivity.class);
-                            context.startActivity(intent);
+                        try {
+                            JSONObject jsonObject1 = new JSONObject(body);
+                            String result = jsonObject1.getString("result");
+                            JSONObject result2 = new JSONObject(result);
+                            if ("你还未设置地址".equals(result2.getString("defaultAddress"))){
+                                ToastUtils.showShort("请先设置默认地址");
+                            }else{
+                                Gson gson = new Gson();
+                                ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
+                                if (shopDingDan.getStatus() == 1){
+                                    Intent intent = new Intent();
+                                    intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
+                                    intent.setClass(context,XiaDanActivity.class);
+                                    context.startActivity(intent);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 });

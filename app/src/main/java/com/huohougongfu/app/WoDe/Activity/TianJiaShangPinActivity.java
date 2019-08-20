@@ -15,13 +15,16 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.huohougongfu.app.Gson.JsonBean;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.UploadPictures.GridViewAdapter;
 import com.huohougongfu.app.UploadPictures.MainConstant;
 import com.huohougongfu.app.UploadPictures.PhotoUtils;
 import com.huohougongfu.app.UploadPictures.PictureSelectorConfig;
 import com.huohougongfu.app.UploadPictures.PlusImageActivity;
+import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.CustomGridView;
 import com.huohougongfu.app.Utils.GetJsonDataUtil;
 import com.huohougongfu.app.Utils.utils;
@@ -29,12 +32,19 @@ import com.huxq17.handygridview.HandyGridView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.huxq17.handygridview.HandyGridView.MODE.LONG_PRESS;
 
@@ -58,6 +68,9 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
     private String provinceName,cityName;
     private EditText edt_shop_title,edt_shop_num,edt_shop_yongjin;
     private String categoryNameid;
+    private String canshu;
+    private String shopguige;
+    private TextView tv_shuo_guige,tv_yitianxie,tv_shop_yitianxie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +89,10 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
         edt_shop_title = findViewById(R.id.edt_shop_title);
         edt_shop_num = findViewById(R.id.edt_shop_num);
         edt_shop_yongjin = findViewById(R.id.edt_shop_yongjin);
-
+        tv_shuo_guige = findViewById(R.id.tv_shuo_guige);
         tv_categoryName = findViewById(R.id.tv_categoryName);
+        tv_yitianxie = findViewById(R.id.tv_yitianxie);
+        tv_shop_yitianxie = findViewById(R.id.tv_shop_yitianxie);
         tv_city = findViewById(R.id.tv_city);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_shop_canshu).setOnClickListener(this);
@@ -179,21 +194,36 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
             ArrayList<String> shopphoto = extras.getStringArrayList("Shopphoto");
             mshopphoto.clear();
             if (shopphoto!=null){
+                tv_shop_yitianxie.setText("已选择");
+                tv_shop_yitianxie.setTextColor(getResources().getColor(R.color.colorBlack));
                 for (int i = 0; i < shopphoto.size(); i++) {
                     mshopphoto.add(new File(shopphoto.get(i)));
                 }
             }
         }
+        //商品参数
+        if (requestCode == 102){
+            Bundle extras = data.getExtras();
+            canshu = extras.getString("canshu");
+            if (canshu!=null){
+                tv_yitianxie.setText("已选择");
+                tv_yitianxie.setTextColor(getResources().getColor(R.color.colorBlack));
+            }
+        }
         //商品规格
         if (requestCode == 100){
             Bundle extras = data.getExtras();
-            ArrayList<String> shopguige = extras.getStringArrayList("Shopguige");
-            mguige.clear();
+            shopguige = extras.getString("Shopguige");
             if (shopguige!=null){
-                for (int i = 0; i < shopguige.size(); i++) {
-                    mguige.add(new File(shopguige.get(i)));
-                }
+                tv_shuo_guige.setText("已选择");
+                tv_shuo_guige.setTextColor(getResources().getColor(R.color.colorBlack));
             }
+//            mguige.clear();
+//            if (shopguige!=null){
+//                for (int i = 0; i < shopguige.size(); i++) {
+//                    mguige.add(new File(shopguige.get(i)));
+//                }
+//            }
         }
         if (requestCode == MainConstant.REQUEST_CODE_MAIN && resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
             //查看大图页面删除了图片
@@ -202,7 +232,6 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
             mPicList.addAll(toDeletePicList);
             mGridViewAddImgAdapter.notifyDataSetChanged();
             tv_zhutu_num.setText("("+mPicList.size()+"/6)");
-
         }
     }
 
@@ -216,8 +245,22 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                             if (!edt_shop_yongjin.getText().toString().isEmpty()){
                                 if (mguige!=null){
                                     if (categoryNameid!=null){
-
-
+                                        if (cityName!=null){
+                                            JSONObject mallproduct  = new JSONObject();
+                                            try {
+                                                mallproduct .put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+                                                mallproduct .put("name",edt_shop_title.getText().toString());
+                                                mallproduct .put("stock",edt_shop_num.getText().toString());
+                                                mallproduct .put("categoryId",String.valueOf(categoryNameid));
+                                                mallproduct .put("sendAddress",cityName);
+                                                mallproduct .put("commission",edt_shop_yongjin.getText().toString());
+                                                initShangChuan(mallproduct);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }else{
+                                            ToastUtils.showShort("请选择发货城市");
+                                        }
                                     }else{
                                         ToastUtils.showShort("请选择商品分类");
                                     }
@@ -284,6 +327,42 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                 finish();
                 break;
         }
+    }
+
+    private void initShangChuan(JSONObject jsonObject) {
+        JSONArray mallproduct = new JSONArray();
+        mallproduct.put(jsonObject);
+        Map<String,String> map = new HashMap<>();
+        map.put("mallproduct",mallproduct.toString());
+        map.put("standards",shopguige);
+        map.put("productAttribute",canshu);
+        OkGo.<String>post(Contacts.URl1+"productManage/addProduct")
+                .tag(this)
+                .isMultipart(true)
+                .params(map)
+                .addFileParams("productPicture",mphoto)
+                .addFileParams("detailPic",mshopphoto)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        JSONObject jsonObject1 = null;
+                        try {
+                            jsonObject1 = new JSONObject(body);
+                            if (jsonObject1.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject1.getString("msg"));
+                                finish();
+                            }else{
+                                ToastUtils.showShort(jsonObject1.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+
     }
 
     private void initJsonData() {//解析数据 （省市区三级联动）

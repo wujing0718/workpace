@@ -104,8 +104,8 @@ public class ShopZhiFu extends BottomPopupView implements View.OnClickListener {
             orderNo = result.get(i)+","+orderNo;
         }
         orderNo.substring(0,orderNo.length());
-        OkGo.<String>post(Contacts.URl1+"/pay/alipay")
-                .params("orderNo",orderNo)
+        OkGo.<String>post(Contacts.URl1+"apliyConfirmPaymentMoreOrderNo")
+                .params("orderNos",orderNo)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -166,7 +166,7 @@ public class ShopZhiFu extends BottomPopupView implements View.OnClickListener {
                 if (check_yue.isChecked()){
                     check_ali.setChecked(false);
                     check_weixin.setChecked(false);
-                    ToastUtils.showShort("余额");
+                    ToastUtils.showShort("暂不支持余额支付");
                 }else if (check_ali.isChecked()){
                     check_yue.setChecked(false);
                     check_weixin.setChecked(false);

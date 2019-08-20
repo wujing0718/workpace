@@ -63,11 +63,10 @@ public class RealNameActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_chashi_renzheng:
-                Intent intent = new Intent();
                 startActivity(intent.setClass(RealNameActivity.this,ChaShiRenZhengActivity.class));
                 break;
             case R.id.bt_shanghu_renzheng:
-                ToastUtils.showShort("456");
+                startActivity(intent.setClass(RealNameActivity.this,ShangHuRenZhengActivity.class));
                 break;
             case R.id.bt_finish:
                 finish();

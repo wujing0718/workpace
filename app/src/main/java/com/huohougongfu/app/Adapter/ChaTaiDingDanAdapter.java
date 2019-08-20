@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -33,6 +34,7 @@ public class ChaTaiDingDanAdapter extends BaseQuickAdapter<ChaTaiDingDan.ResultB
 
     @Override
     protected void convert(BaseViewHolder helper, ChaTaiDingDan.ResultBean.ListBean item) {
+        Button btn_queidng = helper.getView(R.id.btn_queidng);
         String nowTime = utils.getNowTime();
         String s = utils.dateToStamp(nowTime);
         String createTime = item.getCreateTime();
@@ -47,6 +49,7 @@ public class ChaTaiDingDanAdapter extends BaseQuickAdapter<ChaTaiDingDan.ResultB
         }
         helper.setText(R.id.tv_chatai_verificationCode,item.getVerificationCode());
                 if ("0".equals(item.getOrderStatus())){
+                    btn_queidng.setVisibility(View.VISIBLE);
                     if (q>0){
                         time = q;
                         timer = new CountDownTimer(time * 1000, 1000) {
@@ -56,7 +59,6 @@ public class ChaTaiDingDanAdapter extends BaseQuickAdapter<ChaTaiDingDan.ResultB
                              */
                             @Override
                             public void onTick(long millisUntilFinished) {
-
                                 // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
                                 tv_chatai_orderStatus.setTextColor(MyApp.context.getResources().getColor(R.color.colorRed));
                                 tv_chatai_orderStatus.setText("待支付："+utils.formatTime(millisUntilFinished));
@@ -72,6 +74,7 @@ public class ChaTaiDingDanAdapter extends BaseQuickAdapter<ChaTaiDingDan.ResultB
                         };
                         timer.start();
                     }else{
+                        btn_queidng.setVisibility(View.GONE);
                         tv_chatai_orderStatus.setText("已过期");
                     }
                 }else if ("1".equals(item.getOrderStatus())){

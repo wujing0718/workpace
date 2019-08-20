@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             switch (code) {
                 case 0:
                     logs = "设置成功";
-                    LogUtils.e(alias);
                     // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
                     break;
                 case 6002:
@@ -220,8 +219,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }else if (share_media == SHARE_MEDIA.WEIXIN){
-
+            }else if (share_media == SHARE_MEDIA.QQ){
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("uid",data.get("uid"));
+                    jsonObject.put("name",data.get("name"));
+                    jsonObject.put("iconurl",data.get("iconurl"));
+                    if ("男".equals(data.get("gender"))){
+                        jsonObject.put("unionGender","男");
+                    }else{
+                        jsonObject.put("unionGender","女");
+                    }
+                    initJudge(jsonObject,"qq");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -271,7 +283,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         MyApp.instance.put("photo",result.getUserInfo().getPhoto(),true);
         MyApp.instance.put("rongToken",result.getUserInfo().getRongToken(),true);
         MyApp.instance.put("token",result.getToken(),true);
-        intent.setClass(LoginActivity.this,MainActivity.class);
         //融云登录
         RongIM.connect(result.getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
             //token1参数报错
@@ -290,6 +301,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 JPushInterface.resumePush(getApplicationContext());
                 finish();
                 ToastUtils.showShort("登录成功");
+                intent.setClass(LoginActivity.this,MainActivity.class);
                 // 连接成功，说明你已成功连接到融云Server
             }
 

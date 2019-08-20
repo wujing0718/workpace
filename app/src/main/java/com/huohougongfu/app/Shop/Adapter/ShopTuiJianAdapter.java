@@ -25,7 +25,7 @@ public class ShopTuiJianAdapter extends BaseQuickAdapter<ShopDetail.ResultBean.R
         ImageView img_shangpin_photo = helper.getView(R.id.img_shangpin_photo);
         RequestOptions options = new RequestOptions();
         Glide.with(MyApp.context).load(item.getCoverUrl()).into(img_shangpin_photo);
-        helper.setText(R.id.tv_shangpin_price,String.valueOf(item.getPrice()));
+        helper.setText(R.id.tv_shangpin_price,String.valueOf(item.getMarketPrice()));
         helper.setText(R.id.tv_shangpin_title,item.getName());
     }
 }

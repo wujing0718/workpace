@@ -241,6 +241,7 @@ public class ChaTaiDingDan {
              */
 
             private int id;
+            private String orderNo;
             private String machineId;
             private String detailId;
             private String verificationCode;
@@ -261,6 +262,14 @@ public class ChaTaiDingDan {
 
             public void setId(int id) {
                 this.id = id;
+            }
+
+            public String getOrderNo() {
+                return orderNo;
+            }
+
+            public void setOrderNo(String orderNo) {
+                this.orderNo = orderNo;
             }
 
             public String getMachineId() {

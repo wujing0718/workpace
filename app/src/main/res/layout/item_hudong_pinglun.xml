@@ -182,7 +182,7 @@
         android:maxLines="3"
         android:ellipsize="end"
         android:textColor="@color/colorBlack"
-        android:text="我很赞同你的观点我很赞同你的观点我很赞同你的观点我很赞同你的观点我很赞同你的观点我很赞同你的"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -213,7 +213,7 @@
             android:maxLines="4"
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
-            android:text="文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名文章名"
+            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

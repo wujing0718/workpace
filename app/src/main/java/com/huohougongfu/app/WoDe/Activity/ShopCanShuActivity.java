@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ChanPinCanShu;
 import com.huohougongfu.app.R;
@@ -15,12 +17,21 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopCanShuActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView rec_chanpin_canshu;
     private String categoryName;
+    private View bt_queding;
+    private ArrayList<String> list = new ArrayList<>();
+    private List<String> keys;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,7 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
                         String body = response.body();
                         ChanPinCanShu canshu = new Gson().fromJson(body, ChanPinCanShu.class);
                         if (canshu.getStatus() == 1){
+                            keys = canshu.getResult().getKeys();
                             initRec(canshu.getResult().getKeys());
                         }
                     }
@@ -47,14 +59,19 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initRec(List<String> keys) {
+        for (int i = 0; i < keys.size(); i++) {
+            list.add(i,"");
+        }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rec_chanpin_canshu.setLayoutManager(layoutManager);
-        CanShuAdapter canShuAdapter = new CanShuAdapter(R.layout.item_tianjia_shop_canshu,keys);
+        CanShuAdapter canShuAdapter = new CanShuAdapter(keys,list,this);
         rec_chanpin_canshu.setAdapter(canShuAdapter);
     }
 
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
+        bt_queding = findViewById(R.id.bt_queding);
+        bt_queding.setOnClickListener(this);
         rec_chanpin_canshu = findViewById(R.id.rec_chanpin_canshu);
     }
 
@@ -62,8 +79,40 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_finish:
-                finish();
+                bundle = new Bundle();
+                bundle.putString("canshu",null);
+                setResult(101,ShopCanShuActivity.this.getIntent().putExtras(bundle));
+                ShopCanShuActivity.this.finish();
+                break;
+            case R.id.bt_queding:
+                JSONArray jsonArray = new JSONArray();
+                if (list.size() == keys.size()){
+                    for (int j = 0; j < list.size(); j++) {
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("key",keys.get(j));
+                            jsonObject.put("value",list.get(j));
+                            jsonArray.put(jsonObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    bundle = new Bundle();
+                    bundle.putString("canshu",jsonArray.toString());
+                    setResult(102,ShopCanShuActivity.this.getIntent().putExtras(bundle));
+                    ShopCanShuActivity.this.finish();
+                }else{
+                    ToastUtils.showShort("请输入参数");
+                }
                 break;
         }
+    }
+    @Override
+    public void onBackPressed(){
+        bundle = new Bundle();
+        bundle.putString("canshu",null);
+        setResult(101,ShopCanShuActivity.this.getIntent().putExtras(bundle));
+        ShopCanShuActivity.this.finish();
+        super.onBackPressed();
     }
 }

@@ -89,10 +89,12 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initView(DaShiJianJie daShiJianJie) {
-        tv_dashi_name.setText(daShiJianJie.getResult().getName());
-        tv_dashi_level.setText(daShiJianJie.getResult().getLevel());
-        tv_introduceContent.setText(daShiJianJie.getResult().getIntroduceContent());
-        Glide.with(MyApp.context).load(daShiJianJie.getResult().getPhoto()).into(img_dashi_photo);
+        if (daShiJianJie.getResult() !=null){
+            tv_dashi_name.setText(daShiJianJie.getResult().getName());
+            tv_dashi_level.setText(daShiJianJie.getResult().getLevel());
+            tv_introduceContent.setText(daShiJianJie.getResult().getIntroduceContent());
+            Glide.with(MyApp.context).load(daShiJianJie.getResult().getPhoto()).into(img_dashi_photo);
+        }
     }
 
     @Override

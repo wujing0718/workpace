@@ -115,6 +115,7 @@
             android:id="@+id/btn_queidng"
             android:layout_alignParentRight="true"
             android:text="确认支付"
+            android:visibility="gone"
             android:background="@drawable/login_kuang"
             android:layout_width="80dp"
             android:layout_height="30dp" />

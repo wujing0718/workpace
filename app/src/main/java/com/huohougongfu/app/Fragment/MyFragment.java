@@ -18,17 +18,22 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.MyZhuYe;
+import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.Gson.RongYunUsetInfo;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.FailedViewActivity;
+import com.huohougongfu.app.WoDe.Activity.GeRenRenZhengActivity;
 import com.huohougongfu.app.WoDe.Activity.MyCollectActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDianPuActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDongTaiActivity;
+import com.huohougongfu.app.WoDe.Activity.RealNameActivity;
 import com.huohougongfu.app.WoDe.Activity.SettingActivity;
+import com.huohougongfu.app.WoDe.Activity.VIPActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeFenSiActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeGuanZhuActivity;
 import com.lzy.okgo.OkGo;
@@ -56,6 +61,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private int id;
     private View view_weizhi;
     private MyZhuYe xinxi;
+    private RenZhengZhuangTai renZhengZhuangTai;
 
     public MyFragment() {
         // Required empty public constructor
@@ -72,8 +78,21 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
+        initRenZheng();
         intent = new Intent();
         return inflate;
+    }
+
+    private void initRenZheng() {
+        OkGo.<String>get(Contacts.URl1+"/my/certificationStatus/"+id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        renZhengZhuangTai = gson.fromJson(body, RenZhengZhuangTai.class);
+                    }
+                });
     }
 
 
@@ -176,6 +195,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_huiyuan_quanbu:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),VIPActivity.class);
+                    startActivity(intent);
+                }
+                break;
             //设置
             case R.id.bt_setting:
                 if (!utils.isDoubleClick()){
@@ -195,7 +220,22 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                         intent.setClass(getActivity(),MyDianPuActivity.class);
                         startActivity(intent);
                     }else{
-                        ToastUtils.showShort("尚未开店");
+                        if (renZhengZhuangTai!=null){
+                            if (renZhengZhuangTai.getStatus() == 1){
+                                if (renZhengZhuangTai.getResult().getPerson().getCode() == 0) {
+                                    intent.setClass(getActivity(), GeRenRenZhengActivity.class);
+                                    startActivity(intent);
+                                }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+                                    if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
+                                        intent.setClass(getActivity(),RealNameActivity.class);
+                                        startActivity(intent);
+                                    }else{
+                                        intent.setClass(getActivity(),MyDianPuActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 break;

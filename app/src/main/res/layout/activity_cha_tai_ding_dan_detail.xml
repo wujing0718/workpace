@@ -14,6 +14,7 @@
         android:layout_height="44dp">
 
         <RelativeLayout
+            android:id="@+id/bt_finish"
             android:layout_width="@dimen/dp_44"
             android:layout_height="@dimen/dp_44">
 
@@ -51,6 +52,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_zhifu_zhuangtai"
                     android:text="待支付"
                     android:textSize="12sp"
                     android:padding="@dimen/dp_10"
@@ -59,6 +61,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:id="@+id/bt_zhuanzeng_cha"
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
@@ -94,6 +97,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tv_quhuoma"
                 android:layout_marginTop="@dimen/dp_20"
                 android:text="9698  3697  032"
                 android:textSize="30sp"
@@ -112,8 +116,9 @@
                 android:layout_height="wrap_content" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_chatai"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200">
+                android:layout_height="wrap_content">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -136,6 +141,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_chami_dikou"
                     android:layout_alignParentRight="true"
                     android:text="¥2.00"
                     android:textSize="14sp"
@@ -159,6 +165,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_youhuiquan"
                     android:layout_alignParentRight="true"
                     android:text="打8折"
                     android:textSize="14sp"

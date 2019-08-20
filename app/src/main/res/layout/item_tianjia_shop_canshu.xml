@@ -15,7 +15,10 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/edt_canshu"
+        android:paddingHorizontal="@dimen/dp_6"
         android:layout_centerVertical="true"
+        android:textSize="12sp"
         android:background="@drawable/black_kuang"
         android:layout_width="210dp"
         android:layout_alignParentRight="true"

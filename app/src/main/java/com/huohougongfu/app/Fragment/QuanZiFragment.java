@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.JingXuanActivity;
@@ -71,6 +72,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         citycode = MyApp.instance.getString("citycode");
         intent = new Intent();
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
         inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);
         inflate.findViewById(R.id.bt_quanzi_zhaoren).setOnClickListener(this);
         edt_quanzi_sousuo = inflate.findViewById(R.id.edt_quanzi_sousuo);
@@ -136,6 +138,12 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
             case R.id.bt_quanzi_zhaoren:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getContext(),ZhaoRenActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_xiaoxi:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getContext(),XiaoXiActivity.class);
                     startActivity(intent);
                 }
                 break;

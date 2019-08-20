@@ -149,7 +149,7 @@ public class MyApp extends Application {
         //微信
         PlatformConfig.setWeixin("wxa36e44f4072c4818", "04c7a1e26430d3ca028fc6f17a83c331");
         //QQ
-        PlatformConfig.setQQZone("1109779232", "L0p9zDMbS68PwtQQ");
+        PlatformConfig.setQQZone("101767868", "64b41c424e93122ef5430ac54c194621");
         //新浪
         PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
 

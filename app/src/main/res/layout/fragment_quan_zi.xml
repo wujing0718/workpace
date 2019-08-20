@@ -24,19 +24,32 @@
         android:layout_width="match_parent"
         android:layout_height="44dp">
 
-        <RelativeLayout
+        <LinearLayout
+            android:layout_marginHorizontal="@dimen/dp_6"
+            android:orientation="horizontal"
             android:id="@+id/bt_finish"
-            android:layout_width="44dp"
+            android:layout_width="wrap_content"
             android:layout_height="44dp">
 
             <ImageView
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/img_dingwei_white"
                 android:layout_centerInParent="true"
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
 
+            <TextView
+                android:id="@+id/tv_city"
+                android:textSize="16sp"
+                android:text="深圳"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        </RelativeLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -76,6 +89,7 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
+                android:id="@+id/bt_xiaoxi"
                 android:layout_weight="1"
                 android:layout_width="44dp"
                 android:layout_height="44dp">

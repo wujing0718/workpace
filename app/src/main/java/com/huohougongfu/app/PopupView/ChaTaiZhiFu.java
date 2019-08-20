@@ -1,7 +1,9 @@
 package com.huohougongfu.app.PopupView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -33,13 +35,15 @@ import org.json.JSONObject;
 import java.util.Map;
 
 public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener {
-    private final String result;
-    private final Context context;
-    private final double total_price;
+    private String orderNo;
+    private String result;
+    private Context context;
+    private double total_price;
     private CheckBox check_yue,check_ali,check_weixin;
     private String alitoken;
     private static final int SDK_PAY_FLAG = 1001;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -54,6 +58,8 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         dismiss();
+                        Intent intent = new Intent();
+//                        intent.putExtra("teaid",)
                         Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
                         dismiss();
@@ -72,6 +78,14 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
         this.context= context;
         this.total_price = total_price;
     }
+
+    public ChaTaiZhiFu(Context context, String orderNo) {
+        super(context);
+        this.orderNo = orderNo;
+
+    }
+
+
     @Override
     protected int getImplLayoutId() {
         return R.layout.dialog_zhifu;
@@ -99,22 +113,42 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
 
     //支付宝支付
     private void initALi() {
-        OkGo.<String>post(Contacts.URl1+"/pay/alipay")
-                .params("orderNo",result)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                alitoken = jsonObject.getString("result");
+        if (orderNo!=null){
+            OkGo.<String>post(Contacts.URl1+"/pay/alipay")
+                    .params("orderNo",orderNo)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    alitoken = jsonObject.getString("result");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+        }else{
+            OkGo.<String>post(Contacts.URl1+"/pay/alipay")
+                    .params("orderNo",result)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    alitoken = jsonObject.getString("result");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        }
+
     }
 
     private void initWX(){
@@ -161,7 +195,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                 if (check_yue.isChecked()){
                     check_ali.setChecked(false);
                     check_weixin.setChecked(false);
-                    ToastUtils.showShort("余额");
+                    ToastUtils.showShort("暂不支持余额支付");
                 }else if (check_ali.isChecked()){
                     check_yue.setChecked(false);
                     check_weixin.setChecked(false);

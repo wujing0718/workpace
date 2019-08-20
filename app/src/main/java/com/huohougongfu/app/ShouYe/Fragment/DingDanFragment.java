@@ -18,12 +18,14 @@ import com.huohougongfu.app.Adapter.ChaTaiDingDanAdapter;
 import com.huohougongfu.app.Gson.ChaTaiDingDan;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.ChaTaiDingDanDetail;
 import com.huohougongfu.app.ShouYe.Activity.MaiChaDetailActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -98,13 +100,23 @@ public class DingDanFragment extends Fragment {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-              startActivity( new Intent().setClass(getActivity(),ChaTaiDingDanDetail.class));
+                Intent intent = new Intent();
+                intent.putExtra("teaid",data.getList().get(position).getId());
+                startActivity( intent.setClass(getActivity(),ChaTaiDingDanDetail.class));
             }
         });
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("确认支付"+position);
+                if ("0".equals(data.getList().get(position).getOrderStatus())){
+                    new XPopup.Builder(getContext())
+                            .asCustom(new ChaTaiZhiFu(getContext(),data.getList().get(position).getOrderNo()))
+                            .show();
+                }else if ("1".equals(data.getList().get(position).getOrderStatus())){
+
+                }else if ("2".equals(data.getList().get(position).getOrderStatus())){
+                    ToastUtils.showShort("该订单已消费");
+                }
             }
         });
         rec_chatai_dingdan.setAdapter(mAdapter);

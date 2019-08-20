@@ -115,7 +115,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1109779232" />
+                <data android:scheme="tencent101767868" />
             </intent-filter>
         </activity>
 
@@ -276,7 +276,8 @@
         <activity android:name=".Activity.HuDongPingLunActivity" />
         <activity android:name=".Activity.HuDongDianZanActivity" />
         <activity android:name=".WoDe.Activity.WuLiuActivity" />
-        <activity android:name=".Activity.BindActivity"></activity>
+        <activity android:name=".Activity.BindActivity" />
+        <activity android:name=".WoDe.Activity.VIPActivity"></activity>
     </application>
 
 </manifest>
