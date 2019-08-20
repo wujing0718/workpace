@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -72,6 +73,7 @@ public class ShopZhiFu extends BottomPopupView implements View.OnClickListener {
         this.context= context;
         this.total_price = total_price;
     }
+
     @Override
     protected int getImplLayoutId() {
         return R.layout.dialog_zhifu;

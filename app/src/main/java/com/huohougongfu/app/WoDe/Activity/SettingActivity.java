@@ -302,6 +302,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 }
             }
+        }else{
+            //茶师认证成功界面
+            intent.putExtra("code","个人认证成功");
+            intent.setClass(SettingActivity.this,SucceedViewActivity.class);
+            startActivity(intent);
         }
     }
 }

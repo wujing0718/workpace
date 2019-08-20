@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopGuanLiAdapter extends BaseQuickAdapter<ShopGuanLiLieBiao.ResultBean.ListBean,BaseViewHolder> {
+    private final List<ShopGuanLiLieBiao.ResultBean.ListBean> data1;
     private List<ShopGuanLiLieBiao.ResultBean.ListBean> mMyLiveList;
     private ShopGuanLiAdapter.OnItemClickListener mOnItemClickListener;
     private static final int MYLIVE_MODE_CHECK = 0;
@@ -32,6 +33,7 @@ public class ShopGuanLiAdapter extends BaseQuickAdapter<ShopGuanLiLieBiao.Result
     }
     public ShopGuanLiAdapter(int layoutResId, @Nullable List<ShopGuanLiLieBiao.ResultBean.ListBean> data) {
         super(layoutResId, data);
+        this.data1 = data;
     }
     public List<ShopGuanLiLieBiao.ResultBean.ListBean> getMyLiveList() {
         if (mMyLiveList == null) {
@@ -93,6 +95,21 @@ public class ShopGuanLiAdapter extends BaseQuickAdapter<ShopGuanLiLieBiao.Result
         } else {
             this.mMyLiveList.addAll(myLiveList);
         }
+        notifyDataSetChanged();
+    }
+
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<ShopGuanLiLieBiao.ResultBean.ListBean> data) {
+        //增加数据
+        int position = data1.size();
+        data1.addAll(position, data);
+        notifyItemRangeChanged(position,data.size());
+    }
+
+    public void refresh(List<ShopGuanLiLieBiao.ResultBean.ListBean> data) {
+        //刷新数据
+        data1.remove(data1);
+        data1.addAll(data);
         notifyDataSetChanged();
     }
 }

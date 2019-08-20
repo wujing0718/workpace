@@ -71,6 +71,7 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
     private String status;
     private View view;
     private Intent intent;
+    private int page = 2;
 
 
     public YiShangJiaFragment() {
@@ -90,6 +91,12 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
         initUI();
         initData();
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
     }
 
     private void initUI() {
@@ -162,7 +169,35 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
     }
 
     private void initAdd() {
-
+        Map<String, String> map = new HashMap<>();
+        map.put("tel",tel);
+        map.put("userId",id);
+        map.put("token",token);
+        map.put("status","2");
+        map.put("page", String.valueOf(page++));
+        map.put("pageSize", "10");
+        OkGo.<String>get(Contacts.URl2+"productManage/getProductResells")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ShopGuanLiLieBiao shangPinGson = gson.fromJson(response.body(), ShopGuanLiLieBiao.class);
+                        if (shangPinGson.getResult().getList().size()>0){
+                            tehuiadapter.add(shangPinGson.getResult().getList());
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }else {
+                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
     }
 
     @Override
@@ -170,6 +205,7 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser) {
             isVisible = isVisibleToUser;
+            initData();
         } else {
             if (isVisible) {
                 isVisible = isVisibleToUser;

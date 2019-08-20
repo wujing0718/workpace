@@ -21,6 +21,7 @@ import com.huohougongfu.app.Gson.TeiHuiGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
+import com.huohougongfu.app.Shop.Activity.TeHuiActivity;
 import com.huohougongfu.app.Shop.Adapter.TeHuiAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
@@ -69,6 +70,7 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
     private String status;
     private View view;
     private Intent intent;
+    private int page = 2;
 
     public CangKuFragment() {
     }
@@ -87,6 +89,12 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
         initUI();
         initData();
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
     }
 
     private void initUI() {
@@ -154,9 +162,41 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
         smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-//                initAdd();
+                initAdd();
             }
         });
+    }
+
+    private void initAdd() {
+        Map<String, String> map = new HashMap<>();
+        map.put("tel",tel);
+        map.put("userId",id);
+        map.put("token",token);
+        map.put("status","2");
+        map.put("page", String.valueOf(page++));
+        map.put("pageSize", "10");
+        OkGo.<String>get(Contacts.URl2+"productManage/getProductResells")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ShopGuanLiLieBiao shangPinGson = gson.fromJson(response.body(), ShopGuanLiLieBiao.class);
+                        if (shangPinGson.getResult().getList().size()>0){
+                            tehuiadapter.add(shangPinGson.getResult().getList());
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }else {
+                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
     }
 
     public static Fragment newInstance(String content) {
@@ -171,6 +211,7 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser) {
             isVisible = isVisibleToUser;
+            initData();
         } else {
             if (isVisible) {
                 isVisible = isVisibleToUser;

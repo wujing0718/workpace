@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyDingDan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
+import com.huohougongfu.app.PopupView.ShopZhiFu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
@@ -129,7 +130,8 @@ public class DingDanFragment extends Fragment {
                                 intent.setClass(getActivity(),WuLiuActivity.class);
                                 startActivity(intent);
                             }else if (result.get(position).getOrderStatus() == -1){
-                                ToastUtils.showShort("查看物流");
+                                //支付
+//                                new ShopZhiFu(getActivity(),result.get(position).getOrderNo(),result.get(position));
                             }
                             break;
                         case R.id.bt_anniu_two:

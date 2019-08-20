@@ -56,6 +56,8 @@ public class RealNameActivity extends AppCompatActivity implements View.OnClickL
     private void initUI() {
         view_renzheng = findViewById(R.id.view_renzheng);
         findViewById(R.id.bt_finish).setOnClickListener(this);
+        findViewById(R.id.bt_chashi_renzheng).setOnClickListener(this);
+        findViewById(R.id.bt_shanghu_renzheng).setOnClickListener(this);
 
     }
 

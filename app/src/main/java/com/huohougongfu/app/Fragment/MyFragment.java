@@ -78,7 +78,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
-        initRenZheng();
         intent = new Intent();
         return inflate;
     }
@@ -215,6 +214,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.bt_my_dianpu:
+                initRenZheng();
                 if (!utils.isDoubleClick()){
                     if (xinxi.getResult().isIsMerchant() ==true){
                         intent.setClass(getActivity(),MyDianPuActivity.class);

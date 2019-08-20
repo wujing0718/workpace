@@ -74,12 +74,13 @@ public class ChaTaiDingDanAdapter extends BaseQuickAdapter<ChaTaiDingDan.ResultB
                         };
                         timer.start();
                     }else{
-                        btn_queidng.setVisibility(View.GONE);
+                        btn_queidng.setText("删除订单");
                         tv_chatai_orderStatus.setText("已过期");
                     }
                 }else if ("1".equals(item.getOrderStatus())){
                     helper.setText(R.id.tv_chatai_orderStatus,"待提货");
                 }else if ("2".equals(item.getOrderStatus())){
+                    btn_queidng.setText("删除订单");
                     helper.setText(R.id.tv_chatai_orderStatus,"已消费");
                 }
         helper.setText(R.id.tv_chatai_teas,item.getTeas());

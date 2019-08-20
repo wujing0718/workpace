@@ -18,8 +18,6 @@ import com.huohougongfu.app.Fragment.TADongTai;
 import com.huohougongfu.app.Gson.MyZhuYe;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.ShouYe.Fragment.ChaTaiOneFragment;
-import com.huohougongfu.app.ShouYe.Fragment.DingDanFragment;
 import com.huohougongfu.app.Utils.Contacts;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;

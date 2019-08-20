@@ -181,6 +181,7 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
                                 intent.putExtra("code","个人认证成功");
                                 intent.setClass(GeRenRenZhengActivity.this,SucceedViewActivity.class);
                                 startActivity(intent);
+                                finish();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }

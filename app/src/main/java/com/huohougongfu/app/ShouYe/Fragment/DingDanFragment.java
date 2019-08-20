@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -30,6 +31,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -108,7 +112,10 @@ public class DingDanFragment extends Fragment {
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if ("0".equals(data.getList().get(position).getOrderStatus())){
+                Button bt_queding = view.findViewById(R.id.btn_queidng);
+                if (bt_queding.getText().toString().equals("删除订单")){
+                    initDelect(data.getList().get(position).getId());
+                }else if ("0".equals(data.getList().get(position).getOrderStatus())){
                     new XPopup.Builder(getContext())
                             .asCustom(new ChaTaiZhiFu(getContext(),data.getList().get(position).getOrderNo()))
                             .show();
@@ -121,7 +128,28 @@ public class DingDanFragment extends Fragment {
         });
         rec_chatai_dingdan.setAdapter(mAdapter);
     }
-    
+
+    private void initDelect(int id) {
+        OkGo.<String>get(Contacts.URl1+"/machine/delMachineOrder/")
+                .params("orderId",id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
     public static Fragment newInstance(String str){
         DingDanFragment fragment = new DingDanFragment();
         Bundle bundle = new Bundle();
