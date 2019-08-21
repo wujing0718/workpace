@@ -92,7 +92,6 @@ dependencies {
     implementation 'com.mylhyl:acp:1.2.0'
 
     //对话框
-    implementation 'com.kongzue.dialog:dialog:2.5.1'
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
@@ -103,6 +102,8 @@ dependencies {
     implementation project(path: ':media')
     implementation project(path: ':IMKit')
     implementation project(path: ':IMLib')
+//    implementation 'com.kongzue.dialog_v3:dialog:3.1.1'
+    implementation 'com.kongzue.dialog:dialog:2.5.1'
 
     //购物车控件
     implementation 'com.octopus:amountview:0.0.2'
