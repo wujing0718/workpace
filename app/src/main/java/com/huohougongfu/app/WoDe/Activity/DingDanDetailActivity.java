@@ -21,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyDingDanDetail;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.DingDanZhiFu;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -229,6 +230,13 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 }else if (orderStatus == 2){
                     initQueRen(orderNo);
                 }else if (orderStatus == 0){
+//                    String orderNos="";
+//                    for (int i = 0; i <result.size() ; i++) {
+//                        orderNos = result.get(position).getOrderNo()+","+orderNos;
+//                    }
+//                    new XPopup.Builder(DingDanDetailActivity.this)
+//                            .asCustom(new DingDanZhiFu(DingDanDetailActivity.this,substring))
+//                            .show();
                     ToastUtils.showShort("确认订单");
                 }else if (orderStatus == 1){
                     ToastUtils.showShort("提醒发货");

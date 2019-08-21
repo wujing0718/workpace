@@ -174,13 +174,12 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                     }
                     if (map.size()<1){
                         dismiss();
-                    }else{
+                    }
                         Message msg = Message.obtain();
                         msg.what = 0;
                         msg.obj = map;
                         mHandler.sendMessage(msg);
                         dismiss();
-                }
                 break;
         }
     }

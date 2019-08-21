@@ -18,6 +18,8 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.QuanZi.Adapter.FaXianAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -116,7 +118,24 @@ public class TongChengFragment extends Fragment implements IListener {
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent().setClass(getActivity(),QuanZiDetailActivity.class));
+                if (faxian.getResult().getDatas().getList().get(position).getType() == 2){
+                    Intent intent = new Intent();
+                    intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
+                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    startActivity(intent.setClass(getActivity(),WenZhangDetailActivity.class));
+                }else if(faxian.getResult().getDatas().getList().get(position).getType() == 1){
+                    Intent intent = new Intent();
+                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
+                    startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
+                }else if (faxian.getResult().getDatas().getList().get(position).getType() == 3){
+                    Intent intent = new Intent();
+                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    intent.putExtra("小视频",faxian.getResult().getDatas().getList().get(position));
+                    intent.putExtra("position",position);
+                    intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
+                    startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
+                }
             }
         });
         faXianAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

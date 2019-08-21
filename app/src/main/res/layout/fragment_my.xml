@@ -105,7 +105,7 @@
 
                             <TextView
                                 android:id="@+id/tv_my_name"
-                                android:text=""
+                                android:text="未登录"
                                 android:textSize="17sp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/colorBlack"
@@ -735,86 +735,172 @@
                     android:layout_height="1dp"/>
 
                 <LinearLayout
-                    android:layout_marginVertical="12dp"
-                    android:layout_marginHorizontal="34dp"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/bt_huiyuan_kaidian"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_kaidian"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
-
-                        <TextView
-                            android:text="开店"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img_ishuiyuan"
+                                android:src="@mipmap/img_huiyuan_yes"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp" />
+
+                            <TextView
+                                android:text="会员标识"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img_isdianpu"
+                                android:src="@mipmap/img_dianpu_yes"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp" />
+
+                            <TextView
+                                android:text="线上店铺"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img_ischami"
+                                android:src="@mipmap/img_chami_yes"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp" />
+
+                            <TextView
+                                android:text="茶米福利"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/bt_huiyuan_tuiguang"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_tuiguang"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
-
-                        <TextView
-                            android:text="推广"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img_isquanxian"
+                                android:src="@mipmap/img_zhiding_yes"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp" />
+
+                            <TextView
+                                android:text="置顶权限"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img_isfangsaorao"
+                                android:src="@mipmap/img_fangsaorao_no"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp" />
+
+                            <TextView
+                                android:text="防止骚扰"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/img_iskefu"
+                                android:src="@mipmap/img_kefu_yes"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp" />
+
+                            <TextView
+                                android:text="专属客服"
+                                android:textColor="@color/colorBlack"
+                                android:layout_marginTop="@dimen/dp_6"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/bt_huiyuan_fenxiao"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
+                    <View
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:background="#CDCDCD"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_zhuanke"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
-
-                        <TextView
-                            android:text="分销"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
+                        android:layout_height="5dp"/>
 
                 </LinearLayout>
+
 
             </LinearLayout>
 

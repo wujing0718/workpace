@@ -20,6 +20,7 @@ import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.MyZhuYe;
 import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.Gson.RongYunUsetInfo;
+import com.huohougongfu.app.Gson.VIP;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
@@ -62,6 +63,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private View view_weizhi;
     private MyZhuYe xinxi;
     private RenZhengZhuangTai renZhengZhuangTai;
+    private TextView bt_dianpu;
+    private ImageView img_ishuiyuan,img_isdianpu,img_ischami,img_isquanxian,img_isfangsaorao,img_iskefu;
 
     public MyFragment() {
         // Required empty public constructor
@@ -78,8 +81,56 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
+        initVIP();
         intent = new Intent();
         return inflate;
+    }
+
+    private void initVIP() {
+        OkGo.<String>get(Contacts.URl1+"/my/vipInfo/"+id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        VIP vip = gson.fromJson(body, VIP.class);
+                        if (vip.getStatus() == 1){
+                            //是否VIp
+                            if (vip.getResult().isIsVip()){
+                                img_ishuiyuan.setImageResource(R.mipmap.img_huiyuan_yes);
+                            }else{
+                                img_ishuiyuan.setImageResource(R.mipmap.img_huiyuan_no);
+                            }
+                            //是否是线上店铺
+                            if (vip.getResult().isIsMerchant()){
+                                img_ishuiyuan.setImageResource(R.mipmap.img_dianpu_yes);
+                            }else{
+                                img_ishuiyuan.setImageResource(R.mipmap.img_dianpu_no);
+                            }
+                            //茶米福利
+                            if (vip.getResult().isTeaRiceWelfare()){
+                                img_ishuiyuan.setImageResource(R.mipmap.img_chami_yes);
+                            }else{
+                                img_ishuiyuan.setImageResource(R.mipmap.img_chami_no);
+                            }
+                            if (vip.getResult().isStickyPermissions()){
+                                img_ishuiyuan.setImageResource(R.mipmap.img_zhiding_yes);
+                            }else{
+                                img_ishuiyuan.setImageResource(R.mipmap.img_zhiding_no);
+                            }
+                            if (vip.getResult().isPreventPermissions()){
+                                img_ishuiyuan.setImageResource(R.mipmap.img_fangsaorao_yes);
+                            }else{
+                                img_ishuiyuan.setImageResource(R.mipmap.img_fangsaorao_no);
+                            }
+                            if (vip.getResult().isCustomerService()){
+                                img_ishuiyuan.setImageResource(R.mipmap.img_kefu_yes);
+                            }else{
+                                img_ishuiyuan.setImageResource(R.mipmap.img_kefu_no);
+                            }
+                        }
+                    }
+                });
     }
 
     private void initRenZheng() {
@@ -123,10 +174,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(MyZhuYe.ResultBean result) {
-        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         Glide.with(getActivity()).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
         tv_my_vipnum.setText("1");
+        if (result.isIsMerchant()){
+            bt_dianpu.setVisibility(View.VISIBLE);
+        }else{
+            bt_dianpu.setVisibility(View.GONE);
+        }
         if (result.getPlace()!=null){
             view_weizhi.setVisibility(View.VISIBLE);
             tv_my_weizhi.setText(result.getPlace());
@@ -145,6 +201,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
+        img_ishuiyuan = inflate.findViewById(R.id.img_ishuiyuan);
+        img_isdianpu = inflate.findViewById(R.id.img_isdianpu);
+        img_ischami = inflate.findViewById(R.id.img_ischami);
+        img_isquanxian = inflate.findViewById(R.id.img_isquanxian);
+        img_isfangsaorao = inflate.findViewById(R.id.img_isfangsaorao);
+        img_iskefu = inflate.findViewById(R.id.img_iskefu);
+
         inflate.findViewById(R.id.bt_setting).setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_gouwuche).setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_shoucang).setOnClickListener(this);
@@ -162,17 +225,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_dingdan_pingjia).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
 
-        inflate.findViewById(R.id.bt_huiyuan_fenxiao).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_huiyuan_tuiguang).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_huiyuan_kaidian).setOnClickListener(this);
-
         inflate.findViewById(R.id.bt_gengduo).setOnClickListener(this);
-
+        bt_dianpu = inflate.findViewById(R.id.bt_dianpu);
         view_weizhi = inflate.findViewById(R.id.view_weizhi);
         img_my_touxiang = inflate.findViewById(R.id.img_my_touxiang);
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        Glide.with(getActivity()).load(R.mipmap.img_zhanweitu).apply(requestOptions).into(img_my_touxiang);
         tv_my_name = inflate.findViewById(R.id.tv_my_name);
         tv_my_vipnum = inflate.findViewById(R.id.tv_my_vipnum);
-        tv_my_id = inflate.findViewById(R.id.tv_my_id);
         tv_my_guanzhunum = inflate.findViewById(R.id.tv_my_guanzhunum);
         tv_my_fensinum = inflate.findViewById(R.id.tv_my_fensinum);
         tv_my_jianjie = inflate.findViewById(R.id.tv_my_jianjie);
@@ -264,7 +324,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     intent.setClass(getActivity(),MyCollectActivity.class);
                     startActivity(intent);
                 }
-//                RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", "贝吉塔");
                 break;
                 //我的订单全部
             case R.id.bt_dingdan_quanbu:

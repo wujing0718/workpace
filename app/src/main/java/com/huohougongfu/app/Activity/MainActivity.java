@@ -183,6 +183,7 @@
                                 lat = String.valueOf(lat1);
                                 lon = String.valueOf(lon1);
                                 MyApp.instance.put("citycode",aMapLocation.getCityCode(),true);
+                                MyApp.instance.put("city",aMapLocation.getCity(),true);
                                 MyApp.instance.put("lat",lat,true);
                                 MyApp.instance.put("lon",lon,true);
                                 if (isFirstLoc) {

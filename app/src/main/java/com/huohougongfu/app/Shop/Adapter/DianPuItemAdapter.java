@@ -62,7 +62,11 @@ public class DianPuItemAdapter extends RecyclerView.Adapter<DianPuItemAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return 3;
+        if (data.size()>3){
+            return 3;
+        }else{
+            return data.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

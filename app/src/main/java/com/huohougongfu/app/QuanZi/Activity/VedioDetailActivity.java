@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.GuanZhuDongTai;
 import com.huohougongfu.app.Gson.MyDongTai;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
+import com.huohougongfu.app.Gson.QuanZiXiHuan;
 import com.huohougongfu.app.Gson.VedioDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.VedioComment;
@@ -92,6 +93,7 @@ public class VedioDetailActivity extends AppCompatActivity {
     private int page = 2;
     private GuanZhuDongTai.ResultBean.ListBean shipin2;
     private MyDongTai.ResultBean.ListBean dongtaishipin;
+    private QuanZiXiHuan.ResultBean.DatasBean.ListBean likeshipin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,8 @@ public class VedioDetailActivity extends AppCompatActivity {
         dongtaishipin = (MyDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("动态视频");
         shipin = (QuanZiFaXian.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("小视频");
         shipin2 = (GuanZhuDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("视频");
+        likeshipin = (QuanZiXiHuan.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("喜欢视频");
+
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
         map  = new HashMap<>();
@@ -235,6 +239,9 @@ public class VedioDetailActivity extends AppCompatActivity {
                     }else if (dongtaishipin != null){
                         Picasso.get().load(dongtaishipin.getPicture())
                                 .into(viewHolderForAdapterPosition.img_thumb);
+                    }else if(likeshipin!=null){
+                        Picasso.get().load(likeshipin.getPicture())
+                                .into(viewHolderForAdapterPosition.img_thumb);
                     }
                     viewHolderForAdapterPosition.img_thumb.setVisibility(View.VISIBLE);
                     viewHolderForAdapterPosition.img_play.animate().alpha(0f).start();
@@ -277,6 +284,14 @@ public class VedioDetailActivity extends AppCompatActivity {
                     .into(viewHolderForAdapterPosition.img_thumb);
             viewHolderForAdapterPosition.videoView.setVideoURI(
                     Uri.parse(dongtaishipin.getPicture()));
+            viewHolderForAdapterPosition.videoView.start();
+
+            viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
+        }else  if (likeshipin != null){
+            Picasso.get().load(likeshipin.getPicture())
+                    .into(viewHolderForAdapterPosition.img_thumb);
+            viewHolderForAdapterPosition.videoView.setVideoURI(
+                    Uri.parse(likeshipin.getPicture()));
             viewHolderForAdapterPosition.videoView.start();
 
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);

@@ -33,10 +33,9 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Map;
 
-public class ShopZhiFu extends BottomPopupView implements View.OnClickListener {
-    private final List<String> result;
+public class DingDanZhiFu extends BottomPopupView implements View.OnClickListener {
     private final Context context;
-    private final double total_price;
+    private final String priceTotal;
     private CheckBox check_yue,check_ali,check_weixin;
     private String alitoken;
     private static final int SDK_PAY_FLAG = 1001;
@@ -67,13 +66,13 @@ public class ShopZhiFu extends BottomPopupView implements View.OnClickListener {
     private TextView tv_total_price;
     private String wxtoken;
 
-    public ShopZhiFu(@NonNull Context context, List<String> result, double total_price) {
+    public DingDanZhiFu(@NonNull Context context, String alitoken, String substring) {
         super(context);
-        this.result = result;
         this.context= context;
-        this.total_price = total_price;
-    }
+        this.alitoken = alitoken;
+        this.priceTotal = substring;
 
+    }
     @Override
     protected int getImplLayoutId() {
         return R.layout.dialog_zhifu;
@@ -82,13 +81,12 @@ public class ShopZhiFu extends BottomPopupView implements View.OnClickListener {
     @Override
     protected void onCreate() {
         super.onCreate();
-        initALi();
-        initWX();
+//        initWX();
         check_yue = findViewById(R.id.check_yue);
         check_ali = findViewById(R.id.check_ali);
         check_weixin = findViewById(R.id.check_weixin);
         tv_total_price = findViewById(R.id.tv_total_price);
-        tv_total_price.setText("¥"+total_price);
+        tv_total_price.setText("￥"+priceTotal);
         check_yue.setClickable(false);
         check_ali.setClickable(false);
         check_weixin.setClickable(false);
@@ -99,49 +97,26 @@ public class ShopZhiFu extends BottomPopupView implements View.OnClickListener {
         findViewById(R.id.bt_weixin).setOnClickListener(this);
     }
 
-    //支付宝支付
-    private void initALi() {
-        String orderNo = "";
-        for (int i = 0; i < result.size(); i++) {
-            orderNo = result.get(i)+","+orderNo;
-        }
-        String orderNos = orderNo.substring(0, orderNo.length() - 1);
-        OkGo.<String>post(Contacts.URl1+"apliyConfirmPaymentMoreOrderNo")
-                .params("orderNos",orderNos)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                alitoken = jsonObject.getString("result");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
 
-    private void initWX(){
-        OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
-                .params("orderNo",result.get(0))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                wxtoken = jsonObject.getString("result");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
+
+//    private void initWX(){
+//        OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
+//                .params("orderNo",result.get(0))
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        String body = response.body();
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(body);
+//                            if (jsonObject.getInt("status") == 1){
+//                                wxtoken = jsonObject.getString("result");
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//    }
 
     @Override
     public void onClick(View v) {

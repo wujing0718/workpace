@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.UploadPictures.MainConstant;
@@ -212,7 +213,8 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                 meditview.add("わわゐゑをわわ");
                 mphotopath.add(new File(compressPath));
                 ImageView imageView = new ImageView(FaBuArticleActivity.this);
-                Glide.with(FaBuArticleActivity.this).load(compressPath).into(imageView);
+                RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
+                Glide.with(FaBuArticleActivity.this).load(compressPath).apply(placeholder).into(imageView);
                 view_wenzhang.addView(imageView);
                 imageView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override

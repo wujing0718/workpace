@@ -1,8 +1,9 @@
 package com.huohougongfu.app.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class QuanZiXiHuan {
+public class QuanZiXiHuan implements Serializable {
 
     private String msg;
     private ResultBean result;
@@ -32,7 +33,7 @@ public class QuanZiXiHuan {
         this.status = status;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         private Object condition;
         private DatasBean datas;
 
@@ -52,7 +53,7 @@ public class QuanZiXiHuan {
             this.datas = datas;
         }
 
-        public static class DatasBean {
+        public static class DatasBean implements Serializable{
 
             private int total;
             private int pageNum;
@@ -217,7 +218,7 @@ public class QuanZiXiHuan {
                 this.navigatepageNums = navigatepageNums;
             }
 
-            public static class ListBean {
+            public static class ListBean implements Serializable{
                 /**
                  * id : 7
                  * type : 2
@@ -422,7 +423,7 @@ public class QuanZiXiHuan {
                     this.mid = mid;
                 }
 
-                public static class MemberBean {
+                public static class MemberBean implements Serializable{
                     /**
                      * userId : 7
                      * nickName : 测试账号131

@@ -40,6 +40,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity {
             tv_my_jianjie,tv_my_fenlei,tv_my_weizhi;
     private ImageView img_my_touxiang;
     private View view_weizhi;
+    private TextView tv_dianpu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,11 @@ public class DiaPuZhuYeActivity extends AppCompatActivity {
     }
 
     private void initUI() {
+        tv_dianpu = findViewById(R.id.tv_dianpu);
         view_weizhi = findViewById(R.id.view_weizhi);
         img_my_touxiang = findViewById(R.id.img_my_touxiang);
         tv_my_name = findViewById(R.id.tv_my_name);
         tv_my_vipnum = findViewById(R.id.tv_my_vipnum);
-        tv_my_id = findViewById(R.id.tv_my_id);
         tv_my_guanzhunum = findViewById(R.id.tv_my_guanzhunum);
         tv_my_fensinum = findViewById(R.id.tv_my_fensinum);
         tv_my_jianjie = findViewById(R.id.tv_my_jianjie);
@@ -98,7 +99,11 @@ public class DiaPuZhuYeActivity extends AppCompatActivity {
         Glide.with(MyApp.context).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
         tv_my_vipnum.setText("1");
-
+        if (result.isIsMerchant()){
+            tv_dianpu.setVisibility(View.VISIBLE);
+        }else{
+            tv_dianpu.setVisibility(View.GONE);
+        }
         if (result.getPlace()!=null){
             view_weizhi.setVisibility(View.VISIBLE);
             tv_my_weizhi.setText(result.getPlace());

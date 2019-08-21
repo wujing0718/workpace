@@ -20,7 +20,7 @@ public class HuDongPingLunAdapter extends BaseQuickAdapter<HuDongPingLun.ResultB
 
     @Override
     protected void convert(BaseViewHolder helper, HuDongPingLun.ResultBean.ListBean item) {
-        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         ImageView img_touxiang = helper.getView(R.id.img_touxiang);
         ImageView img_my_photo = helper.getView(R.id.img_my_photo);
         helper.setText(R.id.tv_name,item.getMember().getNickName());
@@ -29,7 +29,8 @@ public class HuDongPingLunAdapter extends BaseQuickAdapter<HuDongPingLun.ResultB
         helper.setText(R.id.tv_time,item.getCreateTime());
         helper.setText(R.id.tv_content,item.getContent());
         helper.setText(R.id.tv_my_content,item.getCircleData().getContent());
+        RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
         Glide.with(MyApp.context).load(item.getMember().getPhoto()).apply(requestOptions).into(img_touxiang);
-        Glide.with(MyApp.context).load(item.getCircleData().getPicture()).into(img_my_photo);
+        Glide.with(MyApp.context).load(item.getCircleData().getPicture()).apply(placeholder).into(img_my_photo);
     }
 }

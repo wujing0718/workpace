@@ -22,9 +22,11 @@ import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.DaShi;
 import com.huohougongfu.app.Gson.DaShiSouSuo;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.Gson.SouSuoShopGson;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.PopupView.DianPuShaiXunPopup;
 import com.huohougongfu.app.PopupView.ShaiXuanDaShiView;
+import com.huohougongfu.app.PopupView.ShaiXuanDrawerPopupView;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.DaShiAdapter;
@@ -34,12 +36,16 @@ import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.enums.PopupPosition;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +64,9 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
     private  String indexParams = "0";
     private TextView bt_dashi_zonghe,bt_dashi_renqi;
     private String name;
+    private DaShiAdapter shangPinAdapter;
+    private int page =2;
+    private BasePopupView xpopup;
 
     public SouSuoDaShiFragment() {
     }
@@ -83,6 +92,9 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                              Bundle savedInstanceState) {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_sou_suo_da_shi, container, false);
+        xpopup = new XPopup.Builder(getContext())
+                .popupPosition(PopupPosition.Right)//右边
+                .asCustom(new ShaiXuanDaShiView(getContext(),mHandler));
         initUI();
         initData(map);
         return inflate;
@@ -104,6 +116,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
     }
 
     private void initData(Map<String,String> map1) {
+        map.clear();
         map.putAll(map1);
         map.put("page","1");
         map.put("pageSize","10");
@@ -125,7 +138,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+//                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -136,7 +149,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_sousuo_dashi.setLayoutManager(layoutmanager);
-        DaShiAdapter shangPinAdapter = new DaShiAdapter(R.layout.item_shop_sousuo_dashi, result.getList());
+        shangPinAdapter = new DaShiAdapter(R.layout.item_shop_sousuo_dashi, result.getList());
         rec_sousuo_dashi.setAdapter(shangPinAdapter);
         shangPinAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -147,7 +160,54 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                 startActivity(intent);
             }
         });
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                map.clear();
+                initData(map);
+                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
     }
+
+    private void initAdd() {
+        map.put("page",String.valueOf(page++));
+        map.put("pageSize","10");
+        map.put("indexParams",indexParams);
+        if (name!=null){
+            map.put("name",name);
+        }
+        OkGo.<String>get(Contacts.URl2+"query/filter/queryMaster")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        DaShiSouSuo dashi = gson.fromJson(response.body(), DaShiSouSuo.class);
+                        if (dashi.getResult().getList().size()>0){
+                            shangPinAdapter.add(dashi.getResult().getList());
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }else {
+                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
+    }
+
     public static Fragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);
@@ -181,10 +241,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                 break;
             case R.id.bt_dashi_shaixuan:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .popupPosition(PopupPosition.Right)//右边
-                            .asCustom(new ShaiXuanDaShiView(getContext(),mHandler))
-                            .show();
+                    xpopup.show();
                 }
                 break;
         }

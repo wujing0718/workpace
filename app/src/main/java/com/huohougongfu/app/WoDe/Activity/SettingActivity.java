@@ -51,6 +51,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private String token,phone;
     private TextView bt_tuichudenglu;
     private SPUtils instance;
+    private TextView tv_dianpu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         Glide.with(MyApp.context).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
         tv_my_vipnum.setText("1");
-
+        if (result.isIsMerchant()){
+            tv_dianpu.setVisibility(View.VISIBLE);
+        }else {
+            tv_dianpu.setVisibility(View.GONE);
+        }
         if (result.getPlace()!=null){
             view_weizhi.setVisibility(View.VISIBLE);
             tv_my_weizhi.setText(result.getPlace());
@@ -121,6 +126,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initUI() {
+        tv_dianpu = findViewById(R.id.tv_dianpu);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_bianji).setOnClickListener(this);
         findViewById(R.id.bt_shouhuodizhi).setOnClickListener(this);
@@ -139,6 +145,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         view_weizhi = findViewById(R.id.view_weizhi);
         tv_huancun = findViewById(R.id.tv_huancun);
         img_my_touxiang = findViewById(R.id.img_my_touxiang);
+        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        Glide.with(MyApp.context).load(R.mipmap.img_zhanweitu).apply(requestOptions).into(img_my_touxiang);
         tv_my_name = findViewById(R.id.tv_my_name);
         tv_my_vipnum = findViewById(R.id.tv_my_vipnum);
         tv_my_jianjie = findViewById(R.id.tv_my_jianjie);

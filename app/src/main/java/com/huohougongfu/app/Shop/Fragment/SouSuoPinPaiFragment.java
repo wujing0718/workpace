@@ -17,7 +17,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.SouSuoDianPu;
+import com.huohougongfu.app.Gson.SouSuoShopGson;
 import com.huohougongfu.app.PopupView.DianPuShaiXunPopup;
+import com.huohougongfu.app.PopupView.ShaiXuanDrawerPopupView;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.SouSuoDianPuAdapter;
@@ -27,12 +29,16 @@ import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.enums.PopupPosition;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +56,10 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
     Map<String, String> map = new HashMap<>();
     private  String indexParam = "0";
     private String queryStoreName;
+    private SouSuoDianPuAdapter shangPinAdapter;
+    private int page = 2;
+    private BasePopupView xpopup;
+
     public SouSuoPinPaiFragment() {
         // Required empty public constructor
     }
@@ -75,6 +85,9 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                              Bundle savedInstanceState) {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_sou_suo_pin_pai, container, false);
+        xpopup = new XPopup.Builder(getContext())
+                .popupPosition(PopupPosition.Right)//右边
+                .asCustom(new DianPuShaiXunPopup(getContext(),mHandler));
         initUI();
         initData(map);
         return inflate;
@@ -83,7 +96,6 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
     @Override
     public void onStart() {
         super.onStart();
-        String sousuo = getArguments().getString("SOUSUO");
     }
 
     private void initUI() {
@@ -103,12 +115,15 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
 
 
     private void initData(Map<String,String> map1) {
+        map.clear();
         map.putAll(map1);
         map.put("showNum","3");
         map.put("page","1");
         map.put("pageSize","10");
         map.put("indexParam",indexParam);
-        if (queryStoreName!=null){
+        if (queryStoreName!=null &&queryStoreName.length()>0){
+            map.put("queryStoreName",queryStoreName);
+        }else{
             map.put("queryStoreName",queryStoreName);
         }
         OkGo.<String>get(Contacts.URl2+"query/indexfilter/queryIndexStore")
@@ -125,7 +140,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+//                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -136,7 +151,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_sousuo_pinpai.setLayoutManager(layoutmanager);
-        SouSuoDianPuAdapter shangPinAdapter = new SouSuoDianPuAdapter(R.layout.item_shop_sousuo_pinpai,result.getList());
+        shangPinAdapter = new SouSuoDianPuAdapter(R.layout.item_shop_sousuo_pinpai,result.getList());
         rec_sousuo_pinpai.setAdapter(shangPinAdapter);
         shangPinAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -147,6 +162,50 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                 startActivity(intent);
             }
         });
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                map.clear();
+                initData(map);
+                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String, String> map = new HashMap<>();
+        map.put("showNum","3");
+        map.put("page",String.valueOf(page++));
+        map.put("pageSize","10");
+        map.put("indexParam",indexParam);
+        if (queryStoreName!=null &&queryStoreName.length()>0){
+            map.put("queryStoreName",queryStoreName);
+        }else{
+            map.put("queryStoreName",queryStoreName);
+        }
+        OkGo.<String>get(Contacts.URl2+"query/indexfilter/queryIndexStore")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        SouSuoDianPu shop = gson.fromJson(response.body(), SouSuoDianPu.class);
+                        if (shop.getResult().getList().size()>0){
+                            shangPinAdapter.add(shop.getResult().getList());
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }else {
+                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                        }
+                    }
+                });
     }
 
     public static Fragment newInstance(String content) {
@@ -202,10 +261,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                 break;
             case R.id.bt_dianpu_shaixuan:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .popupPosition(PopupPosition.Right)//右边
-                            .asCustom(new DianPuShaiXunPopup(getContext(),mHandler))
-                            .show();
+                    xpopup.show();
                 }
                 break;
         }

@@ -4,6 +4,7 @@ package com.huohougongfu.app.WoDe.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +15,10 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.MyDingDan;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.DingDanZhiFu;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.PopupView.ShopZhiFu;
 import com.huohougongfu.app.R;
@@ -141,7 +144,7 @@ public class DingDanFragment extends Fragment {
                                 intent.setClass(getActivity(),DingDanPingJiaActivity.class);
                                 startActivity(intent);
                             }else  if (result.get(position).getOrderStatus() == 0){
-                                ToastUtils.showShort("确认付款");
+                                initALi(result.get(position).getOrderNo());
                             }else  if (result.get(position).getOrderStatus() == -1){
                                 initDelete(result.get(position).getOrderNo());
                             }
@@ -153,6 +156,25 @@ public class DingDanFragment extends Fragment {
         }else{
             rec_chatai_dingdan.setVisibility(View.GONE);
         }
+    }
+
+    //支付宝支付
+    private void initALi(String orderNo) {
+        OkGo.<String>post(Contacts.URl1+"apliyConfirmPaymentMoreOrderNo")
+                .params("orderNos",orderNo)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        ALiPay aLiPay = new Gson().fromJson(body, ALiPay.class);
+                        if (aLiPay.getStatus() == 1){
+                            new XPopup.Builder(getActivity())
+                                    .asCustom(new DingDanZhiFu(getActivity(),aLiPay.getResult().getOrderString(),
+                                            String.valueOf(aLiPay.getResult().getPriceTotal())))
+                                    .show();
+                        }
+                    }
+                });
     }
     //  取消订单
     private void initQuanXiao(String orderNo, int orderStatus) {

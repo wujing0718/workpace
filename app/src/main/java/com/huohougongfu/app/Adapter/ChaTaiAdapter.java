@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
 import com.huohougongfu.app.R;
@@ -108,7 +109,8 @@ public class ChaTaiAdapter extends BaseAdapter {
             groupViewHolder.tv_chatai_hasDust.setText("无茶底");
         }
         groupViewHolder.tv_chatai_concentration.setText(list.get(position).getConcentration());
-        Glide.with(context).load(list.get(position).getTea().getPicture()).into(groupViewHolder.img_chatai_photo);
+        RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
+        Glide.with(context).load(list.get(position).getTea().getPicture()).apply(placeholder).into(groupViewHolder.img_chatai_photo);
         groupViewHolder.amountview.setCount(list.get(position).getNum());
 //        groupViewHolder.amountview.setMaxCount(list.get(position).getStock());
         groupViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {

@@ -43,7 +43,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/img_shenfenrenzheng"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="165dp" />

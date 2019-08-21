@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.SouSuoDianPu;
+import com.huohougongfu.app.Gson.SouSuoShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
@@ -21,10 +22,10 @@ import java.util.List;
 import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
 public class SouSuoDianPuAdapter extends BaseQuickAdapter<SouSuoDianPu.ResultBean.ListBean,BaseViewHolder> {
-    private List<SouSuoDianPu.ResultBean.ListBean> data;
+    private List<SouSuoDianPu.ResultBean.ListBean> data1;
     public SouSuoDianPuAdapter(int layoutResId, @Nullable List<SouSuoDianPu.ResultBean.ListBean> data) {
         super(layoutResId, data);
-        this.data = data;
+        this.data1 = data;
     }
 
     @Override
@@ -43,8 +44,8 @@ public class SouSuoDianPuAdapter extends BaseQuickAdapter<SouSuoDianPu.ResultBea
         //设置RecyclerView 布局
         rec_dianpu_shangpin.setLayoutManager(layoutmanager);
         int firstVisibleItemPosition = layoutmanager.findFirstVisibleItemPosition()+1;
-        if (data.get(firstVisibleItemPosition).getMallProductList().size()>0){
-            DianPuItemAdapter shangPinTuiJianAdapter = new DianPuItemAdapter(MyApp.getInstances(),data.get(firstVisibleItemPosition).getMallProductList());
+        if (data1.get(firstVisibleItemPosition).getMallProductList().size()>0){
+            DianPuItemAdapter shangPinTuiJianAdapter = new DianPuItemAdapter(MyApp.getInstances(),data1.get(firstVisibleItemPosition).getMallProductList());
             rec_dianpu_shangpin.setAdapter(shangPinTuiJianAdapter);
             shangPinTuiJianAdapter.setOnItemClickListener(new DianPuItemAdapter.OnItemClickListener() {
                 @Override
@@ -56,5 +57,19 @@ public class SouSuoDianPuAdapter extends BaseQuickAdapter<SouSuoDianPu.ResultBea
                 }
             });
         }
+    }
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<SouSuoDianPu.ResultBean.ListBean> data) {
+        //增加数据
+        int position = data1.size();
+        data1.addAll(position, data);
+        notifyItemRangeChanged(position,data.size());
+    }
+
+    public void refresh(List<SouSuoDianPu.ResultBean.ListBean> data) {
+        //刷新数据
+        data1.remove(data1);
+        data1.addAll(data);
+        notifyDataSetChanged();
     }
 }

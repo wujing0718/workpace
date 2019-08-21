@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -54,6 +55,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     private String citycode;
     private EditText edt_quanzi_sousuo;
     private InputMethodManager manager;
+    private TextView tv_city;
 
     public QuanZiFragment() {
         // Required empty public constructor
@@ -71,6 +73,8 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         layoutParams.height = utils.getStatusBarHeight();
         citycode = MyApp.instance.getString("citycode");
         intent = new Intent();
+        tv_city = inflate.findViewById(R.id.tv_city);
+        tv_city.setText(MyApp.instance.getString("city"));
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
         inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);

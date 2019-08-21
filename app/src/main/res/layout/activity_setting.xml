@@ -97,7 +97,7 @@
 
                             <TextView
                                 android:id="@+id/tv_my_name"
-                                android:text=""
+                                android:text="未登录"
                                 android:textSize="17sp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/colorBlack"
@@ -121,29 +121,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_marginTop="2dp"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:text="ID："
-                                android:textColor="#818181"
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:id="@+id/tv_my_id"
-                                android:text="123456"
-                                android:textColor="#818181"
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
 
@@ -186,7 +163,9 @@
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/tv_dianpu"
                                 android:text="店铺"
+                                android:visibility="gone"
                                 android:layout_marginLeft="5dp"
                                 android:paddingVertical="2dp"
                                 android:paddingHorizontal="@dimen/dp_4"

@@ -32,7 +32,7 @@ public class ShangPinTuiJianAdapter extends BaseQuickAdapter<TeYuePingPai.Result
     protected void convert(BaseViewHolder helper, TeYuePingPai.ResultBean.IsSpecialBean item) {
         helper.addOnClickListener(R.id.bt_dashi_jianjie);
         ImageView img_cainixihuan_photo = helper.getView(R.id.img_dashi_touxiang);
-        RequestOptions requestOptions = new RequestOptions().circleCrop();
+        RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         Glide.with(MyApp.context).load(item.getImg()).apply(requestOptions).into(img_cainixihuan_photo);
         helper.setText(R.id.tv_cainixihuan_name,item.getName());
     }

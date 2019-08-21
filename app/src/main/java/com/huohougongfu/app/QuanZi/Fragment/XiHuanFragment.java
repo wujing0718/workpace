@@ -19,6 +19,8 @@ import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.Gson.QuanZiXiHuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.QuanZi.Adapter.FaXianAdapter;
 import com.huohougongfu.app.QuanZi.Adapter.XiHuanAdapter;
 import com.huohougongfu.app.R;
@@ -85,7 +87,6 @@ public class XiHuanFragment extends Fragment implements IListener {
         map.put("pageSize","10");
         map.put("mId",mId);
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/praise/list")
                 .params(map)
                 .execute(new StringCallback() {
@@ -122,9 +123,24 @@ public class XiHuanFragment extends Fragment implements IListener {
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent();
-                intent.putExtra("dId",xihuan.getResult().getDatas().getList().get(position).getId());
-                startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
+                if (xihuan.getResult().getDatas().getList().get(position).getType() == 2){
+                    Intent intent = new Intent();
+                    intent.putExtra("dId",xihuan.getResult().getDatas().getList().get(position).getId());
+                    intent.putExtra("userid",xihuan.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    startActivity(intent.setClass(getActivity(),WenZhangDetailActivity.class));
+                }else if(xihuan.getResult().getDatas().getList().get(position).getType() == 1){
+                    Intent intent = new Intent();
+                    intent.putExtra("userid",xihuan.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    intent.putExtra("dId",xihuan.getResult().getDatas().getList().get(position).getId());
+                    startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
+                }else if (xihuan.getResult().getDatas().getList().get(position).getType() == 3){
+                    Intent intent = new Intent();
+                    intent.putExtra("userid",xihuan.getResult().getDatas().getList().get(position).getMember().getUserId());
+                    intent.putExtra("喜欢视频",xihuan.getResult().getDatas().getList().get(position));
+                    intent.putExtra("position",position);
+                    intent.putExtra("dId",xihuan.getResult().getDatas().getList().get(position).getId());
+                    startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
+                }
             }
         });
         faXianAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -201,7 +217,6 @@ public class XiHuanFragment extends Fragment implements IListener {
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",mId);
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -231,7 +246,7 @@ public class XiHuanFragment extends Fragment implements IListener {
     private void initAdd() {
         Map<String, String> map = new HashMap<>();
         map.put("pageNo",String.valueOf(page++));
-        map.put("pageSize","4");
+        map.put("pageSize","10");
         map.put("mId",mId);
         map.put("token",token);
 
