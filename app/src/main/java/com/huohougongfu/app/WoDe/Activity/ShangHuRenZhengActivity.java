@@ -87,6 +87,7 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
         img_mentou_photo = findViewById(R.id.img_mentou_photo);
         img_shouquan_photo = findViewById(R.id.img_shouquan_photo);
         tv_kaihu_yinhang = findViewById(R.id.tv_kaihu_yinhang);
+        findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_shanghu_tijiao).setOnClickListener(this);
         findViewById(R.id.bt_kaihu_yinhang).setOnClickListener(this);
         img_yingyezhizhao.setOnClickListener(this);
@@ -101,6 +102,9 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_finish:
+                finish();
+                break;
             case R.id.img_positive:
                 if (!utils.isDoubleClick()) {
                     PictureSelectorConfig.initSingleConfig(this,1);

@@ -82,11 +82,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
-        initRenZheng();
-        initVIP();
         intent = new Intent();
         return inflate;
     }
+
 
     private void initVIP() {
         OkGo.<String>get(Contacts.URl1+"/my/vipInfo/"+id)
@@ -150,6 +149,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onResume() {
+        initRenZheng();
+        initVIP();
         initData();
         super.onResume();
     }

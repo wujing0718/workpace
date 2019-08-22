@@ -40,6 +40,7 @@ public class ChaTaiAdapter extends BaseAdapter {
     private ChaTaiYouHuiQuan.ResultBean myouhuiquan;
     private boolean isDikou = true;
     private JSONArray array;
+    private String orderprice;
 
     public ChaTaiAdapter(int item_shouye_chataione, View bt_checkbox, Button btn_go_to_pay,
                          List<ChaTaiGson.ResultBean> list, Context context, ImageView img_check,
@@ -193,9 +194,9 @@ public class ChaTaiAdapter extends BaseAdapter {
                  */
                 if (mChangeCountListener != null) {
                     if (!isDikou){
-                        mChangeCountListener.onChangeCount(total_price,array,myouhuiquan.getTeaRice());
+                        mChangeCountListener.onChangeCount(total_price,array,myouhuiquan.getTeaRice(),isDikou,orderprice);
                     }else{
-                        mChangeCountListener.onChangeCount(total_price,array,0);
+                        mChangeCountListener.onChangeCount(total_price,array,0,isDikou,orderprice);
                     }
                 }
             }
@@ -228,9 +229,11 @@ public class ChaTaiAdapter extends BaseAdapter {
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
                     if (dikou>=total_price){
-                        tv_total_price.setText("¥" + decimalFormat.format(0.00));
+                        orderprice = decimalFormat.format(0.00);
+                        tv_total_price.setText("¥" + orderprice);
                     }else{
-                        tv_total_price.setText("¥" + decimalFormat.format(total_price-dikou));
+                        orderprice = decimalFormat.format(total_price-dikou);
+                        tv_total_price.setText("¥" + orderprice);
                     }
                 }
             }
@@ -259,7 +262,8 @@ public class ChaTaiAdapter extends BaseAdapter {
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
-                    tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                    orderprice = decimalFormat.format(total_price);
+                    tv_total_price.setText("¥" + orderprice);
                 }
             }
         }
@@ -275,14 +279,16 @@ public class ChaTaiAdapter extends BaseAdapter {
                             double chamiprice = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
                             if (chamiprice<=total_price){
                                 total_price = total_price-chamiprice;
-                                tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                                orderprice = decimalFormat.format(total_price);
+                                tv_total_price.setText("¥" + orderprice);
                             }else{
                                 tv_total_price.setText("¥" + 0.00);
                             }
                             img_chami_check.setImageResource(R.mipmap.select);
                             isDikou = false;
                         }else{
-                            tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                            orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
                             img_chami_check.setImageResource(R.mipmap.unselect);
                             isDikou = true;
                         }
@@ -357,7 +363,7 @@ public class ChaTaiAdapter extends BaseAdapter {
 
     //修改商品数量的回调
     public interface OnChangeCountListener {
-        void onChangeCount(double total_price, JSONArray array, int teaRice);
+        void onChangeCount(double total_price, JSONArray array, int teaRice,boolean isDikou,String orderprice);
     }
 
     public void setOnChangeCountListener(ChaTaiAdapter.OnChangeCountListener listener) {

@@ -70,6 +70,8 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
 
     };
     private ChaTaiYouHuiQuan.ResultBean.CouponsBean xuanzeyouhuiquan;
+    private double dikou;
+    private String orderprice;
 
 
     @Override
@@ -105,14 +107,16 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     }
                     String teanum = String.valueOf(num);
                     String price = String.valueOf(teaDetail.getPrice());
-                    double dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                    dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
                     double v = Double.parseDouble(teanum);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
                     if (dikou>=total_price){
-                        tv_total_price.setText("¥" + decimalFormat.format(0.00));
+                        orderprice = decimalFormat.format(0.00);
+                        tv_total_price.setText("¥" + price);
                     }else{
-                        tv_total_price.setText("¥" + decimalFormat.format(total_price-dikou));
+                        orderprice = decimalFormat.format(total_price - dikou);
+                        tv_total_price.setText("¥" + price);
                     }
         }else{
             //合计的计算
@@ -135,7 +139,8 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     double v = Double.parseDouble(teanum);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
-                    tv_total_price.setText("¥" + decimalFormat.format(total_price));
+            orderprice = decimalFormat.format(total_price);
+                    tv_total_price.setText("¥" + orderprice);
                 }
     }
 
@@ -188,7 +193,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     array.put(object);
                     String teanum = String.valueOf(i);
                     String price = String.valueOf(teaDetail.getPrice());
-                    double dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                    dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
                     double v = Double.parseDouble(teanum);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
@@ -254,9 +259,11 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
                     if (dikou>=total_price){
-                        tv_total_price.setText("¥" + decimalFormat.format(0.00));
+                        orderprice = decimalFormat.format(0.00);
+                        tv_total_price.setText("¥" + orderprice);
                     }else{
-                        tv_total_price.setText("¥" + decimalFormat.format(total_price-dikou));
+                        orderprice = decimalFormat.format(total_price-dikou);
+                        tv_total_price.setText("¥" + orderprice);
                     }
                 }else{
                     //合计的计算
@@ -279,7 +286,8 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     double v = Double.parseDouble(teanum);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
-                    tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                    orderprice = decimalFormat.format(total_price);
+                    tv_total_price.setText("¥" + orderprice);
                 }
             }
 
@@ -333,10 +341,10 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
             case R.id.bt_chami_dikou:
                 // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
                 if (isDikou){
-                    double chamiprice = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                    if (chamiprice<=total_price){
-                        total_price = total_price-chamiprice;
-                        tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                    dikou = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                    if (dikou<=total_price){
+                        double total_price1 = total_price-dikou;
+                        tv_total_price.setText("¥" + decimalFormat.format(total_price1));
                     }else{
                         tv_total_price.setText("¥" + 0.00);
                     }
@@ -375,8 +383,21 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
         if (xuanzeyouhuiquan!=null){
             map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
         }
-        map.put("totalPrice",String.valueOf(total_price));
-        map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
+        Double total_priceorder = Double.valueOf(orderprice);
+        if (!isDikou){
+            if (total_priceorder>=dikou){
+                map.put("totalPrice",String.valueOf(total_priceorder-dikou));
+                map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
+            }else{
+                map.put("totalPrice",String.valueOf(orderprice));
+                Double d = total_priceorder*100;
+                int teaRiceNum = d.intValue();
+                map.put("teaRiceNum",String.valueOf(teaRiceNum));
+            }
+        }else{
+            map.put("totalPrice",String.valueOf(orderprice));
+        }
+
         OkGo.<String>post(Contacts.URl1+"/machine/generate/orders")
                 .params(map)
                 .execute(new StringCallback() {

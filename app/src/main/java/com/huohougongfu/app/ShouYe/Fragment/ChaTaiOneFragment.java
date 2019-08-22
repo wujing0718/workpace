@@ -60,7 +60,6 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     private TextView tv_chami_dikou;
     private ImageView img_chami_check;
     private View bt_chami_dikou;
-    private boolean isDikou = true;
     double price;
     private ChaTaiYouHuiQuan.ResultBean myouhuiquan;
     private String machineId;
@@ -89,7 +88,6 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         }
 
     };
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -200,24 +198,41 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         mAdapter.setOnChangeCountListener(new ChaTaiAdapter.OnChangeCountListener() {
 
             @Override
-            public void onChangeCount(double total_price, JSONArray array, int teaRice) {
-                initORder(total_price,array,teaRice);
+            public void onChangeCount(double total_price, JSONArray array, int teaRice,boolean isDikou,String orderprice) {
+                initORder(total_price,array,teaRice,isDikou,orderprice);
             }
 
         });
         rec_chatai.setAdapter(mAdapter);
     }
 
-    private void initORder(double total_price, JSONArray array, int teaRice) {
+    private void initORder(double total_price, JSONArray array, int teaRice, boolean isDikou,String orderprice) {
         Map<String,String> map = new HashMap<>();
+        Double total_priceorder = Double.valueOf(orderprice);
         map.put("json",array.toString());
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("machineId",machineId);
         if (xuanzeyouhuiquan!=null){
             map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
         }
-        map.put("totalPrice",String.valueOf(total_price));
-        map.put("teaRiceNum",String.valueOf(teaRice));
+        double dikou = myouhuiquan.getTeaRice() * myouhuiquan.getProportion();
+        double order;
+        if (!isDikou){
+            if (total_priceorder-dikou>0){
+                order = total_priceorder-dikou;
+                map.put("totalPrice",String.valueOf(total_priceorder));
+                map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
+            }else{
+                order =0.00;
+                map.put("totalPrice",String.valueOf(total_priceorder));
+                Double v = total_priceorder * 100;
+                int teaRiceNum = v.intValue();
+                map.put("teaRiceNum",String.valueOf(teaRiceNum));
+            }
+        }else{
+            order = total_price;
+            map.put("totalPrice",String.valueOf(orderprice));
+        }
         OkGo.<String>post(Contacts.URl1+"/machine/generate/orders")
                 .params(map)
                 .execute(new StringCallback() {
@@ -228,7 +243,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 new XPopup.Builder(getContext())
-                                        .asCustom(new ChaTaiZhiFu(getContext(),jsonObject.getString("result"), total_price))
+                                        .asCustom(new ChaTaiZhiFu(getContext(),jsonObject.getString("result"), total_priceorder))
                                         .show();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

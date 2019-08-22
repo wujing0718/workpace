@@ -45,14 +45,19 @@ public class ChaMiNumFragment extends Fragment {
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
         initUI();
-        initData();
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
     }
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/wallet/teaRice")
                 .params(map)
@@ -82,7 +87,7 @@ public class ChaMiNumFragment extends Fragment {
         tv_chami_zong.setText(String.valueOf(chaMi.getResult().getMe()+chaMi.getResult().getSent()+"粒"));
         tv_yongjin.setText(String.valueOf(chaMi.getResult().getCommission()+"元"));
         tv_shouru.setText(String.valueOf(chaMi.getResult().getIncome()+"元"));
-
+        tv_chami_price.setText(String.valueOf(chaMi.getResult().getCommission()+chaMi.getResult().getIncome()+"元"));
     }
 
     private void initUI() {
