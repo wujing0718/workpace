@@ -31,6 +31,9 @@ import com.huohougongfu.app.PopupView.YouHuiQuan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.DaShiZhuanChang;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
+import com.huohougongfu.app.Shop.Adapter.ImageAdapter;
+import com.huohougongfu.app.Shop.Adapter.ShopDetailPhoto;
+import com.huohougongfu.app.Shop.Adapter.ShopImageAdapter;
 import com.huohougongfu.app.Shop.Adapter.ShopTuiJianAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
@@ -82,7 +85,6 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private ShopGuiGe.ResultBean guige;
     private ShopFuWuGson.ResultBean fuwu;
     private View bt_detail_fuwu;
-    private ImageView img_shangpin_detail;
     private ImageView img_dian_shoucang;
     private TextView tv_dian_shoucang;
     private String 挑选;
@@ -93,6 +95,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private View bt_jiagouwuche;
     private ShopDetail shopdetail;
     private RecyclerView rec_shop_detail_photo;
+    private List<Object> mlist = new ArrayList<>();
 
     public ShangPinFragment() {
 
@@ -231,7 +234,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                     mallProduct = shopdetail.getResult().getProductDetailInfo();
                     initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
                     initRec(shopdetail.getResult().getRecommend());
-                    initRecShopDetail();
+                    initRecShopDetail(shopdetail.getResult().getProductDetailInfo().getDetailPic());
                     if (mallProduct != null) {
                         initBanner(mallProduct);
                         initView(mallProduct);
@@ -267,7 +270,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 });
     }
 
-    private void initRecShopDetail() {
+    private void initRecShopDetail(String picture1) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity()){
             @Override
@@ -277,7 +280,18 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         };
         //设置RecyclerView 布局
         rec_shop_detail_photo.setLayoutManager(layoutmanager);
-
+        if(picture1 !=null){
+            mlist.clear();
+            String[] split = picture1.split(",");
+            rec_shop_detail_photo.setVisibility(View.VISIBLE);
+            for (int i = 0; i < split.length; i++) {
+                mlist.add(split[i]);
+            }
+            ShopImageAdapter pingJiaPhotoAdapter = new ShopImageAdapter(mlist);
+            rec_shop_detail_photo.setAdapter(pingJiaPhotoAdapter);
+        }else{
+            rec_shop_detail_photo.setVisibility(View.GONE);
+        }
     }
 
     private void initView(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct) {
@@ -309,8 +323,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         }
         tv_dianpu_name.setText(mallProduct.getStoreName());
         tv_dianpu_jianjie.setText(mallProduct.getStoreBoard());
-        Glide.with(getActivity()).load(mallProduct.getRemark()).into(img_shangpin_detail);
-
+//        Glide.with(getActivity()).load(mallProduct.getRemark()).into(img_shangpin_detail);
         if (mallProduct.getProductCollection()==1){
             tv_dian_shoucang.setText("已收藏");
             img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);

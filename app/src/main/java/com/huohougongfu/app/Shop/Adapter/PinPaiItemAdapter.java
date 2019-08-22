@@ -64,7 +64,11 @@ public class PinPaiItemAdapter extends RecyclerView.Adapter<PinPaiItemAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return 3;
+        if (data.size()>3){
+            return 3;
+        }else{
+            return data.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

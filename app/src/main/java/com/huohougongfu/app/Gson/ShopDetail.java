@@ -75,7 +75,15 @@ public class ShopDetail {
             private int isCollection;
             private String specialInstructions;
             private int productCollection;
+            private String detailPic;
 
+            public String getDetailPic() {
+                return detailPic;
+            }
+
+            public void setDetailPic(String detailPic) {
+                this.detailPic = detailPic;
+            }
 
             public String getSpecialInstructions() {
                 return specialInstructions;

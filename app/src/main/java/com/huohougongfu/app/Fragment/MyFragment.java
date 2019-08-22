@@ -104,30 +104,30 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                             }
                             //是否是线上店铺
                             if (vip.getResult().isIsMerchant()){
-                                img_ishuiyuan.setImageResource(R.mipmap.img_dianpu_yes);
+                                img_isdianpu.setImageResource(R.mipmap.img_dianpu_yes);
                             }else{
-                                img_ishuiyuan.setImageResource(R.mipmap.img_dianpu_no);
+                                img_isdianpu.setImageResource(R.mipmap.img_dianpu_no);
                             }
                             //茶米福利
                             if (vip.getResult().isTeaRiceWelfare()){
-                                img_ishuiyuan.setImageResource(R.mipmap.img_chami_yes);
+                                img_ischami.setImageResource(R.mipmap.img_chami_yes);
                             }else{
-                                img_ishuiyuan.setImageResource(R.mipmap.img_chami_no);
+                                img_ischami.setImageResource(R.mipmap.img_chami_no);
                             }
                             if (vip.getResult().isStickyPermissions()){
-                                img_ishuiyuan.setImageResource(R.mipmap.img_zhiding_yes);
+                                img_isquanxian.setImageResource(R.mipmap.img_zhiding_yes);
                             }else{
-                                img_ishuiyuan.setImageResource(R.mipmap.img_zhiding_no);
+                                img_isquanxian.setImageResource(R.mipmap.img_zhiding_no);
                             }
                             if (vip.getResult().isPreventPermissions()){
-                                img_ishuiyuan.setImageResource(R.mipmap.img_fangsaorao_yes);
+                                img_isfangsaorao.setImageResource(R.mipmap.img_fangsaorao_yes);
                             }else{
-                                img_ishuiyuan.setImageResource(R.mipmap.img_fangsaorao_no);
+                                img_isfangsaorao.setImageResource(R.mipmap.img_fangsaorao_no);
                             }
                             if (vip.getResult().isCustomerService()){
-                                img_ishuiyuan.setImageResource(R.mipmap.img_kefu_yes);
+                                img_iskefu.setImageResource(R.mipmap.img_kefu_yes);
                             }else{
-                                img_ishuiyuan.setImageResource(R.mipmap.img_kefu_no);
+                                img_iskefu.setImageResource(R.mipmap.img_kefu_no);
                             }
                         }
                     }

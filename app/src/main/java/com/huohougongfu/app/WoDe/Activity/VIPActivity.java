@@ -72,40 +72,39 @@ public class VIPActivity extends AppCompatActivity implements OnClickListener {
         tv_stavip.setText("VIP"+vip.getResult().getVipLevel());
         tv_endvip.setText("VIP"+(Integer.valueOf(vip.getResult().getVipLevel())+1));
         tv_totalIntegralNum.setText("+"+vip.getResult().getTotalIntegralNum());
-        //是否VIp
-        if (vip.getResult().isIsVip()){
-            img_ishuiyuan.setImageResource(R.mipmap.img_huiyuan_yes);
-        }else{
-            img_ishuiyuan.setImageResource(R.mipmap.img_huiyuan_no);
-        }
-        //是否是线上店铺
-        if (vip.getResult().isIsMerchant()){
-            img_ishuiyuan.setImageResource(R.mipmap.img_dianpu_yes);
-        }else{
-            img_ishuiyuan.setImageResource(R.mipmap.img_dianpu_no);
-        }
-        //茶米福利
-        if (vip.getResult().isTeaRiceWelfare()){
-            img_ishuiyuan.setImageResource(R.mipmap.img_chami_yes);
-        }else{
-            img_ishuiyuan.setImageResource(R.mipmap.img_chami_no);
-        }
-        if (vip.getResult().isStickyPermissions()){
-            img_ishuiyuan.setImageResource(R.mipmap.img_zhiding_yes);
-        }else{
-            img_ishuiyuan.setImageResource(R.mipmap.img_zhiding_no);
-        }
-        if (vip.getResult().isPreventPermissions()){
-            img_ishuiyuan.setImageResource(R.mipmap.img_fangsaorao_yes);
-        }else{
-            img_ishuiyuan.setImageResource(R.mipmap.img_fangsaorao_no);
-        }
-        if (vip.getResult().isCustomerService()){
-            img_ishuiyuan.setImageResource(R.mipmap.img_kefu_yes);
-        }else{
-            img_ishuiyuan.setImageResource(R.mipmap.img_kefu_no);
-        }
-
+            //是否VIp
+            if (vip.getResult().isIsVip()){
+                img_ishuiyuan.setImageResource(R.mipmap.img_huiyuan_yes);
+            }else{
+                img_ishuiyuan.setImageResource(R.mipmap.img_huiyuan_no);
+            }
+            //是否是线上店铺
+            if (vip.getResult().isIsMerchant()){
+                img_isdianpu.setImageResource(R.mipmap.img_dianpu_yes);
+            }else{
+                img_isdianpu.setImageResource(R.mipmap.img_dianpu_no);
+            }
+            //茶米福利
+            if (vip.getResult().isTeaRiceWelfare()){
+                img_ischami.setImageResource(R.mipmap.img_chami_yes);
+            }else{
+                img_ischami.setImageResource(R.mipmap.img_chami_no);
+            }
+            if (vip.getResult().isStickyPermissions()){
+                img_isquanxian.setImageResource(R.mipmap.img_zhiding_yes);
+            }else{
+                img_isquanxian.setImageResource(R.mipmap.img_zhiding_no);
+            }
+            if (vip.getResult().isPreventPermissions()){
+                img_isfangsaorao.setImageResource(R.mipmap.img_fangsaorao_yes);
+            }else{
+                img_isfangsaorao.setImageResource(R.mipmap.img_fangsaorao_no);
+            }
+            if (vip.getResult().isCustomerService()){
+                img_iskefu.setImageResource(R.mipmap.img_kefu_yes);
+            }else{
+                img_iskefu.setImageResource(R.mipmap.img_kefu_no);
+            }
         LinearLayoutManager layoutManager = new LinearLayoutManager(VIPActivity.this){
             @Override
             public boolean canScrollVertically() {

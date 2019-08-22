@@ -31,6 +31,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +54,8 @@ public class DingDanFragment extends Fragment {
     private ChaTaiDingDanAdapter mAdapter;
     private int mId;
     private View view_zhanweitu;
+    private SmartRefreshLayout smartrefreshlayout;
+    private int page = 2;
 
     public DingDanFragment() {
         // Required empty public constructor
@@ -61,10 +67,19 @@ public class DingDanFragment extends Fragment {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_ding_dan, container, false);
         view_zhanweitu = inflate.findViewById(R.id.view_zhanweitu);
+        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         mId = MyApp.instance.getInt("id");
         initData();
         return inflate;
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mAdapter != null) {
+            mAdapter.cancelAllTimers();
+        }
     }
 
     private void initData() {
@@ -127,11 +142,50 @@ public class DingDanFragment extends Fragment {
             }
         });
         rec_chatai_dingdan.setAdapter(mAdapter);
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initData();
+                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String, String> map = new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("pageNo", String.valueOf(page++));
+        map.put("pageSize", "10");
+        OkGo.<String>post(Contacts.URl1+"/machine/teaTable/orderList")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        shangPinGson = gson.fromJson(response.body(), ChaTaiDingDan.class);
+                        if (shangPinGson.getStatus() == 1) {
+                            if (shangPinGson.getResult().getList().size()>0){
+                                mAdapter.add(shangPinGson.getResult().getList());
+                                smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                            }else {
+                                smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                            }
+                        }
+                    }
+                });
     }
 
     private void initDelect(int id) {
-        OkGo.<String>get(Contacts.URl1+"/machine/delMachineOrder/")
-                .params("orderId",id)
+        OkGo.<String>get(Contacts.URl1+"/machine/delMachineOrder/"+id)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -139,6 +193,7 @@ public class DingDanFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                initData();
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
