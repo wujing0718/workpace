@@ -37,6 +37,7 @@ import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Activity.VIPActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeFenSiActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeGuanZhuActivity;
+import com.huohougongfu.app.WoDe.Activity.ZhuanKeActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -81,6 +82,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
+        initRenZheng();
         initVIP();
         intent = new Intent();
         return inflate;
@@ -224,8 +226,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_dingdan_daishouhuo).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_pingjia).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_zhuanke).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_yaoqing).setOnClickListener(this);
 
-        inflate.findViewById(R.id.bt_gengduo).setOnClickListener(this);
         bt_dianpu = inflate.findViewById(R.id.bt_dianpu);
         view_weizhi = inflate.findViewById(R.id.view_weizhi);
         img_my_touxiang = inflate.findViewById(R.id.img_my_touxiang);
@@ -254,6 +257,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_zhuanke:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),ZhuanKeActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.bt_huiyuan_quanbu:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),VIPActivity.class);
@@ -274,7 +283,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.bt_my_dianpu:
-                initRenZheng();
                 if (!utils.isDoubleClick()){
                     if (xinxi.getResult().isIsMerchant() ==true){
                         intent.setClass(getActivity(),MyDianPuActivity.class);

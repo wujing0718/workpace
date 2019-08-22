@@ -502,13 +502,14 @@
                     </LinearLayout>
 
                 </RelativeLayout>
-                
-                <ImageView
-                    android:id="@+id/img_shangpin_detail"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rec_shop_detail_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp" />
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+                
 
                 <RelativeLayout
                     android:layout_width="match_parent"

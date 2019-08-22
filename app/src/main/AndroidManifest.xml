@@ -277,7 +277,8 @@
         <activity android:name=".Activity.HuDongDianZanActivity" />
         <activity android:name=".WoDe.Activity.WuLiuActivity" />
         <activity android:name=".Activity.BindActivity" />
-        <activity android:name=".WoDe.Activity.VIPActivity"></activity>
+        <activity android:name=".WoDe.Activity.VIPActivity" />
+        <activity android:name=".WoDe.Activity.ZhuanKeActivity"></activity>
     </application>
 
 </manifest>

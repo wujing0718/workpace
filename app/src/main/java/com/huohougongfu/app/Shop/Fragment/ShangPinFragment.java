@@ -92,8 +92,10 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private View bt_shoucang;
     private View bt_jiagouwuche;
     private ShopDetail shopdetail;
+    private RecyclerView rec_shop_detail_photo;
 
     public ShangPinFragment() {
+
     }
 
 
@@ -176,7 +178,6 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_yuan_price = inflate.findViewById(R.id.tv_yuan_price);
         tv_detail_name = inflate.findViewById(R.id.tv_detail_name);
         tv_detail_kuaidi = inflate.findViewById(R.id.tv_detail_kuaidi);
-        img_shangpin_detail = inflate.findViewById(R.id.img_shangpin_detail);
         img_dianp_logo = inflate.findViewById(R.id.img_dianp_logo);
         tv_dianpu_name = inflate.findViewById(R.id.tv_dianpu_name);
         tv_dianpu_jianjie = inflate.findViewById(R.id.tv_dianpu_jianjie);
@@ -184,7 +185,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_detail_address = inflate.findViewById(R.id.tv_detail_address);
         tv_fuwu1 = inflate.findViewById(R.id.tv_fuwu1);
         tv_fuwu2 = inflate.findViewById(R.id.tv_fuwu2);
-
+        rec_shop_detail_photo = inflate.findViewById(R.id.rec_shop_detail_photo);
         tv_lijigoumai = inflate.findViewById(R.id.tv_lijigoumai);
         tv_manjian1 = inflate.findViewById(R.id.tv_manjian1);
         tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
@@ -218,30 +219,32 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         map.put("token",token);
         map.put("showNum","10");
         map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
-        OkGo.<String>get(Contacts.URl2+"queryProductDetail")
+        OkGo.<String>get(Contacts.URl2 + "queryProductDetail")
                 .params(map)
                 .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
-                        Gson gson = new Gson();
-                        shopdetail = gson.fromJson(response.body(), ShopDetail.class);
-                        if (shopdetail.getStatus() == 1) {
-                            mallProduct = shopdetail.getResult().getProductDetailInfo();
-                            initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
-                            initRec(shopdetail.getResult().getRecommend());
-                            if (mallProduct!=null){
-                                initBanner(mallProduct);
-                                initView(mallProduct);
-                            }
-                        }
+            @Override
+            public void onSuccess(Response<String> response) {
+                WaitDialog.dismiss();
+                Gson gson = new Gson();
+                shopdetail = gson.fromJson(response.body(), ShopDetail.class);
+                if (shopdetail.getStatus() == 1) {
+                    mallProduct = shopdetail.getResult().getProductDetailInfo();
+                    initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
+                    initRec(shopdetail.getResult().getRecommend());
+                    initRecShopDetail();
+                    if (mallProduct != null) {
+                        initBanner(mallProduct);
+                        initView(mallProduct);
                     }
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
-                        super.onStart(request);
-                    }
-                });
+                }
+            }
+
+            @Override
+            public void onStart(Request<String, ? extends Request> request) {
+                WaitDialog.show(getActivity(), "载入中...");
+                super.onStart(request);
+            }
+        });
         map.remove("showNum");
         //规格
         OkGo.<String>get(Contacts.URl2+"selectStandardWithProductInfo")
@@ -262,6 +265,19 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         super.onStart(request);
                     }
                 });
+    }
+
+    private void initRecShopDetail() {
+        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        //设置RecyclerView 布局
+        rec_shop_detail_photo.setLayoutManager(layoutmanager);
+
     }
 
     private void initView(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct) {

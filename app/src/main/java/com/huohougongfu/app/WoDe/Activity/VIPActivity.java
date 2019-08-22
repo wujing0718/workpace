@@ -124,7 +124,6 @@ public class VIPActivity extends AppCompatActivity implements OnClickListener {
         findViewById(R.id.bt_zhiding).setOnClickListener(this);
         findViewById(R.id.bt_fangsaorao).setOnClickListener(this);
         findViewById(R.id.bt_kefu).setOnClickListener(this);
-
         rec_chengzhang = findViewById(R.id.rec_chengzhang);
         progress = findViewById(R.id.progress);
         tv_stavip = findViewById(R.id.tv_stavip);
@@ -153,27 +152,31 @@ public class VIPActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.bt_dianpu:
                 if (!utils.isDoubleClick()){
-
+                    MessageDialog.show(VIPActivity.this, "线上店铺", "下载注册即可自动开通线上店铺");
                 }
                 break;
             case R.id.bt_chami:
                 if (!utils.isDoubleClick()){
-
+                    MessageDialog.show(VIPActivity.this, "茶米福利", "实名认证并进行一笔消费\n" +
+                            "即可拥转赠茶米或者在消费时进行抵扣");
                 }
                 break;
             case R.id.bt_zhiding:
                 if (!utils.isDoubleClick()){
-
+                    MessageDialog.show(VIPActivity.this, "制定权限", "实名认证并进行一笔消费\n" +
+                            "即可置顶任意一条动态");
                 }
                 break;
             case R.id.bt_fangsaorao:
                 if (!utils.isDoubleClick()){
-
+                    MessageDialog.show(VIPActivity.this, "防止骚扰", "实名认证并进行一笔消费\n" +
+                            "即可xxxxxx");
                 }
                 break;
             case R.id.bt_kefu:
                 if (!utils.isDoubleClick()){
-
+                    MessageDialog.show(VIPActivity.this, "专属客服", "实名认证并进行一笔消费\n" +
+                            "即可拥有专属客服图标");
                 }
                 break;
         }

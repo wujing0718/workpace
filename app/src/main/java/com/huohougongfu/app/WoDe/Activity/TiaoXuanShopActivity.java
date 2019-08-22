@@ -16,11 +16,15 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.SouSuoShop;
+import com.huohougongfu.app.Gson.SouSuoShopGson;
 import com.huohougongfu.app.Gson.TeiHuiGson;
 import com.huohougongfu.app.PopupView.TiaoXuanShopShaiXuan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
+import com.huohougongfu.app.Shop.Adapter.SouSuoShopAdapter;
 import com.huohougongfu.app.Shop.Adapter.TeHuiAdapter;
+import com.huohougongfu.app.Shop.Adapter.TiaoXuanShopAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -42,7 +46,7 @@ public class TiaoXuanShopActivity extends AppCompatActivity implements View.OnCl
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_sousuo_shangpin;
     private int page = 2;
-    private TeHuiAdapter teHuiAdapter;
+    private TiaoXuanShopAdapter teHuiAdapter;
     Map<String, String> map = new HashMap<>();
     private  String indexParams = "0";
     private TextView bt_shop_zonghe,bt_shop_xiaoliang,bt_shop_xinpin,tv_shop_jiage;
@@ -96,20 +100,20 @@ public class TiaoXuanShopActivity extends AppCompatActivity implements View.OnCl
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        TeiHuiGson shop = gson.fromJson(response.body(), TeiHuiGson.class);
+                        SouSuoShopGson shop = gson.fromJson(response.body(), SouSuoShopGson.class);
                         if (shop.getStatus() == 1) {
-                            initRec(shop.getResult());
+                            initRec(shop.getResult().getResultList());
                         }
                     }
                 });
     }
 
-    private void initRec(TeiHuiGson.ResultBean data) {
+    private void initRec(SouSuoShopGson.ResultBean.ResultListBean data) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         GridLayoutManager layoutmanager = new GridLayoutManager(TiaoXuanShopActivity.this,2);
         //设置RecyclerView 布局
         rec_sousuo_shangpin.setLayoutManager(layoutmanager);
-        teHuiAdapter = new TeHuiAdapter(R.layout.item_shangpin,data.getList());
+        teHuiAdapter = new TiaoXuanShopAdapter(R.layout.item_shangpin,data.getList());
         rec_sousuo_shangpin.setAdapter(teHuiAdapter);
         teHuiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -149,9 +153,9 @@ public class TiaoXuanShopActivity extends AppCompatActivity implements View.OnCl
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        TeiHuiGson shop = gson.fromJson(response.body(), TeiHuiGson.class);
-                        if (shop.getResult().getList().size()>0){
-                            teHuiAdapter.add(shop.getResult().getList());
+                        SouSuoShopGson shop = gson.fromJson(response.body(), SouSuoShopGson.class);
+                        if (shop.getResult().getResultList().getList().size()>0){
+                            teHuiAdapter.add(shop.getResult().getResultList().getList());
                             smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                         }else {
                             smartrefreshlayout. finishLoadmoreWithNoMoreData();

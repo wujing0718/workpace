@@ -14,10 +14,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class SouSuoShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultBean.ResultListBean.ListBean,BaseViewHolder> {
+public class TiaoXuanShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultBean.ResultListBean.ListBean,BaseViewHolder> {
     private final List<SouSuoShopGson.ResultBean.ResultListBean.ListBean> data1;
 
-    public SouSuoShopAdapter(int layoutResId, @Nullable List<SouSuoShopGson.ResultBean.ResultListBean.ListBean> data) {
+    public TiaoXuanShopAdapter(int layoutResId, @Nullable List<SouSuoShopGson.ResultBean.ResultListBean.ListBean> data) {
         super(layoutResId, data);
         this.data1 = data;
     }
@@ -27,7 +27,7 @@ public class SouSuoShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultBea
         SlantedTextView slanted = helper.getView(R.id.slanted);
         TextView tv_yinli = helper.getView(R.id.tv_yinli);
         slanted.setVisibility(View.GONE);
-        tv_yinli.setVisibility(View.GONE);
+        tv_yinli.setText(String.valueOf("赚 ¥"+item.getCommission()));
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);
         helper.setText(R.id.tv_jingxuan_title,item.getName());

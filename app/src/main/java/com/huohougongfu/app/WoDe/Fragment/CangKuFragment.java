@@ -270,10 +270,10 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
 //            setBtnBackground(index);
             tehuiadapter.notifyDataSetChanged();
         }else{
-//            Intent intent = new Intent();
-//            intent.putExtra("id",myLiveList.get(pos).getId());
-//            intent.setClass(getActivity(),ShangPinDetailActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent();
+            intent.putExtra("id",myLiveList.get(pos).getId());
+            intent.setClass(getActivity(),ShangPinDetailActivity.class);
+            startActivity(intent);
         }
     }
 

@@ -226,9 +226,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     jsonObject.put("name",data.get("name"));
                     jsonObject.put("iconurl",data.get("iconurl"));
                     if ("男".equals(data.get("gender"))){
-                        jsonObject.put("unionGender","男");
+                        jsonObject.put("unionGender","1");
                     }else{
-                        jsonObject.put("unionGender","女");
+                        jsonObject.put("unionGender","2");
                     }
                     initJudge(jsonObject,"qq");
                 } catch (JSONException e) {
@@ -269,6 +269,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 intent.putExtra("type",type);
                                 intent.setClass(LoginActivity.this,BindActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         }
                     }
@@ -294,7 +295,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSuccess(String s) {
                 Log.e("TAG","成功");
-                startActivity(intent);
                 // 调用 Handler 来异步设置别名
                 mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(result.getUserInfo().getUserId())));
                 // 点击恢复按钮后，极光推送服务会恢复正常工作
@@ -302,6 +302,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 ToastUtils.showShort("登录成功");
                 intent.setClass(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
                 // 连接成功，说明你已成功连接到融云Server
             }
 
