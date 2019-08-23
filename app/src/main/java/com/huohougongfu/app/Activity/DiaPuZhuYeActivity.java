@@ -41,6 +41,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity {
     private ImageView img_my_touxiang;
     private View view_weizhi;
     private TextView tv_dianpu;
+    private String 挑选;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

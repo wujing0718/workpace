@@ -285,26 +285,30 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_my_dianpu:
                 if (!utils.isDoubleClick()){
-                    if (xinxi.getResult().isIsMerchant() ==true){
-                        intent.setClass(getActivity(),MyDianPuActivity.class);
-                        startActivity(intent);
-                    }else{
-                        if (renZhengZhuangTai!=null){
-                            if (renZhengZhuangTai.getStatus() == 1){
-                                if (renZhengZhuangTai.getResult().getPerson().getCode() == 0) {
-                                    intent.setClass(getActivity(), GeRenRenZhengActivity.class);
-                                    startActivity(intent);
-                                }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
-                                    if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
-                                        intent.setClass(getActivity(),RealNameActivity.class);
+                    if (xinxi.getResult()!=null){
+                        if (xinxi.getResult().isIsMerchant() ==true){
+                            intent.setClass(getActivity(),MyDianPuActivity.class);
+                            startActivity(intent);
+                        }else{
+                            if (renZhengZhuangTai!=null){
+                                if (renZhengZhuangTai.getStatus() == 1){
+                                    if (renZhengZhuangTai.getResult().getPerson().getCode() == 0) {
+                                        intent.setClass(getActivity(), GeRenRenZhengActivity.class);
                                         startActivity(intent);
-                                    }else{
-                                        intent.setClass(getActivity(),MyDianPuActivity.class);
-                                        startActivity(intent);
+                                    }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+                                        if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
+                                            intent.setClass(getActivity(),RealNameActivity.class);
+                                            startActivity(intent);
+                                        }else{
+                                            intent.setClass(getActivity(),MyDianPuActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
                                 }
                             }
                         }
+                    }else{
+                        ToastUtils.showShort("请稍后再试");
                     }
                 }
                 break;

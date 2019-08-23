@@ -28,13 +28,13 @@ public class HuDongDianZanAdapter extends BaseQuickAdapter<HuDongPingLun.ResultB
         helper.setText(R.id.tv_my_fenlei,item.getMember().getMaster().getLevel());
         helper.setText(R.id.tv_my_weizhi,item.getMember().getPlace());
         helper.setText(R.id.tv_time,item.getCreateTime());
-        helper.setText(R.id.tv_content,item.getMember().getMaster().getName()+"点赞了你的动态");
+        helper.setText(R.id.tv_content,item.getMember().getNickName()+"点赞了你的动态");
         RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
         if (item.getCircleData()!=null){
             helper.setText(R.id.tv_my_content,item.getCircleData().getContent());
             Glide.with(MyApp.context).load(item.getCircleData().getPicture()).apply(placeholder).into(img_my_photo);
         }
-        Glide.with(MyApp.context).load(item.getMember().getMaster().getPhoto()).apply(requestOptions).into(img_touxiang);
+        Glide.with(MyApp.context).load(item.getMember().getPhoto()).apply(requestOptions).into(img_touxiang);
 
     }
 }

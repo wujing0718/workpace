@@ -44,7 +44,6 @@ public class TADianPu extends Fragment {
     private RecyclerView rec_ta_dianpu;
     private ShopAdapter shangPinAdapter;
     private int page = 2;
-
     public TADianPu() {
         // Required empty public constructor
     }

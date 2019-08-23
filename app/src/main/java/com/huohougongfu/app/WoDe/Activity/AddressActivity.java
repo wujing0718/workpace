@@ -42,6 +42,7 @@ public class AddressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address);
         id = MyApp.instance.getInt("id");
         type = getIntent().getStringExtra("下单");
+        rec_shouhuodizhi = findViewById(R.id.rec_shouhuodizhi);
         findViewById(R.id.bt_add_dizhi).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +79,12 @@ public class AddressActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         AddRess addRess = gson.fromJson(body, AddRess.class);
                         if (addRess.getStatus() == 1){
-                            initRec(addRess.getResult());
+                            if (addRess.getResult().size()>0){
+                                rec_shouhuodizhi.setVisibility(View.VISIBLE);
+                                initRec(addRess.getResult());
+                            }else{
+                                rec_shouhuodizhi.setVisibility(View.GONE);
+                            }
                         }
                     }
 
@@ -91,7 +97,6 @@ public class AddressActivity extends AppCompatActivity {
     }
 
     private void initRec(List<AddRess.ResultBean> result) {
-         rec_shouhuodizhi = findViewById(R.id.rec_shouhuodizhi);
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局

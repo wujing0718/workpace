@@ -1,6 +1,7 @@
 package com.huohougongfu.app.PopupView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,6 +23,8 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.WoDe.Activity.AddressActivity;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.lzy.okgo.OkGo;
@@ -146,7 +149,20 @@ public class GuiGe extends BottomPopupView {
                             String result = jsonObject1.getString("result");
                             JSONObject result2 = new JSONObject(result);
                             if ("你还未设置地址".equals(result2.getString("defaultAddress"))){
-                                ToastUtils.showShort("请先设置默认地址");
+                                SelectDialog.show(context, "提示", "是否前往设置收货地址",
+                                        "确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent();
+                                                intent.setClass(context, AddressActivity.class);
+                                                context.startActivity(intent);
+                                            }
+                                        },
+                                        "取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
                             }else{
                                 Gson gson = new Gson();
                                 ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);

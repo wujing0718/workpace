@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.HuDongDianZanAdapter;
 import com.huohougongfu.app.Adapter.HuDongPingLunAdapter;
 import com.huohougongfu.app.Gson.HuDongPingLun;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
@@ -45,8 +46,8 @@ public class HuDongDianZanActivity extends AppCompatActivity {
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-//        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
-        map.put("mId", String.valueOf(43));
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+//        map.put("mId", String.valueOf(43));
         map.put("pageNo", String.valueOf(1));
         map.put("pageSize", String.valueOf(10));
         OkGo.<String>post(Contacts.URl1 + "/my/interactive/praiseList")

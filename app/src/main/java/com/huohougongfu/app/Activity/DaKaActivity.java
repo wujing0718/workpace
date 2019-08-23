@@ -145,6 +145,7 @@ public class DaKaActivity extends AppCompatActivity {
                         }
                     });
         }else{
+            WaitDialog.dismiss();
             ToastUtils.showShort(R.string.denglu);
         }
 

@@ -1,6 +1,7 @@
 package com.huohougongfu.app.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.WoDe.Activity.AddressActivity;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -316,13 +319,38 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
-                        Gson gson = new Gson();
-                        ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
-                        if (shopDingDan.getStatus() == 1){
-                            Intent intent = new Intent();
-                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
-                            intent.setClass(context,XiaDanActivity.class);
-                            context.startActivity(intent);
+                        try {
+                            JSONObject jsonObject1 = new JSONObject(body);
+                            String result = jsonObject1.getString("result");
+                            JSONObject result2 = new JSONObject(result);
+                            if ("你还未设置地址".equals(result2.getString("defaultAddress"))) {
+                                SelectDialog.show(context, "提示", "是否前往设置收货地址",
+                                        "确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent();
+                                                intent.setClass(context, AddressActivity.class);
+                                                context.startActivity(intent);
+                                            }
+                                        },
+                                        "取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+
+                            } else {
+                                Gson gson = new Gson();
+                                ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
+                                if (shopDingDan.getStatus() == 1) {
+                                    Intent intent = new Intent();
+                                    intent.putExtra("订单详情", (Serializable) shopDingDan.getResult());
+                                    intent.setClass(context, XiaDanActivity.class);
+                                    context.startActivity(intent);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 });

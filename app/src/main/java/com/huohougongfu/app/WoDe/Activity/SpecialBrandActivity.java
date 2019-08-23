@@ -45,6 +45,7 @@ public class SpecialBrandActivity extends AppCompatActivity implements View.OnCl
     private void initUI() {
         img_shangbiao = findViewById(R.id.img_shangbiao);
         img_qita_zizhi = findViewById(R.id.img_qita_zizhi);
+        findViewById(R.id.bt_finish).setOnClickListener(this);
         img_shangbiao.setOnClickListener(this);
         img_qita_zizhi.setOnClickListener(this);
         bt_special_tijiao = findViewById(R.id.bt_special_tijiao);
@@ -72,6 +73,9 @@ public class SpecialBrandActivity extends AppCompatActivity implements View.OnCl
                         ToastUtils.showShort("请上传商标证明");
                     }
                 }
+                break;
+            case R.id.bt_finish:
+                finish();
                 break;
         }
     }
