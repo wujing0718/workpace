@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -69,9 +70,14 @@ public class DingDanFragment extends Fragment {
         view_zhanweitu = inflate.findViewById(R.id.view_zhanweitu);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         mId = MyApp.instance.getInt("id");
-        initData();
         return inflate;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 
     @Override

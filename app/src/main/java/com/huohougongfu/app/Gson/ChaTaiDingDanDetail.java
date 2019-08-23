@@ -63,6 +63,7 @@ public class ChaTaiDingDanDetail {
 
         private int id;
         private String machineId;
+        private String orderNo;
         private String detailId;
         private String verificationCode;
         private int teaRiceNum;
@@ -86,6 +87,14 @@ public class ChaTaiDingDanDetail {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public String getOrderNo() {
+            return orderNo;
+        }
+
+        public void setOrderNo(String orderNo) {
+            this.orderNo = orderNo;
         }
 
         public String getMachineId() {

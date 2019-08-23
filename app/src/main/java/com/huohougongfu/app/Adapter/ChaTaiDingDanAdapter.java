@@ -101,7 +101,7 @@ public class ChaTaiDingDanAdapter extends BaseQuickAdapter<ChaTaiDingDan.ResultB
                     helper.setText(R.id.tv_chatai_orderStatus,"已消费");
                 }
         helper.setText(R.id.tv_chatai_teas,item.getTeas());
-        helper.setText(R.id.tv_chatai_teaNum,"共"+item.getTeaNum()+"件");
+        helper.setText(R.id.tv_chatai_teaNum,"共"+item.getDetails().size()+"件");
         helper.setText(R.id.tv_chatai_orderTotal,"合计：¥ "+item.getOrderTotal());
         helper.setText(R.id.tv_chatai_createTime,"下单时间："+item.getCreateTime());
     }

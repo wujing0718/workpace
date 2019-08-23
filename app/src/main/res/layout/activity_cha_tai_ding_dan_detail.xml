@@ -56,7 +56,7 @@
                     android:text="待支付"
                     android:textSize="12sp"
                     android:padding="@dimen/dp_10"
-                    android:textColor="#A0A0A0"
+                    android:textColor="@color/colorRed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -99,7 +99,7 @@
             <TextView
                 android:id="@+id/tv_quhuoma"
                 android:layout_marginTop="@dimen/dp_20"
-                android:text="9698  3697  032"
+                android:text=""
                 android:textSize="30sp"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/sousuoTab"
@@ -114,6 +114,17 @@
                 android:textColor="@color/sousuoTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/bt_queding"
+                android:text="确认支付"
+                android:textColor="@color/colorWhite"
+                android:gravity="center"
+                android:layout_marginVertical="@dimen/dp_10"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/delete_kuang"
+                android:layout_width="100dp"
+                android:layout_height="@dimen/dp_30" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rec_chatai"
@@ -143,7 +154,6 @@
                 <TextView
                     android:id="@+id/tv_chami_dikou"
                     android:layout_alignParentRight="true"
-                    android:text="¥2.00"
                     android:textSize="14sp"
                     android:padding="@dimen/dp_10"
                     android:textColor="@color/colorBlack"
@@ -167,7 +177,6 @@
                 <TextView
                     android:id="@+id/tv_youhuiquan"
                     android:layout_alignParentRight="true"
-                    android:text="打8折"
                     android:textSize="14sp"
                     android:padding="@dimen/dp_10"
                     android:textColor="@color/colorBlack"
@@ -201,6 +210,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_tea_num"
                         android:layout_alignParentRight="true"
                         android:text="共两件"
                         android:textSize="14sp"
@@ -210,8 +220,9 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/tv_orderTotal"
                         android:layout_alignParentRight="true"
-                        android:text="￥30.00"
+                        android:text=""
                         android:textSize="14sp"
                         android:padding="@dimen/dp_10"
                         android:textColor="@color/colorBlack"
@@ -231,7 +242,6 @@
             android:layout_marginBottom="10dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:text="下单时间：2019-5-22  14:23:12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
