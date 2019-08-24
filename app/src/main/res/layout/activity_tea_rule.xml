@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.TeaRuleActivity">
+
+    <RelativeLayout
+        android:background="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:textColor="@color/colorWhite"
+            android:text="茶米规则"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="1.茶米释义：即用户通过新人注册、每日签到、好友转赠、消费累积所产生的茶米，茶米可用于红包赠送和抵用消费金额。\n2.获得方式：\n(1)新人注册：新人大礼包可获得300茶米\n(2)每日签到：\n①　登录用户每天可签到1次，并领取奖励；\n②　签到7天为一个周期。若连续签到中断，则重新计算天数；\n③　连续签到奖励对照表："
+                android:textColor="@color/colorBlack"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/img_tearule"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_300" />
+
+            <TextView
+                android:text="(3)好友转赠：好友赠送的茶米红包，并领取成功；\n(4)消费累积：用户在【首页】或者【商城】成功购物后即可获得的茶米\n3.茶米使用途径：\n①　茶米赠送：\na.可赠送的茶米数额仅限用户本人通过“每日签到”、消费累积“获取到的茶米\nb.不可赠送的茶米包含新人大礼包内的茶米、好友转赠的茶米\n②　消费抵扣：100茶米可抵用1元\n4.茶米有效期：永久\n5.如用户出现违规行为，火后工夫有权进行相应的惩罚措施。"
+                android:textColor="@color/colorBlack"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>
