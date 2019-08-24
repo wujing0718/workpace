@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,11 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +49,27 @@ public class MyKaQuanFragment extends Fragment {
     private View inflate;
     private RecyclerView rec_kaquan_wode,rec_kaquan_shoudao;
     private String token,tel,id;
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
 
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+
+        }
+    };
     public MyKaQuanFragment() {
         // Required empty public constructor
     }
@@ -63,7 +89,7 @@ public class MyKaQuanFragment extends Fragment {
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         map.put("type","enableSend");
         OkGo.<String>post(Contacts.URl1+"/wallet/coupons")
@@ -75,7 +101,12 @@ public class MyKaQuanFragment extends Fragment {
                         Gson gson = new Gson();
                         MyCaQuan chaQuan = gson.fromJson(response.body(), MyCaQuan.class);
                         if (chaQuan.getStatus() == 1) {
-                            initRecWoDe(chaQuan.getResult());
+                            if (chaQuan.getResult().size()>0){
+                                rec_kaquan_wode.setVisibility(View.VISIBLE);
+                                initRecWoDe(chaQuan.getResult());
+                            }else{
+                                rec_kaquan_wode.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override
@@ -117,7 +148,19 @@ public class MyKaQuanFragment extends Fragment {
                                 .show();
                         break;
                     case R.id.bt_zhuanzeng:
-                        ToastUtils.showShort("转增");
+                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
+                        web.setTitle("火后功夫");//标题
+                        web.setDescription("123456");//描述
+                        if (TextUtils.isEmpty("")) {
+                            web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
+                        } else {
+                            web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                        }
+                        new ShareAction(getActivity())
+                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                .withMedia(web)
+                                .setCallback(umShareListener).open();
                         break;
                 }
             }

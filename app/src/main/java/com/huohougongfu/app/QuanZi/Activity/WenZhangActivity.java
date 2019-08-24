@@ -125,7 +125,12 @@ public class WenZhangActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         QuanZiFaXian faxian = gson.fromJson(response.body(), QuanZiFaXian.class);
                         if (faxian.getStatus() == 1) {
-                            initRec(faxian);
+                            if (faxian.getResult().getDatas().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(faxian);
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override

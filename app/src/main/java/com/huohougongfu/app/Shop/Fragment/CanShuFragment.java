@@ -74,7 +74,7 @@ public class CanShuFragment extends Fragment {
         map.put("tel",tel);
         map.put("id",String.valueOf(shopid));
         map.put("token",token);
-        OkGo.<String>get(Contacts.URl2+"selectProductAttribute")
+        OkGo.<String>get(Contacts.URl2+"getMallProductAttribute")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -85,8 +85,12 @@ public class CanShuFragment extends Fragment {
                         if (canshu.getStatus() == 1) {
                             if (canshu.getResult()!=null) {
                                 view_canshu.setVisibility(View.VISIBLE);
-                                initRecName(canshu);
-                                initRecContent(canshu);
+                                if (canshu.getResult().getKeys()!=null){
+                                    initRecName(canshu);
+                                }
+                                if (canshu.getResult().getVals()!=null){
+                                    initRecContent(canshu);
+                                }
                             }
                         }else{
                             view_canshu.setVisibility(View.GONE);
@@ -105,8 +109,10 @@ public class CanShuFragment extends Fragment {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_canshu_content.setLayoutManager(layoutmanager);
-        nameadapter = new CanShuNameAdapter(canshu.getResult().getVal());
-        rec_canshu_content.setAdapter(nameadapter);
+        if (canshu.getResult().getVals().size()>0 || canshu.getResult().getVals()!=null){
+            nameadapter = new CanShuNameAdapter(canshu.getResult().getVals());
+            rec_canshu_content.setAdapter(nameadapter);
+        }
     }
 
     private void initRecName(ShopCanShu canshu) {
@@ -114,8 +120,10 @@ public class CanShuFragment extends Fragment {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_canshu_name.setLayoutManager(layoutmanager);
-        contentadapter = new CanShuContentAdapter(canshu.getResult().getKeys());
-        rec_canshu_name.setAdapter(contentadapter);
+        if (canshu.getResult().getKeys().size()>0 || canshu.getResult().getVals()!=null){
+            contentadapter = new CanShuContentAdapter(canshu.getResult().getKeys());
+            rec_canshu_name.setAdapter(contentadapter);
+        }
     }
 
     public static Fragment newInstance(int str, String 挑选){

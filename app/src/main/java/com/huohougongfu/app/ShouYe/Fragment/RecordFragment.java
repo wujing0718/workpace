@@ -61,7 +61,7 @@ public class RecordFragment extends Fragment {
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/wallet/coupons/invalid")
                 .params(map)
@@ -73,9 +73,18 @@ public class RecordFragment extends Fragment {
                         Gson gson = new Gson();
                         KaQuanRecord record = gson.fromJson(body, KaQuanRecord.class);
                         if (record.getStatus() ==1){
-                            initSongChu(record.getResult());
-                            initShiXiao(record.getResult());
-
+                            if (record.getResult().getSend().size()>0){
+                                rec_shixiao.setVisibility(View.VISIBLE);
+                                initSongChu(record.getResult());
+                            }else{
+                                rec_shixiao.setVisibility(View.GONE);
+                            }
+                            if (record.getResult().getInvalid().size()>0){
+                                rec_songchu.setVisibility(View.VISIBLE);
+                                initShiXiao(record.getResult());
+                            }else{
+                                rec_songchu.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override

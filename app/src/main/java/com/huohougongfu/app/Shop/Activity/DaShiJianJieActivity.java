@@ -40,6 +40,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
     private ImageView img_dashi_photo;
     private DaShiJianJie daShiJianJie;
     private int mId;
+    private String dashid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initUI() {
-         tv_dashi_name = findViewById(R.id.tv_dashi_name);
+        tv_dashi_name = findViewById(R.id.tv_dashi_name);
         tv_dashi_level = findViewById(R.id.tv_dashi_level);
         tv_introduceContent = findViewById(R.id.tv_introduceContent);
         img_dashi_photo = findViewById(R.id.img_dashi_photo);
@@ -93,7 +94,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
             tv_dashi_name.setText(daShiJianJie.getResult().getName());
             tv_dashi_level.setText(daShiJianJie.getResult().getLevel());
             tv_introduceContent.setText(daShiJianJie.getResult().getIntroduceContent());
-            Glide.with(MyApp.context).load(daShiJianJie.getResult().getPhoto()).into(img_dashi_photo);
+            Glide.with(MyApp.context).load(daShiJianJie.getResult().getPortrait()).into(img_dashi_photo);
         }
     }
 
@@ -109,7 +110,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
             break;
             case R.id.bt_dashi_zhuye:
                 Intent intent = new Intent();
-                intent.putExtra("id",String.valueOf(dashiid));
+                intent.putExtra("id",String.valueOf(daShiJianJie.getResult().getMId()));
                 intent.setClass(DaShiJianJieActivity.this,DiaPuZhuYeActivity.class);
                 startActivity(intent);
                 break;
@@ -167,7 +168,6 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
-                                bt_dashi_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
                                 bt_dashi_guanzhu.setText("已关注");
                                 daShiJianJie.getResult().setIsCollection(1);
                             }
@@ -190,7 +190,6 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
-                                bt_dashi_guanzhu.setBackgroundResource(R.drawable.guanzhu);
                                 bt_dashi_guanzhu.setText("+关注");
                                 daShiJianJie.getResult().setIsCollection(0);
                             }

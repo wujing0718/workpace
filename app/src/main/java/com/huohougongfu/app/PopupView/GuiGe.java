@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShopGuiGe;
@@ -128,7 +130,8 @@ public class GuiGe extends BottomPopupView {
                 dismiss();
             }
         });
-        Picasso.get().load(mallProduct.getProductInfo().getCoverUrl()).into(img_guige_photo);
+        Glide.with(MyApp.context).load(mallProduct.getProductInfo().getCoverUrl())
+                .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_guige_photo);
         tv_guige_name.setText(mallProduct.getProductInfo().getName());
         if (mallProduct.getProductStandard() !=null){
             tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());

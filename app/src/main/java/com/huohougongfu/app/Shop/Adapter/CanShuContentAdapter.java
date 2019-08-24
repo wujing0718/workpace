@@ -13,8 +13,8 @@ import com.huohougongfu.app.R;
 import java.util.List;
 
 public class CanShuContentAdapter extends RecyclerView.Adapter<CanShuContentAdapter.VH>{
-    private List<String> val;
-    public CanShuContentAdapter(List<String> val) {
+    private List<Object> val;
+    public CanShuContentAdapter(List<Object> val) {
         this.val = val;
     }
 
@@ -28,12 +28,16 @@ public class CanShuContentAdapter extends RecyclerView.Adapter<CanShuContentAdap
 
     @Override
     public void onBindViewHolder(@NonNull CanShuContentAdapter.VH vh, int i) {
-            vh.tv_canshu_name.setText(val.get(i));
+            vh.tv_canshu_name.setText(String.valueOf(val.get(i)));
     }
 
     @Override
     public int getItemCount() {
-        return val.size();
+        if (val.size()>0 && val!=null){
+            return val.size();
+        }else{
+            return 0;
+        }
     }
 
     public class VH extends RecyclerView.ViewHolder {

@@ -4,10 +4,13 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.haozhang.lib.SlantedTextView;
 import com.huohougongfu.app.Gson.ShopGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +29,7 @@ public class ShopAdapter extends BaseQuickAdapter<ShopGson.ResultBean.ListBean,B
         SlantedTextView slanted = helper.getView(R.id.slanted);
         slanted.setVisibility(View.GONE);
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
-        Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);
+        Glide.with(MyApp.context).load(item.getCoverUrl()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_jingxuan_photo);
         helper.setText(R.id.tv_jingxuan_title,item.getName());
         helper.setText(R.id.tv_jingxuan_price,String.valueOf(item.getPrice()));
         helper.setText(R.id.tv_jingxuan_name,"【"+item.getModel()+"】");

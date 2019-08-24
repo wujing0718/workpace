@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,11 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,11 +51,32 @@ public class ChaYinFragment extends Fragment {
     private String phone;
     private boolean isfrist = true;
     private String token,tel,id;
+    private View view_zhanweitu1,view_zhanweitu2;
 
     public ChaYinFragment() {
         // Required empty public constructor
     }
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
 
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +93,7 @@ public class ChaYinFragment extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         map.put("type","tea");
         OkGo.<String>post(Contacts.URl1+"/wallet/coupons")
@@ -79,8 +106,20 @@ public class ChaYinFragment extends Fragment {
                         Gson gson = new Gson();
                         ChaQuan chaQuan = gson.fromJson(body, ChaQuan.class);
                         if (chaQuan.getStatus() == 1){
-                            initME(chaQuan.getResult().getMe());
-                            initSend(chaQuan.getResult().getSend());
+                            if (chaQuan.getResult().getMe().size()>0){
+                                view_zhanweitu1.setVisibility(View.GONE);
+                                rec_wodequan.setVisibility(View.VISIBLE);
+                                initME(chaQuan.getResult().getMe());
+                            }else{
+                                rec_wodequan.setVisibility(View.GONE);
+                            }
+                            if (chaQuan.getResult().getReceived().size()>0){
+                                view_zhanweitu2.setVisibility(View.GONE);
+                                rec_woshoudaoquan.setVisibility(View.VISIBLE);
+                                initSend(chaQuan.getResult().getReceived());
+                            }else{
+                                rec_woshoudaoquan.setVisibility(View.GONE);
+                            }
                         }
                     }
 
@@ -92,7 +131,7 @@ public class ChaYinFragment extends Fragment {
                 });
     }
 
-    private void initSend(List<ChaQuan.ResultBean.SendBean> send) {
+    private void initSend(List<ChaQuan.ResultBean.ReceivedBean> send) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
@@ -116,9 +155,6 @@ public class ChaYinFragment extends Fragment {
                                 .hasShadowBg(false) // 去掉半透明背景
                                 .asCustom(new KaQuanGuiZe(getContext(),send.get(position).getServiceRegulations()))
                                 .show();
-                        break;
-                    case R.id.bt_zhuanzeng:
-                            ToastUtils.showShort("转增");
                         break;
                 }
             }
@@ -145,7 +181,19 @@ public class ChaYinFragment extends Fragment {
                                 .show();
                         break;
                     case R.id.bt_zhuanzeng:
-                        ToastUtils.showShort("转增");
+                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
+                        web.setTitle("火后功夫");//标题
+                        web.setDescription("123456");//描述
+                        if (TextUtils.isEmpty("")) {
+                            web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
+                        } else {
+                            web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                        }
+                        new ShareAction(getActivity())
+                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                .withMedia(web)
+                                .setCallback(umShareListener).open();
                         break;
                 }
             }
@@ -153,6 +201,8 @@ public class ChaYinFragment extends Fragment {
     }
 
     private void initUI() {
+        view_zhanweitu1 = inflate.findViewById(R.id.view_zhanweitu1);
+        view_zhanweitu2 =inflate.findViewById(R.id.view_zhanweitu2);
         rec_wodequan = inflate.findViewById(R.id.rec_wodequan);
          rec_woshoudaoquan = inflate.findViewById(R.id.rec_woshoudaoquan);
     }

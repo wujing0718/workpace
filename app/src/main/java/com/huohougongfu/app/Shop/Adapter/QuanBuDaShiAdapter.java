@@ -28,8 +28,8 @@ public class QuanBuDaShiAdapter extends BaseQuickAdapter<DSZhuanChang.ResultBean
         helper.addOnClickListener(R.id.bt_dashi_zhuye
         );
         ImageView img_quanbudashi_photo = helper.getView(R.id.img_quanbudashi_photo);
-        RequestOptions requestOptions = new RequestOptions().circleCrop();
-        Glide.with(MyApp.context).load(item.getPhoto()).apply(requestOptions).into(img_quanbudashi_photo);
+        RequestOptions requestOptions = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
+        Glide.with(MyApp.context).load(item.getPortrait()).apply(requestOptions).into(img_quanbudashi_photo);
         helper.setText(R.id.tv_quanbudashi_name,item.getName());
         helper.setText(R.id.tv_quanbudashi_level,item.getLevel());
 

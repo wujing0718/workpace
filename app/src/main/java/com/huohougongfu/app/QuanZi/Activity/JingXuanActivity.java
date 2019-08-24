@@ -215,6 +215,12 @@ public class JingXuanActivity extends AppCompatActivity {
 //        rec_jingxuan_wenzhang.setAdapter(wodeadapter);
 //    }
     private void initUI() {
+        findViewById(R.id.bt_huanyihuan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initData();
+            }
+        });
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

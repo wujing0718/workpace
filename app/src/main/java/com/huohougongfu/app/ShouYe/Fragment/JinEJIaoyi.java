@@ -79,7 +79,7 @@ public class JinEJIaoyi extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("mId",id);
+        map.put("id",id);
         map.put("token",token);
         map.put("time",nowTime2+"-01");
         map.put("pageNo",String.valueOf(1));
@@ -95,7 +95,12 @@ public class JinEJIaoyi extends Fragment {
                         if (zhangdan.getStatus() == 1){
                             tv_zhangdan_zhichu.setText("支出¥"+zhangdan.getResult().getNegative());
                             tv_zhangdan_shouru.setText("收入¥"+zhangdan.getResult().getPositive());
-                            initRec(zhangdan.getResult().getRecords());
+                            if (zhangdan.getResult().getRecords().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(zhangdan.getResult().getRecords());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
 
@@ -118,7 +123,7 @@ public class JinEJIaoyi extends Fragment {
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-//                initOkGO();
+                initData();
                 smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
             }
         });

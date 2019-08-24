@@ -98,7 +98,12 @@ public class ChaMiJiaoyi extends Fragment {
                         if (zhangdan.getStatus() == 1){
                             tv_zhangdan_zhichu.setText("支出"+zhangdan.getResult().getOut()+"粒");
                             tv_zhangdan_shouru.setText("收入"+zhangdan.getResult().getIn()+"粒");
-                            initRec(zhangdan.getResult().getRecord().getList());
+                            if (zhangdan.getResult().getRecord().getList().size()>0){
+                                initRec(zhangdan.getResult().getRecord().getList());
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
 

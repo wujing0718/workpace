@@ -84,13 +84,14 @@ public class TongChengFragment extends Fragment implements IListener {
         map.put("cityCode",MyApp.instance.getString("citycode"));
         map.put("pageNo","1");
         map.put("mId",String.valueOf(mId));
-        map.put("pageSize","4");
+        map.put("pageSize","10");
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        smartrefreshlayout.finishRefresh();
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
                         QuanZiFaXian faxian = gson.fromJson(response.body(), QuanZiFaXian.class);
@@ -178,13 +179,14 @@ public class TongChengFragment extends Fragment implements IListener {
         map.put("pageNo",String.valueOf(page++));
         map.put("cityCode",MyApp.instance.getString("citycode"));
         map.put("mId",String.valueOf(mId));
-        map.put("pageSize","4");
+        map.put("pageSize","10");
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        smartrefreshlayout.finishRefresh();
                         WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();

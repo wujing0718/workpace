@@ -136,7 +136,7 @@ public class WangJiMiMa extends AppCompatActivity implements View.OnClickListene
         Map<String,String> map = new HashMap<>();
         map.put("tel",phone);
         map.put("code",code);
-        map.put("password",password);
+        map.put("newPassword",password);
         OkGo.<String>post(Contacts.URl1+"/member/forgetPass")
                 .params(map)
                 .execute(new StringCallback() {

@@ -46,7 +46,6 @@
                 android:layout_weight="1"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/ic_launcher"
                 android:layout_width="match_parent"
                 android:layout_height="150dp" />
 
@@ -97,11 +96,13 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:layout_gravity="center_horizontal"
                                 android:src="@mipmap/img_yezi"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp" />
 
                             <TextView
+                                android:layout_gravity="center_horizontal"
                                 android:id="@+id/tv_jiqi_teaWeight"
                                 android:text="10g"
                                 android:textSize="10sp"
@@ -128,6 +129,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:layout_gravity="center_horizontal"
                                 android:src="@mipmap/img_shui"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp" />
@@ -136,6 +138,7 @@
                                 android:id="@+id/tv_jiqi_waterWeight"
                                 android:text="10g"
                                 android:textSize="10sp"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="2dp"
                                 android:textColor="@color/colorBlack"
                                 android:layout_width="wrap_content"
@@ -159,11 +162,13 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:layout_gravity="center_horizontal"
                                 android:src="@mipmap/img_wendu"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp" />
 
                             <TextView
+                                android:layout_gravity="center_horizontal"
                                 android:id="@+id/tv_jiqi_temperature"
                                 android:text="10g"
                                 android:textSize="10sp"

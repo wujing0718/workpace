@@ -33,6 +33,7 @@ import com.huohougongfu.app.WoDe.Activity.MyDianPuActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.huohougongfu.app.WoDe.Activity.MyDongTaiActivity;
 import com.huohougongfu.app.WoDe.Activity.RealNameActivity;
+import com.huohougongfu.app.WoDe.Activity.ReviewViewActivity;
 import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Activity.VIPActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeFenSiActivity;
@@ -299,7 +300,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                                         if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
                                             intent.setClass(getActivity(),RealNameActivity.class);
                                             startActivity(intent);
-                                        }else{
+                                        }else if (renZhengZhuangTai.getResult().getStore().getCode() == 1){
+                                            intent.setClass(getActivity(),ReviewViewActivity.class);
+                                            startActivity(intent);
+                                        }else if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
                                             intent.setClass(getActivity(),MyDianPuActivity.class);
                                             startActivity(intent);
                                         }

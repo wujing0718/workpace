@@ -28,12 +28,22 @@ public class CanShuNameAdapter extends RecyclerView.Adapter<CanShuNameAdapter.VH
 
     @Override
     public void onBindViewHolder(@NonNull CanShuNameAdapter.VH vh, int i) {
+        if ("0".equals(val.get(i))){
+            vh.tv_canshu_name.setText("无");
+        }else if ("1".equals(val.get(i))){
+            vh.tv_canshu_name.setText("有");
+        }else{
             vh.tv_canshu_name.setText(val.get(i));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return val.size();
+        if (val.size()>0 && val!=null){
+            return val.size();
+        }else{
+            return 0;
+        }
     }
 
     public class VH extends RecyclerView.ViewHolder {

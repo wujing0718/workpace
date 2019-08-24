@@ -17,8 +17,10 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
+import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.JingXuanActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangActivity;
@@ -31,9 +33,17 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Fragment.SouSuoDaShiFragment;
 import com.huohougongfu.app.Shop.Fragment.SouSuoPinPaiFragment;
 import com.huohougongfu.app.Shop.Fragment.SouSuoShopFragment;
+import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +66,9 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     private EditText edt_quanzi_sousuo;
     private InputMethodManager manager;
     private TextView tv_city;
+    private Banner banner;
+    private List<String> mbanner = new ArrayList<>();
+    private List<String> mbannerimg = new ArrayList<>();
 
     public QuanZiFragment() {
         // Required empty public constructor
@@ -70,6 +83,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         View statusBar = inflate.findViewById(R.id.statusBarView);
         manager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        banner = inflate.findViewById(R.id.banner);
         layoutParams.height = utils.getStatusBarHeight();
         citycode = MyApp.instance.getString("citycode");
         intent = new Intent();
@@ -96,7 +110,46 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
             }
         });
         initTablayout();
+        initbanner();
         return inflate;
+    }
+
+
+    private void initbanner() {
+        //设置指示器位置
+        banner.setIndicatorGravity(BannerConfig.NOT_INDICATOR);
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/3")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        BannerGson bannergson = gson.fromJson(body, BannerGson.class);
+                        if (bannergson.getStatus()==1){
+                            if (bannergson.getResult()!=null){
+                                mbanner.clear();
+                                for (int i = 0;i < bannergson.getResult().size();i++){
+                                    mbanner.add(bannergson.getResult().get(i).getPictureUrl());
+                                }
+                            }
+                            initBanner(mbanner);
+                        }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        ProgressBar.setVisibility(View.VISIBLE);
+                        super.onStart(request);
+                    }
+
+                    private void initBanner(List<String> mbanner) {
+                        //加载网络图片
+                        banner.setImages(mbanner)
+                                .setBannerStyle(BannerConfig.NOT_INDICATOR)
+                                .setImageLoader(new GlideImageLoader())
+                                .start();
+                    }
+                });
     }
 
     private void initTablayout() {

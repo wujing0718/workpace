@@ -41,11 +41,14 @@
         import com.huohougongfu.app.Fragment.QuanZiFragment;
         import com.huohougongfu.app.Fragment.ShopFragment;
         import com.huohougongfu.app.MyApp;
+        import com.huohougongfu.app.PopupView.ChaMiGuiZe;
+        import com.huohougongfu.app.PopupView.Paocha;
         import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
         import com.huohougongfu.app.R;
         import com.huohougongfu.app.Utils.NoScrollViewPager;
         import com.huohougongfu.app.Utils.PermissionPageUtils;
         import com.kongzue.dialog.v2.SelectDialog;
+        import com.lxj.xpopup.XPopup;
         import com.mylhyl.acp.Acp;
         import com.mylhyl.acp.AcpListener;
         import com.mylhyl.acp.AcpOptions;
@@ -53,9 +56,7 @@
         import java.lang.reflect.Field;
         import java.util.ArrayList;
         import java.util.List;
-
         public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
-
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;
     private BottomNavigationView bottomNavigationView;
@@ -86,6 +87,9 @@
         activity = this;
         immersionber = ImmersionBar.with(this);
         immersionber.statusBarDarkFont(false).init();
+//        new XPopup.Builder(MainActivity.this)
+//                .asCustom(new ChaMiGuiZe(MainActivity.this))
+//                .show();
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         bottomNavigationView.setItemIconTintList(null);
         viewPager = findViewById(R.id.viewpager);

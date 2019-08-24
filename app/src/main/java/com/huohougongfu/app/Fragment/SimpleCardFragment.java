@@ -60,7 +60,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
         Glide.with(getActivity()).load(teaDetail.getPicture()).into(img_jiqi_photo);
         teaefficacy.setText(teaDetail.getEfficacy());
         teaWeight.setText(teaDetail.getConcentration().getTeaWeight()+"g");
-        waterWeight.setText(teaDetail.getConcentration().getTeaWeight()+"ml");
+        waterWeight.setText(teaDetail.getConcentration().getWaterWeight()+"ml");
         temperature.setText(teaDetail.getConcentration().getTemperature()+"°C");
     }
 

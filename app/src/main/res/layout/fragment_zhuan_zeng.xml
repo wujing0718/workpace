@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:background="@color/colorWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ShouYe.Fragment.ZhuanZengFragment">
 
@@ -39,7 +40,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="12dp"
-                    android:text="2200"
+                    android:text="0"
                     android:textSize="30sp"
                     android:textColor="#CCBA91"
                     android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
                         android:layout_marginLeft="@dimen/dp_4"
                         android:layout_gravity="center_vertical"
                         android:id="@+id/tv_my_cezengsong"
-                        android:text="可转赠茶米数1000"
+                        android:text="0"
                         android:textSize="11sp"
                         android:textColor="#818181"
                         android:layout_width="wrap_content"

@@ -316,7 +316,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_detail_kuaidi.setText("快递："+mallProduct.getDefaultTranCost());
         tv_detail_name.setText(mallProduct.getName());
         tv_detail_xiaoliang.setText("销量："+mallProduct.getSellNum());
-        tv_detail_address.setText("地址："+mallProduct.getStoreAddress());
+        if(mallProduct.getSendAddress()!=null){
+            tv_detail_address.setText("地址："+mallProduct.getSendAddress());
+        }
         RequestOptions options = new RequestOptions().circleCrop();
         if(getContext()!=null){
             Glide.with(getActivity()).load(mallProduct.getStoreLogo()).apply(options).into(img_dianp_logo);

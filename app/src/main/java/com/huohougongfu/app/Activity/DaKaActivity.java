@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -70,7 +71,6 @@ public class DaKaActivity extends AppCompatActivity {
 
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(DaKaActivity.this, "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -145,13 +145,21 @@ public class DaKaActivity extends AppCompatActivity {
                         }
                     });
         }else{
-            WaitDialog.dismiss();
             ToastUtils.showShort(R.string.denglu);
+            WaitDialog.dismiss();
         }
 
     }
 
     private void initUI() {
+        findViewById(R.id.bt_tea_guize).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(DaKaActivity.this,TeaRuleActivity.class);
+                startActivity(intent);
+            }
+        });
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

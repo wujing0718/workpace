@@ -242,6 +242,7 @@
            android:layout_height="wrap_content">
 
            <TextView
+               android:id="@+id/bt_guanzhu"
                android:text="关注"
                android:textSize="12sp"
                android:paddingHorizontal="@dimen/dp_6"
@@ -277,6 +278,20 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/bt_dashi_jianjie"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginHorizontal="@dimen/dp_12"
+        android:text="简介"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="2dp"
+        android:textSize="12sp"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/black_di"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.flyco.tablayout.SlidingTabLayout
         android:layout_marginVertical="@dimen/dp_10"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,67 +8,92 @@
     android:layout_height="match_parent"
     tools:context=".QuanZi.Activity.JingXuanActivity">
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_above="@+id/bt_huanyihuan"
+        android:id="@+id/view_jingxuan"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/bt_finish"
-            android:layout_width="50dp"
+            android:layout_width="match_parent"
             android:layout_height="44dp">
 
-            <ImageView
-                android:src="@mipmap/img_back"
+            <RelativeLayout
+                android:id="@+id/bt_finish"
+                android:layout_width="50dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:src="@mipmap/img_back"
+                    android:layout_centerInParent="true"
+                    android:layout_width="@dimen/icon_size_20dp"
+                    android:layout_height="@dimen/icon_size_20dp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:text="精选内容"
+                android:textSize="17sp"
+                android:textColor="@color/colorBlack"
                 android:layout_centerInParent="true"
-                android:layout_width="@dimen/icon_size_20dp"
-                android:layout_height="@dimen/icon_size_20dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
 
         <TextView
-            android:text="精选内容"
+            android:text="精选文章"
+            android:layout_margin="12dp"
             android:textSize="17sp"
             android:textColor="@color/colorBlack"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="@dimen/layout_padding_12dp"
+            android:id="@+id/rec_jingxuan_wenzhang"
+            android:layout_width="match_parent"
+            android:layout_height="170dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <View
+            android:background="#F8F8F8"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:text="推荐用户"
+            android:layout_margin="12dp"
+            android:textSize="17sp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_tuijianyonghu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
     <TextView
-        android:text="精选文章"
-        android:layout_margin="12dp"
-        android:textSize="17sp"
-        android:textColor="@color/colorBlack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginLeft="@dimen/layout_padding_12dp"
-        android:id="@+id/rec_jingxuan_wenzhang"
-        android:layout_width="match_parent"
-        android:layout_height="170dp">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <View
-        android:background="#F8F8F8"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
-    <TextView
-        android:text="推荐用户"
-        android:layout_margin="12dp"
-        android:textSize="17sp"
-        android:textColor="@color/colorBlack"
+        android:layout_marginVertical="@dimen/dp_10"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/bt_huanyihuan"
+        android:gravity="bottom"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/delete_kuang"
+        android:text="换一换"
+        android:paddingVertical="@dimen/dp_4"
+        android:paddingHorizontal="@dimen/dp_20"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rec_tuijianyonghu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
-
-</LinearLayout>
+</RelativeLayout>

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.WangJiMiMa;
 import com.huohougongfu.app.Gson.Code;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -29,14 +30,18 @@ import io.rong.push.rongpush.RongPush;
 public class XiuGaiMiMaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edt_xinpd1,edt_xinpd2;
+    private EditText edt_oldpassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xiu_gai_mi_ma);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_xiugai).setOnClickListener(this);
+        findViewById(R.id.bt_wangjimima).setOnClickListener(this);
         edt_xinpd1 = findViewById(R.id.edt_xinpd1);
         edt_xinpd2 = findViewById(R.id.edt_xinpd2);
+        edt_oldpassword = findViewById(R.id.edt_oldpassword);
     }
 
     @Override
@@ -48,19 +53,46 @@ public class XiuGaiMiMaActivity extends AppCompatActivity implements View.OnClic
                 }
                 break;
             case R.id.bt_xiugai:
+                String oldpassword1 = edt_oldpassword.getText().toString();
+                String password1 = edt_xinpd1.getText().toString();
+                String password2 = edt_xinpd2.getText().toString();
                 if (!utils.isDoubleClick()){
-                    initData();
+                    if (!oldpassword1.isEmpty()){
+                        if (!password1.isEmpty()){
+                            if (!password2.isEmpty()){
+                                if (password1.equals(password2)){
+                                    String password = utils.makeMD5(password1);
+                                    String oldpassword = utils.makeMD5(oldpassword1);
+                                    initData(password,oldpassword);
+                                }else{
+                                    ToastUtils.showShort("两次密码输入不一致");
+                                }
+                            }else{
+                                ToastUtils.showShort("请再次输入新密码");
+                            }
+                        }else{
+                            ToastUtils.showShort("请输入新密码");
+                        }
+                    }else{
+                        ToastUtils.showShort("请输入旧密码");
+                    }
+                }
+                break;
+            case R.id.bt_wangjimima:
+                if (!utils.isDoubleClick()){
+                    Intent intent = new Intent();
+                    intent.setClass(XiuGaiMiMaActivity.this,WangJiMiMa.class);
+                    startActivity(intent);
                 }
                 break;
         }
     }
 
-    private void initData() {
-        String password1 = edt_xinpd1.getText().toString();
-        String password = utils.makeMD5(password1);
+    private void initData(String password, String oldpassword) {
         Map<String,String> map = new HashMap<>();
         map.put("tel",MyApp.instance.getString("phone"));
-        map.put("password",password);
+        map.put("oldPassword",oldpassword);
+        map.put("newPassword",password);
         OkGo.<String>post(Contacts.URl1+"/member/forgetPass")
                 .params(map)
                 .execute(new StringCallback() {

@@ -20,7 +20,7 @@
 
             <TextView
                 android:id="@+id/tv_time"
-                android:text="201"
+                android:text=""
                 android:textSize="14sp"
                 android:textColor="@color/colorBlack"
                 android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                 <TextView
                     android:id="@+id/tv_zhangdan_zhichu"
                     android:textColor="#BBBBBB"
-                    android:text="支出¥1200.51"
+                    android:text=""
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -43,7 +43,7 @@
                 <TextView
                     android:id="@+id/tv_zhangdan_shouru"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:text="收入¥14425.81"
+                    android:text=""
                     android:textColor="#BBBBBB"
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
@@ -66,6 +66,11 @@
             </android.support.v7.widget.RecyclerView>
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <include
+            layout="@layout/include_zhanweitu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
     </LinearLayout>

@@ -61,7 +61,7 @@ public class ShopQuanFragment extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         map.put("type","mall");
         OkGo.<String>post(Contacts.URl1 + "/wallet/coupons")
@@ -74,7 +74,12 @@ public class ShopQuanFragment extends Fragment {
                 Gson gson = new Gson();
                 MallGson chaQuan = gson.fromJson(body, MallGson.class);
                 if (chaQuan.getStatus() == 1) {
-                    initRec(chaQuan);
+                    if (chaQuan.getResult().size()>0){
+                        initRec(chaQuan);
+                        rec_shangchengquan.setVisibility(View.VISIBLE);
+                    }else{
+                        rec_shangchengquan.setVisibility(View.GONE);
+                    }
                 }
             }
 

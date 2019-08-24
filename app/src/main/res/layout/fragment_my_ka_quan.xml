@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".ShouYe.Fragment.MyKaQuanFragment">
 
             <android.support.v7.widget.RecyclerView
@@ -12,6 +13,12 @@
                 android:layout_height="match_parent">
 
             </android.support.v7.widget.RecyclerView>
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/include_zhanweitu"
+        />
 
 
 

@@ -76,7 +76,7 @@ public class MyCaQuan {
         private Object storeId;
         private CouponsLinkBean couponsLink;
         private Object introduction;
-        private String imgUrl;
+        private String picture;
 
         public int getId() {
             return id;
@@ -214,12 +214,12 @@ public class MyCaQuan {
             this.introduction = introduction;
         }
 
-        public String getImgUrl() {
-            return imgUrl;
+        public String getPicturel() {
+            return picture;
         }
 
-        public void setImgUrl(String imgUrl) {
-            this.imgUrl = imgUrl;
+        public void setPicture(String picture) {
+            this.picture = picture;
         }
 
         public static class CouponsLinkBean {

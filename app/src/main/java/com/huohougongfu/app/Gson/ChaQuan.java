@@ -4,9 +4,10 @@ import java.util.List;
 
 public class ChaQuan {
 
+
     /**
      * msg : 操作成功
-     * result : {"me":[{"id":3,"couponType":3,"title":"8折券","isMall":"0","beginTime":"2019-06-20 11:00:00","endTime":"2019-06-20 11:00:00","usableProductId":"","serviceRegulations":"满一千1000可用","createTime":"2019-06-13 11:00:00","updateTime":"2019-06-19 11:28:21","fullMoney":1000,"money":66,"discount":null,"couponCount":11,"storeId":null,"couponsLink":{"id":3,"tel":"13111111111","couponsId":3,"isUse":false,"isSend":false,"sendNick":"haomeng","pillowTalk":"悄悄话"},"introduction":"全部商品享受8折优惠","imgUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/1559024167178.png"},{"id":1,"couponType":1,"title":"7折券","isMall":"0","beginTime":"2019-06-10 12:42:42","endTime":"2019-07-23 12:42:49","usableProductId":"","serviceRegulations":"满500","createTime":"2019-06-17 12:43:30","updateTime":"2019-06-19 13:42:42","fullMoney":500,"money":70,"discount":null,"couponCount":14,"storeId":null,"couponsLink":{"id":1,"tel":"13111111111","couponsId":1,"isUse":false,"isSend":false,"sendNick":null,"pillowTalk":null},"introduction":"免费领取一杯7折","imgUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/1559024167178.png"}],"send":[{"id":2,"couponType":1,"title":"绿茶券","isMall":"0","beginTime":"2019-06-17 12:43:42","endTime":"2019-06-20 12:43:49","usableProductId":"","serviceRegulations":"满300","createTime":"2019-06-17 12:44:09","updateTime":"2019-06-19 11:28:22","fullMoney":300,"money":1,"discount":null,"couponCount":10,"storeId":null,"couponsLink":{"id":2,"tel":"13111111111","couponsId":2,"isUse":false,"isSend":true,"sendNick":"1","pillowTalk":"lol"},"introduction":"免费领取一杯绿茶","imgUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/1559024167178.png"}]}
+     * result : {"me":[{"id":12,"couponType":2,"title":"满减券(新用户礼包)","isMall":"0","beginTime":"2019-07-02 16:10:29","endTime":"2019-08-31 16:10:51","usableProductId":null,"serviceRegulations":"满100减10","createTime":"2019-08-22 16:11:35","updateTime":"2019-08-23 12:09:09","fullMoney":100,"money":10,"discount":null,"couponCount":100,"storeId":null,"couponsLink":{"id":12,"couponCode":null,"tel":"18910328110","couponsId":12,"isUse":false,"isSend":false,"isReceive":false,"sendNick":null,"pillowTalk":null},"introduction":null,"picture":"https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10771566531732_.pic_hd.jpg"},{"id":13,"couponType":2,"title":"满减券(新用户礼包)","isMall":"0","beginTime":"2019-07-02 16:10:29","endTime":"2019-08-31 16:12:02","usableProductId":null,"serviceRegulations":"满200减20","createTime":"2019-08-22 16:12:28","updateTime":"2019-08-23 12:37:09","fullMoney":200,"money":20,"discount":null,"couponCount":100,"storeId":null,"couponsLink":{"id":13,"couponCode":null,"tel":"18910328110","couponsId":13,"isUse":false,"isSend":false,"isReceive":false,"sendNick":null,"pillowTalk":null},"introduction":null,"picture":"https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10761566531730_.pic_hd.jpg"}],"received":[{"id":11,"couponType":1,"title":"喝茶券(新用户礼包)","isMall":"0","beginTime":"2019-07-02 16:10:29","endTime":"2019-08-31 16:07:39","usableProductId":1,"serviceRegulations":"免费领一杯茶","createTime":"2019-08-22 16:10:26","updateTime":"2019-08-23 12:09:05","fullMoney":null,"money":30,"discount":null,"couponCount":100,"storeId":null,"couponsLink":{"id":11,"couponCode":null,"tel":"18910328110","couponsId":11,"isUse":false,"isSend":false,"isReceive":true,"sendNick":null,"pillowTalk":null},"introduction":null,"picture":"https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10761566531730_.pic_hd.jpg"}]}
      * status : 1
      */
 
@@ -40,7 +41,7 @@ public class ChaQuan {
 
     public static class ResultBean {
         private List<MeBean> me;
-        private List<SendBean> send;
+        private List<ReceivedBean> received;
 
         public List<MeBean> getMe() {
             return me;
@@ -50,34 +51,34 @@ public class ChaQuan {
             this.me = me;
         }
 
-        public List<SendBean> getSend() {
-            return send;
+        public List<ReceivedBean> getReceived() {
+            return received;
         }
 
-        public void setSend(List<SendBean> send) {
-            this.send = send;
+        public void setReceived(List<ReceivedBean> received) {
+            this.received = received;
         }
 
         public static class MeBean {
             /**
-             * id : 3
-             * couponType : 3
-             * title : 8折券
+             * id : 12
+             * couponType : 2
+             * title : 满减券(新用户礼包)
              * isMall : 0
-             * beginTime : 2019-06-20 11:00:00
-             * endTime : 2019-06-20 11:00:00
-             * usableProductId :
-             * serviceRegulations : 满一千1000可用
-             * createTime : 2019-06-13 11:00:00
-             * updateTime : 2019-06-19 11:28:21
-             * fullMoney : 1000
-             * money : 66
+             * beginTime : 2019-07-02 16:10:29
+             * endTime : 2019-08-31 16:10:51
+             * usableProductId : null
+             * serviceRegulations : 满100减10
+             * createTime : 2019-08-22 16:11:35
+             * updateTime : 2019-08-23 12:09:09
+             * fullMoney : 100
+             * money : 10
              * discount : null
-             * couponCount : 11
+             * couponCount : 100
              * storeId : null
-             * couponsLink : {"id":3,"tel":"13111111111","couponsId":3,"isUse":false,"isSend":false,"sendNick":"haomeng","pillowTalk":"悄悄话"}
-             * introduction : 全部商品享受8折优惠
-             * imgUrl : http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/1559024167178.png
+             * couponsLink : {"id":12,"couponCode":null,"tel":"18910328110","couponsId":12,"isUse":false,"isSend":false,"isReceive":false,"sendNick":null,"pillowTalk":null}
+             * introduction : null
+             * picture : https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10771566531732_.pic_hd.jpg
              */
 
             private int id;
@@ -86,7 +87,7 @@ public class ChaQuan {
             private String isMall;
             private String beginTime;
             private String endTime;
-            private String usableProductId;
+            private Object usableProductId;
             private String serviceRegulations;
             private String createTime;
             private String updateTime;
@@ -96,8 +97,8 @@ public class ChaQuan {
             private int couponCount;
             private Object storeId;
             private CouponsLinkBean couponsLink;
-            private String introduction;
-            private String imgUrl;
+            private Object introduction;
+            private String picture;
 
             public int getId() {
                 return id;
@@ -147,11 +148,11 @@ public class ChaQuan {
                 this.endTime = endTime;
             }
 
-            public String getUsableProductId() {
+            public Object getUsableProductId() {
                 return usableProductId;
             }
 
-            public void setUsableProductId(String usableProductId) {
+            public void setUsableProductId(Object usableProductId) {
                 this.usableProductId = usableProductId;
             }
 
@@ -227,40 +228,44 @@ public class ChaQuan {
                 this.couponsLink = couponsLink;
             }
 
-            public String getIntroduction() {
+            public Object getIntroduction() {
                 return introduction;
             }
 
-            public void setIntroduction(String introduction) {
+            public void setIntroduction(Object introduction) {
                 this.introduction = introduction;
             }
 
-            public String getImgUrl() {
-                return imgUrl;
+            public String getPicture() {
+                return picture;
             }
 
-            public void setImgUrl(String imgUrl) {
-                this.imgUrl = imgUrl;
+            public void setPicture(String picture) {
+                this.picture = picture;
             }
 
             public static class CouponsLinkBean {
                 /**
-                 * id : 3
-                 * tel : 13111111111
-                 * couponsId : 3
+                 * id : 12
+                 * couponCode : null
+                 * tel : 18910328110
+                 * couponsId : 12
                  * isUse : false
                  * isSend : false
-                 * sendNick : haomeng
-                 * pillowTalk : 悄悄话
+                 * isReceive : false
+                 * sendNick : null
+                 * pillowTalk : null
                  */
 
                 private int id;
+                private Object couponCode;
                 private String tel;
                 private int couponsId;
                 private boolean isUse;
                 private boolean isSend;
-                private String sendNick;
-                private String pillowTalk;
+                private boolean isReceive;
+                private Object sendNick;
+                private Object pillowTalk;
 
                 public int getId() {
                     return id;
@@ -268,6 +273,14 @@ public class ChaQuan {
 
                 public void setId(int id) {
                     this.id = id;
+                }
+
+                public Object getCouponCode() {
+                    return couponCode;
+                }
+
+                public void setCouponCode(Object couponCode) {
+                    this.couponCode = couponCode;
                 }
 
                 public String getTel() {
@@ -302,44 +315,52 @@ public class ChaQuan {
                     this.isSend = isSend;
                 }
 
-                public String getSendNick() {
+                public boolean isIsReceive() {
+                    return isReceive;
+                }
+
+                public void setIsReceive(boolean isReceive) {
+                    this.isReceive = isReceive;
+                }
+
+                public Object getSendNick() {
                     return sendNick;
                 }
 
-                public void setSendNick(String sendNick) {
+                public void setSendNick(Object sendNick) {
                     this.sendNick = sendNick;
                 }
 
-                public String getPillowTalk() {
+                public Object getPillowTalk() {
                     return pillowTalk;
                 }
 
-                public void setPillowTalk(String pillowTalk) {
+                public void setPillowTalk(Object pillowTalk) {
                     this.pillowTalk = pillowTalk;
                 }
             }
         }
 
-        public static class SendBean {
+        public static class ReceivedBean {
             /**
-             * id : 2
+             * id : 11
              * couponType : 1
-             * title : 绿茶券
+             * title : 喝茶券(新用户礼包)
              * isMall : 0
-             * beginTime : 2019-06-17 12:43:42
-             * endTime : 2019-06-20 12:43:49
-             * usableProductId :
-             * serviceRegulations : 满300
-             * createTime : 2019-06-17 12:44:09
-             * updateTime : 2019-06-19 11:28:22
-             * fullMoney : 300
-             * money : 1
+             * beginTime : 2019-07-02 16:10:29
+             * endTime : 2019-08-31 16:07:39
+             * usableProductId : 1
+             * serviceRegulations : 免费领一杯茶
+             * createTime : 2019-08-22 16:10:26
+             * updateTime : 2019-08-23 12:09:05
+             * fullMoney : null
+             * money : 30
              * discount : null
-             * couponCount : 10
+             * couponCount : 100
              * storeId : null
-             * couponsLink : {"id":2,"tel":"13111111111","couponsId":2,"isUse":false,"isSend":true,"sendNick":"1","pillowTalk":"lol"}
-             * introduction : 免费领取一杯绿茶
-             * imgUrl : http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/1559024167178.png
+             * couponsLink : {"id":11,"couponCode":null,"tel":"18910328110","couponsId":11,"isUse":false,"isSend":false,"isReceive":true,"sendNick":null,"pillowTalk":null}
+             * introduction : null
+             * picture : https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10761566531730_.pic_hd.jpg
              */
 
             private int id;
@@ -348,18 +369,18 @@ public class ChaQuan {
             private String isMall;
             private String beginTime;
             private String endTime;
-            private String usableProductId;
+            private int usableProductId;
             private String serviceRegulations;
             private String createTime;
             private String updateTime;
-            private int fullMoney;
+            private Object fullMoney;
             private int money;
             private Object discount;
             private int couponCount;
             private Object storeId;
             private CouponsLinkBeanX couponsLink;
-            private String introduction;
-            private String imgUrl;
+            private Object introduction;
+            private String picture;
 
             public int getId() {
                 return id;
@@ -409,11 +430,11 @@ public class ChaQuan {
                 this.endTime = endTime;
             }
 
-            public String getUsableProductId() {
+            public int getUsableProductId() {
                 return usableProductId;
             }
 
-            public void setUsableProductId(String usableProductId) {
+            public void setUsableProductId(int usableProductId) {
                 this.usableProductId = usableProductId;
             }
 
@@ -441,11 +462,11 @@ public class ChaQuan {
                 this.updateTime = updateTime;
             }
 
-            public int getFullMoney() {
+            public Object getFullMoney() {
                 return fullMoney;
             }
 
-            public void setFullMoney(int fullMoney) {
+            public void setFullMoney(Object fullMoney) {
                 this.fullMoney = fullMoney;
             }
 
@@ -489,40 +510,44 @@ public class ChaQuan {
                 this.couponsLink = couponsLink;
             }
 
-            public String getIntroduction() {
+            public Object getIntroduction() {
                 return introduction;
             }
 
-            public void setIntroduction(String introduction) {
+            public void setIntroduction(Object introduction) {
                 this.introduction = introduction;
             }
 
-            public String getImgUrl() {
-                return imgUrl;
+            public String getPicture() {
+                return picture;
             }
 
-            public void setImgUrl(String imgUrl) {
-                this.imgUrl = imgUrl;
+            public void setPicture(String picture) {
+                this.picture = picture;
             }
 
             public static class CouponsLinkBeanX {
                 /**
-                 * id : 2
-                 * tel : 13111111111
-                 * couponsId : 2
+                 * id : 11
+                 * couponCode : null
+                 * tel : 18910328110
+                 * couponsId : 11
                  * isUse : false
-                 * isSend : true
-                 * sendNick : 1
-                 * pillowTalk : lol
+                 * isSend : false
+                 * isReceive : true
+                 * sendNick : null
+                 * pillowTalk : null
                  */
 
                 private int id;
+                private Object couponCode;
                 private String tel;
                 private int couponsId;
                 private boolean isUse;
                 private boolean isSend;
-                private String sendNick;
-                private String pillowTalk;
+                private boolean isReceive;
+                private Object sendNick;
+                private Object pillowTalk;
 
                 public int getId() {
                     return id;
@@ -530,6 +555,14 @@ public class ChaQuan {
 
                 public void setId(int id) {
                     this.id = id;
+                }
+
+                public Object getCouponCode() {
+                    return couponCode;
+                }
+
+                public void setCouponCode(Object couponCode) {
+                    this.couponCode = couponCode;
                 }
 
                 public String getTel() {
@@ -564,19 +597,27 @@ public class ChaQuan {
                     this.isSend = isSend;
                 }
 
-                public String getSendNick() {
+                public boolean isIsReceive() {
+                    return isReceive;
+                }
+
+                public void setIsReceive(boolean isReceive) {
+                    this.isReceive = isReceive;
+                }
+
+                public Object getSendNick() {
                     return sendNick;
                 }
 
-                public void setSendNick(String sendNick) {
+                public void setSendNick(Object sendNick) {
                     this.sendNick = sendNick;
                 }
 
-                public String getPillowTalk() {
+                public Object getPillowTalk() {
                     return pillowTalk;
                 }
 
-                public void setPillowTalk(String pillowTalk) {
+                public void setPillowTalk(Object pillowTalk) {
                     this.pillowTalk = pillowTalk;
                 }
             }

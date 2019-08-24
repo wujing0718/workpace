@@ -49,6 +49,13 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <include
+        android:id="@+id/view_zhanweitu1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/include_zhanweitu"
+        />
+
     <RelativeLayout
         android:layout_marginVertical="15dp"
         android:layout_width="match_parent"
@@ -91,6 +98,13 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+
+    <include
+        android:id="@+id/view_zhanweitu2"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/include_zhanweitu"
+        />
 
 
 </LinearLayout>

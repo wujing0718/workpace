@@ -69,7 +69,12 @@ public class TeHuiActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         TeiHuiGson shangPinGson = gson.fromJson(response.body(), TeiHuiGson.class);
                         if (shangPinGson.getStatus() == 1) {
-                            initRec(shangPinGson.getResult());
+                            if (shangPinGson.getResult().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(shangPinGson.getResult());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override

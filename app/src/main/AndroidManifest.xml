@@ -278,6 +278,7 @@
         <activity android:name=".WoDe.Activity.WuLiuActivity" />
         <activity android:name=".Activity.BindActivity" />
         <activity android:name=".WoDe.Activity.VIPActivity" />
+        <activity android:name=".Activity.TeaRuleActivity" />
         <activity android:name=".WoDe.Activity.ZhuanKeActivity"></activity>
     </application>
 

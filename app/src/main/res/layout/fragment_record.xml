@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context=".ShouYe.Fragment.RecordFragment">
 
     <RelativeLayout
@@ -49,6 +50,12 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/include_zhanweitu"
+        />
+
     <RelativeLayout
         android:layout_marginVertical="15dp"
         android:layout_width="match_parent"
@@ -91,6 +98,12 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/include_zhanweitu"
+        />
 
 
 </LinearLayout>

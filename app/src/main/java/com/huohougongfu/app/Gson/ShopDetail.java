@@ -76,6 +76,15 @@ public class ShopDetail {
             private String specialInstructions;
             private int productCollection;
             private String detailPic;
+            private String sendAddress;
+
+            public String getSendAddress() {
+                return sendAddress;
+            }
+
+            public void setSendAddress(String sendAddress) {
+                this.sendAddress = sendAddress;
+            }
 
             public String getDetailPic() {
                 return detailPic;

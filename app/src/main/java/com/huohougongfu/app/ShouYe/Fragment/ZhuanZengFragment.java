@@ -3,6 +3,7 @@ package com.huohougongfu.app.ShouYe.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,11 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,12 +44,33 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
 
     private View inflate;
     private EditText edt_chamishu,edt_qiaoqiaohua;
-    private String[] mqiaoqiaohua = new String[]{"收下我的茶米，你就是我的人啦~","茶米代表我的心~","猜猜送你几个茶米~"};
+    private String[] mqiaoqiaohua = new String[]{"茶米送给你，快乐分享给你","你要收下我的茶米，也要收下我","送你我的茶米， 我们一起发家致富"};
     private int i;
     private String chamishu,qiaoqiaohua;
     private String token,tel,id;
     private TextView tv_my_cezengsong,tv_my_chami;
     private ChaMi chaMi;
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+
+        }
+    };
 
     public ZhuanZengFragment() {
     }
@@ -64,7 +91,7 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/wallet/teaRice")
                 .params(map)
@@ -126,7 +153,11 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
                 chamishu = edt_chamishu.getText().toString();
                 qiaoqiaohua = edt_qiaoqiaohua.getText().toString();
                 if (!utils.isDoubleClick()){
-                    initDada();
+                    if (!token.isEmpty()){
+                        initDada();
+                    }else{
+                        ToastUtils.showShort("暂未登陆");
+                    }
                 }
                 break;
             case R.id.bt_guize:
@@ -142,37 +173,53 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
     private void initDada() {
         Map<String, String> map = new HashMap<>();
         if (!chamishu.isEmpty()){
-            int chamishuone = Integer.valueOf(chamishu);
-            if (chamishuone<=chaMi.getResult().getMe()/2){
-                map.put("tel",tel);
-                map.put("id",id);
-                map.put("token",token);
-                map.put("count",chamishu);
-                map.put("pillowTalk",qiaoqiaohua);
-                OkGo.<String>post(Contacts.URl1+"/wallet/teaRice/send")
-                        .params(map)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                WaitDialog.dismiss();
-                                String body = response.body();
-                                Gson gson = new Gson();
-                                ZhuanZengChengGong zhuanzeng = gson.fromJson(body, ZhuanZengChengGong.class);
-                                if (zhuanzeng.getStatus() == 1){
-                                    ToastUtils.showShort("转增成功");
-                                }else {
-                                    ToastUtils.showShort(zhuanzeng.getMsg());
+            if (!"".equals(chamishu)){
+                int chamishuone = Integer.valueOf(chamishu);
+                if (chamishuone<=chaMi.getResult().getMe()/2){
+                    map.put("tel",tel);
+                    map.put("mId",id);
+                    map.put("token",token);
+                    map.put("count",chamishu);
+                    map.put("pillowTalk",qiaoqiaohua);
+                    OkGo.<String>post(Contacts.URl1+"/wallet/teaRice/send")
+                            .params(map)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    WaitDialog.dismiss();
+                                    String body = response.body();
+                                    Gson gson = new Gson();
+                                    ZhuanZengChengGong zhuanzeng = gson.fromJson(body, ZhuanZengChengGong.class);
+                                    if (zhuanzeng.getStatus() == 1){
+                                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
+                                        web.setTitle("火后功夫");//标题
+                                        web.setDescription("123456");//描述
+                                        if (TextUtils.isEmpty("")) {
+                                            web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
+                                        } else {
+                                            web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                                        }
+                                        new ShareAction(getActivity())
+                                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                                .withMedia(web)
+                                                .setCallback(umShareListener).open();
+                                    }else {
+                                        ToastUtils.showShort(zhuanzeng.getMsg());
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onStart(Request<String, ? extends Request> request) {
-                                WaitDialog.show(getActivity(), "载入中...");
-                                super.onStart(request);
-                            }
-                        });
+                                @Override
+                                public void onStart(Request<String, ? extends Request> request) {
+                                    WaitDialog.show(getActivity(), "载入中...");
+                                    super.onStart(request);
+                                }
+                            });
+                }else{
+                    ToastUtils.showShort("超过可赠送茶米数");
+                }
             }else{
-                ToastUtils.showShort("超过可赠送茶米数");
+                ToastUtils.showShort("请输入赠送的茶米数");
             }
         }else{
             ToastUtils.showShort("赠送的茶米数为空");
