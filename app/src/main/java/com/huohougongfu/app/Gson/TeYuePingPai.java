@@ -4,6 +4,7 @@ import java.util.List;
 
 public class TeYuePingPai {
 
+
     private String msg;
     private ResultBean result;
     private int status;
@@ -33,9 +34,17 @@ public class TeYuePingPai {
     }
 
     public static class ResultBean {
-
+        private String queryName;
         private ResultListBean resultList;
         private List<IsSpecialBean> isSpecial;
+
+        public String getQueryName() {
+            return queryName;
+        }
+
+        public void setQueryName(String queryName) {
+            this.queryName = queryName;
+        }
 
         public ResultListBean getResultList() {
             return resultList;
@@ -54,6 +63,27 @@ public class TeYuePingPai {
         }
 
         public static class ResultListBean {
+            /**
+             * total : 3
+             * list : [{"id":36,"userId":2,"storeBoard":null,"storeName":"比比画画","storeType":"2","storeAttention":"0","createTime":"2019-08-23T08:58:54.000+0000","updateTime":"2019-08-24T04:31:58.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"mallProductList":[{"id":79,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":45,"marketPrice":56,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566552498622.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":80,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":22,"marketPrice":34,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456887405.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":81,"name":"特惠商品","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":15,"marketPrice":20,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456890346.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}],"doorPhoto":"http://oss.irving.net.cn/tea/1566550740864.jpg"},{"id":37,"userId":4,"storeBoard":null,"storeName":"敬哥奶茶店","storeType":"2","storeAttention":"0","createTime":"2019-08-23T09:49:24.000+0000","updateTime":"2019-08-24T04:32:05.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"mallProductList":[{"id":82,"name":"商品名称","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":888,"marketPrice":998,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566554184589.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":37,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":83,"name":"精选商品1","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":30,"marketPrice":30,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456890346.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":37,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}],"doorPhoto":"http://oss.irving.net.cn/tea/1566553773371.jpg"}]
+             * pageNum : 1
+             * pageSize : 2
+             * size : 2
+             * startRow : 1
+             * endRow : 2
+             * pages : 2
+             * prePage : 0
+             * nextPage : 2
+             * isFirstPage : true
+             * isLastPage : false
+             * hasPreviousPage : false
+             * hasNextPage : true
+             * navigatePages : 8
+             * navigatepageNums : [1,2]
+             * navigateFirstPage : 1
+             * navigateLastPage : 2
+             */
+
             private int total;
             private int pageNum;
             private int pageSize;
@@ -219,37 +249,72 @@ public class TeYuePingPai {
 
             public static class ListBean {
                 /**
-                 * id : 1
-                 * name : 阿萨德
-                 * isSpecial : 0
-                 * img : 阿斯蒂芬
-                 * story : 阿斯蒂芬
-                 * order : 1
-                 * createTime : 2019-06-14T05:43:21.000+0000
-                 * updateTime : 2019-07-19T01:38:50.000+0000
-                 * address : 地址
-                 * isCollection : 0
-                 * productList : [{"id":1,"name":"测试","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":5909,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":1,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":19,"name":"测试19","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":2,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":1,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":21,"name":"测试21","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":4,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":1,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":20,"name":"测试20","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":3,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":2,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":24,"name":"测试24","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":25,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":2,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null},{"id":25,"name":"测试25","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":25,"marketPrice":null,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162803.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":null,"isSift":null,"brandId":2,"mallStore":null,"sellCount":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null}]
+                 * id : 36
+                 * userId : 2
+                 * storeBoard : null
+                 * storeName : 比比画画
+                 * storeType : 2
+                 * storeAttention : 0
+                 * createTime : 2019-08-23T08:58:54.000+0000
+                 * updateTime : 2019-08-24T04:31:58.000+0000
+                 * info : null
+                 * year : null
+                 * favorableRate : 0
+                 * fensNum : null
+                 * sellNum : null
+                 * appraiseCategory : null
+                 * productId : null
+                 * coverUrl : null
+                 * visitNum : null
+                 * visitNumOfDay : null
+                 * specialBrandInfo : null
+                 * specialInstructions : null
+                 * creditCard : null
+                 * deliveryTime : null
+                 * basicExpressFee : null
+                 * freeAmountOfExpressFee : null
+                 * status : null
+                 * enterStore : null
+                 * mallProductList : [{"id":79,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":45,"marketPrice":56,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566552498622.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":80,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":22,"marketPrice":34,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456887405.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":81,"name":"特惠商品","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":15,"marketPrice":20,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456890346.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}]
+                 * doorPhoto : http://oss.irving.net.cn/tea/1566550740864.jpg
                  */
 
                 private int id;
                 private int userId;
-                private String name;
-                private String isSpecial;
-                private String img;
-                private String story;
-                private String order;
+                private String storeBoard;
+                private String storeName;
+                private String storeType;
+                private String storeAttention;
                 private String createTime;
                 private String updateTime;
-                private String address;
-                private int isCollection;
-                private List<ProductListBean> productList;
-                public int getUserId() {
-                    return userId;
+                private Object info;
+                private Object year;
+                private int favorableRate;
+                private Object fensNum;
+                private Object sellNum;
+                private Object appraiseCategory;
+                private Object productId;
+                private Object coverUrl;
+                private Object visitNum;
+                private Object visitNumOfDay;
+                private Object specialBrandInfo;
+                private Object specialInstructions;
+                private Object creditCard;
+                private Object deliveryTime;
+                private Object basicExpressFee;
+                private Object freeAmountOfExpressFee;
+                private Object status;
+                private Object enterStore;
+                private String doorPhoto;
+                private int isAttention;
+                private List<MallProductListBean> mallProductList;
+
+                public int getIsAttention() {
+                    return isAttention;
                 }
 
-                public void setUserId(int userId) {
-                    this.userId = userId;
+                public void setIsAttention(int iisAttentiond) {
+                    this.isAttention = isAttention;
                 }
 
                 public int getId() {
@@ -260,44 +325,44 @@ public class TeYuePingPai {
                     this.id = id;
                 }
 
-                public String getName() {
-                    return name;
+                public int getUserId() {
+                    return userId;
                 }
 
-                public void setName(String name) {
-                    this.name = name;
+                public void setUserId(int userId) {
+                    this.userId = userId;
                 }
 
-                public String getIsSpecial() {
-                    return isSpecial;
+                public String getStoreBoard() {
+                    return storeBoard;
                 }
 
-                public void setIsSpecial(String isSpecial) {
-                    this.isSpecial = isSpecial;
+                public void setStoreBoard(String storeBoard) {
+                    this.storeBoard = storeBoard;
                 }
 
-                public String getImg() {
-                    return img;
+                public String getStoreName() {
+                    return storeName;
                 }
 
-                public void setImg(String img) {
-                    this.img = img;
+                public void setStoreName(String storeName) {
+                    this.storeName = storeName;
                 }
 
-                public String getStory() {
-                    return story;
+                public String getStoreType() {
+                    return storeType;
                 }
 
-                public void setStory(String story) {
-                    this.story = story;
+                public void setStoreType(String storeType) {
+                    this.storeType = storeType;
                 }
 
-                public String getOrder() {
-                    return order;
+                public String getStoreAttention() {
+                    return storeAttention;
                 }
 
-                public void setOrder(String order) {
-                    this.order = order;
+                public void setStoreAttention(String storeAttention) {
+                    this.storeAttention = storeAttention;
                 }
 
                 public String getCreateTime() {
@@ -316,45 +381,181 @@ public class TeYuePingPai {
                     this.updateTime = updateTime;
                 }
 
-                public String getAddress() {
-                    return address;
+                public Object getInfo() {
+                    return info;
                 }
 
-                public void setAddress(String address) {
-                    this.address = address;
+                public void setInfo(Object info) {
+                    this.info = info;
                 }
 
-                public int getIsCollection() {
-                    return isCollection;
+                public Object getYear() {
+                    return year;
                 }
 
-                public void setIsCollection(int isCollection) {
-                    this.isCollection = isCollection;
+                public void setYear(Object year) {
+                    this.year = year;
                 }
 
-                public List<ProductListBean> getProductList() {
-                    return productList;
+                public int getFavorableRate() {
+                    return favorableRate;
                 }
 
-                public void setProductList(List<ProductListBean> productList) {
-                    this.productList = productList;
+                public void setFavorableRate(int favorableRate) {
+                    this.favorableRate = favorableRate;
                 }
 
-                public static class ProductListBean {
+                public Object getFensNum() {
+                    return fensNum;
+                }
+
+                public void setFensNum(Object fensNum) {
+                    this.fensNum = fensNum;
+                }
+
+                public Object getSellNum() {
+                    return sellNum;
+                }
+
+                public void setSellNum(Object sellNum) {
+                    this.sellNum = sellNum;
+                }
+
+                public Object getAppraiseCategory() {
+                    return appraiseCategory;
+                }
+
+                public void setAppraiseCategory(Object appraiseCategory) {
+                    this.appraiseCategory = appraiseCategory;
+                }
+
+                public Object getProductId() {
+                    return productId;
+                }
+
+                public void setProductId(Object productId) {
+                    this.productId = productId;
+                }
+
+                public Object getCoverUrl() {
+                    return coverUrl;
+                }
+
+                public void setCoverUrl(Object coverUrl) {
+                    this.coverUrl = coverUrl;
+                }
+
+                public Object getVisitNum() {
+                    return visitNum;
+                }
+
+                public void setVisitNum(Object visitNum) {
+                    this.visitNum = visitNum;
+                }
+
+                public Object getVisitNumOfDay() {
+                    return visitNumOfDay;
+                }
+
+                public void setVisitNumOfDay(Object visitNumOfDay) {
+                    this.visitNumOfDay = visitNumOfDay;
+                }
+
+                public Object getSpecialBrandInfo() {
+                    return specialBrandInfo;
+                }
+
+                public void setSpecialBrandInfo(Object specialBrandInfo) {
+                    this.specialBrandInfo = specialBrandInfo;
+                }
+
+                public Object getSpecialInstructions() {
+                    return specialInstructions;
+                }
+
+                public void setSpecialInstructions(Object specialInstructions) {
+                    this.specialInstructions = specialInstructions;
+                }
+
+                public Object getCreditCard() {
+                    return creditCard;
+                }
+
+                public void setCreditCard(Object creditCard) {
+                    this.creditCard = creditCard;
+                }
+
+                public Object getDeliveryTime() {
+                    return deliveryTime;
+                }
+
+                public void setDeliveryTime(Object deliveryTime) {
+                    this.deliveryTime = deliveryTime;
+                }
+
+                public Object getBasicExpressFee() {
+                    return basicExpressFee;
+                }
+
+                public void setBasicExpressFee(Object basicExpressFee) {
+                    this.basicExpressFee = basicExpressFee;
+                }
+
+                public Object getFreeAmountOfExpressFee() {
+                    return freeAmountOfExpressFee;
+                }
+
+                public void setFreeAmountOfExpressFee(Object freeAmountOfExpressFee) {
+                    this.freeAmountOfExpressFee = freeAmountOfExpressFee;
+                }
+
+                public Object getStatus() {
+                    return status;
+                }
+
+                public void setStatus(Object status) {
+                    this.status = status;
+                }
+
+                public Object getEnterStore() {
+                    return enterStore;
+                }
+
+                public void setEnterStore(Object enterStore) {
+                    this.enterStore = enterStore;
+                }
+
+                public String getDoorPhoto() {
+                    return doorPhoto;
+                }
+
+                public void setDoorPhoto(String doorPhoto) {
+                    this.doorPhoto = doorPhoto;
+                }
+
+                public List<MallProductListBean> getMallProductList() {
+                    return mallProductList;
+                }
+
+                public void setMallProductList(List<MallProductListBean> mallProductList) {
+                    this.mallProductList = mallProductList;
+                }
+
+                public static class MallProductListBean {
                     /**
-                     * id : 1
-                     * name : 测试
+                     * id : 79
+                     * name : 我
                      * storeName : null
                      * categoryId : null
                      * keywords : null
                      * model : null
                      * virtualNum : null
-                     * price : 5909.0
-                     * marketPrice : null
+                     * price : 45
+                     * marketPrice : 56
                      * integral : null
                      * stock : null
                      * warningStock : null
-                     * coverUrl : http://oss.irving.net.cn/tea/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190621162756.jpg
+                     * coverUrl : http://oss.irving.net.cn/tea/1566552498622.jpg
                      * state : null
                      * showOrder : null
                      * sellNum : null
@@ -376,11 +577,21 @@ public class TeYuePingPai {
                      * sendIntegral : null
                      * sendGrowth : null
                      * productPicture : null
-                     * storeId : null
+                     * storeId : 36
                      * isSift : null
-                     * brandId : 1
+                     * brandId : null
                      * mallStore : null
                      * sellCount : null
+                     * cartId : null
+                     * cartProductNum : null
+                     * buyNum : null
+                     * commission : null
+                     * reSell : null
+                     * ofCheap : null
+                     * detailDescribe : null
+                     * detailPic : null
+                     * sendAddress : null
+                     * categoryName : null
                      * num : null
                      * basicService : null
                      * productType : null
@@ -398,6 +609,7 @@ public class TeYuePingPai {
                      * userId : null
                      * collectionNum : null
                      * standard : null
+                     * transportTemplate : null
                      */
 
                     private int id;
@@ -407,8 +619,8 @@ public class TeYuePingPai {
                     private Object keywords;
                     private Object model;
                     private Object virtualNum;
-                    private double price;
-                    private Object marketPrice;
+                    private int price;
+                    private int marketPrice;
                     private Object integral;
                     private Object stock;
                     private Object warningStock;
@@ -434,11 +646,21 @@ public class TeYuePingPai {
                     private Object sendIntegral;
                     private Object sendGrowth;
                     private Object productPicture;
-                    private Object storeId;
+                    private int storeId;
                     private Object isSift;
-                    private int brandId;
+                    private Object brandId;
                     private Object mallStore;
                     private Object sellCount;
+                    private Object cartId;
+                    private Object cartProductNum;
+                    private Object buyNum;
+                    private Object commission;
+                    private Object reSell;
+                    private Object ofCheap;
+                    private Object detailDescribe;
+                    private Object detailPic;
+                    private Object sendAddress;
+                    private Object categoryName;
                     private Object num;
                     private Object basicService;
                     private Object productType;
@@ -456,6 +678,7 @@ public class TeYuePingPai {
                     private Object userId;
                     private Object collectionNum;
                     private Object standard;
+                    private Object transportTemplate;
 
                     public int getId() {
                         return id;
@@ -513,19 +736,19 @@ public class TeYuePingPai {
                         this.virtualNum = virtualNum;
                     }
 
-                    public double getPrice() {
+                    public int getPrice() {
                         return price;
                     }
 
-                    public void setPrice(double price) {
+                    public void setPrice(int price) {
                         this.price = price;
                     }
 
-                    public Object getMarketPrice() {
+                    public int getMarketPrice() {
                         return marketPrice;
                     }
 
-                    public void setMarketPrice(Object marketPrice) {
+                    public void setMarketPrice(int marketPrice) {
                         this.marketPrice = marketPrice;
                     }
 
@@ -729,11 +952,11 @@ public class TeYuePingPai {
                         this.productPicture = productPicture;
                     }
 
-                    public Object getStoreId() {
+                    public int getStoreId() {
                         return storeId;
                     }
 
-                    public void setStoreId(Object storeId) {
+                    public void setStoreId(int storeId) {
                         this.storeId = storeId;
                     }
 
@@ -745,11 +968,11 @@ public class TeYuePingPai {
                         this.isSift = isSift;
                     }
 
-                    public int getBrandId() {
+                    public Object getBrandId() {
                         return brandId;
                     }
 
-                    public void setBrandId(int brandId) {
+                    public void setBrandId(Object brandId) {
                         this.brandId = brandId;
                     }
 
@@ -767,6 +990,86 @@ public class TeYuePingPai {
 
                     public void setSellCount(Object sellCount) {
                         this.sellCount = sellCount;
+                    }
+
+                    public Object getCartId() {
+                        return cartId;
+                    }
+
+                    public void setCartId(Object cartId) {
+                        this.cartId = cartId;
+                    }
+
+                    public Object getCartProductNum() {
+                        return cartProductNum;
+                    }
+
+                    public void setCartProductNum(Object cartProductNum) {
+                        this.cartProductNum = cartProductNum;
+                    }
+
+                    public Object getBuyNum() {
+                        return buyNum;
+                    }
+
+                    public void setBuyNum(Object buyNum) {
+                        this.buyNum = buyNum;
+                    }
+
+                    public Object getCommission() {
+                        return commission;
+                    }
+
+                    public void setCommission(Object commission) {
+                        this.commission = commission;
+                    }
+
+                    public Object getReSell() {
+                        return reSell;
+                    }
+
+                    public void setReSell(Object reSell) {
+                        this.reSell = reSell;
+                    }
+
+                    public Object getOfCheap() {
+                        return ofCheap;
+                    }
+
+                    public void setOfCheap(Object ofCheap) {
+                        this.ofCheap = ofCheap;
+                    }
+
+                    public Object getDetailDescribe() {
+                        return detailDescribe;
+                    }
+
+                    public void setDetailDescribe(Object detailDescribe) {
+                        this.detailDescribe = detailDescribe;
+                    }
+
+                    public Object getDetailPic() {
+                        return detailPic;
+                    }
+
+                    public void setDetailPic(Object detailPic) {
+                        this.detailPic = detailPic;
+                    }
+
+                    public Object getSendAddress() {
+                        return sendAddress;
+                    }
+
+                    public void setSendAddress(Object sendAddress) {
+                        this.sendAddress = sendAddress;
+                    }
+
+                    public Object getCategoryName() {
+                        return categoryName;
+                    }
+
+                    public void setCategoryName(Object categoryName) {
+                        this.categoryName = categoryName;
                     }
 
                     public Object getNum() {
@@ -904,45 +1207,76 @@ public class TeYuePingPai {
                     public void setStandard(Object standard) {
                         this.standard = standard;
                     }
+
+                    public Object getTransportTemplate() {
+                        return transportTemplate;
+                    }
+
+                    public void setTransportTemplate(Object transportTemplate) {
+                        this.transportTemplate = transportTemplate;
+                    }
                 }
             }
         }
 
         public static class IsSpecialBean {
             /**
-             * id : 2
-             * name : 品牌名称
-             * isSpecial : 1
-             * img : 图片
-             * story : 阿斯蒂芬
-             * order : 0
-             * createTime : 2019-06-20T08:47:09.000+0000
-             * updateTime : 2019-07-19T01:38:59.000+0000
-             * address : 地址
-             * isCollection : null
-             * productList : null
+             * id : 36
+             * userId : 2
+             * storeBoard : null
+             * storeName : 比比画画
+             * storeType : 2
+             * createTime : 2019-08-23T08:58:54.000+0000
+             * updateTime : 2019-08-24T04:31:58.000+0000
+             * info : null
+             * year : null
+             * favorableRate : 0
+             * fensNum : null
+             * sellNum : null
+             * appraiseCategory : null
+             * productId : null
+             * coverUrl : null
+             * visitNum : null
+             * visitNumOfDay : null
+             * specialBrandInfo : null
+             * specialInstructions : null
+             * creditCard : null
+             * deliveryTime : null
+             * basicExpressFee : null
+             * freeAmountOfExpressFee : null
+             * status : null
+             * enterStore : null
+             * mallProductList : null
+             * doorPhoto : http://oss.irving.net.cn/tea/1566550740864.jpg
              */
 
             private int id;
             private int userId;
-            private String name;
-            private String isSpecial;
-            private String img;
-            private String story;
-            private String order;
+            private Object storeBoard;
+            private String storeName;
+            private String storeType;
             private String createTime;
             private String updateTime;
-            private String address;
-            private Object isCollection;
-            private Object productList;
-
-            public int getUserId() {
-                return userId;
-            }
-
-            public void setUserId(int userId) {
-                this.userId = userId;
-            }
+            private Object info;
+            private Object year;
+            private int favorableRate;
+            private Object fensNum;
+            private Object sellNum;
+            private Object appraiseCategory;
+            private Object productId;
+            private Object coverUrl;
+            private Object visitNum;
+            private Object visitNumOfDay;
+            private Object specialBrandInfo;
+            private Object specialInstructions;
+            private Object creditCard;
+            private Object deliveryTime;
+            private Object basicExpressFee;
+            private Object freeAmountOfExpressFee;
+            private Object status;
+            private Object enterStore;
+            private Object mallProductList;
+            private String doorPhoto;
 
             public int getId() {
                 return id;
@@ -952,44 +1286,36 @@ public class TeYuePingPai {
                 this.id = id;
             }
 
-            public String getName() {
-                return name;
+            public int getUserId() {
+                return userId;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public void setUserId(int userId) {
+                this.userId = userId;
             }
 
-            public String getIsSpecial() {
-                return isSpecial;
+            public Object getStoreBoard() {
+                return storeBoard;
             }
 
-            public void setIsSpecial(String isSpecial) {
-                this.isSpecial = isSpecial;
+            public void setStoreBoard(Object storeBoard) {
+                this.storeBoard = storeBoard;
             }
 
-            public String getImg() {
-                return img;
+            public String getStoreName() {
+                return storeName;
             }
 
-            public void setImg(String img) {
-                this.img = img;
+            public void setStoreName(String storeName) {
+                this.storeName = storeName;
             }
 
-            public String getStory() {
-                return story;
+            public String getStoreType() {
+                return storeType;
             }
 
-            public void setStory(String story) {
-                this.story = story;
-            }
-
-            public String getOrder() {
-                return order;
-            }
-
-            public void setOrder(String order) {
-                this.order = order;
+            public void setStoreType(String storeType) {
+                this.storeType = storeType;
             }
 
             public String getCreateTime() {
@@ -1008,28 +1334,164 @@ public class TeYuePingPai {
                 this.updateTime = updateTime;
             }
 
-            public String getAddress() {
-                return address;
+            public Object getInfo() {
+                return info;
             }
 
-            public void setAddress(String address) {
-                this.address = address;
+            public void setInfo(Object info) {
+                this.info = info;
             }
 
-            public Object getIsCollection() {
-                return isCollection;
+            public Object getYear() {
+                return year;
             }
 
-            public void setIsCollection(Object isCollection) {
-                this.isCollection = isCollection;
+            public void setYear(Object year) {
+                this.year = year;
             }
 
-            public Object getProductList() {
-                return productList;
+            public int getFavorableRate() {
+                return favorableRate;
             }
 
-            public void setProductList(Object productList) {
-                this.productList = productList;
+            public void setFavorableRate(int favorableRate) {
+                this.favorableRate = favorableRate;
+            }
+
+            public Object getFensNum() {
+                return fensNum;
+            }
+
+            public void setFensNum(Object fensNum) {
+                this.fensNum = fensNum;
+            }
+
+            public Object getSellNum() {
+                return sellNum;
+            }
+
+            public void setSellNum(Object sellNum) {
+                this.sellNum = sellNum;
+            }
+
+            public Object getAppraiseCategory() {
+                return appraiseCategory;
+            }
+
+            public void setAppraiseCategory(Object appraiseCategory) {
+                this.appraiseCategory = appraiseCategory;
+            }
+
+            public Object getProductId() {
+                return productId;
+            }
+
+            public void setProductId(Object productId) {
+                this.productId = productId;
+            }
+
+            public Object getCoverUrl() {
+                return coverUrl;
+            }
+
+            public void setCoverUrl(Object coverUrl) {
+                this.coverUrl = coverUrl;
+            }
+
+            public Object getVisitNum() {
+                return visitNum;
+            }
+
+            public void setVisitNum(Object visitNum) {
+                this.visitNum = visitNum;
+            }
+
+            public Object getVisitNumOfDay() {
+                return visitNumOfDay;
+            }
+
+            public void setVisitNumOfDay(Object visitNumOfDay) {
+                this.visitNumOfDay = visitNumOfDay;
+            }
+
+            public Object getSpecialBrandInfo() {
+                return specialBrandInfo;
+            }
+
+            public void setSpecialBrandInfo(Object specialBrandInfo) {
+                this.specialBrandInfo = specialBrandInfo;
+            }
+
+            public Object getSpecialInstructions() {
+                return specialInstructions;
+            }
+
+            public void setSpecialInstructions(Object specialInstructions) {
+                this.specialInstructions = specialInstructions;
+            }
+
+            public Object getCreditCard() {
+                return creditCard;
+            }
+
+            public void setCreditCard(Object creditCard) {
+                this.creditCard = creditCard;
+            }
+
+            public Object getDeliveryTime() {
+                return deliveryTime;
+            }
+
+            public void setDeliveryTime(Object deliveryTime) {
+                this.deliveryTime = deliveryTime;
+            }
+
+            public Object getBasicExpressFee() {
+                return basicExpressFee;
+            }
+
+            public void setBasicExpressFee(Object basicExpressFee) {
+                this.basicExpressFee = basicExpressFee;
+            }
+
+            public Object getFreeAmountOfExpressFee() {
+                return freeAmountOfExpressFee;
+            }
+
+            public void setFreeAmountOfExpressFee(Object freeAmountOfExpressFee) {
+                this.freeAmountOfExpressFee = freeAmountOfExpressFee;
+            }
+
+            public Object getStatus() {
+                return status;
+            }
+
+            public void setStatus(Object status) {
+                this.status = status;
+            }
+
+            public Object getEnterStore() {
+                return enterStore;
+            }
+
+            public void setEnterStore(Object enterStore) {
+                this.enterStore = enterStore;
+            }
+
+            public Object getMallProductList() {
+                return mallProductList;
+            }
+
+            public void setMallProductList(Object mallProductList) {
+                this.mallProductList = mallProductList;
+            }
+
+            public String getDoorPhoto() {
+                return doorPhoto;
+            }
+
+            public void setDoorPhoto(String doorPhoto) {
+                this.doorPhoto = doorPhoto;
             }
         }
     }

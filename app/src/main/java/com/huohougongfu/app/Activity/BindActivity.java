@@ -59,7 +59,6 @@ public class BindActivity extends AppCompatActivity implements View.OnClickListe
                             mAliasCallback);
                     break;
                 default:
-//                    Log.i(TAG, "Unhandled msg - " + msg.what);
             }
         }
     };

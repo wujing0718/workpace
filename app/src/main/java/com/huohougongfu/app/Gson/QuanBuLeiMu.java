@@ -59,36 +59,23 @@ public class QuanBuLeiMu {
         }
 
         public static class ListBean {
-            /**
-             * id : 2
-             * name : 品牌名称
-             * isSpecial : 1
-             * img : 图片
-             * story : 阿斯蒂芬
-             * order : 0
-             * createTime : 2019-06-20T08:47:09.000+0000
-             * updateTime : 2019-07-19T01:38:59.000+0000
-             * address : 地址
-             * isCollection : null
-             * productList : null
-             */
 
             private int id;
             private int userId;
-            private String name;
             private String isSpecial;
             private String img;
             private String story;
             private String order;
-
             private String level;
             private String photo;
             private String storeName;
             private String storeLogo;
             private String ico;
             private String pic;
+            private String specialInstructions;
+            private String doorPhoto;
             private int mId;
-
+            private String name;
 
             private String createTime;
             private String updateTime;
@@ -111,6 +98,20 @@ public class QuanBuLeiMu {
 
             public void setmId(int mId) {
                 this.mId = mId;
+            }
+
+            public String getSpecialInstructions() {
+                return specialInstructions;
+            }
+            public void gets(String specialBrandInfo) {
+                this.specialInstructions = specialInstructions;
+            }
+
+            public String getDoorPhoto() {
+                return doorPhoto;
+            }
+            public void setDoorPhoto(String doorPhoto) {
+                this.doorPhoto = doorPhoto;
             }
 
             public String getPic() {

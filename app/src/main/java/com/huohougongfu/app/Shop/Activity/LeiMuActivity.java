@@ -332,7 +332,7 @@ public class LeiMuActivity extends AppCompatActivity {
                     leimuruzhudianpu2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            intent.putExtra("name",listBeans.get(position).getName());
+                            intent.putExtra("name",listBeans.get(position).getStoreName());
                             intent.setClass(LeiMuActivity.this,LeiMuDetailActivity.class);
                             startActivity(intent);
                         }

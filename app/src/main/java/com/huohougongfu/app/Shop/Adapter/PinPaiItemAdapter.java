@@ -23,7 +23,7 @@ import java.util.List;
 
 public class PinPaiItemAdapter extends RecyclerView.Adapter<PinPaiItemAdapter.ViewHolder> {
 
-    private List<TeYuePingPai.ResultBean.ResultListBean.ListBean.ProductListBean>  data;
+    private List<TeYuePingPai.ResultBean.ResultListBean.ListBean.MallProductListBean>  data;
     private Context context;
     private PinPaiItemAdapter.OnItemClickListener mOnItemClickListener;
 
@@ -34,7 +34,7 @@ public class PinPaiItemAdapter extends RecyclerView.Adapter<PinPaiItemAdapter.Vi
         void onItemClickListener(int pos);
     }
 
-    public PinPaiItemAdapter(Context context, List<TeYuePingPai.ResultBean.ResultListBean.ListBean.ProductListBean> productList) {
+    public PinPaiItemAdapter(Context context, List<TeYuePingPai.ResultBean.ResultListBean.ListBean.MallProductListBean> productList) {
         this.data = productList;
         this.context = context;
     }

@@ -96,6 +96,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private ShopDetail shopdetail;
     private RecyclerView rec_shop_detail_photo;
     private List<Object> mlist = new ArrayList<>();
+    private ImageView img_dianpu_ditu;
 
     public ShangPinFragment() {
 
@@ -177,6 +178,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     }
 
     private void initUI() {
+        img_dianpu_ditu = inflate.findViewById(R.id.img_dianpu_ditu);
         tv_detail_price = inflate.findViewById(R.id.tv_detail_price);
         tv_yuan_price = inflate.findViewById(R.id.tv_yuan_price);
         tv_detail_name = inflate.findViewById(R.id.tv_detail_name);
@@ -321,11 +323,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         }
         RequestOptions options = new RequestOptions().circleCrop();
         if(getContext()!=null){
-            Glide.with(getActivity()).load(mallProduct.getStoreLogo()).apply(options).into(img_dianp_logo);
+            Glide.with(MyApp.context).load(mallProduct.getUserHeadPic()).apply(options).into(img_dianp_logo);
         }
         tv_dianpu_name.setText(mallProduct.getStoreName());
-        tv_dianpu_jianjie.setText(mallProduct.getStoreBoard());
-//        Glide.with(getActivity()).load(mallProduct.getRemark()).into(img_shangpin_detail);
+        tv_dianpu_jianjie.setText(mallProduct.getSpecialInstructions());
+        Glide.with(MyApp.context).load(mallProduct.getDoorPhoto()).into(img_dianpu_ditu);
         if (mallProduct.getProductCollection()==1){
             tv_dian_shoucang.setText("已收藏");
             img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
@@ -435,7 +437,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_tade_dianpu:
                 if (!utils.isDoubleClick()){
                     Intent intent = new Intent();
-                    intent.putExtra("id",String.valueOf(mallProduct.getStoreId()));
+                    intent.putExtra("id",String.valueOf(mallProduct.getUserId()));
                     intent.setClass(getActivity(),DiaPuZhuYeActivity.class);
                     startActivity(intent);
                 }

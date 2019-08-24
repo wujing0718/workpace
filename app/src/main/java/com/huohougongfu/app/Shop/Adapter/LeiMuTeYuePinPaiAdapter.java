@@ -21,8 +21,8 @@ public class LeiMuTeYuePinPaiAdapter extends BaseQuickAdapter<QuanBuLeiMu.Result
     @Override
     protected void convert(BaseViewHolder helper, QuanBuLeiMu.ResultBean.ListBean item) {
         ImageView img_teyuepinpai = helper.getView(R.id.img_teyuepinpai);
-        helper.setText(R.id.tv_teyuepingpai_story,item.getStory());
-        helper.setText(R.id.tv_teyuepingpai_name,item.getName());
-        Glide.with(MyApp.context).load(item.getImg()).into(img_teyuepinpai);
+        helper.setText(R.id.tv_teyuepingpai_story,item.getSpecialInstructions());
+        helper.setText(R.id.tv_teyuepingpai_name,item.getStoreName());
+        Glide.with(MyApp.context).load(item.getDoorPhoto()).into(img_teyuepinpai);
     }
 }

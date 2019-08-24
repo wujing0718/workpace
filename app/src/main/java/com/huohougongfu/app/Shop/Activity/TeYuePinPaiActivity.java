@@ -22,6 +22,7 @@ import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.TeYuePingPai;
+import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.PinPaiAdapter;
@@ -66,6 +67,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     private int page =2;
     private int mId;
     private Intent intent;
+    private String token;
 
 
     @Override
@@ -74,6 +76,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_te_yue_pin_pai);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mId = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         intent = new Intent();
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,7 +248,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                         break;
                     case R.id.bt_pinpai_guanzhu:
                         if (!utils.isDoubleClick()){
-                            if (resultList.get(position).getIsCollection() == 1){
+                            if (resultList.get(position).getIsAttention() == 1){
                                 initNoGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
                             }else{
                                 initGuanZhu(bt_pinpai_guanzhu,resultList.get(position));
@@ -273,10 +276,13 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     }
 
     private void initGuanZhu(TextView bt_pinpai_guanzhu, TeYuePingPai.ResultBean.ResultListBean.ListBean listBean) {
-        Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(mId));
-        map.put("brandId",String.valueOf(listBean.getId()));
-        OkGo.<String>post(Contacts.URl1+"collectionBrand")
+        int userId = listBean.getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(1));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -284,9 +290,13 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
+                                listBean.setIsAttention(1);
+                                ToastUtils.showShort(jsonObject.getString("msg"));
                                 bt_pinpai_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
                                 bt_pinpai_guanzhu.setText("已关注");
-                                listBean.setIsCollection(1);
+                                bt_pinpai_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -295,11 +305,14 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                 });
     }
 
-    private void initNoGuanZhu(TextView bt_pinpai_guanzhu,TeYuePingPai.ResultBean.ResultListBean.ListBean listBean) {
-        Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(mId));
-        map.put("brandId",String.valueOf(listBean.getId()));
-        OkGo.<String>post(Contacts.URl1+"collectionBrand")
+    private void initNoGuanZhu(TextView bt_pinpai_guanzhu, TeYuePingPai.ResultBean.ResultListBean.ListBean listBean) {
+        int userId = listBean.getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(0));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -307,9 +320,13 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
-                                bt_pinpai_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                listBean.setIsAttention(0);
                                 bt_pinpai_guanzhu.setText("+关注");
-                                listBean.setIsCollection(0);
+                                bt_pinpai_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+                                bt_pinpai_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

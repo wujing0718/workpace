@@ -335,7 +335,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean1 = data.get(groupPosition).getMallStore().getMallProducts().get(childPosition);
         childViewHolder.tv_dingdan_title.setText(mallProductsBean1.getName());
         childViewHolder.tv_dingdan_guige.setText(mallProductsBean1.getStandard());
-        childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getMarketPrice()));
+        childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getPrice()));
         childViewHolder.amountview.setCount(mallProductsBean1.getNum());
         Glide.with(context).load(mallProductsBean1.getCoverUrl()).into(childViewHolder.img_dingdan_photo);
         childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {

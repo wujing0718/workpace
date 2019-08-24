@@ -39,11 +39,11 @@ public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.Resu
         ImageView img_quanbu_logo = helper.getView(R.id.img_quanbu_logo);
         TextView bt_pinpai_guanzhu = helper.getView(R.id.bt_pinpai_guanzhu);
         RequestOptions requestOptions = new RequestOptions().circleCrop();
-        Glide.with(MyApp.context).load(item.getImg()).apply(requestOptions).into(img_quanbu_logo);
-        helper.setText(R.id.tv_quanbu_name,item.getName());
-        helper.setText(R.id.tv_quanbu_jianjie,item.getStory());
+        Glide.with(MyApp.context).load(item.getDoorPhoto()).apply(requestOptions).into(img_quanbu_logo);
+        helper.setText(R.id.tv_quanbu_name,item.getStoreName());
+        helper.setText(R.id.tv_quanbu_jianjie,item.getStoreBoard());
         helper.addOnClickListener(R.id.bt_pinpai_guanzhu);
-        if (item.getIsCollection() ==1){
+        if (item.getIsAttention() ==1){
             bt_pinpai_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
             bt_pinpai_guanzhu.setText("已关注");
         }else{
@@ -56,13 +56,13 @@ public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.Resu
         //设置RecyclerView 布局
         rec_pinpai_shangpin.setLayoutManager(layoutmanager);
         int firstVisibleItemPosition = layoutmanager.findFirstVisibleItemPosition()+1;
-        PinPaiItemAdapter shangPinTuiJianAdapter = new PinPaiItemAdapter(MyApp.getInstances(),data1.get(firstVisibleItemPosition).getProductList());
+        PinPaiItemAdapter shangPinTuiJianAdapter = new PinPaiItemAdapter(MyApp.getInstances(),item.getMallProductList());
         rec_pinpai_shangpin.setAdapter(shangPinTuiJianAdapter);
         shangPinTuiJianAdapter.setOnItemClickListener(new PinPaiItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int pos) {
                 Intent intent = new Intent();
-                intent.putExtra("id",item.getProductList().get(pos).getId());
+                intent.putExtra("id",item.getMallProductList().get(pos).getId());
                 intent.setClass(MyApp.context,ShangPinDetailActivity.class);
                 startActivity(intent);
             }

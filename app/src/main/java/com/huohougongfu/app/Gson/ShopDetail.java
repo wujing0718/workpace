@@ -63,6 +63,7 @@ public class ShopDetail {
             private String coverUrl;
             private int sellNum;
             private int transId;
+            private int userId;
             private String remark;
             private String productPicture;
             private int storeId;
@@ -77,6 +78,24 @@ public class ShopDetail {
             private int productCollection;
             private String detailPic;
             private String sendAddress;
+            private String userHeadPic;
+            private String doorPhoto;
+
+            public String getDoorPhoto() {
+                return doorPhoto;
+            }
+
+            public void setDoorPhoto(String doorPhoto) {
+                this.doorPhoto = doorPhoto;
+            }
+
+            public String getUserHeadPic() {
+                return userHeadPic;
+            }
+
+            public void setUserHeadPic(String userHeadPic) {
+                this.sendAddress = userHeadPic;
+            }
 
             public String getSendAddress() {
                 return sendAddress;
@@ -123,6 +142,14 @@ public class ShopDetail {
 
             public void setIsCollection(int isCollection) {
                 this.isCollection = isCollection;
+            }
+
+            public int getUserId() {
+                return userId;
+            }
+
+            public void setUserId(int userId) {
+                this.userId = userId;
             }
 
             public int getId() {

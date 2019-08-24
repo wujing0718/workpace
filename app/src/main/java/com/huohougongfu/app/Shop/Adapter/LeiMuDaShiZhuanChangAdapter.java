@@ -20,7 +20,7 @@ public class LeiMuDaShiZhuanChangAdapter extends BaseQuickAdapter<QuanBuLeiMu.Re
 
     @Override
     protected void convert(BaseViewHolder helper, QuanBuLeiMu.ResultBean.ListBean item) {
-        helper.setText(R.id.tv_dashi_name,item.getName());
+        helper.setText(R.id.tv_dashi_name,item.getStoreName());
         helper.setText(R.id.tv_dashi_level,item.getLevel());
         ImageView img_dashi_touxiang = helper.getView(R.id.img_dashi_touxiang);
         Glide.with(MyApp.context).load(item.getPhoto()).into(img_dashi_touxiang);

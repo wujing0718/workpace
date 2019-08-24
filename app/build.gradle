@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'huohougongfu'
             keyPassword 'huohougongfu'
-            storeFile file('F:/workpace/huohougongfu.jks')
+            storeFile file('G:/haomeng/workpace/huohougongfu.jks')
             storePassword 'huohougongfu'
         }
     }
@@ -102,7 +102,8 @@ dependencies {
     implementation project(path: ':media')
     implementation project(path: ':IMKit')
     implementation project(path: ':IMLib')
-//    implementation 'com.kongzue.dialog_v3:dialog:3.1.1'
+
+    //    implementation 'com.kongzue.dialog_v3:dialog:3.1.1'
     implementation 'com.kongzue.dialog:dialog:2.5.1'
 
     //购物车控件
@@ -164,6 +165,7 @@ dependencies {
 
     //     此处以JPush 3.1.6 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.2.5'
+
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }
