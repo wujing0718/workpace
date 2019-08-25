@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginVertical="@dimen/dp_10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginVertical="@dimen/dp_4"
+        android:id="@+id/tv_xitong_time"
+        android:gravity="right"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <LinearLayout
+        android:layout_below="@+id/tv_xitong_time"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView
+            android:id="@+id/img_tuisong"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80" />
+
+        <RelativeLayout
+            android:layout_marginHorizontal="@dimen/dp_12"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_tuisong_title"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text=""
+                android:textColor="@color/colorBlack"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_tuisong_content"
+                android:layout_marginTop="@dimen/dp_50"
+                android:layout_marginRight="@dimen/dp_30"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginHorizontal="@dimen/dp_20"
+        android:background="#E8E8E8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

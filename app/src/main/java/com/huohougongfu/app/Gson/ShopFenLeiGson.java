@@ -3,11 +3,6 @@ package com.huohougongfu.app.Gson;
 import java.util.List;
 
 public class ShopFenLeiGson {
-    /**
-     * msg : 操作成功
-     * result : [{"name":"茶叶","list":[{"name":"白茶","id":4,"pic":"ico","list":[{"id":22,"parentId":4,"name":"茉莉茶","catDir":3,"showOrder":20,"createBy":1,"createTime":"2019-07-11T11:10:46.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:54.000+0000","ico":"ico","keyWord":null,"productCount":null},{"id":23,"parentId":4,"name":"普洱","catDir":3,"showOrder":22,"createBy":1,"createTime":"2019-07-11T11:11:47.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:55.000+0000","ico":"ico","keyWord":null,"productCount":null},{"id":24,"parentId":4,"name":"碧螺春","catDir":3,"showOrder":23,"createBy":1,"createTime":"2019-07-11T11:12:39.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:56.000+0000","ico":"ico","keyWord":null,"productCount":null}],"parentId":1},{"name":"红茶","id":9,"pic":"ico","list":[{"id":29,"parentId":9,"name":"红茶茶","catDir":3,"showOrder":22,"createBy":null,"createTime":"2019-07-11T09:32:49.000+0000","updateBy":null,"updateTime":"2019-07-26T02:59:02.000+0000","ico":"ico","keyWord":null,"productCount":null}],"parentId":1},{"name":"绿茶","id":12,"pic":"ico","list":[],"parentId":1},{"name":"铁观音","id":20,"pic":"ico","list":[],"parentId":1},{"name":"龙井","id":21,"pic":"ico","list":[],"parentId":1}]},{"name":"茶器","list":[{"name":"材质","id":26,"pic":"ico","list":[{"id":27,"parentId":26,"name":"陶瓷","catDir":3,"showOrder":55,"createBy":null,"createTime":"2019-07-19T01:20:01.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:58.000+0000","ico":"ico","keyWord":null,"productCount":null},{"id":28,"parentId":26,"name":"紫砂","catDir":3,"showOrder":66,"createBy":null,"createTime":"2019-07-16T01:20:40.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:59.000+0000","ico":"ico","keyWord":null,"productCount":null}],"parentId":25}]}]
-     * status : 1
-     */
 
     private String msg;
     private int status;
@@ -38,12 +33,8 @@ public class ShopFenLeiGson {
     }
 
     public static class ResultBean {
-        /**
-         * name : 茶叶
-         * list : [{"name":"白茶","id":4,"pic":"ico","list":[{"id":22,"parentId":4,"name":"茉莉茶","catDir":3,"showOrder":20,"createBy":1,"createTime":"2019-07-11T11:10:46.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:54.000+0000","ico":"ico","keyWord":null,"productCount":null},{"id":23,"parentId":4,"name":"普洱","catDir":3,"showOrder":22,"createBy":1,"createTime":"2019-07-11T11:11:47.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:55.000+0000","ico":"ico","keyWord":null,"productCount":null},{"id":24,"parentId":4,"name":"碧螺春","catDir":3,"showOrder":23,"createBy":1,"createTime":"2019-07-11T11:12:39.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:56.000+0000","ico":"ico","keyWord":null,"productCount":null}],"parentId":1},{"name":"红茶","id":9,"pic":"ico","list":[{"id":29,"parentId":9,"name":"红茶茶","catDir":3,"showOrder":22,"createBy":null,"createTime":"2019-07-11T09:32:49.000+0000","updateBy":null,"updateTime":"2019-07-26T02:59:02.000+0000","ico":"ico","keyWord":null,"productCount":null}],"parentId":1},{"name":"绿茶","id":12,"pic":"ico","list":[],"parentId":1},{"name":"铁观音","id":20,"pic":"ico","list":[],"parentId":1},{"name":"龙井","id":21,"pic":"ico","list":[],"parentId":1}]
-         */
-
         private String name;
+        private int id;
         private List<ListBeanX> list;
 
         public String getName() {
@@ -52,6 +43,14 @@ public class ShopFenLeiGson {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
 
         public List<ListBeanX> getList() {
@@ -66,8 +65,8 @@ public class ShopFenLeiGson {
             /**
              * name : 白茶
              * id : 4
-             * pic : ico
-             * list : [{"id":22,"parentId":4,"name":"茉莉茶","catDir":3,"showOrder":20,"createBy":1,"createTime":"2019-07-11T11:10:46.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:54.000+0000","ico":"ico","keyWord":null,"productCount":null},{"id":23,"parentId":4,"name":"普洱","catDir":3,"showOrder":22,"createBy":1,"createTime":"2019-07-11T11:11:47.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:55.000+0000","ico":"ico","keyWord":null,"productCount":null},{"id":24,"parentId":4,"name":"碧螺春","catDir":3,"showOrder":23,"createBy":1,"createTime":"2019-07-11T11:12:39.000+0000","updateBy":null,"updateTime":"2019-07-26T02:58:56.000+0000","ico":"ico","keyWord":null,"productCount":null}]
+             * pic : http://oss.irving.net.cn/tea/1565684000683.jpg
+             * list : [{"id":22,"parentId":4,"name":"茉莉茶","catDir":3,"showOrder":20,"createBy":1,"createTime":"2019-07-11T11:10:46.000+0000","updateBy":null,"updateTime":"2019-08-25T03:19:49.000+0000","ico":"https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10761566531730_.pic_hd.jpg","keyWord":null,"productCount":null},{"id":23,"parentId":4,"name":"普洱","catDir":3,"showOrder":22,"createBy":1,"createTime":"2019-07-11T11:11:47.000+0000","updateBy":null,"updateTime":"2019-08-25T03:19:51.000+0000","ico":"https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10761566531730_.pic_hd.jpg","keyWord":null,"productCount":null},{"id":24,"parentId":4,"name":"碧螺春","catDir":3,"showOrder":23,"createBy":1,"createTime":"2019-07-11T11:12:39.000+0000","updateBy":null,"updateTime":"2019-08-25T03:19:52.000+0000","ico":"https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10761566531730_.pic_hd.jpg","keyWord":null,"productCount":null}]
              * parentId : 1
              */
 
@@ -127,8 +126,8 @@ public class ShopFenLeiGson {
                  * createBy : 1
                  * createTime : 2019-07-11T11:10:46.000+0000
                  * updateBy : null
-                 * updateTime : 2019-07-26T02:58:54.000+0000
-                 * ico : ico
+                 * updateTime : 2019-08-25T03:19:49.000+0000
+                 * ico : https://hotkungfu.oss-cn-beijing.aliyuncs.com/picture/10761566531730_.pic_hd.jpg
                  * keyWord : null
                  * productCount : null
                  */

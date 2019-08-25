@@ -67,7 +67,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
     private String provinceName,cityName;
     private EditText edt_shop_title,edt_shop_num,edt_shop_yongjin;
-    private String categoryNameid;
+    private String categoryNameid,Nameid;
     private String canshu;
     private String shopguige;
     private TextView tv_shuo_guige,tv_yitianxie,tv_shop_yitianxie;
@@ -184,6 +184,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
             Bundle extras = data.getExtras();
             categoryName = extras.getString("categoryName");
             categoryNameid = extras.getString("categoryNameid");
+             Nameid = extras.getString("Nameid");
             if (categoryName!=null ){
                 tv_categoryName.setText(categoryName);
             }
@@ -286,8 +287,8 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.bt_shop_canshu:
                 if (!utils.isDoubleClick()){
-                    if (categoryName != null && !"".equals(categoryName)){
-                        intent.putExtra("categoryName",categoryName);
+                    if (Nameid != null && !"".equals(Nameid)){
+                        intent.putExtra("categoryName",Nameid);
                         intent.setClass(TianJiaShangPinActivity.this,ShopCanShuActivity.class);
                         startActivityForResult(intent,102);
                     }else{

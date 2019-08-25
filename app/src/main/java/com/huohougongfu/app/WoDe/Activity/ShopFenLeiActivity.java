@@ -51,7 +51,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     private ShopFenLeiGson shopFenLeiGson;
     private int position1;
     private Bundle bundle;
-    private String categoryName ,categoryNameid;
+    private String categoryName ,categoryNameid,Nameid;
 
 
     @Override
@@ -73,12 +73,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                         if (shopFenLeiGson.getStatus() == 1){
                             for (int i = 0; i < shopFenLeiGson.getResult().size(); i++) {
                                 countryValues.add(shopFenLeiGson.getResult().get(i).getName());
-//                                for (int j = 0; j < shopFenLeiGson.getResult().get(i).getList().size(); j++) {
-//                                    provinceValues.add(shopFenLeiGson.getResult().get(i).getList().get(j).getName());
-//                                    for (int k = 0; k < shopFenLeiGson.getResult().get(i).getList().get(j).getList().size(); k++) {
-//                                        cityValues.add(shopFenLeiGson.getResult().get(i).getList().get(j).getList().get(k).getName());
-//                                    }
-//                                }
+                                countryValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(i).getId()));
                             }
                             setCountry();
                             setProvince();
@@ -243,17 +238,21 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                     if (cityValues.size()>0){
                         categoryName = cityValues.get(cityPosition);
                         categoryNameid = cityValuesid.get(cityPosition);
+                        Nameid = countryValues.get(countryPosition);
                     }else if (provinceValues.size()>0){
                         categoryName = provinceValues.get(provincePosition);
-                        categoryNameid = provinceValuesid.get(provincePosition);
-
+                        categoryNameid = provinceValues.get(provincePosition);
+                        Nameid = countryValues.get(countryPosition);
                     }else {
                         categoryName = countryValues.get(countryPosition);
-                        categoryNameid = countryValuesid.get(countryPosition);
+                        categoryNameid = countryValues.get(countryPosition);
+                        Nameid = countryValues.get(countryPosition);
                     }
+
                     bundle = new Bundle();
                     bundle.putString("categoryNameid",categoryNameid);
                     bundle.putString("categoryName",categoryName);
+                    bundle.putString("Nameid",Nameid);
                     setResult(101,ShopFenLeiActivity.this.getIntent().putExtras(bundle));
                     ShopFenLeiActivity.this.finish();
                 }
