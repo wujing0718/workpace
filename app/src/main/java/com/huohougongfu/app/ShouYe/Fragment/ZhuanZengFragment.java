@@ -191,13 +191,13 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
                                     Gson gson = new Gson();
                                     ZhuanZengChengGong zhuanzeng = gson.fromJson(body, ZhuanZengChengGong.class);
                                     if (zhuanzeng.getStatus() == 1){
-                                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
-                                        web.setTitle("火后功夫");//标题
-                                        web.setDescription("123456");//描述
+                                        UMWeb web = new UMWeb("http://"+zhuanzeng.getResult().getUrl());//连接地址
+                                        web.setTitle(zhuanzeng.getResult().getTitle());//标题
+                                        web.setDescription(zhuanzeng.getResult().getContent());//描述
                                         if (TextUtils.isEmpty("")) {
                                             web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
                                         } else {
-                                            web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                                            web.setThumb(new UMImage(getActivity(), zhuanzeng.getResult().getPhoto()));  //网络缩略图
                                         }
                                         new ShareAction(getActivity())
                                                 .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,

@@ -313,7 +313,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             bt_commission.setVisibility(View.GONE);
             bt_detail_fenxiang.setVisibility(View.VISIBLE);
         }
-        tv_detail_price.setText(String.valueOf("¥"+String.valueOf(mallProduct.getPrice())));
+        tv_detail_price.setText(String.valueOf(mallProduct.getPrice()));
         tv_yuan_price.setText(String.valueOf(mallProduct.getMarketPrice()));
         tv_detail_kuaidi.setText("快递："+mallProduct.getDefaultTranCost());
         tv_detail_name.setText(mallProduct.getName());

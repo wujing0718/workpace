@@ -53,6 +53,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
+
 public class XiaDanAdapter extends BaseExpandableListAdapter {
 
     private ImageView img_dianpu_logo;
@@ -155,16 +157,27 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                 for (int y = 0; y < mallProducts.size(); y++) {
                     ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
                         String num = String.valueOf(mallProductsBean.getNum());
-                        String price = String.valueOf(mallProductsBean.getMarketPrice());
+                        String price = String.valueOf(mallProductsBean.getPrice());
                     double dikou  = teaRice*0.01;
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
-                    if (dikou>=total_price){
-                        tvTotalPrice.setText("¥" + decimalFormat.format(0.00));
-                    }else{
-                        tvTotalPrice.setText("¥" + decimalFormat.format(total_price-dikou));
-                    }
+                    new Thread() {
+                        public void run() {
+                            //这儿是耗时操作，完成之后更新UI；
+                            runOnUiThread(new Runnable(){
+
+                                @Override
+                                public void run() {
+                                    if (dikou>=total_price){
+                                        tvTotalPrice.setText("¥" + decimalFormat.format(0.00));
+                                    }else{
+                                        tvTotalPrice.setText("¥" + decimalFormat.format(total_price-dikou));
+                                    }
+                                }
+                            });
+                        }
+                    }.start();
                 }
             }
         }else{
@@ -177,11 +190,21 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                 for (int y = 0; y < mallProducts.size(); y++) {
                     ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
                     String num = String.valueOf(mallProductsBean.getNum());
-                    String price = String.valueOf(mallProductsBean.getMarketPrice());
+                    String price = String.valueOf(mallProductsBean.getPrice());
                     double v = Double.parseDouble(num);
                     double v1 = Double.parseDouble(price);
                     total_price = total_price + v * v1;
-                    tvTotalPrice.setText("¥" + decimalFormat.format(total_price));
+                    new Thread() {
+                        public void run() {
+                            //这儿是耗时操作，完成之后更新UI；
+                            runOnUiThread(new Runnable(){
+                                @Override
+                                public void run() {
+                                    tvTotalPrice.setText("¥" + decimalFormat.format(total_price));
+                                }
+                            });
+                        }
+                    }.start();
                 }
             }
         }

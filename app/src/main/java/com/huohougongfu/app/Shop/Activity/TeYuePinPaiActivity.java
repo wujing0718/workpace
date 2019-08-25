@@ -138,7 +138,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         map.put("pageSize","10");
         map.put("name",sousuo);
         map.put("userId",String.valueOf(mId));
-        OkGo.<String>get(Contacts.URl2+"query/brand/isSpecial")
+        OkGo.<String>get(Contacts.URl1+"query/brand/isSpecial")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override

@@ -15,15 +15,15 @@ import com.huohougongfu.app.R;
 
 import java.util.List;
 
-public class QuanBuDaShiAdapter extends BaseQuickAdapter<DSZhuanChang.ResultBean.AllMasterBean,BaseViewHolder> {
-    private List<DSZhuanChang.ResultBean.AllMasterBean> data1;
-    public QuanBuDaShiAdapter(int layoutResId, @Nullable List<DSZhuanChang.ResultBean.AllMasterBean> data) {
+public class QuanBuDaShiAdapter extends BaseQuickAdapter<DSZhuanChang.ResultBean.AllMasterBean.ListBean,BaseViewHolder> {
+    private List<DSZhuanChang.ResultBean.AllMasterBean.ListBean> data1;
+    public QuanBuDaShiAdapter(int layoutResId, @Nullable List<DSZhuanChang.ResultBean.AllMasterBean.ListBean> data) {
         super(layoutResId, data);
         this.data1 = data;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DSZhuanChang.ResultBean.AllMasterBean item) {
+    protected void convert(BaseViewHolder helper, DSZhuanChang.ResultBean.AllMasterBean.ListBean item) {
         helper.addOnClickListener(R.id.bt_dashi_jianjie);
         helper.addOnClickListener(R.id.bt_dashi_zhuye
         );
@@ -36,14 +36,14 @@ public class QuanBuDaShiAdapter extends BaseQuickAdapter<DSZhuanChang.ResultBean
     }
 
     //下面两个方法提供给页面刷新和加载时调用
-    public void add(List<DSZhuanChang.ResultBean.AllMasterBean> data) {
+    public void add(List<DSZhuanChang.ResultBean.AllMasterBean.ListBean> data) {
         //增加数据
         int position = data1.size();
         data1.addAll(position, data);
         notifyItemRangeChanged(position,data.size());
     }
 
-    public void refresh(List<DSZhuanChang.ResultBean.AllMasterBean> data) {
+    public void refresh(List<DSZhuanChang.ResultBean.AllMasterBean.ListBean> data) {
         //刷新数据
         data1.remove(data1);
         data1.addAll(data);

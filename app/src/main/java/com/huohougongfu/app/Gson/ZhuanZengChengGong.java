@@ -2,11 +2,6 @@ package com.huohougongfu.app.Gson;
 
 public class ZhuanZengChengGong {
 
-    /**
-     * msg : 操作成功
-     * result : {"url":"www.baidu.com","tId":13}
-     * status : 1
-     */
 
     private String msg;
     private ResultBean result;
@@ -37,13 +32,27 @@ public class ZhuanZengChengGong {
     }
 
     public static class ResultBean {
-        /**
-         * url : www.baidu.com
-         * tId : 13
-         */
 
+        private String photo;
+        private String title;
         private String url;
-        private int tId;
+        private String content;
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
         public String getUrl() {
             return url;
@@ -53,12 +62,12 @@ public class ZhuanZengChengGong {
             this.url = url;
         }
 
-        public int getTId() {
-            return tId;
+        public String getContent() {
+            return content;
         }
 
-        public void setTId(int tId) {
-            this.tId = tId;
+        public void setContent(String content) {
+            this.content = content;
         }
     }
 }

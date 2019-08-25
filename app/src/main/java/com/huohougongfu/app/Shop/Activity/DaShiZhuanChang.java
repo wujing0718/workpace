@@ -142,7 +142,7 @@ public class DaShiZhuanChang extends AppCompatActivity {
                         DSZhuanChang shangPinGson = gson.fromJson(response.body(), DSZhuanChang.class);
                         if (shangPinGson.getStatus() == 1) {
                             initRec(shangPinGson.getResult().getYourLike());
-                            initRec2(shangPinGson.getResult().getAllMaster());
+                            initRec2(shangPinGson.getResult().getAllMaster().getList());
                         }
                     }
                     @Override
@@ -209,7 +209,7 @@ public class DaShiZhuanChang extends AppCompatActivity {
         });
     }
 
-    private void initRec2(List<DSZhuanChang.ResultBean.AllMasterBean> allMaster) {
+    private void initRec2(List<DSZhuanChang.ResultBean.AllMasterBean.ListBean> allMaster) {
         //BUG
         ViewGroup parentViewGroup = (ViewGroup) head_dashizhuanchang.getParent();
         if (parentViewGroup != null) {
@@ -279,8 +279,8 @@ public class DaShiZhuanChang extends AppCompatActivity {
                         Gson gson = new Gson();
                         DSZhuanChang shangPinGson = gson.fromJson(response.body(), DSZhuanChang.class);
                         if (shangPinGson.getStatus() == 1) {
-                            if (shangPinGson.getResult().getAllMaster().size()>0){
-                                quanBuDaShiAdapter.add(shangPinGson.getResult().getAllMaster());
+                            if (shangPinGson.getResult().getAllMaster().getList().size()>0){
+                                quanBuDaShiAdapter.add(shangPinGson.getResult().getAllMaster().getList());
                                 smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                             }else {
                                 smartrefreshlayout. finishLoadmoreWithNoMoreData();
