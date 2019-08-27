@@ -27,11 +27,13 @@ import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.WoDe.Activity.AddressActivity;
 import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -146,6 +148,7 @@ public class GuiGe extends BottomPopupView {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         try {
                             JSONObject jsonObject1 = new JSONObject(body);
@@ -172,6 +175,7 @@ public class GuiGe extends BottomPopupView {
                                 if (shopDingDan.getStatus() == 1){
                                     Intent intent = new Intent();
                                     intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
+                                    intent.putExtra("standardId",standarid);
                                     intent.setClass(context,XiaDanActivity.class);
                                     context.startActivity(intent);
                                 }
@@ -179,6 +183,12 @@ public class GuiGe extends BottomPopupView {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(context,"请稍后。。。");
+                        super.onStart(request);
                     }
                 });
     }
@@ -197,7 +207,7 @@ public class GuiGe extends BottomPopupView {
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
-                        String body = response.body();
+                                    String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){

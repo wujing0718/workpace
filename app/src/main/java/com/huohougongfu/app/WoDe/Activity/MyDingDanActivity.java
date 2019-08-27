@@ -21,11 +21,13 @@ public class MyDingDanActivity extends AppCompatActivity {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_ding_dan);
+        position = getIntent().getIntExtra("position", 0);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +47,7 @@ public class MyDingDanActivity extends AppCompatActivity {
         }
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(),mFragments,mtabtitle);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setCurrentItem(position);
         stl.setViewPager(mViewPager);
     }
 

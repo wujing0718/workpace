@@ -20,6 +20,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ public class WoDeFenSiActivity extends AppCompatActivity {
     private ZhaoRenAdapter zhaorendadapter;
     private String token;
     private String mId;
+    private int page = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,10 @@ public class WoDeFenSiActivity extends AppCompatActivity {
                         ZhaoRenGson fensi = gson.fromJson(body, ZhaoRenGson.class);
                         if (fensi.getStatus() == 1){
                             if (fensi.getResult().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
                                 initRec(fensi.getResult().getList());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
                             }
                         }
                     }
@@ -92,7 +99,48 @@ public class WoDeFenSiActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initData();
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
     }
+
+    private void initAdd() {
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",mId);
+        map.put("pageNo",String.valueOf(page++));
+        map.put("pageSize","10");
+        OkGo.<String>post(Contacts.URl1+"/my/fan")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        ZhaoRenGson fensi = gson.fromJson(body, ZhaoRenGson.class);
+                        if (fensi.getStatus() == 1){
+                            if (fensi.getResult().getList().size()>0){
+                                zhaorendadapter.add(fensi.getResult().getList());
+                                smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                            }else {
+                                smartrefreshlayout. finishLoadMore();
+                            }
+                        }
+                    }
+                });
+    }
+
 
     private void initGuanZhu(int type, ZhaoRenGson.ResultBean.ListBean listBean, TextView bt_zhaoren_gaunzhu) {
         int userId = listBean.getUserId();

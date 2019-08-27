@@ -48,7 +48,7 @@ public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean,Base
         }
         helper.setText(R.id.tv_dingdan_num,"共计："+item.getProductTotalNum()+"件商品");
         helper.setText(R.id.tv_dingdan_price,"合计：¥"+item.getOrderAmountTotal());
-        helper.setText(R.id.tv_dingdan_youfeiprice,"（含运费¥"+item.getLogisticsFee()+"）");
+//        helper.setText(R.id.tv_dingdan_youfeiprice,"（含运费¥"+item.getLogisticsFee()+"）");
         helper.setText(R.id.tv_dianpu_name,item.getMallStores().getStoreName());
         helper.setText(R.id.tv_dianpu_zhuangtai,item.getStatus());
         RequestOptions requestOptions = new RequestOptions().circleCrop();

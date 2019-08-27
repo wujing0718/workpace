@@ -97,7 +97,12 @@ public class XiHuanFragment extends Fragment implements IListener {
                         Gson gson = new Gson();
                         QuanZiXiHuan xihuan = gson.fromJson(response.body(), QuanZiXiHuan.class);
                         if (xihuan.getStatus() == 1) {
-                            initRec(xihuan);
+                            if (xihuan.getResult().getDatas().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(xihuan);
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override

@@ -25,9 +25,11 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.ShareUtils;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -359,6 +361,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
+                                    WaitDialog.dismiss();
                                     String body = response.body();
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
@@ -376,6 +379,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             @Override
                                             public void onTokenIncorrect() {
                                                 //重新请求Token
+                                                Log.e("TAG","失败");
                                             }
                                             @Override
                                             public void onSuccess(String s) {
@@ -399,6 +403,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
                                     }
+                                }
+
+                                @Override
+                                public void onStart(Request<String, ? extends Request> request) {
+                                    WaitDialog.show(LoginActivity.this,"正在登录。。。");
+                                    super.onStart(request);
                                 }
                             });
                 }else{
@@ -429,6 +439,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
+                                    WaitDialog.dismiss();
                                     String body = response.body();
                                     Gson gson = new Gson();
                                     Login login = gson.fromJson(body, Login.class);
@@ -470,6 +481,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
                                     }
+                                }
+
+                                @Override
+                                public void onStart(Request<String, ? extends Request> request) {
+                                    WaitDialog.show(LoginActivity.this,"正在登录。。。");
+                                    super.onStart(request);
                                 }
                             });
                 }else{

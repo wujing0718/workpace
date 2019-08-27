@@ -79,7 +79,7 @@ public class JinEJIaoyi extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         map.put("time",nowTime2+"-01");
         map.put("pageNo",String.valueOf(1));

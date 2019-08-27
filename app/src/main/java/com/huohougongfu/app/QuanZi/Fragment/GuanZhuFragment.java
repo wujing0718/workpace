@@ -94,7 +94,12 @@ public class GuanZhuFragment extends Fragment implements IListener {
                         Gson gson = new Gson();
                         GuanZhuDongTai faxian = gson.fromJson(response.body(), GuanZhuDongTai.class);
                         if (faxian.getStatus() == 1) {
-                            initRec(faxian);
+                            if (faxian.getResult().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(faxian);
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override

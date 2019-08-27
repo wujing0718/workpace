@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -238,6 +239,7 @@ public class LeiMuActivity extends AppCompatActivity {
                         convertView = inflater.inflate(R.layout.item_leimu_leibie, parent, false);
                         viewHold4 = new ViewHold4();
                         viewHold4.rec_leimu_leibie =convertView.findViewById(R.id.rec_leimu_leibie);
+                        viewHold4.img_quanbuleimu_tab = convertView.findViewById(R.id.img_quanbuleimu_tab);
                         convertView.setTag(viewHold4);
                         break;
                 }
@@ -327,12 +329,25 @@ public class LeiMuActivity extends AppCompatActivity {
                         }
                     };
                     viewHold4.rec_leimu_leibie.setLayoutManager(gridLayoutManager4);
+                    if (title.get(position).equals("茶叶")){
+                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbuleimu_tea);
+                    }else if(title.get(position).equals("茶器")){
+                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbuleimu_chaqi);
+                    }else if(title.get(position).equals("茶服")){
+                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_chaye_tab);
+                    }else if(title.get(position).equals("茶食")){
+                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbufenlei_chashi);
+                    }else if(title.get(position).equals("家具")){
+                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbufenlei_jiaju);
+                    }else if(title.get(position).equals("茶道")){
+                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_dashizhuanchang_tab);
+                    }
                     LeiMuLeiBieAdapter leimuruzhudianpu2 = new LeiMuLeiBieAdapter(R.layout.item_leimu_ruzhudianpu_zi,listBeans);
                     viewHold4.rec_leimu_leibie.setAdapter(leimuruzhudianpu2);
                     leimuruzhudianpu2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            intent.putExtra("name",listBeans.get(position).getStoreName());
+                            intent.putExtra("name",listBeans.get(position).getName());
                             intent.setClass(LeiMuActivity.this,LeiMuDetailActivity.class);
                             startActivity(intent);
                         }
@@ -355,6 +370,7 @@ public class LeiMuActivity extends AppCompatActivity {
         }
         private class ViewHold4 {
             private RecyclerView rec_leimu_leibie;
+            private ImageView img_quanbuleimu_tab;
         }
 
 

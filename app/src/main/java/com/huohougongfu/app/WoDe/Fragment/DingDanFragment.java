@@ -147,6 +147,10 @@ public class DingDanFragment extends Fragment {
                                 initALi(result.get(position).getOrderNo());
                             }else  if (result.get(position).getOrderStatus() == -1){
                                 initDelete(result.get(position).getOrderNo());
+                            }else if ( (result.get(position).getOrderStatus() == 2)){
+                                ToastUtils.showShort("确认收货");
+                            }else if ((result.get(position).getOrderStatus() == 1)){
+                                ToastUtils.showShort("提醒发货");
                             }
                             break;
                     }

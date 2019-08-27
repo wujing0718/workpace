@@ -43,12 +43,14 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private XiaDanAdapter xiaDanAdapter;
     private AddRess.ResultBean address;
     private int transId = 0;
+    private int standardId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xia_dan);
         mId = MyApp.instance.getInt("id");
+        standardId = getIntent().getIntExtra("standardId", 0);
         resultBean = (ShopDingDan.ResultBean)getIntent().getSerializableExtra("订单详情");
         initUI();
         initExpandableListViewData(resultBean);
@@ -78,7 +80,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private void initRec() {
         tv_total_price.setText("1000");
         xiaDanAdapter = new XiaDanAdapter(this,bt_chami_dikou,btn_go_to_pay,tv_chami_dikou,
-                img_chami_check,tv_total_price,resultBean.getTeaRice());
+                img_chami_check,tv_total_price,resultBean.getTeaRice(),standardId);
         rec_xiadan.setAdapter(xiaDanAdapter);
     }
 

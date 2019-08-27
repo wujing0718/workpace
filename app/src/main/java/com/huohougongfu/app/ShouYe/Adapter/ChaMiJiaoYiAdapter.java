@@ -3,10 +3,13 @@ package com.huohougongfu.app.ShouYe.Adapter;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.ChaMiJiaoYI;
 import com.huohougongfu.app.Gson.ShopGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,12 +26,12 @@ public class ChaMiJiaoYiAdapter extends BaseQuickAdapter<ChaMiJiaoYI.ResultBean.
     @Override
     protected void convert(BaseViewHolder helper, ChaMiJiaoYI.ResultBean.RecordBean.ListBean item) {
         ImageView img_quan_photo = helper.getView(R.id.img_quan_photo);
+        Glide.with(MyApp.context).load(item.getPhoto()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop()).into(img_quan_photo);
         helper.addOnClickListener(R.id.bt_zhuanzeng);
         helper.addOnClickListener(R.id.bt_serviceRegulations);
-        helper.setText(R.id.tv_quan_title,item.getCount()+"米");
-        helper.setText(R.id.tv_quan_jieshao,item.getPillowtalk());
-        helper.setText(R.id.tv_quan_endTime,item.getUpdateTime());
-        helper.setText(R.id.tv_laizi_name,item.getNickName());
+        helper.setText(R.id.tv_quan_title,item.getType());
+        helper.setText(R.id.tv_quan_time,item.getCreateTime());
+        helper.setText(R.id.tv_laizi_name,String.valueOf(item.getCount()));
     }
     //下面两个方法提供给页面刷新和加载时调用
     public void add(List<ChaMiJiaoYI.ResultBean.RecordBean.ListBean> data) {

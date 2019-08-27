@@ -39,9 +39,9 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
 
     private Map<String,String> map = new HashMap<>();
     private TagFlowLayout  id_flowlayout_fenlei;
-    private String name;
+    private String name = "茶叶";
     private EditText zuigaojia,zuidijia;
-    private String fahuodi;
+    private String fahuodi = "北京";
     private TagAdapter<String> adapter1;
     private TagAdapter<String> adapter2;
     private TagFlowLayout id_flowlayout_fahuodi;

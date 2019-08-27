@@ -3,11 +3,6 @@ package com.huohougongfu.app.Gson;
 import java.util.List;
 
 public class ChaMiJiaoYI {
-    /**
-     * msg : 操作成功
-     * result : {"in":0,"record":{"total":1,"list":[{"count":1,"sendTel":"13111111111","receiveTel":"15927484518","isReceive":true,"pillowtalk":null,"createTime":"2019-06-21 10:33:45","updateTime":"2019-06-21 10:33:45","nickName":"15927484518","tid":9}],"pageNum":1,"pageSize":4,"size":1,"startRow":1,"endRow":1,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1},"out":1}
-     * status : 1
-     */
 
     private String msg;
     private ResultBean result;
@@ -38,12 +33,6 @@ public class ChaMiJiaoYI {
     }
 
     public static class ResultBean {
-        /**
-         * in : 0
-         * record : {"total":1,"list":[{"count":1,"sendTel":"13111111111","receiveTel":"15927484518","isReceive":true,"pillowtalk":null,"createTime":"2019-06-21 10:33:45","updateTime":"2019-06-21 10:33:45","nickName":"15927484518","tid":9}],"pageNum":1,"pageSize":4,"size":1,"startRow":1,"endRow":1,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1}
-         * out : 1
-         */
-
         private int in;
         private RecordBean record;
         private int out;
@@ -74,13 +63,13 @@ public class ChaMiJiaoYI {
 
         public static class RecordBean {
             /**
-             * total : 1
-             * list : [{"count":1,"sendTel":"13111111111","receiveTel":"15927484518","isReceive":true,"pillowtalk":null,"createTime":"2019-06-21 10:33:45","updateTime":"2019-06-21 10:33:45","nickName":"15927484518","tid":9}]
+             * total : 4
+             * list : [{"count":-1,"sendId":3,"receiveId":null,"isReceive":false,"pillowtalk":"收下我的茶米，你就是我的人啦~","createTime":"2019-08-26 15:54:49","updateTime":"2019-08-26 15:54:49","type":"赠送茶米","nickname":"18910328","photo":"http://oss.irving.net.cn/tea/1566804446416.jpg","sendName":null,"isView":false,"tid":19},{"count":-10,"sendId":3,"receiveId":null,"isReceive":false,"pillowtalk":"收下我的茶米，你就是我的人啦~","createTime":"2019-08-26 15:44:18","updateTime":"2019-08-26 15:44:18","type":"赠送茶米","nickname":"18910328","photo":"http://oss.irving.net.cn/tea/1566804446416.jpg","sendName":null,"isView":false,"tid":17},{"count":20,"sendId":3,"receiveId":null,"isReceive":false,"pillowtalk":"","createTime":"2019-08-26 15:26:35","updateTime":"2019-08-26 15:26:35","type":"每日打卡","nickname":"18910328","photo":"http://oss.irving.net.cn/tea/1566804446416.jpg","sendName":null,"isView":false,"tid":14},{"count":300,"sendId":3,"receiveId":null,"isReceive":false,"pillowtalk":"","createTime":"2019-08-26 15:06:40","updateTime":"2019-08-26 15:06:40","type":"注册","nickname":"18910328","photo":"http://oss.irving.net.cn/tea/1566804446416.jpg","sendName":null,"isView":true,"tid":6}]
              * pageNum : 1
-             * pageSize : 4
-             * size : 1
+             * pageSize : 10
+             * size : 4
              * startRow : 1
-             * endRow : 1
+             * endRow : 4
              * pages : 1
              * prePage : 0
              * nextPage : 0
@@ -259,25 +248,33 @@ public class ChaMiJiaoYI {
 
             public static class ListBean {
                 /**
-                 * count : 1
-                 * sendTel : 13111111111
-                 * receiveTel : 15927484518
-                 * isReceive : true
-                 * pillowtalk : null
-                 * createTime : 2019-06-21 10:33:45
-                 * updateTime : 2019-06-21 10:33:45
-                 * nickName : 15927484518
-                 * tid : 9
+                 * count : -1
+                 * sendId : 3
+                 * receiveId : null
+                 * isReceive : false
+                 * pillowtalk : 收下我的茶米，你就是我的人啦~
+                 * createTime : 2019-08-26 15:54:49
+                 * updateTime : 2019-08-26 15:54:49
+                 * type : 赠送茶米
+                 * nickname : 18910328
+                 * photo : http://oss.irving.net.cn/tea/1566804446416.jpg
+                 * sendName : null
+                 * isView : false
+                 * tid : 19
                  */
 
                 private int count;
-                private String sendTel;
-                private String receiveTel;
+                private int sendId;
+                private Object receiveId;
                 private boolean isReceive;
                 private String pillowtalk;
                 private String createTime;
                 private String updateTime;
-                private String nickName;
+                private String type;
+                private String nickname;
+                private String photo;
+                private Object sendName;
+                private boolean isView;
                 private int tid;
 
                 public int getCount() {
@@ -288,20 +285,20 @@ public class ChaMiJiaoYI {
                     this.count = count;
                 }
 
-                public String getSendTel() {
-                    return sendTel;
+                public int getSendId() {
+                    return sendId;
                 }
 
-                public void setSendTel(String sendTel) {
-                    this.sendTel = sendTel;
+                public void setSendId(int sendId) {
+                    this.sendId = sendId;
                 }
 
-                public String getReceiveTel() {
-                    return receiveTel;
+                public Object getReceiveId() {
+                    return receiveId;
                 }
 
-                public void setReceiveTel(String receiveTel) {
-                    this.receiveTel = receiveTel;
+                public void setReceiveId(Object receiveId) {
+                    this.receiveId = receiveId;
                 }
 
                 public boolean isIsReceive() {
@@ -336,12 +333,44 @@ public class ChaMiJiaoYI {
                     this.updateTime = updateTime;
                 }
 
-                public String getNickName() {
-                    return nickName;
+                public String getType() {
+                    return type;
                 }
 
-                public void setNickName(String nickName) {
-                    this.nickName = nickName;
+                public void setType(String type) {
+                    this.type = type;
+                }
+
+                public String getNickname() {
+                    return nickname;
+                }
+
+                public void setNickname(String nickname) {
+                    this.nickname = nickname;
+                }
+
+                public String getPhoto() {
+                    return photo;
+                }
+
+                public void setPhoto(String photo) {
+                    this.photo = photo;
+                }
+
+                public Object getSendName() {
+                    return sendName;
+                }
+
+                public void setSendName(Object sendName) {
+                    this.sendName = sendName;
+                }
+
+                public boolean isIsView() {
+                    return isView;
+                }
+
+                public void setIsView(boolean isView) {
+                    this.isView = isView;
                 }
 
                 public int getTid() {

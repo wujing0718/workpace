@@ -26,21 +26,25 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ChaTaiAdapter;
 import com.huohougongfu.app.Adapter.ShoppingCarAdapter;
+import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShoppingCarDataBean;
 import com.huohougongfu.app.Gson.TiJiaoDingDan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
+import com.huohougongfu.app.PopupView.DingDanZhiFu;
 import com.huohougongfu.app.PopupView.ShopZhiFu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.View.ChildLiistView;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.mcxtzhang.lib.AnimShopButton;
 import com.mcxtzhang.lib.IOnAddDelListener;
 
@@ -57,6 +61,7 @@ import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 public class XiaDanAdapter extends BaseExpandableListAdapter {
 
+    private final int standardId;
     private ImageView img_dianpu_logo;
     private ShopDingDan.ResultBean  list;
     private View bt_chami_dikou;
@@ -73,7 +78,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private List<ShopDingDan.ResultBean.OrderListBean> data;
 
     public XiaDanAdapter(Context context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
-                         ImageView img_chami_check, TextView tv_total_price, double teaRice) {
+                         ImageView img_chami_check, TextView tv_total_price, double teaRice,int standardId) {
         this.bt_chami_dikou =bt_chami_dikou;
         this.btn_go_to_pay = btn_go_to_pay;
         this.context = context;
@@ -81,6 +86,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         this.img_chami_check = img_chami_check;
         this.tvTotalPrice = tv_total_price;
         this.teaRice = teaRice;
+        this.standardId =standardId;
     }
 
     /**
@@ -258,11 +264,10 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                             jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
                             jsonObject.put("orderId",list.getOrderList().get(0).getOrderId());
                             jsonObject.put("productId",temp.get(i).getId());
-
                             jsonObject.put("storeId",temp.get(i).getStoreId());
                             jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
                             jsonObject.put("standard",temp.get(i).getStandard());
-                            jsonObject.put("standardId",temp.get(i).getStandardId());
+                            jsonObject.put("standardId",standardId);
                             jsonObject.put("buynum",temp.get(i).getNum());
                             if(!isDikou){
                                 jsonObject.put("teaRice","1");
@@ -301,9 +306,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                         Gson gson = new Gson();
                         TiJiaoDingDan shopDingDan = gson.fromJson(body, TiJiaoDingDan.class);
                         if (shopDingDan.getStatus() == 1){
-                            new XPopup.Builder(context)
-                                    .asCustom(new ShopZhiFu(context,shopDingDan.getResult(), total_price))
-                                    .show();
+                            initALi(list.getOrderList().get(0).getOrderId());
 //                            Intent intent = new Intent();
 //                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
 //                            intent.setClass(context,XiaDanActivity.class);
@@ -313,6 +316,31 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                 });
     }
 
+    //支付宝支付
+    private void initALi(String orderNo) {
+        OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")
+                .params("orderNos", orderNo)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        ALiPay aLiPay = new Gson().fromJson(body, ALiPay.class);
+                        if (aLiPay.getStatus() == 1) {
+                            new XPopup.Builder(context)
+                                    .asCustom(new DingDanZhiFu(context, aLiPay.getResult().getOrderString(),
+                                            String.valueOf(aLiPay.getResult().getPriceTotal())))
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(context,"请稍后。。。");
+                        super.onStart(request);
+                    }
+                });
+    }
 
     static class GroupViewHolder {
         ImageView img_dianp_logo;

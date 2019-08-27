@@ -651,29 +651,29 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/bt_dingdan_shouhou"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/bt_dingdan_shouhou"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_shouhou"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
+                        <!--<ImageView-->
+                            <!--android:layout_gravity="center_horizontal"-->
+                            <!--android:src="@mipmap/img_shouhou"-->
+                            <!--android:layout_width="22dp"-->
+                            <!--android:layout_height="22dp" />-->
 
-                        <TextView
-                            android:text="售后"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        <!--<TextView-->
+                            <!--android:text="售后"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:layout_marginTop="4dp"-->
+                            <!--android:layout_gravity="center_horizontal"-->
+                            <!--android:textColor="@color/colorBlack"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
                 </LinearLayout>
 

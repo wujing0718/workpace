@@ -33,7 +33,7 @@ public class DingDanGuanLiAdapter extends BaseQuickAdapter<DingDanGuanLi.ResultB
         helper.addOnClickListener(R.id.bt_anniu_two);
         if (item.getOrderStatus()==1){
             bt_anniu_one.setVisibility(View.GONE);
-            bt_anniu_two.setText("通知卖家发货");
+            bt_anniu_two.setText("通知买家已发货");
         }else if (item.getOrderStatus()==2){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("联系买家");
@@ -55,7 +55,7 @@ public class DingDanGuanLiAdapter extends BaseQuickAdapter<DingDanGuanLi.ResultB
         }
         helper.setText(R.id.tv_dingdan_num,"共计："+item.getProductNum()+"件商品");
         helper.setText(R.id.tv_dingdan_price,"合计：¥"+item.getOrderAmountTotal());
-        helper.setText(R.id.tv_dingdan_youfeiprice,"（含运费¥"+item.getLogisticsFee()+"）");
+//        helper.setText(R.id.tv_dingdan_youfeiprice,"（含运费¥"+item.getLogisticsFee()+"）");
         helper.setText(R.id.tv_dingdan_bianhao,"订单编号："+item.getOrderNo());
         helper.setText(R.id.tv_dianpu_zhuangtai,item.getStatus());
         LinearLayoutManager layoutManager = new LinearLayoutManager(MyApp.context);

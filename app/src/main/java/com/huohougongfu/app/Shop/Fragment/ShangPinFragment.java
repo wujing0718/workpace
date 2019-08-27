@@ -29,10 +29,7 @@ import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
 import com.huohougongfu.app.PopupView.YouHuiQuan;
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.Shop.Activity.DaShiZhuanChang;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
-import com.huohougongfu.app.Shop.Adapter.ImageAdapter;
-import com.huohougongfu.app.Shop.Adapter.ShopDetailPhoto;
 import com.huohougongfu.app.Shop.Adapter.ShopImageAdapter;
 import com.huohougongfu.app.Shop.Adapter.ShopTuiJianAdapter;
 import com.huohougongfu.app.Utils.Contacts;
@@ -140,8 +137,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private void initBanner(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct)  {
         bannerlist.clear();
         String[]  mbanner = mallProduct.getProductPicture().split(",");
-        bannerlist.add(mallProduct.getCoverUrl());
-        for (int i = 0;i<mbanner.length;i++){
+        for (int i = 0; i < mbanner.length; i++) {
             bannerlist.add(mbanner[i]);
         }
         //加载网络图片
@@ -226,6 +222,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         OkGo.<String>get(Contacts.URl2 + "queryProductDetail")
                 .params(map)
+                .params("id",shopid)
                 .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -252,6 +249,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         });
         map.remove("showNum");
         //规格
+        map.put("id",String.valueOf(shopid));
         OkGo.<String>get(Contacts.URl2+"selectStandardWithProductInfo")
                 .params(map)
                 .execute(new StringCallback() {
@@ -401,19 +399,27 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_shoucang:
                 if (!utils.isDoubleClick()){
+                    if (!token.isEmpty()){
                         initShouCang();
+                    }else{
+                        ToastUtils.showShort("请登录后操作");
+                    }
                 }
                 break;
             case R.id.bt_kefu:
                 if (!utils.isDoubleClick()){
-                    RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", shopdetail.getResult().getProductDetailInfo().getStoreName());
+                    if (!token.isEmpty()){
+                        RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", shopdetail.getResult().getProductDetailInfo().getStoreName());
+                    }else{
+                        ToastUtils.showShort("请登录后操作");
+                    }
                 }
                 break;
             case R.id.bt_detail_guige:
                 if (!utils.isDoubleClick()){
-                    XPopup.Builder builder = new XPopup.Builder(getContext());
-                    builder.asCustom(new GuiGe(getContext(),guige))
-                            .show();
+                        XPopup.Builder builder = new XPopup.Builder(getContext());
+                        builder.asCustom(new GuiGe(getContext(),guige))
+                                .show();
                 }
                 break;
             case R.id.bt_goumai:
@@ -421,17 +427,25 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                     if (挑选!=null){
                         initAddCangKu();
                     }else{
-                        XPopup.Builder builder = new XPopup.Builder(getContext());
-                        builder.asCustom(new GuiGe(getContext(),guige))
-                                .show();
+                        if (!"-1".equals(id)) {
+                            XPopup.Builder builder = new XPopup.Builder(getContext());
+                            builder.asCustom(new GuiGe(getContext(), guige))
+                                    .show();
+                        }else{
+                            ToastUtils.showShort("请登录后操作");
+                        }
                     }
                 }
                 break;
             case R.id.bt_jiagouwuche:
                 if (!utils.isDoubleClick()){
-                    XPopup.Builder builder = new XPopup.Builder(getContext());
-                    builder.asCustom(new GuiGe(getContext(),guige))
-                            .show();
+                    if (!"-1".equals(id)) {
+                        XPopup.Builder builder = new XPopup.Builder(getContext());
+                        builder.asCustom(new GuiGe(getContext(),guige))
+                                .show();
+                    }else{
+                        ToastUtils.showShort("请登录后操作");
+                    }
                 }
                 break;
             case R.id.bt_tade_dianpu:

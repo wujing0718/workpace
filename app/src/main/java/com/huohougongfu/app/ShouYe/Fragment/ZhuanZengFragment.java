@@ -191,6 +191,7 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
                                     Gson gson = new Gson();
                                     ZhuanZengChengGong zhuanzeng = gson.fromJson(body, ZhuanZengChengGong.class);
                                     if (zhuanzeng.getStatus() == 1){
+
                                         UMWeb web = new UMWeb("http://"+zhuanzeng.getResult().getUrl());//连接地址
                                         web.setTitle(zhuanzeng.getResult().getTitle());//标题
                                         web.setDescription(zhuanzeng.getResult().getContent());//描述

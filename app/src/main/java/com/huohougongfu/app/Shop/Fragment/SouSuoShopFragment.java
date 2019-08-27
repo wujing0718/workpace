@@ -124,7 +124,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         if (!"".equals(sortPrice)){
             map.put("sortPrice",sortPrice);
         }
-        if (name!=null &&name.length()>0){
+        if (name!=null){
             map.put("name",name);
         }else{
             map.put("name",name);
@@ -193,7 +193,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         if (!"".equals(sortPrice)){
             map.put("sortPrice",sortPrice);
         }
-        if (name!=null &&name.length()>0){
+        if (name!=null){
             map.put("name",name);
         }else{
             map.put("name",name);

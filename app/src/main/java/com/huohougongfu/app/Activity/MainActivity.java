@@ -202,8 +202,6 @@
                                             + aMapLocation.getStreet() + ""
                                             + aMapLocation.getStreetNum()+""
                                     +aMapLocation.getAoiName());
-
-                            LogUtils.e(buffer);
                                     isFirstLoc = false;
                                 }
                             }else {

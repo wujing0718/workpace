@@ -227,7 +227,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_dingdan_daifahuo).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_daishouhuo).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_pingjia).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
+//        inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
         inflate.findViewById(R.id.bt_zhuanke).setOnClickListener(this);
         inflate.findViewById(R.id.bt_yaoqing).setOnClickListener(this);
 
@@ -259,6 +259,36 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_dingdan_daifukuan:
+                if (!utils.isDoubleClick()){
+                    if (!utils.isDoubleClick()){
+                        intent.putExtra("position",1);
+                        intent.setClass(getActivity(),MyDingDanActivity.class);
+                        startActivity(intent);
+                    }
+                }
+                break;
+            case R.id.bt_dingdan_daifahuo:
+                if (!utils.isDoubleClick()){
+                    intent.putExtra("position",2);
+                    intent.setClass(getActivity(),MyDingDanActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_dingdan_daishouhuo:
+                if (!utils.isDoubleClick()){
+                    intent.putExtra("position",3);
+                    intent.setClass(getActivity(),MyDingDanActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_dingdan_pingjia:
+                if (!utils.isDoubleClick()){
+                    intent.putExtra("position",4);
+                    intent.setClass(getActivity(),MyDingDanActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.bt_zhuanke:
                 if (!utils.isDoubleClick()){
                     intent.setClass(getActivity(),ZhuanKeActivity.class);
@@ -345,6 +375,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 //我的订单全部
             case R.id.bt_dingdan_quanbu:
                 if (!utils.isDoubleClick()){
+                    intent.putExtra("position",0);
                     intent.setClass(getActivity(),MyDingDanActivity.class);
                     startActivity(intent);
                 }

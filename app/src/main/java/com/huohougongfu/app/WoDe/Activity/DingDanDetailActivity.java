@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.MyDingDanDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.DingDanZhiFu;
@@ -52,6 +53,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     private TextView tv_dingdan_caozuo2;
     private TextView tv_dingdan_caozuo1;
     private MyDingDanDetail mydongdandetail;
+    private int ofManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +62,16 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         id = MyApp.instance.getInt("id");
         orderNo = getIntent().getStringExtra("orderNo");
         orderStatus = getIntent().getIntExtra("orderStatus",0);
+        ofManager = getIntent().getIntExtra("ofManager", 0);
         initUI();
         initData();
     }
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
+        if (ofManager == 1){
+            map.put("ofManager",String.valueOf(ofManager));
+        }
         map.put("orderNo",orderNo);
         map.put("createBy",String.valueOf(id));
         OkGo.<String>get(Contacts.URl1 + "order/orderDetailAllByStatus")
@@ -147,10 +153,18 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         tv_dingdan_caozuo2 = findViewById(R.id.tv_dingdan_caozuo2);
         tv_dingdan_caozuo2.setOnClickListener(this);
         if (orderStatus == 0){
-            tv_dingdan_caozuo1.setText("取消订单");
-            tv_dingdan_caozuo2.setText("确认付款");
-            view_logistics.setVisibility(View.GONE);
-            tv_dingdan_zhuangtai.setText("待付款");
+            if (ofManager == 1){
+                tv_dingdan_caozuo1.setVisibility(View.GONE);
+                tv_dingdan_caozuo2.setText("联系买家");
+                view_logistics.setVisibility(View.GONE);
+                tv_dingdan_zhuangtai.setText("待付款");
+            }else{
+                tv_dingdan_caozuo1.setText("取消订单");
+                tv_dingdan_caozuo2.setText("确认付款");
+                view_logistics.setVisibility(View.GONE);
+                tv_dingdan_zhuangtai.setText("待付款");
+            }
+
         }else if (orderStatus == 1){
             tv_dingdan_caozuo1.setText("取消订单");
             tv_dingdan_caozuo2.setText("提醒发货");
@@ -230,6 +244,11 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 }else if (orderStatus == 2){
                     initQueRen(orderNo);
                 }else if (orderStatus == 0){
+                    if (ofManager == 1){
+                        ToastUtils.showShort("联系买家");
+                    }else{
+                        initALi(orderNo);
+                    }
 //                    String orderNos="";
 //                    for (int i = 0; i <result.size() ; i++) {
 //                        orderNos = result.get(position).getOrderNo()+","+orderNos;
@@ -237,7 +256,6 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
 //                    new XPopup.Builder(DingDanDetailActivity.this)
 //                            .asCustom(new DingDanZhiFu(DingDanDetailActivity.this,substring))
 //                            .show();
-                    ToastUtils.showShort("确认订单");
                 }else if (orderStatus == 1){
                     ToastUtils.showShort("提醒发货");
                 }
@@ -256,6 +274,25 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 }
                 break;
         }
+    }
+
+    //支付
+    private void initALi(String orderNo) {
+        OkGo.<String>post(Contacts.URl1+"apliyConfirmPaymentMoreOrderNo")
+                .params("orderNos",orderNo)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        ALiPay aLiPay = new Gson().fromJson(body, ALiPay.class);
+                        if (aLiPay.getStatus() == 1){
+                            new XPopup.Builder(DingDanDetailActivity.this)
+                                    .asCustom(new DingDanZhiFu(DingDanDetailActivity.this,aLiPay.getResult().getOrderString(),
+                                            String.valueOf(aLiPay.getResult().getPriceTotal())))
+                                    .show();
+                        }
+                    }
+                });
     }
     //  取消订单
     private void initQuanXiao(String orderNo, int orderStatus) {
@@ -301,6 +338,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                     }
                 });
     }
+
     //  确认订单
     private void initQueRen(String orderNo) {
         SelectDialog.show(DingDanDetailActivity.this, "提示", "是否确认收货",

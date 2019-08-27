@@ -17,9 +17,12 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
+import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -102,17 +105,18 @@ public class MyApp extends Application {
             switch (code) {
                 case 0:
                     logs = "设置成功";
-//                    LogUtils.e(logs);
+                    LogUtils.e(logs);
                     // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
                     break;
                 case 6002:
                     logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
                     // 延迟 60 秒来调用 Handler 设置别名
                     mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
-//                    LogUtils.e(logs);
+                    LogUtils.e(logs);
                     break;
                 default:
                     logs = "Failed with errorCode = " + code;
+                    LogUtils.e(logs);
             }
 //            ExampleUtil.showToast(logs, getApplicationContext());
         }
@@ -156,7 +160,7 @@ public class MyApp extends Application {
                 //token1参数报错
                 @Override
                 public void onTokenIncorrect() {
-                    Log.e("TAG","MyApp参数错误");
+
                 }
 
                 @Override
@@ -174,6 +178,7 @@ public class MyApp extends Application {
                     }
                 }
             });
+            RongIM.setConnectionStatusListener(new MyConnectionStatusListener());
         }
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
         RongPushClient.sendNotification(this,new PushNotificationMessage());
@@ -198,6 +203,37 @@ public class MyApp extends Application {
         public boolean onReceived(Message message, int left) {
             Log.e("TAG","成功");
             return false;
+        }
+    }
+    private class MyConnectionStatusListener implements RongIMClient.ConnectionStatusListener {
+
+        @Override
+        public void onChanged(ConnectionStatus connectionStatus) {
+
+            switch (connectionStatus){
+
+                case CONNECTED://连接成功。
+
+                    break;
+                case DISCONNECTED://断开连接。
+
+                    break;
+                case CONNECTING://连接中。
+
+                    break;
+                case NETWORK_UNAVAILABLE://网络不可用。
+
+                    break;
+                case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
+                    Intent intent = new Intent();
+                    instance.clear(true);
+                    RongIM.getInstance().logout();
+                    JPushInterface.stopPush(context);
+                    intent.setClass(context,LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.activity.finish();
+                    break;
+            }
         }
     }
 

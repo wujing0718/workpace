@@ -43,6 +43,7 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
     private boolean isjiage;
     private String sortPrice = "";
 
+    private Map<String, String> map1;
     Handler mHandler = new Handler() {
 
         @Override
@@ -50,8 +51,8 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    Map<String,String> map = (Map<String,String>)msg.obj;
-                    initData(map);
+                    map1 = (Map<String,String>)msg.obj;
+                    initData(map1);
                     break;
                 default:
                     break;
@@ -66,6 +67,7 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
     private TeHuiAdapter teHuiAdapter;
     private TextView  tv_leimu_name;
     private View view_zhanweitu;
+    private int page = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +84,14 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
             name = map1.get("name");
         }
         map.putAll(map1);
-        map.put("name",name);
-        map.put("page","1");
+        map.put("twoName",name);
+        map.put("pageNo","1");
         map.put("pageSize","10");
         map.put("indexParams",indexParams);
         if (!"".equals(sortPrice)){
             map.put("sortPrice",sortPrice);
         }
-        OkGo.<String>get(Contacts.URl2+"query/allCatory/subCatory/getProductBySubCatory")
+        OkGo.<String>post(Contacts.URl2+"categorySelection")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -138,9 +140,42 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
         smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-//                initAdd();
+                initAdd();
             }
         });
+    }
+
+    private void initAdd() {
+        if (map1.get("name")!=null){
+            name = map1.get("name");
+        }
+        map.putAll(map1);
+        map.put("twoName",name);
+        map.put("pageNo",String.valueOf(page++));
+        map.put("pageSize","10");
+        map.put("indexParams",indexParams);
+        if (!"".equals(sortPrice)){
+            map.put("sortPrice",sortPrice);
+        }
+        OkGo.<String>post(Contacts.URl2+"categorySelection")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        TeiHuiGson leiMuDetail = new Gson().fromJson(body, TeiHuiGson.class);
+                        if (leiMuDetail.getStatus() == 1){
+                            if (leiMuDetail.getResult().getList().size()>0){
+                                teHuiAdapter.add(leiMuDetail.getResult().getList());
+                                smartrefreshlayout.finishLoadmore(true);
+                        }else {
+                                smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                        }
+                    }else{
+                        smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                    }
+                    }
+                });
     }
 
     private void initUI() {

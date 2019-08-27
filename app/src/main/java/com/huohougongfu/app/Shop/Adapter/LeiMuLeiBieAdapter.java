@@ -13,7 +13,9 @@ import com.huohougongfu.app.R;
 import java.util.List;
 
 public class LeiMuLeiBieAdapter extends BaseQuickAdapter<QuanBuLeiMu.ResultBean.ListBean,BaseViewHolder> {
-    public LeiMuLeiBieAdapter(int layoutResId, @Nullable List<QuanBuLeiMu.ResultBean.ListBean> data) {
+    public
+
+    LeiMuLeiBieAdapter(int layoutResId, @Nullable List<QuanBuLeiMu.ResultBean.ListBean> data) {
         super(layoutResId, data);
     }
 

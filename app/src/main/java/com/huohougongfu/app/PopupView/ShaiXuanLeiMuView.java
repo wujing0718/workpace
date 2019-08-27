@@ -160,7 +160,7 @@ public class ShaiXuanLeiMuView extends DrawerPopupView implements View.OnClickLi
                     }
                 }
                     if (name !=null){
-                        map.put("name",name);
+                        map.put("threeName",name);
                     }
                     if (fahuodi !=null){
                         map.put("address",fahuodi);

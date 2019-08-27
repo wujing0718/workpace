@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.TeYuePinPaiActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
@@ -106,6 +108,8 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
                             }else{
                                 ToastUtils.showShort("暂无此人");
                             }
+                        }else{
+                            ToastUtils.showShort(zhaoRenGson.getMsg());
                         }
                     }
                 });
@@ -136,6 +140,15 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+        zhaorendadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.putExtra("id",String.valueOf(list.get(position).getUserId()));
+                intent.setClass(ZhaoRenActivity.this,DiaPuZhuYeActivity.class);
+                startActivity(intent);
+            }
+        });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

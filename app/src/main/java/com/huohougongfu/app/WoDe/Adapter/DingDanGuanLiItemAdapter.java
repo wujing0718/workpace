@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.DingDanGuanLi;
@@ -29,6 +30,7 @@ public class DingDanGuanLiItemAdapter extends BaseQuickAdapter<DingDanGuanLi.Res
         helper.setText(R.id.tv_dingdan_shangpin_guige,item.getStandard());
         helper.setText(R.id.tv_dingdan_shangpin_price,"¥"+String.valueOf(item.getPrice()));
         helper.setText(R.id.tv_dingdan_shangpin_num,"x"+String.valueOf(item.getNum()));
-        Glide.with(MyApp.context).load(item.getCoverUrl()).into(img_dingdan_photo);
+        String[] split = item.getCoverUrl().split(",");
+        Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_dingdan_photo);
     }
 }

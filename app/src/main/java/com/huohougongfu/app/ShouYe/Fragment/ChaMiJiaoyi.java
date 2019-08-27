@@ -53,9 +53,9 @@ public class ChaMiJiaoyi extends Fragment {
     private RecyclerView rec_zhangdan;
     private String token,tel,id;
     private SmartRefreshLayout smartrefreshlayout;
-    private String nowTime2;
     private int page = 2;
     private ChaMiJiaoYiAdapter madapter;
+    private String nowTime;
 
     public ChaMiJiaoyi() {
         // Required empty public constructor
@@ -69,8 +69,7 @@ public class ChaMiJiaoyi extends Fragment {
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
-        String nowTime = utils.getNowTime2();
-        nowTime2 = utils.getNowTime3();
+        nowTime = utils.getNowTime4();
         tv_time = inflate.findViewById(R.id.tv_time);
         tv_time.setText(nowTime);
         initUI();
@@ -82,9 +81,9 @@ public class ChaMiJiaoyi extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
-        map.put("time",nowTime2+"-01");
+        map.put("time",nowTime);
         map.put("pageNo",String.valueOf(1));
         OkGo.<String>post(Contacts.URl1+"/wallet/bill/teaRice")
                 .params(map)
@@ -144,7 +143,7 @@ public class ChaMiJiaoyi extends Fragment {
         map.put("tel",tel);
         map.put("id",id);
         map.put("token",token);
-        map.put("time",nowTime2+"-01");
+        map.put("time",nowTime);
         map.put("pageNo",String.valueOf(page++));
         OkGo.<String>post(Contacts.URl1+"/wallet/bill/teaRice")
                 .params(map)
@@ -183,7 +182,7 @@ public class ChaMiJiaoyi extends Fragment {
         //设置最小日期和最大日期
         Calendar startDate = Calendar.getInstance();
         try {
-            startDate.setTime(DateTimeHelper.parseStringToDate("2010-01-01"));//设置为2006年4月28日
+            startDate.setTime(DateTimeHelper.parseStringToDate("2010-01-01"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -193,13 +192,13 @@ public class ChaMiJiaoyi extends Fragment {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
-                tv_time.setText(DateTimeHelper.formatToString(date,"yyyy年MM月"));
-                nowTime2 = DateTimeHelper.formatToString(date, "yyyy-MM");
+                tv_time.setText(DateTimeHelper.formatToString(date,"yyyy-MM-dd"));
+                nowTime = DateTimeHelper.formatToString(date, "yyyy-MM-dd");
                 initData();
             }
         })
                 //年月日时分秒 的显示与否，不设置则默认全部显示
-                .setType(new boolean[]{true, true, false, false, false, false})
+                .setType(new boolean[]{true, true, true, false, false, false})
                 .setLabel("", "", "", "", "", "")
                 .isCenterLabel(false)//是否只显示中间选中项的label文字，false则每项item全部都带有label。
                 .setContentTextSize(20)//滚轮文字大小
