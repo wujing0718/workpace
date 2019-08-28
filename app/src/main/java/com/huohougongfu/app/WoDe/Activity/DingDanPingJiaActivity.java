@@ -78,9 +78,11 @@ public class DingDanPingJiaActivity extends AppCompatActivity implements View.On
         fuwu = findViewById(R.id.xlh3);
 
         ImageView img_dianpu_logo = findViewById(R.id.img_dianpu_logo);
+        ImageView img_dianpu_logo1 = findViewById(R.id.img_dianpu_logo1);
         TextView tv_dianpu_name = findViewById(R.id.img_dianpu_name);
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(DingDanPingJiaActivity.this).load(storeLogo).apply(requestOptions).into(img_dianpu_logo);
+        Glide.with(DingDanPingJiaActivity.this).load(storeLogo).apply(requestOptions).into(img_dianpu_logo1);
         tv_dianpu_name.setText(storeName);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         miaoshu.setOnRatingChangeListener(new XLHRatingBar.OnRatingChangeListener() {

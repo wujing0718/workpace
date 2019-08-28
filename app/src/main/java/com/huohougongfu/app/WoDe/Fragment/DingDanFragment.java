@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.MyDingDan;
 import com.huohougongfu.app.MyApp;
@@ -26,6 +28,7 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
+import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Activity.WuLiuActivity;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
@@ -42,6 +45,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
+import io.rong.imkit.RongIM;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,6 +147,10 @@ public class DingDanFragment extends Fragment {
                             if (result.get(position).getOrderStatus()==-4){
                                 initDelete(result.get(position).getOrderNo());
                             }else if(result.get(position).getOrderStatus() == 3){
+                                String storeLogo = result.get(position).getMallStores().getStoreLogo();
+                                String storeName = result.get(position).getMallStores().getStoreName();
+                                intent.putExtra("storeLogo",storeLogo);
+                                intent.putExtra("storeName",storeName);
                                 intent.setClass(getActivity(),DingDanPingJiaActivity.class);
                                 startActivity(intent);
                             }else  if (result.get(position).getOrderStatus() == 0){
@@ -148,7 +158,7 @@ public class DingDanFragment extends Fragment {
                             }else  if (result.get(position).getOrderStatus() == -1){
                                 initDelete(result.get(position).getOrderNo());
                             }else if ( (result.get(position).getOrderStatus() == 2)){
-                                ToastUtils.showShort("确认收货");
+                                initQueRenShouHuo(result.get(position).getOrderNo());
                             }else if ((result.get(position).getOrderStatus() == 1)){
                                 ToastUtils.showShort("提醒发货");
                             }
@@ -160,6 +170,41 @@ public class DingDanFragment extends Fragment {
         }else{
             rec_chatai_dingdan.setVisibility(View.GONE);
         }
+    }
+
+    private void initQueRenShouHuo(String orderNo) {
+        Map<String,String> map = new HashMap<>();
+        map.put("orderNo",orderNo);
+        map.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+        OkGo.<String>get(Contacts.URl1+"order/confirmReciver")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status" ) == 1){
+                                SelectDialog.show(getActivity(), "提示", "是否确认收货",
+                                        "确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if(!utils.isDoubleClick()){
+                                                    initData();
+                                                }
+                                            }
+                                        },
+                                        "取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     //支付宝支付

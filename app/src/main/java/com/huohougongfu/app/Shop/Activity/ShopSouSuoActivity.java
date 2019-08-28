@@ -126,6 +126,7 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
 
             }
         });
+
     }
 
     @Override

@@ -116,10 +116,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("page","1");
-        map.put("tel",tel);
-        map.put("id",id);
-        map.put("token",token);
-        map.put("pageSize", "10");
+        map.put("pageSize","10");
         OkGo.<String>get(Contacts.URl1+"querySiftAndExpand")
                 .params(map)
                 .execute(new StringCallback() {

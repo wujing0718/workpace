@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.DingDanGuanLi;
+import com.huohougongfu.app.Gson.QueRenFaHuo;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.R;
@@ -138,11 +139,39 @@ public class DingDanGuanLiFragment extends Fragment {
                             ToastUtils.showShort("联系买家");
                         }else  if (list.get(position).getOrderStatus() == -1){
                             initDelete(list.get(position).getOrderNo());
+                        }else  if (list.get(position).getOrderStatus() == 1){
+                            //确认发货
+                            initFaHuo(list.get(position).getOrderNo());
                         }
                         break;
                 }
             }
         });
+    }
+
+    private void initFaHuo(String orderNo) {
+        Map<String,String> map = new HashMap<>();
+        map.put("orderNo",orderNo);
+        OkGo.<String>post(Contacts.URl1+"order/confirmSendGoods")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                initData();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        QueRenFaHuo queRenFaHuo = gson.fromJson(body, QueRenFaHuo.class);
+//                        if (queRenFaHuo.get)
+                    }
+                });
     }
 
     //  取消订单

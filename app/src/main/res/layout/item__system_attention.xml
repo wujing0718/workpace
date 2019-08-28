@@ -77,6 +77,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/bt_guanzhu"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textSize="12sp"

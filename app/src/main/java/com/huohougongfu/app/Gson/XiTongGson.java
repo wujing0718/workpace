@@ -201,18 +201,6 @@ public class XiTongGson {
         }
 
         public static class ListBean implements MultiItemEntity {
-            /**
-             * id : 31
-             * title : 点赞
-             * content : 老范点赞了你的动态
-             * picture : null
-             * fromId : 6
-             * toId : 1
-             * type : 2
-             * createTime : 2019-08-25 21:23:08
-             * updateTime : 2019-08-25 21:23:08
-             * member : {"userId":6,"nickName":"老范","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":"13798249230","photo":"https://thirdwx.qlogo.cn/mmopen/vi_32/YOuw0zia8s4rpICoWq4fJJc2X9bX5ibic9A1Hu4bfsic3CEb71qPSjiaXhnO0ynia7icicOibcEAQh7HOQ1jB4UeKg9Vm7g/132","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":"","integral":null,"isMaster":false,"isMerchant":true,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":31,"mId":null,"name":null,"portrait":null,"photo":null,"level":"茶艺爱好者","specialty":null,"status":null,"introduceContent":null,"createTime":"2019-08-25T13:23:08.000+0000","updateTime":"2019-08-25T13:23:08.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isCollection":0,"merchant":null},"isAttention":1,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null}
-             */
 
             private int id;
             private String title;
@@ -232,7 +220,7 @@ public class XiTongGson {
 
             @Override
             public int getItemType() {
-                return itemType;
+                return getType();
             }
 
             public int getId() {
@@ -316,49 +304,6 @@ public class XiTongGson {
             }
 
             public static class MemberBean {
-                /**
-                 * userId : 6
-                 * nickName : 老范
-                 * personalProfile : null
-                 * gender : null
-                 * birthday : null
-                 * email : null
-                 * phone : 13798249230
-                 * photo : https://thirdwx.qlogo.cn/mmopen/vi_32/YOuw0zia8s4rpICoWq4fJJc2X9bX5ibic9A1Hu4bfsic3CEb71qPSjiaXhnO0ynia7icicOibcEAQh7HOQ1jB4UeKg9Vm7g/132
-                 * realName : null
-                 * idcard : null
-                 * teaRiceMe : null
-                 * teaRicePresent : null
-                 * commission : null
-                 * income : null
-                 * sinaToken : null
-                 * qq : null
-                 * qqToken : null
-                 * wechat : null
-                 * wechatToken : null
-                 * rongToken : null
-                 * place :
-                 * integral : null
-                 * isMaster : false
-                 * isMerchant : true
-                 * state : null
-                 * delFlag : null
-                 * loginIp : null
-                 * loginDate : null
-                 * qrcode : null
-                 * createTime : null
-                 * updateTime : null
-                 * isSift : null
-                 * buyMoney : null
-                 * records : null
-                 * master : {"id":31,"mId":null,"name":null,"portrait":null,"photo":null,"level":"茶艺爱好者","specialty":null,"status":null,"introduceContent":null,"createTime":"2019-08-25T13:23:08.000+0000","updateTime":"2019-08-25T13:23:08.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isCollection":0,"merchant":null}
-                 * isAttention : 1
-                 * fanCount : null
-                 * attentionNum : null
-                 * dynamicNum : null
-                 * isFirstLogin : null
-                 * masterId : null
-                 */
 
                 private int userId;
                 private String nickName;

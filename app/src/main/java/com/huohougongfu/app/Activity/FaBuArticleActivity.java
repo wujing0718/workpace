@@ -86,20 +86,20 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.bt_add_editview:
                 if (!utils.isDoubleClick()) {
-                        editText1 = new EditText(FaBuArticleActivity.this);
-                        editText1.setHint("输入正文");
-                        editText1.setTextColor(MyApp.context.getResources().getColor(R.color.colorBlack));
-                        editText1.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                        editText1.setHeight(100);
-                        editText1.setFocusable(true);
-                        editText1.setFocusableInTouchMode(true);
-                        editText1.requestFocus();
-                        editText1.setMaxLines(20);
-                        editText1.setBackground(null);
-                        editText1.setHintTextColor(MyApp.context.getResources().getColor(R.color.colorHui));
-                        editText1.setMovementMethod(LinkMovementMethod.getInstance());
-                        view_wenzhang.addView(editText1);
-                        meditview.add(editText1);
+                    editText1 = new EditText(FaBuArticleActivity.this);
+                    editText1.setHint("输入正文");
+                    editText1.setTextColor(MyApp.context.getResources().getColor(R.color.colorBlack));
+                    editText1.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+                    editText1.setHeight(100);
+                    editText1.setFocusable(true);
+                    editText1.setFocusableInTouchMode(true);
+                    editText1.requestFocus();
+                    editText1.setMaxLines(20);
+                    editText1.setBackground(null);
+                    editText1.setHintTextColor(MyApp.context.getResources().getColor(R.color.colorHui));
+                    editText1.setMovementMethod(LinkMovementMethod.getInstance());
+                    view_wenzhang.addView(editText1);
+                    meditview.add(editText1);
                 }
                 break;
             case R.id.bt_add_imageview:

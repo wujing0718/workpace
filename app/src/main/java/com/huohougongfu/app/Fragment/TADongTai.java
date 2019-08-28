@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Adapter.TaDongTai;
 import com.huohougongfu.app.Gson.MyDongTai;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
@@ -42,7 +43,7 @@ public class TADongTai extends Fragment {
     private String mId;
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_ta_dongtai;
-    private MyDongTaiAdapter myDongTaiAdapter;
+    private TaDongTai myDongTaiAdapter;
     private int page = 2;
 
     @Override
@@ -90,7 +91,7 @@ public class TADongTai extends Fragment {
             //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
             LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
             rec_ta_dongtai.setLayoutManager(layoutmanager);
-            myDongTaiAdapter = new MyDongTaiAdapter(R.layout.item_wode_dongtai,list,getActivity());
+            myDongTaiAdapter = new TaDongTai(R.layout.item_wode_dongtai,list,getActivity());
             rec_ta_dongtai.setAdapter(myDongTaiAdapter);
             myDongTaiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override

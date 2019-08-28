@@ -2,6 +2,7 @@ package com.huohougongfu.app.Adapter;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,6 +23,7 @@ public class XiTongAdapter  extends BaseMultiItemQuickAdapter<XiTongGson.ResultB
      * @param data A new list is created out of this one to avoid mutable list
      */
     private List<XiTongGson.ResultBean.ListBean> data1;
+
     public XiTongAdapter(List<XiTongGson.ResultBean.ListBean> data) {
         super(data);
         this.data1 =data;
@@ -41,18 +43,28 @@ public class XiTongAdapter  extends BaseMultiItemQuickAdapter<XiTongGson.ResultB
                 helper.setText(R.id.tv_xitong_time,item.getCreateTime());
                 helper.setText(R.id.tv_tuisong_title,item.getTitle());
                 helper.setText(R.id.tv_tuisong_content,item.getContent());
-                Glide.with(MyApp.context).load(item.getPicture())
+                Glide.with(MyApp.context).load(item.getMember().getPhoto())
                         .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_tuisong);
                 break;
             case 2:
+                TextView bt_guanzhu = helper.getView(R.id.bt_guanzhu);
+                helper.addOnClickListener(R.id.bt_guanzhu);
+                if (item.getMember().getIsAttention() ==1){
+                    bt_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                    bt_guanzhu.setText("已关注");
+                }else{
+                    bt_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+                    bt_guanzhu.setText("+关注");
+                }
                 helper.setText(R.id.tv_guanzhu_content,item.getContent());
                 helper.setText(R.id.tv_guanzhu_time,item.getCreateTime());
                 helper.setText(R.id.tv_guanzhu_time,item.getCreateTime());
                 helper.setText(R.id.img_guanzhu_name,item.getMember().getMaster().getName());
                 helper.setText(R.id.img_guanzhu_levle,item.getMember().getMaster().getLevel());
                 ImageView img_guanzhu_touxiang = helper.getView(R.id.img_guanzhu_touxiang);
-                Glide.with(MyApp.context).load(item.getPicture())
-                        .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_guanzhu_touxiang);
+                Glide.with(MyApp.context).load(item.getMember().getPhoto())
+                        .apply(new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu))
+                        .into(img_guanzhu_touxiang);
                 break;
         }
     }
@@ -60,6 +72,13 @@ public class XiTongAdapter  extends BaseMultiItemQuickAdapter<XiTongGson.ResultB
     //下面两个方法提供给页面刷新和加载时调用
     public void add(List<XiTongGson.ResultBean.ListBean> data) {
         //增加数据
+        for (int i = 0; i <data.size() ; i++) {
+            if (data.get(i).getItemType() == 1){
+                addItemType(1, R.layout.item_xitong_tuisong);
+            }else if (data.get(i).getItemType() == 2){
+                addItemType(2, R.layout.item__system_attention);
+            }
+        }
         int position = data1.size();
         data1.addAll(position, data);
         notifyItemRangeChanged(position, data.size());

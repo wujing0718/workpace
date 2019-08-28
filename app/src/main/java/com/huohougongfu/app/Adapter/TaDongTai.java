@@ -1,4 +1,4 @@
-package com.huohougongfu.app.WoDe.Adapter;
+package com.huohougongfu.app.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,7 +15,6 @@ import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.MyDongTai;
-import com.huohougongfu.app.Gson.WoDeCollect;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.ImageAdapter;
 import com.lxj.xpopup.interfaces.XPopupImageLoader;
@@ -24,54 +23,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,BaseViewHolder> {
+public class TaDongTai  extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,BaseViewHolder> {
     private Context context;
     private List<MyDongTai.ResultBean.ListBean> data1;
-    private List<MyDongTai.ResultBean.ListBean> mMyLiveList;
-    private static final int MYLIVE_MODE_CHECK = 0;
-    int mEditMode = MYLIVE_MODE_CHECK;
 
-    public MyDongTaiAdapter(int layoutResId, @Nullable List<MyDongTai.ResultBean.ListBean> data, Context context) {
+    public TaDongTai(int layoutResId, @Nullable List<MyDongTai.ResultBean.ListBean> data, Context context) {
         super(layoutResId, data);
         this.context = context;
         this.data1 = data;
     }
-    public void notifyAdapter(List<MyDongTai.ResultBean.ListBean> myLiveList, boolean isAdd) {
-        if (!isAdd) {
-            this.mMyLiveList = myLiveList;
-        } else {
-            this.mMyLiveList.addAll(myLiveList);
-        }
-        notifyDataSetChanged();
-    }
 
-    public List<MyDongTai.ResultBean.ListBean> getMyLiveList() {
-        if (mMyLiveList == null) {
-            mMyLiveList = new ArrayList<>();
-        }
-        return mMyLiveList;
-    }
-
-    public void setEditMode(int editMode) {
-        mEditMode = editMode;
-        notifyDataSetChanged();
-    }
     @Override
     protected void convert(BaseViewHolder helper, MyDongTai.ResultBean.ListBean item) {
-        final MyDongTai.ResultBean.ListBean myLive = mMyLiveList.get(helper.getAdapterPosition());
-        ImageView iv_select = helper.getView(R.id.iv_select);
-//        holder.mTvTitle.setText(myLive.getTitle());
-//        holder.mTvSource.setText(myLive.getSource());
-        if (mEditMode == MYLIVE_MODE_CHECK) {
-            iv_select.setVisibility(View.GONE);
-        } else {
-            iv_select.setVisibility(View.VISIBLE);
-            if (myLive.getIsSelect()) {
-                iv_select.setImageResource(R.mipmap.select);
-            } else {
-                iv_select.setImageResource(R.mipmap.unselect);
-            }
-        }
         RecyclerView rec_dongtai_photo = helper.getView(R.id.rec_dongtai_photo);
         TextView tv_dongtai_title = helper.getView(R.id.tv_dongtai_title);
         TextView tv_dongtai_content = helper.getView(R.id.tv_dongtai_content);
@@ -103,6 +66,7 @@ public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.List
         helper.setText(R.id.tv_dongtai_time,item.getCreateTime());
         helper.setText(R.id.tv_dongtai_pingjianum,String.valueOf(item.getCommentNum()));
         helper.setText(R.id.tv_dongtai_xihuannum,String.valueOf(item.getPraiseNum()));
+
     }
 
     public static class ImageLoader implements XPopupImageLoader {

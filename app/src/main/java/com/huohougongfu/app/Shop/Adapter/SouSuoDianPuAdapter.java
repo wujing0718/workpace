@@ -45,7 +45,7 @@ public class SouSuoDianPuAdapter extends BaseQuickAdapter<SouSuoDianPu.ResultBea
         rec_dianpu_shangpin.setLayoutManager(layoutmanager);
         int firstVisibleItemPosition = layoutmanager.findFirstVisibleItemPosition()+1;
         if (data1.get(firstVisibleItemPosition).getMallProductList().size()>0){
-            DianPuItemAdapter shangPinTuiJianAdapter = new DianPuItemAdapter(MyApp.getInstances(),data1.get(firstVisibleItemPosition).getMallProductList());
+            DianPuItemAdapter shangPinTuiJianAdapter = new DianPuItemAdapter(MyApp.getInstances(),item.getMallProductList());
             rec_dianpu_shangpin.setAdapter(shangPinTuiJianAdapter);
             shangPinTuiJianAdapter.setOnItemClickListener(new DianPuItemAdapter.OnItemClickListener() {
                 @Override

@@ -33,7 +33,7 @@ public class DingDanGuanLiAdapter extends BaseQuickAdapter<DingDanGuanLi.ResultB
         helper.addOnClickListener(R.id.bt_anniu_two);
         if (item.getOrderStatus()==1){
             bt_anniu_one.setVisibility(View.GONE);
-            bt_anniu_two.setText("通知买家已发货");
+            bt_anniu_two.setText("确认发货");
         }else if (item.getOrderStatus()==2){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("联系买家");

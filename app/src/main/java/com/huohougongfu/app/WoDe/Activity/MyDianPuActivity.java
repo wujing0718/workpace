@@ -33,11 +33,11 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
         initData();
     }
 
+
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("token",MyApp.instance.getString("token"));
-        map.put("phone",MyApp.instance.getString("phone"));
         OkGo.<String>get(Contacts.URl1+"order/getStoreVisitNum")
                 .params(map)
                 .execute(new StringCallback() {
@@ -48,8 +48,8 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
                         MyDianPu myDianPu = gson.fromJson(body, MyDianPu.class);
                         if (myDianPu.getStatus() == 1){
                             if (myDianPu.getResult()!=null){
-                                tv_visitNum.setText(String.valueOf(myDianPu.getResult().getVisitNum()));
-                                tv_visitNumOfDay.setText(String.valueOf(myDianPu.getResult().getVisitNumOfDay()));
+                                tv_visitNum.setText(String.valueOf(myDianPu.getResult().getTotal()));
+                                tv_visitNumOfDay.setText(String.valueOf(myDianPu.getResult().getToday()));
                             }
                         }
                     }

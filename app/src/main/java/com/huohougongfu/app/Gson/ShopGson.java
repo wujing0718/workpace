@@ -198,46 +198,147 @@ public class ShopGson {
         }
 
         public static class ListBean {
+            /**
+             * id : 1
+             * name : 茶叶
+             * storeName : 爱茶之人
+             * categoryId : 24
+             * keywords : null
+             * model :
+             * virtualNum : -7
+             * price : 1.0
+             * marketPrice : 2.0
+             * integral : 0
+             * stock : 50
+             * warningStock : null
+             * coverUrl : http://oss.irving.net.cn/tea/1566805533099.jpg
+             * state : 1
+             * showOrder : 0
+             * sellNum : 0
+             * isNew : 0
+             * unit :
+             * transId : 0
+             * createBy : 4
+             * createTime : 2019-08-26T07:45:27.000+0000
+             * updateBy : 1
+             * updateTime : 2019-08-28T02:42:26.000+0000
+             * del : 0
+             * isRecommend : 0
+             * isCheck : 1
+             * limitIntegral : null
+             * subhead :
+             * remark :
+             * weight : null
+             * count : null
+             * sendIntegral : null
+             * sendGrowth : null
+             * productPicture : http://oss.irving.net.cn/tea/1566805533099.jpg,http://oss.irving.net.cn/tea/1566805533361.jpg
+             * storeId : 1
+             * isSift : 0
+             * brandId : null
+             * mallStore : null
+             * sellCount : null
+             * cartId : null
+             * cartProductNum : null
+             * buyNum : null
+             * commission : 8.0
+             * reSell : null
+             * ofCheap : null
+             * detailDescribe : null
+             * detailPic : http://oss.irving.net.cn/tea/1566805526900.jpg
+             * sendAddress : 北京市
+             * categoryName : null
+             * basisService : null
+             * defaultTranCost : null
+             * num : null
+             * basicService : null
+             * productType : 0
+             * transName : null
+             * priceType : null
+             * deliveryType : null
+             * defaultTransCost : null
+             * branName : null
+             * brandImg : null
+             * brandIsSpecial : null
+             * brandOrder : null
+             * brandAddress : null
+             * attributeId : null
+             * standardId : null
+             * userId : null
+             * collectionNum : null
+             * standard : null
+             * transportTemplate : null
+             */
 
             private int id;
             private String name;
-            private Object categoryId;
+            private String storeName;
+            private int categoryId;
             private Object keywords;
             private String model;
-            private Object virtualNum;
+            private int virtualNum;
             private double price;
-            private Object marketPrice;
-            private Object integral;
-            private Object stock;
+            private double marketPrice;
+            private int integral;
+            private int stock;
             private Object warningStock;
             private String coverUrl;
-            private Object state;
-            private Object showOrder;
+            private int state;
+            private int showOrder;
             private int sellNum;
-            private Object isNew;
-            private Object unit;
-            private Object transId;
-            private Object createBy;
-            private Object createTime;
-            private Object updateBy;
-            private Object updateTime;
-            private Object del;
-            private Object isRecommend;
-            private Object isCheck;
+            private int isNew;
+            private String unit;
+            private int transId;
+            private int createBy;
+            private String createTime;
+            private int updateBy;
+            private String updateTime;
+            private int del;
+            private int isRecommend;
+            private int isCheck;
             private Object limitIntegral;
-            private Object subhead;
-            private Object remark;
+            private String subhead;
+            private String remark;
             private Object weight;
             private Object count;
             private Object sendIntegral;
             private Object sendGrowth;
-            private Object productPicture;
-            private Object storeId;
-            private Object isSift;
+            private String productPicture;
+            private int storeId;
+            private int isSift;
             private Object brandId;
             private Object mallStore;
             private Object sellCount;
-            private Object productType;
+            private Object cartId;
+            private Object cartProductNum;
+            private Object buyNum;
+            private double commission;
+            private Object reSell;
+            private Object ofCheap;
+            private Object detailDescribe;
+            private String detailPic;
+            private String sendAddress;
+            private Object categoryName;
+            private Object basisService;
+            private Object defaultTranCost;
+            private Object num;
+            private Object basicService;
+            private int productType;
+            private Object transName;
+            private Object priceType;
+            private Object deliveryType;
+            private Object defaultTransCost;
+            private Object branName;
+            private Object brandImg;
+            private Object brandIsSpecial;
+            private Object brandOrder;
+            private Object brandAddress;
+            private Object attributeId;
+            private Object standardId;
+            private Object userId;
+            private Object collectionNum;
+            private Object standard;
+            private Object transportTemplate;
 
             public int getId() {
                 return id;
@@ -255,11 +356,19 @@ public class ShopGson {
                 this.name = name;
             }
 
-            public Object getCategoryId() {
+            public String getStoreName() {
+                return storeName;
+            }
+
+            public void setStoreName(String storeName) {
+                this.storeName = storeName;
+            }
+
+            public int getCategoryId() {
                 return categoryId;
             }
 
-            public void setCategoryId(Object categoryId) {
+            public void setCategoryId(int categoryId) {
                 this.categoryId = categoryId;
             }
 
@@ -279,11 +388,11 @@ public class ShopGson {
                 this.model = model;
             }
 
-            public Object getVirtualNum() {
+            public int getVirtualNum() {
                 return virtualNum;
             }
 
-            public void setVirtualNum(Object virtualNum) {
+            public void setVirtualNum(int virtualNum) {
                 this.virtualNum = virtualNum;
             }
 
@@ -295,27 +404,27 @@ public class ShopGson {
                 this.price = price;
             }
 
-            public Object getMarketPrice() {
+            public double getMarketPrice() {
                 return marketPrice;
             }
 
-            public void setMarketPrice(Object marketPrice) {
+            public void setMarketPrice(double marketPrice) {
                 this.marketPrice = marketPrice;
             }
 
-            public Object getIntegral() {
+            public int getIntegral() {
                 return integral;
             }
 
-            public void setIntegral(Object integral) {
+            public void setIntegral(int integral) {
                 this.integral = integral;
             }
 
-            public Object getStock() {
+            public int getStock() {
                 return stock;
             }
 
-            public void setStock(Object stock) {
+            public void setStock(int stock) {
                 this.stock = stock;
             }
 
@@ -335,19 +444,19 @@ public class ShopGson {
                 this.coverUrl = coverUrl;
             }
 
-            public Object getState() {
+            public int getState() {
                 return state;
             }
 
-            public void setState(Object state) {
+            public void setState(int state) {
                 this.state = state;
             }
 
-            public Object getShowOrder() {
+            public int getShowOrder() {
                 return showOrder;
             }
 
-            public void setShowOrder(Object showOrder) {
+            public void setShowOrder(int showOrder) {
                 this.showOrder = showOrder;
             }
 
@@ -359,83 +468,83 @@ public class ShopGson {
                 this.sellNum = sellNum;
             }
 
-            public Object getIsNew() {
+            public int getIsNew() {
                 return isNew;
             }
 
-            public void setIsNew(Object isNew) {
+            public void setIsNew(int isNew) {
                 this.isNew = isNew;
             }
 
-            public Object getUnit() {
+            public String getUnit() {
                 return unit;
             }
 
-            public void setUnit(Object unit) {
+            public void setUnit(String unit) {
                 this.unit = unit;
             }
 
-            public Object getTransId() {
+            public int getTransId() {
                 return transId;
             }
 
-            public void setTransId(Object transId) {
+            public void setTransId(int transId) {
                 this.transId = transId;
             }
 
-            public Object getCreateBy() {
+            public int getCreateBy() {
                 return createBy;
             }
 
-            public void setCreateBy(Object createBy) {
+            public void setCreateBy(int createBy) {
                 this.createBy = createBy;
             }
 
-            public Object getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(Object createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
 
-            public Object getUpdateBy() {
+            public int getUpdateBy() {
                 return updateBy;
             }
 
-            public void setUpdateBy(Object updateBy) {
+            public void setUpdateBy(int updateBy) {
                 this.updateBy = updateBy;
             }
 
-            public Object getUpdateTime() {
+            public String getUpdateTime() {
                 return updateTime;
             }
 
-            public void setUpdateTime(Object updateTime) {
+            public void setUpdateTime(String updateTime) {
                 this.updateTime = updateTime;
             }
 
-            public Object getDel() {
+            public int getDel() {
                 return del;
             }
 
-            public void setDel(Object del) {
+            public void setDel(int del) {
                 this.del = del;
             }
 
-            public Object getIsRecommend() {
+            public int getIsRecommend() {
                 return isRecommend;
             }
 
-            public void setIsRecommend(Object isRecommend) {
+            public void setIsRecommend(int isRecommend) {
                 this.isRecommend = isRecommend;
             }
 
-            public Object getIsCheck() {
+            public int getIsCheck() {
                 return isCheck;
             }
 
-            public void setIsCheck(Object isCheck) {
+            public void setIsCheck(int isCheck) {
                 this.isCheck = isCheck;
             }
 
@@ -447,19 +556,19 @@ public class ShopGson {
                 this.limitIntegral = limitIntegral;
             }
 
-            public Object getSubhead() {
+            public String getSubhead() {
                 return subhead;
             }
 
-            public void setSubhead(Object subhead) {
+            public void setSubhead(String subhead) {
                 this.subhead = subhead;
             }
 
-            public Object getRemark() {
+            public String getRemark() {
                 return remark;
             }
 
-            public void setRemark(Object remark) {
+            public void setRemark(String remark) {
                 this.remark = remark;
             }
 
@@ -495,27 +604,27 @@ public class ShopGson {
                 this.sendGrowth = sendGrowth;
             }
 
-            public Object getProductPicture() {
+            public String getProductPicture() {
                 return productPicture;
             }
 
-            public void setProductPicture(Object productPicture) {
+            public void setProductPicture(String productPicture) {
                 this.productPicture = productPicture;
             }
 
-            public Object getStoreId() {
+            public int getStoreId() {
                 return storeId;
             }
 
-            public void setStoreId(Object storeId) {
+            public void setStoreId(int storeId) {
                 this.storeId = storeId;
             }
 
-            public Object getIsSift() {
+            public int getIsSift() {
                 return isSift;
             }
 
-            public void setIsSift(Object isSift) {
+            public void setIsSift(int isSift) {
                 this.isSift = isSift;
             }
 
@@ -543,12 +652,244 @@ public class ShopGson {
                 this.sellCount = sellCount;
             }
 
-            public Object getProductType() {
+            public Object getCartId() {
+                return cartId;
+            }
+
+            public void setCartId(Object cartId) {
+                this.cartId = cartId;
+            }
+
+            public Object getCartProductNum() {
+                return cartProductNum;
+            }
+
+            public void setCartProductNum(Object cartProductNum) {
+                this.cartProductNum = cartProductNum;
+            }
+
+            public Object getBuyNum() {
+                return buyNum;
+            }
+
+            public void setBuyNum(Object buyNum) {
+                this.buyNum = buyNum;
+            }
+
+            public double getCommission() {
+                return commission;
+            }
+
+            public void setCommission(double commission) {
+                this.commission = commission;
+            }
+
+            public Object getReSell() {
+                return reSell;
+            }
+
+            public void setReSell(Object reSell) {
+                this.reSell = reSell;
+            }
+
+            public Object getOfCheap() {
+                return ofCheap;
+            }
+
+            public void setOfCheap(Object ofCheap) {
+                this.ofCheap = ofCheap;
+            }
+
+            public Object getDetailDescribe() {
+                return detailDescribe;
+            }
+
+            public void setDetailDescribe(Object detailDescribe) {
+                this.detailDescribe = detailDescribe;
+            }
+
+            public String getDetailPic() {
+                return detailPic;
+            }
+
+            public void setDetailPic(String detailPic) {
+                this.detailPic = detailPic;
+            }
+
+            public String getSendAddress() {
+                return sendAddress;
+            }
+
+            public void setSendAddress(String sendAddress) {
+                this.sendAddress = sendAddress;
+            }
+
+            public Object getCategoryName() {
+                return categoryName;
+            }
+
+            public void setCategoryName(Object categoryName) {
+                this.categoryName = categoryName;
+            }
+
+            public Object getBasisService() {
+                return basisService;
+            }
+
+            public void setBasisService(Object basisService) {
+                this.basisService = basisService;
+            }
+
+            public Object getDefaultTranCost() {
+                return defaultTranCost;
+            }
+
+            public void setDefaultTranCost(Object defaultTranCost) {
+                this.defaultTranCost = defaultTranCost;
+            }
+
+            public Object getNum() {
+                return num;
+            }
+
+            public void setNum(Object num) {
+                this.num = num;
+            }
+
+            public Object getBasicService() {
+                return basicService;
+            }
+
+            public void setBasicService(Object basicService) {
+                this.basicService = basicService;
+            }
+
+            public int getProductType() {
                 return productType;
             }
 
-            public void setProductType(Object productType) {
+            public void setProductType(int productType) {
                 this.productType = productType;
+            }
+
+            public Object getTransName() {
+                return transName;
+            }
+
+            public void setTransName(Object transName) {
+                this.transName = transName;
+            }
+
+            public Object getPriceType() {
+                return priceType;
+            }
+
+            public void setPriceType(Object priceType) {
+                this.priceType = priceType;
+            }
+
+            public Object getDeliveryType() {
+                return deliveryType;
+            }
+
+            public void setDeliveryType(Object deliveryType) {
+                this.deliveryType = deliveryType;
+            }
+
+            public Object getDefaultTransCost() {
+                return defaultTransCost;
+            }
+
+            public void setDefaultTransCost(Object defaultTransCost) {
+                this.defaultTransCost = defaultTransCost;
+            }
+
+            public Object getBranName() {
+                return branName;
+            }
+
+            public void setBranName(Object branName) {
+                this.branName = branName;
+            }
+
+            public Object getBrandImg() {
+                return brandImg;
+            }
+
+            public void setBrandImg(Object brandImg) {
+                this.brandImg = brandImg;
+            }
+
+            public Object getBrandIsSpecial() {
+                return brandIsSpecial;
+            }
+
+            public void setBrandIsSpecial(Object brandIsSpecial) {
+                this.brandIsSpecial = brandIsSpecial;
+            }
+
+            public Object getBrandOrder() {
+                return brandOrder;
+            }
+
+            public void setBrandOrder(Object brandOrder) {
+                this.brandOrder = brandOrder;
+            }
+
+            public Object getBrandAddress() {
+                return brandAddress;
+            }
+
+            public void setBrandAddress(Object brandAddress) {
+                this.brandAddress = brandAddress;
+            }
+
+            public Object getAttributeId() {
+                return attributeId;
+            }
+
+            public void setAttributeId(Object attributeId) {
+                this.attributeId = attributeId;
+            }
+
+            public Object getStandardId() {
+                return standardId;
+            }
+
+            public void setStandardId(Object standardId) {
+                this.standardId = standardId;
+            }
+
+            public Object getUserId() {
+                return userId;
+            }
+
+            public void setUserId(Object userId) {
+                this.userId = userId;
+            }
+
+            public Object getCollectionNum() {
+                return collectionNum;
+            }
+
+            public void setCollectionNum(Object collectionNum) {
+                this.collectionNum = collectionNum;
+            }
+
+            public Object getStandard() {
+                return standard;
+            }
+
+            public void setStandard(Object standard) {
+                this.standard = standard;
+            }
+
+            public Object getTransportTemplate() {
+                return transportTemplate;
+            }
+
+            public void setTransportTemplate(Object transportTemplate) {
+                this.transportTemplate = transportTemplate;
             }
         }
     }

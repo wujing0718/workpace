@@ -203,7 +203,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        String body = response.body();
                         Gson gson = new Gson();
                         SouSuoShopGson shop = gson.fromJson(response.body(), SouSuoShopGson.class);
                         if (shop.getResult().getResultList().getList().size()>0){

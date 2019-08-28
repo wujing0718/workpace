@@ -2,13 +2,6 @@ package com.huohougongfu.app.Gson;
 
 public class Login {
 
-
-    /**
-     * msg : 操作成功
-     * result : {"userInfo":{"userId":43,"nickName":"13111111111","personalProfile":null,"phone":"13111111111","photo":"http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png","password":"e10adc3949ba59abbe56e057f20f883e","payPassword":"","realName":null,"idcard":null,"teaRiceMe":5,"teaRicePresent":0,"commission":1,"income":0,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":"OTv7lsdVSWg6r2zzKB2RgJw6q9TVoFFAciXYIDdwyjlmSerJFqiPAqW5Q9fTmxlKP49HkuTeXSBWqdPM8SryPryW2r6YBlwz","place":null,"integral":"0","isMaster":false,"isMerchant":false,"state":false,"delFlag":0,"loginIp":"","loginDate":null,"qrcode":null,"createTime":"2019-06-18T11:33:28.000+0000","updateTime":"2019-06-19T07:31:19.000+0000","buyMoney":0},"token":"e6215023875f4d0796a10897d132e682"}
-     * status : 1
-     */
-
     private String msg;
     private ResultBean result;
     private int status;

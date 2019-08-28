@@ -52,7 +52,7 @@ public class TeBieShuoMingActivity extends AppCompatActivity implements View.OnC
                 if (!fankui.isEmpty()){
                     initTiJiao();
                 }else{
-                    ToastUtils.showShort("反馈内容不能为空");
+                    ToastUtils.showShort("内容不能为空");
                 }
                 break;
         }
@@ -71,7 +71,7 @@ public class TeBieShuoMingActivity extends AppCompatActivity implements View.OnC
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
-                                ToastUtils.showShort("反馈成功");
+                                ToastUtils.showShort("发送成功");
                                 finish();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

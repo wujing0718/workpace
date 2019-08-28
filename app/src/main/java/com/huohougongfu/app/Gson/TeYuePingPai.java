@@ -4,7 +4,6 @@ import java.util.List;
 
 public class TeYuePingPai {
 
-
     private String msg;
     private ResultBean result;
     private int status;
@@ -34,17 +33,13 @@ public class TeYuePingPai {
     }
 
     public static class ResultBean {
-        private String queryName;
+        /**
+         * isSpecial : [{"id":4,"userId":3,"storePicture":null,"storeLogo":null,"storeBoard":null,"storeName":"爱喝茶的人","storePhone":null,"storeType":"2","createTime":"2019-08-26T08:37:09.000+0000","updateTime":"2019-08-27T08:11:31.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"doorPhoto":"http://oss.irving.net.cn/tea/1566808633243.jpg","mallProductList":null,"isAttention":null},{"id":5,"userId":1,"storePicture":null,"storeLogo":null,"storeBoard":null,"storeName":"范正勇的店铺","storePhone":null,"storeType":"2","createTime":"2019-08-27T09:52:59.000+0000","updateTime":"2019-08-27T09:54:08.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"doorPhoto":"http://oss.irving.net.cn/tea/1566899585195.jpg","mallProductList":null,"isAttention":null}]
+         * resultList : {"total":4,"list":[{"id":1,"userId":4,"storePicture":null,"storeLogo":null,"storeBoard":null,"storeName":"爱茶之人","storePhone":null,"createTime":"2019-08-26T07:31:42.000+0000","updateTime":"2019-08-26T07:32:34.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"doorPhoto":null,"mallProductList":[{"id":1,"name":"茶叶","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":1,"marketPrice":2,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566805533099.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":1,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":2,"name":"普洱","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":1,"marketPrice":2,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566805841566.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":1,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":3,"name":"绿茶","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":1,"marketPrice":1,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566809411961.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":1,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}],"isAttention":0,"storeType":"2"},{"id":4,"userId":3,"storePicture":null,"storeLogo":null,"storeBoard":null,"storeName":"爱喝茶的人","storePhone":null,"storeType":"2","createTime":"2019-08-26T08:37:09.000+0000","updateTime":"2019-08-27T08:11:31.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"doorPhoto":null,"mallProductList":[{"id":5,"name":"红白绿茶","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":100,"marketPrice":200,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566891978028.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":4,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":6,"name":"黑茶","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":0.1,"marketPrice":0.1,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566892267942.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":4,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}],"isAttention":0},{"id":5,"userId":1,"storePicture":null,"storeLogo":null,"storeBoard":null,"storeName":"范正勇的店铺","storePhone":null,"storeType":"2","createTime":"2019-08-27T09:52:59.000+0000","updateTime":"2019-08-27T09:54:08.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"doorPhoto":null,"mallProductList":[],"isAttention":0},{"id":6,"userId":2,"storePicture":null,"storeLogo":null,"storeBoard":null,"storeName":"Drew","storePhone":null,"createTime":"2019-08-27T09:53:18.000+0000","updateTime":"2019-08-27T09:53:18.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"doorPhoto":null,"mallProductList":[],"isAttention":0}],"pageNum":1,"pageSize":10,"size":4,"startRow":1,"endRow":4,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1}
+         */
+
         private ResultListBean resultList;
         private List<IsSpecialBean> isSpecial;
-
-        public String getQueryName() {
-            return queryName;
-        }
-
-        public void setQueryName(String queryName) {
-            this.queryName = queryName;
-        }
 
         public ResultListBean getResultList() {
             return resultList;
@@ -63,26 +58,6 @@ public class TeYuePingPai {
         }
 
         public static class ResultListBean {
-            /**
-             * total : 3
-             * list : [{"id":36,"userId":2,"storeBoard":null,"storeName":"比比画画","storeType":"2","storeAttention":"0","createTime":"2019-08-23T08:58:54.000+0000","updateTime":"2019-08-24T04:31:58.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"mallProductList":[{"id":79,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":45,"marketPrice":56,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566552498622.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":80,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":22,"marketPrice":34,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456887405.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":81,"name":"特惠商品","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":15,"marketPrice":20,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456890346.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}],"doorPhoto":"http://oss.irving.net.cn/tea/1566550740864.jpg"},{"id":37,"userId":4,"storeBoard":null,"storeName":"敬哥奶茶店","storeType":"2","storeAttention":"0","createTime":"2019-08-23T09:49:24.000+0000","updateTime":"2019-08-24T04:32:05.000+0000","info":null,"year":null,"favorableRate":0,"fensNum":null,"sellNum":null,"appraiseCategory":null,"productId":null,"coverUrl":null,"visitNum":null,"visitNumOfDay":null,"specialBrandInfo":null,"specialInstructions":null,"creditCard":null,"deliveryTime":null,"basicExpressFee":null,"freeAmountOfExpressFee":null,"status":null,"enterStore":null,"mallProductList":[{"id":82,"name":"商品名称","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":888,"marketPrice":998,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566554184589.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":37,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":83,"name":"精选商品1","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":30,"marketPrice":30,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456890346.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":37,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}],"doorPhoto":"http://oss.irving.net.cn/tea/1566553773371.jpg"}]
-             * pageNum : 1
-             * pageSize : 2
-             * size : 2
-             * startRow : 1
-             * endRow : 2
-             * pages : 2
-             * prePage : 0
-             * nextPage : 2
-             * isFirstPage : true
-             * isLastPage : false
-             * hasPreviousPage : false
-             * hasNextPage : true
-             * navigatePages : 8
-             * navigatepageNums : [1,2]
-             * navigateFirstPage : 1
-             * navigateLastPage : 2
-             */
 
             private int total;
             private int pageNum;
@@ -249,14 +224,15 @@ public class TeYuePingPai {
 
             public static class ListBean {
                 /**
-                 * id : 36
-                 * userId : 2
+                 * id : 1
+                 * userId : 4
+                 * storePicture : null
+                 * storeLogo : null
                  * storeBoard : null
-                 * storeName : 比比画画
-                 * storeType : 2
-                 * storeAttention : 0
-                 * createTime : 2019-08-23T08:58:54.000+0000
-                 * updateTime : 2019-08-24T04:31:58.000+0000
+                 * storeName : 爱茶之人
+                 * storePhone : null
+                 * createTime : 2019-08-26T07:31:42.000+0000
+                 * updateTime : 2019-08-26T07:32:34.000+0000
                  * info : null
                  * year : null
                  * favorableRate : 0
@@ -275,16 +251,19 @@ public class TeYuePingPai {
                  * freeAmountOfExpressFee : null
                  * status : null
                  * enterStore : null
-                 * mallProductList : [{"id":79,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":45,"marketPrice":56,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566552498622.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":80,"name":"我","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":22,"marketPrice":34,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456887405.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":81,"name":"特惠商品","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":15,"marketPrice":20,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566456890346.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":36,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}]
-                 * doorPhoto : http://oss.irving.net.cn/tea/1566550740864.jpg
+                 * doorPhoto : null
+                 * mallProductList : [{"id":1,"name":"茶叶","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":1,"marketPrice":2,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566805533099.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":1,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":2,"name":"普洱","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":1,"marketPrice":2,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566805841566.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":1,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null},{"id":3,"name":"绿茶","storeName":null,"categoryId":null,"keywords":null,"model":null,"virtualNum":null,"price":1,"marketPrice":1,"integral":null,"stock":null,"warningStock":null,"coverUrl":"http://oss.irving.net.cn/tea/1566809411961.jpg","state":null,"showOrder":null,"sellNum":null,"isNew":null,"unit":null,"transId":null,"createBy":null,"createTime":null,"updateBy":null,"updateTime":null,"del":null,"isRecommend":null,"isCheck":null,"limitIntegral":null,"subhead":null,"remark":null,"weight":null,"count":null,"sendIntegral":null,"sendGrowth":null,"productPicture":null,"storeId":1,"isSift":null,"brandId":null,"mallStore":null,"sellCount":null,"cartId":null,"cartProductNum":null,"buyNum":null,"commission":null,"reSell":null,"ofCheap":null,"detailDescribe":null,"detailPic":null,"sendAddress":null,"categoryName":null,"basisService":null,"defaultTranCost":null,"num":null,"basicService":null,"productType":null,"transName":null,"priceType":null,"deliveryType":null,"defaultTransCost":null,"branName":null,"brandImg":null,"brandIsSpecial":null,"brandOrder":null,"brandAddress":null,"attributeId":null,"standardId":null,"userId":null,"collectionNum":null,"standard":null,"transportTemplate":null}]
+                 * isAttention : 0
+                 * storeType : 2
                  */
 
                 private int id;
                 private int userId;
+                private Object storePicture;
+                private Object storeLogo;
                 private String storeBoard;
                 private String storeName;
-                private String storeType;
-                private String storeAttention;
+                private Object storePhone;
                 private String createTime;
                 private String updateTime;
                 private Object info;
@@ -305,17 +284,10 @@ public class TeYuePingPai {
                 private Object freeAmountOfExpressFee;
                 private Object status;
                 private Object enterStore;
-                private String doorPhoto;
+                private Object doorPhoto;
                 private int isAttention;
+                private String storeType;
                 private List<MallProductListBean> mallProductList;
-
-                public int getIsAttention() {
-                    return isAttention;
-                }
-
-                public void setIsAttention(int iisAttentiond) {
-                    this.isAttention = isAttention;
-                }
 
                 public int getId() {
                     return id;
@@ -331,6 +303,22 @@ public class TeYuePingPai {
 
                 public void setUserId(int userId) {
                     this.userId = userId;
+                }
+
+                public Object getStorePicture() {
+                    return storePicture;
+                }
+
+                public void setStorePicture(Object storePicture) {
+                    this.storePicture = storePicture;
+                }
+
+                public Object getStoreLogo() {
+                    return storeLogo;
+                }
+
+                public void setStoreLogo(Object storeLogo) {
+                    this.storeLogo = storeLogo;
                 }
 
                 public String getStoreBoard() {
@@ -349,20 +337,12 @@ public class TeYuePingPai {
                     this.storeName = storeName;
                 }
 
-                public String getStoreType() {
-                    return storeType;
+                public Object getStorePhone() {
+                    return storePhone;
                 }
 
-                public void setStoreType(String storeType) {
-                    this.storeType = storeType;
-                }
-
-                public String getStoreAttention() {
-                    return storeAttention;
-                }
-
-                public void setStoreAttention(String storeAttention) {
-                    this.storeAttention = storeAttention;
+                public void setStorePhone(Object storePhone) {
+                    this.storePhone = storePhone;
                 }
 
                 public String getCreateTime() {
@@ -525,12 +505,28 @@ public class TeYuePingPai {
                     this.enterStore = enterStore;
                 }
 
-                public String getDoorPhoto() {
+                public Object getDoorPhoto() {
                     return doorPhoto;
                 }
 
-                public void setDoorPhoto(String doorPhoto) {
+                public void setDoorPhoto(Object doorPhoto) {
                     this.doorPhoto = doorPhoto;
+                }
+
+                public int getIsAttention() {
+                    return isAttention;
+                }
+
+                public void setIsAttention(int isAttention) {
+                    this.isAttention = isAttention;
+                }
+
+                public String getStoreType() {
+                    return storeType;
+                }
+
+                public void setStoreType(String storeType) {
+                    this.storeType = storeType;
                 }
 
                 public List<MallProductListBean> getMallProductList() {
@@ -543,19 +539,19 @@ public class TeYuePingPai {
 
                 public static class MallProductListBean {
                     /**
-                     * id : 79
-                     * name : 我
+                     * id : 1
+                     * name : 茶叶
                      * storeName : null
                      * categoryId : null
                      * keywords : null
                      * model : null
                      * virtualNum : null
-                     * price : 45
-                     * marketPrice : 56
+                     * price : 1.0
+                     * marketPrice : 2.0
                      * integral : null
                      * stock : null
                      * warningStock : null
-                     * coverUrl : http://oss.irving.net.cn/tea/1566552498622.jpg
+                     * coverUrl : http://oss.irving.net.cn/tea/1566805533099.jpg
                      * state : null
                      * showOrder : null
                      * sellNum : null
@@ -577,7 +573,7 @@ public class TeYuePingPai {
                      * sendIntegral : null
                      * sendGrowth : null
                      * productPicture : null
-                     * storeId : 36
+                     * storeId : 1
                      * isSift : null
                      * brandId : null
                      * mallStore : null
@@ -592,6 +588,8 @@ public class TeYuePingPai {
                      * detailPic : null
                      * sendAddress : null
                      * categoryName : null
+                     * basisService : null
+                     * defaultTranCost : null
                      * num : null
                      * basicService : null
                      * productType : null
@@ -619,8 +617,8 @@ public class TeYuePingPai {
                     private Object keywords;
                     private Object model;
                     private Object virtualNum;
-                    private int price;
-                    private int marketPrice;
+                    private double price;
+                    private double marketPrice;
                     private Object integral;
                     private Object stock;
                     private Object warningStock;
@@ -661,6 +659,8 @@ public class TeYuePingPai {
                     private Object detailPic;
                     private Object sendAddress;
                     private Object categoryName;
+                    private Object basisService;
+                    private Object defaultTranCost;
                     private Object num;
                     private Object basicService;
                     private Object productType;
@@ -736,19 +736,19 @@ public class TeYuePingPai {
                         this.virtualNum = virtualNum;
                     }
 
-                    public int getPrice() {
+                    public double getPrice() {
                         return price;
                     }
 
-                    public void setPrice(int price) {
+                    public void setPrice(double price) {
                         this.price = price;
                     }
 
-                    public int getMarketPrice() {
+                    public double getMarketPrice() {
                         return marketPrice;
                     }
 
-                    public void setMarketPrice(int marketPrice) {
+                    public void setMarketPrice(double marketPrice) {
                         this.marketPrice = marketPrice;
                     }
 
@@ -1072,6 +1072,22 @@ public class TeYuePingPai {
                         this.categoryName = categoryName;
                     }
 
+                    public Object getBasisService() {
+                        return basisService;
+                    }
+
+                    public void setBasisService(Object basisService) {
+                        this.basisService = basisService;
+                    }
+
+                    public Object getDefaultTranCost() {
+                        return defaultTranCost;
+                    }
+
+                    public void setDefaultTranCost(Object defaultTranCost) {
+                        this.defaultTranCost = defaultTranCost;
+                    }
+
                     public Object getNum() {
                         return num;
                     }
@@ -1221,13 +1237,16 @@ public class TeYuePingPai {
 
         public static class IsSpecialBean {
             /**
-             * id : 36
-             * userId : 2
+             * id : 4
+             * userId : 3
+             * storePicture : null
+             * storeLogo : null
              * storeBoard : null
-             * storeName : 比比画画
+             * storeName : 爱喝茶的人
+             * storePhone : null
              * storeType : 2
-             * createTime : 2019-08-23T08:58:54.000+0000
-             * updateTime : 2019-08-24T04:31:58.000+0000
+             * createTime : 2019-08-26T08:37:09.000+0000
+             * updateTime : 2019-08-27T08:11:31.000+0000
              * info : null
              * year : null
              * favorableRate : 0
@@ -1246,14 +1265,18 @@ public class TeYuePingPai {
              * freeAmountOfExpressFee : null
              * status : null
              * enterStore : null
+             * doorPhoto : http://oss.irving.net.cn/tea/1566808633243.jpg
              * mallProductList : null
-             * doorPhoto : http://oss.irving.net.cn/tea/1566550740864.jpg
+             * isAttention : null
              */
 
             private int id;
             private int userId;
+            private Object storePicture;
+            private Object storeLogo;
             private Object storeBoard;
             private String storeName;
+            private Object storePhone;
             private String storeType;
             private String createTime;
             private String updateTime;
@@ -1275,8 +1298,9 @@ public class TeYuePingPai {
             private Object freeAmountOfExpressFee;
             private Object status;
             private Object enterStore;
-            private Object mallProductList;
             private String doorPhoto;
+            private Object mallProductList;
+            private Object isAttention;
 
             public int getId() {
                 return id;
@@ -1294,6 +1318,22 @@ public class TeYuePingPai {
                 this.userId = userId;
             }
 
+            public Object getStorePicture() {
+                return storePicture;
+            }
+
+            public void setStorePicture(Object storePicture) {
+                this.storePicture = storePicture;
+            }
+
+            public Object getStoreLogo() {
+                return storeLogo;
+            }
+
+            public void setStoreLogo(Object storeLogo) {
+                this.storeLogo = storeLogo;
+            }
+
             public Object getStoreBoard() {
                 return storeBoard;
             }
@@ -1308,6 +1348,14 @@ public class TeYuePingPai {
 
             public void setStoreName(String storeName) {
                 this.storeName = storeName;
+            }
+
+            public Object getStorePhone() {
+                return storePhone;
+            }
+
+            public void setStorePhone(Object storePhone) {
+                this.storePhone = storePhone;
             }
 
             public String getStoreType() {
@@ -1478,6 +1526,14 @@ public class TeYuePingPai {
                 this.enterStore = enterStore;
             }
 
+            public String getDoorPhoto() {
+                return doorPhoto;
+            }
+
+            public void setDoorPhoto(String doorPhoto) {
+                this.doorPhoto = doorPhoto;
+            }
+
             public Object getMallProductList() {
                 return mallProductList;
             }
@@ -1486,12 +1542,12 @@ public class TeYuePingPai {
                 this.mallProductList = mallProductList;
             }
 
-            public String getDoorPhoto() {
-                return doorPhoto;
+            public Object getIsAttention() {
+                return isAttention;
             }
 
-            public void setDoorPhoto(String doorPhoto) {
-                this.doorPhoto = doorPhoto;
+            public void setIsAttention(Object isAttention) {
+                this.isAttention = isAttention;
             }
         }
     }

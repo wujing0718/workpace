@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.DSZhuanChang;
 import com.huohougongfu.app.Gson.ShangPinGson;
@@ -109,7 +110,7 @@ public class DaShiZhuanChang extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
-                    intent.setClass(DaShiZhuanChang.this,GouWuCheActivity.class);
+                    intent.setClass(DaShiZhuanChang.this,XiaoXiActivity.class);
                     startActivity(intent);
                 }
             }

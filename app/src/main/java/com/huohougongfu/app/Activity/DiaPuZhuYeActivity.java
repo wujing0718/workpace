@@ -56,14 +56,15 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     private MyZhuYe xinxi;
     private TextView bt_guanzhu;
     private String token;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dia_pu_zhu_ye);
-        int id = MyApp.instance.getInt("id");
+        id = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
-        userId = String.valueOf(id);
+        userId = getIntent().getStringExtra("userid");
         mId = getIntent().getStringExtra("id");
         initUI();
         initData();
@@ -90,7 +91,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("mId",mId);
-        map.put("userId",userId);
+        map.put("userId",String.valueOf(id));
         OkGo.<String>post(Contacts.URl1+"/homepage/info")
                 .params(map)
                 .execute(new StringCallback() {
@@ -146,8 +147,8 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(TADianPu.newInstance(mId));
-        mFragments.add(TADongTai.newInstance(mId));
+        mFragments.add(TADianPu.newInstance(userId));
+        mFragments.add(TADongTai.newInstance(userId));
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
         }

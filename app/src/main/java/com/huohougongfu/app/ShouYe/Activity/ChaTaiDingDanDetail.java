@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +21,11 @@ import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +41,27 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
     private TextView tv_orderTotal;
     private TextView tv_tea_num;
     private com.huohougongfu.app.Gson.ChaTaiDingDanDetail chaTaiDingDanDetail;
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +181,32 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
             case R.id.bt_zhuanzeng_cha:
-
+                String zhuangtai = tv_zhifu_zhuangtai.getText().toString();
+                if (!utils.isDoubleClick()){
+                    if ("0".equals(chaTaiDingDanDetail.getResult().getOrderStatus())){
+                        if ("已过期".equals(zhuangtai)){
+                            ToastUtils.showShort("订单已过期");
+                        }else{
+                            ToastUtils.showShort("订单未支付");
+                        }
+                    }else if ("1".equals(chaTaiDingDanDetail.getResult().getOrderStatus())){
+                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
+                        web.setTitle("火后功夫");//标题
+                        web.setDescription("123456");//描述
+                        if (TextUtils.isEmpty("")) {
+                            web.setThumb(new UMImage(ChaTaiDingDanDetail.this, R.mipmap.img_back));  //本地缩略图
+                        } else {
+                            web.setThumb(new UMImage(ChaTaiDingDanDetail.this, ""));  //网络缩略图
+                        }
+                        new ShareAction(ChaTaiDingDanDetail.this)
+                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                .withMedia(web)
+                                .setCallback(umShareListener).open();
+                    }else if ("2".equals(chaTaiDingDanDetail.getResult().getOrderStatus())){
+                        ToastUtils.showShort("已消费");
+                    }
+                }
                 break;
             case R.id.bt_queding:
                 if (bt_queding.getText().toString().equals("删除订单")){

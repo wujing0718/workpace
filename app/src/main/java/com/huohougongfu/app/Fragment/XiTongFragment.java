@@ -8,9 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.XiTongAdapter;
+import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.Gson.XiTongGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -22,6 +26,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +87,17 @@ public class XiTongFragment extends Fragment {
         }
         xiTongAdapter = new XiTongAdapter(list);
         rec_xitong.setAdapter(xiTongAdapter);
+        xiTongAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView bt_guanzhu = view.findViewById(R.id.bt_guanzhu);
+                if (list.get(position).getMember().getMaster().getIsCollection()== 1){
+                    initNoGuanZhu(list.get(position).getMember(),bt_guanzhu);
+                }else{
+                    initGuanZhu(list.get(position).getMember(),bt_guanzhu);
+                }
+            }
+        });
 
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
@@ -95,6 +113,45 @@ public class XiTongFragment extends Fragment {
                 initAdd();
             }
         });
+    }
+    private void initGuanZhu(XiTongGson.ResultBean.ListBean.MemberBean master, TextView bt_guanzhu) {
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("masterId",String.valueOf(master.getUserId()));
+        OkGo.<String>get(Contacts.URl1+"query/allCatory/masterCollection")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                        if (okGson.getStatus() == 1){
+                            master.setIsAttention(1);
+                            bt_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                            bt_guanzhu.setText("已关注");
+                            bt_guanzhu.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+                        }
+                    }
+                });
+    }
+
+    private void initNoGuanZhu(XiTongGson.ResultBean.ListBean.MemberBean master, TextView bt_guanzhu) {
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("masterId",String.valueOf(master.getUserId()));
+        OkGo.<String>get(Contacts.URl1+"query/allCatory/masterCollection")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                        if (okGson.getStatus() == 1){
+                            master.setIsAttention(0);
+                            bt_guanzhu.setText("+关注");
+                            bt_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+                            bt_guanzhu.setTextColor(getActivity().getResources().getColor(R.color.white));
+                        }
+                    }
+                });
     }
 
     private void initAdd() {

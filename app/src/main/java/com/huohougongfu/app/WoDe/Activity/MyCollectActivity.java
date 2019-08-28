@@ -112,7 +112,7 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
         ll_mycollection_bottom_dialog = findViewById(R.id.ll_mycollection_bottom_dialog);
         findViewById(R.id.bt_guanli).setOnClickListener(this);
         tv_guanli = findViewById(R.id.tv_guanli);
-         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
+        smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         mBtnDelete = findViewById(R.id.btn_delete);
         mBtnDelete.setOnClickListener(this);
         rec_mycollect = findViewById(R.id.rec_mycollect);

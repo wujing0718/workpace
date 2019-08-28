@@ -38,6 +38,12 @@ public class WuLiuActivity extends AppCompatActivity {
     }
 
     private void initUI(WuLiuString result) {
+        findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         img_duaidi_photo = findViewById(R.id.img_duaidi_photo);
         tv_kuaidi_name = findViewById(R.id.tv_kuaidi_name);
         tv_kuaidi_phone = findViewById(R.id.tv_kuaidi_phone);

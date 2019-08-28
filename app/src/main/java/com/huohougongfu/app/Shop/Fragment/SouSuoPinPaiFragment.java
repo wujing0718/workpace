@@ -157,6 +157,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
+                intent.putExtra("userid",String.valueOf(result.getList().get(position).getUserId()));
                 intent.putExtra("id",String.valueOf(result.getList().get(position).getId()));
                 intent.setClass(getActivity(),DiaPuZhuYeActivity.class);
                 startActivity(intent);

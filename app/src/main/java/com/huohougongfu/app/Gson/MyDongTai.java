@@ -249,6 +249,7 @@ public class MyDongTai implements Serializable{
 
             private int id;
             private int type;
+            private boolean isSelect;
             private String title;
             private String content;
             private String picture;
@@ -267,6 +268,14 @@ public class MyDongTai implements Serializable{
             private Object isSift;
             private int browseCount;
             private int mid;
+
+            public boolean getIsSelect() {
+                return isSelect;
+            }
+
+            public void setIsSelect(boolean isSelect) {
+                this.isSelect = isSelect;
+            }
 
             public int getId() {
                 return id;
