@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ChaTaiAdapter;
 import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
+import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.CTYouHuiQuan;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
@@ -35,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +69,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     private ChaTaiYouHuiQuan.ResultBean.CouponsBean xuanzeyouhuiquan;
     private View view_zhanweitu;
     private View view_chataione;
+    private TextView bt_delete;
 
     public ChaTaiOneFragment() {
         // Required empty public constructor
@@ -109,6 +113,8 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         mBtnSubmit =inflate.findViewById(R.id.btn_go_to_pay);
         inflate.findViewById(R.id.bt_checkbox).setOnClickListener(this);
         bt_checkbox = inflate.findViewById(R.id.bt_checkbox);
+        bt_delete = inflate.findViewById(R.id.bt_delete);
+        bt_delete.setOnClickListener(this);
         bt_checkbox.setOnClickListener(this);
         btn_go_to_pay = inflate.findViewById(R.id.btn_go_to_pay);
         btn_go_to_pay.setOnClickListener(this);
@@ -193,17 +199,58 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
 //        rec_chatai.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        rec_chatai.setHasFixedSize(true);
         mAdapter = new ChaTaiAdapter(R.layout.item_shouye_chataione,bt_checkbox,btn_go_to_pay,result,getActivity()
-                ,img_check,tv_total_price,bt_chami_dikou,img_chami_check, myouhuiquan);
+                ,img_check,tv_total_price,bt_chami_dikou,img_chami_check, myouhuiquan,bt_delete);
         mAdapter.setData(result);
         mAdapter.setOnChangeCountListener(new ChaTaiAdapter.OnChangeCountListener() {
 
             @Override
             public void onChangeCount(double total_price, JSONArray array, int teaRice,boolean isDikou,String orderprice) {
-                initORder(total_price,array,teaRice,isDikou,orderprice);
+                if (!"[]".equals(array.toString())){
+                    initORder(total_price,array,teaRice,isDikou,orderprice);
+                }else{
+                    ToastUtils.showShort("请选择要购买的商品");
+                }
             }
+        });
+        mAdapter.setOnDeleteListener(new ChaTaiAdapter.OnDeleteListener() {
 
+            @Override
+            public void OnDelete(List<ChaTaiGson.ResultBean> list) {
+                List<ChaTaiGson.ResultBean> temp = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    ChaTaiGson.ResultBean goodsBean = list.get(i);
+                    boolean isSelect = goodsBean.getIsSelect();
+                    if (isSelect) {
+                        temp.add(goodsBean);
+                    }
+                }
+                if (temp != null && temp.size() > 0) {//如果有被选中的
+                    for (int i = 0; i < temp.size(); i++) {
+                        initDelete(temp.get(i).getId());
+                    }
+                } else {
+                    ToastUtils.showShort("请选择要删除的茶台");
+                }
+            }
         });
         rec_chatai.setAdapter(mAdapter);
+    }
+
+    private void initDelete(int id) {
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("teaTableIds",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl1+"/machine/teaTable/del")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                        if (okGson.getStatus() == 1){
+                            initData(myouhuiquan);
+                        }
+                    }
+                });
     }
 
     private void initORder(double total_price, JSONArray array, int teaRice, boolean isDikou,String orderprice) {

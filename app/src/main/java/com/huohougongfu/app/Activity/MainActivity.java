@@ -35,20 +35,28 @@
         import com.amap.api.maps.LocationSource;
         import com.blankj.utilcode.util.LogUtils;
         import com.blankj.utilcode.util.ToastUtils;
+        import com.google.gson.Gson;
         import com.gyf.barlibrary.ImmersionBar;
         import com.huohougongfu.app.Fragment.HomeFragment;
         import com.huohougongfu.app.Fragment.MyFragment;
         import com.huohougongfu.app.Fragment.QuanZiFragment;
         import com.huohougongfu.app.Fragment.ShopFragment;
+        import com.huohougongfu.app.Gson.LiBaoGson;
         import com.huohougongfu.app.MyApp;
         import com.huohougongfu.app.PopupView.ChaMiGuiZe;
         import com.huohougongfu.app.PopupView.Paocha;
+        import com.huohougongfu.app.PopupView.PopupShouCi;
+        import com.huohougongfu.app.PopupView.XinRenDaLiBao;
         import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
         import com.huohougongfu.app.R;
+        import com.huohougongfu.app.Utils.Contacts;
         import com.huohougongfu.app.Utils.NoScrollViewPager;
         import com.huohougongfu.app.Utils.PermissionPageUtils;
         import com.kongzue.dialog.v2.SelectDialog;
         import com.lxj.xpopup.XPopup;
+        import com.lzy.okgo.OkGo;
+        import com.lzy.okgo.callback.StringCallback;
+        import com.lzy.okgo.model.Response;
         import com.mylhyl.acp.Acp;
         import com.mylhyl.acp.AcpListener;
         import com.mylhyl.acp.AcpOptions;
@@ -56,7 +64,7 @@
         import java.lang.reflect.Field;
         import java.util.ArrayList;
         import java.util.List;
-        public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
+    public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;
     private BottomNavigationView bottomNavigationView;
@@ -84,12 +92,11 @@
             ActivityCompat.requestPermissions(MainActivity.this,mPermissionList,123);
         }
         initLoc();
+        initData();
         activity = this;
         immersionber = ImmersionBar.with(this);
         immersionber.statusBarDarkFont(false).init();
-//        new XPopup.Builder(MainActivity.this)
-//                .asCustom(new ChaMiGuiZe(MainActivity.this))
-//                .show();
+
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         bottomNavigationView.setItemIconTintList(null);
         viewPager = findViewById(R.id.viewpager);
@@ -106,7 +113,6 @@
             }
         });
     }
-
         //请求权限后的回调:
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -169,8 +175,42 @@
         return super.onKeyUp(keyCode, event);
     }
 
-            //定位
-            private void initLoc() {
+        private void initData() {
+            OkGo.<String>post(Contacts.URl1+"/member/newMemberGift")
+                    .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            LiBaoGson liBaoGson = new Gson().fromJson(body, LiBaoGson.class);
+                            if (liBaoGson.getStatus() == 1){
+                                if (liBaoGson.getResult().getSystem().size()>0){
+                                    if (liBaoGson.getResult().getTeariceRecords().size()>0){
+                                        for (int i = 0; i < liBaoGson.getResult().getTeariceRecords().size(); i++) {
+                                            new XPopup.Builder(MainActivity.this)
+                                                    .enableDrag(false)
+                                                    .asCustom(new PopupShouCi(MainActivity.this,liBaoGson.getResult().getTeariceRecords().get(i)))
+                                                    .show();
+                                        }
+                                    }
+                                    if (liBaoGson.getResult().getTeariceRecords().size()>0){
+//                                        new XPopup.Builder(MainActivity.this)
+//                                                .enableDrag(false)
+//                                                .asCustom(new PopupShouCi(MainActivity.this,liBaoGson.getResult().getReceive()))
+//                                                .show();
+                                    }
+                                    new XPopup.Builder(MainActivity.this)
+                                            .enableDrag(false)
+                                            .asCustom(new XinRenDaLiBao(MainActivity.this,liBaoGson.getResult().getSystem()))
+                                            .show();
+                                }
+                            }
+                        }
+                    });
+        }
+
+        //定位
+         private void initLoc() {
                 //初始化定位
                 mLocationClient = new AMapLocationClient(getApplicationContext());
                 //设置定位回调监听

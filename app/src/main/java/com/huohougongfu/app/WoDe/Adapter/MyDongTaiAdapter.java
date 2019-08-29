@@ -23,6 +23,7 @@ import com.lxj.xpopup.interfaces.XPopupImageLoader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,BaseViewHolder> {
     private Context context;
@@ -96,7 +97,9 @@ public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.List
         }
         if (item.getContent()!=null){
             tv_dongtai_content.setVisibility(View.VISIBLE);
-            helper.setText(R.id.tv_dongtai_content,item.getContent());
+            String わわ = item.getContent().replace("わわ", "");
+            String ゐゑを = わわ.replace("ゐゑを", "");
+            helper.setText(R.id.tv_dongtai_content,ゐゑを);
         }else{
             tv_dongtai_content.setVisibility(View.GONE);
         }

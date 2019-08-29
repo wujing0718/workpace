@@ -32,6 +32,10 @@ public class CanShuNameAdapter extends RecyclerView.Adapter<CanShuNameAdapter.VH
             vh.tv_canshu_name.setText("无");
         }else if ("1".equals(val.get(i))){
             vh.tv_canshu_name.setText("有");
+        }else if ("false".equals(val.get(i))){
+            vh.tv_canshu_name.setText("否");
+        }else if ("true".equals(val.get(i))){
+            vh.tv_canshu_name.setText("是");
         }else{
             vh.tv_canshu_name.setText(val.get(i));
         }

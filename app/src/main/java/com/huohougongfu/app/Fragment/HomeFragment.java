@@ -134,6 +134,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                                 formater.setRoundingMode(RoundingMode.FLOOR);
                                 String result = formater.format(Double.valueOf(lieiao.getResult().get(0).getDistance()));
                                 tv_jiqijuli.setText(result+"m");
+                                FragmentManager fm = getChildFragmentManager();
+                                FragmentTransaction transaction = fm.beginTransaction();
+                                transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
+                                transaction.commitAllowingStateLoss();
 
                             }
                         }
@@ -147,7 +151,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
-
         amap = inflate.findViewById(R.id.amap);
         tv_jiqijuli = inflate.findViewById(R.id.tv_jiqijuli);
         tv_jiqiweizhi = inflate.findViewById(R.id.tv_jiqiweizhi);
@@ -160,24 +163,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_xiadan).setOnClickListener(this);
 
         banner = inflate.findViewById(R.id.banner);
-        bt_switch = inflate.findViewById(R.id.bt_switch);
-        bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
 
-                if (!isChecked) {
-                    FragmentManager fm = getChildFragmentManager();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(""));
-                    transaction.commitAllowingStateLoss();
-                }else{
-                    FragmentManager fm = getChildFragmentManager();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
-                    transaction.commitAllowingStateLoss();
-                }
-            }
-        });
+//        bt_switch = inflate.findViewById(R.id.bt_switch);
+//        bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+//
+//                if (!isChecked) {
+//                    FragmentManager fm = getChildFragmentManager();
+//                    FragmentTransaction transaction = fm.beginTransaction();
+//                    transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(""));
+//                    transaction.commitAllowingStateLoss();
+//                }else{
+//                    FragmentManager fm = getChildFragmentManager();
+//                    FragmentTransaction transaction = fm.beginTransaction();
+//                    transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
+//                    transaction.commitAllowingStateLoss();
+//                }
+//            }
+//        });
+
     }
 
     private void initbanner() {

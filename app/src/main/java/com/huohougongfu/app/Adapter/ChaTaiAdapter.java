@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.huohougongfu.app.Gson.ChaTaiGson;
@@ -41,10 +43,11 @@ public class ChaTaiAdapter extends BaseAdapter {
     private boolean isDikou = true;
     private JSONArray array;
     private String orderprice;
+    private TextView bt_delete;
 
     public ChaTaiAdapter(int item_shouye_chataione, View bt_checkbox, Button btn_go_to_pay,
                          List<ChaTaiGson.ResultBean> list, Context context, ImageView img_check,
-                         TextView tv_total_price, View bt_chami_dikou, ImageView img_chami_check, ChaTaiYouHuiQuan.ResultBean myouhuiquan) {
+                         TextView tv_total_price, View bt_chami_dikou, ImageView img_chami_check, ChaTaiYouHuiQuan.ResultBean myouhuiquan, TextView bt_delete) {
         this.item_shouye_chataione = item_shouye_chataione;
         this.bt_checkbox = bt_checkbox;
         this.btn_go_to_pay = btn_go_to_pay;
@@ -54,6 +57,7 @@ public class ChaTaiAdapter extends BaseAdapter {
         this.bt_chami_dikou =bt_chami_dikou;
         this.img_chami_check =img_chami_check;
         this.myouhuiquan =myouhuiquan;
+        this.bt_delete = bt_delete;
 
     }
 
@@ -185,6 +189,16 @@ public class ChaTaiAdapter extends BaseAdapter {
             }
         });
 
+        //删除的监听
+        bt_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOndeletelistener != null) {
+                    mOndeletelistener.OnDelete(list);
+                }
+            }
+        });
+
         //结算回调
         btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +215,7 @@ public class ChaTaiAdapter extends BaseAdapter {
                 }
             }
         });
+
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         if (!isDikou){
             //合计的计算
@@ -360,8 +375,8 @@ public class ChaTaiAdapter extends BaseAdapter {
         }
     }
 
+    private ChaTaiAdapter.OnChangeCountListener mChangeCountListener;
 
-    //修改商品数量的回调
     public interface OnChangeCountListener {
         void onChangeCount(double total_price, JSONArray array, int teaRice,boolean isDikou,String orderprice);
     }
@@ -370,5 +385,14 @@ public class ChaTaiAdapter extends BaseAdapter {
         mChangeCountListener = listener;
     }
 
-    private ChaTaiAdapter.OnChangeCountListener mChangeCountListener;
+    private ChaTaiAdapter.OnDeleteListener mOndeletelistener;
+
+    public interface OnDeleteListener {
+
+        void OnDelete(List<ChaTaiGson.ResultBean> list);
+    }
+
+    public void setOnDeleteListener(ChaTaiAdapter.OnDeleteListener listener) {
+        mOndeletelistener = listener;
+    }
 }
