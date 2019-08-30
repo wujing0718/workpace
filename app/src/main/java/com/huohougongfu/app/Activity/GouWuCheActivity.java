@@ -287,16 +287,14 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
                 //跳出本次循环，继续下次循环。
                 continue;
             }else{
-//                datasTemp.add(datas.get(i).clone());
-//                datasTemp.get(datasTemp.size() - 1).setProducts(new ArrayList<ShoppingCarDataBean.ResultBean.ProductsBean>());
-            }
-            for (int y = 0; y < goods.getMallProducts().size(); y++) {
-                List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goodsBean = datas.get(0).getMallStores().get(i).getMallProducts();
-                boolean isSelect = goodsBean.get(y).getIsSelect();
-                if (isSelect) {
-                    str += goodsBean.get(y).getCartId()+",";
-                    hasSelect = true;
-                }else{
+                for (int y = 0; y < goods.getMallProducts().size(); y++) {
+                    List<ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean> goodsBean = datas.get(0).getMallStores().get(i).getMallProducts();
+                    boolean isSelect = goodsBean.get(y).getIsSelect();
+                    if (isSelect) {
+                        str += goodsBean.get(y).getCartId()+",";
+                        hasSelect = true;
+                    }else{
+                    }
                 }
             }
         }

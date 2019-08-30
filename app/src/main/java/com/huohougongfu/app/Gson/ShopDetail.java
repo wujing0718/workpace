@@ -70,6 +70,7 @@ public class ShopDetail {
             private String storePicture;
             private String storeLogo;
             private String storeBoard;
+            private String storePhone;
             private String storeName;
             private String storeAddress;
             private String stock;
@@ -80,6 +81,14 @@ public class ShopDetail {
             private String sendAddress;
             private String userHeadPic;
             private String doorPhoto;
+
+            public String getStorePhone() {
+                return storePhone;
+            }
+
+            public void setStorePhone(String storePhone) {
+                this.storePhone = storePhone;
+            }
 
             public String getDoorPhoto() {
                 return doorPhoto;

@@ -311,7 +311,7 @@ public class TeiHuiGson {
             private Object cartProductNum;
             private Object buyNum;
             private Object commission;
-            private Object reSell;
+            private int reSell;
             private int ofCheap;
             private Object detailDescribe;
             private Object detailPic;
@@ -680,11 +680,11 @@ public class TeiHuiGson {
                 this.commission = commission;
             }
 
-            public Object getReSell() {
+            public int getReSell() {
                 return reSell;
             }
 
-            public void setReSell(Object reSell) {
+            public void setReSell(int reSell) {
                 this.reSell = reSell;
             }
 

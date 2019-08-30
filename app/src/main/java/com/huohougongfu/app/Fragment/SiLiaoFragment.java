@@ -65,7 +65,6 @@ public class SiLiaoFragment extends Fragment {
             }
         }, true);
 
-
         return inflate;
     }
 

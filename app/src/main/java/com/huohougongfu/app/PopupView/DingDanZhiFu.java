@@ -1,7 +1,9 @@
 package com.huohougongfu.app.PopupView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -18,9 +20,11 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.WXPay;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -40,6 +44,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     private String alitoken;
     private static final int SDK_PAY_FLAG = 1001;
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -53,7 +58,11 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, MyDingDanActivity.class);
+                        context.startActivity(intent);
                         dismiss();
+                        XiaDanActivity.activity.finish();
                         Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
                         dismiss();

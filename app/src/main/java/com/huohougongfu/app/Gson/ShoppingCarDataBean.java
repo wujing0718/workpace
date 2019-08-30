@@ -328,7 +328,7 @@ public class ShoppingCarDataBean implements Cloneable {
                 private String standard;
                 private Object transportTemplate;
 
-                private boolean isSelect;        //商品是否在购物车中被选中
+                private boolean isSelect = true;        //商品是否在购物车中被选中
 
                 public boolean getIsSelect() {
                     return isSelect;

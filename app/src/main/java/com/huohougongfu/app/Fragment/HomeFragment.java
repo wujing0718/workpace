@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Fragment currentFragment;
     private String lon,lat;
     private TextView tv_jiqijuli,tv_jiqiweizhi;
-    private JiQiLieBiao.ResultBean jiQiLieBiao;
+    private JiQiLieBiao.ResultBean.ListBean jiQiLieBiao;
 
     public HomeFragment() {
     }
@@ -115,6 +115,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Map<String, String> map = new HashMap<>();
         map.put("longitude",lon);
         map.put("latitude", lat);
+        map.put("pageNo", "1");
+        map.put("pageSize", "10");
         OkGo.<String>post(Contacts.URl1+"/machine/near")
                 .params(map)
                 .execute(new StringCallback() {
@@ -124,15 +126,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         Gson gson = new Gson();
                         JiQiLieBiao lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
                         if (lieiao.getStatus() == 1) {
-                            if (lieiao.getResult().size()>0){
-                                jiQiLieBiao = lieiao.getResult().get(0);
-                                setDefaultFragment(lieiao.getResult().get(0).getEquipmentId());
-                                tv_jiqiweizhi.setText(lieiao.getResult().get(0).getDetailAddress()+"(No."+lieiao.getResult().get(0).getEquipmentId()+")");
+                            if (lieiao.getResult().getList().size()>0){
+                                jiQiLieBiao = lieiao.getResult().getList().get(0);
+                                setDefaultFragment(lieiao.getResult().getList().get(0).getEquipmentId());
+                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress()+"(No."+lieiao.getResult().getList().get(0).getEquipmentId()+")");
                                 DecimalFormat formater = new DecimalFormat();
                                 formater.setMaximumFractionDigits(2);
                                 formater.setGroupingSize(0);
                                 formater.setRoundingMode(RoundingMode.FLOOR);
-                                String result = formater.format(Double.valueOf(lieiao.getResult().get(0).getDistance()));
+                                String result = formater.format(Double.valueOf(lieiao.getResult().getList().get(0).getDistance()));
                                 tv_jiqijuli.setText(result+"m");
                                 FragmentManager fm = getChildFragmentManager();
                                 FragmentTransaction transaction = fm.beginTransaction();
@@ -273,7 +275,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CONTEXT_RESTRICTED){
-           jiQiLieBiao =  (JiQiLieBiao.ResultBean)data.getSerializableExtra("data");
+           jiQiLieBiao =  (JiQiLieBiao.ResultBean.ListBean)data.getSerializableExtra("data");
            if (jiQiLieBiao!=null){
                DecimalFormat formater = new DecimalFormat();
                formater.setMaximumFractionDigits(2);

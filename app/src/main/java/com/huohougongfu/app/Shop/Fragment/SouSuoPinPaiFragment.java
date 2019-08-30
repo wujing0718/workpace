@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
@@ -55,7 +56,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
     private TextView bt_dianpu_zonghe,bt_dianpu_xiaoliang,bt_dianpu_haoping,bt_dianpu_renqi;
     Map<String, String> map = new HashMap<>();
     private  String indexParam = "0";
-    private String queryStoreName;
+    private String queryStoreName = null;
     private SouSuoDianPuAdapter shangPinAdapter;
     private int page = 2;
     private BasePopupView xpopup;
@@ -93,11 +94,6 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
         return inflate;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
     private void initUI() {
         bt_dianpu_zonghe = inflate.findViewById(R.id.bt_dianpu_zonghe);
         bt_dianpu_xiaoliang = inflate.findViewById(R.id.bt_dianpu_xiaoliang);
@@ -123,8 +119,6 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
         map.put("indexParam",indexParam);
         if (queryStoreName!=null &&queryStoreName.length()>0){
             map.put("queryStoreName",queryStoreName);
-        }else{
-            map.put("queryStoreName",queryStoreName);
         }
         OkGo.<String>get(Contacts.URl2+"query/indexfilter/queryIndexStore")
                 .params(map)
@@ -134,8 +128,14 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
                         SouSuoDianPu dianpu = gson.fromJson(response.body(), SouSuoDianPu.class);
+
                         if (dianpu.getStatus() == 1) {
-                            initRec(dianpu.getResult());
+                            if (dianpu.getResult().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(dianpu.getResult());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override
@@ -218,10 +218,22 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            if (queryStoreName!=null){
+
+            }
+        }
+    }
+
+    @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 0){
             queryStoreName = status;
-            initData(map);
+            if (getUserVisibleHint()){
+                initData(map);
+            }
         }
     }
 

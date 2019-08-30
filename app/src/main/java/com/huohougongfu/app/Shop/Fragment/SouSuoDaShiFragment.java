@@ -133,7 +133,12 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                         Gson gson = new Gson();
                         DaShiSouSuo dashi = gson.fromJson(response.body(), DaShiSouSuo.class);
                         if (dashi.getStatus() == 1) {
-                            initRec(dashi.getResult());
+                            if (dashi.getResult().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(dashi.getResult());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override
@@ -217,10 +222,22 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            if (name!=null){
+                initData(map);
+            }
+        }
+    }
+
+    @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 0){
             name = status;
-            initData(map);
+            if (getUserVisibleHint()){
+                initData(map);
+            }
         }
     }
 

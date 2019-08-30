@@ -204,6 +204,7 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
                                                     try {
                                                         JSONObject jsonObject = new JSONObject(body);
                                                         if (jsonObject.getInt("status") == 1){
+                                                            finish();
                                                             ToastUtils.showShort("修改成功");
                                                         }
                                                     } catch (JSONException e) {
@@ -270,6 +271,7 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
                                                             try {
                                                                 JSONObject jsonObject = new JSONObject(body);
                                                                 if (jsonObject.getInt("status") == 1){
+                                                                    finish();
                                                                     ToastUtils.showShort("添加成功");
                                                                 }
                                                             } catch (JSONException e) {

@@ -126,6 +126,8 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
         Map<String, String> map = new HashMap<>();
         map.put("longitude",lon);
         map.put("latitude", lat);
+        map.put("pageNo", "1");
+        map.put("pageSize", "10");
         OkGo.<String>post(Contacts.URl1+"/machine/near")
                 .params(map)
                 .execute(new StringCallback() {
@@ -135,14 +137,14 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
                         Gson gson = new Gson();
                         lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
                         if (lieiao.getStatus() == 1) {
-                            if (lieiao.getResult().size()>0){
+                            if (lieiao.getResult().getList().size()>0){
                                 initRec(lieiao);
-                                tv_jiqiweizhi.setText(lieiao.getResult().get(0).getDetailAddress()+"(No."+lieiao.getResult().get(0).getDetailAddress()+")");
+                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress()+"(No."+lieiao.getResult().getList().get(0).getDetailAddress()+")");
                                 DecimalFormat formater = new DecimalFormat();
                                 formater.setMaximumFractionDigits(2);
                                 formater.setGroupingSize(0);
                                 formater.setRoundingMode(RoundingMode.FLOOR);
-                                String result = formater.format(Double.valueOf(lieiao.getResult().get(0).getDistance()));
+                                String result = formater.format(Double.valueOf(lieiao.getResult().getList().get(0).getDistance()));
                                 tv_jiqijuli.setText("距您"+result+"m");
                             }
                         }
@@ -158,12 +160,12 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
     private void initRec(JiQiLieBiao data) {
         rec_dingwei_sousuo = findViewById(R.id.rec_dingwei_sousuo);
         rec_dingwei_sousuo.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new DingWeiAdapter(R.layout.item_dingwei_sousuo, data.getResult());
+        mAdapter = new DingWeiAdapter(R.layout.item_dingwei_sousuo, data.getResult().getList());
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("data",data.getResult().get(position));
+                bundle.putSerializable("data",data.getResult().getList().get(position));
 //                data.get(position).getAddress();
                 setResult(CONTEXT_RESTRICTED,getIntent().putExtras(bundle));
                 DingWeiActivity.this.finish();

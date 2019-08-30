@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.SouSuoShopGson;
@@ -91,7 +92,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_sou_suo_shop, container, false);
         initUI();
-        initData(map);
         xpopup = new XPopup.Builder(getContext())
                 .popupPosition(PopupPosition.Right)//右边
                 .asCustom(new ShaiXuanDrawerPopupView(getContext(), mHandler));
@@ -125,8 +125,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         }
         if (name!=null){
             map.put("name",name);
-        }else{
-            map.put("name",name);
         }
         OkGo.<String>get(Contacts.URl2+"query/queryProductFilter")
                 .params(map)
@@ -137,7 +135,12 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                         Gson gson = new Gson();
                         SouSuoShopGson shop = gson.fromJson(response.body(), SouSuoShopGson.class);
                         if (shop.getStatus() == 1) {
-                            initRec(shop.getResult().getResultList());
+                            if (shop.getResult().getResultList().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initRec(shop.getResult().getResultList());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                     @Override
@@ -220,6 +223,14 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         SouSuoShopFragment fragment = new SouSuoShopFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            initData(map);
+        }
     }
 
     @Override

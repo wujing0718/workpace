@@ -11,10 +11,10 @@
     tools:context=".Shop.Activity.ShopSouSuoActivity">
 
     <LinearLayout
-        android:background="@color/colorBlack"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="44dp"
+        android:background="@color/colorBlack"
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/bt_finish"
@@ -22,39 +22,41 @@
             android:layout_height="44dp">
 
             <ImageView
-                android:src="@mipmap/img_back_white"
-                android:layout_centerInParent="true"
                 android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white" />
 
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/quanzi_sousuokuang"
-            android:layout_height="wrap_content">
+            android:layout_weight="1"
+            android:background="@drawable/quanzi_sousuokuang">
 
             <ImageView
                 android:id="@+id/img_sousuo"
-                android:src="@mipmap/img_sousuo"
                 android:layout_width="14dp"
-                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_height="14dp"
                 android:layout_centerVertical="true"
-                android:layout_height="14dp" />
+                android:layout_marginLeft="@dimen/dp_10"
+                android:src="@mipmap/img_sousuo" />
 
             <EditText
-                android:layout_toRightOf="@+id/img_sousuo"
                 android:id="@+id/bt_shop_sousuo"
-                android:hint="Search"
-                android:textSize="12sp"
-                android:background="@null"
-                android:paddingHorizontal="@dimen/dp_10"
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
-                android:layout_height="28dp">
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:layout_toRightOf="@+id/img_sousuo"
+                android:background="@null"
+                android:hint="Search"
+                android:paddingHorizontal="@dimen/dp_10"
+                android:textSize="12sp">
 
             </EditText>
 
@@ -62,36 +64,36 @@
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/bt_gouwuche"
-                android:layout_weight="1"
                 android:layout_width="44dp"
-                android:layout_height="44dp">
+                android:layout_height="44dp"
+                android:layout_weight="1">
 
                 <ImageView
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/img_gouwuche_white"
                     android:layout_width="22dp"
-                    android:layout_height="22dp" />
+                    android:layout_height="22dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_gouwuche_white" />
 
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/bt_kefu"
-                android:layout_weight="1"
                 android:layout_width="44dp"
-                android:layout_height="44dp">
+                android:layout_height="44dp"
+                android:layout_weight="1">
 
                 <ImageView
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/img_xiaoxi"
                     android:layout_width="20dp"
-                    android:layout_height="20dp" />
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_xiaoxi" />
 
 
             </RelativeLayout>

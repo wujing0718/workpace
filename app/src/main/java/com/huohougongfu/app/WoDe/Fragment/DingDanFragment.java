@@ -19,6 +19,7 @@ import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.MyDingDan;
+import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.DingDanZhiFu;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
@@ -160,7 +161,8 @@ public class DingDanFragment extends Fragment {
                             }else if ( (result.get(position).getOrderStatus() == 2)){
                                 initQueRenShouHuo(result.get(position).getOrderNo());
                             }else if ((result.get(position).getOrderStatus() == 1)){
-                                ToastUtils.showShort("提醒发货");
+                                //提醒发货
+                                initRemind(result.get(position).getOrderNo());
                             }
                             break;
                     }
@@ -170,6 +172,30 @@ public class DingDanFragment extends Fragment {
         }else{
             rec_chatai_dingdan.setVisibility(View.GONE);
         }
+    }
+    //  提醒发货
+    private void initRemind(String orderNo) {
+        Map<String,String> map = new HashMap<>();
+        map.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("orderNo",orderNo);
+        OkGo.<String>post(Contacts.URl1+"order/orderManage/informSellerSendGoods")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                        if (okGson.getStatus() == 1){
+                            ToastUtils.showShort("提醒成功");
+                        }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(),"请稍后。。。");
+                        super.onStart(request);
+                    }
+                });
     }
 
     private void initQueRenShouHuo(String orderNo) {

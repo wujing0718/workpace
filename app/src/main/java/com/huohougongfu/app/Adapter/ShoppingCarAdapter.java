@@ -60,7 +60,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
     private final RelativeLayout rlTotalPrice;
     private final TextView tvTotalPrice;
     private List<ShoppingCarDataBean.ResultBean.MallStoresBean> data;
-    private boolean isSelectAll = false;
+    private boolean isSelectAll = true;
     private double total_price;
     private ShoppingCarDataBean.ResultBean mallStores;
 
@@ -456,7 +456,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         }
 
         //商品选择框的点击事件
-        childViewHolder.ivSelect.setOnClickListener(new View.OnClickListener() {
+        childViewHolder.bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goodsBean.setIsSelect(!isSelect);
@@ -470,7 +470,7 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             @Override
             public void onAddSuccess(int i) {
                 goodsBean.setCartProductNum(i);
-                goodsBean.setIsSelect(true);
+//                goodsBean.setIsSelect(true);
                 notifyDataSetChanged();
             }
 
@@ -482,13 +482,13 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
             @Override
             public void onDelSuccess(int i) {
                 if (i == 0){
-                    mallStoresBean.setIsSelect_shop(false);
-                    goodsBean.setIsSelect(false);
+//                    mallStoresBean.setIsSelect_shop(false);
+//                    goodsBean.setIsSelect(false);
                     childViewHolder.amountview.setCount(0);
                     notifyDataSetChanged();
                 }else{
                     goodsBean.setCartProductNum(i);
-                    goodsBean.setIsSelect(true);
+//                    goodsBean.setIsSelect(true);
                     notifyDataSetChanged();
                 }
             }
@@ -518,10 +518,11 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         TextView tvPriceValue;
         ImageView ivEditAdd;
 //        View view1;
-        View viewLast;
+        View viewLast,bt_gouwuche;
         AnimShopButton amountview;
 
         ChildViewHolder(View view) {
+            bt_gouwuche = view.findViewById(R.id.bt_gouwuche);
             ivSelect = view.findViewById(R.id.iv_select);
             ivPhoto = view.findViewById(R.id.iv_photo);
             tvName = view.findViewById(R.id.tv_name);

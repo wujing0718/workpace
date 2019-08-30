@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -38,12 +40,14 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
     private MyPagerAdapter mAdapter;
     private EditText bt_shop_sousuo;
     private String sousuo;
+    private InputMethodManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_sou_suo);
         ListenerManager.getInstance().registerListtener(this);
+        manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,23 +55,23 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
             }
         });
         bt_shop_sousuo = findViewById(R.id.bt_shop_sousuo);
-
-        bt_shop_sousuo.addTextChangedListener(new TextWatcher() {
+        bt_shop_sousuo.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                ListenerManager.getInstance().sendBroadCast(0,s.toString());
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    //先隐藏键盘
+                    if (manager.isActive()) {
+                        manager.hideSoftInputFromWindow(bt_shop_sousuo.getApplicationWindowToken(), 0);
+                    }
+                    //自己需要的操作
+                    ListenerManager.getInstance().sendBroadCast(0,bt_shop_sousuo.getText().toString());
+                }
+                //记得返回false
+                return false;
             }
         });
+
+
         findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +125,7 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
             @Override
             public void onPageSelected(int i) {
                 bt_shop_sousuo.setText("");
+                ListenerManager.getInstance().sendBroadCast(0,"");
             }
 
             @Override

@@ -109,7 +109,6 @@ public class GuiGe extends BottomPopupView {
         findViewById(R.id.bt_goumai).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
                 Map<String,String> map = new HashMap<>();
                 map.put("standardIds",String.valueOf(standarid));
                 map.put("pids",String.valueOf(mallProduct.getProductInfo().getId()));

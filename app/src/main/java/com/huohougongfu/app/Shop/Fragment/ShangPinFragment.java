@@ -328,7 +328,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         Glide.with(MyApp.context).load(mallProduct.getDoorPhoto()).into(img_dianpu_ditu);
         if (mallProduct.getProductCollection()==1){
             tv_dian_shoucang.setText("已收藏");
-            img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
+            img_dian_shoucang.setImageResource(R.mipmap.img_shoucang2);
         }else{
             tv_dian_shoucang.setText("收藏");
             img_dian_shoucang.setImageResource(R.mipmap.img_shoucang);
@@ -409,7 +409,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             case R.id.bt_kefu:
                 if (!utils.isDoubleClick()){
                     if (!token.isEmpty()){
-                        RongIM.getInstance().startPrivateChat(getActivity(), "13888888888", shopdetail.getResult().getProductDetailInfo().getStoreName());
+                        RongIM.getInstance().startPrivateChat(getActivity(),
+                                shopdetail.getResult().getProductDetailInfo().getStorePhone(),shopdetail.getResult().getProductDetailInfo().getStoreName());
                     }else{
                         ToastUtils.showShort("请登录后操作");
                     }
@@ -520,11 +521,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                                 tv_dian_shoucang.setText("收藏");
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }else if ("商品收藏成功".equals(jsonObject.getString("result"))){
-                                img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                                img_dian_shoucang.setImageResource(R.mipmap.img_shoucang2);
                                 tv_dian_shoucang.setText("已收藏");
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }else if ("再次收藏成功".equals(jsonObject.getString("result"))){
-                                img_dian_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                                img_dian_shoucang.setImageResource(R.mipmap.img_shoucang2);
                                 tv_dian_shoucang.setText("已收藏");
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }

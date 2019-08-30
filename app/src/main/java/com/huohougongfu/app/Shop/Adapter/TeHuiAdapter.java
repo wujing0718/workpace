@@ -38,7 +38,7 @@ public class TeHuiAdapter extends BaseQuickAdapter<TeiHuiGson.ResultBean.ListBea
         }else{
             slanted.setVisibility(View.GONE);
         }
-        if (item.getCommission()!=null){
+        if (item.getReSell() == 1){
             tv_yinli.setVisibility(View.VISIBLE);
             tv_yinli.setText("赚 ¥"+item.getCommission());
         }else{

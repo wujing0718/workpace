@@ -44,12 +44,14 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private AddRess.ResultBean address;
     private int transId = 0;
     private int standardId;
+    public static XiaDanActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xia_dan);
         mId = MyApp.instance.getInt("id");
+        activity = this;
         standardId = getIntent().getIntExtra("standardId", 0);
         resultBean = (ShopDingDan.ResultBean)getIntent().getSerializableExtra("订单详情");
         initUI();
@@ -141,7 +143,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
                 xiaDanAdapter.setData(resultBean,transId);
                 tv_shouhuo_name.setText(address.getReceiverName());
                 tv_shouhuo_phone.setText(address.getPhone());
-                tv_shouhuo_address.setText(address.getReceiverName()+address.getAreaName()+address.getDetailAddr());
+                tv_shouhuo_address.setText(address.getAreaName()+address.getDetailAddr());
             }
         }
     }

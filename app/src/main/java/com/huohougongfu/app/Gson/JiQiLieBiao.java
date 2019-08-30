@@ -5,15 +5,9 @@ import java.util.List;
 
 public class JiQiLieBiao implements Serializable{
 
-    /**
-     * msg : 操作成功
-     * result : [{"equipmentId":"A0001","detailAddress":"龙祥大厦","latitude":22.7251675577,"longitude":114.262919426,"altitude":1212,"lastGoodsTime":null,"isAbnormal":0,"positionOne":"2","positionTwo":"","positionThree":"3","positionFour":"4","positionFive":"5","positionSix":"6","positionSeven":"7","positionEight":"8","errorCode":null,"ip":"192.168.31.1","port":null,"glass":null,"cupCover":null,"internalBladder":null,"water":null,"surplus":null,"oneLower":0,"twoLower":0,"threeLower":0,"fourLower":0,"fiveLower":0,"sixLower":0,"sevenLower":0,"eightLower":0,"status":null,"createTime":"2019-07-17T06:58:31.000+0000","updateTime":"2019-07-22T03:17:44.000+0000","distance":110.9},{"equipmentId":"A0002","detailAddress":"南联地铁站","latitude":22.7220601972,"longitude":114.2662024498,"altitude":null,"lastGoodsTime":null,"isAbnormal":0,"positionOne":"1","positionTwo":"2","positionThree":"1","positionFour":"1","positionFive":"1","positionSix":"1","positionSeven":"1","positionEight":"1","errorCode":null,"ip":"127.0.0.1","port":null,"glass":null,"cupCover":null,"internalBladder":null,"water":null,"surplus":null,"oneLower":0,"twoLower":0,"threeLower":0,"fourLower":0,"fiveLower":0,"sixLower":0,"sevenLower":0,"eightLower":0,"status":null,"createTime":"2019-07-17T02:10:06.000+0000","updateTime":"2019-07-21T06:58:15.000+0000","distance":578.7}]
-     * status : 1
-     */
-
     private String msg;
+    private ResultBean result;
     private int status;
-    private List<ResultBean> result;
 
     public String getMsg() {
         return msg;
@@ -21,6 +15,14 @@ public class JiQiLieBiao implements Serializable{
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public ResultBean getResult() {
+        return result;
+    }
+
+    public void setResult(ResultBean result) {
+        this.result = result;
     }
 
     public int getStatus() {
@@ -31,367 +33,478 @@ public class JiQiLieBiao implements Serializable{
         this.status = status;
     }
 
-    public List<ResultBean> getResult() {
-        return result;
-    }
-
-    public void setResult(List<ResultBean> result) {
-        this.result = result;
-    }
-
     public static class ResultBean implements Serializable{
-        /**
-         * equipmentId : A0001
-         * detailAddress : 龙祥大厦
-         * latitude : 22.7251675577
-         * longitude : 114.262919426
-         * altitude : 1212.0
-         * lastGoodsTime : null
-         * isAbnormal : 0
-         * positionOne : 2
-         * positionTwo :
-         * positionThree : 3
-         * positionFour : 4
-         * positionFive : 5
-         * positionSix : 6
-         * positionSeven : 7
-         * positionEight : 8
-         * errorCode : null
-         * ip : 192.168.31.1
-         * port : null
-         * glass : null
-         * cupCover : null
-         * internalBladder : null
-         * water : null
-         * surplus : null
-         * oneLower : 0
-         * twoLower : 0
-         * threeLower : 0
-         * fourLower : 0
-         * fiveLower : 0
-         * sixLower : 0
-         * sevenLower : 0
-         * eightLower : 0
-         * status : null
-         * createTime : 2019-07-17T06:58:31.000+0000
-         * updateTime : 2019-07-22T03:17:44.000+0000
-         * distance : 110.9
-         */
-
-        private String equipmentId;
-        private String detailAddress;
-        private double latitude;
-        private double longitude;
-        private double altitude;
-        private Object lastGoodsTime;
-        private int isAbnormal;
-        private String positionOne;
-        private String positionTwo;
-        private String positionThree;
-        private String positionFour;
-        private String positionFive;
-        private String positionSix;
-        private String positionSeven;
-        private String positionEight;
-        private Object errorCode;
-        private String ip;
-        private Object port;
-        private Object glass;
-        private Object cupCover;
-        private Object internalBladder;
-        private Object water;
-        private Object surplus;
-        private int oneLower;
-        private int twoLower;
-        private int threeLower;
-        private int fourLower;
-        private int fiveLower;
-        private int sixLower;
-        private int sevenLower;
-        private int eightLower;
-        private Object status;
-        private String createTime;
-        private String updateTime;
-        private double distance;
+        private int total;
+        private int pageNum;
+        private int pageSize;
+        private int size;
+        private int startRow;
+        private int endRow;
+        private int pages;
+        private int prePage;
+        private int nextPage;
+        private boolean isFirstPage;
+        private boolean isLastPage;
+        private boolean hasPreviousPage;
+        private boolean hasNextPage;
+        private int navigatePages;
+        private int navigateFirstPage;
+        private int navigateLastPage;
+        private List<ListBean> list;
+        private List<Integer> navigatepageNums;
 
-        public String getEquipmentId() {
-            return equipmentId;
+        public int getTotal() {
+            return total;
         }
 
-        public void setEquipmentId(String equipmentId) {
-            this.equipmentId = equipmentId;
+        public void setTotal(int total) {
+            this.total = total;
         }
 
-        public String getDetailAddress() {
-            return detailAddress;
+        public int getPageNum() {
+            return pageNum;
         }
 
-        public void setDetailAddress(String detailAddress) {
-            this.detailAddress = detailAddress;
+        public void setPageNum(int pageNum) {
+            this.pageNum = pageNum;
         }
 
-        public double getLatitude() {
-            return latitude;
+        public int getPageSize() {
+            return pageSize;
         }
 
-        public void setLatitude(double latitude) {
-            this.latitude = latitude;
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
         }
 
-        public double getLongitude() {
-            return longitude;
+        public int getSize() {
+            return size;
         }
 
-        public void setLongitude(double longitude) {
-            this.longitude = longitude;
+        public void setSize(int size) {
+            this.size = size;
         }
 
-        public double getAltitude() {
-            return altitude;
+        public int getStartRow() {
+            return startRow;
         }
 
-        public void setAltitude(double altitude) {
-            this.altitude = altitude;
+        public void setStartRow(int startRow) {
+            this.startRow = startRow;
         }
 
-        public Object getLastGoodsTime() {
-            return lastGoodsTime;
+        public int getEndRow() {
+            return endRow;
         }
 
-        public void setLastGoodsTime(Object lastGoodsTime) {
-            this.lastGoodsTime = lastGoodsTime;
+        public void setEndRow(int endRow) {
+            this.endRow = endRow;
         }
 
-        public int getIsAbnormal() {
-            return isAbnormal;
+        public int getPages() {
+            return pages;
         }
 
-        public void setIsAbnormal(int isAbnormal) {
-            this.isAbnormal = isAbnormal;
+        public void setPages(int pages) {
+            this.pages = pages;
         }
 
-        public String getPositionOne() {
-            return positionOne;
+        public int getPrePage() {
+            return prePage;
         }
 
-        public void setPositionOne(String positionOne) {
-            this.positionOne = positionOne;
+        public void setPrePage(int prePage) {
+            this.prePage = prePage;
         }
 
-        public String getPositionTwo() {
-            return positionTwo;
+        public int getNextPage() {
+            return nextPage;
         }
 
-        public void setPositionTwo(String positionTwo) {
-            this.positionTwo = positionTwo;
+        public void setNextPage(int nextPage) {
+            this.nextPage = nextPage;
         }
 
-        public String getPositionThree() {
-            return positionThree;
+        public boolean isIsFirstPage() {
+            return isFirstPage;
         }
 
-        public void setPositionThree(String positionThree) {
-            this.positionThree = positionThree;
+        public void setIsFirstPage(boolean isFirstPage) {
+            this.isFirstPage = isFirstPage;
         }
 
-        public String getPositionFour() {
-            return positionFour;
+        public boolean isIsLastPage() {
+            return isLastPage;
         }
 
-        public void setPositionFour(String positionFour) {
-            this.positionFour = positionFour;
+        public void setIsLastPage(boolean isLastPage) {
+            this.isLastPage = isLastPage;
         }
 
-        public String getPositionFive() {
-            return positionFive;
+        public boolean isHasPreviousPage() {
+            return hasPreviousPage;
         }
 
-        public void setPositionFive(String positionFive) {
-            this.positionFive = positionFive;
+        public void setHasPreviousPage(boolean hasPreviousPage) {
+            this.hasPreviousPage = hasPreviousPage;
         }
 
-        public String getPositionSix() {
-            return positionSix;
+        public boolean isHasNextPage() {
+            return hasNextPage;
         }
 
-        public void setPositionSix(String positionSix) {
-            this.positionSix = positionSix;
+        public void setHasNextPage(boolean hasNextPage) {
+            this.hasNextPage = hasNextPage;
         }
 
-        public String getPositionSeven() {
-            return positionSeven;
+        public int getNavigatePages() {
+            return navigatePages;
         }
 
-        public void setPositionSeven(String positionSeven) {
-            this.positionSeven = positionSeven;
+        public void setNavigatePages(int navigatePages) {
+            this.navigatePages = navigatePages;
         }
 
-        public String getPositionEight() {
-            return positionEight;
+        public int getNavigateFirstPage() {
+            return navigateFirstPage;
         }
 
-        public void setPositionEight(String positionEight) {
-            this.positionEight = positionEight;
+        public void setNavigateFirstPage(int navigateFirstPage) {
+            this.navigateFirstPage = navigateFirstPage;
         }
 
-        public Object getErrorCode() {
-            return errorCode;
+        public int getNavigateLastPage() {
+            return navigateLastPage;
         }
 
-        public void setErrorCode(Object errorCode) {
-            this.errorCode = errorCode;
+        public void setNavigateLastPage(int navigateLastPage) {
+            this.navigateLastPage = navigateLastPage;
         }
 
-        public String getIp() {
-            return ip;
+        public List<ListBean> getList() {
+            return list;
         }
 
-        public void setIp(String ip) {
-            this.ip = ip;
+        public void setList(List<ListBean> list) {
+            this.list = list;
         }
 
-        public Object getPort() {
-            return port;
+        public List<Integer> getNavigatepageNums() {
+            return navigatepageNums;
         }
 
-        public void setPort(Object port) {
-            this.port = port;
+        public void setNavigatepageNums(List<Integer> navigatepageNums) {
+            this.navigatepageNums = navigatepageNums;
         }
 
-        public Object getGlass() {
-            return glass;
-        }
+        public static class ListBean implements Serializable{
 
-        public void setGlass(Object glass) {
-            this.glass = glass;
-        }
+            private String equipmentId;
+            private String detailAddress;
+            private double latitude;
+            private double longitude;
+            private Object altitude;
+            private Object lastGoodsTime;
+            private int isAbnormal;
+            private String positionOne;
+            private String positionTwo;
+            private String positionThree;
+            private String positionFour;
+            private String positionFive;
+            private String positionSix;
+            private String positionSeven;
+            private String positionEight;
+            private Object errorCode;
+            private String ip;
+            private String port;
+            private int glass;
+            private int cupCover;
+            private int internalBladder;
+            private int water;
+            private int surplus;
+            private int oneLower;
+            private int twoLower;
+            private int threeLower;
+            private int fourLower;
+            private int fiveLower;
+            private int sixLower;
+            private int sevenLower;
+            private int eightLower;
+            private int status;
+            private double distance;
+            private String unit;
 
-        public Object getCupCover() {
-            return cupCover;
-        }
+            public String getEquipmentId() {
+                return equipmentId;
+            }
 
-        public void setCupCover(Object cupCover) {
-            this.cupCover = cupCover;
-        }
+            public void setEquipmentId(String equipmentId) {
+                this.equipmentId = equipmentId;
+            }
 
-        public Object getInternalBladder() {
-            return internalBladder;
-        }
+            public String getDetailAddress() {
+                return detailAddress;
+            }
 
-        public void setInternalBladder(Object internalBladder) {
-            this.internalBladder = internalBladder;
-        }
+            public void setDetailAddress(String detailAddress) {
+                this.detailAddress = detailAddress;
+            }
 
-        public Object getWater() {
-            return water;
-        }
+            public double getLatitude() {
+                return latitude;
+            }
 
-        public void setWater(Object water) {
-            this.water = water;
-        }
+            public void setLatitude(double latitude) {
+                this.latitude = latitude;
+            }
 
-        public Object getSurplus() {
-            return surplus;
-        }
+            public double getLongitude() {
+                return longitude;
+            }
 
-        public void setSurplus(Object surplus) {
-            this.surplus = surplus;
-        }
+            public void setLongitude(double longitude) {
+                this.longitude = longitude;
+            }
 
-        public int getOneLower() {
-            return oneLower;
-        }
+            public Object getAltitude() {
+                return altitude;
+            }
 
-        public void setOneLower(int oneLower) {
-            this.oneLower = oneLower;
-        }
+            public void setAltitude(Object altitude) {
+                this.altitude = altitude;
+            }
 
-        public int getTwoLower() {
-            return twoLower;
-        }
+            public Object getLastGoodsTime() {
+                return lastGoodsTime;
+            }
 
-        public void setTwoLower(int twoLower) {
-            this.twoLower = twoLower;
-        }
+            public void setLastGoodsTime(Object lastGoodsTime) {
+                this.lastGoodsTime = lastGoodsTime;
+            }
 
-        public int getThreeLower() {
-            return threeLower;
-        }
+            public int getIsAbnormal() {
+                return isAbnormal;
+            }
 
-        public void setThreeLower(int threeLower) {
-            this.threeLower = threeLower;
-        }
+            public void setIsAbnormal(int isAbnormal) {
+                this.isAbnormal = isAbnormal;
+            }
 
-        public int getFourLower() {
-            return fourLower;
-        }
+            public String getPositionOne() {
+                return positionOne;
+            }
 
-        public void setFourLower(int fourLower) {
-            this.fourLower = fourLower;
-        }
+            public void setPositionOne(String positionOne) {
+                this.positionOne = positionOne;
+            }
 
-        public int getFiveLower() {
-            return fiveLower;
-        }
+            public String getPositionTwo() {
+                return positionTwo;
+            }
 
-        public void setFiveLower(int fiveLower) {
-            this.fiveLower = fiveLower;
-        }
+            public void setPositionTwo(String positionTwo) {
+                this.positionTwo = positionTwo;
+            }
 
-        public int getSixLower() {
-            return sixLower;
-        }
+            public String getPositionThree() {
+                return positionThree;
+            }
 
-        public void setSixLower(int sixLower) {
-            this.sixLower = sixLower;
-        }
+            public void setPositionThree(String positionThree) {
+                this.positionThree = positionThree;
+            }
 
-        public int getSevenLower() {
-            return sevenLower;
-        }
+            public String getPositionFour() {
+                return positionFour;
+            }
 
-        public void setSevenLower(int sevenLower) {
-            this.sevenLower = sevenLower;
-        }
+            public void setPositionFour(String positionFour) {
+                this.positionFour = positionFour;
+            }
 
-        public int getEightLower() {
-            return eightLower;
-        }
+            public String getPositionFive() {
+                return positionFive;
+            }
 
-        public void setEightLower(int eightLower) {
-            this.eightLower = eightLower;
-        }
+            public void setPositionFive(String positionFive) {
+                this.positionFive = positionFive;
+            }
 
-        public Object getStatus() {
-            return status;
-        }
+            public String getPositionSix() {
+                return positionSix;
+            }
 
-        public void setStatus(Object status) {
-            this.status = status;
-        }
+            public void setPositionSix(String positionSix) {
+                this.positionSix = positionSix;
+            }
 
-        public String getCreateTime() {
-            return createTime;
-        }
+            public String getPositionSeven() {
+                return positionSeven;
+            }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
+            public void setPositionSeven(String positionSeven) {
+                this.positionSeven = positionSeven;
+            }
 
-        public String getUpdateTime() {
-            return updateTime;
-        }
+            public String getPositionEight() {
+                return positionEight;
+            }
 
-        public void setUpdateTime(String updateTime) {
-            this.updateTime = updateTime;
-        }
+            public void setPositionEight(String positionEight) {
+                this.positionEight = positionEight;
+            }
 
-        public double getDistance() {
-            return distance;
-        }
+            public Object getErrorCode() {
+                return errorCode;
+            }
+
+            public void setErrorCode(Object errorCode) {
+                this.errorCode = errorCode;
+            }
+
+            public String getIp() {
+                return ip;
+            }
+
+            public void setIp(String ip) {
+                this.ip = ip;
+            }
+
+            public String getPort() {
+                return port;
+            }
+
+            public void setPort(String port) {
+                this.port = port;
+            }
+
+            public int getGlass() {
+                return glass;
+            }
+
+            public void setGlass(int glass) {
+                this.glass = glass;
+            }
+
+            public int getCupCover() {
+                return cupCover;
+            }
+
+            public void setCupCover(int cupCover) {
+                this.cupCover = cupCover;
+            }
+
+            public int getInternalBladder() {
+                return internalBladder;
+            }
+
+            public void setInternalBladder(int internalBladder) {
+                this.internalBladder = internalBladder;
+            }
+
+            public int getWater() {
+                return water;
+            }
+
+            public void setWater(int water) {
+                this.water = water;
+            }
+
+            public int getSurplus() {
+                return surplus;
+            }
+
+            public void setSurplus(int surplus) {
+                this.surplus = surplus;
+            }
+
+            public int getOneLower() {
+                return oneLower;
+            }
+
+            public void setOneLower(int oneLower) {
+                this.oneLower = oneLower;
+            }
+
+            public int getTwoLower() {
+                return twoLower;
+            }
+
+            public void setTwoLower(int twoLower) {
+                this.twoLower = twoLower;
+            }
+
+            public int getThreeLower() {
+                return threeLower;
+            }
+
+            public void setThreeLower(int threeLower) {
+                this.threeLower = threeLower;
+            }
+
+            public int getFourLower() {
+                return fourLower;
+            }
+
+            public void setFourLower(int fourLower) {
+                this.fourLower = fourLower;
+            }
+
+            public int getFiveLower() {
+                return fiveLower;
+            }
+
+            public void setFiveLower(int fiveLower) {
+                this.fiveLower = fiveLower;
+            }
+
+            public int getSixLower() {
+                return sixLower;
+            }
+
+            public void setSixLower(int sixLower) {
+                this.sixLower = sixLower;
+            }
+
+            public int getSevenLower() {
+                return sevenLower;
+            }
+
+            public void setSevenLower(int sevenLower) {
+                this.sevenLower = sevenLower;
+            }
+
+            public int getEightLower() {
+                return eightLower;
+            }
+
+            public void setEightLower(int eightLower) {
+                this.eightLower = eightLower;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public double getDistance() {
+                return distance;
+            }
+
+            public void setDistance(double distance) {
+                this.distance = distance;
+            }
+
+            public String getUnit() {
+                return unit;
+            }
 
-        public void setDistance(double distance) {
-            this.distance = distance;
+            public void setUnit(String unit) {
+                this.unit = unit;
+            }
         }
     }
 }

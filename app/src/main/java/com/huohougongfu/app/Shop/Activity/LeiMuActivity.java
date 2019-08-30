@@ -33,9 +33,11 @@ import com.huohougongfu.app.Shop.Adapter.LeiMuTeYuePinPaiAdapter;
 import com.huohougongfu.app.Shop.Adapter.MenuAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
@@ -92,12 +94,18 @@ public class LeiMuActivity extends AppCompatActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         QuanBuLeiMu leimu = gson.fromJson(body, QuanBuLeiMu.class);
                         if (leimu.getStatus() == 1){
                             initView(leimu.getResult());
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(LeiMuActivity.this,"请稍后。。。");
                     }
                 });
     }

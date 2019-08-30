@@ -12,13 +12,13 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class DingWeiAdapter extends BaseQuickAdapter<JiQiLieBiao.ResultBean,BaseViewHolder> {
-    public DingWeiAdapter(int layoutResId, @Nullable List<JiQiLieBiao.ResultBean> data) {
+public class DingWeiAdapter extends BaseQuickAdapter<JiQiLieBiao.ResultBean.ListBean,BaseViewHolder> {
+    public DingWeiAdapter(int layoutResId, @Nullable List<JiQiLieBiao.ResultBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, JiQiLieBiao.ResultBean item) {
+    protected void convert(BaseViewHolder helper, JiQiLieBiao.ResultBean.ListBean item) {
         helper.setText(R.id.tv_jiqi_weizhi,item.getDetailAddress()+"(No."+item.getDetailAddress()+")");
         DecimalFormat formater = new DecimalFormat();
         formater.setMaximumFractionDigits(2);
