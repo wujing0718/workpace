@@ -3,9 +3,10 @@ package com.huohougongfu.app.Gson;
 import java.util.List;
 
 public class ZhangDan {
+
     /**
      * msg : 操作成功
-     * result : {"negative":-100,"records":{"total":3,"list":[{"tel":"13111111111","count":100,"time":"2019-06-19 17:16:51","type":"1","photo":"1","nickname":"1","mid":2},{"tel":"13111111111","count":-100,"time":"2019-06-18 17:14:56","type":"1","photo":"1","nickname":"1","mid":1},{"tel":"13111111111","count":100,"time":"2019-06-06 17:17:19","type":"1","photo":"1","nickname":"1","mid":3}],"pageNum":1,"pageSize":10,"size":3,"startRow":1,"endRow":3,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1},"positive":200}
+     * result : {"negative":-0.01,"records":{"total":1,"list":[{"recordId":null,"count":-0.01,"type":"机器买茶","createtime":"2019-08-29 17:12:12","updatetime":"2019-08-29 17:12:12","photo":"http://oss.irving.net.cn/tea/1566804446416.jpg","nickName":"18910328","mid":null}],"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1},"positive":0}
      * status : 1
      */
 
@@ -39,20 +40,20 @@ public class ZhangDan {
 
     public static class ResultBean {
         /**
-         * negative : -100
-         * records : {"total":3,"list":[{"tel":"13111111111","count":100,"time":"2019-06-19 17:16:51","type":"1","photo":"1","nickname":"1","mid":2},{"tel":"13111111111","count":-100,"time":"2019-06-18 17:14:56","type":"1","photo":"1","nickname":"1","mid":1},{"tel":"13111111111","count":100,"time":"2019-06-06 17:17:19","type":"1","photo":"1","nickname":"1","mid":3}],"pageNum":1,"pageSize":10,"size":3,"startRow":1,"endRow":3,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1}
-         * positive : 200
+         * negative : -0.01
+         * records : {"total":1,"list":[{"recordId":null,"count":-0.01,"type":"机器买茶","createtime":"2019-08-29 17:12:12","updatetime":"2019-08-29 17:12:12","photo":"http://oss.irving.net.cn/tea/1566804446416.jpg","nickName":"18910328","mid":null}],"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1}
+         * positive : 0.0
          */
 
-        private int negative;
+        private double negative;
         private RecordsBean records;
-        private int positive;
+        private double positive;
 
-        public int getNegative() {
+        public double getNegative() {
             return negative;
         }
 
-        public void setNegative(int negative) {
+        public void setNegative(double negative) {
             this.negative = negative;
         }
 
@@ -64,23 +65,23 @@ public class ZhangDan {
             this.records = records;
         }
 
-        public int getPositive() {
+        public double getPositive() {
             return positive;
         }
 
-        public void setPositive(int positive) {
+        public void setPositive(double positive) {
             this.positive = positive;
         }
 
         public static class RecordsBean {
             /**
-             * total : 3
-             * list : [{"tel":"13111111111","count":100,"time":"2019-06-19 17:16:51","type":"1","photo":"1","nickname":"1","mid":2},{"tel":"13111111111","count":-100,"time":"2019-06-18 17:14:56","type":"1","photo":"1","nickname":"1","mid":1},{"tel":"13111111111","count":100,"time":"2019-06-06 17:17:19","type":"1","photo":"1","nickname":"1","mid":3}]
+             * total : 1
+             * list : [{"recordId":null,"count":-0.01,"type":"机器买茶","createtime":"2019-08-29 17:12:12","updatetime":"2019-08-29 17:12:12","photo":"http://oss.irving.net.cn/tea/1566804446416.jpg","nickName":"18910328","mid":null}]
              * pageNum : 1
              * pageSize : 10
-             * size : 3
+             * size : 1
              * startRow : 1
-             * endRow : 3
+             * endRow : 1
              * pages : 1
              * prePage : 0
              * nextPage : 0
@@ -259,29 +260,31 @@ public class ZhangDan {
 
             public static class ListBean {
                 /**
-                 * tel : 13111111111
-                 * count : 100.0
-                 * time : 2019-06-19 17:16:51
-                 * type : 1
-                 * photo : 1
-                 * nickname : 1
-                 * mid : 2
+                 * recordId : null
+                 * count : -0.01
+                 * type : 机器买茶
+                 * createtime : 2019-08-29 17:12:12
+                 * updatetime : 2019-08-29 17:12:12
+                 * photo : http://oss.irving.net.cn/tea/1566804446416.jpg
+                 * nickName : 18910328
+                 * mid : null
                  */
 
-                private String tel;
+                private Object recordId;
                 private double count;
-                private String time;
                 private String type;
+                private String createtime;
+                private String updatetime;
                 private String photo;
-                private String nickname;
-                private int mid;
+                private String nickName;
+                private Object mid;
 
-                public String getTel() {
-                    return tel;
+                public Object getRecordId() {
+                    return recordId;
                 }
 
-                public void setTel(String tel) {
-                    this.tel = tel;
+                public void setRecordId(Object recordId) {
+                    this.recordId = recordId;
                 }
 
                 public double getCount() {
@@ -292,20 +295,28 @@ public class ZhangDan {
                     this.count = count;
                 }
 
-                public String getTime() {
-                    return time;
-                }
-
-                public void setTime(String time) {
-                    this.time = time;
-                }
-
                 public String getType() {
                     return type;
                 }
 
                 public void setType(String type) {
                     this.type = type;
+                }
+
+                public String getCreatetime() {
+                    return createtime;
+                }
+
+                public void setCreatetime(String createtime) {
+                    this.createtime = createtime;
+                }
+
+                public String getUpdatetime() {
+                    return updatetime;
+                }
+
+                public void setUpdatetime(String updatetime) {
+                    this.updatetime = updatetime;
                 }
 
                 public String getPhoto() {
@@ -316,19 +327,19 @@ public class ZhangDan {
                     this.photo = photo;
                 }
 
-                public String getNickname() {
-                    return nickname;
+                public String getNickName() {
+                    return nickName;
                 }
 
-                public void setNickname(String nickname) {
-                    this.nickname = nickname;
+                public void setNickName(String nickName) {
+                    this.nickName = nickName;
                 }
 
-                public int getMid() {
+                public Object getMid() {
                     return mid;
                 }
 
-                public void setMid(int mid) {
+                public void setMid(Object mid) {
                     this.mid = mid;
                 }
             }

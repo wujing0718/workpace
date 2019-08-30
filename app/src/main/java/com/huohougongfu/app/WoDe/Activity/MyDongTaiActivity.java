@@ -62,6 +62,8 @@ public class MyDongTaiActivity extends AppCompatActivity implements View.OnClick
     private boolean isSelectAll = false;
     private boolean editorStatus = false;
     private int index = 0;
+    private View view_dongtai;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class MyDongTaiActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initUI() {
+        view_dongtai = findViewById(R.id.view_dongtai);
         ll_mycollection_bottom_dialog = findViewById(R.id.ll_mycollection_bottom_dialog);
         rec_wode_dongtai = findViewById(R.id.rec_wode_dongtai);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
@@ -108,7 +111,12 @@ public class MyDongTaiActivity extends AppCompatActivity implements View.OnClick
                         Gson gson = new Gson();
                         MyDongTai dongtai = gson.fromJson(body, MyDongTai.class);
                         if (dongtai.getStatus() == 1){
-                            initRec(dongtai.getResult().getList());
+                            if (dongtai.getResult().getList().size()>0){
+                                view_dongtai.setVisibility(View.VISIBLE);
+                                initRec(dongtai.getResult().getList());
+                            }else{
+                                view_dongtai.setVisibility(View.GONE);
+                            }
                         }
                     }
 

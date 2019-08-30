@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.utils;
 
@@ -39,7 +40,7 @@ public class OboutActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.bt_banbengengxin:
                 if (!utils.isDoubleClick()){
-
+                    ToastUtils.showShort("已经是最新版本");
                 }
                 break;
             case R.id.bt_yijianfankui:

@@ -148,6 +148,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
             }
         }else if ("1".equals(result.getOrderStatus())){
             tv_zhifu_zhuangtai.setText("待提货");
+            bt_queding.setText("待提货");
         }else if ("2".equals(result.getOrderStatus())){
             bt_queding.setText("删除订单");
             tv_zhifu_zhuangtai.setText("已消费");

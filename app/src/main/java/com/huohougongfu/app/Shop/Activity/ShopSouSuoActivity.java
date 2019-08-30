@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
@@ -50,6 +51,7 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
             }
         });
         bt_shop_sousuo = findViewById(R.id.bt_shop_sousuo);
+
         bt_shop_sousuo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

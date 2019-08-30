@@ -538,7 +538,6 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 0) {
-            ToastUtils.showShort(status);
         }
     }
 

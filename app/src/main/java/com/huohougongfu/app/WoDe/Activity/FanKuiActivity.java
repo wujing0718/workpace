@@ -71,6 +71,7 @@ public class FanKuiActivity extends AppCompatActivity implements View.OnClickLis
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                finish();
                                 ToastUtils.showShort("反馈成功");
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

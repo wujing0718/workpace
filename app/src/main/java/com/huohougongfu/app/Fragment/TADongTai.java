@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.TaDongTai;
 import com.huohougongfu.app.Gson.MyDongTai;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
@@ -60,6 +61,7 @@ public class TADongTai extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(mId));
+//        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
         OkGo.<String>post(Contacts.URl1+"/my/dynamic")

@@ -147,8 +147,8 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(TADianPu.newInstance(userId));
-        mFragments.add(TADongTai.newInstance(userId));
+        mFragments.add(TADianPu.newInstance(mId));
+        mFragments.add(TADongTai.newInstance(mId));
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
         }

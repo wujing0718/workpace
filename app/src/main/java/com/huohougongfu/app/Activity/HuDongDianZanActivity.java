@@ -35,6 +35,8 @@ public class HuDongDianZanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hu_dong_dian_zan);
+        smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
+        rec_hudong_pinglun = findViewById(R.id.rec_hudong_pinglun);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +49,6 @@ public class HuDongDianZanActivity extends AppCompatActivity {
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
-//        map.put("mId", String.valueOf(43));
         map.put("pageNo", String.valueOf(1));
         map.put("pageSize", String.valueOf(10));
         OkGo.<String>post(Contacts.URl1 + "/my/interactive/praiseList")
@@ -58,7 +59,12 @@ public class HuDongDianZanActivity extends AppCompatActivity {
                         String body = response.body();
                         HuDongPingLun huDongPingLun = new Gson().fromJson(body, HuDongPingLun.class);
                         if (huDongPingLun.getStatus() == 1) {
-                            initUI(huDongPingLun.getResult().getList());
+                            if (huDongPingLun.getResult().getList().size()>0){
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                initUI(huDongPingLun.getResult().getList());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }
                         }
                     }
                 });
@@ -66,8 +72,7 @@ public class HuDongDianZanActivity extends AppCompatActivity {
 
 
     private void initUI(List<HuDongPingLun.ResultBean.ListBean> list) {
-        smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
-        rec_hudong_pinglun = findViewById(R.id.rec_hudong_pinglun);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(HuDongDianZanActivity.this);
         rec_hudong_pinglun.setLayoutManager(layoutManager);
         HuDongDianZanAdapter dianzanadapter = new HuDongDianZanAdapter(R.layout.item_hudong_pinglun, list);

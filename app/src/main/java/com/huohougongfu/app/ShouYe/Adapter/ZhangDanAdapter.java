@@ -4,10 +4,13 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.ChaMiJiaoYI;
 import com.huohougongfu.app.Gson.ZhangDan;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,11 +25,11 @@ public class ZhangDanAdapter extends BaseQuickAdapter<ZhangDan.ResultBean.Record
 
     @Override
     protected void convert(BaseViewHolder helper, ZhangDan.ResultBean.RecordsBean.ListBean item) {
-        helper.setText(R.id.tv_zhangdan_title,item.getNickname());
-        helper.setText(R.id.tv_zhangdan_time,item.getTime());
+        helper.setText(R.id.tv_zhangdan_title,item.getType());
+        helper.setText(R.id.tv_zhangdan_time,item.getCreatetime());
         helper.setText(R.id.tv_zhangdan_count,String.valueOf(item.getCount()));
         ImageView img_zhangdan_photo = helper.getView(R.id.img_zhangdan_photo);
-        Picasso.get().load(item.getPhoto()).into(img_zhangdan_photo);
+        Glide.with(MyApp.context).load(item.getPhoto()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop()).into(img_zhangdan_photo);
     }
     //下面两个方法提供给页面刷新和加载时调用
     public void add(List<ZhangDan.ResultBean.RecordsBean.ListBean> data) {

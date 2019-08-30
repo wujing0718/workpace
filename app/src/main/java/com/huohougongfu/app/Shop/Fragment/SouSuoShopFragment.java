@@ -95,7 +95,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         xpopup = new XPopup.Builder(getContext())
                 .popupPosition(PopupPosition.Right)//右边
                 .asCustom(new ShaiXuanDrawerPopupView(getContext(), mHandler));
-
         return inflate;
     }
 
@@ -282,7 +281,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                         img_shop_sortPrice.setImageResource(R.mipmap.img_shop_desc);
                         initData(map);
                     }
-
                 }
                 break;
         }

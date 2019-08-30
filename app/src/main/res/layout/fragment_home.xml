@@ -122,7 +122,7 @@
                             android:layout_height="34dp" />
 
                         <TextView
-                            android:text="我的卡包"
+                            android:text="我的钱包"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="4dp"
                             android:textSize="12sp"

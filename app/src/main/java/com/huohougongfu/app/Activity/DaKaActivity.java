@@ -52,7 +52,7 @@ public class DaKaActivity extends AppCompatActivity {
 
     private void initChaMi() {
         Map<String,String> map = new HashMap<>();
-        map.put("id",String.valueOf(id));
+        map.put("mId",String.valueOf(id));
         map.put("token",token);
         map.put("tel",tel);
         OkGo.<String>post(Contacts.URl1+"/wallet/teaRice")

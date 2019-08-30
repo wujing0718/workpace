@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.huohougongfu.app.Gson.ChaTaiGson;
@@ -109,9 +107,9 @@ public class ChaTaiAdapter extends BaseAdapter {
         groupViewHolder.tv_chatai_title.setText(list.get(position).getTea().getTeaName());
         groupViewHolder.tv_chatai_price.setText("¥"+list.get(position).getTea().getPrice());
         if (list.get(position).getHasDust()==1){
-            groupViewHolder.tv_chatai_hasDust.setText("有茶底");
+            groupViewHolder.tv_chatai_hasDust.setText("有叶底");
         }else{
-            groupViewHolder.tv_chatai_hasDust.setText("无茶底");
+            groupViewHolder.tv_chatai_hasDust.setText("有叶底");
         }
         groupViewHolder.tv_chatai_concentration.setText(list.get(position).getConcentration());
         RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
@@ -122,7 +120,7 @@ public class ChaTaiAdapter extends BaseAdapter {
             @Override
             public void onAddSuccess(int i) {
                 list.get(position).setNum(i);
-                list.get(position).setIsSelect(true);
+//                list.get(position).setIsSelect(true);
                 notifyDataSetChanged();
             }
 
@@ -134,12 +132,12 @@ public class ChaTaiAdapter extends BaseAdapter {
             @Override
             public void onDelSuccess(int i) {
                 if (i == 0){
-                    list.get(position).setIsSelect(false);
+//                    list.get(position).setIsSelect(false);
                     groupViewHolder.amountview.setCount(0);
                     notifyDataSetChanged();
                 }else{
                     list.get(position).setNum(i);
-                    list.get(position).setIsSelect(true);
+//                    list.get(position).setIsSelect(true);
                     notifyDataSetChanged();
                 }
             }
@@ -175,11 +173,13 @@ public class ChaTaiAdapter extends BaseAdapter {
             public void onClick(View v) {
                 isSelectAll = !isSelectAll;
                 if (isSelectAll) {
+                    bt_delete.setVisibility(View.VISIBLE);
                     for (int i = 0; i < list.size(); i++) {
                         ChaTaiGson.ResultBean goodsBean = list.get(i);
                         goodsBean.setIsSelect(true);
                     }
                 } else {
+                    bt_delete.setVisibility(View.GONE);
                     for (int i = 0; i < list.size(); i++) {
                         ChaTaiGson.ResultBean resultBean = list.get(i);
                         resultBean.setIsSelect(false);
@@ -321,6 +321,18 @@ public class ChaTaiAdapter extends BaseAdapter {
                 resultBean1.setIsSelect(!isSelect1);
                 if (!isSelect1 == false) {
                     resultBean1.setIsSelect(false);
+                }
+                boolean is = false;
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getIsSelect()){
+                        is= true;
+                        notifyDataSetChanged();
+                    }
+                }
+                if (is){
+                    bt_delete.setVisibility(View.VISIBLE);
+                }else{
+                    bt_delete.setVisibility(View.GONE);
                 }
                 notifyDataSetChanged();
             }

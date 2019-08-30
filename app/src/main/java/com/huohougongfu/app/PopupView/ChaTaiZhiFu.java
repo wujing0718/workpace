@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.WXPay;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.MyDingDanPaoChaActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
 import com.huohougongfu.app.Utils.utils;
@@ -58,8 +59,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         dismiss();
-                        Intent intent = new Intent();
-//                        intent.putExtra("teaid",)
+                        MyDingDanPaoChaActivity.activity.finish();
                         Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
                         dismiss();

@@ -110,19 +110,25 @@ public class GuiGe extends BottomPopupView {
             @Override
             public void onClick(View v) {
                 JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                    jsonObject.put("productId",mallProduct.getProductInfo().getId());
-                    jsonObject.put("storeId",mallProduct.getProductInfo().getStoreId());
-                    jsonObject.put("productNum",amount);
-                    jsonObject.put("standardId",standarid);
-                    jsonObject.put("standard",standard);
-                    JSONArray jsonArray = new JSONArray();
-                    jsonArray.put(jsonObject);
-                    initXiaDan(jsonArray);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Map<String,String> map = new HashMap<>();
+                map.put("standardIds",String.valueOf(standarid));
+                map.put("pids",String.valueOf(mallProduct.getProductInfo().getId()));
+                map.put("nums",String.valueOf(amount));
+                map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+                initXiaDan(map);
+//                try {
+//                        jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+//                        jsonObject.put("productId",mallProduct.getProductInfo().getId());
+//                        jsonObject.put("storeId",mallProduct.getProductInfo().getStoreId());
+//                        jsonObject.put("productNum",amount);
+//                        jsonObject.put("standardId",standarid);
+//                        jsonObject.put("standard",standard);
+//                        JSONArray jsonArray = new JSONArray();
+//                        jsonArray.put(jsonObject);
+//                        initXiaDan(jsonArray);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
 
             }
         });
@@ -142,9 +148,9 @@ public class GuiGe extends BottomPopupView {
         }
     }
 
-    private void initXiaDan(JSONArray jsonObject) {
-        OkGo.<String>post(Contacts.URl1+"confirmOrder1")
-                .params("json",jsonObject.toString())
+    private void initXiaDan(Map<String, String> map) {
+        OkGo.<String>post(Contacts.URl1+"confirmOrder2")
+                .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

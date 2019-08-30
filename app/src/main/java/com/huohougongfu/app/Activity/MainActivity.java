@@ -3,37 +3,27 @@
         import android.Manifest;
         import android.annotation.SuppressLint;
         import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.pm.PackageManager;
-        import android.net.Uri;
         import android.os.Build;
-        import android.provider.Settings;
         import android.support.annotation.NonNull;
         import android.support.design.internal.BottomNavigationItemView;
         import android.support.design.internal.BottomNavigationMenuView;
         import android.support.design.widget.BottomNavigationView;
-        import android.support.v4.app.ActivityCompat;
         import android.support.v4.app.Fragment;
         import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentPagerAdapter;
         import android.support.v4.view.ViewPager;
-        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.KeyEvent;
         import android.view.MenuItem;
-        import android.view.MotionEvent;
         import android.view.View;
-        import android.view.WindowInsets;
-        import android.widget.Toast;
 
         import com.amap.api.location.AMapLocation;
         import com.amap.api.location.AMapLocationClient;
         import com.amap.api.location.AMapLocationClientOption;
         import com.amap.api.location.AMapLocationListener;
         import com.amap.api.maps.LocationSource;
-        import com.blankj.utilcode.util.LogUtils;
         import com.blankj.utilcode.util.ToastUtils;
         import com.google.gson.Gson;
         import com.gyf.barlibrary.ImmersionBar;
@@ -43,11 +33,8 @@
         import com.huohougongfu.app.Fragment.ShopFragment;
         import com.huohougongfu.app.Gson.LiBaoGson;
         import com.huohougongfu.app.MyApp;
-        import com.huohougongfu.app.PopupView.ChaMiGuiZe;
-        import com.huohougongfu.app.PopupView.Paocha;
         import com.huohougongfu.app.PopupView.PopupShouCi;
         import com.huohougongfu.app.PopupView.XinRenDaLiBao;
-        import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
         import com.huohougongfu.app.R;
         import com.huohougongfu.app.Utils.Contacts;
         import com.huohougongfu.app.Utils.NoScrollViewPager;
@@ -57,13 +44,9 @@
         import com.lzy.okgo.OkGo;
         import com.lzy.okgo.callback.StringCallback;
         import com.lzy.okgo.model.Response;
-        import com.mylhyl.acp.Acp;
-        import com.mylhyl.acp.AcpListener;
-        import com.mylhyl.acp.AcpOptions;
 
         import java.lang.reflect.Field;
         import java.util.ArrayList;
-        import java.util.List;
     public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;
@@ -73,8 +56,8 @@
     private ImmersionBar immersionber;
     public static MainActivity activity;
             //定位需要的声明
-            private AMapLocationClient mLocationClient = null;//定位发起端
-            private AMapLocationClientOption mLocationOption = null;//定位参数
+    private AMapLocationClient mLocationClient = null;//定位发起端
+         private AMapLocationClientOption mLocationOption = null;//定位参数
             private LocationSource.OnLocationChangedListener mListener = null;//定位监听器
             boolean isFirstLoc = true;
             private String lat;
@@ -89,7 +72,31 @@
                     Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
                     Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-            ActivityCompat.requestPermissions(MainActivity.this,mPermissionList,123);
+            PermissionPageUtils.onRequestMorePermissionsResult(MainActivity.this, mPermissionList, new PermissionPageUtils.PermissionCheckCallBack() {
+                /**
+                 * 用户已授予权限
+                 */
+                @Override
+                public void onHasPermission() {
+                }
+                /**
+                 * 用户已拒绝过权限
+                 *
+                 * @param permission:被拒绝的权限
+                 */
+                @Override
+                public void onUserHasAlreadyTurnedDown(String... permission) {
+                }
+                /**
+                 * 用户已拒绝过并且已勾选不再询问选项、用户第一次申请权限;
+                 *
+                 * @param permission:被拒绝的权限
+                 */
+                @Override
+                public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
+
+                }
+            });
         }
         initLoc();
         initData();
@@ -113,13 +120,16 @@
             }
         });
     }
+
+
+
         //请求权限后的回调:
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
                 if (requestCode==123){
-                        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//允许
-                            return;
-                        } else if (grantResults[0]==PackageManager.PERMISSION_DENIED){//拒绝
+                    if (PermissionPageUtils.isPermissionRequestSuccess(grantResults)){
+                        return;
+                    }else {//拒绝
                             SelectDialog.show(MainActivity.this, "提示", "需要打开权限", "确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -135,6 +145,8 @@
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
             }
+
+
 
             @SuppressLint("RestrictedApi")
     public void disableShiftMode(BottomNavigationView navigationView) {

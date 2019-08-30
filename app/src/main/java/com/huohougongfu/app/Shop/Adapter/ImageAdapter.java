@@ -30,7 +30,7 @@ public class ImageAdapter extends EasyAdapter<Object> {
         );
         //1. 加载图片, 由于ImageView是centerCrop，必须指定Target.SIZE_ORIGINAL，禁止Glide裁剪图片；
         // 这样我就能拿到原始图片的Matrix，才能有完美的过渡效果
-        Glide.with(imageView).load(s).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher_round)
+        Glide.with(imageView).load(s).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)
                 .override(Target.SIZE_ORIGINAL))
                 .into(imageView);
 

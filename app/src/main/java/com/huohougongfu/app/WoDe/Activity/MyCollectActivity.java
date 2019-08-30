@@ -1,6 +1,7 @@
 package com.huohougongfu.app.WoDe.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,7 @@ import com.huohougongfu.app.Gson.WoDeCollect;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Adapter.MyColleAdapter;
@@ -285,6 +287,11 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
             }
             setBtnBackground(index);
             mycollectadapter.notifyDataSetChanged();
+        }else{
+            Intent intent = new Intent();
+            intent.putExtra("id",myLiveList.get(pos).getPId());
+            intent.setClass(MyCollectActivity.this,ShangPinDetailActivity.class);
+            startActivity(intent);
         }
     }
 }

@@ -49,7 +49,8 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     private boolean isDikou = true;
     private double total_price;
     private JSONArray array;
-    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    public static  MyDingDanPaoChaActivity activity ;
 
 
     Handler mHandler = new Handler() {
@@ -77,6 +78,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         setContentView(R.layout.activity_my_ding_dan_pao_cha);
         yedi = getIntent().getStringExtra("yedi");
         nongdu = getIntent().getStringExtra("nongdu");
@@ -317,8 +319,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                         if (youhuiquan.getStatus() == 1){
                             myouhuiquan = youhuiquan.getResult();
                             String dikou = decimalFormat.format(youhuiquan.getResult().getTeaRice() * youhuiquan.getResult().getProportion());
-                            tv_chami_dikou.setText("可用"+youhuiquan.getResult().getTeaRice()+"茶米抵扣"+
-                                    (dikou)+"元");
+                            tv_chami_dikou.setText("可用"+youhuiquan.getResult().getTeaRice()+"茶米抵扣"+ (dikou)+"元");
                             if (myouhuiquan.getCoupons().size()>1){
                                 tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getServiceRegulations());
                                 tv_manjian2.setText(myouhuiquan.getCoupons().get(1).getServiceRegulations());
@@ -376,6 +377,9 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     }
 
     private void initORder() {
+        String s = tv_total_price.getText().toString();
+        String ¥ = s.replace("¥", "");
+        double orderprice = Double.parseDouble(¥);
         Map<String,String> map = new HashMap<>();
         map.put("json",array.toString());
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
@@ -408,7 +412,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 new XPopup.Builder(MyDingDanPaoChaActivity.this)
-                                        .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,jsonObject.getString("result"),total_price))
+                                        .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,jsonObject.getString("result"),orderprice))
                                         .show();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

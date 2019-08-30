@@ -88,7 +88,7 @@ public class PingJiaAdapter extends BaseQuickAdapter<PingJia.ResultBean.ListBean
         @Override
         public void loadImage(int position, @NonNull Object url, @NonNull ImageView imageView) {
             //必须指定Target.SIZE_ORIGINAL，否则无法拿到原图，就无法享用天衣无缝的动画
-            Glide.with(imageView).load(url).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher_round).override(Target.SIZE_ORIGINAL)).into(imageView);
+            Glide.with(imageView).load(url).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).override(Target.SIZE_ORIGINAL)).into(imageView);
         }
 
         @Override

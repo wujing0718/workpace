@@ -182,10 +182,10 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                             tv_chami_dikou.setText("可用"+youhuiquan.getResult().getTeaRice()+"茶米抵扣"+
                                     (youhuiquan.getResult().getTeaRice()*youhuiquan.getResult().getProportion())+"元");
                             if (myouhuiquan.getCoupons().size()>1){
-                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getServiceRegulations());
-                                tv_manjian2.setText(myouhuiquan.getCoupons().get(1).getServiceRegulations());
+                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getTitle());
+                                tv_manjian2.setText(myouhuiquan.getCoupons().get(1).getTitle());
                             }else if(myouhuiquan.getCoupons().size() ==1){
-                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getServiceRegulations());
+                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getTitle());
                             }else if (myouhuiquan.getCoupons().size()<0){
                                 tv_manjian1.setText("暂无优惠券");
                             }
