@@ -274,7 +274,7 @@ public class QuanZiFaXian implements Serializable {
                 private String updateTime;
                 private Object longitude;
                 private Object latitude;
-                private Object address;
+                private String address;
                 private Object cityCode;
                 private MemberBean member;
                 private int praiseNum;
@@ -353,11 +353,11 @@ public class QuanZiFaXian implements Serializable {
                     this.latitude = latitude;
                 }
 
-                public Object getAddress() {
+                public String getAddress() {
                     return address;
                 }
 
-                public void setAddress(Object address) {
+                public void setAddress(String address) {
                     this.address = address;
                 }
 

@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Adapter.ShouYeAdapter;
+import com.huohougongfu.app.Gson.MaiChaDetail;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.MaiChaDetailActivity;
@@ -25,6 +26,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +37,7 @@ public class MaiChaFragment extends Fragment {
 
     private View inflate;
     private RecyclerView rec_bianxie;
+    private String equipmentId;
 
     public MaiChaFragment() {
         // Required empty public constructor
@@ -45,24 +48,24 @@ public class MaiChaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_mai_cha, container, false);
+        equipmentId = getArguments().getString("ARGS");
         initData();
         return inflate;
     }
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("service","App.Mixed_Jinse.Zx");
-        map.put("channel", "www");
-        OkGo.<String>post(Contacts.URl)
+        map.put("equipmentId",equipmentId);
+        OkGo.<String>post(Contacts.URl1+"/machine/productList")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        ShangPinGson shangPinGson = gson.fromJson(response.body(), ShangPinGson.class);
-                        if (shangPinGson.getCode() == 200) {
-                            initRec(shangPinGson.getData());
+                        MaiChaDetail shangPinGson = gson.fromJson(response.body(), MaiChaDetail.class);
+                        if (shangPinGson.getStatus() == 1) {
+                            initRec(shangPinGson.getResult());
                         }
                     }
                     @Override
@@ -73,18 +76,19 @@ public class MaiChaFragment extends Fragment {
                 });
     }
 
-    private void initRec(ShangPinGson.DataBean data) {
+    private void initRec(List<MaiChaDetail.ResultBean> result) {
         rec_bianxie = inflate.findViewById(R.id.rec_bianxie);
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         GridLayoutManager layoutmanager = new GridLayoutManager(getActivity(),3);
         //设置RecyclerView 布局
         rec_bianxie.setLayoutManager(layoutmanager);
-        ShouYeAdapter shouYeAdapter = new ShouYeAdapter(R.layout.item_shouye_maicha, data.getList());
+        ShouYeAdapter shouYeAdapter = new ShouYeAdapter(R.layout.item_shouye_maicha,result);
         rec_bianxie.setAdapter(shouYeAdapter);
         shouYeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
+                intent.putExtra("买茶",result.get(position));
                 intent.setClass(getActivity(),MaiChaDetailActivity.class);
                 startActivity(intent);
             }

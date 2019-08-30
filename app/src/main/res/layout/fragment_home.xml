@@ -196,30 +196,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <!--<TextView-->
-                        <!--android:textSize="14sp"-->
-                        <!--android:text="买茶"-->
-                        <!--android:textStyle="bold"-->
-                        <!--android:layout_gravity="center_vertical"-->
-                        <!--android:layout_marginRight="5dp"-->
-                        <!--android:textColor="#CCBA91"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content" />-->
+                    <TextView
+                        android:textSize="14sp"
+                        android:text="买茶"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:textColor="#CCBA91"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                    <!--<com.suke.widget.SwitchButton-->
-                        <!--android:id="@+id/bt_switch"-->
-                        <!--android:layout_width="60dp"-->
-                        <!--android:layout_height="34dp"-->
-                        <!--app:sb_show_indicator = "false"-->
-                        <!--app:sb_checked_color = "@color/colorWhite"-->
-                        <!--app:sb_checkline_color = "#CCBA91"-->
-                        <!--app:sb_uncheck_color = "#CCBA91"-->
-                        <!--app:sb_border_width = "1dp"-->
-                        <!--app:sb_checkline_width="4dp"-->
-                        <!--app:sb_uncheckcircle_width="4dp"-->
-                        <!--app:sb_uncheckcircle_color = "@color/colorWhite"-->
-                        <!--app:sb_checked = "true"-->
-                        <!--app:sb_button_color = "#CCBA91"/>-->
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/bt_switch"
+                        android:layout_width="60dp"
+                        android:layout_height="34dp"
+                        app:sb_show_indicator = "false"
+                        app:sb_checked_color = "@color/colorWhite"
+                        app:sb_checkline_color = "#CCBA91"
+                        app:sb_uncheck_color = "#CCBA91"
+                        app:sb_border_width = "1dp"
+                        app:sb_checkline_width="4dp"
+                        app:sb_uncheckcircle_width="4dp"
+                        app:sb_uncheckcircle_color = "@color/colorWhite"
+                        app:sb_checked = "true"
+                        app:sb_button_color = "#CCBA91"/>
 
                     <TextView
                         android:text="泡茶"

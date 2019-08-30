@@ -64,7 +64,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private RelativeLayout back,rl_commit;
     private ImageView start;
     private TextView pathTv;
-    private EditText et_title,et_content;
+    private EditText et_content;
     private ImageView video_looksee;
     private FrameLayout rl_look_see;
 
@@ -99,7 +99,6 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         pathTv = findViewById(R.id.path);
         rl_commit = findViewById(R.id.rl_commit);
         rl_commit.setOnClickListener(this);
-        et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
 
         rl_look_see = findViewById(R.id.rl_look_see);
@@ -245,12 +244,10 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initVedio() {
-        String title = et_title.getText().toString();
         String content = et_content.getText().toString();
         Map<String,String> map = new HashMap<>();
         if (!"".equals(token)) {
             if (file!=null){
-                map.put("title",title);
                 map.put("content",content);
                 map.put("type","3");
                 map.put("mId",String.valueOf(mId));

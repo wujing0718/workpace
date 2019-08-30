@@ -29,6 +29,7 @@ import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.JiQiLieBiao;
+import com.huohougongfu.app.Gson.MaiChaJiQiGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.Paocha;
 import com.huohougongfu.app.R;
@@ -78,7 +79,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private String lon,lat;
     private TextView tv_jiqijuli,tv_jiqiweizhi;
     private JiQiLieBiao.ResultBean.ListBean jiQiLieBiao;
-
+    private MaiChaJiQiGson.ResultBean.ListBean  maichajiqi;
+    private boolean ischecked = true;
     public HomeFragment() {
     }
 
@@ -93,6 +95,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         //设置默认显示内容
         initUI();
         initJiQi();
+        initMaiChaJiQi();
         return inflate;
     }
 
@@ -152,6 +155,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 });
     }
 
+    private void initMaiChaJiQi() {
+        Map<String, String> map = new HashMap<>();
+        map.put("longitude",lon);
+        map.put("latitude", lat);
+        map.put("pageNo", "1");
+        map.put("pageSize", "10");
+        OkGo.<String>post(Contacts.URl1+"/machine/nearMachineProduct")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        MaiChaJiQiGson lieiao = gson.fromJson(response.body(), MaiChaJiQiGson.class);
+                        if (lieiao.getStatus() == 1) {
+                            if (lieiao.getResult().getList().size()>0){
+                                maichajiqi = lieiao.getResult().getList().get(0);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
+    }
+
     private void initUI() {
         amap = inflate.findViewById(R.id.amap);
         tv_jiqijuli = inflate.findViewById(R.id.tv_jiqijuli);
@@ -166,24 +197,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         banner = inflate.findViewById(R.id.banner);
 
-//        bt_switch = inflate.findViewById(R.id.bt_switch);
-//        bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-//
-//                if (!isChecked) {
-//                    FragmentManager fm = getChildFragmentManager();
-//                    FragmentTransaction transaction = fm.beginTransaction();
-//                    transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(""));
-//                    transaction.commitAllowingStateLoss();
-//                }else{
-//                    FragmentManager fm = getChildFragmentManager();
-//                    FragmentTransaction transaction = fm.beginTransaction();
-//                    transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
-//                    transaction.commitAllowingStateLoss();
-//                }
-//            }
-//        });
+        bt_switch = inflate.findViewById(R.id.bt_switch);
+        bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                if (!isChecked) {
+                    if (maichajiqi!=null){
+                        tv_jiqiweizhi.setText(maichajiqi.getDetailAddress()+"(No."+maichajiqi.getEquipmentId()+")");
+                        DecimalFormat formater = new DecimalFormat();
+                        formater.setMaximumFractionDigits(2);
+                        formater.setGroupingSize(0);
+                        formater.setRoundingMode(RoundingMode.FLOOR);
+                        String result = formater.format(Double.valueOf(maichajiqi.getDistance()));
+                        tv_jiqijuli.setText(result+"m");
+                        FragmentManager fm = getChildFragmentManager();
+                        FragmentTransaction transaction = fm.beginTransaction();
+                        transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(maichajiqi.getEquipmentId()));
+                        transaction.commitAllowingStateLoss();
+                        ischecked = isChecked;
+                    }
+                }else{
+                    ischecked = isChecked;
+                    initJiQi();
+                    FragmentManager fm = getChildFragmentManager();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    if (jiQiLieBiao!=null){
+                        transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
+                        transaction.commitAllowingStateLoss();
+                        tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getEquipmentId()+")");
+                        DecimalFormat formater = new DecimalFormat();
+                        formater.setMaximumFractionDigits(2);
+                        formater.setGroupingSize(0);
+                        formater.setRoundingMode(RoundingMode.FLOOR);
+                        String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
+                        tv_jiqijuli.setText(result+"m");
+                    }
+                }
+            }
+        });
 
     }
 
@@ -260,13 +311,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_chatai:
                 if (!utils.isDoubleClick()){
-                    intent.putExtra("machineId",jiQiLieBiao.getEquipmentId());
-                    intent.setClass(getActivity(),ChaTaiActivity.class);
-                    startActivity(intent);
+                        intent.putExtra("machineId",jiQiLieBiao.getEquipmentId());
+                        intent.setClass(getActivity(),ChaTaiActivity.class);
+                        startActivity(intent);
                 }
             case R.id.bt_dingwei:
                 if (!utils.isDoubleClick()){
-                    startActivityForResult(new Intent(getActivity(), DingWeiActivity.class), CONTEXT_RESTRICTED);
+                    if (ischecked){
+                        Intent intent = new Intent(getActivity(), DingWeiActivity.class);
+                        intent.putExtra("泡茶",1);
+                        startActivityForResult(intent, CONTEXT_RESTRICTED);
+                    }else{
+                        Intent intent = new Intent(getActivity(), DingWeiActivity.class);
+                        intent.putExtra("买茶",1);
+                        startActivityForResult(intent, CONTEXT_RESTRICTED);
+                    }
                 }
 
         }
@@ -275,17 +334,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CONTEXT_RESTRICTED){
-           jiQiLieBiao =  (JiQiLieBiao.ResultBean.ListBean)data.getSerializableExtra("data");
-           if (jiQiLieBiao!=null){
-               DecimalFormat formater = new DecimalFormat();
-               formater.setMaximumFractionDigits(2);
-               formater.setGroupingSize(0);
-               formater.setRoundingMode(RoundingMode.FLOOR);
-               String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
-               tv_jiqijuli.setText(result+"m");
-               tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getDetailAddress()+")");
-               setDefaultFragment(jiQiLieBiao.getEquipmentId());
-           }
+            jiQiLieBiao =  (JiQiLieBiao.ResultBean.ListBean)data.getSerializableExtra("data");
+            int types = data.getIntExtra("type",0);
+            if (types == 1){
+                if (jiQiLieBiao!=null){
+                    DecimalFormat formater = new DecimalFormat();
+                    formater.setMaximumFractionDigits(2);
+                    formater.setGroupingSize(0);
+                    formater.setRoundingMode(RoundingMode.FLOOR);
+                    String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
+                    tv_jiqijuli.setText(result+"m");
+                    tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getDetailAddress()+")");
+                    setDefaultFragment(jiQiLieBiao.getEquipmentId());
+                }
+            }else if (types == 2) {
+                if (jiQiLieBiao != null) {
+                    DecimalFormat formater = new DecimalFormat();
+                    formater.setMaximumFractionDigits(2);
+                    formater.setGroupingSize(0);
+                    formater.setRoundingMode(RoundingMode.FLOOR);
+                    String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
+                    tv_jiqijuli.setText(result + "m");
+                    tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress() + "(No." + jiQiLieBiao.getDetailAddress() + ")");
+                    FragmentManager fm = getChildFragmentManager();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
+                    transaction.commitAllowingStateLoss();
+                }
+            }
         }
     }
 }

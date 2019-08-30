@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ChaTaiAdapter;
 import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.Gson.JiQiLieBiao;
+import com.huohougongfu.app.Gson.MaiChaJiQiGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -58,11 +59,15 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
     private String lon,lat;
     private AddressBean data1;
     private TextView tv_jiqiweizhi,tv_jiqijuli;
+    private MaiChaJiQiGson.ResultBean.ListBean maichajiqi;
+    private int 买茶,泡茶;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ding_wei);
+        买茶 = getIntent().getIntExtra("买茶", 0);
+        泡茶 = getIntent().getIntExtra("泡茶", 0);
         lon = MyApp.instance.getString("lon");
         lat = MyApp.instance.getString("lat");
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
@@ -86,7 +91,46 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
         });
         tv_jiqiweizhi = findViewById(R.id.tv_jiqiweizhi);
         tv_jiqijuli = findViewById(R.id.tv_jiqijuli);
-        initData(lat,lon);
+        if (泡茶 == 1){
+            initData(lat,lon);
+        }else if (买茶 == 1){
+            initMaiChaData(lat,lon);
+        }
+    }
+
+    private void initMaiChaData(String lat, String lon) {
+        Map<String, String> map = new HashMap<>();
+        map.put("longitude",lon);
+        map.put("latitude", lat);
+        map.put("pageNo", "1");
+        map.put("pageSize", "10");
+        OkGo.<String>post(Contacts.URl1+"/machine/nearMachineProduct")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        JiQiLieBiao lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
+                        if (lieiao.getStatus() == 1) {
+                            if (lieiao.getResult().getList().size()>0){
+                                initRec(lieiao);
+                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress()+"(No."+lieiao.getResult().getList().get(0).getDetailAddress()+")");
+                                DecimalFormat formater = new DecimalFormat();
+                                formater.setMaximumFractionDigits(2);
+                                formater.setGroupingSize(0);
+                                formater.setRoundingMode(RoundingMode.FLOOR);
+                                String result = formater.format(Double.valueOf(lieiao.getResult().getList().get(0).getDistance()));
+                                tv_jiqijuli.setText("距您"+result+"m");
+                            }
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+//                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
     }
 
     @Override
@@ -164,11 +208,19 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("data",data.getResult().getList().get(position));
-//                data.get(position).getAddress();
-                setResult(CONTEXT_RESTRICTED,getIntent().putExtras(bundle));
-                DingWeiActivity.this.finish();
+                if (泡茶 == 1){
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data",data.getResult().getList().get(position));
+                    bundle.putInt("type",1);
+                    setResult(CONTEXT_RESTRICTED,getIntent().putExtras(bundle));
+                    DingWeiActivity.this.finish();
+                }else if (买茶 == 1){
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data",data.getResult().getList().get(position));
+                    bundle.putInt("type",2);
+                    setResult(CONTEXT_RESTRICTED,getIntent().putExtras(bundle));
+                    DingWeiActivity.this.finish();
+                }
             }
         });
         rec_dingwei_sousuo.setAdapter(mAdapter);

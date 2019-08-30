@@ -8,11 +8,12 @@
     android:layout_height="wrap_content">
     
     <ImageView
-        android:src="@mipmap/ic_launcher"
+        android:id="@+id/img_maicha_photo"
         android:layout_width="match_parent"
         android:layout_height="98dp" />
 
     <TextView
+        android:id="@+id/tv_maicha_title"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginHorizontal="8dp"
         android:text="白茶寿眉茶叶陈年太姥山老白茶春季寿眉茶一饼300克"
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_maicha_price"
             android:text="189"
             android:textSize="18sp"
             android:textColor="@color/colorBlack"

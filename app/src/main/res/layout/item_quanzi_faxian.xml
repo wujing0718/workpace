@@ -13,9 +13,17 @@
         <ImageView
             android:layout_gravity="center_horizontal"
             android:id="@+id/img_quanzi_photo"
-            android:src="@mipmap/ic_launcher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/img_type"
+            android:visibility="gone"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18" />
 
         <LinearLayout
             android:id="@+id/view_dingwei"
@@ -26,13 +34,15 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:src="@mipmap/img_dingwei"
+                android:src="@mipmap/img_dingwei_white"
                 android:layout_gravity="center_vertical"
                 android:layout_width="14dp"
                 android:layout_height="14dp" />
 
             <TextView
-                android:text="深圳"
+                android:text=""
+                android:id="@+id/tv_address"
+                android:textColor="@color/white"
                 android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -59,7 +69,6 @@
                 <ImageView
                     android:id="@+id/img_faixan_touxiang"
                     android:layout_marginLeft="12dp"
-                    android:src="@mipmap/ic_launcher"
                     android:layout_gravity="center_vertical"
                     android:layout_width="22dp"
                     android:layout_height="22dp" />
