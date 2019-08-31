@@ -69,34 +69,10 @@
         setContentView(R.layout.activity_main);
         if(Build.VERSION.SDK_INT>=23){
             String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
-                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-            PermissionPageUtils.onRequestMorePermissionsResult(MainActivity.this, mPermissionList, new PermissionPageUtils.PermissionCheckCallBack() {
-                /**
-                 * 用户已授予权限
-                 */
-                @Override
-                public void onHasPermission() {
-                }
-                /**
-                 * 用户已拒绝过权限
-                 *
-                 * @param permission:被拒绝的权限
-                 */
-                @Override
-                public void onUserHasAlreadyTurnedDown(String... permission) {
-                }
-                /**
-                 * 用户已拒绝过并且已勾选不再询问选项、用户第一次申请权限;
-                 *
-                 * @param permission:被拒绝的权限
-                 */
-                @Override
-                public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
-
-                }
-            });
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.CAMERA,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_APN_SETTINGS};
+            PermissionPageUtils.checkAndRequestMorePermissions(MainActivity.this,
+                    mPermissionList,123);
         }
         initLoc();
         initData();
@@ -130,14 +106,20 @@
                     if (PermissionPageUtils.isPermissionRequestSuccess(grantResults)){
                         return;
                     }else {//拒绝
-                            SelectDialog.show(MainActivity.this, "提示", "需要打开权限", "确定", new DialogInterface.OnClickListener() {
+                            PermissionPageUtils.checkMorePermissions(MainActivity.this, permissions, new PermissionPageUtils.PermissionCheckCallBack() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    PermissionPageUtils.toAppSetting(MainActivity.this);
+                                public void onHasPermission() {
+
                                 }
-                            }, "取消", new DialogInterface.OnClickListener() {
+
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onUserHasAlreadyTurnedDown(String... permission) {
+                                    PermissionPageUtils.requestMorePermissions(MainActivity.this,permission,123);
+                                }
+
+                                @Override
+                                public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
+
                                 }
                             });
                         }

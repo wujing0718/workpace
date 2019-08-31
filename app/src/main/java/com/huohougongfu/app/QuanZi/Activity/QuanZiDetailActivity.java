@@ -356,13 +356,6 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
-                                        if(Build.VERSION.SDK_INT>=23){
-                                            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,
-                                                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
-                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
-                                                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-                                            ActivityCompat.requestPermissions(QuanZiDetailActivity.this,mPermissionList,123);
-                                        }
                                         if ("分享".equals(text)){
                                             UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
                                             web.setTitle("火后功夫");//标题

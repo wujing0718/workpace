@@ -56,14 +56,9 @@
 
     </RelativeLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_below="@+id/view_fabu_tab"
-        android:layout_above="@+id/view_charu"
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
+            android:layout_below="@+id/view_fabu_tab"
+            android:layout_above="@+id/view_charu"
             android:id="@+id/view_wenzhang"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -79,9 +74,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
-        </LinearLayout>
+            <com.sendtion.xrichtext.RichTextEditor
+                android:id="@+id/et_new_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:rt_editor_text_line_space="6dp"
+                app:rt_editor_image_height="1000"
+                app:rt_editor_image_bottom="10"
+                app:rt_editor_text_init_hint="在这里输入内容"
+                app:rt_editor_text_size="16sp"
+                app:rt_editor_text_color="@color/colorHui"/>
 
-    </android.support.v4.widget.NestedScrollView>
+
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/view_charu"
@@ -90,23 +95,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/bt_add_imageview"
-                android:layout_marginVertical="10dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/kaquan_kuang"
-                android:paddingHorizontal="@dimen/icon_size_20dp"
-                android:paddingVertical="5dp"
-                android:text="插入图片"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_weight="1"
@@ -120,7 +108,7 @@
                 android:background="@drawable/kaquan_kuang"
                 android:paddingHorizontal="@dimen/icon_size_20dp"
                 android:paddingVertical="5dp"
-                android:text="插入文本"
+                android:text="插入文字图片"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

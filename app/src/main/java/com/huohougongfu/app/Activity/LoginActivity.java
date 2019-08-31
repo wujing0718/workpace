@@ -379,7 +379,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             @Override
                                             public void onTokenIncorrect() {
                                                 //重新请求Token
-                                                Log.e("TAG","失败");
                                             }
                                             @Override
                                             public void onSuccess(String s) {
@@ -396,7 +395,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                             @Override
                                             public void onError(RongIMClient.ErrorCode errorCode) {
-                                                Log.e("TAG","失败");
+//                                                ToastUtils.showShort("失败:======="+errorCode);
                                             }
                                         });
 

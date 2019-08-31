@@ -178,7 +178,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
             for (int i = 0;i<mcontent.length;i++){
                 if ("ゐゑを".equals(mcontent[i])){
                     ImageView imageView = new ImageView(WenZhangDetailActivity.this);
-                    Glide.with(WenZhangDetailActivity.this).load(split1[temp]).into(imageView);
+                    Glide.with(MyApp.context).load(split1[temp]).into(imageView);
                     temp+=1;
                     view_wenzhang.addView(imageView);
                 }else{

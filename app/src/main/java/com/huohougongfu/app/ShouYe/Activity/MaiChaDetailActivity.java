@@ -33,6 +33,7 @@ public class MaiChaDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initUI() {
+        mbanner.add(resultBean.getMasterGraph());
         mbanner.add(resultBean.getDetailsFigureOne());
         mbanner.add(resultBean.getDetailsFigureTwo());
         mbanner.add(resultBean.getDetailsFigureThree());
