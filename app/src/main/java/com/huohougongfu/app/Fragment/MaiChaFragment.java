@@ -89,6 +89,7 @@ public class MaiChaFragment extends Fragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.putExtra("买茶",result.get(position));
+                intent.putExtra("equipmentId",equipmentId);
                 intent.setClass(getActivity(),MaiChaDetailActivity.class);
                 startActivity(intent);
             }

@@ -20,14 +20,14 @@ import com.huohougongfu.app.R;
 
 import java.util.List;
 
-public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean,BaseViewHolder> {
-    public MyDingDanAdapter(int layoutResId, @Nullable List<MyDingDan.ResultBean> data) {
+public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.ListBean,BaseViewHolder> {
+    public MyDingDanAdapter(int layoutResId, @Nullable List<MyDingDan.ResultBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void convert(BaseViewHolder helper, MyDingDan.ResultBean item) {
+    protected void convert(BaseViewHolder helper, MyDingDan.ResultBean.ListBean item) {
         RecyclerView rec_item_dingdan_liebiao = helper.getView(R.id.rec_item_dingdan_liebiao);
         ImageView img_dianpu_logo = helper.getView(R.id.img_dianpu_logo);
         TextView bt_anniu_one = helper.getView(R.id.bt_anniu_one);

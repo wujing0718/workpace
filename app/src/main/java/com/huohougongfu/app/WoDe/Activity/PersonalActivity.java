@@ -251,7 +251,6 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
                 touxiangurl = new File(picturePath);
 //                mIvImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
                 /*如果使用 Glide 加载图片，则需要禁止 Glide 从缓存中加载，因为裁剪后保存的图片地址是相同的*/
                 RequestOptions requestOptions = RequestOptions
                         .circleCropTransform()

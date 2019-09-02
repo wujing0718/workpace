@@ -7,7 +7,7 @@ public class ChaTaiDingDanDetail {
 
     /**
      * msg : 操作成功
-     * result : {"id":67,"machineId":"A0002","detailId":"91","details":[{"id":91,"machineId":"A0002","teaId":1,"teaName":"红茶","price":10,"concentration":"淡","hasdust":1,"count":2,"createTime":"2019-07-24 18:20:21","updateTime":"2019-07-24 18:20:21"}],"verificationCode":"ZKJVESCN","teaRiceNum":0,"couponId":2,"orderStatus":"0","orderTotal":20,"countdownTime":"2019-07-24 18:35:22","createTime":"2019-07-24 18:20:22","updateTime":"2019-07-24 18:20:22","teas":null,"teaNum":1,"currentTime":"2019-07-25 13:44:28","coupon":{"id":2,"couponType":2,"title":"免费绿茶券","isMall":"0","beginTime":"2019-01-01 00:00:00","endTime":"2019-12-31 00:00:00","usableProductId":1,"serviceRegulations":"使用规则","createTime":null,"updateTime":"2019-07-23 09:56:57","fullMoney":200,"money":20,"discount":null,"couponCount":null,"storeId":null,"couponsLink":null,"introduction":null,"imgUrl":null},"isOverdue":true,"mid":47}
+     * result : {"id":201,"type":1,"orderNo":"M201908291351109264357","machineId":"AA-BB-CC201908051519594523747","detailId":"369","details":[{"id":369,"machineId":"AA-BB-CC201908051519594523747","teaId":1,"teaName":"凤凰单枞","price":0.02,"concentration":"浓","hasdust":1,"count":1,"createTime":"2019-08-29 13:51:10","updateTime":"2019-08-29 13:51:10"}],"machineProduct":{"id":null,"name":null,"productPrice":null,"weight":null,"commodityDescription":null,"masterGraph":null,"detailsFigureOne":null,"detailsFigureTwo":null,"detailsFigureThree":null,"createTime":null,"updateTime":null},"verificationCode":"1PLPA24X","payMethod":null,"tradeNo":"2019082922001483780588409586","teaRiceNum":2,"couponId":11,"orderStatus":"1","orderTotal":0.01,"countdownTime":"2019-08-29 14:06:10","createTime":"2019-08-29 13:51:10","updateTime":"2019-08-30 09:53:22","teas":null,"teaNum":1,"currentTime":"2019-08-31 13:40:51","coupon":{"id":11,"couponType":1,"title":"喝茶券(新用户礼包)","isMall":"0","beginTime":"2019-07-02 16:10:29","endTime":"2021-12-31 00:00:00","usableProductId":1,"serviceRegulations":"免费领一杯茶","createTime":"2019-08-22 16:10:26","updateTime":"2019-08-23 14:33:14","fullMoney":null,"money":30,"discount":null,"couponCount":100,"storeId":null,"couponsLink":null,"introduction":null,"picture":null},"refillNum":0,"takeTeaTime":null,"isOverdue":true,"mid":2}
      * status : 1
      */
 
@@ -41,31 +41,42 @@ public class ChaTaiDingDanDetail {
 
     public static class ResultBean {
         /**
-         * id : 67
-         * machineId : A0002
-         * detailId : 91
-         * details : [{"id":91,"machineId":"A0002","teaId":1,"teaName":"红茶","price":10,"concentration":"淡","hasdust":1,"count":2,"createTime":"2019-07-24 18:20:21","updateTime":"2019-07-24 18:20:21"}]
-         * verificationCode : ZKJVESCN
-         * teaRiceNum : 0
-         * couponId : 2
-         * orderStatus : 0
-         * orderTotal : 20.0
-         * countdownTime : 2019-07-24 18:35:22
-         * createTime : 2019-07-24 18:20:22
-         * updateTime : 2019-07-24 18:20:22
+         * id : 201
+         * type : 1
+         * orderNo : M201908291351109264357
+         * machineId : AA-BB-CC201908051519594523747
+         * detailId : 369
+         * details : [{"id":369,"machineId":"AA-BB-CC201908051519594523747","teaId":1,"teaName":"凤凰单枞","price":0.02,"concentration":"浓","hasdust":1,"count":1,"createTime":"2019-08-29 13:51:10","updateTime":"2019-08-29 13:51:10"}]
+         * machineProduct : {"id":null,"name":null,"productPrice":null,"weight":null,"commodityDescription":null,"masterGraph":null,"detailsFigureOne":null,"detailsFigureTwo":null,"detailsFigureThree":null,"createTime":null,"updateTime":null}
+         * verificationCode : 1PLPA24X
+         * payMethod : null
+         * tradeNo : 2019082922001483780588409586
+         * teaRiceNum : 2
+         * couponId : 11
+         * orderStatus : 1
+         * orderTotal : 0.01
+         * countdownTime : 2019-08-29 14:06:10
+         * createTime : 2019-08-29 13:51:10
+         * updateTime : 2019-08-30 09:53:22
          * teas : null
          * teaNum : 1
-         * currentTime : 2019-07-25 13:44:28
-         * coupon : {"id":2,"couponType":2,"title":"免费绿茶券","isMall":"0","beginTime":"2019-01-01 00:00:00","endTime":"2019-12-31 00:00:00","usableProductId":1,"serviceRegulations":"使用规则","createTime":null,"updateTime":"2019-07-23 09:56:57","fullMoney":200,"money":20,"discount":null,"couponCount":null,"storeId":null,"couponsLink":null,"introduction":null,"imgUrl":null}
+         * currentTime : 2019-08-31 13:40:51
+         * coupon : {"id":11,"couponType":1,"title":"喝茶券(新用户礼包)","isMall":"0","beginTime":"2019-07-02 16:10:29","endTime":"2021-12-31 00:00:00","usableProductId":1,"serviceRegulations":"免费领一杯茶","createTime":"2019-08-22 16:10:26","updateTime":"2019-08-23 14:33:14","fullMoney":null,"money":30,"discount":null,"couponCount":100,"storeId":null,"couponsLink":null,"introduction":null,"picture":null}
+         * refillNum : 0
+         * takeTeaTime : null
          * isOverdue : true
-         * mid : 47
+         * mid : 2
          */
 
         private int id;
-        private String machineId;
+        private int type;
         private String orderNo;
+        private String machineId;
         private String detailId;
+        private MachineProductBean machineProduct;
         private String verificationCode;
+        private Object payMethod;
+        private String tradeNo;
         private int teaRiceNum;
         private int couponId;
         private String orderStatus;
@@ -77,6 +88,8 @@ public class ChaTaiDingDanDetail {
         private int teaNum;
         private String currentTime;
         private CouponBean coupon;
+        private int refillNum;
+        private Object takeTeaTime;
         private boolean isOverdue;
         private int mid;
         private List<DetailsBean> details;
@@ -87,6 +100,14 @@ public class ChaTaiDingDanDetail {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
         }
 
         public String getOrderNo() {
@@ -113,12 +134,36 @@ public class ChaTaiDingDanDetail {
             this.detailId = detailId;
         }
 
+        public MachineProductBean getMachineProduct() {
+            return machineProduct;
+        }
+
+        public void setMachineProduct(MachineProductBean machineProduct) {
+            this.machineProduct = machineProduct;
+        }
+
         public String getVerificationCode() {
             return verificationCode;
         }
 
         public void setVerificationCode(String verificationCode) {
             this.verificationCode = verificationCode;
+        }
+
+        public Object getPayMethod() {
+            return payMethod;
+        }
+
+        public void setPayMethod(Object payMethod) {
+            this.payMethod = payMethod;
+        }
+
+        public String getTradeNo() {
+            return tradeNo;
+        }
+
+        public void setTradeNo(String tradeNo) {
+            this.tradeNo = tradeNo;
         }
 
         public int getTeaRiceNum() {
@@ -209,6 +254,22 @@ public class ChaTaiDingDanDetail {
             this.coupon = coupon;
         }
 
+        public int getRefillNum() {
+            return refillNum;
+        }
+
+        public void setRefillNum(int refillNum) {
+            this.refillNum = refillNum;
+        }
+
+        public Object getTakeTeaTime() {
+            return takeTeaTime;
+        }
+
+        public void setTakeTeaTime(Object takeTeaTime) {
+            this.takeTeaTime = takeTeaTime;
+        }
+
         public boolean isIsOverdue() {
             return isOverdue;
         }
@@ -233,26 +294,142 @@ public class ChaTaiDingDanDetail {
             this.details = details;
         }
 
+        public static class MachineProductBean {
+            /**
+             * id : null
+             * name : null
+             * productPrice : null
+             * weight : null
+             * commodityDescription : null
+             * masterGraph : null
+             * detailsFigureOne : null
+             * detailsFigureTwo : null
+             * detailsFigureThree : null
+             * createTime : null
+             * updateTime : null
+             */
+
+            private int id;
+            private String name;
+            private double productPrice;
+            private Object weight;
+            private String commodityDescription;
+            private Object masterGraph;
+            private Object detailsFigureOne;
+            private Object detailsFigureTwo;
+            private Object detailsFigureThree;
+            private Object createTime;
+            private Object updateTime;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public double getProductPrice() {
+                return productPrice;
+            }
+
+            public void setProductPrice(double productPrice) {
+                this.productPrice = productPrice;
+            }
+
+            public Object getWeight() {
+                return weight;
+            }
+
+            public void setWeight(Object weight) {
+                this.weight = weight;
+            }
+
+            public String getCommodityDescription() {
+                return commodityDescription;
+            }
+
+            public void setCommodityDescription(String commodityDescription) {
+                this.commodityDescription = commodityDescription;
+            }
+
+            public Object getMasterGraph() {
+                return masterGraph;
+            }
+
+            public void setMasterGraph(Object masterGraph) {
+                this.masterGraph = masterGraph;
+            }
+
+            public Object getDetailsFigureOne() {
+                return detailsFigureOne;
+            }
+
+            public void setDetailsFigureOne(Object detailsFigureOne) {
+                this.detailsFigureOne = detailsFigureOne;
+            }
+
+            public Object getDetailsFigureTwo() {
+                return detailsFigureTwo;
+            }
+
+            public void setDetailsFigureTwo(Object detailsFigureTwo) {
+                this.detailsFigureTwo = detailsFigureTwo;
+            }
+
+            public Object getDetailsFigureThree() {
+                return detailsFigureThree;
+            }
+
+            public void setDetailsFigureThree(Object detailsFigureThree) {
+                this.detailsFigureThree = detailsFigureThree;
+            }
+
+            public Object getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(Object createTime) {
+                this.createTime = createTime;
+            }
+
+            public Object getUpdateTime() {
+                return updateTime;
+            }
+
+            public void setUpdateTime(Object updateTime) {
+                this.updateTime = updateTime;
+            }
+        }
+
         public static class CouponBean {
             /**
-             * id : 2
-             * couponType : 2
-             * title : 免费绿茶券
+             * id : 11
+             * couponType : 1
+             * title : 喝茶券(新用户礼包)
              * isMall : 0
-             * beginTime : 2019-01-01 00:00:00
-             * endTime : 2019-12-31 00:00:00
+             * beginTime : 2019-07-02 16:10:29
+             * endTime : 2021-12-31 00:00:00
              * usableProductId : 1
-             * serviceRegulations : 使用规则
-             * createTime : null
-             * updateTime : 2019-07-23 09:56:57
-             * fullMoney : 200
-             * money : 20
+             * serviceRegulations : 免费领一杯茶
+             * createTime : 2019-08-22 16:10:26
+             * updateTime : 2019-08-23 14:33:14
+             * fullMoney : null
+             * money : 30
              * discount : null
-             * couponCount : null
+             * couponCount : 100
              * storeId : null
              * couponsLink : null
              * introduction : null
-             * imgUrl : null
+             * picture : null
              */
 
             private int id;
@@ -263,16 +440,16 @@ public class ChaTaiDingDanDetail {
             private String endTime;
             private int usableProductId;
             private String serviceRegulations;
-            private Object createTime;
+            private String createTime;
             private String updateTime;
-            private int fullMoney;
+            private Object fullMoney;
             private int money;
             private Object discount;
-            private Object couponCount;
+            private int couponCount;
             private Object storeId;
             private Object couponsLink;
             private Object introduction;
-            private Object imgUrl;
+            private Object picture;
 
             public int getId() {
                 return id;
@@ -338,11 +515,11 @@ public class ChaTaiDingDanDetail {
                 this.serviceRegulations = serviceRegulations;
             }
 
-            public Object getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(Object createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
 
@@ -354,11 +531,11 @@ public class ChaTaiDingDanDetail {
                 this.updateTime = updateTime;
             }
 
-            public int getFullMoney() {
+            public Object getFullMoney() {
                 return fullMoney;
             }
 
-            public void setFullMoney(int fullMoney) {
+            public void setFullMoney(Object fullMoney) {
                 this.fullMoney = fullMoney;
             }
 
@@ -378,11 +555,11 @@ public class ChaTaiDingDanDetail {
                 this.discount = discount;
             }
 
-            public Object getCouponCount() {
+            public int getCouponCount() {
                 return couponCount;
             }
 
-            public void setCouponCount(Object couponCount) {
+            public void setCouponCount(int couponCount) {
                 this.couponCount = couponCount;
             }
 
@@ -410,27 +587,27 @@ public class ChaTaiDingDanDetail {
                 this.introduction = introduction;
             }
 
-            public Object getImgUrl() {
-                return imgUrl;
+            public Object getPicture() {
+                return picture;
             }
 
-            public void setImgUrl(Object imgUrl) {
-                this.imgUrl = imgUrl;
+            public void setPicture(Object picture) {
+                this.picture = picture;
             }
         }
 
         public static class DetailsBean {
             /**
-             * id : 91
-             * machineId : A0002
+             * id : 369
+             * machineId : AA-BB-CC201908051519594523747
              * teaId : 1
-             * teaName : 红茶
-             * price : 10.0
-             * concentration : 淡
+             * teaName : 凤凰单枞
+             * price : 0.02
+             * concentration : 浓
              * hasdust : 1
-             * count : 2
-             * createTime : 2019-07-24 18:20:21
-             * updateTime : 2019-07-24 18:20:21
+             * count : 1
+             * createTime : 2019-08-29 13:51:10
+             * updateTime : 2019-08-29 13:51:10
              */
 
             private int id;

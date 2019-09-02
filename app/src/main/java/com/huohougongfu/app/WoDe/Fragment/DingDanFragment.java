@@ -88,6 +88,8 @@ public class DingDanFragment extends Fragment {
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("createBy",String.valueOf(id));
+        map.put("page",String.valueOf(1));
+        map.put("pageSize",String.valueOf(10));
         if (!"".equals(orderStatus)){
             map.put("orderStatus",orderStatus);
         }
@@ -100,9 +102,9 @@ public class DingDanFragment extends Fragment {
                         Gson gson = new Gson();
                         mydingdan = gson.fromJson(response.body(), MyDingDan.class);
                         if (mydingdan.getStatus() == 1) {
-                            if (mydingdan.getResult().size()>0){
+                            if (mydingdan.getResult().getList().size()>0){
                                 rec_chatai_dingdan.setVisibility(View.VISIBLE);
-                                initRec(mydingdan.getResult());
+                                initRec(mydingdan.getResult().getList());
                             }else{
                                 rec_chatai_dingdan.setVisibility(View.GONE);
                             }
@@ -116,7 +118,7 @@ public class DingDanFragment extends Fragment {
                 });
     }
 
-    private void initRec(List<MyDingDan.ResultBean> result) {
+    private void initRec(List<MyDingDan.ResultBean.ListBean> result) {
         if (result.size()>0){
             rec_chatai_dingdan.setLayoutManager(new LinearLayoutManager(getActivity()));
             mydingdanadapter = new MyDingDanAdapter(R.layout.item_dingdan, result);

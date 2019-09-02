@@ -65,7 +65,7 @@ public class DaKaActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         ChaMi chaMi = gson.fromJson(body, ChaMi.class);
                         if (chaMi.getStatus() == 1){
-                            tv_chami_num.setText(String.valueOf(chaMi.getResult().getMe()));
+                            tv_chami_num.setText(String.valueOf(chaMi.getResult().getMe()+chaMi.getResult().getSent()));
                         }
                     }
 

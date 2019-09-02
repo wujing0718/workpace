@@ -1,5 +1,6 @@
 package com.huohougongfu.app.ShouYe.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,9 +31,12 @@ import com.umeng.socialize.media.UMWeb;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnClickListener {
 
-    private int teaid;
+    private int orderNo;
     private TextView tv_zhifu_zhuangtai,tv_quhuoma,tv_chami_dikou,tv_youhuiquan,tv_xiadan_time;
     private RecyclerView rec_chatai;
     private TextView bt_queding;
@@ -62,18 +66,28 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
 
         }
     };
+    private int type;
+    private View item_dingdanxiangqing_chatai;
+    private TextView tv_cha_name,tv_cha_content,tv_cha_num,tv_cha_price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cha_tai_ding_dan_detail);
-        teaid = getIntent().getIntExtra("teaid", 0);
+        orderNo = getIntent().getIntExtra("orderNo", 0);
+        type = getIntent().getIntExtra("type", 0);
         initUI();
         initData();
     }
 
 
+    @SuppressLint("CutPasteId")
     private void initUI() {
+        item_dingdanxiangqing_chatai = findViewById(R.id.item_dingdanxiangqing_chatai);
+        tv_cha_name = item_dingdanxiangqing_chatai.findViewById(R.id.tv_cha_name);
+        tv_cha_content = item_dingdanxiangqing_chatai.findViewById(R.id.tv_cha_content);
+        tv_cha_num = item_dingdanxiangqing_chatai.findViewById(R.id.tv_cha_num);
+        tv_cha_price = item_dingdanxiangqing_chatai.findViewById(R.id.tv_cha_price);
         tv_zhifu_zhuangtai = findViewById(R.id.tv_zhifu_zhuangtai);
         tv_quhuoma = findViewById(R.id.tv_quhuoma);
         tv_chami_dikou = findViewById(R.id.tv_chami_dikou);
@@ -89,7 +103,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
     }
 
     private void initData() {
-        OkGo.<String>get(Contacts.URl1+"/machine/teaTable/orderInfo/"+teaid)
+        OkGo.<String>get(Contacts.URl1+"/machine/teaTable/orderInfo/"+orderNo)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -168,8 +182,19 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rec_chatai.setLayoutManager(layoutManager);
-        ChaTaiDetailAdapter chaTaiDetailAdapter = new ChaTaiDetailAdapter(R.layout.item_dingdanxiangqing_chatai, result.getDetails());
-        rec_chatai.setAdapter(chaTaiDetailAdapter);
+        if (result.getType() == 1){
+            rec_chatai.setVisibility(View.VISIBLE);
+            ChaTaiDetailAdapter chaTaiDetailAdapter = new ChaTaiDetailAdapter(R.layout.item_dingdanxiangqing_chatai, result.getDetails());
+            rec_chatai.setAdapter(chaTaiDetailAdapter);
+        }else if (result.getType() == 2){
+            com.huohougongfu.app.Gson.ChaTaiDingDanDetail.ResultBean.MachineProductBean machineProduct = result.getMachineProduct();
+            rec_chatai.setVisibility(View.GONE);
+            item_dingdanxiangqing_chatai.setVisibility(View.VISIBLE);
+            tv_cha_name.setText(machineProduct.getName());
+            tv_cha_content.setText(machineProduct.getCommodityDescription());
+            tv_cha_num.setText("X"+1);
+            tv_cha_price.setText("￥"+machineProduct.getProductPrice());
+        }
         tv_xiadan_time.setText("下单时间"+result.getCreateTime());
         tv_orderTotal.setText("¥"+result.getOrderTotal());
         tv_tea_num.setText("共"+result.getDetails().size()+"件");

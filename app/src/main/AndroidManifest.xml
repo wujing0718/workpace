@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- 定位包、导航包需要的额外权限（注：基础权限也需要） -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -30,15 +31,18 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".Utils.FileProvider"
             android:authorities="com.huohougongfu.app.FileProvider"
             android:exported="false"
             tools:replace="android:authorities"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:ignore="InnerclassSeparator">
+
             <meta-data
                 tools:replace="android:resource"
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/rc_file_path" />
+                android:resource="@xml/file_paths" />
+
         </provider>
 
         <activity

@@ -133,7 +133,15 @@
 
             </android.support.v7.widget.RecyclerView>
 
+            <include
+                android:visibility="gone"
+                android:id="@+id/item_dingdanxiangqing_chatai"
+                layout="@layout/item_dingdanxiangqing_chatai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <View
+                android:layout_marginTop="@dimen/dp_10"
                 android:background="#BBBBBB"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>

@@ -15,13 +15,13 @@ import com.huohougongfu.app.R;
 
 import java.util.List;
 
-public class DingDanItemAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.MallStoresBean.MallProductsBean,BaseViewHolder> {
-    public DingDanItemAdapter(int layoutResId, @Nullable List<MyDingDan.ResultBean.MallStoresBean.MallProductsBean> data) {
+public class DingDanItemAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.ListBean.MallStoresBean.MallProductsBean,BaseViewHolder> {
+    public DingDanItemAdapter(int layoutResId, @Nullable List<MyDingDan.ResultBean.ListBean.MallStoresBean.MallProductsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MyDingDan.ResultBean.MallStoresBean.MallProductsBean item) {
+    protected void convert(BaseViewHolder helper, MyDingDan.ResultBean.ListBean.MallStoresBean.MallProductsBean item) {
         TextView tv_shenqingshouhou = helper.getView(R.id.tv_shenqingshouhou);
         tv_shenqingshouhou.setVisibility(View.GONE);
         ImageView img_dingdan_photo = helper.getView(R.id.img_dingdan_photo);

@@ -1,5 +1,6 @@
 package com.huohougongfu.app.ShouYe.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,12 +23,14 @@ public class MaiChaDetailActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_title,tv_name;
     private Banner banner;
     private List<String> mbanner = new ArrayList<>();
+    private String equipmentId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mai_cha_detail);
+        equipmentId = getIntent().getStringExtra("equipmentId");
         resultBean = (MaiChaDetail.ResultBean)getIntent().getSerializableExtra("买茶");
         initUI();
     }
@@ -46,6 +49,7 @@ public class MaiChaDetailActivity extends AppCompatActivity implements View.OnCl
         tv_price.setText(String.valueOf(resultBean.getProductPrice()));
         tv_title.setText(String.valueOf(resultBean.getCommodityDescription()));
         findViewById(R.id.bt_finish).setOnClickListener(this);
+        findViewById(R.id.bt_order).setOnClickListener(this);
         initBanner();
     }
 
@@ -65,6 +69,13 @@ public class MaiChaDetailActivity extends AppCompatActivity implements View.OnCl
                 if (!utils.isDoubleClick()){
                     finish();
                 }
+                break;
+            case R.id.bt_order:
+                Intent intent = new Intent();
+                intent.putExtra("买茶",resultBean);
+                intent.putExtra("equipmentId",equipmentId);
+                intent.setClass(MaiChaDetailActivity.this,MyDingDanPaoChaActivity.class);
+                startActivity(intent);
                 break;
         }
     }

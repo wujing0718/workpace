@@ -111,15 +111,14 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         shopid = getArguments().getInt("id");
         挑选 = getArguments().getString("挑选");
         commission = getArguments().getString("commission");
-        initFuWu();
         initData();
         initUI();
         return inflate;
     }
 
-    private void initFuWu() {
+    private void initFuWu(int storeId) {
         OkGo.<String>get(Contacts.URl2+"selectBasicService")
-                .params("id",String.valueOf(shopid))
+                .params("storeId",String.valueOf(storeId))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -234,6 +233,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                     initYouHuiQuan(shopdetail.getResult().getProductDetailInfo().getStoreId());
                     initRec(shopdetail.getResult().getRecommend());
                     initRecShopDetail(shopdetail.getResult().getProductDetailInfo().getDetailPic());
+                    initFuWu(mallProduct.getStoreId());
                     if (mallProduct != null) {
                         initBanner(mallProduct);
                         initView(mallProduct);

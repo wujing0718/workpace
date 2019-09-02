@@ -34,7 +34,6 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.Paocha;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.ChaTaiActivity;
-import com.huohougongfu.app.ShouYe.Activity.JiQiAcyivity;
 import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
 import com.huohougongfu.app.ShouYe.Activity.PleaseTeaActivity;
 import com.huohougongfu.app.Utils.Contacts;

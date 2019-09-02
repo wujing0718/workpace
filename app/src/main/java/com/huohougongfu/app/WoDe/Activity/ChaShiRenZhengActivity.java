@@ -1,6 +1,9 @@
 package com.huohougongfu.app.WoDe.Activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,13 +23,17 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.huohougongfu.app.Activity.FaBuActivity;
 import com.huohougongfu.app.Activity.FaBuArticleActivity;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.UploadPictures.PictureSelectorConfig;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.ImageUtils;
 import com.huohougongfu.app.Utils.MultiLineRadioGroup;
+import com.huohougongfu.app.Utils.MyGlideEngine;
+import com.huohougongfu.app.Utils.SDCardUtil;
 import com.huohougongfu.app.Utils.utils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -34,6 +41,9 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -47,6 +57,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static io.rong.imkit.utilities.RongUtils.screenHeight;
+import static io.rong.imkit.utilities.RongUtils.screenWidth;
 
 public class ChaShiRenZhengActivity extends AppCompatActivity implements View.OnClickListener ,MultiLineRadioGroup.OnCheckedChangeListener{
 
@@ -208,22 +221,22 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.img_reverse:
                 if (!utils.isDoubleClick()) {
-                    PictureSelectorConfig.initSingleConfig(this,2);
+                    callGallery(2);
                 }
                 break;
             case R.id.img_positive:
                 if (!utils.isDoubleClick()) {
-                    PictureSelectorConfig.initSingleConfig(this,1);
+                    callGallery(1);
                 }
                 break;
             case R.id.img_yingyezizhi:
                 if (!utils.isDoubleClick()) {
-                    PictureSelectorConfig.initSingleConfig(this,3);
+                    callGallery(3);
                 }
                 break;
             case R.id.img_qitazizhi:
                 if (!utils.isDoubleClick()) {
-                    PictureSelectorConfig.initSingleConfig(this,4);
+                    callGallery(4);
                 }
                 break;
             case R.id.bt_chashi_tijiao:
@@ -284,6 +297,25 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         }
     }
 
+    /**
+     * 调用图库选择
+     */
+    private void callGallery(int code){
+        Matisse.from(this)
+                .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))//照片视频全部显示MimeType.allOf()
+                .countable(true)//true:选中后显示数字;false:选中后显示对号
+                .maxSelectable(1)//最大选择数量为9
+                //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+//                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))//图片显示表格的大小
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_USER)//图像选择和预览活动所需的方向
+                .theme(R.style.Matisse_Zhihu)//主题  暗色主题 R.style.Matisse_Dracula
+                .imageEngine(new MyGlideEngine())//图片加载方式，Glide4需要自定义实现
+                .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
+                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                .captureStrategy(new CaptureStrategy(true,"com.huohougongfu.app.FileProvider"))//存储到哪里
+                .forResult(code);//请求码
+    }
+
     private void initData(Map<String, String> map) {
         OkGo.<String>post(Contacts.URl1+"/my/teaMasterCertification")
                 .tag(this)
@@ -317,65 +349,77 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
             switch (requestCode) {
                 case 1:
                     // 图片选择结果回调
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data));
+                    refreshAdapter(data);
                     break;
                 case 2:
                     // 图片选择结果回调
-                    refreshAdapter2(PictureSelector.obtainMultipleResult(data));
+                    refreshAdapter2(data);
                     break;
                 case 3:
                     // 图片选择结果回调
-                    yingyezizhi(PictureSelector.obtainMultipleResult(data));
+                    yingyezizhi(data);
                     break;
                 case 4:
                     // 图片选择结果回调
-                    qitazizhi(PictureSelector.obtainMultipleResult(data));
+                    qitazizhi(data);
                     break;
             }
         }
     }
 
-    private void qitazizhi(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
-            //被压缩后的图片路径
-            if (localMedia.isCompressed()) {
-                qitazizhiPath = localMedia.getCompressPath(); //压缩后的图片路径
-                zizhiFile.add(new File(qitazizhiPath));
-                Glide.with(ChaShiRenZhengActivity.this).load(qitazizhiPath).into(img_qitazizhi);
-            }
+    private void qitazizhi(Intent data) {
+        List<Uri> mSelected = Matisse.obtainResult(data);
+        //被压缩后的图片路径
+        for (Uri imageUri : mSelected) {
+            String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
+            //Log.e(TAG, "###path=" + imagePath);
+            Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            qitazizhiPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
+            zizhiFile.add(new File(qitazizhiPath));
+            Glide.with(ChaShiRenZhengActivity.this).load(qitazizhiPath).into(img_qitazizhi);
         }
     }
 
-    private void yingyezizhi(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
+    private void yingyezizhi(Intent data) {
+        List<Uri> mSelected = Matisse.obtainResult(data);
+        for (Uri imageUri : mSelected) {
             //被压缩后的图片路径
-            if (localMedia.isCompressed()) {
-                yingyezizhiPath = localMedia.getCompressPath(); //压缩后的图片路径
-                zizhiFile.add(new File(yingyezizhiPath));
+            String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
+            //Log.e(TAG, "###path=" + imagePath);
+            Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            yingyezizhiPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
+            zizhiFile.add(new File(yingyezizhiPath));
                 Glide.with(ChaShiRenZhengActivity.this).load(yingyezizhiPath).into(img_yingyezizhi);
             }
-        }
     }
 
-    private void refreshAdapter(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
-            //被压缩后的图片路径
-            if (localMedia.isCompressed()) {
-                positivePath = localMedia.getCompressPath(); //压缩后的图片路径
-                shenfenFile.add(new File(positivePath));
+    private void refreshAdapter(Intent data) {
+        List<Uri> mSelected = Matisse.obtainResult(data);
+        //被压缩后的图片路径
+        for (Uri imageUri : mSelected) {
+            String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
+            //Log.e(TAG, "###path=" + imagePath);
+            Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            positivePath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
+            shenfenFile.add(new File(positivePath));
                 Glide.with(ChaShiRenZhengActivity.this).load(positivePath).into(img_positive);
-            }
         }
     }
 
-    private void refreshAdapter2(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
-            //被压缩后的图片路径
-            if (localMedia.isCompressed()) {
-                reversePath = localMedia.getCompressPath(); //压缩后的图片路径
+    private void refreshAdapter2(Intent data) {
+        List<Uri> mSelected = Matisse.obtainResult(data);
+        //被压缩后的图片路径
+        for (Uri imageUri : mSelected) {
+            String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
+            //Log.e(TAG, "###path=" + imagePath);
+            Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            reversePath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 shenfenFile.add(new File(reversePath));
                 Glide.with(ChaShiRenZhengActivity.this).load(reversePath).into(img_reverse);
-            }
         }
     }
 

@@ -143,7 +143,7 @@ dependencies {
     implementation 'com.xingliuhua:xlhratingbar_lib:1.0.1'
 
     //上传图片
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
     implementation 'com.github.Awent:PhotoPick-Master:v1.095'
 
     //沉浸式状态栏

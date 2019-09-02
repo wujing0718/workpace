@@ -227,14 +227,6 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                     });
     }
 
-    //查看大图
-    private void viewPluImg(int position) {
-        Intent intent = new Intent(FaBuArticleActivity.this, PlusImageActivity.class);
-        intent.putStringArrayListExtra(MainConstant.IMG_LIST, mPicList);
-        intent.putExtra(MainConstant.POSITION, position);
-        startActivityForResult(intent, MainConstant.REQUEST_CODE_MAIN);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -255,6 +247,7 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                         //Log.e(TAG, "###path=" + imagePath);
                         Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
                         Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+
                         //bitmap = BitmapFactory.decodeFile(imagePath);
                         compressPath = SDCardUtil.saveToSdCard(bitmap);
                         //Log.e(TAG, "###imagePath="+imagePath);

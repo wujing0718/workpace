@@ -45,7 +45,11 @@ public class PhotoSelectorAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return imageDir.getFiles().size();
+        if(imageDir!=null){
+            return imageDir.getFiles().size();
+        }else{
+            return 0;
+        }
     }
 
     @Override

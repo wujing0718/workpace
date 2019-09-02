@@ -1,6 +1,7 @@
 package com.huohougongfu.app.Activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -19,15 +22,23 @@ import com.amap.api.maps.LocationSource;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.JsonArray;
+import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.JiQiAcyivity;
 import com.huohougongfu.app.UploadPictures.GridViewAdapter;
 import com.huohougongfu.app.UploadPictures.MainConstant;
 import com.huohougongfu.app.UploadPictures.PhotoUtils;
 import com.huohougongfu.app.UploadPictures.PictureSelectorConfig;
 import com.huohougongfu.app.UploadPictures.PlusImageActivity;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.ImageUtils;
+import com.huohougongfu.app.Utils.MyGlideEngine;
+import com.huohougongfu.app.Utils.SDCardUtil;
+import com.huohougongfu.app.Utils.utils;
 import com.huxq17.handygridview.HandyGridView;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.luck.picture.lib.PictureSelector;
@@ -37,6 +48,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +64,8 @@ import java.util.Map;
 
 import static com.huxq17.handygridview.HandyGridView.MODE.LONG_PRESS;
 import static com.huxq17.handygridview.HandyGridView.MODE.TOUCH;
+import static io.rong.imkit.utilities.RongUtils.screenHeight;
+import static io.rong.imkit.utilities.RongUtils.screenWidth;
 
 public class FaBuActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -70,7 +86,9 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
     private String lat;
     private String lon;
     private String citycode;
-
+    private TextView tv_weizhi;
+    private AddressBean data1;
+    private static final int REQUEST_CODE_CHOOSE =23 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +99,10 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         citycode = MyApp.instance.getString("citycode");
         id = String.valueOf(MyApp.instance.getInt("id"));
         mContext = this;
+        tv_weizhi = findViewById(R.id.tv_weizhi);
         findViewById(R.id.bt_fabu).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
+        findViewById(R.id.view_fabud_dingwei).setOnClickListener(this);
         edt_content = findViewById(R.id.edt_content);
         initGridView();
     }
@@ -166,13 +186,33 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                         viewPluImg(position);
                     } else {
                         //添加凭证图片
-                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mPicList.size());
+                        callGallery();
+//                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mPicList.size());
                     }
                 } else {
                     viewPluImg(position);
                 }
             }
         });
+    }
+
+    /**
+     * 调用图库选择
+     */
+    private void callGallery(){
+        Matisse.from(this)
+                .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))//照片视频全部显示MimeType.allOf()
+                .countable(true)//true:选中后显示数字;false:选中后显示对号
+                .maxSelectable(6)//最大选择数量为9
+                //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+//                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))//图片显示表格的大小
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_USER)//图像选择和预览活动所需的方向
+                .theme(R.style.Matisse_Zhihu)//主题  暗色主题 R.style.Matisse_Dracula
+                .imageEngine(new MyGlideEngine())//图片加载方式，Glide4需要自定义实现
+                .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
+                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                .captureStrategy(new CaptureStrategy(true,"com.huohougongfu.app.FileProvider"))//存储到哪里
+                .forResult(REQUEST_CODE_CHOOSE);//请求码
     }
     //查看大图
     private void viewPluImg(int position) {
@@ -181,43 +221,15 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(MainConstant.POSITION, position);
         startActivityForResult(intent, MainConstant.REQUEST_CODE_MAIN);
     }
-    /**
-     * 打开相册或者照相机选择凭证图片，最多5张
-     *
-     * @param maxTotal 最多选择的图片的数量
-     */
-    private void selectPic(int maxTotal) {
-        PictureSelectorConfig.initMultiConfig(this, maxTotal);
-    }
-    // 处理选择的照片的地址
-    private void refreshAdapter(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
-            //被压缩后的图片路径
-            if (localMedia.isCompressed()) {
-                compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                //compressPath 存放所有的照片的路径
-                mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
-                mphoto.add(new File(compressPath));
-                mGridViewAddImgAdapter.notifyDataSetChanged();
-                Uri uri = Uri.fromFile(new File(compressPath));
-                bitmap = PhotoUtils.getBitmapFromUri(uri,FaBuActivity.this);
-            }
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    // 图片选择结果回调
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data));
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
-                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                case REQUEST_CODE_CHOOSE:
+                    // 处理选择的照片的地址
+                    insertImagesSync(data);
                     break;
             }
         }
@@ -228,16 +240,48 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
             mPicList.addAll(toDeletePicList);
             mGridViewAddImgAdapter.notifyDataSetChanged();
         }
+        if (requestCode == CONTEXT_RESTRICTED){
+            data1 = (AddressBean)data.getSerializableExtra("data");
+            if(data1==null){
+                tv_weizhi.setText("服务地址");
+            }else{
+                tv_weizhi.setText(data1.getTitle());
+            }
+        }
     }
+
+    private void insertImagesSync(final Intent data) {
+        List<Uri> mSelected = Matisse.obtainResult(data);
+        //被压缩后的图片路径
+        for (Uri imageUri : mSelected) {
+            String imagePath = SDCardUtil.getFilePathFromUri(FaBuActivity.this, imageUri);
+            //Log.e(TAG, "###path=" + imagePath);
+            Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            compressPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
+            //compressPath 存放所有的照片的路径
+            mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
+            mphoto.add(new File(compressPath));
+            mGridViewAddImgAdapter.notifyDataSetChanged();
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_fabu:
-                initFaBu();
+                if (!utils.isDoubleClick()){
+                    initFaBu();
+                }
             break;
             case R.id.bt_finish:
                 finish();
+                break;
+            case R.id.view_fabud_dingwei:
+                if (!utils.isDoubleClick()){
+                    startActivityForResult(new Intent(FaBuActivity.this, JiQiAcyivity.class), CONTEXT_RESTRICTED);
+                }
                 break;
         }
     }
@@ -252,9 +296,12 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                 map.put("type", "1");
                 map.put("mId", id);
                 map.put("token", token);
-                map.put("longitude", String.valueOf(lon));
-                map.put("latitude", String.valueOf(lat));
-                map.put("cityCode", citycode);
+                if (data1!=null){
+                    map.put("longitude", String.valueOf(data1.getLongitude()));
+                    map.put("latitude", String.valueOf(data1.getLatitude()));
+                    map.put("cityCode", data1.getAdCode());
+                    map.put("address", data1.getTitle());
+                }
                 OkGo.<String>post(Contacts.URl1 + "/circle/pub")
                         .tag(this)//
                         .isMultipart(true)
@@ -291,4 +338,5 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
             ToastUtils.showShort(R.string.denglu);
         }
     }
+
 }

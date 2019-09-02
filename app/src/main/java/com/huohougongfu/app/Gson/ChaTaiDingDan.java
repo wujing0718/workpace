@@ -3,12 +3,6 @@ package com.huohougongfu.app.Gson;
 import java.util.List;
 
 public class ChaTaiDingDan {
-    /**
-     * msg : 操作成功
-     * result : {"total":4,"list":[{"id":40,"machineId":"A0001","detailId":"64","details":[{"id":61,"machineId":"A0001","teaId":2,"concentration":"标准","hasdust":1,"count":1,"createTime":"2019-07-24 10:20:45","updateTime":"2019-07-24 10:20:45"}],"verificationCode":"E88O0ONH","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563952088000","updateTime":"2019-07-24T07:08:08.000+0000","teas":"[]","teaNum":null,"mid":43},{"id":41,"machineId":"A0001","detailId":"65","details":[],"verificationCode":"EL61CPT6","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563952091000","updateTime":"2019-07-24T07:08:11.000+0000","teas":"[]","teaNum":null,"mid":43},{"id":47,"machineId":"A0001","detailId":"71","details":[],"verificationCode":"V2EKD0CC","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563954350000","updateTime":"2019-07-24T07:45:50.000+0000","teas":"[]","teaNum":null,"mid":43},{"id":48,"machineId":"A0001","detailId":"72","details":[],"verificationCode":"GTTJFZB0","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563954351000","updateTime":"2019-07-24T07:45:51.000+0000","teas":"[]","teaNum":null,"mid":43}],"pageNum":1,"pageSize":10,"size":4,"startRow":1,"endRow":4,"pages":1,"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1}
-     * status : 1
-     */
-
     private String msg;
     private ResultBean result;
     private int status;
@@ -38,26 +32,6 @@ public class ChaTaiDingDan {
     }
 
     public static class ResultBean {
-        /**
-         * total : 4
-         * list : [{"id":40,"machineId":"A0001","detailId":"64","details":[{"id":61,"machineId":"A0001","teaId":2,"concentration":"标准","hasdust":1,"count":1,"createTime":"2019-07-24 10:20:45","updateTime":"2019-07-24 10:20:45"}],"verificationCode":"E88O0ONH","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563952088000","updateTime":"2019-07-24T07:08:08.000+0000","teas":"[]","teaNum":null,"mid":43},{"id":41,"machineId":"A0001","detailId":"65","details":[],"verificationCode":"EL61CPT6","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563952091000","updateTime":"2019-07-24T07:08:11.000+0000","teas":"[]","teaNum":null,"mid":43},{"id":47,"machineId":"A0001","detailId":"71","details":[],"verificationCode":"V2EKD0CC","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563954350000","updateTime":"2019-07-24T07:45:50.000+0000","teas":"[]","teaNum":null,"mid":43},{"id":48,"machineId":"A0001","detailId":"72","details":[],"verificationCode":"GTTJFZB0","teaRiceNum":0,"couponId":null,"orderStatus":"0","orderTotal":12,"createTime":"1563954351000","updateTime":"2019-07-24T07:45:51.000+0000","teas":"[]","teaNum":null,"mid":43}]
-         * pageNum : 1
-         * pageSize : 10
-         * size : 4
-         * startRow : 1
-         * endRow : 4
-         * pages : 1
-         * prePage : 0
-         * nextPage : 0
-         * isFirstPage : true
-         * isLastPage : true
-         * hasPreviousPage : false
-         * hasNextPage : false
-         * navigatePages : 8
-         * navigatepageNums : [1]
-         * navigateFirstPage : 1
-         * navigateLastPage : 1
-         */
 
         private int total;
         private int pageNum;
@@ -224,35 +198,56 @@ public class ChaTaiDingDan {
 
         public static class ListBean {
             /**
-             * id : 40
-             * machineId : A0001
-             * detailId : 64
-             * details : [{"id":61,"machineId":"A0001","teaId":2,"concentration":"标准","hasdust":1,"count":1,"createTime":"2019-07-24 10:20:45","updateTime":"2019-07-24 10:20:45"}]
-             * verificationCode : E88O0ONH
-             * teaRiceNum : 0
+             * id : 348
+             * type : 2
+             * orderNo : P201909021025378203466
+             * machineId : AA00002
+             * detailId : 1
+             * details : [{"id":348,"machineId":"AA00002","teaId":null,"teaName":null,"price":null,"concentration":null,"hasdust":null,"count":null,"createTime":"2019-09-02 10:25:37","updateTime":"2019-09-02 10:25:37"}]
+             * machineProduct : null
+             * verificationCode :
+             * payMethod : null
+             * tradeNo : null
+             * teaRiceNum : null
              * couponId : null
              * orderStatus : 0
-             * orderTotal : 12.0
-             * createTime : 1563952088000
-             * updateTime : 2019-07-24T07:08:08.000+0000
-             * teas : []
+             * orderTotal : 0.01
+             * countdownTime : 2019-09-02 10:40:37
+             * createTime : 2019-09-02 10:25:37
+             * updateTime : 2019-09-02 10:25:37
+             * teas : 商品:白茶
              * teaNum : null
-             * mid : 43
+             * currentTime : 2019-09-02 10:26:35
+             * coupon : null
+             * refillNum : 0
+             * takeTeaTime : null
+             * isOverdue : false
+             * mid : 3
              */
 
             private int id;
+            private int type;
             private String orderNo;
             private String machineId;
             private String detailId;
+            private Object machineProduct;
             private String verificationCode;
-            private int teaRiceNum;
+            private Object payMethod;
+            private Object tradeNo;
+            private Object teaRiceNum;
             private Object couponId;
             private String orderStatus;
             private double orderTotal;
+            private String countdownTime;
             private String createTime;
             private String updateTime;
             private String teas;
-            private int teaNum;
+            private Object teaNum;
+            private String currentTime;
+            private Object coupon;
+            private int refillNum;
+            private Object takeTeaTime;
+            private boolean isOverdue;
             private int mid;
             private List<DetailsBean> details;
 
@@ -262,6 +257,14 @@ public class ChaTaiDingDan {
 
             public void setId(int id) {
                 this.id = id;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
             }
 
             public String getOrderNo() {
@@ -288,6 +291,14 @@ public class ChaTaiDingDan {
                 this.detailId = detailId;
             }
 
+            public Object getMachineProduct() {
+                return machineProduct;
+            }
+
+            public void setMachineProduct(Object machineProduct) {
+                this.machineProduct = machineProduct;
+            }
+
             public String getVerificationCode() {
                 return verificationCode;
             }
@@ -296,11 +307,27 @@ public class ChaTaiDingDan {
                 this.verificationCode = verificationCode;
             }
 
-            public int getTeaRiceNum() {
+            public Object getPayMethod() {
+                return payMethod;
+            }
+
+            public void setPayMethod(Object payMethod) {
+                this.payMethod = payMethod;
+            }
+
+            public Object getTradeNo() {
+                return tradeNo;
+            }
+
+            public void setTradeNo(Object tradeNo) {
+                this.tradeNo = tradeNo;
+            }
+
+            public Object getTeaRiceNum() {
                 return teaRiceNum;
             }
 
-            public void setTeaRiceNum(int teaRiceNum) {
+            public void setTeaRiceNum(Object teaRiceNum) {
                 this.teaRiceNum = teaRiceNum;
             }
 
@@ -328,6 +355,14 @@ public class ChaTaiDingDan {
                 this.orderTotal = orderTotal;
             }
 
+            public String getCountdownTime() {
+                return countdownTime;
+            }
+
+            public void setCountdownTime(String countdownTime) {
+                this.countdownTime = countdownTime;
+            }
+
             public String getCreateTime() {
                 return createTime;
             }
@@ -352,12 +387,52 @@ public class ChaTaiDingDan {
                 this.teas = teas;
             }
 
-            public int getTeaNum() {
+            public Object getTeaNum() {
                 return teaNum;
             }
 
-            public void setTeaNum(int teaNum) {
+            public void setTeaNum(Object teaNum) {
                 this.teaNum = teaNum;
+            }
+
+            public String getCurrentTime() {
+                return currentTime;
+            }
+
+            public void setCurrentTime(String currentTime) {
+                this.currentTime = currentTime;
+            }
+
+            public Object getCoupon() {
+                return coupon;
+            }
+
+            public void setCoupon(Object coupon) {
+                this.coupon = coupon;
+            }
+
+            public int getRefillNum() {
+                return refillNum;
+            }
+
+            public void setRefillNum(int refillNum) {
+                this.refillNum = refillNum;
+            }
+
+            public Object getTakeTeaTime() {
+                return takeTeaTime;
+            }
+
+            public void setTakeTeaTime(Object takeTeaTime) {
+                this.takeTeaTime = takeTeaTime;
+            }
+
+            public boolean isIsOverdue() {
+                return isOverdue;
+            }
+
+            public void setIsOverdue(boolean isOverdue) {
+                this.isOverdue = isOverdue;
             }
 
             public int getMid() {
@@ -378,22 +453,26 @@ public class ChaTaiDingDan {
 
             public static class DetailsBean {
                 /**
-                 * id : 61
-                 * machineId : A0001
-                 * teaId : 2
-                 * concentration : 标准
-                 * hasdust : 1
-                 * count : 1
-                 * createTime : 2019-07-24 10:20:45
-                 * updateTime : 2019-07-24 10:20:45
+                 * id : 348
+                 * machineId : AA00002
+                 * teaId : null
+                 * teaName : null
+                 * price : null
+                 * concentration : null
+                 * hasdust : null
+                 * count : null
+                 * createTime : 2019-09-02 10:25:37
+                 * updateTime : 2019-09-02 10:25:37
                  */
 
                 private int id;
                 private String machineId;
-                private int teaId;
-                private String concentration;
-                private int hasdust;
-                private int count;
+                private Object teaId;
+                private Object teaName;
+                private Object price;
+                private Object concentration;
+                private Object hasdust;
+                private Object count;
                 private String createTime;
                 private String updateTime;
 
@@ -413,35 +492,51 @@ public class ChaTaiDingDan {
                     this.machineId = machineId;
                 }
 
-                public int getTeaId() {
+                public Object getTeaId() {
                     return teaId;
                 }
 
-                public void setTeaId(int teaId) {
+                public void setTeaId(Object teaId) {
                     this.teaId = teaId;
                 }
 
-                public String getConcentration() {
+                public Object getTeaName() {
+                    return teaName;
+                }
+
+                public void setTeaName(Object teaName) {
+                    this.teaName = teaName;
+                }
+
+                public Object getPrice() {
+                    return price;
+                }
+
+                public void setPrice(Object price) {
+                    this.price = price;
+                }
+
+                public Object getConcentration() {
                     return concentration;
                 }
 
-                public void setConcentration(String concentration) {
+                public void setConcentration(Object concentration) {
                     this.concentration = concentration;
                 }
 
-                public int getHasdust() {
+                public Object getHasdust() {
                     return hasdust;
                 }
 
-                public void setHasdust(int hasdust) {
+                public void setHasdust(Object hasdust) {
                     this.hasdust = hasdust;
                 }
 
-                public int getCount() {
+                public Object getCount() {
                     return count;
                 }
 
-                public void setCount(int count) {
+                public void setCount(Object count) {
                     this.count = count;
                 }
 

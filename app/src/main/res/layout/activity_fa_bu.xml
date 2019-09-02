@@ -90,16 +90,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/img_dingwei"
-            android:layout_width="12dp"
-            android:layout_height="12dp" />
-
         <TextView
-            android:text="深圳"
+            android:id="@+id/tv_weizhi"
+            android:text="所在位置"
             android:layout_marginLeft="@dimen/dp_4"
             android:textSize="12sp"
+            android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
