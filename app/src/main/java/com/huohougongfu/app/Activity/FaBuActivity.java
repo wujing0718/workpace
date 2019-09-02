@@ -299,7 +299,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                 if (data1!=null){
                     map.put("longitude", String.valueOf(data1.getLongitude()));
                     map.put("latitude", String.valueOf(data1.getLatitude()));
-                    map.put("cityCode", data1.getAdCode());
+                    map.put("cityCode", data1.getCityCode());
                     map.put("address", data1.getTitle());
                 }
                 OkGo.<String>post(Contacts.URl1 + "/circle/pub")
