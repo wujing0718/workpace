@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+
 public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String[] mTitles = {"TA的店铺", "TA的动态"};
@@ -73,6 +75,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
+        findViewById(R.id.bt_duihua).setOnClickListener(this);
         view_vip = findViewById(R.id.view_vip);
         bt_guanzhu = findViewById(R.id.bt_guanzhu);
         bt_guanzhu.setOnClickListener(this);
@@ -167,6 +170,16 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_duihua:
+                if (!utils.isDoubleClick()){
+                    if (!token.isEmpty()){
+                        RongIM.getInstance().startPrivateChat(this,
+                                xinxi.getResult().getPhone(),xinxi.getResult().getNickName());
+                    }else{
+                        ToastUtils.showShort("请登录后操作");
+                    }
+                }
+                break;
             case R.id.bt_finish:
                 finish();
                 break;

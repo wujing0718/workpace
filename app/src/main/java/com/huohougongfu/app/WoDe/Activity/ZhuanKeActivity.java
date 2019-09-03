@@ -47,6 +47,12 @@ public class ZhuanKeActivity extends AppCompatActivity {
         img_zhuanke_bg = findViewById(R.id.img_zhuanke_bg);
         tv_biaoyu = findViewById(R.id.tv_biaoyu);
         tv_guize = findViewById(R.id.tv_guize);
+        findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         initData();
     }
 

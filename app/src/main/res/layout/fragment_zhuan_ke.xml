@@ -43,6 +43,7 @@
 
 
     <TextView
+        android:id="@+id/bt_lijikaitong"
         android:text="立即开通"
         android:gravity="center"
         android:layout_gravity="bottom"

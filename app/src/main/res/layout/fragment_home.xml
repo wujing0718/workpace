@@ -157,7 +157,7 @@
 
                     <TextView
                         android:id="@+id/tv_jiqiweizhi"
-                        android:text="金晖创业社区（No.182）"
+                        android:text=""
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textColor="@color/colorBlack"
@@ -173,7 +173,7 @@
 
                         <TextView
                             android:id="@+id/tv_jiqijuli"
-                            android:text="距您100m"
+                            android:text=""
                             android:textSize="12sp"
                             android:textColor="@color/colorHui"
                             android:layout_width="wrap_content"

@@ -38,7 +38,10 @@ import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Activity.VIPActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeFenSiActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeGuanZhuActivity;
+import com.huohougongfu.app.WoDe.Activity.YaoQingActivity;
 import com.huohougongfu.app.WoDe.Activity.ZhuanKeActivity;
+import com.huohougongfu.app.WoDe.Activity.ZhuanKeYesActivity;
+import com.huohougongfu.app.WoDe.Fragment.ZhuanKeYesFragment;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -266,13 +269,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_yaoqing:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(getActivity(),YaoQingActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.bt_dingdan_daifukuan:
                 if (!utils.isDoubleClick()){
-                    if (!utils.isDoubleClick()){
-                        intent.putExtra("position",1);
-                        intent.setClass(getActivity(),MyDingDanActivity.class);
-                        startActivity(intent);
-                    }
+                    intent.putExtra("position",1);
+                    intent.setClass(getActivity(),MyDingDanActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.bt_dingdan_daifahuo:
@@ -298,8 +305,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_zhuanke:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),ZhuanKeActivity.class);
-                    startActivity(intent);
+                    if (xinxi.getResult().isZhuanKe()){
+                        intent.setClass(getActivity(),ZhuanKeActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),ZhuanKeYesActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 break;
             case R.id.bt_huiyuan_quanbu:

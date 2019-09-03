@@ -20,67 +20,68 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="vertical"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_230">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_230">
+            android:layout_height="44dp">
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:id="@+id/bt_finish"
+                android:layout_width="50dp"
                 android:layout_height="44dp">
 
-                <RelativeLayout
-                    android:layout_width="50dp"
-                    android:layout_height="44dp">
-
-                    <ImageView
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/img_back_white"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp" />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:text="赚客"
-                    android:textSize="17sp"
-                    android:textColor="@color/colorWhite"
+                <ImageView
                     android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:src="@mipmap/img_back_white"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_marginTop="@dimen/dp_30"
-                android:layout_marginRight="@dimen/dp_40"
-                android:layout_gravity="right"
-                android:orientation="vertical"
+            <TextView
+                android:text="赚客"
+                android:textSize="17sp"
+                android:textColor="@color/colorWhite"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/tv_biaoyu"
-                    android:text="标语口号"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:layout_width="@dimen/dp_120"
-                    android:layout_height="wrap_content" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tv_guize"
-                    android:layout_gravity="center_horizontal"
-                    android:text="规则详情"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:textColor="@color/colorWhite"
-                    android:layout_width="@dimen/dp_120"
-                    android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_40"
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_biaoyu"
+                android:text="标语口号"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/tv_guize"
+                android:layout_gravity="center_horizontal"
+                android:text="规则详情"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_4"
+                android:textColor="@color/colorWhite"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+
+    </LinearLayout>
 
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/stl"

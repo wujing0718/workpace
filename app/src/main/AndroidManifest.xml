@@ -29,20 +29,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
-
         <provider
             android:name=".Utils.FileProvider"
             android:authorities="com.huohougongfu.app.FileProvider"
             android:exported="false"
-            tools:replace="android:authorities"
             android:grantUriPermissions="true"
-            tools:ignore="InnerclassSeparator">
-
+            tools:ignore="InnerclassSeparator"
+            tools:replace="android:authorities">
             <meta-data
-                tools:replace="android:resource"
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-
+                android:resource="@xml/file_paths"
+                tools:replace="android:resource" />
         </provider>
 
         <activity
@@ -70,25 +67,25 @@
             android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" />
-       <!-- //高德-->
+        <!-- //高德 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="b77977ecc90aea5fb6cefb4cf2b94de2" />
-      <!--  //友盟-->
+        <!-- //友盟 -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5d1efbd54ca357a016000105" />
-        <!--//融云-->
+        <!-- //融云 -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="x18ywvqfxcr0c" />
-       <!-- //微信-->
+        <!-- //微信 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--//微博-->
+        <!-- //微博 -->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -109,7 +106,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--//qq-->
+        <!-- //qq -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -148,8 +145,7 @@
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.XieYiActivity" />
         <activity android:name=".Activity.YinSiActivity" />
-        <activity android:name=".SelectVideo.PhotoSelectorActivity"
-            />
+        <activity android:name=".SelectVideo.PhotoSelectorActivity" />
         <activity android:name="com.zyf.vc.ui.RecorderActivity" />
         <activity android:name="com.zyf.vc.ui.PlayVideoActiviy" />
         <activity
@@ -283,7 +279,9 @@
         <activity android:name=".Activity.BindActivity" />
         <activity android:name=".WoDe.Activity.VIPActivity" />
         <activity android:name=".Activity.TeaRuleActivity" />
-        <activity android:name=".WoDe.Activity.ZhuanKeActivity"></activity>
+        <activity android:name=".WoDe.Activity.ZhuanKeActivity" />
+        <activity android:name=".WoDe.Activity.ZhuanKeYesActivity" />
+        <activity android:name=".WoDe.Activity.YaoQingActivity"></activity>
     </application>
 
 </manifest>
