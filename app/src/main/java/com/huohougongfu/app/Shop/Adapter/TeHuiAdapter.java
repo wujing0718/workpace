@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Shop.Adapter;
 
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ public class TeHuiAdapter extends BaseQuickAdapter<TeiHuiGson.ResultBean.ListBea
     protected void convert(BaseViewHolder helper, TeiHuiGson.ResultBean.ListBean item) {
         SlantedTextView slanted = helper.getView(R.id.slanted);
         TextView tv_yinli = helper.getView(R.id.tv_yinli);
+        TextView tv_yuan_price = helper.getView(R.id.tv_yuan_price);
         if (item.getOfCheap() == 1){
             slanted.setVisibility(View.VISIBLE);
             slanted.setText("特惠");
@@ -44,6 +46,8 @@ public class TeHuiAdapter extends BaseQuickAdapter<TeiHuiGson.ResultBean.ListBea
         }else{
             tv_yinli.setVisibility(View.GONE);
         }
+        tv_yuan_price.setText("¥"+item.getMarketPrice());
+        tv_yuan_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG );
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         String[] split = item.getCoverUrl().split(",");
         Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_jingxuan_photo);

@@ -40,6 +40,7 @@ public class ShangPinDetailActivity extends AppCompatActivity {
     private Intent intent;
     private String 挑选;
     private String commission;
+    private String isJingXuan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class ShangPinDetailActivity extends AppCompatActivity {
         shopid = getIntent().getIntExtra("id", 0);
         挑选 = getIntent().getStringExtra("挑选");
         commission = getIntent().getStringExtra("commission");
+        isJingXuan = getIntent().getStringExtra("isJingXuan");
         intent = new Intent();
         View bt_finish = findViewById(R.id.bt_finish);
         bt_finish.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +88,7 @@ public class ShangPinDetailActivity extends AppCompatActivity {
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(ShangPinFragment.newInstance(shopid,挑选,commission));
+        mFragments.add(ShangPinFragment.newInstance(shopid,挑选,commission,isJingXuan));
         mFragments.add(CanShuFragment.newInstance(shopid,挑选));
         mFragments.add(PingJiaFragment.newInstance(shopid,挑选));
         for (int i = 0;i<mTitles.length;i++){

@@ -94,6 +94,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private RecyclerView rec_shop_detail_photo;
     private List<Object> mlist = new ArrayList<>();
     private ImageView img_dianpu_ditu;
+    private String isjingxuan;
 
     public ShangPinFragment() {
 
@@ -111,6 +112,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         shopid = getArguments().getInt("id");
         挑选 = getArguments().getString("挑选");
         commission = getArguments().getString("commission");
+        isjingxuan = getArguments().getString("isjingxuan");
         initData();
         initUI();
         return inflate;
@@ -210,6 +212,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         rec_shangpin_tuijian = inflate.findViewById(R.id.rec_shangpin_tuijian);
         tv_yuan_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG );
 
+        if ("是".equals(isjingxuan)){
+            tv_yuan_price.setVisibility(View.GONE);
+        }else{
+            tv_yuan_price.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initData() {
@@ -366,12 +373,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     }
 
-    public static Fragment newInstance(int str, String 挑选, String commission){
+    public static Fragment newInstance(int str, String 挑选, String commission, String isjingxuan){
         ShangPinFragment fragment = new ShangPinFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id",str);
         bundle.putString("挑选",挑选);
         bundle.putString("commission",commission);
+        bundle.putString("isjingxuan",isjingxuan);
         fragment.setArguments(bundle);
         return fragment;
     }

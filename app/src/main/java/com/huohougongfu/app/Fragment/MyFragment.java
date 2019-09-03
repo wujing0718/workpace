@@ -67,6 +67,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RenZhengZhuangTai renZhengZhuangTai;
     private TextView bt_dianpu;
     private ImageView img_ishuiyuan,img_isdianpu,img_ischami,img_isquanxian,img_isfangsaorao,img_iskefu;
+    private View view_vip;
 
     public MyFragment() {
         // Required empty public constructor
@@ -181,7 +182,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         Glide.with(getActivity()).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
-        tv_my_vipnum.setText("1");
+        if (result.isVip()){
+            view_vip.setVisibility(View.VISIBLE);
+            tv_my_vipnum.setText("."+result.getMemberLevel());
+        }else{
+            view_vip.setVisibility(View.GONE);
+        }
         if (result.isIsMerchant()){
             bt_dianpu.setVisibility(View.VISIBLE);
         }else{
@@ -205,6 +211,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
+        view_vip = inflate.findViewById(R.id.view_vip);
         img_ishuiyuan = inflate.findViewById(R.id.img_ishuiyuan);
         img_isdianpu = inflate.findViewById(R.id.img_isdianpu);
         img_ischami = inflate.findViewById(R.id.img_ischami);

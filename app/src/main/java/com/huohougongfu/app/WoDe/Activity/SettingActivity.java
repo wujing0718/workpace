@@ -52,6 +52,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private TextView bt_tuichudenglu;
     private SPUtils instance;
     private TextView tv_dianpu;
+    private View view_vip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +105,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private void initView(MyZhuYe.ResultBean result) {
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
+        if (result.isVip()){
+            view_vip.setVisibility(View.VISIBLE);
+            tv_my_vipnum.setText("."+result.getMemberLevel());
+        }else{
+            view_vip.setVisibility(View.GONE);
+        }
         tv_my_name.setText(result.getNickName());
-        tv_my_vipnum.setText("1");
         if (result.isIsMerchant()){
             tv_dianpu.setVisibility(View.VISIBLE);
         }else {
@@ -127,6 +133,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initUI() {
         tv_dianpu = findViewById(R.id.tv_dianpu);
+         view_vip = findViewById(R.id.view_vip);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_bianji).setOnClickListener(this);
         findViewById(R.id.bt_shouhuodizhi).setOnClickListener(this);

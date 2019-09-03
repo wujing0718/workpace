@@ -157,6 +157,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
                 intent.putExtra("id",list.getResult().getList().get(position).getId());
+                intent.putExtra("isJingXuan","是");
                 intent.setClass(getActivity(),ShangPinDetailActivity.class);
                 startActivity(intent);
             }

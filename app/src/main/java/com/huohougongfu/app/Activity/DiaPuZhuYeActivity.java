@@ -57,6 +57,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     private TextView bt_guanzhu;
     private String token;
     private int id;
+    private View view_vip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
+        view_vip = findViewById(R.id.view_vip);
         bt_guanzhu = findViewById(R.id.bt_guanzhu);
         bt_guanzhu.setOnClickListener(this);
         tv_dianpu = findViewById(R.id.tv_dianpu);
@@ -111,9 +113,14 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
 
     private void initView(MyZhuYe.ResultBean result) {
         RequestOptions requestOptions = new RequestOptions().circleCrop();
+        if (result.isVip()){
+            view_vip.setVisibility(View.VISIBLE);
+            tv_my_vipnum.setText("."+result.getMemberLevel());
+        }else{
+            view_vip.setVisibility(View.GONE);
+        }
         Glide.with(MyApp.context).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
-        tv_my_vipnum.setText("1");
         if (result.isIsMerchant()){
             tv_dianpu.setVisibility(View.VISIBLE);
         }else{

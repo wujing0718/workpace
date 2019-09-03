@@ -148,7 +148,8 @@
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.XieYiActivity" />
         <activity android:name=".Activity.YinSiActivity" />
-        <activity android:name=".SelectVideo.PhotoSelectorActivity" />
+        <activity android:name=".SelectVideo.PhotoSelectorActivity"
+            />
         <activity android:name="com.zyf.vc.ui.RecorderActivity" />
         <activity android:name="com.zyf.vc.ui.PlayVideoActiviy" />
         <activity

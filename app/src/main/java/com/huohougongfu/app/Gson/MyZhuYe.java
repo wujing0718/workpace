@@ -5,7 +5,7 @@ public class MyZhuYe {
 
     /**
      * msg : 操作成功
-     * result : {"userId":1,"nickName":"Drew","personalProfile":"个性签名","gender":1,"birthday":"1994-06-25T16:00:00.000+0000","email":"827321175@qq.com","phone":"15927484518","photo":"https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIjv8IiccVtfzLcLTDRcMWwZSuQpjhUfxTZQhK0icQZib5z4zHvbbuISVojeQgW5LWib8mWOROXlAzJeQ/132","realName":"汪应龙","idcard":"421022199406267513","teaRiceMe":20,"teaRicePresent":300,"commission":0,"income":0,"sinaToken":"","qq":"","qqToken":"","wechat":"","wechatToken":"oIJYd6HjzKdr3Fl15mRKBR2FroCw","rongToken":"57hSCP7pJk8JnzFSy/vvSSMqFDZQNArzrUE8jwbvLiq0IOviTxrx92Cg8X08td94CwgtD/C2NWsHZSM9JAsk2akVzzBkB0jE","place":"北京市","integral":320,"isMaster":true,"isMerchant":false,"state":false,"delFlag":0,"loginIp":"192.168.0.88","loginDate":null,"qrcode":null,"createTime":"2019-08-23 16:17:21","updateTime":"2019-08-23T12:13:44.000+0000","isSift":true,"buyMoney":0,"records":null,"master":{"id":3,"mId":null,"name":null,"portrait":null,"photo":null,"level":"评茶师","specialty":null,"status":null,"introduceContent":null,"createTime":"2019-08-23T08:17:21.000+0000","updateTime":"2019-08-23T12:13:44.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isCollection":0,"merchant":null},"isAttention":1,"fanCount":2,"attentionNum":1,"dynamicNum":1,"isFirstLogin":null,"masterId":null}
+     * result : {"userId":43,"nickName":"测试账号","personalProfile":"个人简介","gender":1,"birthday":"1998-01-09T16:00:00.000+0000","email":"827321175@qq.com","phone":"13111111111","photo":"http://oss.irving.net.cn/tea/1562584072524.png","realName":"汪","idcard":"421333333333333333","teaRiceMe":36947,"teaRicePresent":0,"commission":1,"income":0,"qq":null,"wechat":null,"place":"深圳市","integral":"0","isMaster":false,"isMerchant":false,"state":false,"delFlag":0,"loginIp":"192.168.31.194","loginDate":null,"qrcode":null,"createTime":"2019-06-18 19:33:28","updateTime":"2019-07-09T07:49:51.000+0000","isSift":true,"buyMoney":0,"records":null,"master":{"id":3,"mId":null,"name":null,"portrait":null,"photo":null,"level":"评茶师","specialty":null,"status":null,"introduceContent":null,"createTime":"2019-08-23T08:17:21.000+0000","updateTime":"2019-08-23T10:18:05.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isCollection":0,"merchant":null},"isAttention":1,"vip":true,"memberLevel":"0","zhuanKe":false,"fanCount":2,"attentionNum":6,"dynamicNum":32}
      * status : 1
      */
 
@@ -39,47 +39,44 @@ public class MyZhuYe {
 
     public static class ResultBean {
         /**
-         * userId : 1
-         * nickName : Drew
-         * personalProfile : 个性签名
+         * userId : 43
+         * nickName : 测试账号
+         * personalProfile : 个人简介
          * gender : 1
-         * birthday : 1994-06-25T16:00:00.000+0000
+         * birthday : 1998-01-09T16:00:00.000+0000
          * email : 827321175@qq.com
-         * phone : 15927484518
-         * photo : https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIjv8IiccVtfzLcLTDRcMWwZSuQpjhUfxTZQhK0icQZib5z4zHvbbuISVojeQgW5LWib8mWOROXlAzJeQ/132
-         * realName : 汪应龙
-         * idcard : 421022199406267513
-         * teaRiceMe : 20.0
-         * teaRicePresent : 300
-         * commission : 0.0
+         * phone : 13111111111
+         * photo : http://oss.irving.net.cn/tea/1562584072524.png
+         * realName : 汪
+         * idcard : 421333333333333333
+         * teaRiceMe : 36947.0
+         * teaRicePresent : 0
+         * commission : 1.0
          * income : 0.0
-         * sinaToken :
-         * qq :
-         * qqToken :
-         * wechat :
-         * wechatToken : oIJYd6HjzKdr3Fl15mRKBR2FroCw
-         * rongToken : 57hSCP7pJk8JnzFSy/vvSSMqFDZQNArzrUE8jwbvLiq0IOviTxrx92Cg8X08td94CwgtD/C2NWsHZSM9JAsk2akVzzBkB0jE
-         * place : 北京市
-         * integral : 320
-         * isMaster : true
+         * qq : null
+         * wechat : null
+         * place : 深圳市
+         * integral : 0
+         * isMaster : false
          * isMerchant : false
          * state : false
          * delFlag : 0
-         * loginIp : 192.168.0.88
+         * loginIp : 192.168.31.194
          * loginDate : null
          * qrcode : null
-         * createTime : 2019-08-23 16:17:21
-         * updateTime : 2019-08-23T12:13:44.000+0000
+         * createTime : 2019-06-18 19:33:28
+         * updateTime : 2019-07-09T07:49:51.000+0000
          * isSift : true
          * buyMoney : 0.0
          * records : null
-         * master : {"id":3,"mId":null,"name":null,"portrait":null,"photo":null,"level":"评茶师","specialty":null,"status":null,"introduceContent":null,"createTime":"2019-08-23T08:17:21.000+0000","updateTime":"2019-08-23T12:13:44.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isCollection":0,"merchant":null}
+         * master : {"id":3,"mId":null,"name":null,"portrait":null,"photo":null,"level":"评茶师","specialty":null,"status":null,"introduceContent":null,"createTime":"2019-08-23T08:17:21.000+0000","updateTime":"2019-08-23T10:18:05.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isCollection":0,"merchant":null}
          * isAttention : 1
+         * vip : true
+         * memberLevel : 0
+         * zhuanKe : false
          * fanCount : 2
-         * attentionNum : 1
-         * dynamicNum : 1
-         * isFirstLogin : null
-         * masterId : null
+         * attentionNum : 6
+         * dynamicNum : 32
          */
 
         private int userId;
@@ -96,14 +93,10 @@ public class MyZhuYe {
         private int teaRicePresent;
         private double commission;
         private double income;
-        private String sinaToken;
-        private String qq;
-        private String qqToken;
-        private String wechat;
-        private String wechatToken;
-        private String rongToken;
+        private Object qq;
+        private Object wechat;
         private String place;
-        private int integral;
+        private String integral;
         private boolean isMaster;
         private boolean isMerchant;
         private boolean state;
@@ -118,11 +111,12 @@ public class MyZhuYe {
         private Object records;
         private MasterBean master;
         private int isAttention;
+        private boolean vip;
+        private String memberLevel;
+        private boolean zhuanKe;
         private int fanCount;
         private int attentionNum;
         private int dynamicNum;
-        private Object isFirstLogin;
-        private Object masterId;
 
         public int getUserId() {
             return userId;
@@ -236,52 +230,20 @@ public class MyZhuYe {
             this.income = income;
         }
 
-        public String getSinaToken() {
-            return sinaToken;
-        }
-
-        public void setSinaToken(String sinaToken) {
-            this.sinaToken = sinaToken;
-        }
-
-        public String getQq() {
+        public Object getQq() {
             return qq;
         }
 
-        public void setQq(String qq) {
+        public void setQq(Object qq) {
             this.qq = qq;
         }
 
-        public String getQqToken() {
-            return qqToken;
-        }
-
-        public void setQqToken(String qqToken) {
-            this.qqToken = qqToken;
-        }
-
-        public String getWechat() {
+        public Object getWechat() {
             return wechat;
         }
 
-        public void setWechat(String wechat) {
+        public void setWechat(Object wechat) {
             this.wechat = wechat;
-        }
-
-        public String getWechatToken() {
-            return wechatToken;
-        }
-
-        public void setWechatToken(String wechatToken) {
-            this.wechatToken = wechatToken;
-        }
-
-        public String getRongToken() {
-            return rongToken;
-        }
-
-        public void setRongToken(String rongToken) {
-            this.rongToken = rongToken;
         }
 
         public String getPlace() {
@@ -292,11 +254,11 @@ public class MyZhuYe {
             this.place = place;
         }
 
-        public int getIntegral() {
+        public String getIntegral() {
             return integral;
         }
 
-        public void setIntegral(int integral) {
+        public void setIntegral(String integral) {
             this.integral = integral;
         }
 
@@ -412,6 +374,30 @@ public class MyZhuYe {
             this.isAttention = isAttention;
         }
 
+        public boolean isVip() {
+            return vip;
+        }
+
+        public void setVip(boolean vip) {
+            this.vip = vip;
+        }
+
+        public String getMemberLevel() {
+            return memberLevel;
+        }
+
+        public void setMemberLevel(String memberLevel) {
+            this.memberLevel = memberLevel;
+        }
+
+        public boolean isZhuanKe() {
+            return zhuanKe;
+        }
+
+        public void setZhuanKe(boolean zhuanKe) {
+            this.zhuanKe = zhuanKe;
+        }
+
         public int getFanCount() {
             return fanCount;
         }
@@ -436,22 +422,6 @@ public class MyZhuYe {
             this.dynamicNum = dynamicNum;
         }
 
-        public Object getIsFirstLogin() {
-            return isFirstLogin;
-        }
-
-        public void setIsFirstLogin(Object isFirstLogin) {
-            this.isFirstLogin = isFirstLogin;
-        }
-
-        public Object getMasterId() {
-            return masterId;
-        }
-
-        public void setMasterId(Object masterId) {
-            this.masterId = masterId;
-        }
-
         public static class MasterBean {
             /**
              * id : 3
@@ -464,7 +434,7 @@ public class MyZhuYe {
              * status : null
              * introduceContent : null
              * createTime : 2019-08-23T08:17:21.000+0000
-             * updateTime : 2019-08-23T12:13:44.000+0000
+             * updateTime : 2019-08-23T10:18:05.000+0000
              * masterAddress : null
              * storeId : null
              * isMerchant : null

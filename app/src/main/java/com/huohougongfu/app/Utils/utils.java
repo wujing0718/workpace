@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -33,6 +34,8 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class utils {
     private static long lastClickTime;
@@ -436,4 +439,5 @@ public class utils {
         }
         return (luhmSum % 10 == 0) ? '0' : (char) ((10 - luhmSum % 10) + '0');
     }
+
 }

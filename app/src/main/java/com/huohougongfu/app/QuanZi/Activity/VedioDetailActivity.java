@@ -468,7 +468,7 @@ public class VedioDetailActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (!"".equals(token)){
                             new XPopup.Builder(VedioDetailActivity.this)
-                                    .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
+//                                    .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
                                     .asCustom(new VedioComment(VedioDetailActivity.this,dId)/*.enableDrag(false)*/)
                                     .show();
                         }else{

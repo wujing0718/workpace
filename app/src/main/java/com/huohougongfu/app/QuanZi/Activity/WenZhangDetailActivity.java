@@ -66,6 +66,8 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private TextView tv_quanzi_weizhi;
     private PingLunAdapter pingLunAdapter;
     private TextView tv_wenzhang_title;
+    private TextView tv_wenzhang_time,tv_liulanliang_num,tv_pinglum_num,tv_xihuan_num;
+    private ImageView img_xihuan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,13 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         initUI();
     }
 
+
     private void initUI() {
+        img_xihuan = findViewById(R.id.img_xihuan);
+        tv_liulanliang_num = findViewById(R.id.tv_liulanliang_num);
+        tv_pinglum_num = findViewById(R.id.tv_pinglum_num);
+        tv_xihuan_num = findViewById(R.id.tv_xihuan_num);
+        tv_wenzhang_time = findViewById(R.id.tv_wenzhang_time);
         tv_wenzhang_title = findViewById(R.id.tv_wenzhang_title);
         img_quanzi_touxiang = findViewById(R.id.img_quanzi_touxiang);
         tv_guanzhu = findViewById(R.id.tv_guanzhu);
@@ -158,6 +166,15 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     }
 
     private void initView(QuanZiDetail.ResultBean result,PingLunGson pinglun) {
+
+        if (result.getIsPraise() == 1){
+            img_xihuan.setImageResource(R.mipmap.img_xihuan2);
+        }else{
+            img_xihuan.setImageResource(R.mipmap.img_xihuan);
+        }
+        tv_pinglum_num.setText(String.valueOf(result.getCommentNum()));
+        tv_liulanliang_num.setText(String.valueOf(result.getBrowseCount()));
+        tv_xihuan_num.setText(String.valueOf(result.getPraiseNum()));
         String content = result.getContent();
         String picture = result.getPicture();
         String[] split1 = picture.split(",");
