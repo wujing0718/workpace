@@ -8,7 +8,9 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.amap.api.services.core.AMapException;
@@ -22,6 +24,7 @@ import com.googlecode.mp4parser.authoring.Edit;
 import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.PoiAdapter;
+import com.huohougongfu.app.Utils.ListenerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +40,14 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
     private PoiSearch.Query query;
     private PoiSearch poiSearch;
     private PoiResult poiResult;
+    private InputMethodManager manager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ji_qi_acyivity);
+        manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
 
     }
@@ -50,20 +55,20 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
     private void initView() {
         edt_jiqi_sousuo = findViewById(R.id.edt_jiqi_sousuo);
         rcv_dizhi_sousuo = findViewById(R.id.rcv_dizhi_sousuo);
-        edt_jiqi_sousuo.addTextChangedListener(new TextWatcher() {
+
+        edt_jiqi_sousuo.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                seach(s.toString());
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    //先隐藏键盘
+                    if (manager.isActive()) {
+                        manager.hideSoftInputFromWindow(edt_jiqi_sousuo.getApplicationWindowToken(), 0);
+                    }
+                    //自己需要的操作
+                    seach(edt_jiqi_sousuo.getText().toString());
+                }
+                //记得返回false
+                return false;
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(JiQiAcyivity.this);

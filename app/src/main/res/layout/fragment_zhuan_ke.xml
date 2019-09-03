@@ -16,14 +16,14 @@
             android:orientation="vertical"
             android:background="@drawable/kaquan_kuang"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_margin="@dimen/dp_20"
                 app:image_scale_type="center_crop"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/dp_160">
 
             </com.youth.banner.Banner>
 
@@ -33,7 +33,7 @@
                 android:layout_marginHorizontal="@dimen/dp_20"
                 android:textSize="14sp"
                 android:textColor="@color/colorBlack"
-                android:text="文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者参数表格的介绍文字或者"
+                android:text=""
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

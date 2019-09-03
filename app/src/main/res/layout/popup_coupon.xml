@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="好茶要分享给好朋友哦~"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#CCBA91"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginHorizontal="50dp"
+                android:text="我的悄悄话："
+                android:textSize="14sp"
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginHorizontal="50dp"
+                android:background="@drawable/chami"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <EditText
+                    android:layout_above="@+id/bt_qiaoqiaohua_huanyihuan"
+                    android:id="@+id/edt_qiaoqiaohua"
+                    android:paddingLeft="@dimen/icon_size_20dp"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="收下我的茶米，你就是我的人啦~"
+                    android:gravity="top"
+                    android:textSize="12sp"
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:id="@+id/bt_qiaoqiaohua_huanyihuan"
+                    android:layout_marginRight="6dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="换一换"
+                        android:textSize="10sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#CDCDCD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:src="@mipmap/img_huanyihuan"
+                        android:layout_marginLeft="4dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_30"
+            android:src="@mipmap/huohougongfu"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100" />
+
+        <TextView
+            android:id="@+id/bt_fenxiang"
+            android:text="确认分享"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:layout_marginHorizontal="@dimen/dp_40"
+            android:paddingHorizontal="@dimen/dp_10"
+            android:paddingVertical="@dimen/dp_6"
+            android:background="@drawable/delete_kuang"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

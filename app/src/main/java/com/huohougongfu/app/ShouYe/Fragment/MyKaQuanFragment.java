@@ -19,11 +19,13 @@ import com.huohougongfu.app.Gson.MyCaQuan;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.KaQuanGuiZe;
+import com.huohougongfu.app.PopupView.PopupCoupon;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.MyKaQuanAdapter;
 import com.huohougongfu.app.ShouYe.Adapter.ShouDaoAdapter;
 import com.huohougongfu.app.ShouYe.Adapter.WoDeAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
@@ -133,34 +135,22 @@ public class MyKaQuanFragment extends Fragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TextView bt_serviceRegulations = view.findViewById(R.id.bt_serviceRegulations);
-//                TextView tv_guize = view.findViewById(R.id.tv_guize);
                 switch (view.getId()){
                     case R.id.bt_serviceRegulations:
-//                        if (tv_guize.getVisibility() == View.GONE){
-//                            tv_guize.setVisibility(View.VISIBLE);
-//                        }else{
-//                            tv_guize.setVisibility(View.GONE);
-//                        }
-                        new XPopup.Builder(getContext())
-                                .atView(bt_serviceRegulations)
-                                .hasShadowBg(false) // 去掉半透明背景
-                                .asCustom(new KaQuanGuiZe(getContext(),result.get(position).getServiceRegulations()))
-                                .show();
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .atView(bt_serviceRegulations)
+                                    .hasShadowBg(false) // 去掉半透明背景
+                                    .asCustom(new KaQuanGuiZe(getContext(),result.get(position).getServiceRegulations()))
+                                    .show();
+                        }
                         break;
                     case R.id.bt_zhuanzeng:
-                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
-                        web.setTitle("火后功夫");//标题
-                        web.setDescription("123456");//描述
-                        if (TextUtils.isEmpty("")) {
-                            web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
-                        } else {
-                            web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .asCustom(new PopupCoupon(getContext(),getActivity()))
+                                    .show();
                         }
-                        new ShareAction(getActivity())
-                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
-                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
-                                .withMedia(web)
-                                .setCallback(umShareListener).open();
                         break;
                 }
             }
