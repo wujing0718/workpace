@@ -59,7 +59,6 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         dismiss();
-                        MyDingDanPaoChaActivity.activity.finish();
                         Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
                         dismiss();
@@ -78,13 +77,6 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
         this.context= context;
         this.total_price = total_price;
     }
-
-    public ChaTaiZhiFu(Context context, String orderNo) {
-        super(context);
-        this.orderNo = orderNo;
-
-    }
-
 
     @Override
     protected int getImplLayoutId() {

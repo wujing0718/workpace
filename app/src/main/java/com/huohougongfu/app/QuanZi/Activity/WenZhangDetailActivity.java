@@ -22,6 +22,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
+import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.PingLunAdapter;
 import com.huohougongfu.app.R;
@@ -68,6 +69,8 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private TextView tv_wenzhang_title;
     private TextView tv_wenzhang_time,tv_liulanliang_num,tv_pinglum_num,tv_xihuan_num;
     private ImageView img_xihuan;
+    private TextView tv_vip_num;
+    private View view_vip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,9 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
 
 
     private void initUI() {
+        tv_vip_num = findViewById(R.id.tv_vip_num);
+        view_vip = findViewById(R.id.view_vip);
+        findViewById(R.id.bt_dianzan).setOnClickListener(this);
         img_xihuan = findViewById(R.id.img_xihuan);
         tv_liulanliang_num = findViewById(R.id.tv_liulanliang_num);
         tv_pinglum_num = findViewById(R.id.tv_pinglum_num);
@@ -167,6 +173,12 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
 
     private void initView(QuanZiDetail.ResultBean result,PingLunGson pinglun) {
 
+        if (result.getMember().getVip()){
+            tv_vip_num.setText("."+result.getMember().getMemberLevel());
+            view_vip.setVisibility(View.VISIBLE);
+        }else{
+            view_vip.setVisibility(View.GONE);
+        }
         if (result.getIsPraise() == 1){
             img_xihuan.setImageResource(R.mipmap.img_xihuan2);
         }else{
@@ -302,6 +314,19 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_dianzan:
+                if (!utils.isDoubleClick()){
+                    if (!"".equals(token)){
+                        if (detail.getResult().getIsPraise() == 0){
+                            initDianZan("1");
+                        }else{
+                            initQuXiaoDianZan("0");
+                        }
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                    }
+                }
+                break;
             case R.id.bt_finish:
                 finish();
                 break;
@@ -380,6 +405,72 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                 }
                 break;
         }
+    }
+
+    //取消点赞
+    private void initQuXiaoDianZan(String type) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(detail.getResult().getId()));
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                String num = tv_xihuan_num.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                tv_xihuan_num.setText(String.valueOf(integer-1));
+                                detail.getResult().setIsPraise(0);
+                                img_xihuan.setImageResource(R.mipmap.img_xihuan);
+                                ToastUtils.showShort("取消点赞");
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //点赞
+    private void initDianZan(String type) {
+        String num = tv_xihuan_num.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(detail.getResult().getId()));
+        map.put("mId",String.valueOf(mId));
+        map.put("token",token);
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("点赞成功");
+                                Integer integer = Integer.valueOf(num);
+                                tv_xihuan_num.setText(String.valueOf(integer+1));
+                                detail.getResult().setIsPraise(1);
+                                img_xihuan.setImageResource(R.mipmap.img_xihuan2);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initGuanZhu(int type) {

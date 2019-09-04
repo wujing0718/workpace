@@ -14,6 +14,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
+import com.huohougongfu.app.PopupView.PopupCoupon;
+import com.huohougongfu.app.PopupView.PopupDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.ChaTaiDetailAdapter;
 import com.huohougongfu.app.Utils.Contacts;
@@ -216,19 +218,10 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                             ToastUtils.showShort("订单未支付");
                         }
                     }else if ("1".equals(chaTaiDingDanDetail.getResult().getOrderStatus())){
-                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
-                        web.setTitle("火后功夫");//标题
-                        web.setDescription("123456");//描述
-                        if (TextUtils.isEmpty("")) {
-                            web.setThumb(new UMImage(ChaTaiDingDanDetail.this, R.mipmap.img_back));  //本地缩略图
-                        } else {
-                            web.setThumb(new UMImage(ChaTaiDingDanDetail.this, ""));  //网络缩略图
-                        }
-                        new ShareAction(ChaTaiDingDanDetail.this)
-                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
-                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
-                                .withMedia(web)
-                                .setCallback(umShareListener).open();
+                            new XPopup.Builder(this)
+                                    .asCustom(new PopupDingDan(this,ChaTaiDingDanDetail.this,chaTaiDingDanDetail.getResult().getId()))
+                                    .show();
+
                     }else if ("2".equals(chaTaiDingDanDetail.getResult().getOrderStatus())){
                         ToastUtils.showShort("已消费");
                     }
@@ -239,7 +232,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                     initDelect(chaTaiDingDanDetail.getResult().getId());
                 }else if (bt_queding.getText().toString().equals("确认支付")){
                     new XPopup.Builder(ChaTaiDingDanDetail.this)
-                            .asCustom(new ChaTaiZhiFu(ChaTaiDingDanDetail.this,chaTaiDingDanDetail.getResult().getOrderNo()))
+                            .asCustom(new ChaTaiZhiFu(ChaTaiDingDanDetail.this,chaTaiDingDanDetail.getResult().getOrderNo(),chaTaiDingDanDetail.getResult().getOrderTotal()))
                             .show();
                 }
                 break;

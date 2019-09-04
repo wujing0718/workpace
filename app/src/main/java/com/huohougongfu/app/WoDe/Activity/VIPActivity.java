@@ -169,7 +169,7 @@ public class VIPActivity extends AppCompatActivity implements OnClickListener {
             case R.id.bt_fangsaorao:
                 if (!utils.isDoubleClick()){
                     MessageDialog.show(VIPActivity.this, "防止骚扰", "实名认证并进行一笔消费\n" +
-                            "即可xxxxxx");
+                            "即可防止骚扰");
                 }
                 break;
             case R.id.bt_kefu:

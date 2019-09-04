@@ -255,7 +255,8 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
 
     private void initORder(double total_price, JSONArray array, int teaRice, boolean isDikou,String orderprice) {
         Map<String,String> map = new HashMap<>();
-        Double total_priceorder = Double.valueOf(orderprice);
+        String ¥ = orderprice.replace("¥", "");
+        Double total_priceorder = Double.valueOf(¥);
         map.put("json",array.toString());
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("machineId",machineId);
@@ -278,7 +279,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
             }
         }else{
             order = total_price;
-            map.put("totalPrice",String.valueOf(orderprice));
+            map.put("totalPrice",String.valueOf(total_priceorder));
         }
         OkGo.<String>post(Contacts.URl1+"/machine/generate/orders")
                 .params(map)

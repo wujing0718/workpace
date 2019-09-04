@@ -48,7 +48,6 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private String mId;
-    private String userId;
     private TextView tv_my_name,tv_my_vipnum,tv_my_id,tv_my_guanzhunum,tv_my_fensinum,
             tv_my_jianjie,tv_my_fenlei,tv_my_weizhi;
     private ImageView img_my_touxiang;
@@ -67,7 +66,6 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_dia_pu_zhu_ye);
         id = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
-        userId = getIntent().getStringExtra("userid");
         mId = getIntent().getStringExtra("id");
         initUI();
         initData();
@@ -205,8 +203,8 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
 
     private void initGuanZhu() {
         Map<String,String> map =new HashMap<>();
-        map.put("mId",String.valueOf(mId));
-        map.put("attentionId",String.valueOf(userId));
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("attentionId",String.valueOf(xinxi.getResult().getUserId()));
         map.put("type",String.valueOf(1));
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/attention")
@@ -240,7 +238,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     private void initNoGuanZhu() {
         Map<String,String> map =new HashMap<>();
         map.put("mId",String.valueOf(mId));
-        map.put("attentionId",String.valueOf(userId));
+        map.put("attentionId",String.valueOf(xinxi.getResult().getUserId()));
         map.put("type",String.valueOf(0));
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/attention")

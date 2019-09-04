@@ -208,9 +208,9 @@ public class ChaTaiAdapter extends BaseAdapter {
                  */
                 if (mChangeCountListener != null) {
                     if (!isDikou){
-                        mChangeCountListener.onChangeCount(total_price,array,myouhuiquan.getTeaRice(),isDikou,orderprice);
+                        mChangeCountListener.onChangeCount(total_price,array,myouhuiquan.getTeaRice(),isDikou,tv_total_price.getText().toString());
                     }else{
-                        mChangeCountListener.onChangeCount(total_price,array,0,isDikou,orderprice);
+                        mChangeCountListener.onChangeCount(total_price,array,0,isDikou,tv_total_price.getText().toString());
                     }
                 }
             }

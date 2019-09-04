@@ -83,6 +83,8 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private List<Integer> guanzhuId = new ArrayList<>();
     private int userid;
     private String token;
+    private View view_vip;
+    private TextView tv_vip_num;
 
 
     @Override
@@ -100,6 +102,8 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
 
     private void initUI() {
+        view_vip = findViewById(R.id.view_vip);
+        tv_vip_num = findViewById(R.id.tv_vip_num);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         bt_gengduo = findViewById(R.id.bt_gengduo);
         bt_gengduo.setOnClickListener(this);
@@ -285,6 +289,12 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                     mbanner.add(split[i]);
                 }
             }
+        }
+        if (result.getMember().getVip()){
+            tv_vip_num.setText("."+result.getMember().getMemberLevel());
+            view_vip.setVisibility(View.VISIBLE);
+        }else{
+            view_vip.setVisibility(View.GONE);
         }
         if (result.getMember().getIsAttention() ==1){
             tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);

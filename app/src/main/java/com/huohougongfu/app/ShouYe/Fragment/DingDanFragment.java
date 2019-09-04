@@ -138,8 +138,8 @@ public class DingDanFragment extends Fragment {
                 if (bt_queding.getText().toString().equals("删除订单")){
                     initDelect(data.getList().get(position).getId());
                 }else if ("0".equals(data.getList().get(position).getOrderStatus())){
-                    new XPopup.Builder(getContext())
-                            .asCustom(new ChaTaiZhiFu(getContext(),data.getList().get(position).getOrderNo()))
+                    new XPopup.Builder(getActivity())
+                            .asCustom(new ChaTaiZhiFu(getActivity(),data.getList().get(position).getOrderNo(),shangPinGson.getResult().getList().get(position).getOrderTotal()))
                             .show();
                 }else if ("1".equals(data.getList().get(position).getOrderStatus())){
 

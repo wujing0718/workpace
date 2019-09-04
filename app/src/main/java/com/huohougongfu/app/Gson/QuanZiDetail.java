@@ -214,36 +214,6 @@ public class QuanZiDetail  {
         }
 
         public static class MemberBean {
-            /**
-             * userId : 63
-             * nickName : 测试账号131
-             * personalProfile : null
-             * phone : null
-             * photo : http://zhmp.oss-cn-shenzhen.aliyuncs.com/default.png
-             * realName : null
-             * teaRiceMe : null
-             * teaRicePresent : null
-             * commission : null
-             * income : null
-             * qq : null
-             * wechat : null
-             * place : null
-             * integral : null
-             * isMaster : null
-             * isMerchant : null
-             * state : null
-             * delFlag : null
-             * loginIp : null
-             * loginDate : null
-             * qrcode : null
-             * createTime : null
-             * updateTime : null
-             * isSift : null
-             * buyMoney : null
-             * records : null
-             * master : {"id":null,"mId":null,"name":null,"portrait":null,"level":"茶艺爱好者","introduceContent":null,"createTime":null,"updateTime":null}
-             * isAttention : 0
-             */
 
             private int userId;
             private String nickName;
@@ -273,6 +243,24 @@ public class QuanZiDetail  {
             private Object records;
             private MasterBean master;
             private int isAttention;
+            private boolean vip;
+            private String memberLevel;
+
+            public String getMemberLevel() {
+                return memberLevel;
+            }
+
+            public void setMemberLevel(String memberLevel) {
+                this.memberLevel = memberLevel;
+            }
+
+            public boolean getVip() {
+                return vip;
+            }
+
+            public void setVip(boolean vip) {
+                this.vip = vip;
+            }
 
             public int getUserId() {
                 return userId;

@@ -107,19 +107,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
-                        <ImageView
-                            android:layout_marginLeft="6dp"
+                        <LinearLayout
+                            android:id="@+id/view_vip"
                             android:layout_gravity="center_vertical"
-                            android:src="@mipmap/img_vip"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp" />
-
-                        <TextView
-                            android:text=".1"
-                            android:textSize="12sp"
-                            android:textColor="#F5C211"
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_marginLeft="6dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@mipmap/img_vip"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp" />
+
+                            <TextView
+                                android:id="@+id/tv_vip_num"
+                                android:text=".1"
+                                android:textSize="12sp"
+                                android:textColor="#F5C211"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -197,7 +207,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:maxLines="2"
             android:ellipsize="end"
-            android:text="八马茶业股份有限公司源于百年前名扬东南亚的信记茶行。"
+            android:text="。"
             android:textColor="@color/colorBlack"
             android:layout_marginHorizontal="@dimen/dp_15"
             android:textSize="17sp"
