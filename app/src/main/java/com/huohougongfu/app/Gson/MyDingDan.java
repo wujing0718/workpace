@@ -277,8 +277,8 @@ public class MyDingDan {
             private Object coverUrl;
             private Object storeId;
             private Object useTeaRice;
-            private Object logisticsName;
-            private Object logisticsNo;
+            private String logisticsName;
+            private String logisticsNo;
             private Object created;
             private boolean seller;
 
@@ -570,19 +570,19 @@ public class MyDingDan {
                 this.useTeaRice = useTeaRice;
             }
 
-            public Object getLogisticsName() {
+            public String getLogisticsName() {
                 return logisticsName;
             }
 
-            public void setLogisticsName(Object logisticsName) {
+            public void setLogisticsName(String logisticsName) {
                 this.logisticsName = logisticsName;
             }
 
-            public Object getLogisticsNo() {
+            public String getLogisticsNo() {
                 return logisticsNo;
             }
 
-            public void setLogisticsNo(Object logisticsNo) {
+            public void setLogisticsNo(String logisticsNo) {
                 this.logisticsNo = logisticsNo;
             }
 

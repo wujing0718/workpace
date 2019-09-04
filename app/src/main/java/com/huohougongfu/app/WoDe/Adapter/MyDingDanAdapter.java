@@ -46,7 +46,7 @@ public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.List
         }else if (item.getOrderStatus()==0){
             bt_anniu_one.setText("取消订单");
             bt_anniu_two.setText("确认付款");
-        }else if (item.getOrderStatus()==-4){
+        }else if (item.getOrderStatus()==4){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("删除订单");
         }

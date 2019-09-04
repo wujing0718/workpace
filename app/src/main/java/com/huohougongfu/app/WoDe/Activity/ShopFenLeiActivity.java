@@ -207,12 +207,12 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                     cityValues.clear();
                     cityValuesid.clear();
                     if(!(provinceValues.isEmpty())){
-                        for (int i = 0; i < shopFenLeiGson.getResult().get(position).getList().get(0).getList().size(); i++) {
-                            cityValues.add(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getName());
-                            cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getId()));
+                        for (int i = 0; i < shopFenLeiGson.getResult().get(position).getList().size(); i++) {
+                            cityValues.add(shopFenLeiGson.getResult().get(position).getName());
+                            cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getId()));
                         }
-                        categoryName = cityValues.get(0);
-                        categoryNameid  = cityValuesid.get(0);
+                            categoryName = cityValues.get(0);
+                            categoryNameid  = cityValuesid.get(0);
                         cityAdapter.notifyDataSetChanged();
                         cityAdapter.setSelectedPositionNoNotify(0, cityValues);
                         lv_city.smoothScrollToPosition(0);

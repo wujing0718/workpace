@@ -281,7 +281,8 @@
         <activity android:name=".Activity.TeaRuleActivity" />
         <activity android:name=".WoDe.Activity.ZhuanKeActivity" />
         <activity android:name=".WoDe.Activity.ZhuanKeYesActivity" />
-        <activity android:name=".WoDe.Activity.YaoQingActivity"></activity>
+        <activity android:name=".WoDe.Activity.YaoQingActivity" />
+        <activity android:name=".WoDe.Activity.TianXieWuLiuActivity"></activity>
     </application>
 
 </manifest>

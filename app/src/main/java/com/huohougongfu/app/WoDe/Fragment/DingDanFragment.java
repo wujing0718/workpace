@@ -76,12 +76,12 @@ public class DingDanFragment extends Fragment {
         id = MyApp.instance.getInt("id");
         intent = new Intent();
         rec_chatai_dingdan = inflate.findViewById(R.id.rec_mydingdan);
-        initData();
         return inflate;
     }
 
     @Override
     public void onResume() {
+        initData();
         super.onResume();
     }
 
@@ -139,6 +139,8 @@ public class DingDanFragment extends Fragment {
                             if (result.get(position).getOrderStatus()==1||result.get(position).getOrderStatus()==0){
                                 initQuanXiao(result.get(position).getOrderNo(),result.get(position).getOrderStatus());
                             }else if (result.get(position).getOrderStatus()==2||result.get(position).getOrderStatus()==3){
+                                intent.putExtra("logisticsName",result.get(position).getLogisticsName());
+                                intent.putExtra("logisticsNo",result.get(position).getLogisticsNo());
                                 intent.setClass(getActivity(),WuLiuActivity.class);
                                 startActivity(intent);
                             }else if (result.get(position).getOrderStatus() == -1){
@@ -147,13 +149,14 @@ public class DingDanFragment extends Fragment {
                             }
                             break;
                         case R.id.bt_anniu_two:
-                            if (result.get(position).getOrderStatus()==-4){
+                            if (result.get(position).getOrderStatus()==4){
                                 initDelete(result.get(position).getOrderNo());
                             }else if(result.get(position).getOrderStatus() == 3){
                                 String storeLogo = result.get(position).getMallStores().getStoreLogo();
                                 String storeName = result.get(position).getMallStores().getStoreName();
                                 intent.putExtra("storeLogo",storeLogo);
                                 intent.putExtra("storeName",storeName);
+                                intent.putExtra("OrderNo",result.get(position).getOrderNo());
                                 intent.setClass(getActivity(),DingDanPingJiaActivity.class);
                                 startActivity(intent);
                             }else  if (result.get(position).getOrderStatus() == 0){
@@ -161,7 +164,20 @@ public class DingDanFragment extends Fragment {
                             }else  if (result.get(position).getOrderStatus() == -1){
                                 initDelete(result.get(position).getOrderNo());
                             }else if ( (result.get(position).getOrderStatus() == 2)){
-                                initQueRenShouHuo(result.get(position).getOrderNo());
+                                SelectDialog.show(getActivity(), "提示", "是否确认收货",
+                                        "确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if(!utils.isDoubleClick()){
+                                                    initQueRenShouHuo(result.get(position).getOrderNo());
+                                                }
+                                            }
+                                        },
+                                        "取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
                             }else if ((result.get(position).getOrderStatus() == 1)){
                                 //提醒发货
                                 initRemind(result.get(position).getOrderNo());
@@ -213,20 +229,7 @@ public class DingDanFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status" ) == 1){
-                                SelectDialog.show(getActivity(), "提示", "是否确认收货",
-                                        "确定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                if(!utils.isDoubleClick()){
-                                                    initData();
-                                                }
-                                            }
-                                        },
-                                        "取消", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        });
+                                initData();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -279,6 +282,7 @@ public class DingDanFragment extends Fragment {
                                             try {
                                                 JSONObject jsonObject = new JSONObject(body);
                                                 if (jsonObject.getInt("status") == 1){
+                                                    initData();
                                                     ToastUtils.showShort(jsonObject.getString("msg"));
                                                     mydingdanadapter.notifyDataSetChanged();
                                                 }else{

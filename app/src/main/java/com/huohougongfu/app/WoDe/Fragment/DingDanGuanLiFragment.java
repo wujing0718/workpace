@@ -23,6 +23,7 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
+import com.huohougongfu.app.WoDe.Activity.TianXieWuLiuActivity;
 import com.huohougongfu.app.WoDe.Activity.WuLiuActivity;
 import com.huohougongfu.app.WoDe.Adapter.DingDanGuanLiAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
@@ -40,6 +41,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -53,6 +56,7 @@ public class DingDanGuanLiFragment extends Fragment {
     private Intent intent;
     private int id;
     private DingDanGuanLiAdapter dingDanGuanLiAdapter;
+    private String token;
 
     public DingDanGuanLiFragment() {
         // Required empty public constructor
@@ -65,10 +69,16 @@ public class DingDanGuanLiFragment extends Fragment {
         inflate = inflater.inflate(R.layout.fragment_ding_dan_guan_li, container, false);
         status = getArguments().getString("ARGS");
         id = MyApp.instance.getInt("id");
+        token = MyApp.instance.getString("token");
         intent = new Intent();
         initUI();
-        initData();
         return inflate;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 
     private void initUI() {
@@ -136,12 +146,21 @@ public class DingDanGuanLiFragment extends Fragment {
                             intent.setClass(getActivity(),DingDanPingJiaActivity.class);
                             startActivity(intent);
                         }else  if (list.get(position).getOrderStatus() == 0){
-                            ToastUtils.showShort("联系买家");
+                            if (!utils.isDoubleClick()){
+                                if (!token.isEmpty()){
+                                    RongIM.getInstance().startPrivateChat(getActivity(),
+                                            list.get(position).getPhone(),list.get(position).getPhone());
+                                }else{
+                                    ToastUtils.showShort("请登录后操作");
+                                }
+                            }
                         }else  if (list.get(position).getOrderStatus() == -1){
                             initDelete(list.get(position).getOrderNo());
                         }else  if (list.get(position).getOrderStatus() == 1){
-                            //确认发货
-                            initFaHuo(list.get(position).getOrderNo());
+                            Intent intent = new Intent();
+                            intent.putExtra("orderNo",list.get(position).getOrderNo());
+                            intent.setClass(getActivity(), TianXieWuLiuActivity.class);
+                            startActivity(intent);
                         }
                         break;
                 }
@@ -149,30 +168,6 @@ public class DingDanGuanLiFragment extends Fragment {
         });
     }
 
-    private void initFaHuo(String orderNo) {
-        Map<String,String> map = new HashMap<>();
-        map.put("orderNo",orderNo);
-        OkGo.<String>post(Contacts.URl1+"order/confirmSendGoods")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        Gson gson = new Gson();
-                        JSONObject jsonObject = null;
-                        try {
-                            jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                initData();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        QueRenFaHuo queRenFaHuo = gson.fromJson(body, QueRenFaHuo.class);
-//                        if (queRenFaHuo.get)
-                    }
-                });
-    }
 
     //  取消订单
     private void initQuanXiao(String orderNo, int orderStatus) {

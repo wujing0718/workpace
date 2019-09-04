@@ -29,11 +29,14 @@ public class WuLiuActivity extends AppCompatActivity {
     private SmartRefreshLayout smartrefreshlayout;
     private TextView tv_kuaidi_name,tv_kuaidi_phone,tv_kuaidi_danhao;
     private ImageView img_duaidi_photo;
+    private String logisticsName,logisticsNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wu_liu);
+        logisticsName = getIntent().getStringExtra("logisticsName");
+        logisticsNo = getIntent().getStringExtra("logisticsNo");
         initData();
     }
 
@@ -62,8 +65,8 @@ public class WuLiuActivity extends AppCompatActivity {
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
-        map.put("no","806869872163376301");
-        map.put("type","YTO");
+        map.put("no",logisticsNo);
+        map.put("type",logisticsName);
         OkGo.<String>post(Contacts.URl1+"/kuaidi/info")
                 .params(map)
                 .execute(new StringCallback() {

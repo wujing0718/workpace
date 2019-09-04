@@ -72,14 +72,14 @@
                             android:layout_width="@dimen/layout_margin_64dp"
                             android:layout_height="@dimen/layout_margin_64dp" />
 
-                        <TextView
-                            android:text="V"
-                            android:gravity="center"
-                            android:background="@drawable/wode_dengji"
-                            android:layout_gravity="bottom|right"
-                            android:textColor="@color/colorRed"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        <!--<TextView-->
+                            <!--android:text="V"-->
+                            <!--android:gravity="center"-->
+                            <!--android:background="@drawable/wode_dengji"-->
+                            <!--android:layout_gravity="bottom|right"-->
+                            <!--android:textColor="@color/colorRed"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
 
                     </FrameLayout>
 

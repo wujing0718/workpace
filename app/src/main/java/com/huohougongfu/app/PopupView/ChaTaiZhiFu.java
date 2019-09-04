@@ -86,8 +86,6 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
     @Override
     protected void onCreate() {
         super.onCreate();
-        initALi();
-        initWX();
         check_yue = findViewById(R.id.check_yue);
         check_ali = findViewById(R.id.check_ali);
         check_weixin = findViewById(R.id.check_weixin);
@@ -116,6 +114,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                                 JSONObject jsonObject = new JSONObject(body);
                                 if (jsonObject.getInt("status") == 1){
                                     alitoken = jsonObject.getString("result");
+                                    initALiPay();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -133,6 +132,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                                 JSONObject jsonObject = new JSONObject(body);
                                 if (jsonObject.getInt("status") == 1){
                                     alitoken = jsonObject.getString("result");
+                                    initALiPay();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -154,6 +154,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 wxtoken = jsonObject.getString("result");
+                                initWXPay();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -191,11 +192,11 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                 }else if (check_ali.isChecked()){
                     check_yue.setChecked(false);
                     check_weixin.setChecked(false);
-                    initALiPay();
+                    initALi();
                 }else{
                     check_yue.setChecked(false);
                     check_ali.setChecked(false);
-                    initWXPay();
+                    initWX();
                 }
                 break;
         }

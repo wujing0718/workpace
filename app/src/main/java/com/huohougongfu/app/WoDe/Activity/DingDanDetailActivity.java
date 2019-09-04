@@ -196,6 +196,9 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
             tv_dingdan_caozuo2.setText("删除订单");
             tv_dingdan_zhuangtai.setText("已取消");
             view_logistics.setVisibility(View.VISIBLE);
+        }else if (orderStatus == 4){
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
+            tv_dingdan_caozuo2.setVisibility(View.GONE);
         }
         img_dianpu_logo = findViewById(R.id.img_dianpu_logo);
         tv_dianpu_name = findViewById(R.id.tv_dianpu_name);

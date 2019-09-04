@@ -62,7 +62,6 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                         intent.setClass(context, MyDingDanActivity.class);
                         context.startActivity(intent);
                         dismiss();
-                        XiaDanActivity.activity.finish();
                         Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
                         dismiss();

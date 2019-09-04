@@ -57,6 +57,7 @@ public class DingDanPingJiaActivity extends AppCompatActivity implements View.On
     private XLHRatingBar miaoshu,wuliu,fuwu;
     private int shopid;
     private int miaoshunum,fuwunum,wuliunum;
+    private String orderNo;
 
 
     @Override
@@ -65,6 +66,7 @@ public class DingDanPingJiaActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_ding_dan_ping_jia);
         storeLogo = getIntent().getStringExtra("storeLogo");
         storeName = getIntent().getStringExtra("storeName");
+        orderNo = getIntent().getStringExtra("OrderNo");
         shopid = getIntent().getIntExtra("shopid", 0);
         initUI();
         initGridView();
@@ -213,6 +215,7 @@ public class DingDanPingJiaActivity extends AppCompatActivity implements View.On
             map.put("describeScore",String.valueOf(miaoshunum));
             map.put("logisticSscore",String.valueOf(wuliunum));
             map.put("serviceScore",String.valueOf(fuwunum));
+            map.put("orderNo",orderNo);
             OkGo.<String>post(Contacts.URl1+"order/apprasise")
                     .tag(this)//
                     .isMultipart(true)

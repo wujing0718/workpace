@@ -110,6 +110,24 @@ public class DingDanGuanLi {
         private Object useTeaRice;
         private boolean seller;
         private List<MallProductsBean> mallProducts;
+        private String photo;
+        private String phone;
+
+        public String getPhoto() {
+            return photo;
+        }
+
+        public void setPhoto(String photo) {
+            this.photo = photo;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
 
         public Object getId() {
             return id;
