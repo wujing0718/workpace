@@ -29,6 +29,7 @@ import com.huohougongfu.app.Adapter.ShoppingCarAdapter;
 import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ShopDingDan;
+import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.Gson.ShoppingCarDataBean;
 import com.huohougongfu.app.Gson.TiJiaoDingDan;
 import com.huohougongfu.app.MyApp;
@@ -62,6 +63,7 @@ import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 public class XiaDanAdapter extends BaseExpandableListAdapter {
 
     private final int standardId;
+    private final ShopYouHuiQuan.ResultBean coupon;
     private ImageView img_dianpu_logo;
     private ShopDingDan.ResultBean  list;
     private View bt_chami_dikou;
@@ -78,7 +80,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private List<ShopDingDan.ResultBean.OrderListBean> data;
 
     public XiaDanAdapter(Context context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
-                         ImageView img_chami_check, TextView tv_total_price, double teaRice,int standardId) {
+                         ImageView img_chami_check, TextView tv_total_price, double teaRice,int standardId,ShopYouHuiQuan.ResultBean coupon) {
         this.bt_chami_dikou =bt_chami_dikou;
         this.btn_go_to_pay = btn_go_to_pay;
         this.context = context;
@@ -87,6 +89,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         this.tvTotalPrice = tv_total_price;
         this.teaRice = teaRice;
         this.standardId =standardId;
+        this.coupon = coupon;
     }
 
     /**
@@ -138,7 +141,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         String store_id = String.valueOf(mallStoresBean.getMallStore().getId());
         //店铺名称
         String store_name = mallStoresBean.getMallStore().getStoreName();
-
         String storeLogo = mallStoresBean.getMallStore().getStoreLogo();
         if (store_name != null) {
             groupViewHolder.tvStoreName.setText(store_name);
@@ -178,7 +180,12 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                                     if (dikou>=total_price){
                                         tvTotalPrice.setText("¥" + decimalFormat.format(0.00));
                                     }else{
-                                        tvTotalPrice.setText("¥" + decimalFormat.format(total_price-dikou));
+                                        if (total_price>=coupon.getFullMoney()){
+                                            tvTotalPrice.setText(decimalFormat.format(total_price-dikou-coupon.getMoney()));
+                                        }else{
+                                            tvTotalPrice.setText("¥" + decimalFormat.format(total_price-dikou));
+
+                                        }
                                     }
                                 }
                             });
@@ -206,7 +213,11 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                             runOnUiThread(new Runnable(){
                                 @Override
                                 public void run() {
-                                    tvTotalPrice.setText("¥" + decimalFormat.format(total_price));
+                                    if (total_price>=coupon.getFullMoney()){
+                                        tvTotalPrice.setText(decimalFormat.format(total_price-coupon.getMoney()));
+                                    }else{
+                                        tvTotalPrice.setText("¥" + decimalFormat.format(total_price));
+                                    }
                                 }
                             });
                         }
@@ -261,6 +272,9 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         for (int i = 0; i < temp.size(); i++) {
+                            if (coupon!=null){
+                                jsonObject.put("couponsId",coupon.getId());
+                            }
                             jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
                             jsonObject.put("orderId",list.getOrderList().get(0).getOrderId());
                             jsonObject.put("productId",temp.get(i).getId());
@@ -307,10 +321,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                         TiJiaoDingDan shopDingDan = gson.fromJson(body, TiJiaoDingDan.class);
                         if (shopDingDan.getStatus() == 1){
                             initALi(list.getOrderList().get(0).getOrderId());
-//                            Intent intent = new Intent();
-//                            intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
-//                            intent.setClass(context,XiaDanActivity.class);
-//                            context.startActivity(intent);
                         }
                     }
                 });
@@ -387,6 +397,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         childViewHolder.tv_dingdan_title.setText(mallProductsBean1.getName());
         childViewHolder.tv_dingdan_guige.setText(mallProductsBean1.getStandard());
         childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getPrice()));
+        childViewHolder.tv_youhuiquan.setText("满"+coupon.getFullMoney()+"减"+coupon.getMoney());
         childViewHolder.amountview.setCount(mallProductsBean1.getNum());
         Glide.with(context).load(mallProductsBean1.getCoverUrl()).into(childViewHolder.img_dingdan_photo);
         childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {
@@ -430,6 +441,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         View view1;
         View viewLast;
         AnimShopButton amountview;
+        TextView tv_youhuiquan;
 
         ChildViewHolder(View view) {
             tv_dingdan_title = view.findViewById(R.id.tv_dingdan_title);
@@ -437,6 +449,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
             tv_dingdan_price = view.findViewById(R.id.tv_dingdan_price);
             img_dingdan_photo = view.findViewById(R.id.img_dingdan_photo);
             amountview =  view.findViewById(R.id.amountview);
+            tv_youhuiquan = view.findViewById(R.id.tv_youhuiquan);
         }
     }
 

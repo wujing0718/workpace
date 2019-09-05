@@ -249,15 +249,18 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                         Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
 
                         //bitmap = BitmapFactory.decodeFile(imagePath);
-                        compressPath = SDCardUtil.saveToSdCard(bitmap);
-                        //Log.e(TAG, "###imagePath="+imagePath);
-                        mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
-                        mphotopath.add(new File(compressPath));
-                        imageView = new ImageView(FaBuArticleActivity.this);
-                        RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
-                        Glide.with(FaBuArticleActivity.this).load(compressPath).apply(placeholder).into(imageView);
-                        et_new_content.insertImage(imagePath, et_new_content.getMeasuredWidth());
-
+                        if (bitmap!=null){
+                            compressPath = SDCardUtil.saveToSdCard(bitmap);
+                            //Log.e(TAG, "###imagePath="+imagePath);
+                            mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
+                            mphotopath.add(new File(compressPath));
+                            imageView = new ImageView(FaBuArticleActivity.this);
+                            RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
+                            Glide.with(FaBuArticleActivity.this).load(compressPath).apply(placeholder).into(imageView);
+                            et_new_content.insertImage(imagePath, et_new_content.getMeasuredWidth());
+                        }else{
+                            ToastUtils.showShort("该图片错误");
+                        }
                     }
     }
 

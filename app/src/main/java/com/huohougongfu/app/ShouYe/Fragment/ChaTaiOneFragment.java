@@ -1,6 +1,7 @@
 package com.huohougongfu.app.ShouYe.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +24,7 @@ import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.CTYouHuiQuan;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
+import com.huohougongfu.app.PopupView.MCYouHuiQuan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
@@ -70,11 +72,13 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     private View view_zhanweitu;
     private View view_chataione;
     private TextView bt_delete;
+    private boolean isCoupon = false;
 
     public ChaTaiOneFragment() {
         // Required empty public constructor
     }
 
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
 
         @Override
@@ -82,9 +86,11 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
+                    isCoupon = true;
                     xuanzeyouhuiquan = (ChaTaiYouHuiQuan.ResultBean.CouponsBean)msg.obj;
                     tv_manjian1.setText(xuanzeyouhuiquan.getTitle());
                     tv_manjian2.setText("");
+                    mAdapter.setYouHuoQuan(xuanzeyouhuiquan);
                     break;
                 default:
                     break;
@@ -233,6 +239,17 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                 }
             }
         });
+
+        mAdapter.setOnDiKouListener(new ChaTaiAdapter.OnDiKouListener() {
+            @Override
+            public void OnDelete(boolean isdikou) {
+                if (isdikou){
+
+                }else{
+
+                }
+            }
+        });
         rec_chatai.setAdapter(mAdapter);
     }
 
@@ -261,7 +278,9 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("machineId",machineId);
         if (xuanzeyouhuiquan!=null){
+            xuanzeyouhuiquan.getCouponType();
             map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
+
         }
         double dikou = myouhuiquan.getTeaRice() * myouhuiquan.getProportion();
         double order;
@@ -319,7 +338,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                     if (myouhuiquan != null) {
                         if (myouhuiquan.getCoupons().size()>0){
                             new XPopup.Builder(getContext())
-                                    .asCustom(new CTYouHuiQuan(getContext(), myouhuiquan.getCoupons(),mHandler))
+                                    .asCustom(new CTYouHuiQuan(getContext(), myouhuiquan.getCoupons(),mHandler,chatai.getResult()))
                                     .show();
                         }else {
                             ToastUtils.showShort("暂无优惠券");

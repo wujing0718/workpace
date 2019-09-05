@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.WuLiuGson;
 import com.huohougongfu.app.Gson.WuLiuString;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.WoDe.Adapter.WuLiuAdapter;
@@ -54,7 +56,7 @@ public class WuLiuActivity extends AppCompatActivity {
         tv_kuaidi_name.setText(result.getExpName());
         tv_kuaidi_phone.setText("官方电话："+result.getExpName());
         tv_kuaidi_danhao.setText("快递单号："+result.getNumber());
-        Glide.with(WuLiuActivity.this).load(result.getLogo()).into(img_duaidi_photo);
+        Glide.with(MyApp.context).load(result.getLogo()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_duaidi_photo);
         rec_wuliu = findViewById(R.id.rec_wuliu);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         LinearLayoutManager layoutManager = new LinearLayoutManager(WuLiuActivity.this);

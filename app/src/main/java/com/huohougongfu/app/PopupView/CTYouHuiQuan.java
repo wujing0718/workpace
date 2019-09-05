@@ -8,13 +8,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
+import com.huohougongfu.app.Gson.MaiChaDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.YouHuiQuanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
-import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.lzy.okgo.OkGo;
@@ -25,19 +27,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.huohougongfu.app.Gson.ChaTaiGson.*;
+
 public class CTYouHuiQuan extends BottomPopupView {
     private final Handler mHandler;
+    private List<ChaTaiGson.ResultBean> result;
     private List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> mYouhuiquan;
     private RecyclerView rec_shop_youhuiquan;
     private Context context;
     private String token,tel,id;
 
 
-    public CTYouHuiQuan(@NonNull Context context, List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> shopid, Handler mHandler) {
+    public CTYouHuiQuan(@NonNull Context context, List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> shopid, Handler mHandler, List<ChaTaiGson.ResultBean> result) {
         super(context);
         this.context = context;
         this.mYouhuiquan = shopid;
         this.mHandler = mHandler;
+        this.result = result;
     }
     @Override
     protected int getImplLayoutId() {
@@ -71,29 +77,27 @@ public class CTYouHuiQuan extends BottomPopupView {
         youHuiQuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Message msg = Message.obtain();
-                msg.what = 0;
-                msg.obj = mYouhuiquan.get(position);
-                mHandler.sendMessage(msg);
-                dismiss();
-//                initLingQu(String.valueOf(mYouhuiquan.get(position).getId()));
+                if (mYouhuiquan.get(position).getCouponType() == 1){
+                    if (result.get(position).getTeaId() != mYouhuiquan.get(position).getUsableProductId()){
+                        ToastUtils.showShort("免费券品种不一样,不能使用");
+                    }else{
+                        Message msg = Message.obtain();
+                        msg.what = 0;
+                        msg.obj = mYouhuiquan.get(position);
+                        mHandler.sendMessage(msg);
+                        dismiss();
+                    }
+                }else{
+                    Message msg = Message.obtain();
+                    msg.what = 0;
+                    msg.obj = mYouhuiquan.get(position);
+                    mHandler.sendMessage(msg);
+                    dismiss();
+                }
             }
         });
     }
 
-    private void initLingQu(String couponsId) {
-        Map<String,String> map = new HashMap();
-        map.put("couponsId",couponsId);
-        map.put("tel",tel);
-        OkGo.<String>post(Contacts.URl2+"/member/collectStamps")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                    }
-                });
-    }
     @Override
     protected int getMaxHeight() {
         return (int) (XPopupUtils.getWindowHeight(getContext()) * .65f);

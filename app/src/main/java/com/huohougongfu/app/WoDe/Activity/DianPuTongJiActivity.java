@@ -76,7 +76,6 @@ DianPuTongJiActivity extends AppCompatActivity {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("mId", String.valueOf(MyApp.instance.getInt("id")));
-
         map.put("time", nowTime2);
         OkGo.<String>post(Contacts.URl1+"/store/turnoverStatistics")
                 .params(map)

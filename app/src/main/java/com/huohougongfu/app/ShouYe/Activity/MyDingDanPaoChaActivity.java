@@ -1,5 +1,6 @@
 package com.huohougongfu.app.ShouYe.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +12,13 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
 import com.huohougongfu.app.Gson.MaiChaDetail;
-import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.Gson.TeaDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.CTYouHuiQuan;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
+import com.huohougongfu.app.PopupView.MCYouHuiQuan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
@@ -55,6 +55,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     public static  MyDingDanPaoChaActivity activity ;
 
 
+    @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
 
         @Override
@@ -65,6 +66,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     xuanzeyouhuiquan = (ChaTaiYouHuiQuan.ResultBean.CouponsBean)msg.obj;
                     tv_manjian1.setText(xuanzeyouhuiquan.getTitle());
                     tv_manjian2.setText("");
+                    initUI();
                     break;
                 default:
                     break;
@@ -112,18 +114,33 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String teanum = String.valueOf(num);
-                    String price = String.valueOf(teaDetail.getPrice());
-                    dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                    double v = Double.parseDouble(teanum);
-                    double v1 = Double.parseDouble(price);
-                    total_price = total_price + v * v1;
-                    if (dikou>=total_price){
-                        orderprice = decimalFormat.format(0.00);
-                        tv_total_price.setText("¥" + price);
+                    if (xuanzeyouhuiquan!=null){
+                        String price = String.valueOf(teaDetail.getPrice());
+                        dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                        double v = Double.parseDouble(String.valueOf(num));
+                        double v1 = Double.parseDouble(price);
+                        total_price = total_price + v * v1;
+                        total_price = total_price*xuanzeyouhuiquan.getDiscount();
+                        if (dikou>=total_price){
+                            orderprice = decimalFormat.format(0.00);
+                            tv_total_price.setText("¥" + price);
+                        }else{
+                            orderprice = decimalFormat.format(total_price - dikou);
+                            tv_total_price.setText("¥" + price);
+                        }
                     }else{
-                        orderprice = decimalFormat.format(total_price - dikou);
-                        tv_total_price.setText("¥" + price);
+                        String price = String.valueOf(teaDetail.getPrice());
+                        dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                        double v = Double.parseDouble(String.valueOf(num));
+                        double v1 = Double.parseDouble(price);
+                        total_price = total_price + v * v1;
+                        if (dikou>=total_price){
+                            orderprice = decimalFormat.format(0.00);
+                            tv_total_price.setText("¥" + price);
+                        }else{
+                            orderprice = decimalFormat.format(total_price - dikou);
+                            tv_total_price.setText("¥" + price);
+                        }
                     }
         }else{
             //合计的计算
@@ -141,13 +158,33 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String teanum = String.valueOf(num);
-                    String price = String.valueOf(teaDetail.getPrice());
-                    double v = Double.parseDouble(teanum);
-                    double v1 = Double.parseDouble(price);
-                    total_price = total_price + v * v1;
-            orderprice = decimalFormat.format(total_price);
-                    tv_total_price.setText("¥" + orderprice);
+                    int dingdannum = num;
+                    if (xuanzeyouhuiquan!=null){
+                        if (xuanzeyouhuiquan.getCouponType() == 1){
+                            if (xuanzeyouhuiquan.getUsableProductId() == Integer.valueOf(teaDetail.getTeaId())){
+                                dingdannum = num-1;
+                            }
+                        }
+                        String price = String.valueOf(teaDetail.getPrice());
+                        double v = Double.parseDouble(String.valueOf(dingdannum));
+                        double v1 = Double.parseDouble(price);
+                        total_price = total_price + v * v1;
+                        orderprice = decimalFormat.format(total_price);
+                        tv_total_price.setText("¥" + orderprice);
+                        if (xuanzeyouhuiquan.getCouponType()==3){
+                            total_price = num * v1;
+                            total_price = total_price * xuanzeyouhuiquan.getDiscount();
+                            String orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
+                        }
+                    }else{
+                        String price = String.valueOf(teaDetail.getPrice());
+                        double v = Double.parseDouble(String.valueOf(num));
+                        double v1 = Double.parseDouble(price);
+                        total_price = total_price + v * v1;
+                        orderprice = decimalFormat.format(total_price);
+                        tv_total_price.setText("¥" + orderprice);
+                    }
                 }
     }
 
@@ -178,7 +215,6 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
             tv_price_value.setTextSize(17);
             tv_price_key.setTextColor(getResources().getColor(R.color.colorBlack));
             tv_price_key.setTextSize(17);
-            tv_total_price.setText("¥"+teaDetail.getPrice());
             amountview.setOnAddDelListener(new IOnAddDelListener() {
                 @Override
                 public void onAddSuccess(int i) {
@@ -227,12 +263,32 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        String teanum = String.valueOf(i);
-                        String price = String.valueOf(teaDetail.getPrice());
-                        double v = Double.parseDouble(teanum);
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                        if (xuanzeyouhuiquan!=null) {
+                            if (xuanzeyouhuiquan.getCouponType() == 1) {
+                                if (xuanzeyouhuiquan.getUsableProductId() == Integer.valueOf(teaDetail.getTeaId())) {
+                                    num = num - 1;
+                                }
+                            }
+                            String price = String.valueOf(teaDetail.getPrice());
+                            double v = Double.parseDouble(String.valueOf(num));
+                            double v1 = Double.parseDouble(price);
+                            total_price = total_price + v * v1;
+                            orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
+                            if (xuanzeyouhuiquan.getCouponType()==3){
+                                total_price = num * v1;
+                                total_price = total_price * xuanzeyouhuiquan.getDiscount();
+                                String orderprice = decimalFormat.format(total_price);
+                                tv_total_price.setText("¥" + orderprice);
+                            }
+                        }else{
+                            String price = String.valueOf(teaDetail.getPrice());
+                            double v = Double.parseDouble(String.valueOf(num));
+                            double v1 = Double.parseDouble(price);
+                            total_price = total_price + v * v1;
+                            orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
+                        }
                     }
                 }
 
@@ -290,13 +346,32 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        String teanum = String.valueOf(i);
-                        String price = String.valueOf(teaDetail.getPrice());
-                        double v = Double.parseDouble(teanum);
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        orderprice = decimalFormat.format(total_price);
-                        tv_total_price.setText("¥" + orderprice);
+                        if (xuanzeyouhuiquan!=null) {
+                            if (xuanzeyouhuiquan.getCouponType() == 1) {
+                                if (xuanzeyouhuiquan.getUsableProductId() == Integer.valueOf(teaDetail.getTeaId())) {
+                                    num = num - 1;
+                                }
+                            }
+                            String price = String.valueOf(teaDetail.getPrice());
+                            double v = Double.parseDouble(String.valueOf(num));
+                            double v1 = Double.parseDouble(price);
+                            total_price = total_price + v * v1;
+                            orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
+                            if (xuanzeyouhuiquan.getCouponType()==3){
+                                total_price = num * v1;
+                                total_price = total_price * xuanzeyouhuiquan.getDiscount();
+                                String orderprice = decimalFormat.format(total_price);
+                                tv_total_price.setText("¥" + orderprice);
+                            }
+                        }else{
+                            String price = String.valueOf(teaDetail.getPrice());
+                            double v = Double.parseDouble(String.valueOf(num));
+                            double v1 = Double.parseDouble(price);
+                            total_price = total_price + v * v1;
+                            orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
+                        }
                     }
                 }
 
@@ -314,7 +389,6 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
             tv_price_value.setTextSize(17);
             tv_price_key.setTextColor(getResources().getColor(R.color.colorBlack));
             tv_price_key.setTextSize(17);
-            tv_total_price.setText("¥"+String.valueOf(resultBean.getProductPrice()));
             amountview.setOnAddDelListener(new IOnAddDelListener() {
                 @Override
                 public void onAddSuccess(int i) {
@@ -327,7 +401,6 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                         array = new JSONArray();
                         JSONObject object =new JSONObject();
                         try {
-//                        object.put("id",teaDetail.getId());
                             object.put("concentration",nongdu);
                             object.put("teaId",teaDetail.getTeaId());
                             object.put("hasDust",yedi);
@@ -526,7 +599,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                     if (myouhuiquan != null) {
                         if (myouhuiquan.getCoupons().size()>0){
                             new XPopup.Builder(this)
-                                    .asCustom(new CTYouHuiQuan(this, myouhuiquan.getCoupons(),mHandler))
+                                    .asCustom(new MCYouHuiQuan(this, myouhuiquan.getCoupons(),mHandler,resultBean))
                                     .show();
                         }else {
                             ToastUtils.showShort("暂无优惠券");

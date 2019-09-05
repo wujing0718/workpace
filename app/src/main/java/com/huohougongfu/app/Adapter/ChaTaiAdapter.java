@@ -28,6 +28,7 @@ import java.util.List;
 
 public class ChaTaiAdapter extends BaseAdapter {
 
+    private ChaTaiYouHuiQuan.ResultBean.CouponsBean xuanzeyouhuiquan;
     private  int item_shouye_chataione;
     private  View bt_checkbox,bt_chami_dikou;
     private  Button btn_go_to_pay;
@@ -45,7 +46,8 @@ public class ChaTaiAdapter extends BaseAdapter {
 
     public ChaTaiAdapter(int item_shouye_chataione, View bt_checkbox, Button btn_go_to_pay,
                          List<ChaTaiGson.ResultBean> list, Context context, ImageView img_check,
-                         TextView tv_total_price, View bt_chami_dikou, ImageView img_chami_check, ChaTaiYouHuiQuan.ResultBean myouhuiquan, TextView bt_delete) {
+                         TextView tv_total_price, View bt_chami_dikou, ImageView img_chami_check,
+                         ChaTaiYouHuiQuan.ResultBean myouhuiquan, TextView bt_delete) {
         this.item_shouye_chataione = item_shouye_chataione;
         this.bt_checkbox = bt_checkbox;
         this.btn_go_to_pay = btn_go_to_pay;
@@ -120,7 +122,6 @@ public class ChaTaiAdapter extends BaseAdapter {
             @Override
             public void onAddSuccess(int i) {
                 list.get(position).setNum(i);
-//                list.get(position).setIsSelect(true);
                 notifyDataSetChanged();
             }
 
@@ -237,18 +238,37 @@ public class ChaTaiAdapter extends BaseAdapter {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String num = String.valueOf(resultBean.getNum());
-                    String price = String.valueOf(resultBean.getTea().getPrice());
-                    double dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                    double v = Double.parseDouble(num);
-                    double v1 = Double.parseDouble(price);
-                    total_price = total_price + v * v1;
-                    if (dikou>=total_price){
-                        orderprice = decimalFormat.format(0.00);
-                        tv_total_price.setText("¥" + orderprice);
-                    }else{
-                        orderprice = decimalFormat.format(total_price-dikou);
-                        tv_total_price.setText("¥" + orderprice);
+                    int num = resultBean.getNum();
+                    if (xuanzeyouhuiquan!=null) {
+                        if (xuanzeyouhuiquan.getCouponType() == 1) {
+                            if (xuanzeyouhuiquan.getUsableProductId() == resultBean.getTeaId()) {
+                                num = num - 1;
+                            }
+                            String price = String.valueOf(resultBean.getTea().getPrice());
+                            double v = Double.parseDouble(String.valueOf(num));
+                            double v1 = Double.parseDouble(price);
+                            total_price = total_price + v * v1;
+                            orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
+                            if (xuanzeyouhuiquan.getCouponType()==3){
+                                total_price = total_price * xuanzeyouhuiquan.getDiscount();
+                                String orderprice = decimalFormat.format(total_price);
+                                tv_total_price.setText("¥" + orderprice);
+                            }
+                        }else{
+                            String price = String.valueOf(resultBean.getTea().getPrice());
+                            double dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
+                            double v = Double.parseDouble(String.valueOf(num));
+                            double v1 = Double.parseDouble(price);
+                            total_price = total_price + v * v1;
+                            if (dikou>=total_price){
+                                orderprice = decimalFormat.format(0.00);
+                                tv_total_price.setText("¥" + orderprice);
+                            }else{
+                                orderprice = decimalFormat.format(total_price-dikou);
+                                tv_total_price.setText("¥" + orderprice);
+                            }
+                        }
                     }
                 }
             }
@@ -272,29 +292,55 @@ public class ChaTaiAdapter extends BaseAdapter {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String num = String.valueOf(resultBean.getNum());
-                    String price = String.valueOf(resultBean.getTea().getPrice());
-                    double v = Double.parseDouble(num);
-                    double v1 = Double.parseDouble(price);
-                    total_price = total_price + v * v1;
-                    orderprice = decimalFormat.format(total_price);
-                    tv_total_price.setText("¥" + orderprice);
+                    int num = resultBean.getNum();
+                    if (xuanzeyouhuiquan!=null){
+                        if (xuanzeyouhuiquan.getCouponType()==1){
+                            if (xuanzeyouhuiquan.getUsableProductId() == resultBean.getTeaId()){
+                                num = num-1;
+                            }
+                        }
+                        String price = String.valueOf(resultBean.getTea().getPrice());
+                        double v = Double.parseDouble(String.valueOf(num));
+                        double v1 = Double.parseDouble(price);
+                        total_price = total_price + v * v1;
+                        orderprice = decimalFormat.format(total_price);
+                        tv_total_price.setText("¥" + orderprice);
+                        if (xuanzeyouhuiquan.getCouponType()==3){
+                            total_price = v * v1;
+                            total_price = total_price * xuanzeyouhuiquan.getDiscount();
+                            String orderprice = decimalFormat.format(total_price);
+                            tv_total_price.setText("¥" + orderprice);
+                        }
+                    }else{
+                        String price = String.valueOf(resultBean.getTea().getPrice());
+                        double v = Double.parseDouble(String.valueOf(num));
+                        double v1 = Double.parseDouble(price);
+                        total_price = total_price + v * v1;
+                        orderprice = decimalFormat.format(total_price);
+                        tv_total_price.setText("¥" + orderprice);
+
+                    }
                 }
             }
         }
-
+        notifyDataSetChanged();
         bt_chami_dikou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if ( mOndikoulistener!= null){
+                    mOndikoulistener.OnDelete(isDikou);
+                }
                 new Handler(context.getMainLooper()).post(new Runnable() {
+
                     @Override
                     public void run() {
                         // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
                         if (isDikou){
                             double chamiprice = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
                             if (chamiprice<=total_price){
-                                total_price = total_price-chamiprice;
-                                orderprice = decimalFormat.format(total_price);
+                                double totalprice = total_price-chamiprice;
+                                orderprice = decimalFormat.format(totalprice);
                                 tv_total_price.setText("¥" + orderprice);
                             }else{
                                 tv_total_price.setText("¥" + 0.00);
@@ -318,6 +364,11 @@ public class ChaTaiAdapter extends BaseAdapter {
         groupViewHolder.bt_chatai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (xuanzeyouhuiquan!=null){
+                    if (xuanzeyouhuiquan.getUsableProductId() == resultBean1.getTeaId()){
+                        xuanzeyouhuiquan = null;
+                    }
+                }
                 resultBean1.setIsSelect(!isSelect1);
                 if (!isSelect1 == false) {
                     resultBean1.setIsSelect(false);
@@ -369,6 +420,11 @@ public class ChaTaiAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void setYouHuoQuan(ChaTaiYouHuiQuan.ResultBean.CouponsBean youHuoQuan) {
+        this.xuanzeyouhuiquan = youHuoQuan;
+        notifyDataSetChanged();
+    }
+
     static class GroupViewHolder extends RecyclerView.ViewHolder {
         ImageView img_check,img_chatai_photo;
         View bt_chatai;
@@ -406,5 +462,16 @@ public class ChaTaiAdapter extends BaseAdapter {
 
     public void setOnDeleteListener(ChaTaiAdapter.OnDeleteListener listener) {
         mOndeletelistener = listener;
+    }
+
+    private ChaTaiAdapter.OnDiKouListener mOndikoulistener;
+
+    public interface OnDiKouListener {
+
+        void OnDelete(boolean isdikou);
+    }
+
+    public void setOnDiKouListener(ChaTaiAdapter.OnDiKouListener listener) {
+        mOndikoulistener = listener;
     }
 }

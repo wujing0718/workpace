@@ -1,8 +1,9 @@
 package com.huohougongfu.app.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShopYouHuiQuan {
+public class ShopYouHuiQuan implements Serializable{
     /**
      * msg : 操作成功
      * result : [{"id":5,"couponType":2,"title":"满减券","isMall":"1","beginTime":"2019-06-12 19:11:09","endTime":"2019-06-29 19:11:13","usableProductId":"2","serviceRegulations":"满200","createTime":"2019-06-17 19:11:21","updateTime":"2019-06-20 16:41:26","fullMoney":200,"money":43,"couponCount":15},{"id":6,"couponType":2,"title":"满减券","isMall":"1","beginTime":"2019-06-18 19:11:58","endTime":"2019-06-29 19:12:01","usableProductId":"2","serviceRegulations":"满200","createTime":"2019-06-17 19:12:09","updateTime":"2019-06-20 16:41:32","fullMoney":200,"money":40,"couponCount":11}]
@@ -37,7 +38,7 @@ public class ShopYouHuiQuan {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * id : 5
          * couponType : 2

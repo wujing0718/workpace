@@ -1,9 +1,12 @@
 package com.huohougongfu.app.Shop.Fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +23,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
+import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
 import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.Gson.ShopFuWuGson;
 import com.huohougongfu.app.Gson.ShopGuiGe;
@@ -95,6 +99,26 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private List<Object> mlist = new ArrayList<>();
     private ImageView img_dianpu_ditu;
     private String isjingxuan;
+    private ShopYouHuiQuan youhuiquan;
+    private ShopYouHuiQuan.ResultBean xuanzeyouhuiquan;
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    xuanzeyouhuiquan = (ShopYouHuiQuan.ResultBean)msg.obj;
+                    tv_manjian1.setText("满"+xuanzeyouhuiquan.getFullMoney()+"减"+xuanzeyouhuiquan.getMoney());
+                    tv_manjian2.setText("");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
 
     public ShangPinFragment() {
 
@@ -158,14 +182,14 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         public void onSuccess(Response<String> response) {
                             String body = response.body();
                             Gson gson = new Gson();
-                            ShopYouHuiQuan youhuiquan = gson.fromJson(body, ShopYouHuiQuan.class);
+                            youhuiquan = gson.fromJson(body, ShopYouHuiQuan.class);
                             if (youhuiquan.getStatus() == 1){
                                 myouhuiquan = youhuiquan.getResult();
                                 if (myouhuiquan.size()>1){
-                                    tv_manjian1.setText(myouhuiquan.get(0).getServiceRegulations());
-                                    tv_manjian2.setText(myouhuiquan.get(1).getServiceRegulations());
+                                    tv_manjian1.setText("满"+myouhuiquan.get(0).getFullMoney()+"减"+myouhuiquan.get(0).getMoney());
+                                    tv_manjian2.setText("满"+myouhuiquan.get(1).getFullMoney()+"减"+myouhuiquan.get(1).getMoney());
                                 }else if(myouhuiquan.size() ==1){
-                                    tv_manjian1.setText(myouhuiquan.get(0).getServiceRegulations());
+                                    tv_manjian1.setText("满"+myouhuiquan.get(0).getFullMoney()+"减"+myouhuiquan.get(0).getMoney());
                                 }else if (myouhuiquan.size()<0){
                                     tv_manjian1.setText("暂无优惠券");
                                 }
@@ -391,7 +415,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 if (!utils.isDoubleClick()){
                     if (myouhuiquan!=null){
                         new XPopup.Builder(getContext())
-                                .asCustom(new YouHuiQuan(getContext(),myouhuiquan))
+                                .asCustom(new YouHuiQuan(getContext(),myouhuiquan,mHandler))
                                 .show();
                     }else{
                         ToastUtils.showShort("暂无优惠券");
@@ -426,9 +450,15 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_detail_guige:
                 if (!utils.isDoubleClick()){
+                    if (xuanzeyouhuiquan!=null){
+                        XPopup.Builder builder = new XPopup.Builder(getContext());
+                        builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan))
+                                .show();
+                    }else{
                         XPopup.Builder builder = new XPopup.Builder(getContext());
                         builder.asCustom(new GuiGe(getContext(),guige))
                                 .show();
+                    }
                 }
                 break;
             case R.id.bt_goumai:
@@ -437,9 +467,15 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         initAddCangKu();
                     }else{
                         if (!"-1".equals(id)) {
-                            XPopup.Builder builder = new XPopup.Builder(getContext());
-                            builder.asCustom(new GuiGe(getContext(), guige))
-                                    .show();
+                            if (xuanzeyouhuiquan!=null){
+                                XPopup.Builder builder = new XPopup.Builder(getContext());
+                                builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan))
+                                        .show();
+                            }else{
+                                XPopup.Builder builder = new XPopup.Builder(getContext());
+                                builder.asCustom(new GuiGe(getContext(),guige))
+                                        .show();
+                            }
                         }else{
                             ToastUtils.showShort("请登录后操作");
                         }

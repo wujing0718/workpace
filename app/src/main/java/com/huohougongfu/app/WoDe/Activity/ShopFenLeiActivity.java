@@ -211,8 +211,8 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                             cityValues.add(shopFenLeiGson.getResult().get(position).getName());
                             cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getId()));
                         }
-                            categoryName = cityValues.get(0);
-                            categoryNameid  = cityValuesid.get(0);
+//                            categoryName = cityValues.get(0);
+//                            categoryNameid  = cityValuesid.get(0);
                         cityAdapter.notifyDataSetChanged();
                         cityAdapter.setSelectedPositionNoNotify(0, cityValues);
                         lv_city.smoothScrollToPosition(0);

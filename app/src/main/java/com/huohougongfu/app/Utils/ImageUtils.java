@@ -127,22 +127,26 @@ public class ImageUtils {
      * @return 旋转后的图片
      */
     public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
-        Bitmap returnBm = null;
-        // 根据旋转角度，生成旋转矩阵
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        try {
-            // 将原始图片按照旋转矩阵进行旋转，并得到新的图片
-            returnBm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        } catch (OutOfMemoryError e) {
+        if (bitmap!=null){
+            Bitmap returnBm = null;
+            // 根据旋转角度，生成旋转矩阵
+            Matrix matrix = new Matrix();
+            matrix.postRotate(angle);
+            try {
+                // 将原始图片按照旋转矩阵进行旋转，并得到新的图片
+                returnBm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            } catch (OutOfMemoryError e) {
+            }
+            if (returnBm == null) {
+                returnBm = bitmap;
+            }
+            if (bitmap != returnBm) {
+                bitmap.recycle();
+            }
+            return returnBm;
+        }else{
+            return null;
         }
-        if (returnBm == null) {
-            returnBm = bitmap;
-        }
-        if (bitmap != returnBm) {
-            bitmap.recycle();
-        }
-        return returnBm;
     }
     /**
      * 根据路径获得突破并压缩返回bitmap用于显示
@@ -327,26 +331,30 @@ public class ImageUtils {
      * @param maxSize
      */
     public static Bitmap compressImage(Bitmap image, int maxSize){
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        // scale
-        int options = 80;
-        // Store the bitmap into output stream(no compress)
-        image.compress(Bitmap.CompressFormat.JPEG, options, os);
-        // Compress by loop
-        while ( os.toByteArray().length / 1024 > maxSize) {
-            // Clean up os
-            os.reset();
-            // interval 10
-            options -= 10;
+        if (image!=null){
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            // scale
+            int options = 80;
+            // Store the bitmap into output stream(no compress)
             image.compress(Bitmap.CompressFormat.JPEG, options, os);
-        }
+            // Compress by loop
+            while ( os.toByteArray().length / 1024 > maxSize) {
+                // Clean up os
+                os.reset();
+                // interval 10
+                options -= 10;
+                image.compress(Bitmap.CompressFormat.JPEG, options, os);
+            }
 
-        Bitmap bitmap = null;
-        byte[] b = os.toByteArray();
-        if (b.length != 0) {
-            bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            Bitmap bitmap = null;
+            byte[] b = os.toByteArray();
+            if (b.length != 0) {
+                bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            }
+            return bitmap;
+        }else{
+            return null;
         }
-        return bitmap;
     }
 
 

@@ -107,7 +107,7 @@ public class ChaTaiYouHuiQuan {
             private String updateTime;
             private Object fullMoney;
             private int money;
-            private Object discount;
+            private double discount;
             private int couponCount;
             private Object storeId;
             private CouponsLinkBean couponsLink;
@@ -210,11 +210,11 @@ public class ChaTaiYouHuiQuan {
                 this.money = money;
             }
 
-            public Object getDiscount() {
+            public double getDiscount() {
                 return discount;
             }
 
-            public void setDiscount(Object discount) {
+            public void setDiscount(double discount) {
                 this.discount = discount;
             }
 

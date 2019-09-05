@@ -241,20 +241,21 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
         switch (v.getId()){
             case R.id.bt_tijiao:
                 if (!utils.isDoubleClick()){
+                    JSONObject mallproduct  = new JSONObject();
                     if (!edt_shop_title.getText().toString().isEmpty()){
                         if (!edt_shop_num.getText().toString().isEmpty()){
-                            if (!edt_shop_yongjin.getText().toString().isEmpty()){
                                 if (mguige!=null){
                                     if (categoryNameid!=null){
                                         if (cityName!=null){
-                                            JSONObject mallproduct  = new JSONObject();
                                             try {
                                                 mallproduct .put("createBy",String.valueOf(MyApp.instance.getInt("id")));
                                                 mallproduct .put("name",edt_shop_title.getText().toString());
                                                 mallproduct .put("stock",edt_shop_num.getText().toString());
                                                 mallproduct .put("categoryId",String.valueOf(categoryNameid));
+                                                if (!edt_shop_yongjin.getText().toString().isEmpty()){
+                                                    mallproduct .put("commission",edt_shop_yongjin.getText().toString());
+                                                }
                                                 mallproduct .put("sendAddress",cityName);
-                                                mallproduct .put("commission",edt_shop_yongjin.getText().toString());
                                                 initShangChuan(mallproduct);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -268,9 +269,6 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                                 }else{
                                     ToastUtils.showShort("请选择规格");
                                 }
-                            }else{
-                                ToastUtils.showShort("请输入佣金");
-                            }
                         }else{
                             ToastUtils.showShort("请输入商品数量");
                         }

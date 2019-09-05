@@ -49,20 +49,24 @@ public class SDCardUtil {
 	 * @return
 	 */
 	public static String saveToSdCard(Bitmap bitmap) {
-		String imageUrl = getPictureDir() + System.currentTimeMillis() + ".jpg";
-		File file = new File(imageUrl);
-		try {
-			FileOutputStream out = new FileOutputStream(file);
-			if (bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)) {
-				out.flush();
-				out.close();
+		if (bitmap!=null){
+			String imageUrl = getPictureDir() + System.currentTimeMillis() + ".jpg";
+			File file = new File(imageUrl);
+			try {
+				FileOutputStream out = new FileOutputStream(file);
+				if (bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)) {
+					out.flush();
+					out.close();
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			return file.getAbsolutePath();
+		}else{
+			return null;
 		}
-		return file.getAbsolutePath();
 	}
 
 	/**

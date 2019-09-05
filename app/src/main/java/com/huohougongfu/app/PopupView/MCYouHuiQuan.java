@@ -9,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.huohougongfu.app.Gson.ShopYouHuiQuan;
+import com.huohougongfu.app.Gson.ChaTaiGson;
+import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
+import com.huohougongfu.app.Gson.MaiChaDetail;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.Shop.Adapter.YouHuiQuanAdapter;
+import com.huohougongfu.app.ShouYe.Adapter.YouHuiQuanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lxj.xpopup.util.XPopupUtils;
@@ -24,20 +26,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class YouHuiQuan extends BottomPopupView {
+import static com.huohougongfu.app.Gson.ChaTaiGson.ResultBean;
+
+public class MCYouHuiQuan extends BottomPopupView {
     private final Handler mHandler;
-    private List<ShopYouHuiQuan.ResultBean> mYouhuiquan;
+    private MaiChaDetail.ResultBean resultBean;
+    private List<ResultBean> result;
+    private List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> mYouhuiquan;
     private RecyclerView rec_shop_youhuiquan;
     private Context context;
     private String token,tel,id;
 
 
-    public YouHuiQuan(@NonNull Context context, List<ShopYouHuiQuan.ResultBean> shopid, Handler mHandler) {
+    public MCYouHuiQuan(Context context, List<ChaTaiYouHuiQuan.ResultBean.CouponsBean> coupons, Handler mHandler, MaiChaDetail.ResultBean resultBean) {
         super(context);
         this.context = context;
-        this.mYouhuiquan = shopid;
+        this.mYouhuiquan = coupons;
         this.mHandler = mHandler;
+        this.resultBean = resultBean;
     }
+
     @Override
     protected int getImplLayoutId() {
         return R.layout.dialog_detail_youhuiquan;
@@ -78,7 +86,6 @@ public class YouHuiQuan extends BottomPopupView {
             }
         });
     }
-
     @Override
     protected int getMaxHeight() {
         return (int) (XPopupUtils.getWindowHeight(getContext()) * .65f);

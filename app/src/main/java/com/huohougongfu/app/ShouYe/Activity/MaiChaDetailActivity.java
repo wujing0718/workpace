@@ -74,7 +74,7 @@ public class MaiChaDetailActivity extends AppCompatActivity implements View.OnCl
                 Intent intent = new Intent();
                 intent.putExtra("买茶",resultBean);
                 intent.putExtra("equipmentId",equipmentId);
-                intent.setClass(MaiChaDetailActivity.this,MyDingDanPaoChaActivity.class);
+                intent.setClass(MaiChaDetailActivity.this,MyDingDanMaiChaActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.huohougongfu.app.Gson.MyDingDanDetail;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
@@ -47,7 +48,10 @@ public class ShenQingShouHouActivity extends AppCompatActivity implements View.O
         findViewById(R.id.bt_tuihuotuikuan).setOnClickListener(this);
     }
     private void initView(){
-        Glide.with(ShenQingShouHouActivity.this).load(bean.getCoverUrl()).into(img_shop_photo);
+        if (bean.getCoverUrl()!=null){
+            String[] split = bean.getCoverUrl().split(",");
+            Glide.with(MyApp.context).load(split[0]).into(img_shop_photo);
+        }
         tv_shop_title.setText(bean.getName());
         tv_shop_guige.setText(bean.getStandard());
     }

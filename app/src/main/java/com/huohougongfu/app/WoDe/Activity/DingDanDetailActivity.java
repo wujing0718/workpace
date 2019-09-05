@@ -140,7 +140,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         tv_shouhuo_phone.setText(result.get(0).getPhone());
         tv_shouhuo_address.setText(result.get(0).getReceiverName()+result.get(0).getAreaName()+result.get(0).getDetailAddr());
         RequestOptions requestOptions = new RequestOptions().circleCrop();
-        Glide.with(MyApp.context).load(result.get(0).getMallStores().getCcoverUrl()).apply(requestOptions).into(img_dianpu_logo);
+        Glide.with(MyApp.context).load(result.get(0).getMallStores().getStoreLogo()).apply(requestOptions).into(img_dianpu_logo);
         tv_dianpu_name.setText(result.get(0).getMallStores().getStoreName());
     }
 
@@ -272,7 +272,10 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                     break;
             case R.id.view_logistics:
                 if (!utils.isDoubleClick()){
-                    Intent intent = new Intent().setClass(DingDanDetailActivity.this, WuLiuActivity.class);
+                    Intent intent = new Intent();
+                    intent.putExtra("logisticsName",mydongdandetail.getResult().get(0).getLogisticsName());
+                    intent.putExtra("logisticsNo",mydongdandetail.getResult().get(0).getLogisticsNo());
+                    intent.setClass(DingDanDetailActivity.this, WuLiuActivity.class);
                     startActivity(intent);
                 }
                 break;

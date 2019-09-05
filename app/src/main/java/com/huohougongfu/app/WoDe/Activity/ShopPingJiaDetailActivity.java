@@ -4,10 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.googlecode.mp4parser.authoring.Edit;
 import com.huohougongfu.app.Gson.MyCollect;
 import com.huohougongfu.app.Gson.PingJia;
 import com.huohougongfu.app.MyApp;
@@ -30,18 +35,23 @@ public class ShopPingJiaDetailActivity extends AppCompatActivity {
 
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_shop_pingjia_detail;
+    private int shopid;
+    private boolean ishuifu = true;
+    private EditText edt_maijiahuifu;
+    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_ping_jia_detail);
+        shopid = getIntent().getIntExtra("shopid", 0);
         initUI();
         initData();
     }
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
-        map.put("id",String.valueOf(45));
+        map.put("id",String.valueOf(shopid));
         map.put("page","1");
         map.put("pageSize","10");
         map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
@@ -59,7 +69,6 @@ public class ShopPingJiaDetailActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-//                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -69,16 +78,63 @@ public class ShopPingJiaDetailActivity extends AppCompatActivity {
     private void initRec(List<PingJia.ResultBean.ListBean> list) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(ShopPingJiaDetailActivity.this);
         rec_shop_pingjia_detail.setLayoutManager(layoutManager);
-        DianPuShopPingJiaDetailAdapter dianPuShopPingJiaAdapter = new DianPuShopPingJiaDetailAdapter(R.layout.item_dianpu_pingjia, list,ShopPingJiaDetailActivity.this);
+        DianPuShopPingJiaDetailAdapter dianPuShopPingJiaAdapter = new DianPuShopPingJiaDetailAdapter(R.layout.item_dianpu_pingjia, list,
+                ShopPingJiaDetailActivity.this,shopid);
         rec_shop_pingjia_detail.setAdapter(dianPuShopPingJiaAdapter);
-        dianPuShopPingJiaAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        dianPuShopPingJiaAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                pos = position;
+                edt_maijiahuifu = (EditText)dianPuShopPingJiaAdapter.getViewByPosition(rec_shop_pingjia_detail, position, R.id.edt_maijiahuifu);
+                if (ishuifu){
+                    edt_maijiahuifu.setVisibility(View.VISIBLE);
+                    ishuifu = false;
+                }else{
+                    edt_maijiahuifu.setVisibility(View.GONE);
+                    ishuifu = true;
+                }
+                edt_maijiahuifu.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        InputMethodManager manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                        if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                            //先隐藏键盘
+                            if (manager.isActive()) {
+                                manager.hideSoftInputFromWindow(edt_maijiahuifu.getApplicationWindowToken(), 0);
+                            }
+                            //自己需要的操作
+                            initHuiFu(list.get(position));
+                        }
+                        //记得返回false
+                        return false;
+                    }
+                });
 
             }
-        });
-    }
 
+        });
+
+    }
+    private void initHuiFu(PingJia.ResultBean.ListBean item) {
+        if (!edt_maijiahuifu.getText().toString().isEmpty()){
+            Map<String,String> map = new HashMap<>();
+            map.put("productId",String.valueOf(shopid));
+            map.put("appraiseId",String.valueOf(item.getId()));
+            map.put("answerId",String.valueOf(MyApp.instance.getInt("id")));
+            map.put("content",edt_maijiahuifu.getText().toString());
+            OkGo.<String>post(Contacts.URl1+"/createAnswerAppraiseOnlySeller")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            response.body();
+                        }
+                    });
+        }else{
+            ToastUtils.showShort("请输入回复内容");
+        }
+
+    }
 
     private void initUI() {
         rec_shop_pingjia_detail = findViewById(R.id.rec_shop_pingjia_detail);

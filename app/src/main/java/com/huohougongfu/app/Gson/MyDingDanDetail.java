@@ -112,7 +112,7 @@ public class MyDingDanDetail implements Serializable{
         private Object coverUrl;
         private Object storeId;
         private String logisticsNo;
-        private Object logisticsName;
+        private String logisticsName;
         private int addressId;
         private int couponId;
         private String provinceName;
@@ -380,11 +380,11 @@ public class MyDingDanDetail implements Serializable{
             this.logisticsNo = logisticsNo;
         }
 
-        public Object getLogisticsName() {
+        public String getLogisticsName() {
             return logisticsName;
         }
 
-        public void setLogisticsName(Object logisticsName) {
+        public void setLogisticsName(String logisticsName) {
             this.logisticsName = logisticsName;
         }
 

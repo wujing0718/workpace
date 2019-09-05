@@ -143,7 +143,7 @@ public class MyApp extends Application {
         wxapi = WXAPIFactory.createWXAPI(this, APP_ID, true);
         wxapi.registerApp(APP_ID);
         //微信
-        PlatformConfig.setWeixin("wxa36e44f4072c4818", "04c7a1e26430d3ca028fc6f17a83c331");
+        PlatformConfig.setWeixin("wxa36e44f4072c4818", "0d66a870efd3c36ed2f6c9daea50626e");
         //QQ
         PlatformConfig.setQQZone("101767868", "64b41c424e93122ef5430ac54c194621");
         //新浪

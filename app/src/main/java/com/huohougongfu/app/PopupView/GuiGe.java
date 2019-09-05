@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShopGuiGe;
+import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
@@ -62,11 +63,18 @@ public class GuiGe extends BottomPopupView {
     private int shopid;
     private int standarid;
     private String standard;
+    private ShopYouHuiQuan.ResultBean resultBean;
 
     public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct) {
         super(context);
         this.mallProduct = mallProduct;
         this.context = context;
+    }
+    public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct, ShopYouHuiQuan.ResultBean resultBean) {
+        super(context);
+        this.mallProduct = mallProduct;
+        this.context = context;
+        this.resultBean = resultBean;
     }
     @Override
     protected int getImplLayoutId() {
@@ -86,6 +94,7 @@ public class GuiGe extends BottomPopupView {
         tv_guige_price = findViewById(R.id.tv_guige_price);
         tv_guige_kucun = findViewById(R.id.tv_guige_kucun);
         amountview = findViewById(R.id.amountview);
+        tv_guige_kucun.setText("库存"+mallProduct.getProductInfo().getStock()+"件");
         if(mallProduct.getProductStandard()!=null){
             for (int i = 0; i <mallProduct.getProductStandard().size() ; i++) {
                 list.add(mallProduct.getProductStandard().get(i).getStandard());
@@ -142,7 +151,7 @@ public class GuiGe extends BottomPopupView {
                 .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_guige_photo);
         tv_guige_name.setText(mallProduct.getProductInfo().getName());
         if (mallProduct.getProductStandard() !=null){
-            tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
+            tv_guige_price.setText("¥"+mallProduct.getProductInfo().getPrice());
         }else{
 //            tv_guige_price.setText(mallProduct.);
         }
@@ -182,6 +191,7 @@ public class GuiGe extends BottomPopupView {
                                     Intent intent = new Intent();
                                     intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
                                     intent.putExtra("standardId",standarid);
+                                    intent.putExtra("coupon",(Serializable)resultBean);
                                     intent.setClass(context,XiaDanActivity.class);
                                     context.startActivity(intent);
                                 }
@@ -246,9 +256,7 @@ public class GuiGe extends BottomPopupView {
             return;
         }
         codeBtn.setBackgroundResource(R.drawable.selector_paocha);
-//        codeBtn.setTextColor(this.getResources().getColorStateList(R.drawable.color_radiobutton));
         codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
-        //codeBtn.setTextSize( ( textSize > 16 )?textSize:24 );
         codeBtn.setId(id);
         if (id == 0){
             codeBtn.setChecked(true);
@@ -269,10 +277,6 @@ public class GuiGe extends BottomPopupView {
                 tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(id).getStandardPrice());
             }
         });
-        //DensityUtilHelps.Dp2Px(this,40)
-//        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT , LinearLayout.LayoutParams.WRAP_CONTENT);
-//        rlp.setMargins(20,0,20,0);
-//        codeBtn.setLayoutParams( rlp );
     }
 
     @Override

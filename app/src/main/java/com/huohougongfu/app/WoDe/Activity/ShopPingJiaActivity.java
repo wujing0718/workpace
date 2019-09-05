@@ -10,6 +10,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.MyPingJia;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -49,17 +50,17 @@ public class ShopPingJiaActivity extends AppCompatActivity {
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
-        map.put("pageNo",String.valueOf(1));
+        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("page",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
-        OkGo.<String>post(Contacts.URl1+"/my/collection")
+        OkGo.<String>get(Contacts.URl1+"findAppraiseOfSeller")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        MyCollect myCollect = gson.fromJson(body, MyCollect.class);
+                        MyPingJia myCollect = gson.fromJson(body, MyPingJia.class);
                         if (myCollect.getStatus() == 1){
                             if (myCollect.getResult().getList().size()==0){
                                 smartrefreshlayout.setVisibility(View.GONE);
@@ -72,7 +73,7 @@ public class ShopPingJiaActivity extends AppCompatActivity {
                 });
     }
 
-    private void initRec(List<MyCollect.ResultBean.ListBean> list) {
+    private void initRec(List<MyPingJia.ResultBean.ListBean> list) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(ShopPingJiaActivity.this);
         rec_shop_pingjia.setLayoutManager(layoutManager);
         DianPuShopPingJiaAdapter dianPuShopPingJiaAdapter = new DianPuShopPingJiaAdapter(R.layout.item_dianpu_shop_pingjia, list);
@@ -81,6 +82,7 @@ public class ShopPingJiaActivity extends AppCompatActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
+                intent.putExtra("shopid",list.get(position).getId());
                 intent.setClass(ShopPingJiaActivity.this,ShopPingJiaDetailActivity.class);
                 startActivity(intent);
             }

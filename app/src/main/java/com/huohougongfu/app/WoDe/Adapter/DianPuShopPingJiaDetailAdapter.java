@@ -25,22 +25,32 @@ import com.huohougongfu.app.Gson.PingJia;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.ImageAdapter;
+import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.ListenerManager;
 import com.lxj.xpopup.interfaces.XPopupImageLoader;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DianPuShopPingJiaDetailAdapter extends BaseQuickAdapter<PingJia.ResultBean.ListBean,BaseViewHolder> {
     private final Context context;
+    private final int shopid;
     private List<Object> mlist = new ArrayList<>();
     private boolean ishuifu = true;
-    public DianPuShopPingJiaDetailAdapter(int layoutResId, @Nullable List<PingJia.ResultBean.ListBean> data, Context context) {
+    private EditText edt_maijiahuifu;
+
+    public DianPuShopPingJiaDetailAdapter(int layoutResId, @Nullable List<PingJia.ResultBean.ListBean> data, Context context, int shopid) {
         super(layoutResId, data);
         this.context = context;
+        this.shopid = shopid;
     }
 
     @Override
@@ -49,39 +59,11 @@ public class DianPuShopPingJiaDetailAdapter extends BaseQuickAdapter<PingJia.Res
         pinglun_photo.setLayoutManager(new GridLayoutManager(context, 3));
         TextView bt_maijia_huifu = helper.getView(R.id.bt_maijia_huifu);
         View bt_pinglun_dianzan = helper.getView(R.id.view_huifu);
-        EditText edt_maijiahuifu = helper.getView(R.id.edt_maijiahuifu);
+        edt_maijiahuifu = helper.getView(R.id.edt_maijiahuifu);
         helper.addOnClickListener(R.id.bt_pinglun_dianzan);
         ImageView touxiang = helper.getView(R.id.img_pinglun_touxiang);
         ImageView img_dianzan = helper.getView(R.id.img_dianzan);
-        bt_maijia_huifu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ishuifu){
-                    edt_maijiahuifu.setVisibility(View.VISIBLE);
-                    ishuifu = false;
-                }else{
-                    edt_maijiahuifu.setVisibility(View.GONE);
-                    ishuifu = true;
-                }
-            }
-        });
-
-        edt_maijiahuifu.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                InputMethodManager manager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    //先隐藏键盘
-                    if (manager.isActive()) {
-                        manager.hideSoftInputFromWindow(edt_maijiahuifu.getApplicationWindowToken(), 0);
-                    }
-                    //自己需要的操作
-                    ToastUtils.showShort(edt_maijiahuifu.getText().toString());
-                }
-                //记得返回false
-                return false;
-            }
-        });
+        helper.addOnClickListener(R.id.bt_maijia_huifu);
 
         //圆头像
         RequestOptions options = new RequestOptions().circleCrop();
@@ -118,6 +100,7 @@ public class DianPuShopPingJiaDetailAdapter extends BaseQuickAdapter<PingJia.Res
             pinglun_photo.setVisibility(View.GONE);
         }
     }
+
     public static class ImageLoader implements XPopupImageLoader {
         @Override
         public void loadImage(int position, @NonNull Object url, @NonNull ImageView imageView) {

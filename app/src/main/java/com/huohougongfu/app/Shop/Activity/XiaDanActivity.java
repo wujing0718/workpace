@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.AddRess;
 import com.huohougongfu.app.Gson.ShopDingDan;
+import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.XiaDanAdapter;
@@ -46,6 +47,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private int transId = 0;
     private int standardId;
     public static XiaDanActivity activity;
+    private ShopYouHuiQuan.ResultBean coupon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
         mId = MyApp.instance.getInt("id");
         activity = this;
         standardId = getIntent().getIntExtra("standardId", 0);
+        coupon = (ShopYouHuiQuan.ResultBean)getIntent().getSerializableExtra("coupon");
         resultBean = (ShopDingDan.ResultBean)getIntent().getSerializableExtra("订单详情");
         initUI();
         initExpandableListViewData(resultBean);
@@ -84,7 +87,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private void initRec() {
         tv_total_price.setText("1000");
         xiaDanAdapter = new XiaDanAdapter(this,bt_chami_dikou,btn_go_to_pay,tv_chami_dikou,
-                img_chami_check,tv_total_price,resultBean.getTeaRice(),standardId);
+                img_chami_check,tv_total_price,resultBean.getTeaRice(),standardId,coupon);
         rec_xiadan.setAdapter(xiaDanAdapter);
     }
 
