@@ -204,6 +204,7 @@ public class MyApp extends Application {
             return false;
         }
     }
+
     private class MyConnectionStatusListener implements RongIMClient.ConnectionStatusListener {
 
         @Override

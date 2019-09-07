@@ -157,6 +157,7 @@ public class DingDanFragment extends Fragment {
                                 intent.putExtra("storeLogo",storeLogo);
                                 intent.putExtra("storeName",storeName);
                                 intent.putExtra("OrderNo",result.get(position).getOrderNo());
+                                intent.putExtra("shopid",result.get(position).getProductId());
                                 intent.setClass(getActivity(),DingDanPingJiaActivity.class);
                                 startActivity(intent);
                             }else  if (result.get(position).getOrderStatus() == 0){

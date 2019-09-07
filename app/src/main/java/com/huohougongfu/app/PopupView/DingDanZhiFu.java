@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.Over;
 import com.huohougongfu.app.Gson.WXPay;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -24,7 +26,9 @@ import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.View.PopEnterPassword;
 import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
+import com.huohougongfu.app.WoDe.Activity.SetKeyBoardActivity;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -43,6 +47,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     private CheckBox check_yue,check_ali,check_weixin;
     private String alitoken;
     private static final int SDK_PAY_FLAG = 1001;
+    private Over over;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -73,6 +78,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     };
     private TextView tv_total_price;
     private String wxtoken;
+    private TextView tv_over;
 
     public DingDanZhiFu(@NonNull Context context, String alitoken, String substring) {
         super(context);
@@ -90,6 +96,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     protected void onCreate() {
         super.onCreate();
 //        initWX();
+        tv_over = findViewById(R.id.tv_over);
         check_yue = findViewById(R.id.check_yue);
         check_ali = findViewById(R.id.check_ali);
         check_weixin = findViewById(R.id.check_weixin);
@@ -103,6 +110,38 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
         findViewById(R.id.bt_yue).setOnClickListener(this);
         findViewById(R.id.bt_alipay).setOnClickListener(this);
         findViewById(R.id.bt_weixin).setOnClickListener(this);
+        initOver();
+        initInspection();
+    }
+
+    private void initOver() {
+        OkGo.<String>get(Contacts.URl1+"/member/balance/"+MyApp.instance.getInt("id"))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Over over = new Gson().fromJson(response.body(), Over.class);
+                        if (over.getStatus() == 1){
+                            tv_over.setText("(剩余：¥"+String.valueOf(over.getResult().getBalance())+")");
+                        }
+                    }
+                });
+    }
+
+    //检查用户有无支付密码
+    private void initInspection() {
+        OkGo.<String>post(Contacts.URl1+"/wallet/checkPayPassword")
+                .params("mId",MyApp.instance.getInt("id"))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Over over1 = new Gson().fromJson(response.body(), Over.class);
+                        if (over1.getStatus() == 1){
+                            over = over1;
+                        }else{
+                            ToastUtils.showShort(over1.getMsg());
+                        }
+                    }
+                });
     }
 
 
@@ -151,7 +190,16 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                 if (check_yue.isChecked()){
                     check_ali.setChecked(false);
                     check_weixin.setChecked(false);
-                    ToastUtils.showShort("暂不支持余额支付");
+                    if (over.getResult().isHasPayPassword()){
+//                        PopEnterPassword popEnterPassword = new PopEnterPassword(context,priceTotal,orderNo);
+//                        // 显示窗口
+//                        popEnterPassword.showAtLocation(getPopupContentView(),
+//                                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+                    }else{
+                        Intent intent = new Intent();
+                        intent.setClass(context, SetKeyBoardActivity.class);
+                        context.startActivity(intent);
+                    }
                 }else if (check_ali.isChecked()){
                     check_yue.setChecked(false);
                     check_weixin.setChecked(false);

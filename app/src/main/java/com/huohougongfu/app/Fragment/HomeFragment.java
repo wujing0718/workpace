@@ -110,8 +110,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         //设置定位监听
         initbanner();
-        initJiQi();
-        initMaiChaJiQi();
         super.onResume();
     }
 
@@ -119,9 +117,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            initJiQi();
-            initMaiChaJiQi();
-        }else{
             initJiQi();
             initMaiChaJiQi();
         }

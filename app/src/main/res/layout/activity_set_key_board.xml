@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.SetKeyBoardActivity">
+
+    <RelativeLayout
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_44">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.huohougongfu.app.View.PayEditText
+        android:id="@+id/PayEditText_pay"
+        android:layout_width="match_parent"
+        android:layout_marginTop="80dp"
+        android:paddingLeft="12dp"
+        android:layout_alignParentTop="true"
+        android:paddingRight="12dp"
+        android:layout_height="48dp"/>
+
+    <com.huohougongfu.app.View.Keyboard
+        android:id="@+id/KeyboardView_pay"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+
+</RelativeLayout>

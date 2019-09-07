@@ -308,7 +308,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 new XPopup.Builder(getContext())
-                                        .asCustom(new ChaTaiZhiFu(getContext(),jsonObject.getString("result"), total_priceorder))
+                                        .asCustom(new ChaTaiZhiFu(getActivity(),jsonObject.getString("result"), total_priceorder))
                                         .show();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

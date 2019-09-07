@@ -283,7 +283,8 @@
         <activity android:name=".WoDe.Activity.ZhuanKeYesActivity" />
         <activity android:name=".ShouYe.Activity.MyDingDanMaiChaActivity" />
         <activity android:name=".WoDe.Activity.YaoQingActivity" />
-        <activity android:name=".WoDe.Activity.TianXieWuLiuActivity"></activity>
+        <activity android:name=".WoDe.Activity.TianXieWuLiuActivity" />
+        <activity android:name=".WoDe.Activity.SetKeyBoardActivity"></activity>
     </application>
 
 </manifest>

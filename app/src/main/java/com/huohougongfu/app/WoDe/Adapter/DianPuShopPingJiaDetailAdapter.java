@@ -99,6 +99,13 @@ public class DianPuShopPingJiaDetailAdapter extends BaseQuickAdapter<PingJia.Res
         }else{
             pinglun_photo.setVisibility(View.GONE);
         }
+
+        if (item.getAnswerContent()!=null){
+
+        }else{
+
+        }
+
     }
 
     public static class ImageLoader implements XPopupImageLoader {

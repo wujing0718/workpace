@@ -9,7 +9,6 @@
 
     <ImageView
         android:id="@+id/img_pinglun_touxiang"
-        android:src="@mipmap/ic_launcher"
         android:layout_marginHorizontal="15dp"
         android:layout_width="50dp"
         android:layout_height="50dp" />
