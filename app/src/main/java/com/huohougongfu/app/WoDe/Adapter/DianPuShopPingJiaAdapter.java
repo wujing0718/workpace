@@ -23,8 +23,8 @@ public class DianPuShopPingJiaAdapter extends BaseQuickAdapter<MyPingJia.ResultB
     @Override
     protected void convert(BaseViewHolder helper, MyPingJia.ResultBean.ListBean item) {
         ImageView img_shop_photo = helper.getView(R.id.img_shop_photo);
-        Glide.with(MyApp.context).load(item.getPicture()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop()).into(img_shop_photo);
-//        helper.setText(R.id.tv_shop_name,item.getName());
-//        helper.setText(R.id.tv_shop_price,"¥"+item.getPrice());
+        Glide.with(MyApp.context).load(item.getCoverUrl()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop()).into(img_shop_photo);
+        helper.setText(R.id.tv_shop_name,item.getName());
+        helper.setText(R.id.tv_shop_price,"¥"+item.getPrice());
     }
 }

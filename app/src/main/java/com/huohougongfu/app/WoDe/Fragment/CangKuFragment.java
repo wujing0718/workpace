@@ -181,7 +181,6 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
-                        String body = response.body();
                         Gson gson = new Gson();
                         ShopGuanLiLieBiao shangPinGson = gson.fromJson(response.body(), ShopGuanLiLieBiao.class);
                         if (shangPinGson.getResult().getList().size()>0){

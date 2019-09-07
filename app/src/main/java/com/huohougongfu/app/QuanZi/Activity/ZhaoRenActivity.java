@@ -21,6 +21,7 @@ import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.TeYuePinPaiActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.ListenerManager;
@@ -41,7 +42,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickListener {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickListener,IUnReadMessageObserver {
 
     private RecyclerView rec_zhaoren;
     private ZhaoRenAdapter zhaorendadapter;
@@ -50,11 +56,19 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
     private InputMethodManager manager;
     private SmartRefreshLayout smartrefreshlayout;
     private int page =2;
+    private View bt_xiaoxi;
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhao_ren);
+        qBadgeView = new QBadgeView(ZhaoRenActivity.this);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
@@ -62,9 +76,16 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
         initData("");
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+    }
+
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
-        findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(this);
         rec_zhaoren = findViewById(R.id.rec_zhaoren);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         EditText edt_zhaoren_sousuo = findViewById(R.id.edt_zhaoren_sousuo);
@@ -320,6 +341,15 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
                 intent.setClass(ZhaoRenActivity.this,XiaoXiActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
         }
     }
 }

@@ -453,10 +453,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         //融云登录
                                         RongIM.connect(login.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
-                                            //token1参数报错
+
                                             @Override
                                             public void onTokenIncorrect() {
-                                                Log.e("TAG","参数错误");
+
                                             }
 
                                             @Override

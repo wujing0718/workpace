@@ -172,6 +172,7 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         });
         findViewById(R.id.bt_finish).setOnClickListener(this);
     }
+
     class OnBoxClickListener implements CompoundButton.OnCheckedChangeListener{
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

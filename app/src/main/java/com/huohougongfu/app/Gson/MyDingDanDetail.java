@@ -97,13 +97,14 @@ public class MyDingDanDetail implements Serializable{
         private int delayReceiveDay;
         private int createBy;
         private String createTime;
+        private String createTime1;
         private int updateBy;
         private String updateTime;
         private double invoiceMoney;
         private int standardId;
         private Object standard;
         private Object cancelTime;
-        private Object remark;
+        private String remark;
         private Object status;
         private MallStoresBean mallStores;
         private Object ocrId;
@@ -123,6 +124,15 @@ public class MyDingDanDetail implements Serializable{
         private String phone;
         private String serviceRegulations;
         private Object deliveryType;
+        private String transportWay;
+
+        public String getTransportWay() {
+            return transportWay;
+        }
+
+        public void setTransportWay(String transportWay) {
+            this.transportWay = transportWay;
+        }
 
         public Object getId() {
             return id;
@@ -252,6 +262,14 @@ public class MyDingDanDetail implements Serializable{
             this.createBy = createBy;
         }
 
+        public String getCreateTimel() {
+            return createTime1;
+        }
+
+        public void setCreateTimel(String createTime1) {
+            this.createTime1 = createTime1;
+        }
+
         public String getCreateTime() {
             return createTime;
         }
@@ -308,11 +326,11 @@ public class MyDingDanDetail implements Serializable{
             this.cancelTime = cancelTime;
         }
 
-        public Object getRemark() {
+        public String getRemark() {
             return remark;
         }
 
-        public void setRemark(Object remark) {
+        public void setRemark(String remark) {
             this.remark = remark;
         }
 

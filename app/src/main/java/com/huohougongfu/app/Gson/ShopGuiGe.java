@@ -4,11 +4,6 @@ import java.util.List;
 
 public class ShopGuiGe {
 
-    /**
-     * msg : 操作成功
-     * result : {"productStandard":[{"id":11,"productId":19,"standardPrice":10,"standard":"145g"},{"id":14,"productId":19,"standardPrice":34,"standard":"34g"},{"id":15,"productId":19,"standardPrice":55,"standard":"37g"},{"id":16,"productId":19,"standardPrice":77,"standard":"45g"}],"productInfo":{"defaultTranCost":null,"id":19,"name":"测试19","categoryId":2,"storePhone":"17823838523","price":2,"marketPrice":42,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","sellNum":12,"transId":6,"remark":"阿斯顿发失地发生地方","productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"storePicture":"https://werw/w/ge.jpg","storeLogo":"https://werw/w/ge.jpg","storeBoard":"店铺公告","storeName":"测试店铺","storeAddress":"广东深圳","stock":"12","isCollection":null,"createBy":null}}
-     * status : 1
-     */
 
     private String msg;
     private ResultBean result;
@@ -39,10 +34,6 @@ public class ShopGuiGe {
     }
 
     public static class ResultBean {
-        /**
-         * productStandard : [{"id":11,"productId":19,"standardPrice":10,"standard":"145g"},{"id":14,"productId":19,"standardPrice":34,"standard":"34g"},{"id":15,"productId":19,"standardPrice":55,"standard":"37g"},{"id":16,"productId":19,"standardPrice":77,"standard":"45g"}]
-         * productInfo : {"defaultTranCost":null,"id":19,"name":"测试19","categoryId":2,"storePhone":"17823838523","price":2,"marketPrice":42,"coverUrl":"http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg","sellNum":12,"transId":6,"remark":"阿斯顿发失地发生地方","productPicture":"http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg","storeId":1,"storePicture":"https://werw/w/ge.jpg","storeLogo":"https://werw/w/ge.jpg","storeBoard":"店铺公告","storeName":"测试店铺","storeAddress":"广东深圳","stock":"12","isCollection":null,"createBy":null}
-         */
 
         private ProductInfoBean productInfo;
         private List<ProductStandardBean> productStandard;
@@ -65,30 +56,40 @@ public class ShopGuiGe {
 
         public static class ProductInfoBean {
             /**
-             * defaultTranCost : null
-             * id : 19
-             * name : 测试19
-             * categoryId : 2
-             * storePhone : 17823838523
-             * price : 2.0
-             * marketPrice : 42.0
-             * coverUrl : http://oss.irving.net.cn/tea/1911562737563_.pic_hd.jpg
-             * sellNum : 12
-             * transId : 6
-             * remark : 阿斯顿发失地发生地方
-             * productPicture : http://pic34.nipic.com/20131020/6704106_203943375000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg,http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg
-             * storeId : 1
-             * storePicture : https://werw/w/ge.jpg
-             * storeLogo : https://werw/w/ge.jpg
-             * storeBoard : 店铺公告
-             * storeName : 测试店铺
-             * storeAddress : 广东深圳
-             * stock : 12
-             * isCollection : null
+             * defaultTranCost : 10.0
+             * id : 6
+             * name : 黑茶
+             * categoryId : 22
+             * storePhone : 18910328122
+             * price : 0.1
+             * marketPrice : 0.1
+             * coverUrl : http://oss.irving.net.cn/tea/1566892267942.jpg
+             * sellNum : 16
+             * transId : 0
+             * remark :
+             * productPicture : http://oss.irving.net.cn/tea/1566892267942.jpg
+             * storeId : 4
+             * storePicture : null
+             * storeLogo : null
+             * storeBoard : null
+             * storeName : 爱喝茶的人
+             * stock : 80
+             * isAttention : null
+             * userHeadPic : http://oss.irving.net.cn/tea/1567404428321.jpg
+             * doorPhoto : http://oss.irving.net.cn/tea/1566808633243.jpg
              * createBy : null
+             * sendAddress : 北京市
+             * specialInstructions : ghhhuh
+             * productCollection : 0
+             * standardId : null
+             * userId : 3
+             * detailPic : http://oss.irving.net.cn/tea/1566892266793.jpg
+             * creditCard : 0
+             * deliveryTime : 1
+             * mallBasicService : null
              */
 
-            private Object defaultTranCost;
+            private double defaultTranCost;
             private int id;
             private String name;
             private int categoryId;
@@ -101,20 +102,30 @@ public class ShopGuiGe {
             private String remark;
             private String productPicture;
             private int storeId;
-            private String storePicture;
-            private String storeLogo;
-            private String storeBoard;
+            private Object storePicture;
+            private Object storeLogo;
+            private Object storeBoard;
             private String storeName;
-            private String storeAddress;
             private String stock;
-            private Object isCollection;
+            private Object isAttention;
+            private String userHeadPic;
+            private String doorPhoto;
             private Object createBy;
+            private String sendAddress;
+            private String specialInstructions;
+            private int productCollection;
+            private Object standardId;
+            private int userId;
+            private String detailPic;
+            private int creditCard;
+            private int deliveryTime;
+            private Object mallBasicService;
 
-            public Object getDefaultTranCost() {
+            public double getDefaultTranCost() {
                 return defaultTranCost;
             }
 
-            public void setDefaultTranCost(Object defaultTranCost) {
+            public void setDefaultTranCost(double defaultTranCost) {
                 this.defaultTranCost = defaultTranCost;
             }
 
@@ -214,27 +225,27 @@ public class ShopGuiGe {
                 this.storeId = storeId;
             }
 
-            public String getStorePicture() {
+            public Object getStorePicture() {
                 return storePicture;
             }
 
-            public void setStorePicture(String storePicture) {
+            public void setStorePicture(Object storePicture) {
                 this.storePicture = storePicture;
             }
 
-            public String getStoreLogo() {
+            public Object getStoreLogo() {
                 return storeLogo;
             }
 
-            public void setStoreLogo(String storeLogo) {
+            public void setStoreLogo(Object storeLogo) {
                 this.storeLogo = storeLogo;
             }
 
-            public String getStoreBoard() {
+            public Object getStoreBoard() {
                 return storeBoard;
             }
 
-            public void setStoreBoard(String storeBoard) {
+            public void setStoreBoard(Object storeBoard) {
                 this.storeBoard = storeBoard;
             }
 
@@ -246,14 +257,6 @@ public class ShopGuiGe {
                 this.storeName = storeName;
             }
 
-            public String getStoreAddress() {
-                return storeAddress;
-            }
-
-            public void setStoreAddress(String storeAddress) {
-                this.storeAddress = storeAddress;
-            }
-
             public String getStock() {
                 return stock;
             }
@@ -262,12 +265,28 @@ public class ShopGuiGe {
                 this.stock = stock;
             }
 
-            public Object getIsCollection() {
-                return isCollection;
+            public Object getIsAttention() {
+                return isAttention;
             }
 
-            public void setIsCollection(Object isCollection) {
-                this.isCollection = isCollection;
+            public void setIsAttention(Object isAttention) {
+                this.isAttention = isAttention;
+            }
+
+            public String getUserHeadPic() {
+                return userHeadPic;
+            }
+
+            public void setUserHeadPic(String userHeadPic) {
+                this.userHeadPic = userHeadPic;
+            }
+
+            public String getDoorPhoto() {
+                return doorPhoto;
+            }
+
+            public void setDoorPhoto(String doorPhoto) {
+                this.doorPhoto = doorPhoto;
             }
 
             public Object getCreateBy() {
@@ -277,19 +296,93 @@ public class ShopGuiGe {
             public void setCreateBy(Object createBy) {
                 this.createBy = createBy;
             }
+
+            public String getSendAddress() {
+                return sendAddress;
+            }
+
+            public void setSendAddress(String sendAddress) {
+                this.sendAddress = sendAddress;
+            }
+
+            public String getSpecialInstructions() {
+                return specialInstructions;
+            }
+
+            public void setSpecialInstructions(String specialInstructions) {
+                this.specialInstructions = specialInstructions;
+            }
+
+            public int getProductCollection() {
+                return productCollection;
+            }
+
+            public void setProductCollection(int productCollection) {
+                this.productCollection = productCollection;
+            }
+
+            public Object getStandardId() {
+                return standardId;
+            }
+
+            public void setStandardId(Object standardId) {
+                this.standardId = standardId;
+            }
+
+            public int getUserId() {
+                return userId;
+            }
+
+            public void setUserId(int userId) {
+                this.userId = userId;
+            }
+
+            public String getDetailPic() {
+                return detailPic;
+            }
+
+            public void setDetailPic(String detailPic) {
+                this.detailPic = detailPic;
+            }
+
+            public int getCreditCard() {
+                return creditCard;
+            }
+
+            public void setCreditCard(int creditCard) {
+                this.creditCard = creditCard;
+            }
+
+            public int getDeliveryTime() {
+                return deliveryTime;
+            }
+
+            public void setDeliveryTime(int deliveryTime) {
+                this.deliveryTime = deliveryTime;
+            }
+
+            public Object getMallBasicService() {
+                return mallBasicService;
+            }
+
+            public void setMallBasicService(Object mallBasicService) {
+                this.mallBasicService = mallBasicService;
+            }
         }
 
         public static class ProductStandardBean {
             /**
-             * id : 11
-             * productId : 19
-             * standardPrice : 10
-             * standard : 145g
+             * id : 91
+             * productId : 6
+             * standardPrice : 0.01
+             * marketPrice : 0.01
+             * standard : 50g
              */
 
             private int id;
             private int productId;
-            private int standardPrice;
+            private double standardPrice;
+            private double marketPrice;
             private String standard;
 
             public int getId() {
@@ -308,12 +401,20 @@ public class ShopGuiGe {
                 this.productId = productId;
             }
 
-            public int getStandardPrice() {
+            public double getStandardPrice() {
                 return standardPrice;
             }
 
-            public void setStandardPrice(int standardPrice) {
+            public void setStandardPrice(double standardPrice) {
                 this.standardPrice = standardPrice;
+            }
+
+            public double getMarketPrice() {
+                return marketPrice;
+            }
+
+            public void setMarketPrice(double marketPrice) {
+                this.marketPrice = marketPrice;
             }
 
             public String getStandard() {

@@ -51,12 +51,15 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyFragment extends Fragment implements View.OnClickListener {
+public class MyFragment extends Fragment implements View.OnClickListener,IUnReadMessageObserver {
 
 
     private View inflate;
@@ -71,6 +74,13 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private TextView bt_dianpu;
     private ImageView img_ishuiyuan,img_isdianpu,img_ischami,img_isquanxian,img_isfangsaorao,img_iskefu;
     private View view_vip;
+    private View bt_xiaoxi;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private QBadgeView qBadgeView;
 
     public MyFragment() {
         // Required empty public constructor
@@ -84,6 +94,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate = inflater.inflate(R.layout.fragment_my, container, false);
         id = MyApp.instance.getInt("id");
         View statusBar = inflate.findViewById(R.id.statusBarView);
+        qBadgeView = new QBadgeView(getActivity());
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
@@ -157,6 +168,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         initRenZheng();
         initVIP();
         initData();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         super.onResume();
     }
 
@@ -230,7 +242,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.bt_my_dongtai).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_quanbu).setOnClickListener(this);
         inflate.findViewById(R.id.bt_huiyuan_quanbu).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
+        bt_xiaoxi = inflate.findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(this);
         inflate.findViewById(R.id.bt_wodeguanzhu).setOnClickListener(this);
         inflate.findViewById(R.id.bt_wodefensi).setOnClickListener(this);
         inflate.findViewById(R.id.bt_dingdan_daifukuan).setOnClickListener(this);
@@ -264,6 +277,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         MyFragment fragment = new MyFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        }
     }
 
     @Override
@@ -411,6 +432,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     startActivity(intent);
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
         }
     }
 }

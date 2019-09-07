@@ -65,6 +65,7 @@
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initLoc();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if(Build.VERSION.SDK_INT>=23){
@@ -74,7 +75,6 @@
             PermissionPageUtils.checkAndRequestMorePermissions(MainActivity.this,
                     mPermissionList,123);
         }
-        initLoc();
         initData();
         activity = this;
         immersionber = ImmersionBar.with(this);
@@ -104,12 +104,12 @@
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
                 if (requestCode==123){
                     if (PermissionPageUtils.isPermissionRequestSuccess(grantResults)){
+                        initLoc();
                         return;
                     }else {//拒绝
                             PermissionPageUtils.checkMorePermissions(MainActivity.this, permissions, new PermissionPageUtils.PermissionCheckCallBack() {
                                 @Override
                                 public void onHasPermission() {
-
                                 }
 
                                 @Override

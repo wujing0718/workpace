@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.googlecode.mp4parser.authoring.Edit;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.Gson.PingJia;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -127,7 +128,13 @@ public class ShopPingJiaDetailActivity extends AppCompatActivity {
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            response.body();
+                            String body = response.body();
+                            Gson gson = new Gson();
+                            OKGson okGson = gson.fromJson(body, OKGson.class);
+                            if (okGson.getStatus() == 1){
+                                edt_maijiahuifu.setText("");
+                                edt_maijiahuifu.setVisibility(View.GONE);
+                            }
                         }
                     });
         }else{

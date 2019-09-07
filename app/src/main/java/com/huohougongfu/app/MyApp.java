@@ -51,6 +51,7 @@ import io.rong.push.RongPushClient;
 import io.rong.push.notification.PushMessageReceiver;
 import io.rong.push.notification.PushNotificationMessage;
 import io.rong.push.rongpush.RongPush;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static com.kongzue.dialog.v2.DialogSettings.STYLE_IOS;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
@@ -179,6 +180,7 @@ public class MyApp extends Application {
         }
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
         RongPushClient.sendNotification(this,new PushNotificationMessage());
+
         // 调用 Handler 来异步设置别名
         int id = MyApp.instance.getInt("id");
         if (id!=0){
@@ -198,7 +200,7 @@ public class MyApp extends Application {
 
         @Override
         public boolean onReceived(Message message, int left) {
-            Log.e("TAG","成功");
+
             return false;
         }
     }

@@ -19,7 +19,6 @@
             <ImageView
                 android:scaleType="centerCrop"
                 android:id="@+id/img_jingxuan_photo"
-                android:src="@mipmap/ic_launcher"
                 android:layout_width="match_parent"
                 android:layout_height="170dp" />
 
@@ -76,7 +75,7 @@
             <TextView
                 android:text="¥"
                 android:textSize="12sp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -85,7 +84,7 @@
                 android:id="@+id/tv_jingxuan_price"
                 android:layout_marginLeft="@dimen/dp_4"
                 android:textSize="18sp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorRed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

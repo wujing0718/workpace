@@ -7,11 +7,14 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -56,7 +59,9 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
@@ -78,6 +83,8 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private boolean isSelectAll = false;
     private  int transId ;
     private List<ShopDingDan.ResultBean.OrderListBean> data;
+    private String beizhu;
+    private List<Map<String, Object>> mData = new ArrayList<>();// 存储的EditText值
 
     public XiaDanAdapter(Context context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
                          ImageView img_chami_check, TextView tv_total_price, double teaRice,int standardId,ShopYouHuiQuan.ResultBean coupon) {
@@ -90,6 +97,9 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         this.teaRice = teaRice;
         this.standardId =standardId;
         this.coupon = coupon;
+        Map<String, Object> map = new HashMap<>();
+        map.put("list_item_inputvalue","");
+        mData.add(map);
     }
 
     /**
@@ -180,11 +190,14 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                                     if (dikou>=total_price){
                                         tvTotalPrice.setText("¥" + decimalFormat.format(0.00));
                                     }else{
-                                        if (total_price>=coupon.getFullMoney()){
-                                            tvTotalPrice.setText(decimalFormat.format(total_price-dikou-coupon.getMoney()));
+                                        if (coupon!=null){
+                                            if (total_price>=coupon.getFullMoney()){
+                                                tvTotalPrice.setText(decimalFormat.format(total_price-dikou-coupon.getMoney()));
+                                            }else{
+                                                tvTotalPrice.setText("¥" + decimalFormat.format(total_price-dikou));
+                                            }
                                         }else{
                                             tvTotalPrice.setText("¥" + decimalFormat.format(total_price-dikou));
-
                                         }
                                     }
                                 }
@@ -213,8 +226,12 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                             runOnUiThread(new Runnable(){
                                 @Override
                                 public void run() {
-                                    if (total_price>=coupon.getFullMoney()){
-                                        tvTotalPrice.setText(decimalFormat.format(total_price-coupon.getMoney()));
+                                    if (coupon!=null){
+                                        if (total_price>=coupon.getFullMoney()){
+                                            tvTotalPrice.setText(decimalFormat.format(total_price-coupon.getMoney()));
+                                        }else{
+                                            tvTotalPrice.setText("¥" + decimalFormat.format(total_price));
+                                        }
                                     }else{
                                         tvTotalPrice.setText("¥" + decimalFormat.format(total_price));
                                     }
@@ -245,65 +262,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                             isDikou = true;
                         }
                 notifyDataSetChanged();
-            }
-        });
-
-        //去结算的点击事件
-        btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //创建临时的List，用于存储被选中的商品
-                List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> temp = new ArrayList<>();
-                for (int i = 0; i < data.size(); i++) {
-                    List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
-                    for (int y = 0; y < mallProducts.size(); y++) {
-                        ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
-                        temp.add(mallProductsBean);
-                    }
-                }
-
-                if (temp != null && temp.size() > 0) {//如果有被选中的
-                    /**
-                     * 实际开发中，如果有被选中的商品，
-                     * 则跳转到确认订单页面，完成后续订单流程。
-                     */
-//                    LogUtils.e(temp.get(0).getName());
-                    JSONArray jsonArray = new JSONArray();
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        for (int i = 0; i < temp.size(); i++) {
-                            if (coupon!=null){
-                                jsonObject.put("couponsId",coupon.getId());
-                            }
-                            jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                            jsonObject.put("orderId",list.getOrderList().get(0).getOrderId());
-                            jsonObject.put("productId",temp.get(i).getId());
-                            jsonObject.put("storeId",temp.get(i).getStoreId());
-                            jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
-                            jsonObject.put("standard",temp.get(i).getStandard());
-                            jsonObject.put("standardId",standardId);
-                            jsonObject.put("buynum",temp.get(i).getNum());
-                            if(!isDikou){
-                                jsonObject.put("teaRice","1");
-                            }else{
-                                jsonObject.put("teaRice","0");
-                            }
-                            if (transId == 0){
-                                if (temp.get(i).getTransportTemplate()!=null){
-                                    jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
-                                }
-                            }else{
-                                jsonObject.put("transId",transId);
-                            }
-                            jsonArray.put(jsonObject);
-                        }
-                        initXiaDan(jsonArray);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    ToastUtils.showShort("请选择要购买的商品");
-                }
             }
         });
 
@@ -389,6 +347,34 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_dingdan_zi, null);
             childViewHolder = new ChildViewHolder(convertView);
+            childViewHolder.edt_beizhu.setTag(childPosition);
+            class MyTextWatcher implements TextWatcher {
+                private ChildViewHolder mHolder;
+
+                public MyTextWatcher(ChildViewHolder holder) {
+                    mHolder = holder;
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (s != null && !"".equals(s.toString())) {
+                        int position = (Integer) mHolder.edt_beizhu.getTag();
+                        mData.get(position).put("list_item_inputvalue",
+                                s.toString());// 当EditText数据发生改变的时候存到data变量中
+                    }
+                }
+            }
+            childViewHolder.edt_beizhu.addTextChangedListener(new MyTextWatcher(childViewHolder));
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
@@ -397,7 +383,13 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         childViewHolder.tv_dingdan_title.setText(mallProductsBean1.getName());
         childViewHolder.tv_dingdan_guige.setText(mallProductsBean1.getStandard());
         childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getPrice()));
-        childViewHolder.tv_youhuiquan.setText("满"+coupon.getFullMoney()+"减"+coupon.getMoney());
+        childViewHolder.tv_kuaidi.setText(String.valueOf(data.get(groupPosition).getMallStore().getBasicExpressFee()));
+        if (coupon!=null){
+            childViewHolder.tv_youhuiquan.setText("满"+coupon.getFullMoney()+"减"+coupon.getMoney());
+        }else{
+            childViewHolder.tv_youhuiquan.setText("暂无优惠券");
+        }
+
         childViewHolder.amountview.setCount(mallProductsBean1.getNum());
         Glide.with(context).load(mallProductsBean1.getCoverUrl()).into(childViewHolder.img_dingdan_photo);
         childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {
@@ -428,6 +420,68 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
 
             }
         });
+        btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //创建临时的List，用于存储被选中的商品
+                List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> temp = new ArrayList<>();
+                for (int i = 0; i < data.size(); i++) {
+                    List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
+                    for (int y = 0; y < mallProducts.size(); y++) {
+                        ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
+                        temp.add(mallProductsBean);
+                    }
+                }
+
+                if (temp != null && temp.size() > 0) {//如果有被选中的
+                    /**
+                     * 实际开发中，如果有被选中的商品，
+                     * 则跳转到确认订单页面，完成后续订单流程。
+                     */
+//                    LogUtils.e(temp.get(0).getName());
+                    JSONArray jsonArray = new JSONArray();
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        for (int i = 0; i < temp.size(); i++) {
+                            if (coupon!=null){
+                                jsonObject.put("couponsId",coupon.getId());
+                            }
+                            jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+                            jsonObject.put("orderId",list.getOrderList().get(0).getOrderId());
+                            jsonObject.put("productId",temp.get(i).getId());
+                            jsonObject.put("storeId",temp.get(i).getStoreId());
+                            jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
+                            jsonObject.put("standard",temp.get(i).getStandard());
+                            jsonObject.put("standardId",standardId);
+                            jsonObject.put("buynum",temp.get(i).getNum());
+                            Object value = mData.get(childPosition).get("list_item_inputvalue");
+                            if (!value.toString().isEmpty()){
+                                jsonObject.put("remark",value.toString());
+                            }
+                            if(!isDikou){
+                                jsonObject.put("teaRice","1");
+                            }else{
+                                jsonObject.put("teaRice","0");
+                            }
+                            if (transId == 0){
+                                if (temp.get(i).getTransportTemplate()!=null){
+                                    jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
+                                }
+                            }else{
+                                jsonObject.put("transId",transId);
+                            }
+                            jsonArray.put(jsonObject);
+                        }
+                        initXiaDan(jsonArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    ToastUtils.showShort("请选择要购买的商品");
+                }
+            }
+        });
+
         return convertView;
     }
 
@@ -441,15 +495,18 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         View view1;
         View viewLast;
         AnimShopButton amountview;
-        TextView tv_youhuiquan;
+        TextView tv_youhuiquan,tv_kuaidi;
+        EditText edt_beizhu;
 
         ChildViewHolder(View view) {
+            edt_beizhu = view.findViewById(R.id.edt_beizhu);
             tv_dingdan_title = view.findViewById(R.id.tv_dingdan_title);
             tv_dingdan_guige = view.findViewById(R.id.tv_dingdan_guige);
             tv_dingdan_price = view.findViewById(R.id.tv_dingdan_price);
             img_dingdan_photo = view.findViewById(R.id.img_dingdan_photo);
             amountview =  view.findViewById(R.id.amountview);
             tv_youhuiquan = view.findViewById(R.id.tv_youhuiquan);
+            tv_kuaidi = view.findViewById(R.id.tv_kuaidi);
         }
     }
 

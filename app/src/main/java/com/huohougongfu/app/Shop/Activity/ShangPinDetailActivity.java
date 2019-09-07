@@ -30,7 +30,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShangPinDetailActivity extends AppCompatActivity {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class ShangPinDetailActivity extends AppCompatActivity implements IUnReadMessageObserver {
 
     private final String[] mTitles = {"商品", "参数", "评价"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -41,6 +46,13 @@ public class ShangPinDetailActivity extends AppCompatActivity {
     private String 挑选;
     private String commission;
     private String isJingXuan;
+    private View bt_xiaoxi;
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,7 @@ public class ShangPinDetailActivity extends AppCompatActivity {
         commission = getIntent().getStringExtra("commission");
         isJingXuan = getIntent().getStringExtra("isJingXuan");
         intent = new Intent();
+        qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
         View bt_finish = findViewById(R.id.bt_finish);
         bt_finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +72,7 @@ public class ShangPinDetailActivity extends AppCompatActivity {
             }
         });
         View bt_gouwuche = findViewById(R.id.bt_gouwuche);
-        View bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
         bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,11 +89,19 @@ public class ShangPinDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
         if (挑选!=null){
             bt_gouwuche.setVisibility(View.GONE);
             bt_xiaoxi.setVisibility(View.GONE);
         }
+
         initTablayout();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
 
     private void initTablayout() {
@@ -97,5 +118,14 @@ public class ShangPinDetailActivity extends AppCompatActivity {
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(),mFragments,mtabtitle);
         mViewPager.setAdapter(mAdapter);
         stl.setViewPager(mViewPager);
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+        }
     }
 }

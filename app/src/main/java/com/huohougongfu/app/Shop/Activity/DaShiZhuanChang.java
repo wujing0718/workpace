@@ -45,7 +45,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DaShiZhuanChang extends AppCompatActivity {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessageObserver {
 
     private Banner banner;
     private List<Integer> mlist = new ArrayList<>();
@@ -59,16 +64,30 @@ public class DaShiZhuanChang extends AppCompatActivity {
     private QuanBuDaShiAdapter quanBuDaShiAdapter;
     private int page =2;
     private Intent intent;
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private View bt_xiaoxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_da_shi_zhuan_chang);
+        qBadgeView = new QBadgeView(DaShiZhuanChang.this);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         intent = new Intent();
         initUI();
         initData("");
         initbanner();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
 
     private void initUI() {
@@ -106,7 +125,9 @@ public class DaShiZhuanChang extends AppCompatActivity {
                 return false;
             }
         });
-        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+
+        bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -290,5 +311,12 @@ public class DaShiZhuanChang extends AppCompatActivity {
                     }
                 });
     }
-
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+        }
+    }
 }

@@ -173,7 +173,7 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
         map.put("tel",tel);
         map.put("userId",id);
         map.put("token",token);
-        map.put("status","2");
+        map.put("status","1");
         map.put("page", String.valueOf(page++));
         map.put("pageSize", "10");
         OkGo.<String>get(Contacts.URl2+"productManage/getProductResells")
@@ -182,7 +182,6 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                     @Override
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
-                        String body = response.body();
                         Gson gson = new Gson();
                         ShopGuanLiLieBiao shangPinGson = gson.fromJson(response.body(), ShopGuanLiLieBiao.class);
                         if (shangPinGson.getResult().getList().size()>0){

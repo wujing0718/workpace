@@ -314,7 +314,7 @@ public class ShopGson {
             private Object buyNum;
             private double commission;
             private Object reSell;
-            private Object ofCheap;
+            private int ofCheap;
             private Object detailDescribe;
             private String detailPic;
             private String sendAddress;
@@ -692,11 +692,11 @@ public class ShopGson {
                 this.reSell = reSell;
             }
 
-            public Object getOfCheap() {
+            public int getOfCheap() {
                 return ofCheap;
             }
 
-            public void setOfCheap(Object ofCheap) {
+            public void setOfCheap(int ofCheap) {
                 this.ofCheap = ofCheap;
             }
 

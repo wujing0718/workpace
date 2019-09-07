@@ -56,12 +56,18 @@ import java.util.Map;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imkit.model.Event;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import me.leolin.shortcutbadger.ShortcutBadger;
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShopFragment extends Fragment implements View.OnClickListener,IUnReadMessageObserver {
+public class ShopFragment extends Fragment implements View.OnClickListener,IUnReadMessageObserver{
 
 
     private View inflate;
@@ -76,6 +82,14 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     private Intent intent;
     private int page = 2;
     private ShopAdapter shangPinAdapter;
+    private int message;
+    private View bt_xiaoxi;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private QBadgeView qBadgeView;
 
     @SuppressLint("ValidFragment")
     public ShopFragment() {
@@ -87,30 +101,33 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_shop, container, false);
         intent = new Intent();
-        final Conversation.ConversationType[] conversationTypes = {
-                Conversation.ConversationType.PRIVATE,
-                Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
-                Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
-        };
-        //未读消息
-        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
         View statusBar = inflate.findViewById(R.id.statusBarView);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
+        qBadgeView = new QBadgeView(getActivity());
         initUI();
         initbanner();
         initData();
+
         return inflate;
     }
 
     @Override
     public void onResume() {
+        //未读消息
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         smartrefreshlayout.autoRefresh();
         page = 2;
         super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        RongIM.getInstance().removeUnReadMessageCountChangedObserver(this);
     }
 
     private void initData() {
@@ -140,7 +157,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     }
 
     private void initRec(ShopGson list) {
-
         ViewGroup parentViewGroup = (ViewGroup) head_shangcheng.getParent();
         if (parentViewGroup != null) {
             parentViewGroup.removeAllViews();
@@ -211,7 +227,8 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     }
 
     private void initUI() {
-        inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
+        bt_xiaoxi = inflate.findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(this);
         inflate.findViewById(R.id.bt_shop_sousuo).setOnClickListener(this);
         inflate.findViewById(R.id.bt_gouwuche).setOnClickListener(this);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
@@ -317,13 +334,26 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         }
     }
 
+
     @Override
-    public void onCountChanged(int i) {
-        int a = i;
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+        }
     }
 }

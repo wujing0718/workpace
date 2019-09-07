@@ -80,6 +80,15 @@ public class ShopDingDan implements Serializable {
             private Object createTime;
             private Object updateBy;
             private Object updateTime;
+            private String tranSportWay;
+
+            public String getTranSportWay() {
+                return tranSportWay;
+            }
+
+            public void setTranSportWay(String tranSportWay) {
+                this.tranSportWay = tranSportWay;
+            }
 
             public int getId() {
                 return id;
@@ -511,6 +520,15 @@ public class ShopDingDan implements Serializable {
                 private String serviceRegulations;
                 private Object ccoverUrl;
                 private List<MallProductsBean> mallProducts;
+                private double basicExpressFee;
+
+                public double getBasicExpressFee() {
+                    return basicExpressFee;
+                }
+
+                public void setBasicExpressFee(double basicExpressFee) {
+                    this.basicExpressFee = basicExpressFee;
+                }
 
                 public int getId() {
                     return id;

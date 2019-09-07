@@ -27,7 +27,12 @@ public class ShopAdapter extends BaseQuickAdapter<ShopGson.ResultBean.ListBean,B
     @Override
     protected void convert(BaseViewHolder helper, ShopGson.ResultBean.ListBean item) {
         SlantedTextView slanted = helper.getView(R.id.slanted);
-        slanted.setVisibility(View.GONE);
+        if (item.getOfCheap() == 1){
+            slanted.setVisibility(View.VISIBLE);
+            slanted.setText("特惠");
+        }else{
+            slanted.setVisibility(View.GONE);
+        }
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         String[] split = item.getCoverUrl().split(",");
         Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_jingxuan_photo);

@@ -43,7 +43,12 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeiMuActivity extends AppCompatActivity {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageObserver {
 
     private ListView lv_menu;
     private ListView lv_home;
@@ -56,11 +61,19 @@ public class LeiMuActivity extends AppCompatActivity {
 
     private ArrayList<Integer> showTitle;
     private Intent intent;
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private View bt_xiaoxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lei_mu);
+        qBadgeView = new QBadgeView(LeiMuActivity.this);
         intent = new Intent();
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +90,8 @@ public class LeiMuActivity extends AppCompatActivity {
                 }
             }
         });
-        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -87,6 +101,12 @@ public class LeiMuActivity extends AppCompatActivity {
             }
         });
         initData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
 
     private void initData() {
@@ -386,6 +406,15 @@ public class LeiMuActivity extends AppCompatActivity {
         }
         public void setData(List<String> data) {
             this.list = data;
+        }
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
         }
     }
 }

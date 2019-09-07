@@ -29,14 +29,18 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
     private RecyclerView rec_chanpin_canshu;
     private String categoryName;
     private View bt_queding;
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<Object> list = new ArrayList<>();
+    private ArrayList<Integer> typelist = new ArrayList<>();
+
     private List<String> keys;
     private Bundle bundle;
+    private View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_can_shu);
+        v = getWindow().peekDecorView();
         categoryName = getIntent().getStringExtra("categoryName");
         initUI();
         initData();
@@ -52,19 +56,20 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
                         ChanPinCanShu canshu = new Gson().fromJson(body, ChanPinCanShu.class);
                         if (canshu.getStatus() == 1){
                             keys = canshu.getResult().getKeys();
-                            initRec(canshu.getResult().getKeys());
+                            initRec(canshu);
                         }
                     }
                 });
     }
 
-    private void initRec(List<String> keys) {
-        for (int i = 0; i < keys.size(); i++) {
+    private void initRec(ChanPinCanShu keys) {
+        for (int i = 0; i < keys.getResult().getKeys().size(); i++) {
             list.add(i,"");
+            typelist.add(keys.getResult().getType().get(i));
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rec_chanpin_canshu.setLayoutManager(layoutManager);
-        CanShuAdapter canShuAdapter = new CanShuAdapter(keys,list,this);
+        CanShuAdapter canShuAdapter = new CanShuAdapter(keys,list,typelist,ShopCanShuActivity.this,v);
         rec_chanpin_canshu.setAdapter(canShuAdapter);
     }
 
@@ -91,7 +96,13 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
                         JSONObject jsonObject = new JSONObject();
                         try {
                             jsonObject.put("key",keys.get(j));
-                            jsonObject.put("value",list.get(j));
+                            if (list.get(j).equals("是")){
+                                jsonObject.put("value","1");
+                            }else if (list.get(j).equals("否")){
+                                jsonObject.put("value","0");
+                            }else{
+                                jsonObject.put("value",list.get(j));
+                            }
                             jsonArray.put(jsonObject);
                         } catch (JSONException e) {
                             e.printStackTrace();

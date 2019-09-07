@@ -52,7 +52,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TeYuePinPaiActivity extends AppCompatActivity {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMessageObserver {
 
     private Banner banner;
     private List<Integer> mlist = new ArrayList<>();
@@ -68,12 +73,19 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
     private int mId;
     private Intent intent;
     private String token;
-
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private View bt_xiaoxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_te_yue_pin_pai);
+        qBadgeView = new QBadgeView(TeYuePinPaiActivity.this);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
@@ -87,6 +99,12 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
         inituUI();
         initData("");
         initbanner();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
 
     private void inituUI() {
@@ -112,7 +130,8 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                 return false;
             }
         });
-        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -360,4 +379,12 @@ public class TeYuePinPaiActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+        }
+    }
 }

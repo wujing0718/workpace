@@ -54,6 +54,8 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     private TextView tv_dingdan_caozuo1;
     private MyDingDanDetail mydongdandetail;
     private int ofManager;
+    private TextView tv_remark;
+    private TextView tv_kuaidi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,10 +129,11 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
             }
         });
     }
-
     private void initView(List<MyDingDanDetail.ResultBean> result) {
+        tv_remark.setText(result.get(0).getRemark());
+        tv_kuaidi.setText(result.get(0).getTransportWay());
         tv_orderNo.setText(result.get(0).getOrderNo());
-        tv_createTime.setText(result.get(0).getCreateTime());
+        tv_createTime.setText(result.get(0).getCreateTimel());
         tv_logisticsFee.setText(String.valueOf(result.get(0).getLogisticsFee()));
         tv_orderAmountTotal.setText("¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
         tv_order_AmountTotal.setText("共计：¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
@@ -145,6 +148,8 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     }
 
     private void initUI() {
+        tv_kuaidi = findViewById(R.id.tv_kuaidi);
+        tv_remark = findViewById(R.id.tv_remark);
         View view_logistics = findViewById(R.id.view_logistics);
         view_logistics.setOnClickListener(this);
         TextView tv_dingdan_zhuangtai = findViewById(R.id.tv_dingdan_zhuangtai);

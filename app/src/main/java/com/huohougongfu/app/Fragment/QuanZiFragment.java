@@ -48,12 +48,17 @@ import com.youth.banner.BannerConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QuanZiFragment extends Fragment implements View.OnClickListener,IListener {
+public class QuanZiFragment extends Fragment implements View.OnClickListener,IListener ,IUnReadMessageObserver {
 
     private final String[] mTitles = {"发现", "同城", "关注","喜欢"};
 //    private final String[] mchannel = {"www", "news", "zhengce","personage"};
@@ -69,6 +74,13 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     private Banner banner;
     private List<String> mbanner = new ArrayList<>();
     private List<String> mbannerimg = new ArrayList<>();
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private QBadgeView qBadgeView;
+    private View bt_xiaoxi;
 
     public QuanZiFragment() {
         // Required empty public constructor
@@ -81,6 +93,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_quan_zi, container, false);
         View statusBar = inflate.findViewById(R.id.statusBarView);
+        qBadgeView = new QBadgeView(getActivity());
         manager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         banner = inflate.findViewById(R.id.banner);
@@ -90,7 +103,8 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         tv_city = inflate.findViewById(R.id.tv_city);
         tv_city.setText(MyApp.instance.getString("city"));
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
+        bt_xiaoxi = inflate.findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(this);
         inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);
         inflate.findViewById(R.id.bt_quanzi_zhaoren).setOnClickListener(this);
         edt_quanzi_sousuo = inflate.findViewById(R.id.edt_quanzi_sousuo);
@@ -114,6 +128,11 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         return inflate;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+    }
 
     private void initbanner() {
         //设置指示器位置
@@ -208,7 +227,23 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        }
+    }
+    @Override
     public void notifyAllActivity(int audience_cnt, String status) {
 
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+        }
     }
 }

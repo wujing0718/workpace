@@ -557,65 +557,65 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                    <!--<LinearLayout-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                        <TextView
-                            android:textColor="#818181"
-                            android:textSize="12sp"
-                            android:text="发货时间："
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        <!--<TextView-->
+                            <!--android:textColor="#818181"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:text="发货时间："-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
 
-                        <TextView
-                            android:textSize="12sp"
-                            android:textColor="#818181"
-                            android:layout_marginLeft="@dimen/dp_20"
-                            android:text="2019-06-09 15:00:00"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:textColor="#818181"
-                            android:textSize="12sp"
-                            android:text="完成时间："
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:textSize="12sp"
-                            android:textColor="#818181"
-                            android:layout_marginLeft="@dimen/dp_20"
-                            android:text="2019-06-11  15:00:00"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        <!--<TextView-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:textColor="#818181"-->
+                            <!--android:layout_marginLeft="@dimen/dp_20"-->
+                            <!--android:text="2019-06-09 15:00:00"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
 
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content">-->
+
+                        <!--<TextView-->
+                            <!--android:textColor="#818181"-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:text="完成时间："-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
+
+                        <!--<TextView-->
+                            <!--android:textSize="12sp"-->
+                            <!--android:textColor="#818181"-->
+                            <!--android:layout_marginLeft="@dimen/dp_20"-->
+                            <!--android:text="2019-06-11  15:00:00"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content" />-->
+
+
+                    <!--</LinearLayout>-->
+
+                <!--</RelativeLayout>-->
 
 
             </LinearLayout>
@@ -641,6 +641,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/tv_kuaidi"
                     android:text="免邮"
                     android:textSize="14sp"
                     android:layout_alignParentRight="true"
@@ -672,7 +673,8 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="送包装盒"
+                    android:id="@+id/tv_remark"
+                    android:text=""
                     android:textSize="12sp"
                     android:textColor="#818181"
                     android:layout_gravity="center_vertical"

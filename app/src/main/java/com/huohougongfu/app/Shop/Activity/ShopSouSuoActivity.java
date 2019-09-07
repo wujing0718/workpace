@@ -32,7 +32,12 @@ import com.huohougongfu.app.Utils.ListenerManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class ShopSouSuoActivity extends AppCompatActivity implements IListener,IUnReadMessageObserver {
 
     private final String[] mTitles = {"商品", "店铺", "大师"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -41,12 +46,21 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
     private EditText bt_shop_sousuo;
     private String sousuo;
     private InputMethodManager manager;
+    private View bt_kefu;
+
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_sou_suo);
         ListenerManager.getInstance().registerListtener(this);
+        qBadgeView = new QBadgeView(ShopSouSuoActivity.this);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +94,8 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
                 startActivity(intent);
             }
         });
-        findViewById(R.id.bt_kefu).setOnClickListener(new View.OnClickListener() {
+        bt_kefu = findViewById(R.id.bt_kefu);
+        bt_kefu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -89,6 +104,12 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
             }
         });
         initTablayout();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
 
     private void initTablayout() {
@@ -139,5 +160,14 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener {
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
 
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_kefu).setBadgeNumber(i);
+        }
     }
 }

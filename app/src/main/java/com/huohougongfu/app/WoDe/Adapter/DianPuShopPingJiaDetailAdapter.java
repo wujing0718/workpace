@@ -64,7 +64,6 @@ public class DianPuShopPingJiaDetailAdapter extends BaseQuickAdapter<PingJia.Res
         ImageView touxiang = helper.getView(R.id.img_pinglun_touxiang);
         ImageView img_dianzan = helper.getView(R.id.img_dianzan);
         helper.addOnClickListener(R.id.bt_maijia_huifu);
-
         //圆头像
         RequestOptions options = new RequestOptions().circleCrop();
         Glide.with(context).load(item.getPhoto()).apply(options).into(touxiang);
@@ -89,6 +88,7 @@ public class DianPuShopPingJiaDetailAdapter extends BaseQuickAdapter<PingJia.Res
             bt_maijia_huifu.setVisibility(View.VISIBLE);
         }
         if(picture1 !=null){
+            mlist.clear();
             String[] split = picture1.split(",");
             pinglun_photo.setVisibility(View.VISIBLE);
             for (int i = 0; i < split.length; i++) {

@@ -1,6 +1,7 @@
 package com.huohougongfu.app.Fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -87,24 +88,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        inflate = inflater.inflate(R.layout.fragment_home, container, false);
-        intent = new Intent();
-        lon = MyApp.instance.getString("lon");
-        lat = MyApp.instance.getString("lat");
-        //设置默认显示内容
-        initUI();
-        initJiQi();
-        initMaiChaJiQi();
+        if (inflate ==null){
+            inflate = inflater.inflate(R.layout.fragment_home, container, false);
+            intent = new Intent();
+            lon = MyApp.instance.getString("lon");
+            lat = MyApp.instance.getString("lat");
+            //设置默认显示内容
+            initUI();
+            initJiQi();
+            initMaiChaJiQi();
+        }
         return inflate;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     public void onResume() {
         //设置定位监听
         initbanner();
+        initJiQi();
+        initMaiChaJiQi();
         super.onResume();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            initJiQi();
+            initMaiChaJiQi();
+        }else{
+            initJiQi();
+            initMaiChaJiQi();
+        }
+    }
 
     private void setDefaultFragment(String equipmentId) {
         FragmentManager fm = getChildFragmentManager();

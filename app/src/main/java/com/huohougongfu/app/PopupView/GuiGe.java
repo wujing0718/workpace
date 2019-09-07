@@ -56,7 +56,7 @@ public class GuiGe extends BottomPopupView {
     private Context context;
     private RadioGroup gadiogroup;
     private RadioButton button;
-    private int standardPrice;
+    private double standardPrice;
     private AmountView amountview;
     private int amount = 1;
     private int storeId;
@@ -119,11 +119,6 @@ public class GuiGe extends BottomPopupView {
         findViewById(R.id.bt_goumai).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Map<String,String> map = new HashMap<>();
-//                map.put("standardIds",String.valueOf(standarid));
-//                map.put("pids",String.valueOf(mallProduct.getProductInfo().getId()));
-//                map.put("nums",String.valueOf(amount));
-//                map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
                 JSONObject jsonObject = new JSONObject();
                 try {
                         jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
@@ -151,9 +146,8 @@ public class GuiGe extends BottomPopupView {
                 .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_guige_photo);
         tv_guige_name.setText(mallProduct.getProductInfo().getName());
         if (mallProduct.getProductStandard() !=null){
-            tv_guige_price.setText("¥"+mallProduct.getProductInfo().getPrice());
+            tv_guige_price.setText("¥"+mallProduct.getProductStandard().get(0).getStandardPrice());
         }else{
-//            tv_guige_price.setText(mallProduct.);
         }
     }
 
@@ -191,7 +185,9 @@ public class GuiGe extends BottomPopupView {
                                     Intent intent = new Intent();
                                     intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
                                     intent.putExtra("standardId",standarid);
-                                    intent.putExtra("coupon",(Serializable)resultBean);
+                                    if (resultBean!=null){
+                                        intent.putExtra("coupon",(Serializable)resultBean);
+                                    }
                                     intent.setClass(context,XiaDanActivity.class);
                                     context.startActivity(intent);
                                 }

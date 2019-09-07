@@ -33,7 +33,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeHuiActivity extends AppCompatActivity {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageObserver {
 
     private RecyclerView rec_shangpin_tehui;
     private String token,tel,id;
@@ -41,17 +46,31 @@ public class TeHuiActivity extends AppCompatActivity {
     private int page = 2;
     private TeHuiAdapter tehuiadapter;
     private Intent intent;
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private View bt_xiaoxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_te_hui);
+        qBadgeView = new QBadgeView(TeHuiActivity.this);
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
         intent = new Intent();
         initUI();
         initData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
     private void initData() {
         Map<String, String> map = new HashMap<>();
@@ -90,7 +109,7 @@ public class TeHuiActivity extends AppCompatActivity {
         GridLayoutManager layoutmanager = new GridLayoutManager(TeHuiActivity.this,2);
         //设置RecyclerView 布局
         rec_shangpin_tehui.setLayoutManager(layoutmanager);
-         tehuiadapter = new TeHuiAdapter(R.layout.item_shangpin,result.getList());
+        tehuiadapter = new TeHuiAdapter(R.layout.item_shangpin,result.getList());
         rec_shangpin_tehui.setAdapter(tehuiadapter);
         tehuiadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -167,7 +186,8 @@ public class TeHuiActivity extends AppCompatActivity {
                 }
             }
         });
-        findViewById(R.id.bt_xiaoxi).setOnClickListener(new View.OnClickListener() {
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -176,5 +196,14 @@ public class TeHuiActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+        }
     }
 }

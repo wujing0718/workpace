@@ -286,13 +286,11 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         double order;
         if (!isDikou){
             if (total_priceorder-dikou>0){
-                order = total_priceorder-dikou;
                 map.put("totalPrice",String.valueOf(total_priceorder));
                 map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
             }else{
-                order =0.00;
                 map.put("totalPrice",String.valueOf(total_priceorder));
-                Double v = total_priceorder * 100;
+                Double v = total_price * 100;
                 int teaRiceNum = v.intValue();
                 map.put("teaRiceNum",String.valueOf(teaRiceNum));
             }
