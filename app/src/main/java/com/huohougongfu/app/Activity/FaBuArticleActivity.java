@@ -246,11 +246,10 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                         String imagePath = SDCardUtil.getFilePathFromUri(FaBuArticleActivity.this, imageUri);
                         //Log.e(TAG, "###path=" + imagePath);
                         Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-                        Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
-
-                        //bitmap = BitmapFactory.decodeFile(imagePath);
-                        if (bitmap!=null){
-                            compressPath = SDCardUtil.saveToSdCard(bitmap);
+                        String compress = SDCardUtil.saveToSdCard(bitmap1);//压缩后的图片路径
+                        String compressPath = ImageUtils.amendRotatePhoto(compress,FaBuArticleActivity.this);
+                        if (compressPath!=null){
+//                            compressPath = SDCardUtil.saveToSdCard(bitmap);
                             //Log.e(TAG, "###imagePath="+imagePath);
                             mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
                             mphotopath.add(new File(compressPath));

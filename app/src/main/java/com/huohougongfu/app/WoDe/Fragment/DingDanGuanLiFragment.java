@@ -21,6 +21,7 @@ import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.DianPuDingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
 import com.huohougongfu.app.WoDe.Activity.TianXieWuLiuActivity;
@@ -120,7 +121,7 @@ public class DingDanGuanLiFragment extends Fragment {
                 intent.putExtra("orderNo",list.get(position).getOrderNo());
                 intent.putExtra("orderStatus",list.get(position).getOrderStatus());
                 intent.putExtra("ofManager",1);
-                intent.setClass(getActivity(),DingDanDetailActivity.class);
+                intent.setClass(getActivity(),DianPuDingDanDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -161,6 +162,8 @@ public class DingDanGuanLiFragment extends Fragment {
                             intent.putExtra("orderNo",list.get(position).getOrderNo());
                             intent.setClass(getActivity(), TianXieWuLiuActivity.class);
                             startActivity(intent);
+                        }else if (list.get(position).getOrderStatus() == -5){
+                            ToastUtils.showShort("确认退款");
                         }
                         break;
                 }

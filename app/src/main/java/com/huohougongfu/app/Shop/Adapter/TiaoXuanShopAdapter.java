@@ -32,7 +32,7 @@ public class TiaoXuanShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultB
         Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);
         helper.setText(R.id.tv_jingxuan_title,item.getName());
         helper.setText(R.id.tv_jingxuan_price,String.valueOf(item.getPrice()));
-        helper.setText(R.id.tv_jingxuan_name,"【"+item.getModel()+"】");
+        helper.setText(R.id.tv_jingxuan_name,"【"+item.getStoreName()+"】");
         helper.setText(R.id.tv_jingxuan_num,item.getSellNum()+"人付款");
 
     }

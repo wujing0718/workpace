@@ -30,6 +30,9 @@ import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +56,7 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private View bt_xiaoxi;
+    private View bt_gouwuche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +74,10 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
     @Override
     protected void onResume() {
         super.onResume();
+        initShoppingCartNum();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
+    
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("tel",tel);
@@ -103,6 +109,28 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
                     }
                 });
     }
+
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 
     private void initRec(TeiHuiGson.ResultBean result) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
@@ -177,7 +205,8 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
                 finish();
             }
         });
-        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+        bt_gouwuche = findViewById(R.id.bt_gouwuche);
+        bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){

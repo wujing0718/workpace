@@ -15,14 +15,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.MyDingDan;
+import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 
 import java.util.List;
 
 public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.ListBean,BaseViewHolder> {
+    private List<MyDingDan.ResultBean.ListBean> data1;
     public MyDingDanAdapter(int layoutResId, @Nullable List<MyDingDan.ResultBean.ListBean> data) {
         super(layoutResId, data);
+        this.data1 = data;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -47,6 +50,9 @@ public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.List
             bt_anniu_one.setText("取消订单");
             bt_anniu_two.setText("确认付款");
         }else if (item.getOrderStatus()==4){
+            bt_anniu_one.setVisibility(View.GONE);
+            bt_anniu_two.setText("删除订单");
+        }else if (item.getOrderStatus()==-5){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("删除订单");
         }
@@ -76,5 +82,20 @@ public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.List
 //        });
         rec_item_dingdan_liebiao.setAdapter(myDingDanAdapter);
 
+    }
+
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<MyDingDan.ResultBean.ListBean> data) {
+        //增加数据
+        int position = data1.size();
+        data1.addAll(position, data);
+        notifyItemRangeChanged(position,data.size());
+    }
+
+    public void refresh(List<MyDingDan.ResultBean.ListBean> data) {
+        //刷新数据
+        data1.remove(data1);
+        data1.addAll(data);
+        notifyDataSetChanged();
     }
 }

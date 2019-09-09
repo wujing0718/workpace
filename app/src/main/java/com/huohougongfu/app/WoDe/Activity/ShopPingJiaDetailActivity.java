@@ -119,7 +119,7 @@ public class ShopPingJiaDetailActivity extends AppCompatActivity {
         if (!edt_maijiahuifu.getText().toString().isEmpty()){
             Map<String,String> map = new HashMap<>();
             map.put("productId",String.valueOf(shopid));
-            map.put("appraiseId",String.valueOf(item.getAppraiserId()));
+            map.put("appraiseId",String.valueOf(item.getId()));
             map.put("answerId",String.valueOf(MyApp.instance.getInt("id")));
             map.put("content",edt_maijiahuifu.getText().toString());
             OkGo.<String>post(Contacts.URl1+"/createAnswerAppraiseOnlySeller")
@@ -134,6 +134,7 @@ public class ShopPingJiaDetailActivity extends AppCompatActivity {
                                 ToastUtils.showShort("回复内容成功");
                                 edt_maijiahuifu.setText("");
                                 edt_maijiahuifu.setVisibility(View.GONE);
+                                initData();
                             }
                         }
                     });

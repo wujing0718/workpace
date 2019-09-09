@@ -3,6 +3,7 @@
         import android.Manifest;
         import android.annotation.SuppressLint;
         import android.content.DialogInterface;
+        import android.content.Intent;
         import android.os.Build;
         import android.support.annotation.NonNull;
         import android.support.design.internal.BottomNavigationItemView;
@@ -37,6 +38,8 @@
         import com.huohougongfu.app.PopupView.XinRenDaLiBao;
         import com.huohougongfu.app.R;
         import com.huohougongfu.app.Utils.Contacts;
+        import com.huohougongfu.app.Utils.IListener;
+        import com.huohougongfu.app.Utils.ListenerManager;
         import com.huohougongfu.app.Utils.NoScrollViewPager;
         import com.huohougongfu.app.Utils.PermissionPageUtils;
         import com.kongzue.dialog.v2.SelectDialog;
@@ -47,7 +50,13 @@
 
         import java.lang.reflect.Field;
         import java.util.ArrayList;
-    public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener {
+
+        import io.rong.imkit.RongIM;
+        import io.rong.imlib.RongIMClient;
+
+        import static io.rong.imlib.RongIMClient.ErrorCode.RC_CONN_USER_OR_PASSWD_ERROR;
+
+        public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener,IListener {
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;
     private BottomNavigationView bottomNavigationView;
@@ -65,9 +74,32 @@
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initLoc();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initLoc();
+        String rongToken = MyApp.instance.getString("rongToken");
+        RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
+            //token1参数报错
+            @Override
+            public void onTokenIncorrect() {
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Log.e("TAG","成功");
+                // 连接成功，说明你已成功连接到融云Server
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.e("TAG","=========="+errorCode);
+                if (errorCode==RC_CONN_USER_OR_PASSWD_ERROR){
+                    MyApp.instance.clear(true);
+                    startActivity(new Intent().setClass(MainActivity.this,LoginActivity.class));
+                }
+            }
+        });
+        ListenerManager.getInstance().registerListtener(this);
         if(Build.VERSION.SDK_INT>=23){
             String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.CAMERA,
@@ -97,14 +129,13 @@
         });
     }
 
-
-
         //请求权限后的回调:
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
                 if (requestCode==123){
                     if (PermissionPageUtils.isPermissionRequestSuccess(grantResults)){
                         initLoc();
+                        //自己需要的操作
                         return;
                     }else {//拒绝
                             PermissionPageUtils.checkMorePermissions(MainActivity.this, permissions, new PermissionPageUtils.PermissionCheckCallBack() {
@@ -224,6 +255,7 @@
                                 MyApp.instance.put("city",aMapLocation.getCity(),true);
                                 MyApp.instance.put("lat",lat,true);
                                 MyApp.instance.put("lon",lon,true);
+                                ListenerManager.getInstance().sendBroadCast(10,"是");
                                 if (isFirstLoc) {
                                     //获取定位信息
                                     StringBuffer buffer = new StringBuffer();
@@ -306,7 +338,12 @@
 
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+        @Override
+        public void notifyAllActivity(int audience_cnt, String status) {
+
+        }
+
+        class ViewPagerAdapter extends FragmentPagerAdapter {
         private Fragment[] mFragments = new Fragment[]{new HomeFragment(), new ShopFragment(), new QuanZiFragment(),new MyFragment()};
 
         public ViewPagerAdapter(FragmentManager fm) {

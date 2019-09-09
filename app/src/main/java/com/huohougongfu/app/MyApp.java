@@ -154,28 +154,6 @@ public class MyApp extends Application {
         String rongToken = instance.getString("rongToken");
         // token 就是你刚刚获取的token
         if (!"".equals(rongToken)){
-            RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
-                //token1参数报错
-                @Override
-                public void onTokenIncorrect() {
-
-                }
-
-                @Override
-                public void onSuccess(String s) {
-                    Log.e("TAG","成功");
-                    // 连接成功，说明你已成功连接到融云Server
-                }
-
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                    Log.e("TAG","=========="+errorCode);
-                    if (errorCode==RC_CONN_USER_OR_PASSWD_ERROR){
-                        instance.clear(true);
-                        startActivity(new Intent().setClass(context,LoginActivity.class));
-                    }
-                }
-            });
             RongIM.setConnectionStatusListener(new MyConnectionStatusListener());
         }
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());

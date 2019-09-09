@@ -22,6 +22,7 @@ import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.DSZhuanChang;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.TeYuePingPai;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
 import com.huohougongfu.app.Shop.Adapter.QuanBuDaShiAdapter;
@@ -39,6 +40,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,6 +75,7 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private View bt_xiaoxi;
+    private View bt_gouwuche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,7 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
     protected void onResume() {
         super.onResume();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        initShoppingCartNum();
     }
 
     private void initUI() {
@@ -136,7 +142,8 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
                 }
             }
         });
-        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+        bt_gouwuche = findViewById(R.id.bt_gouwuche);
+        bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -146,6 +153,28 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
             }
         });
     }
+
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 
     private void initData(String sousuo) {
         Map<String,String> map = new HashMap<>();
@@ -178,7 +207,7 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
     private void initbanner() {
 //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        OkGo.<String>get(Contacts.URl1+"/setting/banner/3")
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/4")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

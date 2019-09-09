@@ -49,6 +49,7 @@ public class MyDingDanActivity extends AppCompatActivity {
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(position);
         stl.setViewPager(mViewPager);
+        stl.setCurrentTab(position);
     }
 
 }

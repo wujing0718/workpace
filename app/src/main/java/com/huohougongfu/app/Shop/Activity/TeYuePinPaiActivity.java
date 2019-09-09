@@ -80,6 +80,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private View bt_xiaoxi;
+    private View bt_gouwuche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +105,31 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
     @Override
     protected void onResume() {
         super.onResume();
+        initShoppingCartNum();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
+
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 
     private void inituUI() {
         rec_quanbupinpai = findViewById(R.id.rec_quanbupinpai);
@@ -140,7 +164,8 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
                 }
             }
         });
-        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+        bt_gouwuche = findViewById(R.id.bt_gouwuche);
+        bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -181,7 +206,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
     private void initbanner() {
         //设置指示器位置
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        OkGo.<String>get(Contacts.URl1+"/setting/banner/3")
+        OkGo.<String>get(Contacts.URl1+"/setting/banner/5")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

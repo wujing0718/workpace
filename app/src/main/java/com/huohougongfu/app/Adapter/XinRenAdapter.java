@@ -21,8 +21,8 @@ public class XinRenAdapter extends BaseQuickAdapter<LiBaoGson.ResultBean.SystemB
 
     @Override
     protected void convert(BaseViewHolder helper, LiBaoGson.ResultBean.SystemBean item) {
-        View view = helper.getView(R.id.bt_zhuanzeng);
-        view.setVisibility(View.GONE);
+//        View view = helper.getView(R.id.bt_zhuanzeng);
+//        view.setVisibility(View.GONE);
         ImageView img_quan_photo = helper.getView(R.id.img_quan_photo);
         helper.addOnClickListener(R.id.bt_zhuanzeng);
         helper.addOnClickListener(R.id.bt_serviceRegulations);

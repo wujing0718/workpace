@@ -24,6 +24,7 @@ import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.QuanBuLeiMu;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
 import com.huohougongfu.app.Shop.Adapter.LeiMuDaShiZhuanChangAdapter;
@@ -39,6 +40,9 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +72,7 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private View bt_xiaoxi;
+    private View bt_gouwuche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +86,8 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
                 finish();
             }
         });
-        findViewById(R.id.bt_gouwuche).setOnClickListener(new View.OnClickListener() {
+        bt_gouwuche = findViewById(R.id.bt_gouwuche);
+        bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
@@ -103,9 +109,32 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
         initData();
     }
 
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
+        initShoppingCartNum();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
 

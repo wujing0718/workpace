@@ -15,7 +15,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
+import com.huohougongfu.app.Gson.LeiMuDetail;
 import com.huohougongfu.app.Gson.TeiHuiGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.ShaiXuanLeiMuView;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.TeHuiAdapter;
@@ -31,10 +33,18 @@ import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class LeiMuDetailActivity extends AppCompatActivity implements View.OnClickListener {
+import io.rong.imkit.RongIM;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
+import q.rorbin.badgeview.QBadgeView;
+
+public class LeiMuDetailActivity extends AppCompatActivity implements View.OnClickListener,IUnReadMessageObserver {
 
     private Intent intent;
     private TextView bt_shop_zonghe,bt_shop_xiaoliang,bt_shop_xinpin,tv_shop_jiage;
@@ -68,15 +78,53 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
     private TextView  tv_leimu_name;
     private View view_zhanweitu;
     private int page = 2;
+    private QBadgeView qBadgeView;
+    final Conversation.ConversationType[] conversationTypes = {
+            Conversation.ConversationType.PRIVATE,
+            Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+            Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
+    };
+    private View bt_gouwuche;
+    private View bt_xiaoxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lei_mu_detail);
+        qBadgeView = new QBadgeView(LeiMuDetailActivity.this);
         name = getIntent().getStringExtra("name");
         intent = new Intent();
         initUI();
         initData(map);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initShoppingCartNum();
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+    }
+
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView = new QBadgeView(LeiMuDetailActivity.this);
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initData(Map<String,String> map1) {
@@ -186,8 +234,10 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
 
         findViewById(R.id.bt_finish).setOnClickListener(this);
-        findViewById(R.id.bt_xiaoxi).setOnClickListener(this);
-        findViewById(R.id.bt_gouwuche).setOnClickListener(this);
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(this);
+        bt_gouwuche = findViewById(R.id.bt_gouwuche);
+        bt_gouwuche.setOnClickListener(this);
         img_shop_sortPrice = findViewById(R.id.img_shop_sortPrice);
 
         bt_shop_zonghe = findViewById(R.id.bt_shop_zonghe);
@@ -283,6 +333,15 @@ public class LeiMuDetailActivity extends AppCompatActivity implements View.OnCli
                     startActivity(intent);
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
         }
     }
 }

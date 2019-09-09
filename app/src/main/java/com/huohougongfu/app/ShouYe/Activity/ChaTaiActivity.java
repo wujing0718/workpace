@@ -23,11 +23,13 @@ public class ChaTaiActivity extends AppCompatActivity {
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private String machineId;
+    public static  ChaTaiActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cha_tai);
+        activity = this;
         machineId = getIntent().getStringExtra("machineId");
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override

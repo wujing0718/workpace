@@ -43,6 +43,7 @@ import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -119,6 +120,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         }
 
     };
+    private BasePopupView fuwupopup;
+    private View view_caozuo;
 
     public ShangPinFragment() {
 
@@ -153,6 +156,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         ShopFuWuGson fuwu1 = gson.fromJson(body, ShopFuWuGson.class);
                         if (fuwu1.getStatus() == 1){
                             fuwu = fuwu1.getResult();
+                            fuwupopup = new XPopup.Builder(getContext())
+                                    .asCustom(new FuWu(getContext(), fuwu));
+                            initView(mallProduct);
                         }
                     }
                 });
@@ -199,6 +205,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     }
 
     private void initUI() {
+        view_caozuo = inflate.findViewById(R.id.view_caozuo);
         img_dianpu_ditu = inflate.findViewById(R.id.img_dianpu_ditu);
         tv_detail_price = inflate.findViewById(R.id.tv_detail_price);
         tv_yuan_price = inflate.findViewById(R.id.tv_yuan_price);
@@ -342,6 +349,12 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             bt_commission.setVisibility(View.GONE);
             bt_detail_fenxiang.setVisibility(View.VISIBLE);
         }
+
+        if (mallProduct.getUserId() == Integer.valueOf(id)){
+            view_caozuo.setVisibility(View.GONE);
+        }else{
+            view_caozuo.setVisibility(View.VISIBLE);
+        }
         tv_detail_price.setText(String.valueOf(mallProduct.getPrice()));
         tv_yuan_price.setText(String.valueOf(mallProduct.getMarketPrice()));
         tv_detail_kuaidi.setText("快递："+mallProduct.getDefaultTranCost());
@@ -424,9 +437,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_detail_fuwu:
                 if (!utils.isDoubleClick()){
-                    new XPopup.Builder(getContext())
-                            .asCustom(new FuWu(getContext(),fuwu))
-                            .show();
+                    if (fuwu.getBasicService().size()>0){
+                        fuwupopup.show();
+                    }else{
+                        ToastUtils.showShort("暂无服务");
+                    }
                 }
                 break;
             case R.id.bt_shoucang:

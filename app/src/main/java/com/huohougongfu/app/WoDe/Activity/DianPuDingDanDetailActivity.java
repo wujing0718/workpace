@@ -5,8 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -41,7 +41,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DingDanDetailActivity extends AppCompatActivity implements OnClickListener {
+import io.rong.imkit.RongIM;
+
+public class DianPuDingDanDetailActivity extends AppCompatActivity implements OnClickListener {
 
     private String orderNo;
     private int id,orderStatus;
@@ -109,7 +111,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                             intent.putExtra("shop",mydongdandetail.getResult().get(0).getMallStores().getMallProducts().get(position));
                             intent.putExtra("orderNo",orderNo);
                             intent.putExtra("orderStatus",orderStatus);
-                            intent.setClass(DingDanDetailActivity.this,ShenQingShouHouActivity.class);
+                            intent.setClass(DianPuDingDanDetailActivity.this,ShenQingShouHouActivity.class);
                             startActivity(intent);
                         }
                         break;
@@ -120,7 +122,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                             intent.putExtra("shopid",mydongdandetail.getResult().get(0).getMallStores().getMallProducts().get(position).getId());
                             intent.putExtra("storeName",mydongdandetail.getResult().get(0).getMallStores().getStoreName());
                             intent.putExtra("storeLogo",mydongdandetail.getResult().get(0).getMallStores().getStoreLogo());
-                            intent.setClass(DingDanDetailActivity.this,DingDanPingJiaActivity.class);
+                            intent.setClass(DianPuDingDanDetailActivity.this,DingDanPingJiaActivity.class);
                             startActivity(intent);
                         }
                         break;
@@ -169,22 +171,20 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 view_logistics.setVisibility(View.GONE);
                 tv_dingdan_zhuangtai.setText("待付款");
             }
-
         }else if (orderStatus == 1){
             tv_dingdan_caozuo1.setText("取消订单");
-            tv_dingdan_caozuo2.setText("提醒发货");
+            tv_dingdan_caozuo2.setText("确认发货");
             tv_dingdan_zhuangtai.setText("待发货");
             view_logistics.setVisibility(View.GONE);
         }else if (orderStatus == 2){
             tv_dingdan_caozuo1.setVisibility(View.GONE);
-            tv_dingdan_caozuo2.setText("确认收货");
-            tv_dingdan_zhuangtai.setText("待签收");
+            tv_dingdan_caozuo2.setVisibility(View.GONE);
+            tv_dingdan_zhuangtai.setText("已发货");
             view_logistics.setVisibility(View.VISIBLE);
         }else if (orderStatus == 3){
             tv_dingdan_caozuo1.setVisibility(View.GONE);
-            tv_dingdan_caozuo2.setText("评价");
             tv_dingdan_caozuo2.setVisibility(View.GONE);
-            tv_dingdan_zhuangtai.setText("已完成");
+            tv_dingdan_zhuangtai.setText("已评价");
             view_logistics.setVisibility(View.VISIBLE);
         }else if (orderStatus == -2){
             tv_dingdan_caozuo1.setVisibility(View.GONE);
@@ -205,6 +205,9 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
             tv_dingdan_caozuo1.setVisibility(View.GONE);
             tv_dingdan_caozuo2.setVisibility(View.GONE);
         } else if (orderStatus == -5){
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
+            tv_dingdan_caozuo2.setVisibility(View.GONE);
+        }else if (orderStatus == -6){
             tv_dingdan_caozuo1.setVisibility(View.GONE);
             tv_dingdan_caozuo2.setVisibility(View.GONE);
         }
@@ -256,19 +259,17 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                     initQueRen(orderNo);
                 }else if (orderStatus == 0){
                     if (ofManager == 1){
-                        ToastUtils.showShort("联系买家");
+                        RongIM.getInstance().startPrivateChat(DianPuDingDanDetailActivity.this,
+                                mydongdandetail.getResult().get(0).getPhone(),mydongdandetail.getResult().get(0).getPhone());
                     }else{
                         initALi(orderNo);
                     }
-//                    String orderNos="";
-//                    for (int i = 0; i <result.size() ; i++) {
-//                        orderNos = result.get(position).getOrderNo()+","+orderNos;
-//                    }
-//                    new XPopup.Builder(DingDanDetailActivity.this)
-//                            .asCustom(new DingDanZhiFu(DingDanDetailActivity.this,substring))
-//                            .show();
                 }else if (orderStatus == 1){
-                    ToastUtils.showShort("提醒发货");
+                    //确认发货
+                    Intent intent = new Intent();
+                    intent.putExtra("orderNo",orderNo);
+                    intent.setClass(DianPuDingDanDetailActivity.this, TianXieWuLiuActivity.class);
+                    startActivity(intent);
                 }
                 break;
                 case R.id.tv_dingdan_caozuo1:
@@ -283,7 +284,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                     Intent intent = new Intent();
                     intent.putExtra("logisticsName",mydongdandetail.getResult().get(0).getLogisticsName());
                     intent.putExtra("logisticsNo",mydongdandetail.getResult().get(0).getLogisticsNo());
-                    intent.setClass(DingDanDetailActivity.this, WuLiuActivity.class);
+                    intent.setClass(DianPuDingDanDetailActivity.this, WuLiuActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -300,8 +301,8 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                         String body = response.body();
                         ALiPay aLiPay = new Gson().fromJson(body, ALiPay.class);
                         if (aLiPay.getStatus() == 1){
-                            new XPopup.Builder(DingDanDetailActivity.this)
-                                    .asCustom(new DingDanZhiFu(DingDanDetailActivity.this, aLiPay.getResult().getOrderString(),
+                            new XPopup.Builder(DianPuDingDanDetailActivity.this)
+                                    .asCustom(new DingDanZhiFu(DianPuDingDanDetailActivity.this, aLiPay.getResult().getOrderString(),
                                             aLiPay.getResult().getPriceTotal(),orderNo))
                                     .show();
                         }
@@ -310,13 +311,13 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     }
     //  取消订单
     private void initQuanXiao(String orderNo, int orderStatus) {
-        new XPopup.Builder(DingDanDetailActivity.this)
-                .asCustom(new QuXiaoDingDan(DingDanDetailActivity.this,orderStatus,orderNo))
+        new XPopup.Builder(DianPuDingDanDetailActivity.this)
+                .asCustom(new QuXiaoDingDan(DianPuDingDanDetailActivity.this,orderStatus,orderNo))
                 .show();
     }
     //  删除订单
     private void initDelete(String orderNo) {
-        SelectDialog.show(DingDanDetailActivity.this, "提示", "是否删除订单",
+        SelectDialog.show(DianPuDingDanDetailActivity.this, "提示", "是否删除订单",
                 "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -355,7 +356,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
 
     //  确认订单
     private void initQueRen(String orderNo) {
-        SelectDialog.show(DingDanDetailActivity.this, "提示", "是否确认收货",
+        SelectDialog.show(DianPuDingDanDetailActivity.this, "提示", "是否确认收货",
                 "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

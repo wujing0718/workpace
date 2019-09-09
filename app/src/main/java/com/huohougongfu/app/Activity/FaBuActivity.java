@@ -257,12 +257,16 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
             String imagePath = SDCardUtil.getFilePathFromUri(FaBuActivity.this, imageUri);
             //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
-            compressPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
-            //compressPath 存放所有的照片的路径
-            mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
-            mphoto.add(new File(compressPath));
-            mGridViewAddImgAdapter.notifyDataSetChanged();
+            String compress = SDCardUtil.saveToSdCard(bitmap1);//压缩后的图片路径
+            String compressPath = ImageUtils.amendRotatePhoto(compress,FaBuActivity.this);
+            if (compressPath!=null) {
+                //compressPath 存放所有的照片的路径
+                mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
+                mphoto.add(new File(compressPath));
+                mGridViewAddImgAdapter.notifyDataSetChanged();
+            }else{
+                ToastUtils.showShort("该图片错误");
+            }
         }
     }
 

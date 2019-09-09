@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.MyZhuYe;
+import com.huohougongfu.app.Gson.OrderStatus;
 import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.Gson.RongYunUsetInfo;
 import com.huohougongfu.app.Gson.VIP;
@@ -45,6 +46,9 @@ import com.huohougongfu.app.WoDe.Fragment.ZhuanKeYesFragment;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,6 +85,9 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private QBadgeView qBadgeView;
+    private View bt_my_gouwuche;
+    private View bt_dingdan_daifukuan,bt_dingdan_daifahuo,bt_dingdan_daishouhuo;
+    private View bt_dingdan_pingjia;
 
     public MyFragment() {
         // Required empty public constructor
@@ -168,9 +175,13 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         initRenZheng();
         initVIP();
         initData();
+        initShoppingCartNum();
+        initOrderStatusNum();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         super.onResume();
     }
+
+
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
@@ -191,6 +202,52 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         }
                     }
                 });
+    }
+
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                QBadgeView qBadgeView = new QBadgeView(getActivity());
+                                qBadgeView.bindTarget(bt_my_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void initOrderStatusNum() {
+
+        OkGo.<String>post(Contacts.URl1+"/order/orderDetailNumber")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        OrderStatus orderStatus = gson.fromJson(body, OrderStatus.class);
+                        if (orderStatus.getStatus() == 1){
+                            if (orderStatus.getResult().getNotPayOrder()!=0){
+                                qBadgeView.bindTarget(bt_dingdan_daifukuan).setBadgeNumber(orderStatus.getResult().getNotPayOrder());
+                            }else if (orderStatus.getResult().getNotDeliverOrder()!=0){
+                                qBadgeView.bindTarget(bt_dingdan_daifahuo).setBadgeNumber(orderStatus.getResult().getNotDeliverOrder());
+                            } else if (orderStatus.getResult().getWaitingForReceipt()!=0){
+                                qBadgeView.bindTarget(bt_dingdan_daishouhuo).setBadgeNumber(orderStatus.getResult().getWaitingForReceipt());
+                            } else if (orderStatus.getResult().getWaitingForEvaluation()!=0){
+                                qBadgeView.bindTarget(bt_dingdan_pingjia).setBadgeNumber(orderStatus.getResult().getWaitingForEvaluation());
+                            }
+                        }
+                    }
+                });
+
     }
 
     private void initView(MyZhuYe.ResultBean result) {
@@ -235,7 +292,8 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         img_iskefu = inflate.findViewById(R.id.img_iskefu);
 
         inflate.findViewById(R.id.bt_setting).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_my_gouwuche).setOnClickListener(this);
+        bt_my_gouwuche = inflate.findViewById(R.id.bt_my_gouwuche);
+        bt_my_gouwuche.setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_shoucang).setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_kabao).setOnClickListener(this);
         inflate.findViewById(R.id.bt_my_dianpu).setOnClickListener(this);
@@ -246,10 +304,14 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         bt_xiaoxi.setOnClickListener(this);
         inflate.findViewById(R.id.bt_wodeguanzhu).setOnClickListener(this);
         inflate.findViewById(R.id.bt_wodefensi).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_dingdan_daifukuan).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_dingdan_daifahuo).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_dingdan_daishouhuo).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_dingdan_pingjia).setOnClickListener(this);
+        bt_dingdan_daifukuan = inflate.findViewById(R.id.bt_dingdan_daifukuan);
+        bt_dingdan_daifukuan.setOnClickListener(this);
+        bt_dingdan_daifahuo = inflate.findViewById(R.id.bt_dingdan_daifahuo);
+        bt_dingdan_daifahuo.setOnClickListener(this);
+        bt_dingdan_daishouhuo = inflate.findViewById(R.id.bt_dingdan_daishouhuo);
+        bt_dingdan_daishouhuo.setOnClickListener(this);
+        bt_dingdan_pingjia = inflate.findViewById(R.id.bt_dingdan_pingjia);
+        bt_dingdan_pingjia.setOnClickListener(this);
 //        inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
         inflate.findViewById(R.id.bt_zhuanke).setOnClickListener(this);
         inflate.findViewById(R.id.bt_yaoqing).setOnClickListener(this);
@@ -283,6 +345,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
+            initShoppingCartNum();
             RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         }
     }

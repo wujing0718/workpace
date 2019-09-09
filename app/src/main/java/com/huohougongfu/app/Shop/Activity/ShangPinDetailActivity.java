@@ -25,6 +25,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +56,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
             Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
+    private View bt_gouwuche;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
                 finish();
             }
         });
-        View bt_gouwuche = findViewById(R.id.bt_gouwuche);
+        bt_gouwuche = findViewById(R.id.bt_gouwuche);
         bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
         bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +102,32 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
         initTablayout();
     }
 
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
+        initShoppingCartNum();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
     }
 

@@ -33,7 +33,9 @@ import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.GuanZhuDongTai;
 import com.huohougongfu.app.Gson.MyDongTai;
+import com.huohougongfu.app.Gson.QuanZiDetail;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
+import com.huohougongfu.app.Gson.QuanZiShare;
 import com.huohougongfu.app.Gson.QuanZiXiHuan;
 import com.huohougongfu.app.Gson.VedioDetail;
 import com.huohougongfu.app.MyApp;
@@ -94,6 +96,7 @@ public class VedioDetailActivity extends AppCompatActivity {
     private GuanZhuDongTai.ResultBean.ListBean shipin2;
     private MyDongTai.ResultBean.ListBean dongtaishipin;
     private QuanZiXiHuan.ResultBean.DatasBean.ListBean likeshipin;
+    private QuanZiShare share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +108,6 @@ public class VedioDetailActivity extends AppCompatActivity {
         shipin = (QuanZiFaXian.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("小视频");
         shipin2 = (GuanZhuDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("视频");
         likeshipin = (QuanZiXiHuan.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("喜欢视频");
-
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
         map  = new HashMap<>();
@@ -145,6 +147,7 @@ public class VedioDetailActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void initView(VedioDetail.ResultBean datas) {
         mRecyclerView = findViewById(R.id.recycler);
@@ -256,6 +259,85 @@ public class VedioDetailActivity extends AppCompatActivity {
 
         });
     }
+
+    // 获取圈子分享链接
+    private void initShiPinShare(VedioDetail.ResultBean.ListBean listBean) {
+        Map<String,String> map = new HashMap<>();
+        map.put("dataId",String.valueOf(listBean.getId()));
+        map.put("type",String.valueOf(listBean.getType()));
+        map.put("photoUrl",listBean.getMember().getPhoto());
+        OkGo.<String>post(Contacts.URl1+"/circle/getShareUrl")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        QuanZiShare quanZiShare = new Gson().fromJson(body, QuanZiShare.class);
+                        if (quanZiShare.getStatus() == 1){
+                            share = quanZiShare;
+                        }
+                    }
+                });
+    }
+
+//    private void initDongTaiShiPinShare(MyDongTai.ResultBean.ListBean dongtaishipin) {
+//        Map<String,String> map = new HashMap<>();
+//        map.put("dataId",String.valueOf(shipin.getId()));
+//        map.put("type",String.valueOf(shipin.getType()));
+//        map.put("photoUrl",shipin.getMember().getPhoto());
+//        OkGo.<String>post(Contacts.URl1+"/circle/getShareUrl")
+//                .params(map)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        String body = response.body();
+//                        QuanZiShare quanZiShare = new Gson().fromJson(body, QuanZiShare.class);
+//                        if (quanZiShare.getStatus() == 1){
+//                            share = quanZiShare;
+//                        }
+//                    }
+//                });
+//    }
+//
+//    private void initShiPin2Share(GuanZhuDongTai.ResultBean.ListBean shipin) {
+//        Map<String,String> map = new HashMap<>();
+//        map.put("dataId",String.valueOf(shipin.getId()));
+//        map.put("type",String.valueOf(shipin.getType()));
+//        map.put("photoUrl",shipin.getMember().getPhoto());
+//        OkGo.<String>post(Contacts.URl1+"/circle/getShareUrl")
+//                .params(map)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        String body = response.body();
+//                        QuanZiShare quanZiShare = new Gson().fromJson(body, QuanZiShare.class);
+//                        if (quanZiShare.getStatus() == 1){
+//                            share = quanZiShare;
+//                        }
+//                    }
+//                });
+//    }
+//
+//    private void initLikeShiPinShare(QuanZiXiHuan.ResultBean.DatasBean.ListBean likeshipin) {
+//        Map<String,String> map = new HashMap<>();
+//        map.put("dataId",String.valueOf(shipin.getId()));
+//        map.put("type",String.valueOf(shipin.getType()));
+//        map.put("photoUrl",shipin.getMember().getPhoto());
+//        OkGo.<String>post(Contacts.URl1+"/circle/getShareUrl")
+//                .params(map)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        String body = response.body();
+//                        QuanZiShare quanZiShare = new Gson().fromJson(body, QuanZiShare.class);
+//                        if (quanZiShare.getStatus() == 1){
+//                            share = quanZiShare;
+//                        }
+//                    }
+//                });
+//    }
+
+
     /**
      * 播放视频
      */
@@ -269,7 +351,6 @@ public class VedioDetailActivity extends AppCompatActivity {
             viewHolderForAdapterPosition.videoView.setVideoURI(
                     Uri.parse(shipin2.getPicture()));
             viewHolderForAdapterPosition.videoView.start();
-
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
         }else if (shipin != null){
             Picasso.get().load(shipin.getPicture())
@@ -277,7 +358,6 @@ public class VedioDetailActivity extends AppCompatActivity {
             viewHolderForAdapterPosition.videoView.setVideoURI(
                     Uri.parse(shipin.getPicture()));
             viewHolderForAdapterPosition.videoView.start();
-
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
         }else if (dongtaishipin != null){
             Picasso.get().load(dongtaishipin.getPicture())
@@ -285,7 +365,6 @@ public class VedioDetailActivity extends AppCompatActivity {
             viewHolderForAdapterPosition.videoView.setVideoURI(
                     Uri.parse(dongtaishipin.getPicture()));
             viewHolderForAdapterPosition.videoView.start();
-
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
         }else  if (likeshipin != null){
             Picasso.get().load(likeshipin.getPicture())
@@ -293,7 +372,6 @@ public class VedioDetailActivity extends AppCompatActivity {
             viewHolderForAdapterPosition.videoView.setVideoURI(
                     Uri.parse(likeshipin.getPicture()));
             viewHolderForAdapterPosition.videoView.start();
-
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
         }
 
@@ -369,6 +447,8 @@ public class VedioDetailActivity extends AppCompatActivity {
                 if (shipindetail.getList().get(i).getAddress()!=null){
                     holder.tv_vedio_weizhi.setText(shipindetail.getList().get(i).getAddress());
                 }
+                initShiPinShare(shipindetail.getList().get(i));
+
                 holder.bt_fanhui.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -398,13 +478,13 @@ public class VedioDetailActivity extends AppCompatActivity {
                                                     ActivityCompat.requestPermissions(VedioDetailActivity.this,mPermissionList,123);
                                                 }
                                                 if ("分享".equals(text)){
-                                                    UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
-                                                    web.setTitle("火后功夫");//标题
-                                                    web.setDescription("123456");//描述
+                                                    UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
+                                                    web.setTitle(share.getResult().getTitle());//标题
+                                                    web.setDescription(share.getResult().getContent());//描述
                                                     if (TextUtils.isEmpty("")) {
-                                                        web.setThumb(new UMImage(VedioDetailActivity.this, R.mipmap.img_back));  //本地缩略图
+                                                        web.setThumb(new UMImage(VedioDetailActivity.this, R.mipmap.img_zhanweitu));  //本地缩略图
                                                     } else {
-                                                        web.setThumb(new UMImage(VedioDetailActivity.this, ""));  //网络缩略图
+                                                        web.setThumb(new UMImage(VedioDetailActivity.this, share.getResult().getPhoto()));  //网络缩略图
                                                     }
                                                     new ShareAction(VedioDetailActivity.this)
                                                             .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,

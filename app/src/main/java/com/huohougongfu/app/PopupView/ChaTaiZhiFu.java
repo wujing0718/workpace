@@ -22,6 +22,7 @@ import com.huohougongfu.app.Gson.Over;
 import com.huohougongfu.app.Gson.WXPay;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.ChaTaiActivity;
 import com.huohougongfu.app.ShouYe.Activity.MyDingDanPaoChaActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 import java.util.Map;
 
 public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener {
+    private String type;
     private String orderNo;
     private String result;
     private Activity context;
@@ -63,11 +65,18 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        dismiss();
-                        Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
+                        if (ChaTaiActivity.activity!=null){
+                            ChaTaiActivity.activity.finish();
+                        }
+                        if (type!=null && "茶台订单".equals(type)){
+                            dismiss();
+                        }else{
+                            MyDingDanPaoChaActivity.activity.finish();
+                        }
+                        ToastUtils.showShort("支付成功");
                     } else {
                         dismiss();
-                        Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
+                        ToastUtils.showShort("支付失败");
                     }
                     break;
             }
@@ -82,6 +91,13 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
         this.result = result;
         this.context= context;
         this.total_price = total_price;
+    }
+    public ChaTaiZhiFu(@NonNull Activity context, String result, double total_price,String type) {
+        super(context);
+        this.result = result;
+        this.context= context;
+        this.total_price = total_price;
+        this.type = type;
     }
 
     @Override
@@ -162,7 +178,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                         }
                     });
         }else{
-            OkGo.<String>post(Contacts.URl1+"/pay/alipay")
+            OkGo.<String>post(Contacts.URl1+"/pay/product/alipay")
                     .params("orderNo",result)
                     .execute(new StringCallback() {
                         @Override

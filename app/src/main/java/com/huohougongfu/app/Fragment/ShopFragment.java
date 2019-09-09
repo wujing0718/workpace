@@ -21,6 +21,7 @@ import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
+import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
@@ -47,6 +48,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,6 +94,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private QBadgeView qBadgeView;
+    private View bt_gouwuche;
 
     @SuppressLint("ValidFragment")
     public ShopFragment() {
@@ -111,8 +116,29 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         initUI();
         initbanner();
         initData();
-
+        initShoppingCartNum();
         return inflate;
+    }
+
+    private void initShoppingCartNum() {
+        OkGo.<String>post(Contacts.URl1+"/cartNum")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -121,6 +147,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         smartrefreshlayout.autoRefresh();
         page = 2;
+        initShoppingCartNum();
         super.onResume();
     }
 
@@ -230,7 +257,8 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         bt_xiaoxi = inflate.findViewById(R.id.bt_xiaoxi);
         bt_xiaoxi.setOnClickListener(this);
         inflate.findViewById(R.id.bt_shop_sousuo).setOnClickListener(this);
-        inflate.findViewById(R.id.bt_gouwuche).setOnClickListener(this);
+        bt_gouwuche = inflate.findViewById(R.id.bt_gouwuche);
+        bt_gouwuche.setOnClickListener(this);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_shangcheng_shangpin = inflate.findViewById(R.id.rec_shangcheng_shangpin);
         head_shangcheng = getLayoutInflater().inflate(R.layout.head_shangcheng, (ViewGroup) rec_shangcheng_shangpin.getParent(), false);
@@ -339,6 +367,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
+            initShoppingCartNum();
             RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         }
     }

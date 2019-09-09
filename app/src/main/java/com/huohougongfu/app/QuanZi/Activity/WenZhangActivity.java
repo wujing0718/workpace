@@ -19,7 +19,9 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MallGson;
+import com.huohougongfu.app.Gson.QuanZiDetail;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
+import com.huohougongfu.app.Gson.QuanZiShare;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.WenZhangAdapter;
 import com.huohougongfu.app.R;
@@ -54,6 +56,7 @@ public class WenZhangActivity extends AppCompatActivity {
     private EditText edt_shop_sousuo;
     private InputMethodManager manager;
     private String token;
+    private QuanZiShare share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +143,8 @@ public class WenZhangActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
     private void initRec(QuanZiFaXian wenzhang) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思

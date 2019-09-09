@@ -4,7 +4,6 @@ package com.huohougongfu.app.WoDe.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,21 +14,18 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
-import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.MyDingDan;
 import com.huohougongfu.app.Gson.OKGson;
+import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.DingDanZhiFu;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
-import com.huohougongfu.app.PopupView.ShopZhiFu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
-import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Activity.WuLiuActivity;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
@@ -39,6 +35,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,9 +46,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.jpush.android.api.JPushInterface;
-import io.rong.imkit.RongIM;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +60,8 @@ public class DingDanFragment extends Fragment {
     private Intent intent;
     private String orderStatus;
     private int id;
+    private SmartRefreshLayout smartrefreshlayout;
+    private int page = 2;
 
     public DingDanFragment() {
     }
@@ -75,6 +74,7 @@ public class DingDanFragment extends Fragment {
         orderStatus = getArguments().getString("ARGS");
         id = MyApp.instance.getInt("id");
         intent = new Intent();
+        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_chatai_dingdan = inflate.findViewById(R.id.rec_mydingdan);
         return inflate;
     }
@@ -98,6 +98,7 @@ public class DingDanFragment extends Fragment {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
                         mydingdan = gson.fromJson(response.body(), MyDingDan.class);
@@ -112,7 +113,7 @@ public class DingDanFragment extends Fragment {
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-//                        WaitDialog.show(getActivity(), "载入中...");
+                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -188,10 +189,59 @@ public class DingDanFragment extends Fragment {
                 }
             });
             rec_chatai_dingdan.setAdapter(mydingdanadapter);
+            //刷新
+            smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(RefreshLayout refreshlayout) {
+                initData();
+                }
+            });
+            //加载更多
+            smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+                @Override
+                public void onLoadmore(RefreshLayout refreshlayout) {
+                    initAdd();
+                }
+            });
+
         }else{
             rec_chatai_dingdan.setVisibility(View.GONE);
         }
     }
+
+    private void initAdd() {
+        Map<String, String> map = new HashMap<>();
+        map.put("createBy",String.valueOf(id));
+        map.put("page",String.valueOf(page++));
+        map.put("pageSize",String.valueOf(10));
+        if (!"".equals(orderStatus)){
+            map.put("orderStatus",orderStatus);
+        }
+        OkGo.<String>get(Contacts.URl1+"order/selectMyOrderAll1")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        Gson gson = new Gson();
+                        mydingdan = gson.fromJson(response.body(), MyDingDan.class);
+                        if (mydingdan.getStatus() == 1) {
+                                if (mydingdan.getResult().getList().size()>0){
+                                    mydingdanadapter.add(mydingdan.getResult().getList());
+                                    smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                                }else {
+                                    smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
+                    }
+                });
+    }
+
     //  提醒发货
     private void initRemind(String orderNo) {
         Map<String,String> map = new HashMap<>();
@@ -250,8 +300,8 @@ public class DingDanFragment extends Fragment {
                         ALiPay aLiPay = new Gson().fromJson(body, ALiPay.class);
                         if (aLiPay.getStatus() == 1){
                             new XPopup.Builder(getActivity())
-                                    .asCustom(new DingDanZhiFu(getActivity(),aLiPay.getResult().getOrderString(),
-                                            String.valueOf(aLiPay.getResult().getPriceTotal())))
+                                    .asCustom(new DingDanZhiFu(getActivity(), aLiPay.getResult().getOrderString(),
+                                            aLiPay.getResult().getPriceTotal(),orderNo))
                                     .show();
                         }
                     }

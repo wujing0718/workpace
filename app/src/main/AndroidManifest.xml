@@ -172,6 +172,7 @@
         <activity android:name=".QuanZi.Activity.JingXuanActivity" />
         <activity android:name=".Activity.GouWuCheActivity" />
         <activity android:name=".QuanZi.Activity.QuanZiDetailActivity" />
+        <activity android:name=".WoDe.Activity.DianPuDingDanDetailActivity" />
         <activity android:name=".WoDe.Activity.SettingActivity" />
         <activity android:name=".WoDe.Activity.PersonalActivity" />
         <activity android:name=".WoDe.Activity.AddressActivity" />

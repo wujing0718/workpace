@@ -25,9 +25,11 @@ import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.TipDialog;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,12 +94,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //            ExampleUtil.showToast(logs, getApplicationContext());
         }
     };
+    private SPUtils instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         timerCount = new TimerCount(60000, 1000);
+        instance = SPUtils.getInstance("登录");
         intent = new Intent();
         initUI();
     }
@@ -212,46 +216,57 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         Login register = gson.fromJson(body, Login.class);
                         if (register.getStatus() == 1){
-                            MyApp.instance.put("userid",register.getResult().getUserInfo().getUserId(),true);
+                            MyApp.instance.clear(true);
+                            MyApp.instance.put("id",register.getResult().getUserInfo().getUserId(),true);
                             MyApp.instance.put("nickName",register.getResult().getUserInfo().getNickName(),true);
                             MyApp.instance.put("phone",register.getResult().getUserInfo().getPhone(),true);
                             MyApp.instance.put("photo",register.getResult().getUserInfo().getPhoto(),true);
-                            MyApp.instance.put("rongtoken",register.getResult().getUserInfo().getRongToken(),true);
+                            MyApp.instance.put("rongToken",register.getResult().getUserInfo().getRongToken(),true);
                             MyApp.instance.put("token",register.getResult().getToken(),true);
                             intent.setClass(RegisterActivity.this,MainActivity.class);
+                            ToastUtils.showShort("成功");
+                            // 连接成功，说明你已成功连接到融云Server
                             startActivity(intent);
-                            //融云登录
-                            RongIM.connect(register.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
-                                //token1参数报错
-                                @Override
-                                public void onTokenIncorrect() {
-                                    Log.e("TAG","参数错误");
-                                }
-
-                                @Override
-                                public void onSuccess(String s) {
-                                    Log.e("TAG","成功");
-                                    // 连接成功，说明你已成功连接到融云Server
-                                }
-
-                                @Override
-                                public void onError(RongIMClient.ErrorCode errorCode) {
-                                    Log.e("TAG","失败");
-                                }
-                            });
+                            finish();
                             // 调用 Handler 来异步设置别名
                             mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(register.getResult().getUserInfo().getUserId())));
                             // 点击恢复按钮后，极光推送服务会恢复正常工作
                             JPushInterface.resumePush(getApplicationContext());
-                            finish();
-//                            ToastUtils.showShort(register.getMsg());
+                            //融云登录
+//                            RongIM.connect(register.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
+//                                //token1参数报错
+//                                @Override
+//                                public void onTokenIncorrect() {
+//                                    Log.e("TAG","参数错误");
+//                                    ToastUtils.showShort("参数错误");
+//                                }
+//
+//                                @Override
+//                                public void onSuccess(String s) {
+//                                    Log.e("TAG","成功");
+//
+//                                }
+//
+//                                @Override
+//                                public void onError(RongIMClient.ErrorCode errorCode) {
+//                                    Log.e("TAG","失败");
+//                                    ToastUtils.showShort("失败");
+//                                }
+//                            });
                         }else{
                             ToastUtils.showShort(register.getMsg());
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(RegisterActivity.this,"请稍后。。。");
+                        super.onStart(request);
                     }
                 });
     }

@@ -562,127 +562,136 @@
                     android:layout_marginHorizontal="34dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/dp_50">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/bt_dingdan_daifukuan"
                         android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_daifukuan"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
-
-                        <TextView
-                            android:text="待付款"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
+                        <LinearLayout
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_daifukuan"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp" />
 
-                    <LinearLayout
+                            <TextView
+                                android:text="待付款"
+                                android:textSize="12sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/bt_dingdan_daifahuo"
                         android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_daifahuo"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
-
-                        <TextView
-                            android:text="待发货"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
+                        <LinearLayout
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_daifahuo"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp" />
 
-                    <LinearLayout
+                            <TextView
+                                android:text="待发货"
+                                android:textSize="12sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/bt_dingdan_daishouhuo"
                         android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_daishouhuo"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
-
-                        <TextView
-                            android:text="待收货"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
+                        <LinearLayout
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_daishouhuo"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp" />
 
-                    <LinearLayout
+                            <TextView
+                                android:text="待收货"
+                                android:textSize="12sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/bt_dingdan_pingjia"
                         android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:layout_gravity="center_horizontal"
-                            android:src="@mipmap/img_daipingjia"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp" />
-
-                        <TextView
-                            android:text="待评价"
-                            android:textSize="12sp"
-                            android:layout_marginTop="4dp"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/colorBlack"
+                        <LinearLayout
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_daipingjia"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp" />
 
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/bt_dingdan_shouhou"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:orientation="vertical"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content">-->
+                            <TextView
+                                android:text="待评价"
+                                android:textSize="12sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
 
-                        <!--<ImageView-->
-                            <!--android:layout_gravity="center_horizontal"-->
-                            <!--android:src="@mipmap/img_shouhou"-->
-                            <!--android:layout_width="22dp"-->
-                            <!--android:layout_height="22dp" />-->
+                        </LinearLayout>
 
-                        <!--<TextView-->
-                            <!--android:text="售后"-->
-                            <!--android:textSize="12sp"-->
-                            <!--android:layout_marginTop="4dp"-->
-                            <!--android:layout_gravity="center_horizontal"-->
-                            <!--android:textColor="@color/colorBlack"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content" />-->
 
-                    <!--</LinearLayout>-->
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 

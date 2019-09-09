@@ -15,6 +15,8 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.MyDingDanPaoChaActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.lxj.xpopup.animator.PopupAnimator;
 import com.lxj.xpopup.core.CenterPopupView;
 import com.lzy.okgo.OkGo;
@@ -27,7 +29,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Paocha extends CenterPopupView implements View.OnClickListener {
+public class Paocha extends CenterPopupView implements View.OnClickListener,IListener{
     private final Context context;
     private String yedi ="1";
     private String nongdu = "标准";
@@ -54,6 +56,7 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
     @Override
     protected void onCreate() {
         super.onCreate();
+        ListenerManager.getInstance().registerListtener(this);
         initUI();
 
     }
@@ -178,6 +181,7 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                ListenerManager.getInstance().sendBroadCast(9,"是");
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 dismiss();
                             }else{
@@ -188,5 +192,10 @@ public class Paocha extends CenterPopupView implements View.OnClickListener {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+
     }
 }

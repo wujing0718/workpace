@@ -42,6 +42,7 @@ public class Over {
 
         private double balance;
         private boolean hasPayPassword;
+        private int teaTableNum;
 
         public boolean isHasPayPassword() {
             return hasPayPassword;
@@ -57,6 +58,14 @@ public class Over {
 
         public void setBalance(double balance) {
             this.balance = balance;
+        }
+
+        public int getTeaTableNum() {
+            return teaTableNum;
+        }
+
+        public void setTeaTableNum(int teaTableNum) {
+            this.teaTableNum = teaTableNum;
         }
     }
 }

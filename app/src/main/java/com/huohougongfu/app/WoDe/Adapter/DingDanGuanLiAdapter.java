@@ -36,10 +36,10 @@ public class DingDanGuanLiAdapter extends BaseQuickAdapter<DingDanGuanLi.ResultB
             bt_anniu_two.setText("确认发货");
         }else if (item.getOrderStatus()==2){
             bt_anniu_one.setVisibility(View.GONE);
-            bt_anniu_two.setText("联系买家");
+            bt_anniu_two.setVisibility(View.GONE);
         }else if (item.getOrderStatus()==3){
             bt_anniu_one.setVisibility(View.GONE);
-            bt_anniu_two.setText("联系买家");
+            bt_anniu_two.setVisibility(View.GONE);
         }else if (item.getOrderStatus()==0){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("联系买家");
@@ -52,6 +52,9 @@ public class DingDanGuanLiAdapter extends BaseQuickAdapter<DingDanGuanLi.ResultB
         }else if (item.getOrderStatus()==-7){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("联系买家");
+        }else if (item.getOrderStatus()==-5){
+            bt_anniu_one.setVisibility(View.GONE);
+            bt_anniu_two.setText("确认退款");
         }
         helper.setText(R.id.tv_dingdan_num,"共计："+item.getProductNum()+"件商品");
         helper.setText(R.id.tv_dingdan_price,"合计：¥"+item.getOrderAmountTotal());

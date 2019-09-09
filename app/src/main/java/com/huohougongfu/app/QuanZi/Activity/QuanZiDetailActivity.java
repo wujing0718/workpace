@@ -24,6 +24,7 @@ import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
+import com.huohougongfu.app.Gson.QuanZiShare;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.PingLunAdapter;
 import com.huohougongfu.app.R;
@@ -85,6 +86,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private String token;
     private View view_vip;
     private TextView tv_vip_num;
+    private QuanZiShare share;
 
 
     @Override
@@ -256,6 +258,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                         detail = gson.fromJson(body, QuanZiDetail.class);
                         if (detail.getStatus() == 1){
                             initView(detail.getResult());
+                            initShare(detail);
                             if (detail.getResult().getIsPraise() == 1){
                                 img_shoucang.setImageResource(R.mipmap.img_xihuan2);
                             }else{
@@ -268,6 +271,26 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(QuanZiDetailActivity.this,"载入中...");
                         super.onStart(request);
+                    }
+                });
+    }
+
+    // 获取圈子分享链接
+    private void initShare(QuanZiDetail detail) {
+        Map<String,String> map = new HashMap<>();
+        map.put("dataId",String.valueOf(detail.getResult().getId()));
+        map.put("type",String.valueOf(detail.getResult().getType()));
+        map.put("photoUrl",detail.getResult().getMember().getPhoto());
+        OkGo.<String>post(Contacts.URl1+"/circle/getShareUrl")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        QuanZiShare quanZiShare = new Gson().fromJson(body, QuanZiShare.class);
+                        if (quanZiShare.getStatus() == 1){
+                            share = quanZiShare;
+                        }
                     }
                 });
     }
@@ -367,13 +390,13 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                                     @Override
                                     public void onSelect(int position, String text) {
                                         if ("分享".equals(text)){
-                                            UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
-                                            web.setTitle("火后功夫");//标题
-                                            web.setDescription("123456");//描述
+                                            UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
+                                            web.setTitle(share.getResult().getTitle());//标题
+                                            web.setDescription(share.getResult().getContent());//描述
                                             if (TextUtils.isEmpty("")) {
-                                                web.setThumb(new UMImage(QuanZiDetailActivity.this, R.mipmap.img_back));  //本地缩略图
+                                                web.setThumb(new UMImage(QuanZiDetailActivity.this, R.mipmap.img_zhanweitu));  //本地缩略图
                                             } else {
-                                                web.setThumb(new UMImage(QuanZiDetailActivity.this, ""));  //网络缩略图
+                                                web.setThumb(new UMImage(QuanZiDetailActivity.this, share.getResult().getPhoto()));  //网络缩略图
                                             }
                                             new ShareAction(QuanZiDetailActivity.this)
                                                     .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,

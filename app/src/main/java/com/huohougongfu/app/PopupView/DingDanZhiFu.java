@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.huohougongfu.app.Gson.Over;
 import com.huohougongfu.app.Gson.WXPay;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
-import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
 import com.huohougongfu.app.Utils.utils;
@@ -35,15 +33,12 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 import java.util.Map;
 
 public class DingDanZhiFu extends BottomPopupView implements View.OnClickListener {
-    private final Context context;
-    private final String priceTotal;
+    private final Activity context;
+    private final double priceTotal;
+    private final String orderNo;
     private CheckBox check_yue,check_ali,check_weixin;
     private String alitoken;
     private static final int SDK_PAY_FLAG = 1001;
@@ -80,11 +75,12 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     private String wxtoken;
     private TextView tv_over;
 
-    public DingDanZhiFu(@NonNull Context context, String alitoken, String substring) {
+    public DingDanZhiFu(@NonNull Activity context, String alitoken, double priceTotal, String orderNo) {
         super(context);
         this.context= context;
         this.alitoken = alitoken;
-        this.priceTotal = substring;
+        this.priceTotal = priceTotal;
+        this.orderNo = orderNo;
 
     }
     @Override
@@ -191,10 +187,10 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                     check_ali.setChecked(false);
                     check_weixin.setChecked(false);
                     if (over.getResult().isHasPayPassword()){
-//                        PopEnterPassword popEnterPassword = new PopEnterPassword(context,priceTotal,orderNo);
-//                        // 显示窗口
-//                        popEnterPassword.showAtLocation(getPopupContentView(),
-//                                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+                        PopEnterPassword popEnterPassword = new PopEnterPassword(context,priceTotal,orderNo);
+                        // 显示窗口
+                        popEnterPassword.showAtLocation(getPopupContentView(),
+                                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
                     }else{
                         Intent intent = new Intent();
                         intent.setClass(context, SetKeyBoardActivity.class);

@@ -73,7 +73,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private ShopDingDan.ResultBean  list;
     private View bt_chami_dikou;
     private Button btn_go_to_pay;
-    private Context context;
+    private Activity context;
     private boolean isDikou = true;
     private TextView tv_chami_dikou,tvTotalPrice;
     private ImageView img_chami_check;
@@ -86,7 +86,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private String beizhu;
     private List<Map<String, Object>> mData = new ArrayList<>();// 存储的EditText值
 
-    public XiaDanAdapter(Context context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
+    public XiaDanAdapter(Activity context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
                          ImageView img_chami_check, TextView tv_total_price, double teaRice,int standardId,ShopYouHuiQuan.ResultBean coupon) {
         this.bt_chami_dikou =bt_chami_dikou;
         this.btn_go_to_pay = btn_go_to_pay;
@@ -297,7 +297,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                         if (aLiPay.getStatus() == 1) {
                             new XPopup.Builder(context)
                                     .asCustom(new DingDanZhiFu(context, aLiPay.getResult().getOrderString(),
-                                            String.valueOf(aLiPay.getResult().getPriceTotal())))
+                                            aLiPay.getResult().getPriceTotal(),orderNo))
                                     .show();
                         }
                     }
