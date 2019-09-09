@@ -28,6 +28,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.DaShiZhuanChang;
 import com.huohougongfu.app.Shop.Activity.LeiMuActivity;
+import com.huohougongfu.app.Shop.Activity.LeiMuDetailActivity;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.ShopSouSuoActivity;
 import com.huohougongfu.app.Shop.Activity.TeHuiActivity;
@@ -126,6 +127,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView = new QBadgeView(getActivity());
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);

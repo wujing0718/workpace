@@ -209,7 +209,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                 });
     }
 
-    public static Fragment newInstance(String content) {
+    public static Fragment newInstance(String sousuo, String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);
         SouSuoPinPaiFragment fragment = new SouSuoPinPaiFragment();

@@ -144,8 +144,6 @@ public class WenZhangActivity extends AppCompatActivity {
                 });
     }
 
-
-
     private void initRec(QuanZiFaXian wenzhang) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);

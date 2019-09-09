@@ -67,7 +67,6 @@ import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 public class XiaDanAdapter extends BaseExpandableListAdapter {
 
-    private final int standardId;
     private final ShopYouHuiQuan.ResultBean coupon;
     private ImageView img_dianpu_logo;
     private ShopDingDan.ResultBean  list;
@@ -87,7 +86,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private List<Map<String, Object>> mData = new ArrayList<>();// 存储的EditText值
 
     public XiaDanAdapter(Activity context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
-                         ImageView img_chami_check, TextView tv_total_price, double teaRice,int standardId,ShopYouHuiQuan.ResultBean coupon) {
+                         ImageView img_chami_check, TextView tv_total_price, double teaRice,ShopYouHuiQuan.ResultBean coupon) {
         this.bt_chami_dikou =bt_chami_dikou;
         this.btn_go_to_pay = btn_go_to_pay;
         this.context = context;
@@ -95,11 +94,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         this.img_chami_check = img_chami_check;
         this.tvTotalPrice = tv_total_price;
         this.teaRice = teaRice;
-        this.standardId =standardId;
         this.coupon = coupon;
-        Map<String, Object> map = new HashMap<>();
-        map.put("list_item_inputvalue","");
-        mData.add(map);
     }
 
     /**
@@ -278,37 +273,14 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                         Gson gson = new Gson();
                         TiJiaoDingDan shopDingDan = gson.fromJson(body, TiJiaoDingDan.class);
                         if (shopDingDan.getStatus() == 1){
-                            initALi(list.getOrderList().get(0).getOrderId());
-                        }
-                    }
-                });
-    }
-
-    //支付宝支付
-    private void initALi(String orderNo) {
-        OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")
-                .params("orderNos", orderNo)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
-                        String body = response.body();
-                        ALiPay aLiPay = new Gson().fromJson(body, ALiPay.class);
-                        if (aLiPay.getStatus() == 1) {
                             new XPopup.Builder(context)
-                                    .asCustom(new DingDanZhiFu(context, aLiPay.getResult().getOrderString(),
-                                            aLiPay.getResult().getPriceTotal(),orderNo))
+                                    .asCustom(new DingDanZhiFu(context, shopDingDan.getResult()))
                                     .show();
                         }
                     }
-
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(context,"请稍后。。。");
-                        super.onStart(request);
-                    }
                 });
     }
+
 
     static class GroupViewHolder {
         ImageView img_dianp_logo;
@@ -347,6 +319,11 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_dingdan_zi, null);
             childViewHolder = new ChildViewHolder(convertView);
+            for (int i = 0; i < list.getOrderList().size(); i++) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("list_item_inputvalue","");
+                mData.add(map);
+            }
             childViewHolder.edt_beizhu.setTag(childPosition);
             class MyTextWatcher implements TextWatcher {
                 private ChildViewHolder mHolder;
@@ -369,8 +346,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                 public void afterTextChanged(Editable s) {
                     if (s != null && !"".equals(s.toString())) {
                         int position = (Integer) mHolder.edt_beizhu.getTag();
-                        mData.get(position).put("list_item_inputvalue",
-                                s.toString());// 当EditText数据发生改变的时候存到data变量中
+                        mData.get(position).put("list_item_inputvalue", s.toString());// 当EditText数据发生改变的时候存到data变量中
                     }
                 }
             }
@@ -423,7 +399,6 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //创建临时的List，用于存储被选中的商品
                 List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> temp = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) {
                     List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
@@ -433,44 +408,47 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                     }
                 }
 
-                if (temp != null && temp.size() > 0) {//如果有被选中的
+                if (temp != null && temp.size() > 0) {
                     /**
                      * 实际开发中，如果有被选中的商品，
                      * 则跳转到确认订单页面，完成后续订单流程。
                      */
 //                    LogUtils.e(temp.get(0).getName());
                     JSONArray jsonArray = new JSONArray();
-                    JSONObject jsonObject = new JSONObject();
                     try {
-                        for (int i = 0; i < temp.size(); i++) {
-                            if (coupon!=null){
-                                jsonObject.put("couponsId",coupon.getId());
-                            }
-                            jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                            jsonObject.put("orderId",list.getOrderList().get(0).getOrderId());
-                            jsonObject.put("productId",temp.get(i).getId());
-                            jsonObject.put("storeId",temp.get(i).getStoreId());
-                            jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
-                            jsonObject.put("standard",temp.get(i).getStandard());
-                            jsonObject.put("standardId",standardId);
-                            jsonObject.put("buynum",temp.get(i).getNum());
-                            Object value = mData.get(childPosition).get("list_item_inputvalue");
-                            if (!value.toString().isEmpty()){
-                                jsonObject.put("remark",value.toString());
-                            }
-                            if(!isDikou){
-                                jsonObject.put("teaRice","1");
-                            }else{
-                                jsonObject.put("teaRice","0");
-                            }
-                            if (transId == 0){
-                                if (temp.get(i).getTransportTemplate()!=null){
-                                    jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
+                        for (int j = 0; j < list.getOrderList().size(); j++) {
+                            for (int i = 0; i < temp.size(); i++) {
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("orderId",list.getOrderList().get(j).getOrderId());
+                                if (coupon!=null){
+                                    jsonObject.put("couponsId",coupon.getId());
                                 }
-                            }else{
-                                jsonObject.put("transId",transId);
+                                jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+                                jsonObject.put("productId",temp.get(i).getId());
+                                jsonObject.put("storeId",temp.get(i).getStoreId());
+                                jsonObject.put("cartId",temp.get(i).getCartId());
+                                jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
+                                jsonObject.put("standard",temp.get(i).getStandard());
+                                jsonObject.put("standardId",temp.get(i).getStandardId());
+                                jsonObject.put("buynum",temp.get(i).getNum());
+                                Object value = mData.get(i).get("list_item_inputvalue");
+                                if (!value.toString().isEmpty()){
+                                    jsonObject.put("remark",value.toString());
+                                }
+                                if(!isDikou){
+                                    jsonObject.put("teaRice","1");
+                                }else{
+                                    jsonObject.put("teaRice","0");
+                                }
+                                if (transId == 0){
+                                    if (temp.get(i).getTransportTemplate()!=null){
+                                        jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
+                                    }
+                                }else{
+                                    jsonObject.put("transId",transId);
+                                }
+                                jsonArray.put(jsonObject);
                             }
-                            jsonArray.put(jsonObject);
                         }
                         initXiaDan(jsonArray);
                     } catch (JSONException e) {

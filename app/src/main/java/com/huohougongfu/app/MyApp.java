@@ -158,7 +158,6 @@ public class MyApp extends Application {
         }
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
         RongPushClient.sendNotification(this,new PushNotificationMessage());
-
         // 调用 Handler 来异步设置别名
         int id = MyApp.instance.getInt("id");
         if (id!=0){

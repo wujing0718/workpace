@@ -160,6 +160,7 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView = new QBadgeView(DaShiZhuanChang.this);
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);

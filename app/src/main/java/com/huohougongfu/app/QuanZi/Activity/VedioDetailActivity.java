@@ -481,10 +481,10 @@ public class VedioDetailActivity extends AppCompatActivity {
                                                     UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
                                                     web.setTitle(share.getResult().getTitle());//标题
                                                     web.setDescription(share.getResult().getContent());//描述
-                                                    if (TextUtils.isEmpty("")) {
-                                                        web.setThumb(new UMImage(VedioDetailActivity.this, R.mipmap.img_zhanweitu));  //本地缩略图
-                                                    } else {
+                                                    if (share.getResult().getPhoto()!=null) {
                                                         web.setThumb(new UMImage(VedioDetailActivity.this, share.getResult().getPhoto()));  //网络缩略图
+                                                    } else {
+                                                        web.setThumb(new UMImage(VedioDetailActivity.this, R.mipmap.img_zhanweitu));  //本地缩略图
                                                     }
                                                     new ShareAction(VedioDetailActivity.this)
                                                             .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,

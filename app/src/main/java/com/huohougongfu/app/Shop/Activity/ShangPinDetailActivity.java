@@ -108,6 +108,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);

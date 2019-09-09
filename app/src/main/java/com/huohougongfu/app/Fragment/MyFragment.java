@@ -52,12 +52,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.UserInfo;
 import q.rorbin.badgeview.QBadgeView;
 
 /**
@@ -236,13 +234,20 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         OrderStatus orderStatus = gson.fromJson(body, OrderStatus.class);
                         if (orderStatus.getStatus() == 1){
                             if (orderStatus.getResult().getNotPayOrder()!=0){
-                                qBadgeView.bindTarget(bt_dingdan_daifukuan).setBadgeNumber(orderStatus.getResult().getNotPayOrder());
-                            }else if (orderStatus.getResult().getNotDeliverOrder()!=0){
-                                qBadgeView.bindTarget(bt_dingdan_daifahuo).setBadgeNumber(orderStatus.getResult().getNotDeliverOrder());
-                            } else if (orderStatus.getResult().getWaitingForReceipt()!=0){
-                                qBadgeView.bindTarget(bt_dingdan_daishouhuo).setBadgeNumber(orderStatus.getResult().getWaitingForReceipt());
-                            } else if (orderStatus.getResult().getWaitingForEvaluation()!=0){
-                                qBadgeView.bindTarget(bt_dingdan_pingjia).setBadgeNumber(orderStatus.getResult().getWaitingForEvaluation());
+                                QBadgeView qBadgeView1 = new QBadgeView(getActivity());
+                                qBadgeView1.bindTarget(bt_dingdan_daifukuan).setBadgeNumber(orderStatus.getResult().getNotPayOrder());
+                            }
+                            if (orderStatus.getResult().getNotDeliverOrder()!=0){
+                                QBadgeView qBadgeView2 = new QBadgeView(getActivity());
+                                qBadgeView2.bindTarget(bt_dingdan_daifahuo).setBadgeNumber(orderStatus.getResult().getNotDeliverOrder());
+                            }
+                            if (orderStatus.getResult().getWaitingForReceipt()!=0){
+                                QBadgeView qBadgeView3 = new QBadgeView(getActivity());
+                                qBadgeView3.bindTarget(bt_dingdan_daishouhuo).setBadgeNumber(orderStatus.getResult().getWaitingForReceipt());
+                            }
+                            if (orderStatus.getResult().getWaitingForEvaluation()!=0){
+                                QBadgeView qBadgeView4 = new QBadgeView(getActivity());
+                                qBadgeView4.bindTarget(bt_dingdan_pingjia).setBadgeNumber(orderStatus.getResult().getWaitingForEvaluation());
                             }
                         }
                     }

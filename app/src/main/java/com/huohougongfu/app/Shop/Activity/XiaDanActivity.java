@@ -45,7 +45,6 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private XiaDanAdapter xiaDanAdapter;
     private AddRess.ResultBean address;
     private int transId = 0;
-    private int standardId;
     public static XiaDanActivity activity;
     private ShopYouHuiQuan.ResultBean coupon;
 
@@ -56,7 +55,6 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_xia_dan);
         mId = MyApp.instance.getInt("id");
         activity = this;
-        standardId = getIntent().getIntExtra("standardId", 0);
         coupon = (ShopYouHuiQuan.ResultBean)getIntent().getSerializableExtra("coupon");
         resultBean = (ShopDingDan.ResultBean)getIntent().getSerializableExtra("订单详情");
         initUI();
@@ -87,7 +85,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private void initRec() {
         tv_total_price.setText("1000");
         xiaDanAdapter = new XiaDanAdapter(this,bt_chami_dikou,btn_go_to_pay,tv_chami_dikou,
-                img_chami_check,tv_total_price,resultBean.getTeaRice(),standardId,coupon);
+                img_chami_check,tv_total_price,resultBean.getTeaRice(),coupon);
         rec_xiadan.setAdapter(xiaDanAdapter);
     }
 

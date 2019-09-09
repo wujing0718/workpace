@@ -63,12 +63,14 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener,I
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private View bt_gouwuche;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_sou_suo);
         ListenerManager.getInstance().registerListtener(this);
+        type = getIntent().getStringExtra("type");
         qBadgeView = new QBadgeView(ShopSouSuoActivity.this);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
@@ -93,8 +95,6 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener,I
                 return false;
             }
         });
-
-
         bt_gouwuche = findViewById(R.id.bt_gouwuche);
         bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +129,7 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener,I
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView = new QBadgeView(ShopSouSuoActivity.this);
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);
@@ -150,9 +151,9 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener,I
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(SouSuoShopFragment.newInstance(sousuo));
-        mFragments.add(SouSuoPinPaiFragment.newInstance(sousuo));
-        mFragments.add(SouSuoDaShiFragment.newInstance(sousuo));
+        mFragments.add(SouSuoShopFragment.newInstance(sousuo,type));
+        mFragments.add(SouSuoPinPaiFragment.newInstance(sousuo,type));
+        mFragments.add(SouSuoDaShiFragment.newInstance(sousuo,type));
         for (int i = 0;i<mTitles.length;i++){
             mtabtitle.add(mTitles[i]);
         }

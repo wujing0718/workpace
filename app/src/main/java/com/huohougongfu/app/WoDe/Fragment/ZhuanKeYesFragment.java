@@ -1,12 +1,14 @@
 package com.huohougongfu.app.WoDe.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
@@ -14,6 +16,7 @@ import com.huohougongfu.app.Gson.ZhuanKeVIP;
 import com.huohougongfu.app.Gson.ZhuanKeYes;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.ShopSouSuoActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.WoDe.Adapter.ZhuanKeYesAdapter;
 import com.lzy.okgo.OkGo;
@@ -28,7 +31,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ZhuanKeYesFragment extends Fragment {
+public class ZhuanKeYesFragment extends Fragment implements OnClickListener{
 
 
     private View inflate;
@@ -52,6 +55,7 @@ public class ZhuanKeYesFragment extends Fragment {
     }
 
     private void initUI() {
+        inflate.findViewById(R.id.bt_fenxiang_zhuanqian).setOnClickListener(this);
         view_zhuanke = inflate.findViewById(R.id.view_zhuanke);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_zhuanke = inflate.findViewById(R.id.rec_zhuanke);
@@ -74,9 +78,9 @@ public class ZhuanKeYesFragment extends Fragment {
                         if (zhuanKeYes.getStatus() == 1){
                             if (zhuanKeYes.getResult().getList().size()>0){
                                 initRec(zhuanKeYes.getResult().getList());
-                                view_zhuanke.setVisibility(View.VISIBLE);
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
                             }else{
-                                view_zhuanke.setVisibility(View.GONE);
+                                smartrefreshlayout.setVisibility(View.GONE);
                             }
                         }
                     }
@@ -98,4 +102,15 @@ public class ZhuanKeYesFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.bt_fenxiang_zhuanqian:
+                Intent intent = new Intent();
+                intent.putExtra("type","赚客");
+                intent.setClass(getActivity(), ShopSouSuoActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 }

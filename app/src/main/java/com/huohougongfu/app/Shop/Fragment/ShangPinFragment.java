@@ -24,6 +24,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
+import com.huohougongfu.app.Gson.QuanZiShare;
 import com.huohougongfu.app.Gson.ShopDetail;
 import com.huohougongfu.app.Gson.ShopFuWuGson;
 import com.huohougongfu.app.Gson.ShopGuiGe;
@@ -32,6 +33,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.FuWu;
 import com.huohougongfu.app.PopupView.GuiGe;
 import com.huohougongfu.app.PopupView.YouHuiQuan;
+import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Adapter.ShopImageAdapter;
@@ -122,6 +124,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     };
     private BasePopupView fuwupopup;
     private View view_caozuo;
+    private QuanZiShare share;
 
     public ShangPinFragment() {
 
@@ -142,7 +145,26 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         isjingxuan = getArguments().getString("isjingxuan");
         initData();
         initUI();
+        initShopShare();
         return inflate;
+    }
+
+    private void initShopShare() {
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("productId",String.valueOf(shopid));
+        OkGo.<String>post(Contacts.URl1+"showOfMallProduct")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        QuanZiShare quanZiShare = new Gson().fromJson(body, QuanZiShare.class);
+                        if (quanZiShare.getStatus() == 1){
+                            share = quanZiShare;
+                        }
+                    }
+                });
     }
 
     private void initFuWu(int storeId) {
@@ -519,13 +541,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
             case R.id.bt_detail_fenxiang:
                 if (!utils.isDoubleClick()){
-                    UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
-                    web.setTitle("火后功夫");//标题
-                    web.setDescription("123456");//描述
-                    if (TextUtils.isEmpty("")) {
-                        web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
+                    UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
+                    web.setTitle(share.getResult().getTitle());//标题
+                    web.setDescription(share.getResult().getContent());//描述
+                    if (share.getResult().getPhoto()!=null) {
+                        web.setThumb(new UMImage(getActivity(), share.getResult().getPhoto()));  //网络缩略图
                     } else {
-                        web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                        web.setThumb(new UMImage(getActivity(), R.mipmap.img_zhanweitu));  //本地缩略图
                     }
                     new ShareAction(getActivity())
                             .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,

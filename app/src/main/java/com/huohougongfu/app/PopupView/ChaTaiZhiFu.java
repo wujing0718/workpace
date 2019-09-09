@@ -2,9 +2,7 @@ package com.huohougongfu.app.PopupView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -246,7 +244,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     check_weixin.setChecked(false);
                     if (over.getResult().isHasPayPassword()){
                         dismiss();
-                        PopEnterPassword popEnterPassword = new PopEnterPassword(context,total_price,result);
+                        PopEnterPassword popEnterPassword = new PopEnterPassword(1, context,total_price,result);
                         // 显示窗口
                         popEnterPassword.showAtLocation(getPopupContentView(),
                                 Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置

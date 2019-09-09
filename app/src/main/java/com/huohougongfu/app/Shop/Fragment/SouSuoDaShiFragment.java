@@ -213,7 +213,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                 });
     }
 
-    public static Fragment newInstance(String content) {
+    public static Fragment newInstance(String sousuo, String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);
         SouSuoDaShiFragment fragment = new SouSuoDaShiFragment();

@@ -116,6 +116,7 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView = new QBadgeView(TeHuiActivity.this);
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);

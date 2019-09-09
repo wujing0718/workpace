@@ -115,6 +115,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView = new QBadgeView(TeYuePinPaiActivity.this);
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);

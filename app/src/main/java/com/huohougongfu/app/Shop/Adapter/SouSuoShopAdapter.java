@@ -16,18 +16,26 @@ import java.util.List;
 
 public class SouSuoShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultBean.ResultListBean.ListBean,BaseViewHolder> {
     private final List<SouSuoShopGson.ResultBean.ResultListBean.ListBean> data1;
-
-    public SouSuoShopAdapter(int layoutResId, @Nullable List<SouSuoShopGson.ResultBean.ResultListBean.ListBean> data) {
+    private String type;
+    public SouSuoShopAdapter(int layoutResId, @Nullable List<SouSuoShopGson.ResultBean.ResultListBean.ListBean> data, String type) {
         super(layoutResId, data);
         this.data1 = data;
+        this.type = type;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, SouSuoShopGson.ResultBean.ResultListBean.ListBean item) {
-        SlantedTextView slanted = helper.getView(R.id.slanted);
         TextView tv_yinli = helper.getView(R.id.tv_yinli);
+        if(type!=null){
+            if (type.equals("赚客")){
+                tv_yinli.setVisibility(View.VISIBLE);
+            }
+        }else{
+            tv_yinli.setVisibility(View.GONE);
+        }
+        SlantedTextView slanted = helper.getView(R.id.slanted);
+
         slanted.setVisibility(View.GONE);
-        tv_yinli.setVisibility(View.GONE);
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);
         helper.setText(R.id.tv_jingxuan_title,item.getName());

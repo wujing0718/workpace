@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.Over;
 import com.huohougongfu.app.Gson.WXPay;
 import com.huohougongfu.app.MyApp;
@@ -27,22 +28,28 @@ import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.View.PopEnterPassword;
 import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.huohougongfu.app.WoDe.Activity.SetKeyBoardActivity;
+import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BottomPopupView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 
+import java.util.List;
 import java.util.Map;
 
 public class DingDanZhiFu extends BottomPopupView implements View.OnClickListener {
-    private final Activity context;
-    private final double priceTotal;
-    private final String orderNo;
+    private String OrderNo;
+    private double priceTotal;
+    private List<String> orderNo;
+    private Activity context;
     private CheckBox check_yue,check_ali,check_weixin;
     private String alitoken;
     private static final int SDK_PAY_FLAG = 1001;
     private Over over;
+    private String orderId = "";
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -74,15 +81,22 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     private TextView tv_total_price;
     private String wxtoken;
     private TextView tv_over;
+    private ALiPay aLiPay;
 
-    public DingDanZhiFu(@NonNull Activity context, String alitoken, double priceTotal, String orderNo) {
+    public DingDanZhiFu(@NonNull Activity context, String alitoken, double priceTotal, String OrderNo) {
         super(context);
         this.context= context;
         this.alitoken = alitoken;
         this.priceTotal = priceTotal;
-        this.orderNo = orderNo;
-
+        this.OrderNo = OrderNo;
     }
+
+    public DingDanZhiFu(@NonNull Activity  context, List<String> orderNo) {
+        super(context);
+        this.context= context;
+        this.orderNo = orderNo;
+    }
+
     @Override
     protected int getImplLayoutId() {
         return R.layout.dialog_zhifu;
@@ -92,12 +106,12 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     protected void onCreate() {
         super.onCreate();
 //        initWX();
+        initALi();
         tv_over = findViewById(R.id.tv_over);
         check_yue = findViewById(R.id.check_yue);
         check_ali = findViewById(R.id.check_ali);
         check_weixin = findViewById(R.id.check_weixin);
         tv_total_price = findViewById(R.id.tv_total_price);
-        tv_total_price.setText("￥"+priceTotal);
         check_yue.setClickable(false);
         check_ali.setClickable(false);
         check_weixin.setClickable(false);
@@ -109,6 +123,60 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
         initOver();
         initInspection();
     }
+
+    private void initALi() {
+        if (orderNo!=null){
+            for (int i = 0; i < orderNo.size(); i++) {
+                orderId =orderNo.get(i)+","+ orderId;
+                String substring = orderId.substring(0, orderId.length() - 1);
+                OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")
+                        .params("orderNos", substring)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                WaitDialog.dismiss();
+                                String body = response.body();
+                                aLiPay = new Gson().fromJson(body, ALiPay.class);
+                                if (aLiPay.getStatus() == 1) {
+                                    priceTotal = aLiPay.getResult().getPriceTotal();
+                                    alitoken = aLiPay.getResult().getOrderString();
+                                    tv_total_price.setText("￥"+aLiPay.getResult().getPriceTotal());
+                                }
+                            }
+
+                            @Override
+                            public void onStart(Request<String, ? extends Request> request) {
+                                WaitDialog.show(context,"请稍后。。。");
+                                super.onStart(request);
+                            }
+                        });
+            }
+        }
+        if (OrderNo != null){
+            OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")
+                    .params("orderNos", OrderNo)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            WaitDialog.dismiss();
+                            String body = response.body();
+                            aLiPay = new Gson().fromJson(body, ALiPay.class);
+                            if (aLiPay.getStatus() == 1) {
+                                priceTotal = aLiPay.getResult().getPriceTotal();
+                                alitoken = aLiPay.getResult().getOrderString();
+                                tv_total_price.setText("￥"+aLiPay.getResult().getPriceTotal());
+                            }
+                        }
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            WaitDialog.show(context,"请稍后。。。");
+                            super.onStart(request);
+                        }
+                    });
+        }
+    }
+
 
     private void initOver() {
         OkGo.<String>get(Contacts.URl1+"/member/balance/"+MyApp.instance.getInt("id"))
@@ -187,10 +255,24 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                     check_ali.setChecked(false);
                     check_weixin.setChecked(false);
                     if (over.getResult().isHasPayPassword()){
-                        PopEnterPassword popEnterPassword = new PopEnterPassword(context,priceTotal,orderNo);
-                        // 显示窗口
-                        popEnterPassword.showAtLocation(getPopupContentView(),
-                                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+                        dismiss();
+                        String orderId ="";
+                        if (orderNo!=null){
+                            for (int i = 0; i < orderNo.size(); i++) {
+                                orderId =orderNo.get(i)+","+ orderId;
+                            }
+                            String substring = orderId.substring(0, orderId.length() - 1);
+                            PopEnterPassword popEnterPassword = new PopEnterPassword(2,context,priceTotal,substring);
+                            // 显示窗口
+                            popEnterPassword.showAtLocation(getPopupContentView(),
+                                    Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+                        }if (OrderNo !=null){
+                            PopEnterPassword popEnterPassword = new PopEnterPassword(2,context,priceTotal,OrderNo);
+                            // 显示窗口
+                            popEnterPassword.showAtLocation(getPopupContentView(),
+                                    Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+                        }
+
                     }else{
                         Intent intent = new Intent();
                         intent.setClass(context, SetKeyBoardActivity.class);
@@ -241,12 +323,14 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
             public void run() {
                 //新建任务
                 PayTask alipay = new PayTask((Activity) context);
-                //获取支付结果
-                Map<String, String> result = alipay.payV2(alitoken, true);
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
+                if (alitoken!=null){
+                    //获取支付结果
+                    Map<String, String> result = alipay.payV2(alitoken, true);
+                    Message msg = new Message();
+                    msg.what = SDK_PAY_FLAG;
+                    msg.obj = result;
+                    mHandler.sendMessage(msg);
+                }
             }
         };
         // 必须异步调用

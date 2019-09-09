@@ -64,6 +64,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     private ImageView img_shop_sortPrice;
     private String name;
     private BasePopupView xpopup;
+    private String type;
 
     public SouSuoShopFragment() {
         // Required empty public constructor
@@ -91,6 +92,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_sou_suo_shop, container, false);
+        type = getArguments().getString("type");
         initUI();
         xpopup = new XPopup.Builder(getContext())
                 .popupPosition(PopupPosition.Right)//右边
@@ -158,7 +160,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
         GridLayoutManager layoutmanager = new GridLayoutManager(getActivity(),2);
         //设置RecyclerView 布局
         rec_sousuo_shangpin.setLayoutManager(layoutmanager);
-        teHuiAdapter = new SouSuoShopAdapter(R.layout.item_shangpin,data.getList());
+        teHuiAdapter = new SouSuoShopAdapter(R.layout.item_shangpin,data.getList(),type);
         rec_sousuo_shangpin.setAdapter(teHuiAdapter);
         teHuiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -217,9 +219,10 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                 });
     }
 
-    public static Fragment newInstance(String content) {
+    public static Fragment newInstance(String sousuo, String content) {
         Bundle args = new Bundle();
-        args.putString("ARGS", content);
+        args.putString("ARGS", sousuo);
+        args.putString("type", content);
         SouSuoShopFragment fragment = new SouSuoShopFragment();
         fragment.setArguments(args);
         return fragment;
