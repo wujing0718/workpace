@@ -37,6 +37,9 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -82,6 +85,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     private String wxtoken;
     private TextView tv_over;
     private ALiPay aLiPay;
+    private String substring;
 
     public DingDanZhiFu(@NonNull Activity context, String alitoken, double priceTotal, String OrderNo) {
         super(context);
@@ -128,7 +132,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
         if (orderNo!=null){
             for (int i = 0; i < orderNo.size(); i++) {
                 orderId =orderNo.get(i)+","+ orderId;
-                String substring = orderId.substring(0, orderId.length() - 1);
+                substring = orderId.substring(0, orderId.length() - 1);
                 OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")
                         .params("orderNos", substring)
                         .execute(new StringCallback() {
@@ -285,10 +289,30 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                 }else{
                     check_yue.setChecked(false);
                     check_ali.setChecked(false);
-                    initWXPay();
+                    initWeiXin();
                 }
                 break;
         }
+    }
+
+    private void initWeiXin() {
+        OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
+                .params("orderNo",substring)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                wxtoken = jsonObject.getString("result");
+                                initWXPay();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initWXPay() {

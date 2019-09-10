@@ -432,7 +432,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     }
 
-    public static Fragment newInstance(int str, String 挑选, String commission, String isjingxuan){
+    public static Fragment newInstance(int str, String s, String 挑选, String commission, String isjingxuan){
         ShangPinFragment fragment = new ShangPinFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id",str);

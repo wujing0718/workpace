@@ -24,6 +24,7 @@ import com.huohougongfu.app.Gson.ShopGuiGe;
 import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
@@ -182,6 +183,7 @@ public class GuiGe extends BottomPopupView {
                                 Gson gson = new Gson();
                                 ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
                                 if (shopDingDan.getStatus() == 1){
+                                    dismiss();
                                     Intent intent = new Intent();
                                     intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
                                     intent.putExtra("standardId",standarid);
@@ -190,6 +192,7 @@ public class GuiGe extends BottomPopupView {
                                     }
                                     intent.setClass(context,XiaDanActivity.class);
                                     context.startActivity(intent);
+                                    ShangPinDetailActivity.activity.fileList();
                                 }
                             }
                         } catch (JSONException e) {

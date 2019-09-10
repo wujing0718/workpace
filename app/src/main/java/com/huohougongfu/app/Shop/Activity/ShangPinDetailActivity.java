@@ -51,21 +51,25 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
     private String isJingXuan;
     private View bt_xiaoxi;
     private QBadgeView qBadgeView;
+    public static ShangPinDetailActivity activity;
     final Conversation.ConversationType[] conversationTypes = {
             Conversation.ConversationType.PRIVATE,
             Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private View bt_gouwuche;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shang_pin_detail);
+        activity= this;
         shopid = getIntent().getIntExtra("id", 0);
         挑选 = getIntent().getStringExtra("挑选");
         commission = getIntent().getStringExtra("commission");
         isJingXuan = getIntent().getStringExtra("isJingXuan");
+        type = getIntent().getStringExtra("type");
         intent = new Intent();
         qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
         View bt_finish = findViewById(R.id.bt_finish);
@@ -137,7 +141,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(ShangPinFragment.newInstance(shopid,挑选,commission,isJingXuan));
+        mFragments.add(ShangPinFragment.newInstance(shopid,挑选,commission,isJingXuan,type));
         mFragments.add(CanShuFragment.newInstance(shopid,挑选));
         mFragments.add(PingJiaFragment.newInstance(shopid,挑选));
         for (int i = 0;i<mTitles.length;i++){

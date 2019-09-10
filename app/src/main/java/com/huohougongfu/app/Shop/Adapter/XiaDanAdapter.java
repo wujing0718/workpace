@@ -269,6 +269,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         TiJiaoDingDan shopDingDan = gson.fromJson(body, TiJiaoDingDan.class);
@@ -277,6 +278,12 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                                     .asCustom(new DingDanZhiFu(context, shopDingDan.getResult()))
                                     .show();
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        super.onStart(request);
+                        WaitDialog.show(context,"请稍后。。。");
                     }
                 });
     }

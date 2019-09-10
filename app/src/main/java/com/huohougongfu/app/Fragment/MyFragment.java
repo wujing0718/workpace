@@ -86,6 +86,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     private View bt_my_gouwuche;
     private View bt_dingdan_daifukuan,bt_dingdan_daifahuo,bt_dingdan_daishouhuo;
     private View bt_dingdan_pingjia;
+    private String phone;
 
     public MyFragment() {
         // Required empty public constructor
@@ -98,6 +99,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         // Inflate the layout for this fragment
         inflate = inflater.inflate(R.layout.fragment_my, container, false);
         id = MyApp.instance.getInt("id");
+        phone = MyApp.instance.getString("phone");
         View statusBar = inflate.findViewById(R.id.statusBarView);
         qBadgeView = new QBadgeView(getActivity());
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
@@ -185,6 +187,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(id));
         map.put("userId",String.valueOf(id));
+        map.put("tel",phone);
         OkGo.<String>post(Contacts.URl1+"/homepage/info/")
                 .params(map)
                 .execute(new StringCallback() {
@@ -394,12 +397,14 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                 break;
             case R.id.bt_zhuanke:
                 if (!utils.isDoubleClick()){
-                    if (xinxi.getResult().isZhuanKe()){
-                        intent.setClass(getActivity(),ZhuanKeActivity.class);
-                        startActivity(intent);
-                    }else{
-                        intent.setClass(getActivity(),ZhuanKeYesActivity.class);
-                        startActivity(intent);
+                    if (xinxi.getResult()!=null){
+                        if (xinxi.getResult().isZhuanKe()){
+                            intent.setClass(getActivity(),ZhuanKeActivity.class);
+                            startActivity(intent);
+                        }else{
+                            intent.setClass(getActivity(),ZhuanKeYesActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }
                 break;

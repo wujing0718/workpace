@@ -14,9 +14,11 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,95 +63,75 @@ public class PopEnterPassword extends PopupWindow {
             pwdView.setOnFinishInput(new OnPasswordInputFinish() {
                 @Override
                 public void inputFinish(final String zhifupassword) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 模拟耗时的操作。
-//                            try {
-//                                Thread.sleep(500);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-                            mContext.runOnUiThread(new Runnable() {
+                    String password = utils.makeMD5(zhifupassword);
+                    Map<String,String> map = new HashMap<>();
+                    map.put("orderNo",orderNo);
+                    map.put("mId", String.valueOf(MyApp.instance.getInt("id")));
+                    map.put("payPassword",password);
+                    OkGo.<String>post(Contacts.URl1+"/machine/balancePayment")
+                            .params(map)
+                            .execute(new StringCallback() {
                                 @Override
-                                public void run() {
-                                    String password = utils.makeMD5(zhifupassword);
-                                    Map<String,String> map = new HashMap<>();
-                                    map.put("orderNo",orderNo);
-                                    map.put("mId", String.valueOf(MyApp.instance.getInt("id")));
-                                    map.put("payPassword",password);
-                                    OkGo.<String>post(Contacts.URl1+"/machine/balancePayment")
-                                            .params(map)
-                                            .execute(new StringCallback() {
-                                                @Override
-                                                public void onSuccess(Response<String> response) {
-                                                    String body = response.body();
-                                                    try {
-                                                        JSONObject jsonObject = new JSONObject(body);
-                                                        if (jsonObject.getInt("status") == 1){
-                                                            dismiss();
-                                                            ToastUtils.showShort(jsonObject.getString("msg"));
-                                                        }else{
-                                                            ToastUtils.showShort(jsonObject.getString("msg"));
-                                                        }
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            });
+                                public void onSuccess(Response<String> response) {
+                                    WaitDialog.dismiss();
+                                    String body = response.body();
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(body);
+                                        if (jsonObject.getInt("status") == 1){
+                                            dismiss();
+                                            ToastUtils.showShort(jsonObject.getString("msg"));
+                                        }else{
+                                            ToastUtils.showShort(jsonObject.getString("msg"));
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onStart(Request<String, ? extends Request> request) {
+                                    WaitDialog.show(context,"请稍后。。。");
+                                    super.onStart(request);
                                 }
                             });
-                        }
-
-                    }).start();
                 }
             });
         }else if (type == 2){
             pwdView.setOnFinishInput(new OnPasswordInputFinish() {
                 @Override
                 public void inputFinish(final String zhifupassword) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-//                            // 模拟耗时的操作。
-//                            try {
-//                                Thread.sleep(500);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-                            mContext.runOnUiThread(new Runnable() {
+                    String password = utils.makeMD5(zhifupassword);
+                    Map<String,String> map = new HashMap<>();
+                    map.put("orderNo",orderNo);
+                    map.put("mId", String.valueOf(MyApp.instance.getInt("id")));
+                    map.put("payPassword",password);
+                    OkGo.<String>post(Contacts.URl1+"/order/balancePayment")
+                            .params(map)
+                            .execute(new StringCallback() {
                                 @Override
-                                public void run() {
-                                    String password = utils.makeMD5(zhifupassword);
-                                    Map<String,String> map = new HashMap<>();
-                                    map.put("orderNo",orderNo);
-                                    map.put("mId", String.valueOf(MyApp.instance.getInt("id")));
-                                    map.put("payPassword",password);
-                                    OkGo.<String>post(Contacts.URl1+"/order/balancePayment")
-                                            .params(map)
-                                            .execute(new StringCallback() {
-                                                @Override
-                                                public void onSuccess(Response<String> response) {
-                                                    String body = response.body();
-                                                    try {
-                                                        JSONObject jsonObject = new JSONObject(body);
-                                                        if (jsonObject.getInt("status") == 1){
-                                                            dismiss();
-                                                            ToastUtils.showShort(jsonObject.getString("msg"));
-                                                        }else{
-                                                            ToastUtils.showShort(jsonObject.getString("msg"));
-                                                        }
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            });
+                                public void onSuccess(Response<String> response) {
+                                    WaitDialog.dismiss();
+                                    String body = response.body();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(body);
+                                    if (jsonObject.getInt("status") == 1){
+                                        dismiss();
+                                        ToastUtils.showShort(jsonObject.getString("msg"));
+                                        }else{
+                                        ToastUtils.showShort(jsonObject.getString("msg"));
+                                        }
+                                        } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onStart(Request<String, ? extends Request> request) {
+                                    WaitDialog.show(context,"请稍后。。。");
+                                    super.onStart(request);
                                 }
                             });
-                        }
-
-                    }).start();
-                }
+                    }
             });
 
         }

@@ -30,7 +30,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:background="@drawable/black_di"
+                android:background="@color/black"
                 android:id="@+id/tv_jiangli"
                 android:gravity="center"
                 android:text="立即领取"
