@@ -25,6 +25,14 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:text="设置支付密码"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 
     <com.huohougongfu.app.View.PayEditText

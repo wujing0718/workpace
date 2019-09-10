@@ -278,8 +278,27 @@ public class QuanZiFaXian implements Serializable {
                 private Object cityCode;
                 private MemberBean member;
                 private int praiseNum;
+                private int commentNum;
+                private int browseCount;
+
                 private int isPraise;
                 private Object mid;
+
+                public int getCommentNum() {
+                    return commentNum;
+                }
+
+                public void setCommentNum(int commentNum) {
+                    this.id = commentNum;
+                }
+
+                public int getBrowseCount() {
+                    return browseCount;
+                }
+
+                public void setBrowseCount(int browseCount) {
+                    this.browseCount = browseCount;
+                }
 
                 public int getId() {
                     return id;

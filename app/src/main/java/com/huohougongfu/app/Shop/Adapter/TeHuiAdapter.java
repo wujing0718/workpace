@@ -53,7 +53,7 @@ public class TeHuiAdapter extends BaseQuickAdapter<TeiHuiGson.ResultBean.ListBea
         Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_jingxuan_photo);
         helper.setText(R.id.tv_jingxuan_title,item.getName());
         helper.setText(R.id.tv_jingxuan_price,String.valueOf(item.getPrice()));
-        helper.setText(R.id.tv_jingxuan_name,"【"+item.getModel()+"】");
+        helper.setText(R.id.tv_jingxuan_name,"【"+item.getStoreName()+"】");
         helper.setText(R.id.tv_jingxuan_num,item.getSellNum()+"人付款");
     }
     //下面两个方法提供给页面刷新和加载时调用

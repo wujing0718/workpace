@@ -4,6 +4,8 @@ package com.huohougongfu.app.WoDe.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -65,6 +67,24 @@ public class DingDanFragment extends Fragment {
 
     public DingDanFragment() {
     }
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    boolean refresh= (boolean)msg.obj;
+                    if(refresh){
+                        initData();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
 
 
     @Override
@@ -183,6 +203,8 @@ public class DingDanFragment extends Fragment {
                             }else if ((result.get(position).getOrderStatus() == 1)){
                                 //提醒发货
                                 initRemind(result.get(position).getOrderNo());
+                            }else if ((result.get(position).getOrderStatus() == -4)){
+                                initDelete(result.get(position).getOrderNo());
                             }
                             break;
                     }
@@ -193,7 +215,8 @@ public class DingDanFragment extends Fragment {
             smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
                 @Override
                 public void onRefresh(RefreshLayout refreshlayout) {
-                initData();
+                    page = 2;
+                    initData();
                 }
             });
             //加载更多
@@ -266,7 +289,7 @@ public class DingDanFragment extends Fragment {
                     }
                 });
     }
-
+    //确认收货
     private void initQueRenShouHuo(String orderNo) {
         Map<String,String> map = new HashMap<>();
         map.put("orderNo",orderNo);
@@ -310,10 +333,9 @@ public class DingDanFragment extends Fragment {
     //  取消订单
     private void initQuanXiao(String orderNo, int orderStatus) {
         new XPopup.Builder(getActivity())
-                .asCustom(new QuXiaoDingDan(getActivity(),orderStatus,orderNo))
+                .asCustom(new QuXiaoDingDan(getActivity(),orderStatus,orderNo,mHandler))
                 .show();
     }
-
     //  删除订单
     private void initDelete(String orderNo) {
         SelectDialog.show(getActivity(), "提示", "是否删除订单",

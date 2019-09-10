@@ -57,6 +57,7 @@ public class WenZhangActivity extends AppCompatActivity {
     private InputMethodManager manager;
     private String token;
     private QuanZiShare share;
+    private String sousuo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,8 @@ public class WenZhangActivity extends AppCompatActivity {
                     if (manager.isActive()) {
                         manager.hideSoftInputFromWindow(edt_shop_sousuo.getApplicationWindowToken(), 0);
                     }
-                    initData(edt_shop_sousuo.getText().toString());
+                    sousuo = edt_shop_sousuo.getText().toString();
+                    initData(sousuo);
                 }
                 //记得返回false
                 return false;
@@ -105,6 +107,7 @@ public class WenZhangActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().isEmpty()){
                     initData("");
+                    sousuo = "";
                     manager.hideSoftInputFromWindow(edt_shop_sousuo.getApplicationWindowToken(), 0);
                 }
             }
@@ -182,8 +185,8 @@ public class WenZhangActivity extends AppCompatActivity {
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+                page = 2;
                 initData("");
-                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
             }
         });
         //加载更多
@@ -267,6 +270,7 @@ public class WenZhangActivity extends AppCompatActivity {
         map.put("pageNo",String.valueOf(page++));
         map.put("mId",String.valueOf(mId));
         map.put("pageSize","10");
+        map.put("condition",sousuo);
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/data")
                 .params(map)

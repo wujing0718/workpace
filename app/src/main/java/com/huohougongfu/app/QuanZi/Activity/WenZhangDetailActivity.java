@@ -556,7 +556,6 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                 });
     }
 
-
     private void initFaSongPingLun(String pinglun_content) {
         Map<String,String> map = new HashMap<>();
         map.put("dataId",String.valueOf(dId));
@@ -593,6 +592,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
+        ToastUtils.showShort("分享成功");
     }
 
     @Override
@@ -601,5 +601,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
+        ToastUtils.showShort("取消分享");
+
     }
 }

@@ -187,7 +187,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(id));
         map.put("userId",String.valueOf(id));
-        map.put("tel",phone);
         OkGo.<String>post(Contacts.URl1+"/homepage/info/")
                 .params(map)
                 .execute(new StringCallback() {
@@ -399,10 +398,10 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                 if (!utils.isDoubleClick()){
                     if (xinxi.getResult()!=null){
                         if (xinxi.getResult().isZhuanKe()){
-                            intent.setClass(getActivity(),ZhuanKeActivity.class);
+                            intent.setClass(getActivity(),ZhuanKeYesActivity.class);
                             startActivity(intent);
                         }else{
-                            intent.setClass(getActivity(),ZhuanKeYesActivity.class);
+                            intent.setClass(getActivity(),ZhuanKeActivity.class);
                             startActivity(intent);
                         }
                     }

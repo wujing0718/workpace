@@ -1,5 +1,6 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
@@ -28,8 +30,10 @@ import java.util.Map;
 
 public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText edt_kuaidi_danhao,edt_kuaidi_name;
+    private EditText edt_kuaidi_danhao;
+    private TextView edt_kuaidi_name;
     private Map<String, String> kuaidi;
+    @SuppressLint("HandlerLeak")
     Handler mHandlerkuaidi = new Handler() {
 
         @Override
@@ -38,8 +42,7 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
             switch (msg.what) {
                 case 0:
                     kuaidi = (Map<String,String>)msg.obj;
-                    edt_kuaidi_name.setText(kuaidi.get("expressCompany"));
-                    edt_kuaidi_name.setTextColor(getResources().getColor(R.color.colorBlack));
+                    edt_kuaidi_name.setText(kuaidi.get("expressCompanytitle"));
                     break;
                 default:
                     break;
@@ -48,7 +51,6 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
     };
     private String orderNo;
     private String danhao;
-    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
         edt_kuaidi_name = findViewById(R.id.edt_kuaidi_name);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_fahuo).setOnClickListener(this);
-        findViewById(R.id.bt_xuanze_kuaidi).setOnClickListener(this);
+        edt_kuaidi_name.setOnClickListener(this);
     }
 
     @Override
@@ -74,10 +76,9 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.bt_fahuo:
                 danhao = edt_kuaidi_danhao.getText().toString();
-                name = edt_kuaidi_name.getText().toString();
                 if (!utils.isDoubleClick()){
                     if (!"".equals(danhao)){
-                        if (!"".equals(name)){
+                        if (!"".equals(kuaidi.get("expressCompanytitle"))){
                             //确认发货
                             initFaHuo();
                         }else{
@@ -88,7 +89,7 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
                     }
                 }
                 break;
-            case R.id.bt_xuanze_kuaidi:
+            case R.id.edt_kuaidi_name:
                 if (!utils.isDoubleClick()){
                     hideInput();
                     new XPopup.Builder(TianXieWuLiuActivity.this)
@@ -103,7 +104,7 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
     private void initFaHuo() {
         Map<String,String> map = new HashMap<>();
         map.put("orderNo",orderNo);
-        map.put("logisticsName",name);
+        map.put("logisticsName",kuaidi.get("expressCompany"));
         map.put("logisticsNo",danhao);
         OkGo.<String>post(Contacts.URl1+"order/confirmSendGoods")
                 .params(map)
@@ -124,7 +125,6 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
                             e.printStackTrace();
                         }
                         QueRenFaHuo queRenFaHuo = gson.fromJson(body, QueRenFaHuo.class);
-//                        if (queRenFaHuo.get)
                     }
                 });
     }

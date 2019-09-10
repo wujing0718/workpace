@@ -15,7 +15,6 @@
         <ImageView
             android:id="@+id/img_dingdan_photo"
             android:layout_marginLeft="@dimen/dp_10"
-            android:src="@mipmap/ic_launcher"
             android:layout_width="80dp"
             android:layout_height="80dp" />
 

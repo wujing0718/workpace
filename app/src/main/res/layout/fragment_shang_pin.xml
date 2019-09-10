@@ -569,69 +569,77 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<LinearLayout-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                    <TextView
-                        android:text="价格说明"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginLeft="15dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:text="价格说明"-->
+                        <!--android:layout_marginTop="12dp"-->
+                        <!--android:layout_marginLeft="15dp"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                    <TextView
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginHorizontal="25dp"
-                        android:textColor="@color/colorBlack"
-                        android:text="划线价格为原价，未划线价格为实际价格"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:layout_marginHorizontal="25dp"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:text="划线价格为原价，未划线价格为实际价格"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                    <TextView
-                        android:text="运费说明"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginLeft="15dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:text="运费说明"-->
+                        <!--android:layout_marginTop="12dp"-->
+                        <!--android:layout_marginLeft="15dp"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                    <TextView
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_marginHorizontal="25dp"
-                        android:text="江浙沪北上广包邮，偏远地区（青海、西藏、新疆、内蒙）需另加运费"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:layout_marginHorizontal="25dp"-->
+                        <!--android:text="江浙沪北上广包邮，偏远地区（青海、西藏、新疆、内蒙）需另加运费"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                    <TextView
-                        android:text="售后说明"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginLeft="15dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:text="售后说明"-->
+                        <!--android:layout_marginTop="12dp"-->
+                        <!--android:layout_marginLeft="15dp"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                    <TextView
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_marginHorizontal="25dp"
-                        android:textSize="14sp"
-                        android:text="未影响二次销售的前提之下支持7天无理由退货、特殊商品除外"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!--<TextView-->
+                        <!--android:layout_marginLeft="25dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textColor="@color/colorBlack"-->
+                        <!--android:layout_marginHorizontal="25dp"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:text="未影响二次销售的前提之下支持7天无理由退货、特殊商品除外"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
+
+                <TextView
+                    android:id="@+id/tv_specialNote"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
 
                 <View
                     android:background="#F8F8F8"

@@ -125,6 +125,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private BasePopupView fuwupopup;
     private View view_caozuo;
     private QuanZiShare share;
+    private String type;
+    private View bt_goumai;
+    private TextView tv_specialNote;
 
     public ShangPinFragment() {
 
@@ -143,6 +146,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         挑选 = getArguments().getString("挑选");
         commission = getArguments().getString("commission");
         isjingxuan = getArguments().getString("isjingxuan");
+        type = getArguments().getString("type");
         initData();
         initUI();
         initShopShare();
@@ -227,6 +231,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     }
 
     private void initUI() {
+        tv_specialNote = inflate.findViewById(R.id.tv_specialNote);
         view_caozuo = inflate.findViewById(R.id.view_caozuo);
         img_dianpu_ditu = inflate.findViewById(R.id.img_dianpu_ditu);
         tv_detail_price = inflate.findViewById(R.id.tv_detail_price);
@@ -246,7 +251,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         tv_manjian2 = inflate.findViewById(R.id.tv_manjian2);
         bt_detail_fenxiang = inflate.findViewById(R.id.bt_detail_fenxiang);
         bt_detail_fenxiang.setOnClickListener(this);
-        inflate.findViewById(R.id.bt_goumai).setOnClickListener(this);
+        bt_goumai = inflate.findViewById(R.id.bt_goumai);
+        bt_goumai.setOnClickListener(this);
         img_dian_shoucang = inflate.findViewById(R.id.img_dian_shoucang);
         tv_dian_shoucang = inflate.findViewById(R.id.tv_dian_shoucang);
 
@@ -355,7 +361,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     }
 
     private void initView(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct) {
-        if (挑选!=null){
+        tv_specialNote.setText(mallProduct.getSpecialInstructions());
+        if ("赚客".equals(type)){
+            bt_jiagouwuche.setVisibility(View.GONE);
+            tv_lijigoumai.setText("分享赚钱");
+        }else if (挑选!=null){
             bt_commission.setVisibility(View.VISIBLE);
             bt_detail_fenxiang.setVisibility(View.GONE);
             tv_lijigoumai.setText("放入仓库");
@@ -432,13 +442,14 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     }
 
-    public static Fragment newInstance(int str, String s, String 挑选, String commission, String isjingxuan){
+    public static Fragment newInstance(int str, String 挑选, String commission, String isjingxuan,String type){
         ShangPinFragment fragment = new ShangPinFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id",str);
         bundle.putString("挑选",挑选);
         bundle.putString("commission",commission);
         bundle.putString("isjingxuan",isjingxuan);
+        bundle.putString("type",type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -500,7 +511,21 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_goumai:
                 if (!utils.isDoubleClick()){
-                    if (挑选!=null){
+                    if ("赚客".equals(type)){
+                        UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
+                        web.setTitle(share.getResult().getTitle());//标题
+                        web.setDescription(share.getResult().getContent());//描述
+                        if (share.getResult().getPhoto()!=null) {
+                            web.setThumb(new UMImage(getActivity(), share.getResult().getPhoto()));  //网络缩略图
+                        } else {
+                            web.setThumb(new UMImage(getActivity(), R.mipmap.img_zhanweitu));  //本地缩略图
+                        }
+                        new ShareAction(getActivity())
+                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                .withMedia(web)
+                                .setCallback(this).open();
+                    }else if (挑选!=null){
                         initAddCangKu();
                     }else{
                         if (!"-1".equals(id)) {
@@ -630,7 +655,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
-
+        ToastUtils.showShort("分享成功");
     }
 
     @Override
@@ -640,6 +665,6 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
-
+        ToastUtils.showShort("取消分享");
     }
 }

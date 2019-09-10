@@ -10,13 +10,13 @@
             android:layout_weight="1"
             android:layout_above="@+id/view_vdio_pinglun"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:layout_marginTop="20dp"
                 android:id="@+id/rec_vedio_comment"
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="match_parent">
 
             </android.support.v7.widget.RecyclerView>
 

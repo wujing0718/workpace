@@ -18,18 +18,17 @@
 
                 <ImageView
                     android:id="@+id/img_pinglun_touxiang"
-                    android:src="@mipmap/ic_launcher"
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40" />
 
-                <TextView
-                    android:text="V"
-                    android:gravity="center"
-                    android:background="@drawable/wode_dengji"
-                    android:layout_gravity="bottom|right"
-                    android:textColor="@color/colorRed"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp" />
+                <!--<TextView-->
+                    <!--android:text="V"-->
+                    <!--android:gravity="center"-->
+                    <!--android:background="@drawable/wode_dengji"-->
+                    <!--android:layout_gravity="bottom|right"-->
+                    <!--android:textColor="@color/colorRed"-->
+                    <!--android:layout_width="16dp"-->
+                    <!--android:layout_height="16dp" />-->
 
             </FrameLayout>
 

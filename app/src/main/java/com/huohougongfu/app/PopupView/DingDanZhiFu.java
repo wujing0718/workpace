@@ -133,28 +133,28 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
             for (int i = 0; i < orderNo.size(); i++) {
                 orderId =orderNo.get(i)+","+ orderId;
                 substring = orderId.substring(0, orderId.length() - 1);
-                OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")
-                        .params("orderNos", substring)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                WaitDialog.dismiss();
-                                String body = response.body();
-                                aLiPay = new Gson().fromJson(body, ALiPay.class);
-                                if (aLiPay.getStatus() == 1) {
-                                    priceTotal = aLiPay.getResult().getPriceTotal();
-                                    alitoken = aLiPay.getResult().getOrderString();
-                                    tv_total_price.setText("￥"+aLiPay.getResult().getPriceTotal());
-                                }
-                            }
-
-                            @Override
-                            public void onStart(Request<String, ? extends Request> request) {
-                                WaitDialog.show(context,"请稍后。。。");
-                                super.onStart(request);
-                            }
-                        });
             }
+            OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")
+                    .params("orderNos", substring)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            WaitDialog.dismiss();
+                            String body = response.body();
+                            aLiPay = new Gson().fromJson(body, ALiPay.class);
+                            if (aLiPay.getStatus() == 1) {
+                                priceTotal = aLiPay.getResult().getPriceTotal();
+                                alitoken = aLiPay.getResult().getOrderString();
+                                tv_total_price.setText("￥"+aLiPay.getResult().getPriceTotal());
+                            }
+                        }
+
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            WaitDialog.show(context,"请稍后。。。");
+                            super.onStart(request);
+                        }
+                    });
         }
         if (OrderNo != null){
             OkGo.<String>post(Contacts.URl1 + "apliyConfirmPaymentMoreOrderNo")

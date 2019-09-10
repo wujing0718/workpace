@@ -72,6 +72,7 @@ public class VedioComment extends BottomPopupView {
     private void initPingLun() {
         Map<String,String> map = new HashMap<>();
         map.put("dataId",String.valueOf(dId));
+        map.put("mId",String.valueOf(mId));
         map.put("pageNo","1");
         map.put("pageSize","10");
         OkGo.<String>post(Contacts.URl1 + "/circle/comments/list")
@@ -116,15 +117,11 @@ public class VedioComment extends BottomPopupView {
                 ImageView img_pinglun_dianzan = view.findViewById(R.id.img_pinglun_dianzan);
                 TextView tv_pinglun_dianzannum = view.findViewById(R.id.tv_pinglun_dianzannum);
                 if (!utils.isDoubleClick()){
-                    if (!"".equals(token)){
                         if (list.get(position).getIsPraise() == 1){
                             initQuXiaoDianZan("0",img_pinglun_dianzan,tv_pinglun_dianzannum,list.get(position));
                         }else{
                             initDianZan("1",img_pinglun_dianzan,tv_pinglun_dianzannum,list.get(position));
                         }
-                    }else{
-                        ToastUtils.showShort(R.string.denglu);
-                    }
                 }
             }
         });
@@ -135,9 +132,10 @@ public class VedioComment extends BottomPopupView {
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
         map.put("token",token);
-        map.put("dataId",String.valueOf(id.getId()));
+        map.put("commentId",String.valueOf(id.getId()));
         map.put("mId",String.valueOf(mId));
-        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+        map.put("commentMId",String.valueOf(id.getMid()));
+        OkGo.<String>post(Contacts.URl1+"/circle/comment/praise")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -150,7 +148,7 @@ public class VedioComment extends BottomPopupView {
                                 Integer integer = Integer.valueOf(num);
                                 tv_pinglun_dianzannum.setText(String.valueOf(integer-1));
                                 id.setIsPraise(0);
-                                img_pinglun_dianzan.setImageResource(R.mipmap.img_xihuan);
+                                img_pinglun_dianzan.setImageResource(R.mipmap.img_dianzan);
                                 ToastUtils.showShort("取消点赞");
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
@@ -167,10 +165,11 @@ public class VedioComment extends BottomPopupView {
         String num = tv_pinglun_dianzannum.getText().toString();
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
-        map.put("dataId",String.valueOf(id.getId()));
+        map.put("commentId",String.valueOf(id.getId()));
         map.put("mId",String.valueOf(mId));
+        map.put("commentMId",String.valueOf(id.getMid()));
         map.put("token",token);
-        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+        OkGo.<String>post(Contacts.URl1+"/circle/comment/praise")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -183,7 +182,7 @@ public class VedioComment extends BottomPopupView {
                                 Integer integer = Integer.valueOf(num);
                                 tv_pinglun_dianzannum.setText(String.valueOf(integer+1));
                                 id.setIsPraise(1);
-                                img_pinglun_dianzan.setImageResource(R.mipmap.img_xihuan2);
+                                img_pinglun_dianzan.setImageResource(R.mipmap.img_dianzanok);
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
 

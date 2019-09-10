@@ -17,6 +17,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.DSZhuanChang;
@@ -76,6 +78,7 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
     };
     private View bt_xiaoxi;
     private View bt_gouwuche;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
         setContentView(R.layout.activity_da_shi_zhuan_chang);
         qBadgeView = new QBadgeView(DaShiZhuanChang.this);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        token = MyApp.instance.getString("token");
         intent = new Intent();
         initUI();
         initData("");
@@ -137,8 +141,8 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
             @Override
             public void onClick(View v) {
                 if (!utils.isDoubleClick()){
-                    intent.setClass(DaShiZhuanChang.this,XiaoXiActivity.class);
-                    startActivity(intent);
+                        intent.setClass(DaShiZhuanChang.this,XiaoXiActivity.class);
+                        startActivity(intent);
                 }
             }
         });

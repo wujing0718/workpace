@@ -27,6 +27,7 @@ import com.huohougongfu.app.PopupView.QuXiaoDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Adapter.DingDanGuanLiDetailAdapter;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanDetailAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.lxj.xpopup.XPopup;
@@ -99,7 +100,7 @@ public class DianPuDingDanDetailActivity extends AppCompatActivity implements On
     private void initRec(MyDingDanDetail.ResultBean resultBean) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rec_dingdan_detail.setLayoutManager(layoutManager);
-        MyDingDanDetailAdapter myDingDanDetailAdapter = new MyDingDanDetailAdapter(R.layout.item_dingdan_liebiao, resultBean.getMallStores().getMallProducts(),orderStatus);
+        DingDanGuanLiDetailAdapter myDingDanDetailAdapter = new DingDanGuanLiDetailAdapter(R.layout.item_dingdan_liebiao, resultBean.getMallStores().getMallProducts(),orderStatus);
         rec_dingdan_detail.setAdapter(myDingDanDetailAdapter);
         myDingDanDetailAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override

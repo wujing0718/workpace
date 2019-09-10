@@ -79,7 +79,8 @@ public class KuaiDiGongSi extends BottomPopupView implements View.OnClickListene
                                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                         Message msg = Message.obtain();
                                         Map<String,String> map = new HashMap<>();
-                                        map.put("expressCompany",kuaiDiZi.get(position).getName());
+                                        map.put("expressCompany",kuaiDiZi.get(position).getTitle());
+                                        map.put("expressCompanytitle",kuaiDiZi.get(position).getName());
                                         msg.what = 0;
                                         msg.obj = map;
                                         mHandler.sendMessage(msg);

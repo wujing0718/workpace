@@ -11,8 +11,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.HuDongPingLunAdapter;
 import com.huohougongfu.app.Gson.HuDongPingLun;
+import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
+import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -47,8 +49,7 @@ public class HuDongPingLunActivity extends AppCompatActivity {
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
-//        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
-        map.put("mId",String.valueOf(43));
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
         OkGo.<String>post(Contacts.URl1+"/my/interactive/commentList")
@@ -69,8 +70,6 @@ public class HuDongPingLunActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
     private void initUI(List<HuDongPingLun.ResultBean.ListBean> list) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(HuDongPingLunActivity.this);
         rec_hudong_pinglun.setLayoutManager(layoutManager);
@@ -95,7 +94,7 @@ public class HuDongPingLunActivity extends AppCompatActivity {
 //                    intent.putExtra("dId",list.get(position).getDataId());
 //                    intent.putExtra("小视频",faxian.getResult().getDatas().getList().get(position));
 //                    intent.putExtra("position",position);
-//                    startActivity(intent.setClass(HuDongDianZanActivity.this,VedioDetailActivity.class));
+//                    startActivity(intent.setClass(HuDongPingLunActivity.this,VedioDetailActivity.class));
                 }
             }
         });

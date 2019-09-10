@@ -3,7 +3,9 @@ package com.huohougongfu.app.PopupView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -31,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QuXiaoDingDan extends BottomPopupView implements View.OnClickListener {
+    private Handler mHandler;
     private int orderStatus;
     private String orderNo;
     private RecyclerView rec_quxiao_yuanyin;
@@ -40,6 +43,15 @@ public class QuXiaoDingDan extends BottomPopupView implements View.OnClickListen
         this.context =context;
         this.orderStatus = orderStatus;
         this.orderNo = orderNo;
+
+    }
+
+    public QuXiaoDingDan(@NonNull Context context, int orderStatus, String orderNo, Handler mHandler) {
+        super(context);
+        this.context =context;
+        this.orderStatus = orderStatus;
+        this.orderNo = orderNo;
+        this.mHandler = mHandler;
     }
 
     @Override
@@ -85,6 +97,11 @@ public class QuXiaoDingDan extends BottomPopupView implements View.OnClickListen
                                                                         try {
                                                                             JSONObject jsonObject = new JSONObject(body);
                                                                             if (jsonObject.getInt("status") == 1){
+                                                                                dismiss();
+                                                                                Message msg = Message.obtain();
+                                                                                msg.what = 0;
+                                                                                msg.obj = true;
+                                                                                mHandler.sendMessage(msg);
                                                                                 dismiss();
                                                                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                                                             }else{

@@ -22,11 +22,13 @@ import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.huohougongfu.app.Activity.DaKaActivity;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.JiQiLieBiao;
@@ -102,6 +104,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             ListenerManager.getInstance().registerListtener(this);
             intent = new Intent();
             qBadgeView = new QBadgeView(getActivity());
+            token = MyApp.instance.getString("token");
             lon = MyApp.instance.getString("lon");
             lat = MyApp.instance.getString("lat");
             //设置默认显示内容
@@ -350,33 +353,63 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
         switch (v.getId()){
             case R.id.bt_xiadan:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),PleaseTeaActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),PleaseTeaActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_pleasetea:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),PleaseTeaActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),PleaseTeaActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_daka:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),DaKaActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),DaKaActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_mykabao:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),MyKaBaoActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),MyKaBaoActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_chatai:
                 if (!utils.isDoubleClick()){
+                    if (!token.isEmpty()){
                         intent.putExtra("machineId",jiQiLieBiao.getEquipmentId());
                         intent.setClass(getActivity(),ChaTaiActivity.class);
                         startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
             case R.id.bt_dingwei:
                 if (!utils.isDoubleClick()){

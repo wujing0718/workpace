@@ -18,6 +18,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
@@ -34,6 +36,7 @@ import com.huohougongfu.app.Shop.Activity.ShopSouSuoActivity;
 import com.huohougongfu.app.Shop.Activity.TeHuiActivity;
 import com.huohougongfu.app.Shop.Activity.TeYuePinPaiActivity;
 import com.huohougongfu.app.Shop.Adapter.ShopAdapter;
+import com.huohougongfu.app.ShouYe.Activity.PleaseTeaActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
@@ -200,11 +203,17 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         shangPinAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent();
-                intent.putExtra("id",list.getResult().getList().get(position).getId());
-                intent.putExtra("isJingXuan","是");
-                intent.setClass(getActivity(),ShangPinDetailActivity.class);
-                startActivity(intent);
+                if (!token.isEmpty()){
+                    Intent intent = new Intent();
+                    intent.putExtra("id",list.getResult().getList().get(position).getId());
+                    intent.putExtra("isJingXuan","是");
+                    intent.setClass(getActivity(),ShangPinDetailActivity.class);
+                    startActivity(intent);
+                }else{
+                    intent.setClass(getActivity(),LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.activity.finish();
+                }
             }
         });
         //刷新
@@ -321,44 +330,86 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         switch (v.getId()){
             case R.id.bt_shangpin_teyue:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),TeYuePinPaiActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),TeYuePinPaiActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_shangpin_dashi:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),DaShiZhuanChang.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),DaShiZhuanChang.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_shangpin_tehui:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),TeHuiActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),TeHuiActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_shangpin_leimu:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),LeiMuActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),LeiMuActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_shop_sousuo:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),ShopSouSuoActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),ShopSouSuoActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_gouwuche:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),GouWuCheActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),GouWuCheActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_xiaoxi:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),XiaoXiActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),XiaoXiActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
         }

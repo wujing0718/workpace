@@ -2,6 +2,7 @@ package com.huohougongfu.app.Fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,10 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.Machine;
 import com.huohougongfu.app.Gson.TeaDetail;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.Paocha;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.utils;
@@ -35,6 +40,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
     private String resultBean;
     private TeaDetail teaDetail;
     private String machineId;
+    private String token;
 
     public SimpleCardFragment() {
         // Required empty public constructor
@@ -47,6 +53,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
         inflate = inflater.inflate(R.layout.fragment_simple_card, container, false);
         resultBean = getArguments().getString(KEY);
         machineId = getArguments().getString(MachineId);
+        token = MyApp.instance.getString("token");
         initUI();
         initView();
         return inflate;
@@ -68,9 +75,16 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
         inflate.findViewById(R.id.bt_paocha).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new XPopup.Builder(getContext())
-                        .asCustom(new Paocha(getContext(),teaDetail,machineId))
-                        .show();
+                if (!token.isEmpty()){
+                    new XPopup.Builder(getContext())
+                            .asCustom(new Paocha(getContext(),teaDetail,machineId))
+                            .show();
+                }else{
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(),LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.activity.finish();
+                }
             }
         });
         teaname = inflate.findViewById(R.id.tv_jiqi_tea);

@@ -424,7 +424,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                     JSONArray jsonArray = new JSONArray();
                     try {
                         for (int j = 0; j < list.getOrderList().size(); j++) {
-                            for (int i = 0; i < temp.size(); i++) {
+                            for (int i = 0; i < list.getOrderList().get(j).getMallStore().getMallProducts().size(); i++) {
                                 JSONObject jsonObject = new JSONObject();
                                 jsonObject.put("orderId",list.getOrderList().get(j).getOrderId());
                                 if (coupon!=null){

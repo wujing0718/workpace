@@ -596,6 +596,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
+        ToastUtils.showShort("分享成功");
     }
 
     @Override
@@ -604,5 +605,6 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
+        ToastUtils.showShort("取消分享");
     }
 }
