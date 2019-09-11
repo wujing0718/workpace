@@ -37,22 +37,22 @@ import java.util.List;
 import java.util.Map;
 
 public class VedioComment extends BottomPopupView {
-    private final int mId,dId;
     private final String token;
+    private final PingLunGson pingLunGson;
+    private final int dId;
     private Context context;
-    private List<PingLunGson.ResultBean.ListBean> list;
     private EditText edt_vedio_pinglun;
     private PingLunAdapter pingLunAdapter;
     private RecyclerView rec_vedio_comment;
     private Button bt_fasong_pinglun;
 
 
-    public VedioComment(@NonNull Context context, int dId) {
+    public VedioComment(@NonNull Context context, PingLunGson pingLunGson, int dId) {
         super(context);
         this.context = context;
-        mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
-        this.dId= dId;
+        this.pingLunGson= pingLunGson;
+        this.dId = dId;
 
     }
     @Override
@@ -66,44 +66,15 @@ public class VedioComment extends BottomPopupView {
         bt_fasong_pinglun = findViewById(R.id.bt_fasong_pinglun);
         rec_vedio_comment = findViewById(R.id.rec_vedio_comment);
         edt_vedio_pinglun = findViewById(R.id.edt_vedio_pinglun);
-        initPingLun();
+        initRec();
     }
 
-    private void initPingLun() {
-        Map<String,String> map = new HashMap<>();
-        map.put("dataId",String.valueOf(dId));
-        map.put("mId",String.valueOf(mId));
-        map.put("pageNo","1");
-        map.put("pageSize","10");
-        OkGo.<String>post(Contacts.URl1 + "/circle/comments/list")
-                .params(map)
-                .execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                WaitDialog.dismiss();
-                String body = response.body();
-                Gson gson = new Gson();
-                PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
-                if (pinglun1.getStatus() == 1) {
-                    initRec(pinglun1.getResult().getList());
-                }
-            }
-
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        super.onStart(request);
-                        WaitDialog.show(context,"加载中。。。");
-                    }
-                });
-
-    }
-
-    private void initRec(List<PingLunGson.ResultBean.ListBean> list) {
+    private void initRec() {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
         //设置RecyclerView 布局
         rec_vedio_comment.setLayoutManager(layoutmanager);
-        pingLunAdapter = new PingLunAdapter(R.layout.item_quanzi_pinglun,list);
+        pingLunAdapter = new PingLunAdapter(R.layout.item_quanzi_pinglun,pingLunGson.getResult().getList());
         rec_vedio_comment.setAdapter(pingLunAdapter);
         bt_fasong_pinglun.setOnClickListener(new OnClickListener() {
             @Override
@@ -117,10 +88,10 @@ public class VedioComment extends BottomPopupView {
                 ImageView img_pinglun_dianzan = view.findViewById(R.id.img_pinglun_dianzan);
                 TextView tv_pinglun_dianzannum = view.findViewById(R.id.tv_pinglun_dianzannum);
                 if (!utils.isDoubleClick()){
-                        if (list.get(position).getIsPraise() == 1){
-                            initQuXiaoDianZan("0",img_pinglun_dianzan,tv_pinglun_dianzannum,list.get(position));
+                        if (pingLunGson.getResult().getList().get(position).getIsPraise() == 1){
+                            initQuXiaoDianZan("0",img_pinglun_dianzan,tv_pinglun_dianzannum,pingLunGson.getResult().getList().get(position));
                         }else{
-                            initDianZan("1",img_pinglun_dianzan,tv_pinglun_dianzannum,list.get(position));
+                            initDianZan("1",img_pinglun_dianzan,tv_pinglun_dianzannum,pingLunGson.getResult().getList().get(position));
                         }
                 }
             }
@@ -133,7 +104,7 @@ public class VedioComment extends BottomPopupView {
         map.put("type",type);
         map.put("token",token);
         map.put("commentId",String.valueOf(id.getId()));
-        map.put("mId",String.valueOf(mId));
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("commentMId",String.valueOf(id.getMid()));
         OkGo.<String>post(Contacts.URl1+"/circle/comment/praise")
                 .params(map)
@@ -166,7 +137,7 @@ public class VedioComment extends BottomPopupView {
         Map<String,String> map = new HashMap<>();
         map.put("type",type);
         map.put("commentId",String.valueOf(id.getId()));
-        map.put("mId",String.valueOf(mId));
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("commentMId",String.valueOf(id.getMid()));
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/comment/praise")
@@ -208,7 +179,7 @@ public class VedioComment extends BottomPopupView {
     private void initFaSongPingLun(String pinglun_content) {
         Map<String,String> map = new HashMap<>();
         map.put("dataId",String.valueOf(dId));
-        map.put("mId",String.valueOf(mId));
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("content",pinglun_content);
         map.put("token",token);
         OkGo.<String>post(Contacts.URl1+"/circle/comment")
@@ -220,7 +191,6 @@ public class VedioComment extends BottomPopupView {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
-                                initPingLun();
                                 ToastUtils.showShort("评论成功");
                                 edt_vedio_pinglun.setText("");
                             }else{

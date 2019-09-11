@@ -237,6 +237,7 @@ public class JinTuiKuanActivity extends AppCompatActivity implements View.OnClic
             jsonObject.put("refundMoney",String.valueOf(bean.getPrice()));
             jsonObject.put("ocrId",String.valueOf(map.get("ocrId")));
             jsonObject.put("productNum",String.valueOf(bean.getNum()));
+            jsonObject.put("type","1");
             if (!tuikuanshuoming.getText().toString().isEmpty()){
                 jsonObject.put("remark",tuikuanshuoming.getText().toString());
             }
@@ -256,6 +257,7 @@ public class JinTuiKuanActivity extends AppCompatActivity implements View.OnClic
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                finish();
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

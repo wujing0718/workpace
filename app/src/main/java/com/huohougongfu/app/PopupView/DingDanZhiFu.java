@@ -71,6 +71,10 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                         Intent intent = new Intent();
                         intent.setClass(context, MyDingDanActivity.class);
                         context.startActivity(intent);
+                        Message msg1 = Message.obtain();
+                        msg1.what = 0;
+                        msg1.obj = true;
+                        mHandler.sendMessage(msg1);
                         dismiss();
                         Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
                     } else {
@@ -93,6 +97,14 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
         this.alitoken = alitoken;
         this.priceTotal = priceTotal;
         this.OrderNo = OrderNo;
+    }
+    public DingDanZhiFu(@NonNull Activity context, String alitoken, double priceTotal, String OrderNo,Handler mHandler) {
+        super(context);
+        this.context= context;
+        this.alitoken = alitoken;
+        this.priceTotal = priceTotal;
+        this.OrderNo = OrderNo;
+        this.mHandler = mHandler;
     }
 
     public DingDanZhiFu(@NonNull Activity  context, List<String> orderNo) {
@@ -278,6 +290,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                         }
 
                     }else{
+                        dismiss();
                         Intent intent = new Intent();
                         intent.setClass(context, SetKeyBoardActivity.class);
                         context.startActivity(intent);

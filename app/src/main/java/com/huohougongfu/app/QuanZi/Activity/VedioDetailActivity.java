@@ -33,6 +33,8 @@ import com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.GuanZhuDongTai;
 import com.huohougongfu.app.Gson.MyDongTai;
+import com.huohougongfu.app.Gson.OKGson;
+import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.Gson.QuanZiShare;
@@ -97,16 +99,16 @@ public class VedioDetailActivity extends AppCompatActivity {
     private MyDongTai.ResultBean.ListBean dongtaishipin;
     private QuanZiXiHuan.ResultBean.DatasBean.ListBean likeshipin;
     private QuanZiShare share;
+    private VedioDetail vedio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vedio_detail);
         dId = getIntent().getIntExtra("dId", 0);
-
         dongtaishipin = (MyDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("动态视频");
         shipin = (QuanZiFaXian.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("小视频");
-        shipin2 = (GuanZhuDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("视频");
+        shipin2 = (GuanZhuDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("关注视频");
         likeshipin = (QuanZiXiHuan.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("喜欢视频");
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
@@ -128,7 +130,7 @@ public class VedioDetailActivity extends AppCompatActivity {
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        VedioDetail vedio = gson.fromJson(response.body(), VedioDetail.class);
+                        vedio = gson.fromJson(response.body(), VedioDetail.class);
                         if (vedio.getStatus()==1){
                             if (vedio.getResult().getList().size()>0){
                                 initView(vedio.getResult());
@@ -222,15 +224,12 @@ public class VedioDetailActivity extends AppCompatActivity {
 
     private void initListener(){
         mLayoutManager.setOnViewPagerListener(new OnViewPagerListener() {
-
             @Override
             public void onInitComplete() {
-
             }
 
             @Override
             public void onPageRelease(boolean isNext,int position) {
-//                Log.e(TAG,"释放位置:"+position +" 下一页:"+isNext);
                 viewHolderForAdapterPosition = (MyAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(position);
                 if (viewHolderForAdapterPosition !=null) {
                     if (shipin != null) {
@@ -360,6 +359,7 @@ public class VedioDetailActivity extends AppCompatActivity {
             viewHolderForAdapterPosition.videoView.start();
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
         }else if (dongtaishipin != null){
+            dId = vedio.getResult().getList().get(firstVisibleItemPosition).getId();
             Picasso.get().load(dongtaishipin.getPicture())
                     .into(viewHolderForAdapterPosition.img_thumb);
             viewHolderForAdapterPosition.videoView.setVideoURI(
@@ -367,6 +367,7 @@ public class VedioDetailActivity extends AppCompatActivity {
             viewHolderForAdapterPosition.videoView.start();
             viewHolderForAdapterPosition.img_thumb.setVisibility(View.GONE);
         }else  if (likeshipin != null){
+            dId = vedio.getResult().getList().get(firstVisibleItemPosition).getId();
             Picasso.get().load(likeshipin.getPicture())
                     .into(viewHolderForAdapterPosition.img_thumb);
             viewHolderForAdapterPosition.videoView.setVideoURI(
@@ -378,21 +379,20 @@ public class VedioDetailActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * 停止播放
-     */
-    private void releaseVideo(){
-        int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
-        viewHolderForAdapterPosition = (MyAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition);
-        viewHolderForAdapterPosition.videoView.stopPlayback();
-    }
+//    /**
+//     * 停止播放
+//     */
+//    private void releaseVideo(){
+//        int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+//        viewHolderForAdapterPosition = (MyAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition);
+//        viewHolderForAdapterPosition.videoView.stopPlayback();
+//    }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements PopupWindow.OnDismissListener {
         private VedioDetail.ResultBean shipindetail;
         private MediaPlayer mediaPlayer;
 //        private SmallVideo.DataBean data;
         private PopupWindow popupWindow;
-        private ViewHolder holder;
         private View view;
         private int navigationHeight;
         private EditText edt_video_pinglun;
@@ -413,8 +413,6 @@ public class VedioDetailActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int i) {
-            if (holder != null) {
-                this.holder = holder;
                 if (!shipindetail.getList().get(i).getPicture().isEmpty()){
                     Picasso.get().load(shipindetail.getList().get(i).getPicture());
                     holder.videoView.setVideoURI(
@@ -437,6 +435,7 @@ public class VedioDetailActivity extends AppCompatActivity {
                 }else{
                     holder.tv_vedio_title.setText("");
                 }
+                dId = shipindetail.getList().get(i).getId();
                 RequestOptions requestOptions = new RequestOptions().circleCrop();
                 Glide.with(VedioDetailActivity.this).load(shipindetail.getList().get(i).getMember().getPhoto())
                         .apply(requestOptions).into(holder.img_video_touxiang);
@@ -529,31 +528,46 @@ public class VedioDetailActivity extends AppCompatActivity {
                 holder.bt_video_dianzan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!"".equals(token)){
                             if (shipindetail.getList().get(i).getIsPraise() == 0){
-                                initDianZan("1",shipindetail.getList().get(i));
+                                initDianZan("1",shipindetail.getList().get(i),holder);
                             }else{
                                 if (!utils.isDoubleClick()){
-                                    initQuXiaoDianZan("0",shipindetail.getList().get(i));
+                                    initQuXiaoDianZan("0",shipindetail.getList().get(i),holder);
                                 }
                             }
-                        }else{
-                            ToastUtils.showShort(R.string.denglu);
-                        }
                     }
                 });
 
                 holder.bt_video_pinglun.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!"".equals(token)){
-                            new XPopup.Builder(VedioDetailActivity.this)
-//                                    .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
-                                    .asCustom(new VedioComment(VedioDetailActivity.this,dId)/*.enableDrag(false)*/)
-                                    .show();
-                        }else{
-                            ToastUtils.showShort(R.string.denglu);
-                        }
+                                Map<String,String> map = new HashMap<>();
+                                map.put("dataId",String.valueOf(shipindetail.getList().get(i).getId()));
+                                map.put("mId",String.valueOf(mId));
+                                map.put("pageNo","1");
+                                map.put("pageSize","10");
+                                OkGo.<String>post(Contacts.URl1 + "/circle/comments/list")
+                                        .params(map)
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onSuccess(Response<String> response) {
+                                                WaitDialog.dismiss();
+                                                String body = response.body();
+                                                Gson gson = new Gson();
+                                                PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
+                                                if (pinglun1.getStatus() == 1) {
+                                                    new XPopup.Builder(VedioDetailActivity.this)
+//                                                          .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
+                                                            .asCustom(new VedioComment(VedioDetailActivity.this,pinglun1,shipindetail.getList().get(i).getId())/*.enableDrag(false)*/)
+                                                            .show();
+                                                }
+                                            }
+                                            @Override
+                                            public void onStart(Request<String, ? extends Request> request) {
+                                                super.onStart(request);
+                                                WaitDialog.show(VedioDetailActivity.this,"加载中。。。");
+                                            }
+                                        });
                     }
                 });
 
@@ -575,22 +589,21 @@ public class VedioDetailActivity extends AppCompatActivity {
                             if (!utils.isDoubleClick()){
                                 if (!"".equals(token)){
                                     if (shipindetail.getList().get(i).getMember().getIsAttention() == 1){
-                                        initNoGuanZhu(0,shipindetail.getList().get(i),i);
+                                        initNoGuanZhu(0,shipindetail.getList().get(i).getMember(),holder);
                                     }else if (shipindetail.getList().get(i).getMember().getIsAttention() == 0)
-                                        initGuanZhu(1,shipindetail.getList().get(i),i);
+                                        initGuanZhu(1,shipindetail.getList().get(i).getMember(),holder);
                                 }
                                 }else{
                                     ToastUtils.showShort(R.string.denglu);
                             }
                     }
                 });
-            }
         }
 
-        private void initGuanZhu(int type, VedioDetail.ResultBean.ListBean userid, int i) {
+        private void initGuanZhu(int type, VedioDetail.ResultBean.ListBean.MemberBean member, ViewHolder holder) {
             Map<String,String> map =new HashMap<>();
             map.put("mId",String.valueOf(mId));
-            map.put("attentionId",String.valueOf(userid.getMember().getUserId()));
+            map.put("attentionId",String.valueOf(member.getUserId()));
             map.put("type",String.valueOf(type));
             map.put("token",token);
             OkGo.<String>post(Contacts.URl1+"/circle/attention")
@@ -598,27 +611,28 @@ public class VedioDetailActivity extends AppCompatActivity {
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.body());
-                                if (jsonObject.getInt("status") == 1){
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
-                                    userid.getMember().setIsAttention(1);
-                                    ToastUtils.showShort("关注成功");
-                                    holder.bt_guanzhu.setImageResource(R.mipmap.img_vedio_yiguanzhu);
-                                }else{
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                            if (okGson.getStatus() == 1){
+                                new Handler(VedioDetailActivity.this.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                                        member.setIsAttention(1);
+                                        ToastUtils.showShort("关注成功");
+                                        holder.bt_guanzhu.setImageResource(R.mipmap.img_vedio_yiguanzhu);
+                                    }
+                                });
+                            }else{
+                                ToastUtils.showShort(okGson.getMsg());
                             }
                         }
                     });
         }
 
-        private void initNoGuanZhu(int type, VedioDetail.ResultBean.ListBean userid, int i) {
+        private void initNoGuanZhu(int type, VedioDetail.ResultBean.ListBean.MemberBean member, ViewHolder holder) {
             Map<String,String> map =new HashMap<>();
             map.put("mId",String.valueOf(mId));
-            map.put("attentionId",String.valueOf(userid.getMember().getUserId()));
+            map.put("attentionId",String.valueOf(member.getUserId()));
             map.put("type",String.valueOf(type));
             map.put("token",token);
             OkGo.<String>post(Contacts.URl1+"/circle/attention")
@@ -626,89 +640,92 @@ public class VedioDetailActivity extends AppCompatActivity {
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.body());
-                                if (jsonObject.getInt("status") == 1){
-                                    ToastUtils.showShort("取消关注");
-                                    userid.getMember().setIsAttention(0);
-                                    holder.bt_guanzhu.setImageResource(R.mipmap.img_vedio_guanzhu);
-                                }else{
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                            if (okGson.getStatus() == 1){
+                                new Handler(VedioDetailActivity.this.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                                        ToastUtils.showShort("取消关注");
+                                        member.setIsAttention(0);
+                                        holder.bt_guanzhu.setImageResource(R.mipmap.img_vedio_guanzhu);
+                                    }
+                                });
+                            }else{
+                                ToastUtils.showShort(okGson.getMsg());
                             }
                         }
                     });
         }
 
         //取消点赞
-        private void initQuXiaoDianZan(String type, VedioDetail.ResultBean.ListBean listBean) {
+        private void initQuXiaoDianZan(String type, VedioDetail.ResultBean.ListBean listBean, ViewHolder holder) {
             Map<String,String> map = new HashMap<>();
             map.put("type",type);
             map.put("dataId",String.valueOf(listBean.getId()));
             map.put("mId",String.valueOf(mId));
             map.put("token",token);
-
             OkGo.<String>post(Contacts.URl1+"/circle/praise")
                     .params(map)
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
                             String body = response.body();
-                            try {
-                                JSONObject jsonObject = new JSONObject(body);
-                                if (jsonObject.getInt("status") == 1){
-                                    String num = holder.tv_video_dianzan.getText().toString();
-                                    Integer integer = Integer.valueOf(num);
-                                    holder.tv_video_dianzan.setText(String.valueOf(integer-1));
-                                    listBean.setIsPraise(0);
-                                    holder.img_dianzan.setImageResource(R.mipmap.img_xihuan);
-                                    ToastUtils.showShort("取消点赞");
-                                }else{
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
-
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                            if (okGson.getStatus() == 1) {
+                                new Handler(VedioDetailActivity.this.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                                        String num =holder.tv_video_dianzan.getText().toString();
+                                        Integer integer = Integer.valueOf(num);
+                                        holder.tv_video_dianzan.setText(String.valueOf(integer-1));
+                                        listBean.setIsPraise(0);
+                                        holder.img_dianzan.setImageResource(R.mipmap.img_xihuan);
+                                        ToastUtils.showShort("取消点赞");
+                                    }
+                                });
+                            }else{
+                                ToastUtils.showShort(okGson.getMsg());
                             }
                         }
                     });
         }
 
         //点赞
-        private void initDianZan(String type, VedioDetail.ResultBean.ListBean listBean) {
+        private void initDianZan(String type, VedioDetail.ResultBean.ListBean listBean, ViewHolder holder) {
             String num = holder.tv_video_dianzan.getText().toString();
             Map<String,String> map = new HashMap<>();
             map.put("type",type);
             map.put("dataId",String.valueOf(listBean.getId()));
             map.put("mId",String.valueOf(mId));
             map.put("token",token);
-
             OkGo.<String>post(Contacts.URl1+"/circle/praise")
                     .params(map)
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
                             String body = response.body();
-                            try {
-                                JSONObject jsonObject = new JSONObject(body);
-                                if (jsonObject.getInt("status") == 1){
-                                    ToastUtils.showShort("点赞成功");
-                                    Integer integer = Integer.valueOf(num);
-                                    holder.tv_video_dianzan.setText(String.valueOf(integer+1));
-                                    listBean.setIsPraise(1);
-                                    holder.img_dianzan.setImageResource(R.mipmap.img_xihuan2);
-                                }else{
-                                    ToastUtils.showShort(jsonObject.getString("msg"));
-
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                            if (okGson.getStatus() == 1){
+                                new Handler(VedioDetailActivity.this.getMainLooper()).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                                        ToastUtils.showShort("点赞成功");
+                                        Integer integer = Integer.valueOf(num);
+                                        holder.tv_video_dianzan.setText(String.valueOf(integer+1));
+                                        listBean.setIsPraise(1);
+                                        holder.img_dianzan.setImageResource(R.mipmap.img_xihuan2);
+                                    }
+                                });
+                            }else{
+                                ToastUtils.showShort(okGson.getMsg());
                             }
                         }
                     });
         }
+
         //设置屏幕背景透明效果
         public void setBackgroundAlpha(float alpha) {
             WindowManager.LayoutParams lp = getWindow().getAttributes();

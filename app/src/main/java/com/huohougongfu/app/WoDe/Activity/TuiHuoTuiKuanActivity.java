@@ -188,6 +188,7 @@ public class TuiHuoTuiKuanActivity extends AppCompatActivity implements View.OnC
             jsonObject.put("ocrId",String.valueOf(map.get("ocrId")));
             jsonObject.put("productNum",String.valueOf(bean.getNum()));
             jsonObject.put("expressCompany",kuaidi.get("expressCompany"));
+            jsonObject.put("type","2");
             if (!edt_tuikuanshuoming.getText().toString().isEmpty()){
                 jsonObject.put("remark",edt_tuikuanshuoming.getText().toString());
             }
@@ -206,6 +207,7 @@ public class TuiHuoTuiKuanActivity extends AppCompatActivity implements View.OnC
                                 try {
                                     JSONObject jsonObject = new JSONObject(body);
                                     if (jsonObject.getInt("status") == 1){
+                                        finish();
                                         ToastUtils.showShort(jsonObject.getString("msg"));
                                     }else{
                                         ToastUtils.showShort(jsonObject.getString("msg"));

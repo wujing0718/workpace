@@ -155,6 +155,9 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initShopShare() {
         Map<String,String> map = new HashMap<>();
+        if ("赚客".equals(type)){
+            map.put("type","1");
+        }
         map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("productId",String.valueOf(shopid));
         OkGo.<String>post(Contacts.URl1+"showOfMallProduct")

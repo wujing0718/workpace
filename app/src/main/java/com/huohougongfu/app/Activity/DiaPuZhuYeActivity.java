@@ -130,8 +130,8 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
 
         if (result.getIsAttention() == 1){
             bt_guanzhu.setText("已关注");
-        }else{
-            bt_guanzhu.setText("关注");
+        }else if (result.getIsAttention() == 0){
+            bt_guanzhu.setText("+关注");
         }
 
         if (result.getPlace()!=null){
@@ -203,7 +203,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
 
     private void initGuanZhu() {
         Map<String,String> map =new HashMap<>();
-        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("mId",String.valueOf(id));
         map.put("attentionId",String.valueOf(xinxi.getResult().getUserId()));
         map.put("type",String.valueOf(1));
         map.put("token",token);
@@ -237,7 +237,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
 
     private void initNoGuanZhu() {
         Map<String,String> map =new HashMap<>();
-        map.put("mId",String.valueOf(mId));
+        map.put("mId",String.valueOf(id));
         map.put("attentionId",String.valueOf(xinxi.getResult().getUserId()));
         map.put("type",String.valueOf(0));
         map.put("token",token);

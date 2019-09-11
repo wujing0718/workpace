@@ -324,7 +324,7 @@ public class DingDanFragment extends Fragment {
                         if (aLiPay.getStatus() == 1){
                             new XPopup.Builder(getActivity())
                                     .asCustom(new DingDanZhiFu(getActivity(), aLiPay.getResult().getOrderString(),
-                                            aLiPay.getResult().getPriceTotal(),orderNo))
+                                            aLiPay.getResult().getPriceTotal(),orderNo,mHandler))
                                     .show();
                         }
                     }

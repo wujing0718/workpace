@@ -55,7 +55,6 @@
         import io.rong.imlib.RongIMClient;
 
         import static io.rong.imlib.RongIMClient.ErrorCode.RC_CONN_USER_OR_PASSWD_ERROR;
-
         public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener,IListener {
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;
@@ -78,32 +77,34 @@
         setContentView(R.layout.activity_main);
         initLoc();
         String rongToken = MyApp.instance.getString("rongToken");
-        RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
-            //token1参数报错
-            @Override
-            public void onTokenIncorrect() {
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                Log.e("TAG","成功");
-                // 连接成功，说明你已成功连接到融云Server
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("TAG","=========="+errorCode);
-                if (errorCode==RC_CONN_USER_OR_PASSWD_ERROR){
-                    MyApp.instance.clear(true);
-                    startActivity(new Intent().setClass(MainActivity.this,LoginActivity.class));
+        if (!rongToken.isEmpty()){
+            RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
+                //token1参数报错
+                @Override
+                public void onTokenIncorrect() {
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(String s) {
+                    Log.e("TAG","成功");
+                    // 连接成功，说明你已成功连接到融云Server
+                }
+
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                    Log.e("TAG","=========="+errorCode);
+                    if (errorCode==RC_CONN_USER_OR_PASSWD_ERROR){
+                        MyApp.instance.clear(true);
+                        startActivity(new Intent().setClass(MainActivity.this,LoginActivity.class));
+                    }
+                }
+            });
+        }
         ListenerManager.getInstance().registerListtener(this);
         if(Build.VERSION.SDK_INT>=23){
             String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.CAMERA,
-                    Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_APN_SETTINGS};
+                    Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_APN_SETTINGS,Manifest.permission.CALL_PHONE};
             PermissionPageUtils.checkAndRequestMorePermissions(MainActivity.this,
                     mPermissionList,123);
         }

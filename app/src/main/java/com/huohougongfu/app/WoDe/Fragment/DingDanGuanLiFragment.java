@@ -24,6 +24,8 @@ import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.DianPuDingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Activity.DingDanPingJiaActivity;
+import com.huohougongfu.app.WoDe.Activity.RefundsActivity;
+import com.huohougongfu.app.WoDe.Activity.ReturnDetailsActivity;
 import com.huohougongfu.app.WoDe.Activity.TianXieWuLiuActivity;
 import com.huohougongfu.app.WoDe.Activity.WuLiuActivity;
 import com.huohougongfu.app.WoDe.Adapter.DingDanGuanLiAdapter;
@@ -58,6 +60,7 @@ public class DingDanGuanLiFragment extends Fragment {
     private int id;
     private DingDanGuanLiAdapter dingDanGuanLiAdapter;
     private String token;
+    private DingDanGuanLi myCollect;
 
     public DingDanGuanLiFragment() {
         // Required empty public constructor
@@ -97,7 +100,7 @@ public class DingDanGuanLiFragment extends Fragment {
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        DingDanGuanLi myCollect = gson.fromJson(body, DingDanGuanLi.class);
+                        myCollect = gson.fromJson(body, DingDanGuanLi.class);
                         if (myCollect.getStatus() == 1){
                             if (myCollect.getResult().size()==0){
                                 smartrefreshlayout.setVisibility(View.GONE);
@@ -118,11 +121,23 @@ public class DingDanGuanLiFragment extends Fragment {
         dingDanGuanLiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                intent.putExtra("orderNo",list.get(position).getOrderNo());
-                intent.putExtra("orderStatus",list.get(position).getOrderStatus());
-                intent.putExtra("ofManager",1);
-                intent.setClass(getActivity(),DianPuDingDanDetailActivity.class);
-                startActivity(intent);
+                if (list.get(position).getOrderStatus() == -1){
+                    Intent intent = new Intent();
+                    intent.putExtra("orderNo",list.get(position).getOrderNo());
+                    intent.setClass(getActivity(), RefundsActivity.class);
+                    startActivity(intent);
+                }else if (list.get(position).getOrderStatus() == -5){
+                    Intent intent = new Intent();
+                    intent.putExtra("orderNo",list.get(position).getOrderNo());
+                    intent.setClass(getActivity(), ReturnDetailsActivity.class);
+                    startActivity(intent);
+                }else{
+                    intent.putExtra("orderNo",list.get(position).getOrderNo());
+                    intent.putExtra("orderStatus",list.get(position).getOrderStatus());
+                    intent.putExtra("ofManager",1);
+                    intent.setClass(getActivity(),DianPuDingDanDetailActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         dingDanGuanLiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -155,22 +170,27 @@ public class DingDanGuanLiFragment extends Fragment {
                                     ToastUtils.showShort("请登录后操作");
                                 }
                             }
-                        }else  if (list.get(position).getOrderStatus() == -1){
-                            initDelete(list.get(position).getOrderNo());
+                        }else if (list.get(position).getOrderStatus() == -1){
+                            Intent intent = new Intent();
+                            intent.putExtra("orderNo",list.get(position).getOrderNo());
+                            intent.setClass(getActivity(), RefundsActivity.class);
+                            startActivity(intent);
                         }else  if (list.get(position).getOrderStatus() == 1){
                             Intent intent = new Intent();
                             intent.putExtra("orderNo",list.get(position).getOrderNo());
                             intent.setClass(getActivity(), TianXieWuLiuActivity.class);
                             startActivity(intent);
                         }else if (list.get(position).getOrderStatus() == -5){
-                            ToastUtils.showShort("确认退款");
+                            Intent intent = new Intent();
+                            intent.putExtra("orderNo",list.get(position).getOrderNo());
+                            intent.setClass(getActivity(), ReturnDetailsActivity.class);
+                            startActivity(intent);
                         }
                         break;
                 }
             }
         });
     }
-
 
     //  取消订单
     private void initQuanXiao(String orderNo, int orderStatus) {

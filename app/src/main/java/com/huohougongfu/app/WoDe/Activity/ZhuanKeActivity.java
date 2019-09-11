@@ -65,10 +65,10 @@ public class ZhuanKeActivity extends AppCompatActivity {
                         String body = response.body();
                         ZhuanKeVIP zhuanKeVIP = new Gson().fromJson(body, ZhuanKeVIP.class);
                         if (zhuanKeVIP.getStatus() == 1){
-                            Glide.with(MyApp.context).load(zhuanKeVIP.getResult().getRule().getPicture())
-                                    .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_zhuanke_bg);
-                            tv_biaoyu.setText(zhuanKeVIP.getResult().getRule().getSlogan());
-                            tv_guize.setText(zhuanKeVIP.getResult().getRule().getRegulation());
+//                            Glide.with(MyApp.context).load(zhuanKeVIP.getResult().getRule().getPicture())
+//                                    .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_zhuanke_bg);
+//                            tv_biaoyu.setText(zhuanKeVIP.getResult().getRule().getSlogan());
+//                            tv_guize.setText(zhuanKeVIP.getResult().getRule().getRegulation());
                             mTitles.clear();
                             for (int i = 0; i <zhuanKeVIP.getResult().getEarnPordut().size() ; i++) {
                                 mTitles.add(zhuanKeVIP.getResult().getEarnPordut().get(i).getName());

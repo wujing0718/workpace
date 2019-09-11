@@ -303,6 +303,16 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
                 }
             }
         });
+        pinPaiItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!utils.isDoubleClick()){
+                    intent.putExtra("id",String.valueOf(resultList.get(position).getUserId()));
+                    intent.setClass(TeYuePinPaiActivity.this,DiaPuZhuYeActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

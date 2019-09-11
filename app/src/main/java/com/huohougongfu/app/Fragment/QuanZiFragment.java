@@ -18,6 +18,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
@@ -81,6 +84,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     };
     private QBadgeView qBadgeView;
     private View bt_xiaoxi;
+    private String token;
 
     public QuanZiFragment() {
         // Required empty public constructor
@@ -96,6 +100,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         qBadgeView = new QBadgeView(getActivity());
         manager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        token = MyApp.instance.getString("token");
         banner = inflate.findViewById(R.id.banner);
         layoutParams.height = utils.getStatusBarHeight();
         citycode = MyApp.instance.getString("citycode");
@@ -201,26 +206,54 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         switch (v.getId()){
             case R.id.bt_quanzi_wenzhang:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getContext(),WenZhangActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getContext(),WenZhangActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
             break;
             case R.id.bt_jingxuan:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getContext(),JingXuanActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getContext(),JingXuanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_quanzi_zhaoren:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getContext(),ZhaoRenActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getContext(),ZhaoRenActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_xiaoxi:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getContext(),XiaoXiActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getContext(),XiaoXiActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
         }

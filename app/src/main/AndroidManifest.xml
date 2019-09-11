@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <!-- 定位包、导航包需要的额外权限（注：基础权限也需要） -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -78,7 +79,7 @@
         <!-- //融云 -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="x18ywvqfxcr0c" />
+            android:value="x4vkb1qpxz3ok" />
         <!-- //微信 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -285,7 +286,9 @@
         <activity android:name=".ShouYe.Activity.MyDingDanMaiChaActivity" />
         <activity android:name=".WoDe.Activity.YaoQingActivity" />
         <activity android:name=".WoDe.Activity.TianXieWuLiuActivity" />
-        <activity android:name=".WoDe.Activity.SetKeyBoardActivity"></activity>
+        <activity android:name=".WoDe.Activity.SetKeyBoardActivity" />
+        <activity android:name=".WoDe.Activity.ReturnDetailsActivity" />
+        <activity android:name=".WoDe.Activity.RefundsActivity"></activity>
     </application>
 
 </manifest>

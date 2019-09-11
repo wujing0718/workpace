@@ -1,8 +1,9 @@
 package com.huohougongfu.app.Gson;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DingDanGuanLi {
+public class DingDanGuanLi implements Serializable{
 
     private String msg;
     private int status;
@@ -32,7 +33,7 @@ public class DingDanGuanLi {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable{
         /**
          * id : null
          * orderNo : d201908021736027792463
@@ -425,7 +426,7 @@ public class DingDanGuanLi {
             this.mallProducts = mallProducts;
         }
 
-        public static class MallProductsBean {
+        public static class MallProductsBean implements Serializable{
             /**
              * id : 21
              * name : 测试21

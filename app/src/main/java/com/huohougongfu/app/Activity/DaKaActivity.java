@@ -188,6 +188,7 @@ public class DaKaActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                initChaMi();
                                 bt_daka.setText("已打卡");
                                 Gson gson = new Gson();
                                 DaKaOne daKa = gson.fromJson(body, DaKaOne.class);

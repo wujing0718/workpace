@@ -357,6 +357,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         intent.setClass(getActivity(),PleaseTeaActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -369,6 +370,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         intent.setClass(getActivity(),PleaseTeaActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -381,6 +383,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         intent.setClass(getActivity(),DaKaActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -393,6 +396,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         intent.setClass(getActivity(),MyKaBaoActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -406,6 +410,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         intent.setClass(getActivity(),ChaTaiActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -418,6 +423,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         intent.putExtra("泡茶",1);
                         startActivityForResult(intent, CONTEXT_RESTRICTED);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         Intent intent = new Intent(getActivity(), DingWeiActivity.class);
                         intent.putExtra("买茶",1);
                         startActivityForResult(intent, CONTEXT_RESTRICTED);

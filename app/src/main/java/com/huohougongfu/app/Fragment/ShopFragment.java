@@ -210,6 +210,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                     intent.setClass(getActivity(),ShangPinDetailActivity.class);
                     startActivity(intent);
                 }else{
+                    ToastUtils.showShort(R.string.denglu);
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
                     MainActivity.activity.finish();
@@ -334,6 +335,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         intent.setClass(getActivity(),TeYuePinPaiActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -346,6 +348,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         intent.setClass(getActivity(),DaShiZhuanChang.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -358,6 +361,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         intent.setClass(getActivity(),TeHuiActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -370,6 +374,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         intent.setClass(getActivity(),LeiMuActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -382,6 +387,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         intent.setClass(getActivity(),ShopSouSuoActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -394,6 +400,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         intent.setClass(getActivity(),GouWuCheActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();
@@ -406,6 +413,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         intent.setClass(getActivity(),XiaoXiActivity.class);
                         startActivity(intent);
                     }else{
+                        ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
                         MainActivity.activity.finish();

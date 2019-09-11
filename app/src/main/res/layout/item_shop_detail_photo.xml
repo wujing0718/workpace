@@ -4,7 +4,8 @@
     android:id="@+id/img_shop_detail"
     android:padding="2dp"
     android:layout_gravity="center_horizontal"
+    android:scaleType="centerCrop"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/dp_300">
 
 </ImageView>

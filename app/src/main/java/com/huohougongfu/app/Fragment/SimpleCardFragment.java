@@ -80,6 +80,7 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
                             .asCustom(new Paocha(getContext(),teaDetail,machineId))
                             .show();
                 }else{
+                    ToastUtils.showShort(R.string.denglu);
                     Intent intent = new Intent();
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);

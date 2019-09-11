@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,12 @@ public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.Resu
             bt_pinpai_guanzhu.setText("+关注");
         }
         RecyclerView rec_pinpai_shangpin = helper.getView(R.id.rec_pinpai_shangpin);
+        rec_pinpai_shangpin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return helper.itemView.onTouchEvent(event);
+            }
+        });
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         GridLayoutManager layoutmanager = new GridLayoutManager(MyApp.getInstances(),3);
         //设置RecyclerView 布局

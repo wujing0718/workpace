@@ -406,16 +406,15 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> temp = new ArrayList<>();
-                for (int i = 0; i < data.size(); i++) {
-                    List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
-                    for (int y = 0; y < mallProducts.size(); y++) {
-                        ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
-                        temp.add(mallProductsBean);
-                    }
-                }
+//                List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> temp = new ArrayList<>();
+//                for (int i = 0; i < data.size(); i++) {
+//                    List<ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean> mallProducts = data.get(i).getMallStore().getMallProducts();
+//                    for (int y = 0; y < mallProducts.size(); y++) {
+//                        ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean = mallProducts.get(y);
+//                        temp.add(mallProductsBean);
+//                    }
+//                }
 
-                if (temp != null && temp.size() > 0) {
                     /**
                      * 实际开发中，如果有被选中的商品，
                      * 则跳转到确认订单页面，完成后续订单流程。
@@ -431,13 +430,13 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                                     jsonObject.put("couponsId",coupon.getId());
                                 }
                                 jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                                jsonObject.put("productId",temp.get(i).getId());
-                                jsonObject.put("storeId",temp.get(i).getStoreId());
-                                jsonObject.put("cartId",temp.get(i).getCartId());
+                                jsonObject.put("productId",list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getId());
+                                jsonObject.put("storeId",list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getStoreId());
+                                jsonObject.put("cartId",list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getCartId());
                                 jsonObject.put("addressId",String.valueOf(list.getDefaultAddress().getId()));
-                                jsonObject.put("standard",temp.get(i).getStandard());
-                                jsonObject.put("standardId",temp.get(i).getStandardId());
-                                jsonObject.put("buynum",temp.get(i).getNum());
+                                jsonObject.put("standard",list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getStandard());
+                                jsonObject.put("standardId",list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getStandardId());
+                                jsonObject.put("buynum",list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getNum());
                                 Object value = mData.get(i).get("list_item_inputvalue");
                                 if (!value.toString().isEmpty()){
                                     jsonObject.put("remark",value.toString());
@@ -448,8 +447,8 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                                     jsonObject.put("teaRice","0");
                                 }
                                 if (transId == 0){
-                                    if (temp.get(i).getTransportTemplate()!=null){
-                                        jsonObject.put("transId",temp.get(i).getTransportTemplate().getId());
+                                    if (list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getTransportTemplate()!=null){
+                                        jsonObject.put("transId",list.getOrderList().get(j).getMallStore().getMallProducts().get(i).getTransportTemplate().getId());
                                     }
                                 }else{
                                     jsonObject.put("transId",transId);
@@ -461,9 +460,9 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    ToastUtils.showShort("请选择要购买的商品");
-                }
+//                } else {
+//                    ToastUtils.showShort("请选择要购买的商品");
+//                }
             }
         });
 

@@ -104,10 +104,10 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initView(YaoQingGson.ResultBean result) {
-        Glide.with(MyApp.context).load(result.getRule().getPicture())
-                .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_zhuanke_bg);
-        tv_biaoyu.setText(result.getRule().getSlogan());
-        tv_guize.setText(result.getRule().getRegulation());
+//        Glide.with(MyApp.context).load(result.getRule().getPicture())
+//                .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_zhuanke_bg);
+//        tv_biaoyu.setText(result.getRule().getSlogan());
+//        tv_guize.setText(result.getRule().getRegulation());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rec_yaoqing.setLayoutManager(layoutManager);
         YaoQingAdapter yaoQingAdapter = new YaoQingAdapter(R.layout.item_yaoqing,result.getEarnPordut().getList());

@@ -1,10 +1,12 @@
 package com.huohougongfu.app.WoDe.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +59,7 @@ public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.List
         mEditMode = editMode;
         notifyDataSetChanged();
     }
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void convert(BaseViewHolder helper, MyDongTai.ResultBean.ListBean item) {
         final MyDongTai.ResultBean.ListBean myLive = mMyLiveList.get(helper.getAdapterPosition());
@@ -77,6 +80,12 @@ public class MyDongTaiAdapter extends BaseQuickAdapter<MyDongTai.ResultBean.List
         TextView tv_dongtai_title = helper.getView(R.id.tv_dongtai_title);
         TextView tv_dongtai_content = helper.getView(R.id.tv_dongtai_content);
         rec_dongtai_photo.setLayoutManager(new GridLayoutManager(context, 3));
+        rec_dongtai_photo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return helper.itemView.onTouchEvent(event);
+            }
+        });
         if(item.getPicture() !=null){
             String[] split = item.getPicture().split(",");
             rec_dongtai_photo.setVisibility(View.VISIBLE);

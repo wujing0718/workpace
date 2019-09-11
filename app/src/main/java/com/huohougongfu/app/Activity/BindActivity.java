@@ -20,9 +20,11 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -175,11 +177,18 @@ public class BindActivity extends AppCompatActivity implements View.OnClickListe
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
+                                    WaitDialog.dismiss();
                                     String body = response.body();
                                     JudgeGson judgeGson = new Gson().fromJson(body, JudgeGson.class);
                                     if (judgeGson.getStatus() == 1){
                                         initLogin(judgeGson.getResult());
                                     }
+                                }
+
+                                @Override
+                                public void onStart(Request<String, ? extends Request> request) {
+                                    WaitDialog.show(BindActivity.this,"请稍后。。。");
+                                    super.onStart(request);
                                 }
                             });
                 }else{
@@ -202,33 +211,14 @@ public class BindActivity extends AppCompatActivity implements View.OnClickListe
         MyApp.instance.put("rongToken",result.getUserInfo().getRongToken(),true);
         MyApp.instance.put("token",result.getToken(),true);
         intent.setClass(BindActivity.this,MainActivity.class);
-        //融云登录
-        RongIM.connect(result.getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
-            //token1参数报错
-            @Override
-            public void onTokenIncorrect() {
-                Log.e("TAG","参数错误");
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                Log.e("TAG","成功");
-                startActivity(intent);
-                // 调用 Handler 来异步设置别名
-                mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(result.getUserInfo().getUserId())));
-                // 点击恢复按钮后，极光推送服务会恢复正常工作
-                JPushInterface.resumePush(getApplicationContext());
-                LoginActivity.activity.finish();
-                finish();
-                ToastUtils.showShort("登录成功");
-                // 连接成功，说明你已成功连接到融云Server
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("TAG","失败");
-            }
-        });
+        LoginActivity.activity.finish();
+        finish();
+        startActivity(intent);
+        // 调用 Handler 来异步设置别名
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(result.getUserInfo().getUserId())));
+        // 点击恢复按钮后，极光推送服务会恢复正常工作
+        JPushInterface.resumePush(getApplicationContext());
+        ToastUtils.showShort("登录成功");
     }
 
     class TimerCount extends CountDownTimer {

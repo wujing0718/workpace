@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopGson;
@@ -60,6 +63,7 @@ public class FaXianFragment extends Fragment implements IListener {
     private FaXianAdapter faXianAdapter;
     private String mId;
     private String token;
+    private Intent intent;
 
     public FaXianFragment() {
     }
@@ -72,6 +76,7 @@ public class FaXianFragment extends Fragment implements IListener {
         inflate = inflater.inflate(R.layout.fragment_fa_xian, container, false);
         mId = String.valueOf(MyApp.instance.getInt("id"));
         token = MyApp.instance.getString("token");
+        intent = new Intent();
         initUI();
         initData("");
         return inflate;
@@ -132,23 +137,27 @@ public class FaXianFragment extends Fragment implements IListener {
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (faxian.getResult().getDatas().getList().get(position).getType() == 2){
-                    Intent intent = new Intent();
-                    intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
-                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
-                    startActivity(intent.setClass(getActivity(),WenZhangDetailActivity.class));
-                }else if(faxian.getResult().getDatas().getList().get(position).getType() == 1){
-                    Intent intent = new Intent();
-                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
-                    intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
-                    startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
-                }else if (faxian.getResult().getDatas().getList().get(position).getType() == 3){
-                    Intent intent = new Intent();
-                    intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
-                    intent.putExtra("小视频",faxian.getResult().getDatas().getList().get(position));
-                    intent.putExtra("position",position);
-                    intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
-                    startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
+                if (!token.isEmpty()){
+                    if (faxian.getResult().getDatas().getList().get(position).getType() == 2){
+                        intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
+                        intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                        startActivity(intent.setClass(getActivity(),WenZhangDetailActivity.class));
+                    }else if(faxian.getResult().getDatas().getList().get(position).getType() == 1){
+                        intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                        intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
+                        startActivity(intent.setClass(getActivity(),QuanZiDetailActivity.class));
+                    }else if (faxian.getResult().getDatas().getList().get(position).getType() == 3){
+                        intent.putExtra("userid",faxian.getResult().getDatas().getList().get(position).getMember().getUserId());
+                        intent.putExtra("小视频",faxian.getResult().getDatas().getList().get(position));
+                        intent.putExtra("position",position);
+                        intent.putExtra("dId",faxian.getResult().getDatas().getList().get(position).getId());
+                        startActivity(intent.setClass(getActivity(),VedioDetailActivity.class));
+                    }
+                }else{
+                    ToastUtils.showShort(R.string.denglu);
+                    intent.setClass(getActivity(),LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.activity.finish();
                 }
             }
         });
@@ -157,7 +166,7 @@ public class FaXianFragment extends Fragment implements IListener {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ImageView img_faixan_shoucang = view.findViewById(R.id.img_faixan_shoucang);
                 TextView tv_dianzan_num = view.findViewById(R.id.tv_xihuan_num);
-                if (!"".equals(token)){
+                if (!token.isEmpty()){
                     if (faxian.getResult().getDatas().getList().get(position).getIsPraise() == 0){
                         initDianZan("1",faxian.getResult().getDatas().getList().get(position),img_faixan_shoucang,tv_dianzan_num);
                     }else{
@@ -167,6 +176,9 @@ public class FaXianFragment extends Fragment implements IListener {
                     }
                 }else{
                     ToastUtils.showShort(R.string.denglu);
+                    intent.setClass(getActivity(),LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.activity.finish();
                 }
             }
         });

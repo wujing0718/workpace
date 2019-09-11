@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.MyZhuYe;
 import com.huohougongfu.app.Gson.OrderStatus;
@@ -87,6 +89,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     private View bt_dingdan_daifukuan,bt_dingdan_daifahuo,bt_dingdan_daishouhuo;
     private View bt_dingdan_pingjia;
     private String phone;
+    private String token;
 
     public MyFragment() {
         // Required empty public constructor
@@ -100,6 +103,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         inflate = inflater.inflate(R.layout.fragment_my, container, false);
         id = MyApp.instance.getInt("id");
         phone = MyApp.instance.getString("phone");
+        token = MyApp.instance.getString("token");
         View statusBar = inflate.findViewById(R.id.statusBarView);
         qBadgeView = new QBadgeView(getActivity());
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
@@ -231,25 +235,33 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        QBadgeView qBadgeView1 = new QBadgeView(getActivity());
+                        QBadgeView qBadgeView2 = new QBadgeView(getActivity());
+                        QBadgeView qBadgeView3 = new QBadgeView(getActivity());
+                        QBadgeView qBadgeView4 = new QBadgeView(getActivity());
                         String body = response.body();
                         Gson gson = new Gson();
                         OrderStatus orderStatus = gson.fromJson(body, OrderStatus.class);
                         if (orderStatus.getStatus() == 1){
                             if (orderStatus.getResult().getNotPayOrder()!=0){
-                                QBadgeView qBadgeView1 = new QBadgeView(getActivity());
                                 qBadgeView1.bindTarget(bt_dingdan_daifukuan).setBadgeNumber(orderStatus.getResult().getNotPayOrder());
+                            }else{
+                                qBadgeView1.hide(true);
                             }
                             if (orderStatus.getResult().getNotDeliverOrder()!=0){
-                                QBadgeView qBadgeView2 = new QBadgeView(getActivity());
                                 qBadgeView2.bindTarget(bt_dingdan_daifahuo).setBadgeNumber(orderStatus.getResult().getNotDeliverOrder());
+                            }else{
+                                qBadgeView2.hide(true);
                             }
                             if (orderStatus.getResult().getWaitingForReceipt()!=0){
-                                QBadgeView qBadgeView3 = new QBadgeView(getActivity());
                                 qBadgeView3.bindTarget(bt_dingdan_daishouhuo).setBadgeNumber(orderStatus.getResult().getWaitingForReceipt());
+                            }else{
+                                qBadgeView3.hide(true);
                             }
                             if (orderStatus.getResult().getWaitingForEvaluation()!=0){
-                                QBadgeView qBadgeView4 = new QBadgeView(getActivity());
                                 qBadgeView4.bindTarget(bt_dingdan_pingjia).setBadgeNumber(orderStatus.getResult().getWaitingForEvaluation());
+                            }else{
+                                qBadgeView4.hide(true);
                             }
                         }
                     }
@@ -362,146 +374,265 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         switch (v.getId()){
             case R.id.bt_yaoqing:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),YaoQingActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),YaoQingActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_dingdan_daifukuan:
                 if (!utils.isDoubleClick()){
-                    intent.putExtra("position",1);
-                    intent.setClass(getActivity(),MyDingDanActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.putExtra("position",1);
+                        intent.setClass(getActivity(),MyDingDanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_dingdan_daifahuo:
                 if (!utils.isDoubleClick()){
-                    intent.putExtra("position",2);
-                    intent.setClass(getActivity(),MyDingDanActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.putExtra("position",2);
+                        intent.setClass(getActivity(),MyDingDanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_dingdan_daishouhuo:
                 if (!utils.isDoubleClick()){
-                    intent.putExtra("position",3);
-                    intent.setClass(getActivity(),MyDingDanActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.putExtra("position",3);
+                        intent.setClass(getActivity(),MyDingDanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_dingdan_pingjia:
                 if (!utils.isDoubleClick()){
-                    intent.putExtra("position",4);
-                    intent.setClass(getActivity(),MyDingDanActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.putExtra("position",4);
+                        intent.setClass(getActivity(),MyDingDanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_zhuanke:
                 if (!utils.isDoubleClick()){
-                    if (xinxi.getResult()!=null){
-                        if (xinxi.getResult().isZhuanKe()){
-                            intent.setClass(getActivity(),ZhuanKeYesActivity.class);
-                            startActivity(intent);
-                        }else{
-                            intent.setClass(getActivity(),ZhuanKeActivity.class);
-                            startActivity(intent);
+                    if (!token.isEmpty()){
+                        if (xinxi.getResult()!=null){
+                            if (xinxi.getResult().isZhuanKe()){
+                                intent.setClass(getActivity(),ZhuanKeYesActivity.class);
+                                startActivity(intent);
+                            }else{
+                                intent.setClass(getActivity(),ZhuanKeActivity.class);
+                                startActivity(intent);
+                            }
                         }
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
                     }
                 }
                 break;
             case R.id.bt_huiyuan_quanbu:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),VIPActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),VIPActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             //设置
             case R.id.bt_setting:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),SettingActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),SettingActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_my_gouwuche:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),GouWuCheActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),GouWuCheActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_my_dianpu:
                 if (!utils.isDoubleClick()){
-                    if (xinxi.getResult()!=null){
-                        if (xinxi.getResult().isIsMerchant() ==true){
-                            intent.setClass(getActivity(),MyDianPuActivity.class);
-                            startActivity(intent);
-                        }else{
-                            if (renZhengZhuangTai!=null){
-                                if (renZhengZhuangTai.getStatus() == 1){
-                                    if (renZhengZhuangTai.getResult().getPerson().getCode() == 0) {
-                                        intent.setClass(getActivity(), GeRenRenZhengActivity.class);
-                                        startActivity(intent);
-                                    }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
-                                        if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
-                                            intent.setClass(getActivity(),RealNameActivity.class);
+                    if (!token.isEmpty()){
+                        if (xinxi.getResult()!=null){
+                            if (xinxi.getResult().isIsMerchant() ==true){
+                                intent.setClass(getActivity(),MyDianPuActivity.class);
+                                startActivity(intent);
+                            }else{
+                                if (renZhengZhuangTai!=null){
+                                    if (renZhengZhuangTai.getStatus() == 1){
+                                        if (renZhengZhuangTai.getResult().getPerson().getCode() == 0) {
+                                            intent.setClass(getActivity(), GeRenRenZhengActivity.class);
                                             startActivity(intent);
-                                        }else if (renZhengZhuangTai.getResult().getStore().getCode() == 1){
-                                            intent.setClass(getActivity(),ReviewViewActivity.class);
-                                            startActivity(intent);
-                                        }else if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
-                                            intent.setClass(getActivity(),MyDianPuActivity.class);
-                                            startActivity(intent);
+                                        }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+                                            if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
+                                                intent.setClass(getActivity(),RealNameActivity.class);
+                                                startActivity(intent);
+                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 1){
+                                                intent.setClass(getActivity(),ReviewViewActivity.class);
+                                                startActivity(intent);
+                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                                                intent.setClass(getActivity(),MyDianPuActivity.class);
+                                                startActivity(intent);
+                                            }
                                         }
                                     }
                                 }
                             }
+                        }else{
+                            ToastUtils.showShort("请稍后再试");
                         }
                     }else{
-                        ToastUtils.showShort("请稍后再试");
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
                     }
                 }
                 break;
             case R.id.bt_my_kabao:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),MyKaBaoActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),MyKaBaoActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
                 //我的动态
             case R.id.bt_my_dongtai:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),MyDongTaiActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),MyDongTaiActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_xiaoxi:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),XiaoXiActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),XiaoXiActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
                 //我的收藏
             case R.id.bt_my_shoucang:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),MyCollectActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),MyCollectActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
                 //我的订单全部
             case R.id.bt_dingdan_quanbu:
                 if (!utils.isDoubleClick()){
-                    intent.putExtra("position",0);
-                    intent.setClass(getActivity(),MyDingDanActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.putExtra("position",0);
+                        intent.setClass(getActivity(),MyDingDanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_wodeguanzhu:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),WoDeGuanZhuActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),WoDeGuanZhuActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
             case R.id.bt_wodefensi:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(getActivity(),WoDeFenSiActivity.class);
-                    startActivity(intent);
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),WoDeFenSiActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
                 }
                 break;
         }
