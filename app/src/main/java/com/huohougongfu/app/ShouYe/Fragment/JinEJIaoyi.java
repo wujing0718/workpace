@@ -139,7 +139,7 @@ public class JinEJIaoyi extends Fragment {
     private void initAdd() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         map.put("time",nowTime2+"-01");
         map.put("pageNo",String.valueOf(page++));
@@ -157,7 +157,7 @@ public class JinEJIaoyi extends Fragment {
                                 madapter.add(zhangdan.getResult().getRecords().getList());
                                 smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                             }else {
-                                smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                                smartrefreshlayout. finishLoadmore();
                             }
                         }
                     }

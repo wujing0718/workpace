@@ -118,16 +118,16 @@ public class DingDanFragment extends Fragment {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
                         mydingdan = gson.fromJson(response.body(), MyDingDan.class);
                         if (mydingdan.getStatus() == 1) {
                             if (mydingdan.getResult().getList().size()>0){
-                                rec_chatai_dingdan.setVisibility(View.VISIBLE);
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
                                 initRec(mydingdan.getResult().getList());
                             }else{
-                                rec_chatai_dingdan.setVisibility(View.GONE);
+                                smartrefreshlayout.setVisibility(View.GONE);
                             }
                         }
                     }

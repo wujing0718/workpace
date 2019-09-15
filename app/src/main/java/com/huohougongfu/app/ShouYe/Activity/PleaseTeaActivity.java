@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PleaseTeaActivity extends AppCompatActivity {
 
-    private final String[] mTitles = {"我的卡券", "转增茶米", "历史记录"};
+    private final String[] mTitles = {"我的卡券", "转赠茶米", "历史记录"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
     private MyPagerAdapter mAdapter;

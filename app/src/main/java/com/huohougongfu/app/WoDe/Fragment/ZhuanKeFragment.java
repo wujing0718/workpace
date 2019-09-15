@@ -109,6 +109,7 @@ public class ZhuanKeFragment extends Fragment implements View.OnClickListener{
         try {
             jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
             jsonObject.put("productId",String.valueOf(earnpordutbean.getId()));
+            jsonObject.put("standardId",String.valueOf(earnpordutbean.getStandardId()));
             jsonObject.put("productNum",String.valueOf(1));
             jsonObject.put("ofEarnProduct",String.valueOf(1));
             jsonArray.put(jsonObject);
@@ -147,7 +148,6 @@ public class ZhuanKeFragment extends Fragment implements View.OnClickListener{
                                 if (shopDingDan.getStatus() == 1){
                                     Intent intent = new Intent();
                                     intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
-                                    intent.putExtra("standardId","");
                                     intent.setClass(getActivity(),XiaDanActivity.class);
                                     getActivity().startActivity(intent);
                                 }

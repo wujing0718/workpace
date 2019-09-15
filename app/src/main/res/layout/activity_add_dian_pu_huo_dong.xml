@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/edt_huodong_name"
                 android:layout_marginLeft="@dimen/dp_30"
                 android:layout_centerVertical="true"
                 android:hint="请输入名称"
@@ -199,6 +200,7 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
+                    android:id="@+id/tv_fullAmount"
                     android:hint="输入金额"
                     android:textSize="12sp"
                     android:gravity="center"
@@ -215,6 +217,7 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
+                    android:id="@+id/tv_reduceNumber"
                     android:hint="输入金额"
                     android:textSize="12sp"
                     android:gravity="center"

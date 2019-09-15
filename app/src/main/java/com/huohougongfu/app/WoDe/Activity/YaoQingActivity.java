@@ -49,6 +49,7 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tv_biaoyu,tv_guize;
     private RecyclerView rec_yaoqing;
     private QuanZiShare share;
+    private View view_liebiao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initUI() {
+        view_liebiao = findViewById(R.id.view_liebiao);
         findViewById(R.id.bt_lijiyaoqing).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         img_zhuanke_bg = findViewById(R.id.img_zhuanke_bg);
@@ -97,7 +99,12 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
                         Gson gson = new Gson();
                         YaoQingGson yaoQingGson = gson.fromJson(body, YaoQingGson.class);
                         if (yaoQingGson.getStatus() == 1){
-                            initView(yaoQingGson.getResult());
+                            if (yaoQingGson.getResult().getEarnPordut().getList().size()>0){
+                                view_liebiao.setVisibility(View.VISIBLE);
+                                initView(yaoQingGson.getResult());
+                            }else{
+                                view_liebiao.setVisibility(View.GONE);
+                            }
                         }
                     }
                 });

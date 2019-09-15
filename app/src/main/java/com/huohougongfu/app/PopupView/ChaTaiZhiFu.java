@@ -157,9 +157,9 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
 
     //支付宝支付
     private void initALi() {
-        if (orderNo!=null){
+        if (result!=null){
             OkGo.<String>post(Contacts.URl1+"/pay/alipay")
-                    .params("orderNo",orderNo)
+                    .params("orderNo",result)
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {

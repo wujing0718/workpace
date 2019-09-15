@@ -21,15 +21,17 @@ public class ZhuanKeYesAdapter extends BaseQuickAdapter<ZhuanKeYes.ResultBean.Li
 
     @Override
     protected void convert(BaseViewHolder helper, ZhuanKeYes.ResultBean.ListBean item) {
-        String[] split = item.getMallProduct().getCoverUrl().split(",");
-        ImageView img_shangpin_photo = helper.getView(R.id.img_shangpin_photo);
-        helper.setText(R.id.tv_shangpin_title,item.getMallProduct().getName());
-        helper.setText(R.id.tv_shangpin_collect_num,item.getMallProduct().getCollectionNum()+"人收藏");
-        helper.setText(R.id.tv_shangpin_price,"¥"+item.getMallProduct().getPrice());
-        if (split.length>0){
-            Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_shangpin_photo);
-        }else{
-            Glide.with(MyApp.context).load(R.mipmap.img_zhanweitu).into(img_shangpin_photo);
+        if(item.getMallProduct()!=null){
+            String[] split = item.getMallProduct().getCoverUrl().split(",");
+            ImageView img_shangpin_photo = helper.getView(R.id.img_shangpin_photo);
+            helper.setText(R.id.tv_shangpin_title,item.getMallProduct().getName());
+            helper.setText(R.id.tv_shangpin_collect_num,item.getMallProduct().getCollectionNum()+"人收藏");
+            helper.setText(R.id.tv_shangpin_price,"¥"+item.getMallProduct().getPrice());
+            if (split.length>0){
+                Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_shangpin_photo);
+            }else{
+                Glide.with(MyApp.context).load(R.mipmap.img_zhanweitu).into(img_shangpin_photo);
+            }
         }
     }
 }

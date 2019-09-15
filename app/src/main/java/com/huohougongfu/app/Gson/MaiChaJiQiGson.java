@@ -33,7 +33,6 @@ public class MaiChaJiQiGson {
     }
 
     public static class ResultBean {
-
         private int total;
         private int pageNum;
         private int pageSize;

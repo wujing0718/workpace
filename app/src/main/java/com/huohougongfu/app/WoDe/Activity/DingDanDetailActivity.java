@@ -21,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ALiPay;
 import com.huohougongfu.app.Gson.MyDingDanDetail;
+import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.DingDanZhiFu;
 import com.huohougongfu.app.PopupView.QuXiaoDingDan;
@@ -29,10 +30,12 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Adapter.MyDingDanDetailAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +43,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.rong.imkit.RongIM;
 
 public class DingDanDetailActivity extends AppCompatActivity implements OnClickListener {
 
@@ -120,6 +125,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                             intent.putExtra("shopid",mydongdandetail.getResult().get(0).getMallStores().getMallProducts().get(position).getId());
                             intent.putExtra("storeName",mydongdandetail.getResult().get(0).getMallStores().getStoreName());
                             intent.putExtra("storeLogo",mydongdandetail.getResult().get(0).getMallStores().getStoreLogo());
+                            intent.putExtra("OrderNo",mydongdandetail.getResult().get(0).getOrderNo());
                             intent.setClass(DingDanDetailActivity.this,DingDanPingJiaActivity.class);
                             startActivity(intent);
                         }
@@ -160,8 +166,8 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         if (orderStatus == 0){
             if (ofManager == 1){
                 tv_dingdan_caozuo1.setVisibility(View.GONE);
-                tv_dingdan_caozuo2.setText("联系买家");
                 view_logistics.setVisibility(View.GONE);
+                tv_dingdan_caozuo2.setVisibility(View.GONE);
                 tv_dingdan_zhuangtai.setText("待付款");
             }else{
                 tv_dingdan_caozuo1.setText("取消订单");
@@ -256,19 +262,14 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                     initQueRen(orderNo);
                 }else if (orderStatus == 0){
                     if (ofManager == 1){
-                        ToastUtils.showShort("联系买家");
+                        //联系卖家
+//                        RongIM.getInstance().startPrivateChat(DingDanDetailActivity.this,
+//                                list.get(position).getPhone(),list.get(position).getPhone());
                     }else{
                         initALi(orderNo);
                     }
-//                    String orderNos="";
-//                    for (int i = 0; i <result.size() ; i++) {
-//                        orderNos = result.get(position).getOrderNo()+","+orderNos;
-//                    }
-//                    new XPopup.Builder(DingDanDetailActivity.this)
-//                            .asCustom(new DingDanZhiFu(DingDanDetailActivity.this,substring))
-//                            .show();
                 }else if (orderStatus == 1){
-                    ToastUtils.showShort("提醒发货");
+                    initRemind(orderNo);
                 }
                 break;
                 case R.id.tv_dingdan_caozuo1:
@@ -288,6 +289,31 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 }
                 break;
         }
+    }
+
+    //  提醒发货
+    private void initRemind(String orderNo) {
+        Map<String,String> map = new HashMap<>();
+        map.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("orderNo",orderNo);
+        OkGo.<String>post(Contacts.URl1+"order/orderManage/informSellerSendGoods")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
+                        if (okGson.getStatus() == 1){
+                            ToastUtils.showShort("提醒成功");
+                        }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(DingDanDetailActivity.this,"请稍后。。。");
+                        super.onStart(request);
+                    }
+                });
     }
 
     //支付

@@ -139,6 +139,24 @@ public class ZhuanKeVIP implements Serializable{
             private String introduce;
             private Object createTime;
             private Object updateTime;
+            private int standardId;
+            private String standard;
+
+            public int getStandardId() {
+                return standardId;
+            }
+
+            public void setStandardId(int standardId) {
+                this.standardId = standardId;
+            }
+
+            public String getStandard() {
+                return standard;
+            }
+
+            public void setStandard(String standard) {
+                this.standard = standard;
+            }
 
             public int getId() {
                 return id;

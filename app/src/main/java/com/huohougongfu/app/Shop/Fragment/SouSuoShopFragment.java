@@ -56,7 +56,6 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     private RecyclerView rec_sousuo_shangpin;
     private int page = 2;
     private SouSuoShopAdapter teHuiAdapter;
-    Map<String, String> map = new HashMap<>();
     private  String indexParams = "0";
     private TextView bt_shop_zonghe,bt_shop_xiaoliang,bt_shop_xinpin,tv_shop_jiage;
     private boolean isjiage;
@@ -69,7 +68,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     public SouSuoShopFragment() {
         // Required empty public constructor
     }
-
+    private Map<String, String> map = new HashMap<>();
     Handler mHandler = new Handler() {
 
         @Override
@@ -77,7 +76,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    Map<String,String> map = (Map<String,String>)msg.obj;
+                    map = (Map<String,String>)msg.obj;
                     initData(map);
                     break;
                 default:
@@ -117,6 +116,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
     }
 
     private void initData(Map<String,String> map1) {
+        Map<String, String> map = new HashMap<>();
         map.clear();
         map.putAll(map1);
         map.put("page","1");

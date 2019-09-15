@@ -37,7 +37,6 @@ public class ShaiXuanDaShiView extends DrawerPopupView implements View.OnClickLi
     private Map<String,String> map = new HashMap<>();
     private TagFlowLayout  id_flowlayout_fenlei;
     private String name;
-    private EditText zuigaojia,zuidijia;
     private String fahuodi;
     private TagAdapter<String> adapter2;
     private TagAdapter<String> adapter1;
@@ -139,12 +138,11 @@ public class ShaiXuanDaShiView extends DrawerPopupView implements View.OnClickLi
             case R.id.bt_chongzhi:
                 name = null;
                 fahuodi = null;
-                zuigaojia.setText("");
-                zuidijia.setText("");
                 id_flowlayout_fahuodi.setAdapter(adapter2);
                 id_flowlayout_fenlei.setAdapter(adapter1);
                 break;
             case R.id.bt_queding:
+                map.clear();
                     if (name !=null){
                         map.put("masterCatory",name);
                     }

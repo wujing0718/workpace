@@ -36,6 +36,7 @@ public class DaKaActivity extends AppCompatActivity {
     private TextView tv_chami_num;
     private String tel;
     private TextView bt_daka;
+    private TextView tv_day1,tv_day2,tv_day3,tv_day4,tv_day5,tv_day6,tv_day7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,6 @@ public class DaKaActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
     private void initData() {
         if (!"".equals(token)) {
@@ -175,6 +175,14 @@ public class DaKaActivity extends AppCompatActivity {
         img5 = findViewById(R.id.img5);
         img6 = findViewById(R.id.img6);
         img7 = findViewById(R.id.img7);
+
+        tv_day1 = findViewById(R.id.tv_day1);
+        tv_day2 = findViewById(R.id.tv_day2);
+        tv_day3 = findViewById(R.id.tv_day3);
+        tv_day4 = findViewById(R.id.tv_day4);
+        tv_day5 = findViewById(R.id.tv_day5);
+        tv_day6 = findViewById(R.id.tv_day6);
+        tv_day7 = findViewById(R.id.tv_day7);
 
     }
 

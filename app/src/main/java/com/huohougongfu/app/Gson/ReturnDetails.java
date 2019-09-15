@@ -408,7 +408,7 @@ public class ReturnDetails {
             private Object sellCount;
             private Object cartId;
             private Object cartProductNum;
-            private Object buyNum;
+            private int buyNum;
             private double commission;
             private Object reSell;
             private Object ofCheap;
@@ -765,11 +765,11 @@ public class ReturnDetails {
                 this.cartProductNum = cartProductNum;
             }
 
-            public Object getBuyNum() {
+            public int getBuyNum() {
                 return buyNum;
             }
 
-            public void setBuyNum(Object buyNum) {
+            public void setBuyNum(int buyNum) {
                 this.buyNum = buyNum;
             }
 

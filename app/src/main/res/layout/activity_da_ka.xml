@@ -62,8 +62,6 @@
             android:layout_width="match_parent"
             android:layout_height="400dp">
 
-
-
         </RelativeLayout>
 
         <FrameLayout
@@ -107,55 +105,180 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/img1"
+                        <LinearLayout
                             android:layout_weight="1"
-                            android:src="@mipmap/img_nodaka"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/img2"
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:id="@+id/img1"
+                                android:layout_weight="1"
+                                android:src="@mipmap/img_nodaka"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:id="@+id/tv_day1"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:text="第1天"
+                                android:textSize="@dimen/text_size_12sp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_weight="1"
-                            android:src="@mipmap/img_nodaka"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/img3"
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:id="@+id/img2"
+                                android:layout_weight="1"
+                                android:src="@mipmap/img_nodaka"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:id="@+id/tv_day2"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:text="第2天"
+                                android:textSize="@dimen/text_size_12sp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_weight="1"
-                            android:src="@mipmap/img_nodaka"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/img4"
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:id="@+id/img3"
+                                android:layout_weight="1"
+                                android:src="@mipmap/img_nodaka"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:id="@+id/tv_day3"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:text="第3天"
+                                android:textSize="@dimen/text_size_12sp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_weight="1"
-                            android:src="@mipmap/img_nodaka"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/img5"
+                            <ImageView
+                                android:id="@+id/img4"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_nodaka"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:id="@+id/tv_day4"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:text="第4天"
+                                android:textSize="@dimen/text_size_12sp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_weight="1"
-                            android:src="@mipmap/img_nodaka"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/img6"
+                            <ImageView
+                                android:id="@+id/img5"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_nodaka"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:id="@+id/tv_day5"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:text="第5天"
+                                android:textSize="@dimen/text_size_12sp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_weight="1"
-                            android:src="@mipmap/img_nodaka"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/img7"
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:id="@+id/img6"
+                                android:layout_weight="1"
+                                android:src="@mipmap/img_nodaka"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:id="@+id/tv_day6"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:text="第6天"
+                                android:textSize="@dimen/text_size_12sp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_weight="1"
-                            android:src="@mipmap/img_nodaka"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp" />
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
+                            <ImageView
+                                android:id="@+id/img7"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_nodaka"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp" />
+
+                            <TextView
+                                android:id="@+id/tv_day7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="@dimen/dp_2"
+                                android:text="第7天"
+                                android:textSize="@dimen/text_size_12sp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

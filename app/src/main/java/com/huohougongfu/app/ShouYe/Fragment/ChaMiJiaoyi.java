@@ -125,7 +125,7 @@ public class ChaMiJiaoyi extends Fragment {
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-//                initOkGO();
+                initData();
                 smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
             }
         });
@@ -141,7 +141,7 @@ public class ChaMiJiaoyi extends Fragment {
     private void initAdd() {
         Map<String,String> map = new HashMap<>();
         map.put("tel",tel);
-        map.put("id",id);
+        map.put("mId",id);
         map.put("token",token);
         map.put("time",nowTime);
         map.put("pageNo",String.valueOf(page++));
@@ -161,7 +161,7 @@ public class ChaMiJiaoyi extends Fragment {
                                 madapter.add(zhangdan.getResult().getRecord().getList());
                                 smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                             }else {
-                                smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                                smartrefreshlayout. finishLoadmore();
                             }
                         }
                     }

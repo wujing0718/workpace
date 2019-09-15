@@ -9,6 +9,7 @@
 
         <LinearLayout
             android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_20"
             android:background="@mipmap/img_duanpu_huodong_guanli"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
@@ -54,6 +55,7 @@
         </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_lijilingqu"
         android:layout_marginRight="@dimen/dp_16"
         android:layout_gravity="right|center_vertical"
         android:text="立即领取"

@@ -91,6 +91,9 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener,I
                     //自己需要的操作
                     ListenerManager.getInstance().sendBroadCast(0,bt_shop_sousuo.getText().toString());
                 }
+                if (bt_shop_sousuo.getText().toString().isEmpty()){
+                    ListenerManager.getInstance().sendBroadCast(0,bt_shop_sousuo.getText().toString());
+                }
                 //记得返回false
                 return false;
             }

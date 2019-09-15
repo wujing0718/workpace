@@ -184,7 +184,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
             Bundle extras = data.getExtras();
             categoryName = extras.getString("categoryName");
             categoryNameid = extras.getString("categoryNameid");
-             Nameid = extras.getString("Nameid");
+            Nameid = extras.getString("Nameid");
             if (categoryName!=null ){
                 tv_categoryName.setText(categoryName);
             }

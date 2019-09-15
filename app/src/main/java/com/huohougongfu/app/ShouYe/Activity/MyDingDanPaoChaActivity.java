@@ -635,7 +635,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
             }else{
                 map.put("totalPrice",String.valueOf(orderprice));
-                Double d = total_priceorder*100;
+                Double d = total_price*100;
                 int teaRiceNum = d.intValue();
                 map.put("teaRiceNum",String.valueOf(teaRiceNum));
             }
@@ -682,7 +682,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
             }else{
                 map.put("totalPrice",String.valueOf(orderprice));
-                Double d = total_priceorder*100;
+                Double d = total_price*100;
                 int teaRiceNum = d.intValue();
                 map.put("teaRiceNum",String.valueOf(teaRiceNum));
             }

@@ -109,8 +109,8 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
             tv_name.setText("姓名："+renZhengZhuangTai.getResult().getPerson().getInfo().getRealName());
             tv_renzheng_level.setText("职称："+renZhengZhuangTai.getResult().getPerson().getInfo().getLevel());
             tv_renzheng_idCard.setText("身份证号："+renZhengZhuangTai.getResult().getPerson().getInfo().getIdCard());
-            bt_zanburenzheng.setVisibility(View.VISIBLE);
-            bt_jixurenzheng.setVisibility(View.VISIBLE);
+            bt_zanburenzheng.setVisibility(View.GONE);
+            bt_jixurenzheng.setVisibility(View.GONE);
         }else if("特约品牌认证成功".equals(code)){
             tv_renzheng_shanchang.setVisibility(View.VISIBLE);
             tv_name.setText("店铺名："+renZhengZhuangTai.getResult().getSpecialBrand().getInfo().getStoreName());

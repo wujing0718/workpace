@@ -85,11 +85,16 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private QBadgeView qBadgeView;
+    private QBadgeView qBadgeView1;
+    private QBadgeView qBadgeView2;
+    private QBadgeView qBadgeView3;
+    private QBadgeView qBadgeView4;
     private View bt_my_gouwuche;
     private View bt_dingdan_daifukuan,bt_dingdan_daifahuo,bt_dingdan_daishouhuo;
     private View bt_dingdan_pingjia;
     private String phone;
     private String token;
+    private TextView tv_productNum;
 
     public MyFragment() {
         // Required empty public constructor
@@ -106,6 +111,10 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         token = MyApp.instance.getString("token");
         View statusBar = inflate.findViewById(R.id.statusBarView);
         qBadgeView = new QBadgeView(getActivity());
+        qBadgeView1 = new QBadgeView(getActivity());
+        qBadgeView2 = new QBadgeView(getActivity());
+        qBadgeView3 = new QBadgeView(getActivity());
+        qBadgeView4 = new QBadgeView(getActivity());
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
@@ -229,36 +238,31 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     }
 
     private void initOrderStatusNum() {
-
         OkGo.<String>post(Contacts.URl1+"/order/orderDetailNumber")
                 .params("mId",String.valueOf(MyApp.instance.getInt("id")))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        QBadgeView qBadgeView1 = new QBadgeView(getActivity());
-                        QBadgeView qBadgeView2 = new QBadgeView(getActivity());
-                        QBadgeView qBadgeView3 = new QBadgeView(getActivity());
-                        QBadgeView qBadgeView4 = new QBadgeView(getActivity());
                         String body = response.body();
                         Gson gson = new Gson();
                         OrderStatus orderStatus = gson.fromJson(body, OrderStatus.class);
                         if (orderStatus.getStatus() == 1){
-                            if (orderStatus.getResult().getNotPayOrder()!=0){
+                            if (orderStatus.getResult().getNotPayOrder()>0){
                                 qBadgeView1.bindTarget(bt_dingdan_daifukuan).setBadgeNumber(orderStatus.getResult().getNotPayOrder());
                             }else{
                                 qBadgeView1.hide(true);
                             }
-                            if (orderStatus.getResult().getNotDeliverOrder()!=0){
+                            if (orderStatus.getResult().getNotDeliverOrder()>0){
                                 qBadgeView2.bindTarget(bt_dingdan_daifahuo).setBadgeNumber(orderStatus.getResult().getNotDeliverOrder());
                             }else{
                                 qBadgeView2.hide(true);
                             }
-                            if (orderStatus.getResult().getWaitingForReceipt()!=0){
+                            if (orderStatus.getResult().getWaitingForReceipt()>0){
                                 qBadgeView3.bindTarget(bt_dingdan_daishouhuo).setBadgeNumber(orderStatus.getResult().getWaitingForReceipt());
                             }else{
                                 qBadgeView3.hide(true);
                             }
-                            if (orderStatus.getResult().getWaitingForEvaluation()!=0){
+                            if (orderStatus.getResult().getWaitingForEvaluation()>0){
                                 qBadgeView4.bindTarget(bt_dingdan_pingjia).setBadgeNumber(orderStatus.getResult().getWaitingForEvaluation());
                             }else{
                                 qBadgeView4.hide(true);
@@ -295,6 +299,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         }else{
             tv_my_jianjie.setText("暂无简介");
         }
+        tv_productNum.setText(String.valueOf(result.getProductNum()));
         tv_my_guanzhunum.setText(String.valueOf(result.getAttentionNum()));
         tv_my_fensinum.setText(String.valueOf(result.getFanCount()));
         tv_my_fenlei.setText(result.getMaster().getLevel());
@@ -302,6 +307,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     }
 
     private void initUI() {
+        tv_productNum = inflate.findViewById(R.id.tv_productNum);
         view_vip = inflate.findViewById(R.id.view_vip);
         img_ishuiyuan = inflate.findViewById(R.id.img_ishuiyuan);
         img_isdianpu = inflate.findViewById(R.id.img_isdianpu);
@@ -523,6 +529,9 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                                                 startActivity(intent);
                                             }else if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
                                                 intent.setClass(getActivity(),MyDianPuActivity.class);
+                                                startActivity(intent);
+                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 0){
+                                                intent.setClass(getActivity(),FailedViewActivity.class);
                                                 startActivity(intent);
                                             }
                                         }

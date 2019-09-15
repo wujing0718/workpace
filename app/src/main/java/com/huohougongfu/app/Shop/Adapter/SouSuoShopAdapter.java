@@ -28,6 +28,7 @@ public class SouSuoShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultBea
         TextView tv_yinli = helper.getView(R.id.tv_yinli);
         if(type!=null){
             if (type.equals("赚客")){
+                tv_yinli.setText("赚 ¥"+String.valueOf(item.getCommission()));
                 tv_yinli.setVisibility(View.VISIBLE);
             }
         }else{

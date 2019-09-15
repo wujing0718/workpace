@@ -1,6 +1,7 @@
 package com.huohougongfu.app.Adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,13 @@ public class HuDongPingLunAdapter extends BaseQuickAdapter<HuDongPingLun.ResultB
         RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         ImageView img_touxiang = helper.getView(R.id.img_touxiang);
         ImageView img_my_photo = helper.getView(R.id.img_my_photo);
+        View view_vip = helper.getView(R.id.view_vip);
+        if (item.getMember().isVip()){
+            view_vip.setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_my_vipnum,"."+item.getMember().getMemberLevel());
+        }else{
+            view_vip.setVisibility(View.GONE);
+        }
         helper.setText(R.id.tv_name,item.getMember().getNickName());
         helper.setText(R.id.tv_my_fenlei,item.getMember().getMaster().getLevel());
         helper.setText(R.id.tv_my_weizhi,item.getMember().getPlace());

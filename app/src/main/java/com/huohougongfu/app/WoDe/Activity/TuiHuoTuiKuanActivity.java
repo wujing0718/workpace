@@ -82,7 +82,7 @@ public class TuiHuoTuiKuanActivity extends AppCompatActivity implements View.OnC
             switch (msg.what) {
                 case 0:
                     kuaidi = (Map<String,String>)msg.obj;
-                    tv_kuaidi_name.setText(kuaidi.get("expressCompany"));
+                    tv_kuaidi_name.setText(kuaidi.get("expressCompanytitle"));
                     tv_kuaidi_name.setTextColor(getResources().getColor(R.color.colorBlack));
                     break;
                 default:

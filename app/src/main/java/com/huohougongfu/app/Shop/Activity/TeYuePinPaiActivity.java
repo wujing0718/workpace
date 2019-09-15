@@ -149,7 +149,11 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
                     }
                     //自己需要的操作
                     String sousuo = bt_shop_sousuo.getText().toString();
-                    initData(sousuo);
+                    if (sousuo.isEmpty()){
+                        initData(sousuo);
+                    }else{
+                        initData(sousuo);
+                    }
                 }
                 //记得返回false
                 return false;
@@ -177,11 +181,14 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
         });
 
     }
+
     private void initData(String sousuo) {
         Map<String,String> map = new HashMap<>();
         map.put("page","1");
         map.put("pageSize","10");
-        map.put("name",sousuo);
+        if (!sousuo.isEmpty()){
+            map.put("name",sousuo);
+        }
         map.put("userId",String.valueOf(mId));
         OkGo.<String>get(Contacts.URl1+"query/brand/isSpecial")
                 .params(map)

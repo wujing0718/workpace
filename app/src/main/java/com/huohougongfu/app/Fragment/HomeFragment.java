@@ -86,7 +86,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
     private String lon,lat;
     private TextView tv_jiqijuli,tv_jiqiweizhi;
     private JiQiLieBiao.ResultBean.ListBean jiQiLieBiao;
-    private MaiChaJiQiGson.ResultBean.ListBean  maichajiqi;
     private boolean ischecked = true;
     private QBadgeView qBadgeView;
     private View bt_chatai;
@@ -144,7 +143,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        String body = response.body();
                         Over over = new Gson().fromJson(response.body(), Over.class);
                         if (over.getStatus() == 1){
                             if (over.getResult().getTeaTableNum()!=0){
@@ -229,11 +227,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     public void onSuccess(Response<String> response) {
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
-                        MaiChaJiQiGson lieiao = gson.fromJson(response.body(), MaiChaJiQiGson.class);
+                        JiQiLieBiao lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
                         if (lieiao.getStatus() == 1) {
                             if (lieiao.getResult().getList().size()>0){
-                                maichajiqi = lieiao.getResult().getList().get(0);
-                                initTeaTableNum(maichajiqi.getEquipmentId());
+                                jiQiLieBiao = lieiao.getResult().getList().get(0);
+                                initTeaTableNum(HomeFragment.this.jiQiLieBiao.getEquipmentId());
                             }
                         }
                     }
@@ -266,21 +264,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (!isChecked) {
-                    if (maichajiqi!=null){
-                        tv_jiqiweizhi.setText(maichajiqi.getDetailAddress()+"(No."+maichajiqi.getEquipmentId()+")");
+                    ischecked = isChecked;
+                    initMaiChaJiQi();
+                        tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getEquipmentId()+")");
                         DecimalFormat formater = new DecimalFormat();
                         formater.setMaximumFractionDigits(2);
                         formater.setGroupingSize(0);
                         formater.setRoundingMode(RoundingMode.FLOOR);
-                        String result = formater.format(Double.valueOf(maichajiqi.getDistance()));
+                        String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
                         tv_jiqijuli.setText(result+"m");
                         if (!isAdded()) return;
                         FragmentManager fm = getChildFragmentManager();
                         FragmentTransaction transaction = fm.beginTransaction();
-                        transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(maichajiqi.getEquipmentId()));
+                        transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
                         transaction.commitAllowingStateLoss();
-                        ischecked = isChecked;
-                    }
                 }else{
                     ischecked = isChecked;
                     initJiQi();
@@ -423,7 +420,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         intent.putExtra("泡茶",1);
                         startActivityForResult(intent, CONTEXT_RESTRICTED);
                     }else{
-                        ToastUtils.showShort(R.string.denglu);
                         Intent intent = new Intent(getActivity(), DingWeiActivity.class);
                         intent.putExtra("买茶",1);
                         startActivityForResult(intent, CONTEXT_RESTRICTED);

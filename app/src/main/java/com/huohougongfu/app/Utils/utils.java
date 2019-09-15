@@ -167,6 +167,16 @@ public class utils {
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
+    /**
+            * 获取当前时间
+     *
+             * @return
+             */
+    public static String getNowTime5() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
+    }
 
 
     /**

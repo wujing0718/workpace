@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.StoreEvents;
 import com.huohougongfu.app.R;
 
 import java.util.ArrayList;
@@ -22,14 +24,14 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
 
     private int secret = 0;
     private String title = "";
-    private List<MyCollect.ResultBean.ListBean> mMyLiveList;
+    private List<StoreEvents.ResultBean> mMyLiveList;
     private DianPuHuoDongAdapter.OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(DianPuHuoDongAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
     public interface OnItemClickListener {
-        void onItemClickListener(int pos,List<MyCollect.ResultBean.ListBean> myLiveList);
+        void onItemClickListener(int pos,List<StoreEvents.ResultBean> myLiveList);
 
     }
 
@@ -38,7 +40,7 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
     }
 
 
-    public void notifyAdapter(List<MyCollect.ResultBean.ListBean> myLiveList, boolean isAdd) {
+    public void notifyAdapter(List<StoreEvents.ResultBean> myLiveList, boolean isAdd) {
         if (!isAdd) {
             this.mMyLiveList = myLiveList;
         } else {
@@ -47,7 +49,7 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
         notifyDataSetChanged();
     }
 
-    public List<MyCollect.ResultBean.ListBean> getMyLiveList() {
+    public List<StoreEvents.ResultBean> getMyLiveList() {
         if (mMyLiveList == null) {
             mMyLiveList = new ArrayList<>();
         }
@@ -69,7 +71,7 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
 
     @Override
     public void onBindViewHolder(@NonNull DianPuHuoDongAdapter.ViewHolder viewHolder, int i) {
-        final MyCollect.ResultBean.ListBean myLive = mMyLiveList.get(viewHolder.getAdapterPosition());
+        final StoreEvents.ResultBean myLive = mMyLiveList.get(viewHolder.getAdapterPosition());
 //        holder.mTvTitle.setText(myLive.getTitle());
 //        holder.mTvSource.setText(myLive.getSource());
         if (mEditMode == MYLIVE_MODE_CHECK) {
@@ -82,7 +84,7 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
                 viewHolder.iv_select.setImageResource(R.mipmap.unselect);
             }
         }
-
+        viewHolder.tv_lijilingqu.setVisibility(View.GONE);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,10 +102,11 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_select;
+        TextView tv_lijilingqu;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_select = itemView.findViewById(R.id.iv_select);
-
+            tv_lijilingqu = itemView.findViewById(R.id.tv_lijilingqu);
         }
     }
 }

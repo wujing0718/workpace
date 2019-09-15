@@ -19,16 +19,16 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_above="@+id/bt_lijiyaoqing"
             android:id="@+id/view_list"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bt_lijiyaoqing"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_230">
+                android:layout_height="@dimen/dp_230"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -40,49 +40,49 @@
                         android:layout_height="44dp">
 
                         <ImageView
-                            android:layout_centerInParent="true"
-                            android:src="@mipmap/img_back_white"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:layout_centerInParent="true"
+                            android:src="@mipmap/img_back_white" />
 
                     </RelativeLayout>
 
                     <TextView
-                        android:text="邀请"
-                        android:textSize="17sp"
-                        android:textColor="@color/colorWhite"
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="邀请"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="17sp" />
 
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:layout_marginRight="@dimen/dp_40"
-                    android:layout_gravity="right"
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_biaoyu"
-                        android:text="标语口号"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
                         android:layout_width="@dimen/dp_120"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="标语口号"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/tv_guize"
-                        android:layout_gravity="center_horizontal"
-                        android:text="规则详情"
-                        android:gravity="center"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:textColor="@color/colorWhite"
                         android:layout_width="@dimen/dp_120"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:gravity="center"
+                        android:text="规则详情"
+                        android:textColor="@color/colorWhite" />
 
                 </LinearLayout>
 
@@ -90,43 +90,46 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dp_15"
-                android:layout_marginHorizontal="@dimen/dp_15"
-                android:orientation="horizontal"
-                android:background="@drawable/kaquan_kuang"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@drawable/kaquan_kuang"
+                android:orientation="horizontal">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="用户名"
-                    android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:textStyle="bold" />
+
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="当前等级"
-                    android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:textStyle="bold" />
+
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="领取奖励"
-                    android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_marginTop="@dimen/dp_15"
-                android:background="@drawable/kaquan_kuang"
-                android:layout_marginHorizontal="@dimen/dp_15"
+                android:id="@+id/view_liebiao"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@drawable/kaquan_kuang">
 
                 <com.scwang.smartrefresh.layout.SmartRefreshLayout
                     android:layout_width="match_parent"
@@ -148,25 +151,26 @@
 
             </RelativeLayout>
 
-
             <include
-                android:visibility="gone"
                 layout="@layout/include_zhanweitu"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@drawable/kaquan_kuang" />
 
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/bt_lijiyaoqing"
-            android:layout_alignParentBottom="true"
-            android:text="立即邀请"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:background="#CCBA91"
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="#CCBA91"
+            android:gravity="center"
+            android:text="立即邀请"
+            android:textColor="@color/white" />
 
 
     </RelativeLayout>

@@ -116,7 +116,15 @@ public class MyZhuYe {
         private boolean zhuanKe;
         private int fanCount;
         private int attentionNum;
+        private int productNum;
         private int dynamicNum;
+
+        public int getProductNum() {
+            return productNum;
+        }
+        public void setProductNum(int productNum) {
+            this.productNum = productNum;
+        }
 
         public int getUserId() {
             return userId;

@@ -241,11 +241,11 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                         Nameid = countryValues.get(countryPosition);
                     }else if (provinceValues.size()>0){
                         categoryName = provinceValues.get(provincePosition);
-                        categoryNameid = provinceValues.get(provincePosition);
+                        categoryNameid = provinceValuesid.get(provincePosition);
                         Nameid = countryValues.get(countryPosition);
                     }else {
                         categoryName = countryValues.get(countryPosition);
-                        categoryNameid = countryValues.get(countryPosition);
+                        categoryNameid = countryValuesid.get(countryPosition);
                         Nameid = countryValues.get(countryPosition);
                     }
 

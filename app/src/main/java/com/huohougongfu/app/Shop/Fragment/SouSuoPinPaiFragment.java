@@ -54,12 +54,12 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
     private RecyclerView rec_sousuo_pinpai;
     private SmartRefreshLayout smartrefreshlayout;
     private TextView bt_dianpu_zonghe,bt_dianpu_xiaoliang,bt_dianpu_haoping,bt_dianpu_renqi;
-    Map<String, String> map = new HashMap<>();
     private  String indexParam = "0";
     private String queryStoreName = null;
     private SouSuoDianPuAdapter shangPinAdapter;
     private int page = 2;
     private BasePopupView xpopup;
+    private Map<String, String> map = new HashMap<>();
 
     public SouSuoPinPaiFragment() {
         // Required empty public constructor
@@ -71,7 +71,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    Map<String,String> map = (Map<String,String>)msg.obj;
+                    map = (Map<String,String>)msg.obj;
                     initData(map);
                     break;
                 default:
@@ -111,6 +111,7 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
 
 
     private void initData(Map<String,String> map1) {
+        Map<String, String> map = new HashMap<>();
         map.clear();
         map.putAll(map1);
         map.put("showNum","3");

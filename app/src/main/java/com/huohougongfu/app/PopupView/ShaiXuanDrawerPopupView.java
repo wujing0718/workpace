@@ -39,9 +39,9 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
 
     private Map<String,String> map = new HashMap<>();
     private TagFlowLayout  id_flowlayout_fenlei;
-    private String name = "茶叶";
+    private String name ;
     private EditText zuigaojia,zuidijia;
-    private String fahuodi = "北京";
+    private String fahuodi;
     private TagAdapter<String> adapter1;
     private TagAdapter<String> adapter2;
     private TagFlowLayout id_flowlayout_fahuodi;
@@ -95,7 +95,7 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                 }
             }
         });
-        adapter2.setSelectedList(fahuodipos);
+//        adapter2.setSelectedList(fahuodipos);
 
     }
 
@@ -135,7 +135,7 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                                 }
                             }
                         });
-                        adapter1.setSelectedList(fenleipos);
+//                        adapter1.setSelectedList(fenleipos);
                     }
                 }
             }
@@ -154,6 +154,7 @@ public class ShaiXuanDrawerPopupView extends DrawerPopupView implements View.OnC
                 id_flowlayout_fenlei.setAdapter(adapter1);
                 break;
             case R.id.bt_queding:
+                map.clear();
                 String hight = zuigaojia.getText().toString();
                 String lowest  = zuidijia.getText().toString();
                 if (!"".equals(hight) && !"".equals(lowest)){

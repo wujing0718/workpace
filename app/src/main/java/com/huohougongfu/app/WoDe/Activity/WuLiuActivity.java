@@ -54,15 +54,24 @@ public class WuLiuActivity extends AppCompatActivity {
         tv_kuaidi_phone = findViewById(R.id.tv_kuaidi_phone);
         tv_kuaidi_danhao = findViewById(R.id.tv_kuaidi_danhao);
         tv_kuaidi_name.setText(result.getExpName());
-        tv_kuaidi_phone.setText("官方电话："+result.getExpName());
+        if (result.getExpName()!=null){
+            tv_kuaidi_phone.setText("官方电话："+result.getExpName());
+        }else{
+            tv_kuaidi_phone.setText("官方电话："+"号码错误");
+        }
         tv_kuaidi_danhao.setText("快递单号："+result.getNumber());
         Glide.with(MyApp.context).load(result.getLogo()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_duaidi_photo);
         rec_wuliu = findViewById(R.id.rec_wuliu);
-        smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(WuLiuActivity.this);
-        rec_wuliu.setLayoutManager(layoutManager);
-        WuLiuAdapter wuLiuAdapter = new WuLiuAdapter(R.layout.item_wuliu, result.getList());
-        rec_wuliu.setAdapter(wuLiuAdapter);
+        if (result.getList().size()>0){
+            rec_wuliu.setVisibility(View.VISIBLE);
+            smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(WuLiuActivity.this);
+            rec_wuliu.setLayoutManager(layoutManager);
+            WuLiuAdapter wuLiuAdapter = new WuLiuAdapter(R.layout.item_wuliu, result.getList());
+            rec_wuliu.setAdapter(wuLiuAdapter);
+        }else{
+            rec_wuliu.setVisibility(View.GONE);
+        }
     }
 
     private void initData() {

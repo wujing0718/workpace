@@ -1,5 +1,6 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -8,14 +9,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.DingDanGuanLi;
+import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.Gson.ReturnDetails;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -73,7 +78,7 @@ public class ReturnDetailsActivity extends AppCompatActivity {
         tv_RefundAmount.setText(String.valueOf(result.get(0).getProducts().get(0).getPrice()));
         tv_RefundPath.setText(result.get(0).getRefundChannel());
         tv_reasonForReturn.setText(result.get(0).getReason());
-        tv_shenqingshijian.setText(result.get(0).getCreateTime());
+        tv_shenqingshijian.setText(result.get(0).getCreateTime1());
         tv_tuikuanbianhao.setText(result.get(0).getOrderNo());
     }
 
@@ -97,6 +102,26 @@ public class ReturnDetailsActivity extends AppCompatActivity {
                 callPhone(returnDetails.getResult().get(0).getPhone());
             }
         });
+        findViewById(R.id.bt_tongyituikuan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectDialog.show(ReturnDetailsActivity.this, "提示", "是否同意退款",
+                        "确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(!utils.isDoubleClick()){
+                                    initReimburse();
+                                }
+                            }
+                        },
+                        "取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+            }
+        });
+
         img_photo = findViewById(R.id.img_photo);
         tv_shop_name = findViewById(R.id.tv_shop_name);
         tv_shop_standard = findViewById(R.id.tv_shop_standard);
@@ -107,6 +132,31 @@ public class ReturnDetailsActivity extends AppCompatActivity {
         tv_shenqingshijian = findViewById(R.id.tv_shenqingshijian);
         tv_tuikuanbianhao = findViewById(R.id.tv_tuikuanbianhao);
     }
+
+    private void initReimburse() {
+        Map<String,String> map = new HashMap<>();
+        map.put("orderNo",orderNo);
+        map.put("refundMoney",String.valueOf(returnDetails.getResult().get(0).getProducts().get(0).getPrice()
+                *returnDetails.getResult().get(0).getProducts().get(0).getBuyNum()));
+        OkGo.<String>get(Contacts.URl1+"order/aplipay/aplipayRefund")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        OKGson okGson = gson.fromJson(body, OKGson.class);
+                        if (okGson.getStatus() == 1){
+                            finish();
+                            ToastUtils.showShort("退款成功");
+                        }else{
+                            ToastUtils.showShort(okGson.getMsg());
+                        }
+                    }
+                });
+    }
+
+
     public void callPhone(String phoneNum){
         Intent intent = new Intent(Intent.ACTION_DIAL);
         Uri data = Uri.parse("tel:" + phoneNum);

@@ -252,9 +252,9 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ShopGson shop = gson.fromJson(body, ShopGson.class);
                         if (shop.getResult().getList().size()>0){
                             shangPinAdapter.add(shop.getResult().getList());
-                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                            smartrefreshlayout.finishLoadmore(true);
                         }else {
-                            smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                            smartrefreshlayout.finishLoadmore(true);
                         }
                     }
                     @Override

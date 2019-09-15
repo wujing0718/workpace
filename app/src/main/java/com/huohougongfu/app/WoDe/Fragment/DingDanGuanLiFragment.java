@@ -35,6 +35,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +64,7 @@ public class DingDanGuanLiFragment extends Fragment {
     private DingDanGuanLiAdapter dingDanGuanLiAdapter;
     private String token;
     private DingDanGuanLi myCollect;
+    private int page = 2;
 
     public DingDanGuanLiFragment() {
         // Required empty public constructor
@@ -188,6 +192,21 @@ public class DingDanGuanLiFragment extends Fragment {
                         }
                         break;
                 }
+            }
+        });
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 2;
+                initData();
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+//                initAdd();
             }
         });
     }

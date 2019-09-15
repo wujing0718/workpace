@@ -432,6 +432,7 @@
                                 android:layout_height="wrap_content" />
 
                             <TextView
+                                android:id="@+id/tv_productNum"
                                 android:layout_marginLeft="@dimen/icon_size_20dp"
                                 android:text="0"
                                 android:textSize="12sp"

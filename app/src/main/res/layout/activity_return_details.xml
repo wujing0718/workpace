@@ -245,6 +245,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/bt_tongyituikuan"
             android:layout_marginRight="@dimen/dp_20"
             android:text="同意退款"
             android:layout_gravity="right"

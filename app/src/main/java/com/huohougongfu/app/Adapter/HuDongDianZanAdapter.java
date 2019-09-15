@@ -24,11 +24,19 @@ public class HuDongDianZanAdapter extends BaseQuickAdapter<HuDongPingLun.ResultB
         RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         ImageView img_touxiang = helper.getView(R.id.img_touxiang);
         ImageView img_my_photo = helper.getView(R.id.img_my_photo);
+        View view_vip = helper.getView(R.id.view_vip);
         helper.setText(R.id.tv_name,item.getMember().getNickName());
         helper.setText(R.id.tv_my_fenlei,item.getMember().getMaster().getLevel());
         helper.setText(R.id.tv_my_weizhi,item.getMember().getPlace());
         helper.setText(R.id.tv_time,item.getCreateTime());
         helper.setText(R.id.tv_content,item.getMember().getNickName()+"点赞了你的动态");
+        if (item.getMember().isVip()){
+            view_vip.setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_my_vipnum,"."+item.getMember().getMemberLevel());
+        }else{
+            view_vip.setVisibility(View.GONE);
+        }
+//        helper.setText(R.id.tv_my_vipnum,item.getMember().get)
         RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
         if (item.getCircleData()!=null){
             helper.setText(R.id.tv_my_content,item.getCircleData().getContent());

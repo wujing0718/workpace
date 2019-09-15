@@ -60,7 +60,6 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
     private View inflate;
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_sousuo_dashi;
-    Map<String, String> map = new HashMap<>();
     private  String indexParams = "0";
     private TextView bt_dashi_zonghe,bt_dashi_renqi;
     private String name;
@@ -70,6 +69,8 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
 
     public SouSuoDaShiFragment() {
     }
+
+    private Map<String, String> map = new HashMap<>();
     Handler mHandler = new Handler() {
 
         @Override
@@ -77,7 +78,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    Map<String,String> map = (Map<String,String>)msg.obj;
+                    map = (Map<String,String>)msg.obj;
                     initData(map);
                     break;
                 default:
@@ -116,6 +117,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
     }
 
     private void initData(Map<String,String> map1) {
+        Map<String, String> map = new HashMap<>();
         map.clear();
         map.putAll(map1);
         map.put("page","1");

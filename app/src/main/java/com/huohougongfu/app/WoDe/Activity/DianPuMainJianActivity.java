@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.StoreEvents;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -49,6 +50,7 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
     private boolean editorStatus = false;
     private int index = 0;
     private TextView bt_dianpu_tianjia_huodong;
+    private StoreEvents myCollect;
 
 
     @Override
@@ -56,38 +58,39 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dian_pu_main_jian);
         initUI();
+    }
+
+    @Override
+    protected void onStart() {
         initData();
+        super.onStart();
     }
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
-        map.put("pageNo",String.valueOf(1));
-        map.put("pageSize",String.valueOf(10));
-        OkGo.<String>post(Contacts.URl1+"/my/collection")
+        OkGo.<String>get(Contacts.URl1+"/store/activeList/"+MyApp.instance.getInt("id"))
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        MyCollect myCollect = gson.fromJson(body, MyCollect.class);
+                        myCollect = gson.fromJson(body, StoreEvents.class);
                         if (myCollect.getStatus() == 1){
-                            if (myCollect.getResult().getList().size()==0){
+                            if (myCollect.getResult().size()==0){
                                 setBtnBackground(0);
                                 ll_mycollection_bottom_dialog.setVisibility(View.GONE);
                                 view_collect.setVisibility(View.GONE);
                             }else{
                                 view_collect.setVisibility(View.VISIBLE);
-                                initRec(myCollect.getResult().getList());
-
+                                initRec(myCollect.getResult());
                             }
                         }
                     }
                 });
     }
 
-    private void initRec(List<MyCollect.ResultBean.ListBean> list) {
+    private void initRec(List<StoreEvents.ResultBean> list) {
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
@@ -136,10 +139,14 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_guanli:
-                updataEditMode();
+                if (myCollect.getResult().size()>0){
+                    updataEditMode();
+                }
                 break;
             case R.id.select_all:
-                selectAllMain();
+                if (myCollect.getResult().size()>0){
+                    selectAllMain();
+                }
                 break;
             case R.id.btn_delete:
                 deleteVideo();
@@ -167,7 +174,7 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         for (int i = dianpuhuodongadapter.getMyLiveList().size(), j =0 ; i > j; i--) {
-                            MyCollect.ResultBean.ListBean myLive = dianpuhuodongadapter.getMyLiveList().get(i-1);
+                            StoreEvents.ResultBean myLive = dianpuhuodongadapter.getMyLiveList().get(i-1);
                             if (myLive.isSelect()) {
                                 int id = myLive.getId();
                                 initDel(id);
@@ -183,11 +190,7 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
     }
 
     private void initDel(int id) {
-        Map<String,String> map = new HashMap<>();
-        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
-        map.put("pId",String.valueOf(id));
-        OkGo.<String>post(Contacts.URl1+"/my/del/collection")
-                .params(map)
+        OkGo.<String>post(Contacts.URl1+"/del/"+id)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -259,9 +262,9 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    public void onItemClickListener(int pos, List<MyCollect.ResultBean.ListBean> myLiveList) {
+    public void onItemClickListener(int pos, List<StoreEvents.ResultBean> myLiveList) {
         if (editorStatus) {
-            MyCollect.ResultBean.ListBean myLive = myLiveList.get(pos);
+            StoreEvents.ResultBean myLive = myLiveList.get(pos);
             boolean isSelect = myLive.isSelect();
             if (!isSelect) {
                 index++;

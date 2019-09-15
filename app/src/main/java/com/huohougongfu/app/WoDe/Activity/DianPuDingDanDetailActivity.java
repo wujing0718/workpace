@@ -118,11 +118,11 @@ public class DianPuDingDanDetailActivity extends AppCompatActivity implements On
                         break;
                     case R.id.tv_pingjia:
                         if (!utils.isDoubleClick()){
-                            //已签收跳转评价
                             Intent intent = new Intent();
                             intent.putExtra("shopid",mydongdandetail.getResult().get(0).getMallStores().getMallProducts().get(position).getId());
                             intent.putExtra("storeName",mydongdandetail.getResult().get(0).getMallStores().getStoreName());
                             intent.putExtra("storeLogo",mydongdandetail.getResult().get(0).getMallStores().getStoreLogo());
+                            intent.putExtra("OrderNo",mydongdandetail.getResult().get(0).getOrderNo());
                             intent.setClass(DianPuDingDanDetailActivity.this,DingDanPingJiaActivity.class);
                             startActivity(intent);
                         }

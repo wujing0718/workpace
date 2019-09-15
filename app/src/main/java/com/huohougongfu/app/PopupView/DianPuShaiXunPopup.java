@@ -31,6 +31,8 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
     private TagAdapter<String> adapter1;
     private TagAdapter<String> adapter2;
     private TagAdapter<String> adapter3;
+    private Map<String,String> map = new HashMap<>();
+
 
     public DianPuShaiXunPopup(@NonNull Context context, Handler mHandler) {
         super(context);
@@ -160,9 +162,10 @@ public class DianPuShaiXunPopup extends DrawerPopupView implements View.OnClickL
                 haoping = "";
                 id_flowlayout_fahuodi.setAdapter(adapter2);
                 id_flowlayout_fenlei.setAdapter(adapter1);
+                id_flowlayout_haoping.setAdapter(adapter3);
                 break;
             case R.id.bt_queding:
-                Map<String,String> map = new HashMap<>();
+                map.clear();
                 if("1".equals(String.valueOf(fenlei))){
                     map.put("storeType",String.valueOf(1));
                 }else if ("0".equals(String.valueOf(fenlei))){

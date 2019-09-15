@@ -38,6 +38,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:scaleType="centerCrop"
                 android:id="@+id/img_guige_photo"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
