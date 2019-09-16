@@ -41,8 +41,8 @@
             <ImageView
                 android:layout_centerInParent="true"
                 android:src="@mipmap/img_xiaoxi_black"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
 
         </RelativeLayout>
 
@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/bt_xinxi"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -114,6 +115,7 @@
 
                             <LinearLayout
                                 android:id="@+id/view_vip"
+                                android:visibility="gone"
                                 android:layout_gravity="center_vertical"
                                 android:orientation="horizontal"
                                 android:layout_width="wrap_content"
@@ -186,6 +188,8 @@
                                 android:layout_height="wrap_content">
 
                                 <View
+                                    android:visibility="gone"
+                                    android:id="@+id/view_line"
                                     android:layout_marginHorizontal="4dp"
                                     android:background="#818181"
                                     android:layout_gravity="center_vertical"
@@ -297,9 +301,10 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="2dp"
                     android:textSize="12sp"
+                    android:layout_marginLeft="8dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/colorWhite"
-                    android:background="@drawable/black_di"
+                    android:background="@drawable/jianjie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -693,6 +698,39 @@
 
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:id="@+id/bt_dingdan_shouhou"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/img_shouhou"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp" />
+
+                            <TextView
+                                android:text="售后"
+                                android:textSize="12sp"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="@color/colorBlack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
 
                 </LinearLayout>
 
@@ -774,12 +812,13 @@
                                 android:id="@+id/img_ishuiyuan"
                                 android:src="@mipmap/img_huiyuan_yes"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp" />
+                                android:layout_width="35dp"
+                                android:layout_height="35dp" />
 
                             <TextView
                                 android:text="会员标识"
                                 android:textColor="@color/colorBlack"
+                                android:textSize="12sp"
                                 android:layout_marginTop="@dimen/dp_6"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
@@ -797,13 +836,14 @@
                                 android:id="@+id/img_isdianpu"
                                 android:src="@mipmap/img_dianpu_yes"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp" />
+                                android:layout_width="35dp"
+                                android:layout_height="35dp" />
 
                             <TextView
                                 android:text="线上店铺"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginTop="@dimen/dp_6"
+                                android:textSize="12sp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -820,12 +860,13 @@
                                 android:id="@+id/img_ischami"
                                 android:src="@mipmap/img_chami_yes"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp" />
+                                android:layout_width="35dp"
+                                android:layout_height="35dp" />
 
                             <TextView
                                 android:text="茶米福利"
                                 android:textColor="@color/colorBlack"
+                                android:textSize="12sp"
                                 android:layout_marginTop="@dimen/dp_6"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
@@ -852,13 +893,14 @@
                                 android:id="@+id/img_isquanxian"
                                 android:src="@mipmap/img_zhiding_yes"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp" />
+                                android:layout_width="@dimen/dp_35"
+                                android:layout_height="@dimen/dp_35" />
 
                             <TextView
                                 android:text="置顶权限"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginTop="@dimen/dp_6"
+                                android:textSize="12sp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -875,11 +917,12 @@
                                 android:id="@+id/img_isfangsaorao"
                                 android:src="@mipmap/img_fangsaorao_no"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp" />
+                                android:layout_width="@dimen/dp_35"
+                                android:layout_height="@dimen/dp_35" />
 
                             <TextView
                                 android:text="防止骚扰"
+                                android:textSize="12sp"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginTop="@dimen/dp_6"
                                 android:layout_gravity="center_horizontal"
@@ -898,11 +941,12 @@
                                 android:id="@+id/img_iskefu"
                                 android:src="@mipmap/img_kefu_yes"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp" />
+                                android:layout_width="@dimen/dp_35"
+                                android:layout_height="@dimen/dp_35" />
 
                             <TextView
                                 android:text="专属客服"
+                                android:textSize="12sp"
                                 android:textColor="@color/colorBlack"
                                 android:layout_marginTop="@dimen/dp_6"
                                 android:layout_gravity="center_horizontal"

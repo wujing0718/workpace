@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyDingDanActivity extends AppCompatActivity {
-    private final String[] mTitles = {"全部", "待付款", "待发货", "待收货", "待评价"};
-    private final String[] orderStatus = {"","0", "1", "2", "3"};
+    private final String[] mTitles = {"全部", "待付款", "待发货", "待收货", "待评价","售后"};
+    private final String[] orderStatus = {"","0", "1", "2", "3","-5"};
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
@@ -49,7 +49,6 @@ public class MyDingDanActivity extends AppCompatActivity {
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(position);
         stl.setViewPager(mViewPager);
-        stl.setCurrentTab(position);
     }
 
 }

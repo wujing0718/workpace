@@ -32,6 +32,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +62,7 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
     private View ll_mycollection_bottom_dialog;
     private ImageView img_select_all;
     private View view_collect;
+    private int page = 2;
 
 
     @Override
@@ -73,10 +77,10 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(mId));
-        map.put("page",String.valueOf(1));
+        map.put("mId",String.valueOf(mId));
+        map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
-        OkGo.<String>post(Contacts.URl1+"getCollectionProductList")
+        OkGo.<String>post(Contacts.URl1+"/my/collection")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -107,6 +111,46 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
         mycollectadapter.notifyAdapter(list,false);
         rec_mycollect.setAdapter(mycollectadapter);
         mycollectadapter.setOnItemClickListener(this);
+        //刷新
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initData();
+                smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(mId));
+        map.put("pageNo",String.valueOf(page++));
+        map.put("pageSize",String.valueOf(10));
+        OkGo.<String>post(Contacts.URl1+"/my/collection")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        WoDeCollect myCollect = gson.fromJson(body, WoDeCollect.class);
+                        if (myCollect.getStatus() == 1){
+                            if (myCollect.getResult().getList().size()>0){
+                                mycollectadapter.add(myCollect.getResult().getList());
+                                smartrefreshlayout.finishLoadmore(true);
+                            }else {
+                                smartrefreshlayout.finishLoadmore(true);
+                            }
+                        }
+                    }
+                });
     }
 
     private void initUI() {
@@ -174,9 +218,9 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
 
     private void initDel(int id) {
         Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(mId));
-        map.put("ids",String.valueOf(id));
-        OkGo.<String>post(Contacts.URl1+"deleteByIds")
+        map.put("mId",String.valueOf(mId));
+        map.put("pId",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl1+"/my/del/collection")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -289,7 +333,7 @@ public class MyCollectActivity extends AppCompatActivity implements OnClickListe
             mycollectadapter.notifyDataSetChanged();
         }else{
             Intent intent = new Intent();
-            intent.putExtra("id",myLiveList.get(pos).getPId());
+            intent.putExtra("id",myLiveList.get(pos).getId());
             intent.setClass(MyCollectActivity.this,ShangPinDetailActivity.class);
             startActivity(intent);
         }

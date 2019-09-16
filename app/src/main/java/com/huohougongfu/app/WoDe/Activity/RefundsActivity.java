@@ -75,8 +75,8 @@ public class RefundsActivity extends AppCompatActivity {
         Glide.with(MyApp.context).load(result.get(0).getProducts().get(0).getCoverUrl()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop())
                 .into(img_photo);
         tv_shop_standard.setText(result.get(0).getProducts().get(0).getStandard());
-        tv_shop_num.setText("X"+String.valueOf(result.get(0).getProducts().get(0).getNum()));
-        tv_RefundAmount.setText(String.valueOf(result.get(0).getProducts().get(0).getPrice()));
+        tv_shop_num.setText("X"+String.valueOf(result.get(0).getProducts().get(0).getBuyNum()));
+        tv_RefundAmount.setText(String.valueOf(result.get(0).getRefundMoney()));
         tv_RefundPath.setText(result.get(0).getRefundChannel());
         tv_reasonForReturn.setText(result.get(0).getReason());
         tv_shenqingshijian.setText(result.get(0).getCreateTime1());

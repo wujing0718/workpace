@@ -75,7 +75,7 @@ public class ReturnDetails {
         private String orderNo;
         private int productId;
         private int standardId;
-        private Object prodductNum;
+        private int prodductNum;
         private double refundMoney;
         private int refundStatus;
         private int type;
@@ -150,11 +150,11 @@ public class ReturnDetails {
             this.standardId = standardId;
         }
 
-        public Object getProdductNum() {
+        public int getProdductNum() {
             return prodductNum;
         }
 
-        public void setProdductNum(Object prodductNum) {
+        public void setProdductNum(int prodductNum) {
             this.prodductNum = prodductNum;
         }
 

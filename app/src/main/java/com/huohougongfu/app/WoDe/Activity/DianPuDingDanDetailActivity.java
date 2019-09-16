@@ -144,7 +144,7 @@ public class DianPuDingDanDetailActivity extends AppCompatActivity implements On
         tv_serviceRegulations.setText(result.get(0).getServiceRegulations());
         tv_shouhuo_name.setText(result.get(0).getReceiverName());
         tv_shouhuo_phone.setText(result.get(0).getPhone());
-        tv_shouhuo_address.setText(result.get(0).getReceiverName()+result.get(0).getAreaName()+result.get(0).getDetailAddr());
+        tv_shouhuo_address.setText(result.get(0).getAreaName()+result.get(0).getDetailAddr());
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(result.get(0).getMallStores().getStoreLogo()).apply(requestOptions).into(img_dianpu_logo);
         tv_dianpu_name.setText(result.get(0).getMallStores().getStoreName());

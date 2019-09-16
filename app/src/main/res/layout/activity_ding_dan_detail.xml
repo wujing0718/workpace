@@ -210,7 +210,7 @@
 
                             <TextView
                                 android:id="@+id/tv_shouhuo_name"
-                                android:text="李女士"
+                                android:text=""
                                 android:textSize="17sp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/black"
@@ -220,7 +220,7 @@
                             <TextView
                                 android:id="@+id/tv_shouhuo_phone"
                                 android:layout_marginLeft="@dimen/dp_10"
-                                android:text="15088888888"
+                                android:text=""
                                 android:textSize="14sp"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/black"
@@ -243,7 +243,7 @@
                                 android:textSize="@dimen/text_size_12sp"
                                 android:layout_marginRight="20dp"
                                 android:layout_gravity="center_vertical"
-                                android:text="广东省深圳市龙岗区龙岗街道金地龙城中央2期7栋705"
+                                android:text=""
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 

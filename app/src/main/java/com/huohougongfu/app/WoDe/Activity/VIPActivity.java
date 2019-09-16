@@ -68,7 +68,7 @@ public class VIPActivity extends AppCompatActivity implements OnClickListener {
     }
 
     private void initView(VIP vip) {
-        progress.setProgress(vip.getResult().getVipPercent());
+        progress.setProgress(vip.getResult().getVipPercent()*100);
         tv_stavip.setText("VIP"+vip.getResult().getVipLevel());
         tv_endvip.setText("VIP"+(Integer.valueOf(vip.getResult().getVipLevel())+1));
         tv_totalIntegralNum.setText("+"+vip.getResult().getTotalIntegralNum());

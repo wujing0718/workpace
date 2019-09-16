@@ -143,6 +143,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bt_qq:
                 mShareAPI.getPlatformInfo(this,SHARE_MEDIA.QQ,umAuthListener);
                 break;
+            case R.id.bt_weibo:
+                mShareAPI.getPlatformInfo(this,SHARE_MEDIA.SINA,umAuthListener);
+                break;
             case R.id.bt_login:
                 if (!utils.isDoubleClick()){
                     if (yanzhengmadenglu.getVisibility() == View.VISIBLE){

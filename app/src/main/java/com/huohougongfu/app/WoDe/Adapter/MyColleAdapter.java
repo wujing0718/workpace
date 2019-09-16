@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.Gson.WoDeCollect;
 import com.huohougongfu.app.R;
 
@@ -87,8 +88,8 @@ public class MyColleAdapter extends RecyclerView.Adapter<MyColleAdapter.ViewHold
                 viewHolder.iv_select.setImageResource(R.mipmap.unselect);
             }
         }
-        Glide.with(context).load(myLive.getProductPicture()).into(viewHolder.img_shangpin_photo);
-        viewHolder.tv_shangpin_title.setText(myLive.getProductName());
+        Glide.with(context).load(myLive.getCoverUrl()).into(viewHolder.img_shangpin_photo);
+        viewHolder.tv_shangpin_title.setText(myLive.getName());
         viewHolder.tv_shangpin_price.setText("¥"+String.valueOf(myLive.getMarketPrice()));
         viewHolder.tv_shangpin_collect_num.setText(String.valueOf(myLive.getCollectionNum())+"人收藏");
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -125,5 +126,20 @@ public class MyColleAdapter extends RecyclerView.Adapter<MyColleAdapter.ViewHold
             tv_shangpin_collect_num = itemView.findViewById(R.id.tv_shangpin_collect_num);
 
         }
+    }
+
+    //下面两个方法提供给页面刷新和加载时调用
+    public void add(List<WoDeCollect.ResultBean.ListBean> data) {
+        //增加数据
+        int position = mMyLiveList.size();
+        mMyLiveList.addAll(position, data);
+        notifyItemRangeChanged(position,data.size());
+    }
+
+    public void refresh(List<WoDeCollect.ResultBean.ListBean> data) {
+        //刷新数据
+        mMyLiveList.remove(mMyLiveList);
+        mMyLiveList.addAll(data);
+        notifyDataSetChanged();
     }
 }

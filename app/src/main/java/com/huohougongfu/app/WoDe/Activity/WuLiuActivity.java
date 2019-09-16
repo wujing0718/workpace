@@ -57,7 +57,7 @@ public class WuLiuActivity extends AppCompatActivity {
         if (result.getExpName()!=null){
             tv_kuaidi_phone.setText("官方电话："+result.getExpName());
         }else{
-            tv_kuaidi_phone.setText("官方电话："+"号码错误");
+            tv_kuaidi_phone.setText("官方电话："+"订单号错误");
         }
         tv_kuaidi_danhao.setText("快递单号："+result.getNumber());
         Glide.with(MyApp.context).load(result.getLogo()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_duaidi_photo);

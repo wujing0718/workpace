@@ -339,7 +339,7 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
                                 quanBuDaShiAdapter.add(shangPinGson.getResult().getAllMaster().getList());
                                 smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                             }else {
-                                smartrefreshlayout. finishLoadmoreWithNoMoreData();
+                                smartrefreshlayout. finishLoadMore();
                             }
                         }
                     }

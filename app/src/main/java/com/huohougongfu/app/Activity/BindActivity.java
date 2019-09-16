@@ -182,6 +182,8 @@ public class BindActivity extends AppCompatActivity implements View.OnClickListe
                                     JudgeGson judgeGson = new Gson().fromJson(body, JudgeGson.class);
                                     if (judgeGson.getStatus() == 1){
                                         initLogin(judgeGson.getResult());
+                                    }else{
+                                        ToastUtils.showShort(judgeGson.getMsg());
                                     }
                                 }
 

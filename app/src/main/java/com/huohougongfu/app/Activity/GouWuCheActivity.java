@@ -142,7 +142,7 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
                     ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean mallProductsBean = mallStores.get(i).getMallProducts().get(y);
                     boolean isSelect = mallProductsBean.getIsSelect();
                     if (isSelect) {
-                        str += mallProductsBean.getId()+",";
+                        str += mallProductsBean.getCartId()+",";
                         hasSelect = true;
                     }
                 }
@@ -157,7 +157,7 @@ public class GouWuCheActivity extends AppCompatActivity implements OnClickListen
                 ShoppingCarDataBean.ResultBean.MallStoresBean.MallProductsBean goodsBean = mallStores.get(i).getMallProducts().get(y);
                 boolean isSelect = goodsBean.getIsSelect();
                 if (isSelect) {
-                    str += goodsBean.getId()+",";
+                    str += goodsBean.getCartId()+",";
                     hasSelect = true;
                 }else{
                 }

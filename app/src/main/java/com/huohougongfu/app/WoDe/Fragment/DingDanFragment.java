@@ -157,7 +157,7 @@ public class DingDanFragment extends Fragment {
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                     switch (view.getId()){
                         case R.id.bt_anniu_one:
-                            if (result.get(position).getOrderStatus()==1||result.get(position).getOrderStatus()==0){
+                            if (result.get(position).getOrderStatus()==0){
                                 initQuanXiao(result.get(position).getOrderNo(),result.get(position).getOrderStatus());
                             }else if (result.get(position).getOrderStatus()==2||result.get(position).getOrderStatus()==3){
                                 intent.putExtra("logisticsName",result.get(position).getLogisticsName());

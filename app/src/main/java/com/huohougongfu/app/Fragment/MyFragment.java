@@ -95,6 +95,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     private String phone;
     private String token;
     private TextView tv_productNum;
+    private View view_line;
 
     public MyFragment() {
         // Required empty public constructor
@@ -274,6 +275,13 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     }
 
     private void initView(MyZhuYe.ResultBean result) {
+        if (token.isEmpty()){
+            view_vip.setVisibility(View.GONE);
+            view_line.setVisibility(View.GONE);
+        }else{
+            view_vip.setVisibility(View.VISIBLE);
+            view_line.setVisibility(View.VISIBLE);
+        }
         RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         Glide.with(getActivity()).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
         tv_my_name.setText(result.getNickName());
@@ -307,6 +315,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     }
 
     private void initUI() {
+        view_line = inflate.findViewById(R.id.view_line);
         tv_productNum = inflate.findViewById(R.id.tv_productNum);
         view_vip = inflate.findViewById(R.id.view_vip);
         img_ishuiyuan = inflate.findViewById(R.id.img_ishuiyuan);
@@ -315,7 +324,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         img_isquanxian = inflate.findViewById(R.id.img_isquanxian);
         img_isfangsaorao = inflate.findViewById(R.id.img_isfangsaorao);
         img_iskefu = inflate.findViewById(R.id.img_iskefu);
-
+        inflate.findViewById(R.id.bt_xinxi).setOnClickListener(this);
         inflate.findViewById(R.id.bt_setting).setOnClickListener(this);
         bt_my_gouwuche = inflate.findViewById(R.id.bt_my_gouwuche);
         bt_my_gouwuche.setOnClickListener(this);
@@ -337,7 +346,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         bt_dingdan_daishouhuo.setOnClickListener(this);
         bt_dingdan_pingjia = inflate.findViewById(R.id.bt_dingdan_pingjia);
         bt_dingdan_pingjia.setOnClickListener(this);
-//        inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_dingdan_shouhou).setOnClickListener(this);
         inflate.findViewById(R.id.bt_zhuanke).setOnClickListener(this);
         inflate.findViewById(R.id.bt_yaoqing).setOnClickListener(this);
 
@@ -378,6 +387,33 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_dingdan_shouhou:
+                if (!utils.isDoubleClick()){
+                    if (!token.isEmpty()){
+                        intent.putExtra("position",5);
+                        intent.setClass(getActivity(),MyDingDanActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
+                }
+                break;
+            case R.id.bt_xinxi:
+                if (!utils.isDoubleClick()){
+                    if (!token.isEmpty()){
+                        intent.setClass(getActivity(),SettingActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
+                }
+                break;
             case R.id.bt_yaoqing:
                 if (!utils.isDoubleClick()){
                     if (!token.isEmpty()){

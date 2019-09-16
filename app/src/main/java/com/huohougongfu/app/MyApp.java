@@ -148,7 +148,7 @@ public class MyApp extends Application {
         //QQ
         PlatformConfig.setQQZone("101767868", "64b41c424e93122ef5430ac54c194621");
         //新浪
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad","http://sns.whalecloud.com");
+        PlatformConfig.setSinaWeibo("3354599465", "b194e78d0a9811f19c262a37ae5205c8","https://api.weibo.com/oauth2/default.html");
 
         instance = SPUtils.getInstance("登录");
         String rongToken = instance.getString("rongToken");
