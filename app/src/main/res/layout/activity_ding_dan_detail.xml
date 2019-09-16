@@ -357,7 +357,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="¥0.00"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -380,7 +379,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="8折"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -402,7 +400,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="- ¥0.10"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -425,7 +422,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="¥199.00"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -476,7 +472,7 @@
                             android:textSize="12sp"
                             android:textColor="#818181"
                             android:layout_marginLeft="@dimen/dp_20"
-                            android:text="46695448724845"
+                            android:text=""
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -517,7 +513,7 @@
                             android:textSize="12sp"
                             android:textColor="#818181"
                             android:layout_marginLeft="@dimen/dp_20"
-                            android:text="2019-06-08 15:00:00"
+                            android:text=""
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -548,7 +544,7 @@
                             android:textSize="12sp"
                             android:textColor="#818181"
                             android:layout_marginLeft="@dimen/dp_20"
-                            android:text="2019-06-08 15:00:00"
+                            android:text=""
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 

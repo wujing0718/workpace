@@ -55,9 +55,22 @@ public class MyDingDanAdapter extends BaseQuickAdapter<MyDingDan.ResultBean.List
         }else if (item.getOrderStatus()==-5){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("删除订单");
-        } if (item.getOrderStatus()==-4){
+        }else if (item.getOrderStatus()==-4){
             bt_anniu_one.setVisibility(View.GONE);
             bt_anniu_two.setText("删除订单");
+        }else if (item.getOrderStatus()==-7){
+            bt_anniu_one.setVisibility(View.GONE);
+            bt_anniu_two.setVisibility(View.GONE);
+        }else if (item.getOrderStatus()==-6){
+            bt_anniu_one.setVisibility(View.GONE);
+            bt_anniu_two.setVisibility(View.GONE);
+        }else if (item.getOrderStatus()==-5){
+            bt_anniu_one.setVisibility(View.GONE);
+            bt_anniu_two.setVisibility(View.GONE);
+        }else if (item.getOrderStatus()==-3){
+            bt_anniu_one.setVisibility(View.GONE);
+            bt_anniu_two.setText("删除订单");
+            bt_anniu_two.setVisibility(View.VISIBLE);
         }
         helper.setText(R.id.tv_dingdan_num,"共计："+item.getProductTotalNum()+"件商品");
         helper.setText(R.id.tv_dingdan_price,"合计：¥"+item.getOrderAmountTotal());

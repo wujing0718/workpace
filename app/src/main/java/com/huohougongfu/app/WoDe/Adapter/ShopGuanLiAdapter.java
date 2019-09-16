@@ -57,9 +57,11 @@ public class ShopGuanLiAdapter extends BaseQuickAdapter<ShopGuanLiLieBiao.Result
             slanted.setVisibility(View.GONE);
         }
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
-        String coverUrl = item.getCoverUrl();
-        String[] split = coverUrl.split(",");
-        Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_jingxuan_photo);
+        if (item.getCoverUrl()!=null){
+            String coverUrl = item.getCoverUrl();
+            String[] split = coverUrl.split(",");
+            Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_jingxuan_photo);
+        }
         helper.setText(R.id.tv_jingxuan_title,item.getName());
         helper.setText(R.id.tv_jingxuan_price,String.valueOf(item.getPrice()));
         helper.setText(R.id.tv_jingxuan_name,"【"+item.getStoreName()+"】");

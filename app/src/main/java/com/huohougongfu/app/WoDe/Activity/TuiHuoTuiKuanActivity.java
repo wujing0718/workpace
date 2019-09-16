@@ -134,8 +134,7 @@ public class TuiHuoTuiKuanActivity extends AppCompatActivity implements View.OnC
         tv_shop_guige.setText(bean.getStandard());
         findViewById(R.id.bt_finish).setOnClickListener(this);
         tv_shop_num.setText(String.valueOf(bean.getNum()));
-        tv_shop_price.setText("¥"+bean.getPrice());
-        
+        tv_shop_price.setText("¥"+bean.getPrice()*bean.getNum());
         findViewById(R.id.bt_tuikuan_yuanyin).setOnClickListener(this);
         findViewById(R.id.bt_kuaidi_gongsi).setOnClickListener(this);
         findViewById(R.id.bt_tijiao).setOnClickListener(this);
@@ -173,6 +172,7 @@ public class TuiHuoTuiKuanActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
+
     private void initTiJiao() {
         Map<String,String> map = new HashMap<>();
         map.putAll(yuanyin);
@@ -224,7 +224,6 @@ public class TuiHuoTuiKuanActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         }
-
 
     //初始化展示上传图片的GridView
     private void initGridView(){
@@ -323,4 +322,5 @@ public class TuiHuoTuiKuanActivity extends AppCompatActivity implements View.OnC
                 .asCustom(new KuaiDiGongSi(TuiHuoTuiKuanActivity.this,mHandlerkuaidi))
                 .show();
     }
+
 }

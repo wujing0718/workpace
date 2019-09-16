@@ -187,7 +187,7 @@ public class BindActivity extends AppCompatActivity implements View.OnClickListe
 
                                 @Override
                                 public void onStart(Request<String, ? extends Request> request) {
-                                    WaitDialog.show(BindActivity.this,"请稍后。。。");
+//                                    WaitDialog.show(BindActivity.this,"请稍后。。。");
                                     super.onStart(request);
                                 }
                             });

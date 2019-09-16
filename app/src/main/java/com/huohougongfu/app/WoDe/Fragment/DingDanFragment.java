@@ -203,7 +203,7 @@ public class DingDanFragment extends Fragment {
                             }else if ((result.get(position).getOrderStatus() == 1)){
                                 //提醒发货
                                 initRemind(result.get(position).getOrderNo());
-                            }else if ((result.get(position).getOrderStatus() == -4)){
+                            }else if ((result.get(position).getOrderStatus() == -4 || result.get(position).getOrderStatus() == -3|| result.get(position).getOrderStatus() == -7)){
                                 initDelete(result.get(position).getOrderNo());
                             }
                             break;

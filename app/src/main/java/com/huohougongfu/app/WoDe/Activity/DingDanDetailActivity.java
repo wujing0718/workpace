@@ -175,7 +175,6 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 view_logistics.setVisibility(View.GONE);
                 tv_dingdan_zhuangtai.setText("待付款");
             }
-
         }else if (orderStatus == 1){
             tv_dingdan_caozuo1.setText("取消订单");
             tv_dingdan_caozuo2.setText("提醒发货");
@@ -259,7 +258,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                     //删除订单
                     initDelete(orderNo);
                 }else if (orderStatus == 2){
-                    initQueRen(orderNo);
+                    initQueRenShouHuo(orderNo);
                 }else if (orderStatus == 0){
                     if (ofManager == 1){
                         //联系卖家
@@ -379,41 +378,25 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 });
     }
 
-    //  确认订单
-    private void initQueRen(String orderNo) {
-        SelectDialog.show(DingDanDetailActivity.this, "提示", "是否确认收货",
-                "确定", new DialogInterface.OnClickListener() {
+    //确认收货
+    private void initQueRenShouHuo(String orderNo) {
+        Map<String,String> map = new HashMap<>();
+        map.put("orderNo",orderNo);
+        map.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+        OkGo.<String>get(Contacts.URl1+"order/confirmReciver")
+                .params(map)
+                .execute(new StringCallback() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(!utils.isDoubleClick()){
-                            Map<String,String> map = new HashMap<>();
-                            map.put("createBy",String.valueOf(id));
-                            map.put("orderNo",orderNo);
-                            OkGo.<String>post(Contacts.URl1+"order/confirmReciver")
-                                    .params(map)
-                                    .execute(new StringCallback() {
-                                        @Override
-                                        public void onSuccess(Response<String> response) {
-                                            String body = response.body();
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(body);
-                                                if (jsonObject.getInt("status") == 1){
-                                                    ToastUtils.showShort(jsonObject.getString("msg"));
-                                                    finish();
-                                                }else{
-                                                    ToastUtils.showShort(jsonObject.getString("msg"));
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status" ) == 1){
+                                initData();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    }
-                },
-                "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
                     }
                 });
     }

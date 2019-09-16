@@ -75,7 +75,7 @@ public class RefundsActivity extends AppCompatActivity {
         Glide.with(MyApp.context).load(result.get(0).getProducts().get(0).getCoverUrl()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop())
                 .into(img_photo);
         tv_shop_standard.setText(result.get(0).getProducts().get(0).getStandard());
-        tv_shop_num.setText("X"+String.valueOf(result.get(0).getProducts().get(0).getBuyNum()));
+        tv_shop_num.setText("X"+String.valueOf(result.get(0).getProducts().get(0).getNum()));
         tv_RefundAmount.setText(String.valueOf(result.get(0).getProducts().get(0).getPrice()));
         tv_RefundPath.setText(result.get(0).getRefundChannel());
         tv_reasonForReturn.setText(result.get(0).getReason());
@@ -149,8 +149,7 @@ public class RefundsActivity extends AppCompatActivity {
     private void initReimburse() {
         Map<String,String> map = new HashMap<>();
         map.put("orderNo",orderNo);
-        map.put("refundMoney",String.valueOf(returnDetails.getResult().get(0).getProducts().get(0).getPrice()
-                *returnDetails.getResult().get(0).getProducts().get(0).getBuyNum()));
+        map.put("refundMoney",String.valueOf(returnDetails.getResult().get(0).getRefundMoney()));
         OkGo.<String>get(Contacts.URl1+"order/aplipay/aplipayRefund")
                 .params(map)
                 .execute(new StringCallback() {

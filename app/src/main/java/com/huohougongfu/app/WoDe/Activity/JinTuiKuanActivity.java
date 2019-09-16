@@ -112,7 +112,7 @@ public class JinTuiKuanActivity extends AppCompatActivity implements View.OnClic
         tv_shop_title.setText(bean.getName());
         tv_shop_guige.setText(bean.getStandard());
         tv_shop_num.setText(String.valueOf(bean.getNum()));
-        tv_shop_price.setText("¥"+bean.getPrice());
+        tv_shop_price.setText("¥"+bean.getPrice()*bean.getNum());
         findViewById(R.id.bt_finish).setOnClickListener(this);
     }
 

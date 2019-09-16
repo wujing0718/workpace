@@ -136,8 +136,7 @@ public class ReturnDetailsActivity extends AppCompatActivity {
     private void initReimburse() {
         Map<String,String> map = new HashMap<>();
         map.put("orderNo",orderNo);
-        map.put("refundMoney",String.valueOf(returnDetails.getResult().get(0).getProducts().get(0).getPrice()
-                *returnDetails.getResult().get(0).getProducts().get(0).getBuyNum()));
+        map.put("refundMoney",String.valueOf(returnDetails.getResult().get(0).getRefundMoney()));
         OkGo.<String>get(Contacts.URl1+"order/aplipay/aplipayRefund")
                 .params(map)
                 .execute(new StringCallback() {
