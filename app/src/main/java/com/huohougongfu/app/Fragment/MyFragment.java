@@ -296,13 +296,13 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         }else{
             bt_dianpu.setVisibility(View.GONE);
         }
-        if (result.getPlace()!=null){
+        if (result.getPlace()!=null && !result.getPlace().isEmpty()){
             view_weizhi.setVisibility(View.VISIBLE);
             tv_my_weizhi.setText(result.getPlace());
         }else{
             view_weizhi.setVisibility(View.GONE);
         }
-        if (result.getPersonalProfile()!= null){
+        if (result.getPersonalProfile()!= null && !result.getPersonalProfile().isEmpty()){
             tv_my_jianjie.setText(result.getPersonalProfile());
         }else{
             tv_my_jianjie.setText("暂无简介");

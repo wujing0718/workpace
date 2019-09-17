@@ -3,11 +3,11 @@
     android:shape="rectangle">
     <!-- 边框 -->
     <stroke
-        android:width="1.5dp"
-        android:color="#D3AA79" />
+        android:width="1dp"
+        android:color="#CCBA91" />
 
     <!-- 形状颜色（如果需要的是空心矩形, 则形状颜色设置为透明） -->
-    <solid android:color="@color/color_white" />
-    <corners android:radius="6dp" />
+    <solid android:color="#CCBA91" />
+    <corners android:radius="3dp" />
 
 </shape>

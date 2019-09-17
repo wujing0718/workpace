@@ -46,9 +46,9 @@ public class MyDingDanActivity extends AppCompatActivity {
             mFragments.add(DingDanFragment.newInstance(orderStatus[i]));
         }
         mAdapter = new MyPagerAdapter(getSupportFragmentManager(),mFragments,mtabtitle);
+        mViewPager.setCurrentItem(position,true);
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setCurrentItem(position);
         stl.setViewPager(mViewPager);
+        stl.setCurrentTab(position,true);
     }
-
 }

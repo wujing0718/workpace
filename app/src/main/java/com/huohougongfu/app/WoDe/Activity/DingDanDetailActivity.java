@@ -209,7 +209,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         }else if (orderStatus == 4){
             tv_dingdan_caozuo1.setVisibility(View.GONE);
             tv_dingdan_caozuo2.setVisibility(View.GONE);
-        } else if (orderStatus == -5){
+        } else if (orderStatus == -5 || orderStatus == -7){
             tv_dingdan_caozuo1.setVisibility(View.GONE);
             tv_dingdan_caozuo2.setVisibility(View.GONE);
         }

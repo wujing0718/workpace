@@ -254,7 +254,7 @@ public class GuiGe extends BottomPopupView {
         if( null == codeBtn ){
             return;
         }
-        codeBtn.setBackgroundResource(R.drawable.selector_paocha);
+        codeBtn.setBackgroundResource(R.drawable.sousuo_shaixuan);
         codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
         codeBtn.setId(id);
         if (id == 0){

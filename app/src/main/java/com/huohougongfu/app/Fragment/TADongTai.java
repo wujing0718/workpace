@@ -61,7 +61,6 @@ public class TADongTai extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(mId));
-//        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
         OkGo.<String>post(Contacts.URl1+"/my/dynamic")
@@ -119,6 +118,7 @@ public class TADongTai extends Fragment {
             smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
                 @Override
                 public void onRefresh(RefreshLayout refreshlayout) {
+                    page = 2;
                     initData();
                 }
             });
@@ -137,8 +137,8 @@ public class TADongTai extends Fragment {
     private void initAdd() {
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(mId));
-        map.put("pageNo",String.valueOf(1));
-        map.put("pageSize",String.valueOf(page++));
+        map.put("pageNo",String.valueOf(page++));
+        map.put("pageSize",String.valueOf(10));
         OkGo.<String>post(Contacts.URl1+"/my/dynamic")
                 .params(map)
                 .execute(new StringCallback() {

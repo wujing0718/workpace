@@ -249,14 +249,75 @@
             <TextView
                 android:id="@+id/bt_login"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/login_kuang"
+                android:background="@drawable/black_di"
                 android:layout_marginHorizontal="38dp"
                 android:text="登录"
                 android:textSize="17sp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="44dp" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.huohougongfu.app.Utils.SmoothCheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:color_checked="@color/colorBlack"
+                    app:color_tick="@color/colorWhite"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    />
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="注册表示同意"
+                        android:textSize="11sp"
+                        android:textColor="@color/colorHui"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/bt_xieyi"
+                        android:text="《用户协议》"
+                        android:textSize="11sp"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textColor="@color/colorHui"
+                        android:text="和"
+                        android:textSize="11sp"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/bt_yinsi"
+                        android:text="《隐私政策》"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

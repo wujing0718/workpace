@@ -80,9 +80,11 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                             if (daShiJianJie.getResult().getIsCollection()==1){
                                 bt_dashi_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
                                 bt_dashi_guanzhu.setText("已关注");
+                                bt_dashi_guanzhu.setTextColor(MyApp.context.getResources().getColor(R.color.colorWhite));
                             }else{
                                 bt_dashi_guanzhu.setBackgroundResource(R.drawable.guanzhu);
                                 bt_dashi_guanzhu.setText("+关注");
+                                bt_dashi_guanzhu.setTextColor(MyApp.context.getResources().getColor(R.color.colorBlack));
                             }
                         }
                     }
@@ -169,6 +171,8 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
                                 bt_dashi_guanzhu.setText("已关注");
+                                bt_dashi_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                                bt_dashi_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
                                 daShiJianJie.getResult().setIsCollection(1);
                             }
                         } catch (JSONException e) {
@@ -192,6 +196,8 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                             if (jsonObject.getInt("status") == 1){
                                 bt_dashi_guanzhu.setText("+关注");
                                 daShiJianJie.getResult().setIsCollection(0);
+                                bt_dashi_guanzhu.setBackgroundResource(R.drawable.guanzhu);
+                                bt_dashi_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -418,6 +418,7 @@
                             android:text="我的店铺"
                             android:layout_marginLeft="15dp"
                             android:textSize="17sp"
+                            android:textStyle="bold"
                             android:textColor="@color/colorWhite"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -431,6 +432,7 @@
 
                             <TextView
                                 android:text="上架产品"
+                                android:textStyle="bold"
                                 android:textSize="12sp"
                                 android:textColor="@color/colorWhite"
                                 android:layout_width="wrap_content"
@@ -440,6 +442,7 @@
                                 android:id="@+id/tv_productNum"
                                 android:layout_marginLeft="@dimen/icon_size_20dp"
                                 android:text="0"
+                                android:textStyle="bold"
                                 android:textSize="12sp"
                                 android:textColor="@color/colorWhite"
                                 android:layout_width="wrap_content"
@@ -471,6 +474,7 @@
 
                         <TextView
                             android:text="我的动态"
+                            android:textStyle="bold"
                             android:layout_marginLeft="15dp"
                             android:textSize="17sp"
                             android:textColor="@color/colorWhite"
@@ -487,6 +491,7 @@
                             <TextView
                                 android:text="发布动态"
                                 android:textSize="12sp"
+                                android:textStyle="bold"
                                 android:textColor="@color/colorWhite"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -495,6 +500,7 @@
                                 android:id="@+id/tv_mydongtai_num"
                                 android:layout_marginLeft="@dimen/icon_size_20dp"
                                 android:text="0"
+                                android:textStyle="bold"
                                 android:textSize="12sp"
                                 android:textColor="@color/colorWhite"
                                 android:layout_width="wrap_content"
@@ -543,7 +549,7 @@
                         <TextView
                             android:text="查看全部"
                             android:textSize="14sp"
-                            android:textColor="#8F8E94"
+                            android:textColor="#CDCDCD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -770,7 +776,7 @@
                         <TextView
                             android:text="查看全部"
                             android:textSize="14sp"
-                            android:textColor="#8F8E94"
+                            android:textColor="#CDCDCD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 

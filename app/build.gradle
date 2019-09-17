@@ -15,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         //RenderScript支持库未启用，要启用模糊效果，请在您的app的Gradle配置文件中添加以下语句：
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true

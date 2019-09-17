@@ -59,6 +59,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     private String token;
     private int id;
     private View view_vip;
+    private View view_xian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
+        view_xian = findViewById(R.id.view_xian);
         findViewById(R.id.bt_duihua).setOnClickListener(this);
         view_vip = findViewById(R.id.view_vip);
         bt_guanzhu = findViewById(R.id.bt_guanzhu);
@@ -127,20 +129,21 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
         }else{
             tv_dianpu.setVisibility(View.GONE);
         }
-
         if (result.getIsAttention() == 1){
             bt_guanzhu.setText("已关注");
         }else if (result.getIsAttention() == 0){
             bt_guanzhu.setText("+关注");
         }
 
-        if (result.getPlace()!=null){
+        if (result.getPlace()!=null && !result.getPlace().isEmpty()){
             view_weizhi.setVisibility(View.VISIBLE);
+            view_xian.setVisibility(View.VISIBLE);
             tv_my_weizhi.setText(result.getPlace());
         }else{
+            view_xian.setVisibility(View.GONE);
             view_weizhi.setVisibility(View.GONE);
         }
-        if (result.getPersonalProfile()!= null){
+        if (result.getPersonalProfile()!= null && !result.getPersonalProfile().isEmpty()){
             tv_my_jianjie.setText(result.getPersonalProfile());
         }else{
             tv_my_jianjie.setText("暂无简介");

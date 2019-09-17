@@ -91,12 +91,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:src="@mipmap/img_xiayibu"
-                    android:layout_alignParentRight="true"
+                <LinearLayout
                     android:layout_centerVertical="true"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp" />
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="1.0.0"
+                        android:layout_marginRight="5dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:src="@mipmap/img_xiayibu"
+                        android:layout_centerVertical="true"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp" />
+
+                </LinearLayout>
+
+
 
             </RelativeLayout>
 

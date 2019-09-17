@@ -35,7 +35,12 @@ public class SouSuoShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultBea
             tv_yinli.setVisibility(View.GONE);
         }
         SlantedTextView slanted = helper.getView(R.id.slanted);
-
+        if (item.getOfCheap() == 1){
+            slanted.setVisibility(View.VISIBLE);
+            slanted.setText("特惠");
+        }else{
+            slanted.setVisibility(View.GONE);
+        }
         slanted.setVisibility(View.GONE);
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);

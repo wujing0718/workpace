@@ -27,6 +27,7 @@ public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.List
     protected void convert(BaseViewHolder helper, ZhaoRenGson.ResultBean.ListBean item) {
         helper.addOnClickListener(R.id.bt_zhaoren_gaunzhu);
         TextView bt_zhaoren_gaunzhu = helper.getView(R.id.bt_zhaoren_gaunzhu);
+        View view_xian = helper.getView(R.id.view_xian);
         if (item.getIsAttention() == 1){
             bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.yiguanzhu);
             bt_zhaoren_gaunzhu.setText("已关注");
@@ -34,7 +35,11 @@ public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.List
         }
         helper.setText(R.id.tv_zhaoren_name,item.getNickName());
         helper.setText(R.id.tv_zhaoren_chenghu,item.getMaster().getLevel());
-        helper.setText(R.id.tv_zhaoren_weizhi,item.getPlace());
+        if (item.getPlace() != null &&!item.getPlace().isEmpty()){
+            helper.setText(R.id.tv_zhaoren_weizhi,item.getPlace());
+        }else{
+            view_xian.setVisibility(View.GONE);
+        }
         ImageView img_zhaoren_photo = helper.getView(R.id.img_zhaoren_photo);
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(item.getPhoto()).apply(requestOptions).into(img_zhaoren_photo);

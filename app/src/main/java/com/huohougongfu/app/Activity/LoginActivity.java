@@ -24,6 +24,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.ShareUtils;
+import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -101,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     };
     private UMShareAPI mShareAPI;
+    private SmoothCheckBox checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initUI() {
+        checkbox = findViewById(R.id.checkbox);
         yanzhengmadenglu = findViewById(R.id.yanzhengmadenglu);
         mimadenglu = findViewById(R.id.mimadenglu);
         phone = findViewById(R.id.edt_login_phone);
@@ -125,13 +128,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.bt_qq).setOnClickListener(this);
         findViewById(R.id.bt_weixin).setOnClickListener(this);
         findViewById(R.id.bt_weibo).setOnClickListener(this);
-
+        findViewById(R.id.bt_xieyi).setOnClickListener(this);
+        findViewById(R.id.bt_yinsi).setOnClickListener(this);
         findViewById(R.id.bt_yanzhengmadenglu).setOnClickListener(this);
         findViewById(R.id.bt_zhaohuimima).setOnClickListener(this);
         findViewById(R.id.bt_mimadenglu).setOnClickListener(this);
         findViewById(R.id.bt_login_code).setOnClickListener(this);
         findViewById(R.id.bt_login).setOnClickListener(this);
         findViewById(R.id.bt_register).setOnClickListener(this);
+        checkbox.setChecked(true);
     }
 
     @Override
@@ -148,12 +153,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.bt_login:
                 if (!utils.isDoubleClick()){
-                    if (yanzhengmadenglu.getVisibility() == View.VISIBLE){
-                        //验证码登录
-                        CodeLogin();
+                    if (checkbox.isChecked()){
+                        if (yanzhengmadenglu.getVisibility() == View.VISIBLE){
+                            //验证码登录
+                            CodeLogin();
+                        }else{
+                            //密码登录
+                            PasswordLogin();
+                        }
                     }else{
-                        //密码登录
-                        PasswordLogin();
+                        ToastUtils.showShort("请同意用户协议和隐私政策");
                     }
                 }
                 break;
@@ -198,6 +207,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 break;
+            case R.id.bt_xieyi:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(LoginActivity.this,XieYiActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.bt_yinsi:
+                if (!utils.isDoubleClick()){
+                    intent.setClass(LoginActivity.this,YinSiActivity.class);
+                    startActivity(intent);
+                }
         }
     }
 
