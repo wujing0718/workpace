@@ -102,6 +102,7 @@ public class DingDanGuanLiFragment extends Fragment {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        smartrefreshlayout.finishRefresh();
                         String body = response.body();
                         Gson gson = new Gson();
                         myCollect = gson.fromJson(body, DingDanGuanLi.class);

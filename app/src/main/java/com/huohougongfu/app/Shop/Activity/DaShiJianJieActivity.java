@@ -41,6 +41,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
     private DaShiJianJie daShiJianJie;
     private int mId;
     private String dashid;
+    private String mid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_da_shi_jian_jie);
         mId = MyApp.instance.getInt("id");
         dashiid = getIntent().getStringExtra("id");
+        mid = getIntent().getStringExtra("mid");
         initUI();
         initData();
     }
@@ -77,7 +79,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                         daShiJianJie = new Gson().fromJson(body, DaShiJianJie.class);
                         if (daShiJianJie.getStatus() == 1){
                             initView(daShiJianJie);
-                            if (daShiJianJie.getResult().getIsCollection()==1){
+                            if (daShiJianJie.getResult().getIsAttention()==1){
                                 bt_dashi_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
                                 bt_dashi_guanzhu.setText("已关注");
                                 bt_dashi_guanzhu.setTextColor(MyApp.context.getResources().getColor(R.color.colorWhite));
@@ -104,7 +106,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_dashi_guanzhu:
-                if (daShiJianJie.getResult().getIsCollection()== 1){
+                if (daShiJianJie.getResult().getIsAttention()== 1){
                     initNoGuanZhu();
                 }else{
                     initGuanZhu();
@@ -112,7 +114,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
             break;
             case R.id.bt_dashi_zhuye:
                 Intent intent = new Intent();
-                intent.putExtra("id",String.valueOf(daShiJianJie.getResult().getMId()));
+                intent.putExtra("id",String.valueOf(daShiJianJie.getResult().getMid()));
                 intent.setClass(DaShiJianJieActivity.this,DiaPuZhuYeActivity.class);
                 startActivity(intent);
                 break;
@@ -160,9 +162,10 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
 
     private void initGuanZhu() {
         Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(mId));
-        map.put("masterId",String.valueOf(dashiid));
-        OkGo.<String>get(Contacts.URl1+"query/allCatory/masterCollection")
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(daShiJianJie.getResult().getMid()));
+        map.put("type",String.valueOf(1));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -173,7 +176,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                                 bt_dashi_guanzhu.setText("已关注");
                                 bt_dashi_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
                                 bt_dashi_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
-                                daShiJianJie.getResult().setIsCollection(1);
+                                daShiJianJie.getResult().setIsAttention(1);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -184,9 +187,10 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
 
     private void initNoGuanZhu() {
         Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(mId));
-        map.put("masterId",String.valueOf(dashiid));
-        OkGo.<String>get(Contacts.URl1+"query/allCatory/masterCollection")
+        map.put("mId",String.valueOf(mId));
+        map.put("attentionId",String.valueOf(daShiJianJie.getResult().getMid()));
+        map.put("type",String.valueOf(0));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
@@ -195,7 +199,7 @@ public class DaShiJianJieActivity extends AppCompatActivity implements View.OnCl
                             JSONObject jsonObject = new JSONObject(response.body());
                             if (jsonObject.getInt("status") == 1){
                                 bt_dashi_guanzhu.setText("+关注");
-                                daShiJianJie.getResult().setIsCollection(0);
+                                daShiJianJie.getResult().setIsAttention(0);
                                 bt_dashi_guanzhu.setBackgroundResource(R.drawable.guanzhu);
                                 bt_dashi_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
                             }

@@ -79,10 +79,14 @@ public class TianXieWuLiuActivity extends AppCompatActivity implements View.OnCl
                 if (!utils.isDoubleClick()){
                     if (!"".equals(danhao)){
                         if (!"".equals(kuaidi.get("expressCompanytitle"))){
-                            //确认发货
-                            initFaHuo();
+                            if (!edt_kuaidi_name.getText().toString().isEmpty()){
+                                //确认发货
+                                initFaHuo();
+                            }else{
+                                ToastUtils.showShort("请选择快递名字");
+                            }
                         }else{
-                            ToastUtils.showShort("请输入或选择快递名字");
+                            ToastUtils.showShort("请选择快递名字");
                         }
                     }else{
                         ToastUtils.showShort("请输入快递单号");

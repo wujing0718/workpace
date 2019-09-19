@@ -346,6 +346,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                     req.packageValue = wxPay.getPackageX();
                     req.sign = wxPay.getSign();
                     MyApp.wxapi.sendReq(req);
+                    dismiss();
                 }
             };
             Thread payThread = new Thread(payRunnable);

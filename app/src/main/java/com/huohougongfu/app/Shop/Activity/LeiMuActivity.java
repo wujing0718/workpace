@@ -354,6 +354,7 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             int dashiid = listBeans.get(position).getId();
                             intent.putExtra("id",String.valueOf(dashiid));
+                            intent.putExtra("mid",String.valueOf(listBeans.get(position).getmId()));
                             intent.setClass(LeiMuActivity.this,DaShiJianJieActivity.class);
                             startActivity(intent);
                         }

@@ -501,14 +501,18 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 break;
             case R.id.bt_detail_guige:
                 if (!utils.isDoubleClick()){
-                    if (xuanzeyouhuiquan!=null){
-                        XPopup.Builder builder = new XPopup.Builder(getContext());
-                        builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan))
-                                .show();
+                    if (mallProduct.getUserId() == Integer.valueOf(id)){
+                        ToastUtils.showShort("不能购买自己的商品");
                     }else{
-                        XPopup.Builder builder = new XPopup.Builder(getContext());
-                        builder.asCustom(new GuiGe(getContext(),guige))
-                                .show();
+                        if (xuanzeyouhuiquan!=null){
+                            XPopup.Builder builder = new XPopup.Builder(getContext());
+                            builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan))
+                                    .show();
+                        }else{
+                            XPopup.Builder builder = new XPopup.Builder(getContext());
+                            builder.asCustom(new GuiGe(getContext(),guige))
+                                    .show();
+                        }
                     }
                 }
                 break;

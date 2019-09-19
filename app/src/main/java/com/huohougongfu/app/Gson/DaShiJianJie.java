@@ -1,11 +1,7 @@
 package com.huohougongfu.app.Gson;
 
 public class DaShiJianJie {
-    /**
-     * msg : 操作成功
-     * result : {"id":2,"mId":17,"name":"大师名称","portrait":"大师师片","photo":null,"level":"高级茶艺师","specialty":"白茶","status":1,"introduceContent":"大师介绍1","createTime":"2019-07-16T01:24:48.000+0000","updateTime":"2019-07-19T06:09:53.000+0000","masterAddress":"深圳","storeId":null,"isMerchant":true,"count":0,"isCollection":0,"merchant":true}
-     * status : 1
-     */
+
 
     private String msg;
     private ResultBean result;
@@ -36,28 +32,8 @@ public class DaShiJianJie {
     }
 
     public static class ResultBean {
-        /**
-         * id : 2
-         * mId : 17
-         * name : 大师名称
-         * portrait : 大师师片
-         * photo : null
-         * level : 高级茶艺师
-         * specialty : 白茶
-         * status : 1
-         * introduceContent : 大师介绍1
-         * createTime : 2019-07-16T01:24:48.000+0000
-         * updateTime : 2019-07-19T06:09:53.000+0000
-         * masterAddress : 深圳
-         * storeId : null
-         * isMerchant : true
-         * count : 0
-         * isCollection : 0
-         * merchant : true
-         */
 
         private int id;
-        private int mId;
         private String name;
         private String portrait;
         private String photo;
@@ -68,11 +44,13 @@ public class DaShiJianJie {
         private String createTime;
         private String updateTime;
         private String masterAddress;
-        private Object storeId;
+        private int storeId;
         private boolean isMerchant;
+        private Object nickName;
         private int count;
-        private int isCollection;
-        private boolean merchant;
+        private int isAttention;
+        private int mid;
+        private int mId;
 
         public int getId() {
             return id;
@@ -80,14 +58,6 @@ public class DaShiJianJie {
 
         public void setId(int id) {
             this.id = id;
-        }
-
-        public int getMId() {
-            return mId;
-        }
-
-        public void setMId(int mId) {
-            this.mId = mId;
         }
 
         public String getName() {
@@ -170,11 +140,11 @@ public class DaShiJianJie {
             this.masterAddress = masterAddress;
         }
 
-        public Object getStoreId() {
+        public int getStoreId() {
             return storeId;
         }
 
-        public void setStoreId(Object storeId) {
+        public void setStoreId(int storeId) {
             this.storeId = storeId;
         }
 
@@ -186,6 +156,14 @@ public class DaShiJianJie {
             this.isMerchant = isMerchant;
         }
 
+        public Object getNickName() {
+            return nickName;
+        }
+
+        public void setNickName(Object nickName) {
+            this.nickName = nickName;
+        }
+
         public int getCount() {
             return count;
         }
@@ -194,20 +172,28 @@ public class DaShiJianJie {
             this.count = count;
         }
 
-        public int getIsCollection() {
-            return isCollection;
+        public int getIsAttention() {
+            return isAttention;
         }
 
-        public void setIsCollection(int isCollection) {
-            this.isCollection = isCollection;
+        public void setIsAttention(int isAttention) {
+            this.isAttention = isAttention;
         }
 
-        public boolean isMerchant() {
-            return merchant;
+        public int getMid() {
+            return mid;
         }
 
-        public void setMerchant(boolean merchant) {
-            this.merchant = merchant;
+        public void setMid(int mid) {
+            this.mid = mid;
+        }
+
+        public int getMId() {
+            return mId;
+        }
+
+        public void setMId(int mId) {
+            this.mId = mId;
         }
     }
 }

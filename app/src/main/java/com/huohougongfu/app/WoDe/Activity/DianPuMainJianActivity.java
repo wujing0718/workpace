@@ -173,13 +173,14 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
                 "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        String id = "";
                         for (int i = dianpuhuodongadapter.getMyLiveList().size(), j =0 ; i > j; i--) {
                             StoreEvents.ResultBean myLive = dianpuhuodongadapter.getMyLiveList().get(i-1);
                             if (myLive.isSelect()) {
-                                int id = myLive.getId();
-                                initDel(id);
+                                id = id+","+myLive.getId();
                             }
                         }
+                        initDel(id);
                     }
                 },
                 "取消", new DialogInterface.OnClickListener() {
@@ -189,8 +190,10 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
                 });
     }
 
-    private void initDel(int id) {
-        OkGo.<String>post(Contacts.URl1+"/del/"+id)
+    private void initDel(String id) {
+        String substring = id.substring(0, id.length() - 1);
+        OkGo.<String>post(Contacts.URl1+"/store/delStoreActive")
+                .params("ids",substring)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

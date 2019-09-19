@@ -276,6 +276,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
             Runnable payRunnable = new Runnable() {  //这里注意要放在子线程
                 @Override
                 public void run() {
+                    dismiss();
                     PayReq req = new PayReq();
                     req.appId = wxPay.getAppid();
                     req.partnerId = wxPay.getPartnerid();

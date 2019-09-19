@@ -69,8 +69,13 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
         token = MyApp.instance.getString("token");
         mId = getIntent().getStringExtra("id");
         initUI();
-        initData();
         initTablayout();
+    }
+
+    @Override
+    protected void onResume() {
+        initData();
+        super.onResume();
     }
 
     private void initUI() {
