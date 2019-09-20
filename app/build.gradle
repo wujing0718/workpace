@@ -16,6 +16,8 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
+        flavorDimensions "versionCode"   //多渠道
+        multiDexEnabled = true//突破65535限制
         //RenderScript支持库未启用，要启用模糊效果，请在您的app的Gradle配置文件中添加以下语句：
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
@@ -64,6 +66,30 @@ android {
         targetCompatibility 1.8
     }
     productFlavors {
+        oppo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+        }
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+        c360 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+        }
+        vivo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+        }
+        huawei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        tengxun {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tengxun"]
+        }
+        meizu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+        }
     }
 }
 

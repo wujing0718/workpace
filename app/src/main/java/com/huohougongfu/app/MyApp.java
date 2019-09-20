@@ -69,6 +69,8 @@ public class MyApp extends Application {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 layout.setPrimaryColorsId(R.color.colorTab, android.R.color.white);//全局设置主题颜色
+                //设置 Header 起始位置偏移量
+                layout.setHeaderInsetStart(-10);
                 return new MaterialHeader(context);//指定为经典Header，默认是 贝塞尔雷达Header
             }
         });
@@ -134,10 +136,10 @@ public class MyApp extends Application {
         RongIM.init(this);
         context = this;
         Utils.init(getApplicationContext());
-        UMConfigure.setLogEnabled(true);
         instances = this;
         UMConfigure.init(this,"5d1efbd54ca357a016000105"
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+//        UMConfigure.setLogEnabled(true);
         JPushInterface.init(this);
         JPushInterface.setDebugMode(true);
         //微信支付初始化

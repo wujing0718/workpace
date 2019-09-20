@@ -47,6 +47,7 @@
         import com.lzy.okgo.OkGo;
         import com.lzy.okgo.callback.StringCallback;
         import com.lzy.okgo.model.Response;
+        import com.umeng.analytics.MobclickAgent;
 
         import java.lang.reflect.Field;
         import java.util.ArrayList;
@@ -183,9 +184,16 @@
 
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
     }
 
-    //双击退出
+            @Override
+            protected void onPause() {
+                super.onPause();
+                MobclickAgent.onPause(this);
+            }
+
+            //双击退出
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {

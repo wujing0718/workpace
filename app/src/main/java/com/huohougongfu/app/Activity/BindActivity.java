@@ -84,7 +84,6 @@ public class BindActivity extends AppCompatActivity implements View.OnClickListe
                 default:
                     logs = "Failed with errorCode = " + code;
             }
-//            ExampleUtil.showToast(logs, getApplicationContext());
         }
     };
 

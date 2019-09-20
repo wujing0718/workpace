@@ -10,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Adapter.ShouYeAdapter;
 import com.huohougongfu.app.Gson.MaiChaDetail;
 import com.huohougongfu.app.Gson.ShangPinGson;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.MaiChaDetailActivity;
 import com.huohougongfu.app.Utils.Contacts;
@@ -38,6 +41,8 @@ public class MaiChaFragment extends Fragment {
     private View inflate;
     private RecyclerView rec_bianxie;
     private String equipmentId;
+    private String token;
+    private Intent intent;
 
     public MaiChaFragment() {
         // Required empty public constructor
@@ -48,7 +53,9 @@ public class MaiChaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_mai_cha, container, false);
+        intent = new Intent();
         equipmentId = getArguments().getString("ARGS");
+        token = MyApp.instance.getString("token");
         initData();
         return inflate;
     }
@@ -87,11 +94,17 @@ public class MaiChaFragment extends Fragment {
         shouYeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent();
-                intent.putExtra("买茶",result.get(position));
-                intent.putExtra("equipmentId",equipmentId);
-                intent.setClass(getActivity(),MaiChaDetailActivity.class);
-                startActivity(intent);
+                if (!token.isEmpty()){
+                    intent.putExtra("买茶",result.get(position));
+                    intent.putExtra("equipmentId",equipmentId);
+                    intent.setClass(getActivity(),MaiChaDetailActivity.class);
+                    startActivity(intent);
+                }else{
+                    ToastUtils.showShort(R.string.denglu);
+                    intent.setClass(getActivity(),LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.activity.finish();
+                }
             }
         });
     }
