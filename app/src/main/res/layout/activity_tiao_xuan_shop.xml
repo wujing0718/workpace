@@ -201,10 +201,10 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="@dimen/dp_10"
                 android:id="@+id/rec_sousuo_shangpin"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_10">
 
             </android.support.v7.widget.RecyclerView>
 

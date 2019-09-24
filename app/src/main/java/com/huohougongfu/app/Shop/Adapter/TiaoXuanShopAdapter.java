@@ -27,6 +27,7 @@ public class TiaoXuanShopAdapter extends BaseQuickAdapter<SouSuoShopGson.ResultB
         SlantedTextView slanted = helper.getView(R.id.slanted);
         TextView tv_yinli = helper.getView(R.id.tv_yinli);
         slanted.setVisibility(View.GONE);
+        tv_yinli.setVisibility(View.VISIBLE);
         tv_yinli.setText(String.valueOf("赚 ¥"+item.getCommission()));
         ImageView img_jingxuan_photo = helper.getView(R.id.img_jingxuan_photo);
         Picasso.get().load(item.getCoverUrl()).into(img_jingxuan_photo);

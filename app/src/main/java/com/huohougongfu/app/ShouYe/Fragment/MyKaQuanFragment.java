@@ -145,13 +145,13 @@ public class MyKaQuanFragment extends Fragment {
                                     .show();
                         }
                         break;
-//                    case R.id.bt_zhuanzeng:
-//                        if (!utils.isDoubleClick()){
-//                            new XPopup.Builder(getContext())
-//                                    .asCustom(new PopupCoupon(getContext(),getActivity()))
-//                                    .show();
-//                        }
-//                        break;
+                    case R.id.bt_zhuanzeng:
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .asCustom(new PopupCoupon(getContext(),getActivity()))
+                                    .show();
+                        }
+                        break;
                 }
             }
         });

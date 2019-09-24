@@ -580,6 +580,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                                 initPingLun();
                                 ToastUtils.showShort("评论成功");
                                 edt_quanzi_pinglun.setText("");
+                                initData();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }

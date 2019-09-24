@@ -18,6 +18,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -156,7 +157,8 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.bt_xuanzediqu:
-               //条件选择器
+                hideInput();
+                //条件选择器
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3 ,View v) {
@@ -324,4 +326,14 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         return detail;
     }
 
+    /**
+     * 隐藏键盘
+     */
+    protected void hideInput() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View v = getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
 }

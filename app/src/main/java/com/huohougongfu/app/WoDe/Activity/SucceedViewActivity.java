@@ -122,7 +122,7 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                 bt_jixurenzheng.setVisibility(View.GONE);
             }else{
                 bt_zanburenzheng.setVisibility(View.GONE);
-                bt_jixurenzheng.setText("特约品牌认证");
+                bt_jixurenzheng.setText("进行茶师认证");
             }
         }
     }

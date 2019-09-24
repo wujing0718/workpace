@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -90,6 +91,7 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
             case R.id.bt_shengri_xuanze:
+                hideInput();
                 //时间选择器
                 TimePickerView oldTime = new TimePickerBuilder(GeRenRenZhengActivity.this, new OnTimeSelectListener() {
                     @Override
@@ -190,5 +192,16 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
                         }
                     }
                 });
+    }
+
+    /**
+     * 隐藏键盘
+     */
+    protected void hideInput() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View v = getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 }

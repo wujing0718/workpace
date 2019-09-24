@@ -121,8 +121,8 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
     @Override
     protected void onCreate() {
         super.onCreate();
-//        initWX();
         initALi();
+        initWX();
         tv_over = findViewById(R.id.tv_over);
         check_yue = findViewById(R.id.check_yue);
         check_ali = findViewById(R.id.check_ali);
@@ -226,24 +226,25 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
 
 
 
-//    private void initWX(){
-//        OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
-//                .params("orderNo",result.get(0))
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//                        String body = response.body();
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(body);
-//                            if (jsonObject.getInt("status") == 1){
-//                                wxtoken = jsonObject.getString("result");
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//    }
+    private void initWX(){
+        OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
+                .params("orderNo",OrderNo)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                wxtoken = jsonObject.getString("result");
+//                                initWeiXin();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
     @Override
     public void onClick(View v) {
@@ -302,7 +303,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                 }else{
                     check_yue.setChecked(false);
                     check_ali.setChecked(false);
-                    initWeiXin();
+                    initWXPay();
                 }
                 break;
         }
@@ -310,7 +311,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
 
     private void initWeiXin() {
         OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
-                .params("orderNo",substring)
+                .params("orderNo",wxtoken)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -346,7 +347,6 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                     req.packageValue = wxPay.getPackageX();
                     req.sign = wxPay.getSign();
                     MyApp.wxapi.sendReq(req);
-                    dismiss();
                 }
             };
             Thread payThread = new Thread(payRunnable);

@@ -18,15 +18,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.SelectVideo.BackgroundBlurPopupWindow;
@@ -34,7 +37,9 @@ import com.huohougongfu.app.SelectVideo.BaseActivity;
 import com.huohougongfu.app.SelectVideo.ImageDir;
 import com.huohougongfu.app.SelectVideo.PermissionUtil;
 import com.huohougongfu.app.SelectVideo.PhotoSelectorActivity;
+import com.huohougongfu.app.ShouYe.Activity.JiQiAcyivity;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.v2.BottomMenu;
 import com.kongzue.dialog.v2.SelectDialog;
@@ -57,6 +62,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.jzvd.Jzvd;
 import cn.jzvd.JzvdStd;
 
 public class FaBuVedioActivity extends BaseActivity implements View.OnClickListener {
@@ -76,6 +82,8 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private View v;
     private BackgroundBlurPopupWindow mPopupWindow;
     private int mId;
+    private TextView tv_weizhi;
+    private AddressBean data1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +102,14 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         back.setOnClickListener(this);
         start = findViewById(R.id.start);
         start.setOnClickListener(this);
+        findViewById(R.id.view_fabud_dingwei).setOnClickListener(this);
+        tv_weizhi = findViewById(R.id.tv_weizhi);
         findViewById(R.id.bt_shanchu).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         pathTv = findViewById(R.id.path);
         rl_commit = findViewById(R.id.rl_commit);
         rl_commit.setOnClickListener(this);
         et_content = findViewById(R.id.et_content);
-
         rl_look_see = findViewById(R.id.rl_look_see);
         rl_look_see.setOnClickListener(this);
         video_looksee = findViewById(R.id.video_looksee);
@@ -114,6 +123,12 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         mPopupWindow.setFocusable(true);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.setAnimationStyle(android.R.style.Animation_Dialog);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                JzvdStd.releaseAllVideos();
+            }
+        });
     }
 
     //选择视频
@@ -150,8 +165,15 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                     }else{
                         finish();
                 }
-
                 break;
+        }
+        if (requestCode == CONTEXT_RESTRICTED){
+            data1 = (AddressBean)data.getSerializableExtra("data");
+            if(data1==null){
+                tv_weizhi.setText("所在位置");
+            }else{
+                tv_weizhi.setText(data1.getTitle());
+            }
         }
     }
 
@@ -187,6 +209,11 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.view_fabud_dingwei:
+                if (!utils.isDoubleClick()){
+                    startActivityForResult(new Intent(FaBuVedioActivity.this, JiQiAcyivity.class), CONTEXT_RESTRICTED);
+                }
+                break;
             case R.id.start:
                 requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, new BaseActivity.RequestPermissionCallBack() {
                     @Override
@@ -241,6 +268,18 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        mPopupWindow.dismiss();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initVedio() {

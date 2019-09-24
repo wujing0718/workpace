@@ -687,6 +687,7 @@
     <RelativeLayout
         android:id="@+id/view_caozuo"
         android:layout_gravity="bottom"
+        android:visibility="gone"
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="80dp">
@@ -733,6 +734,7 @@
             android:layout_centerVertical="true"
             app:cardCornerRadius="22dp"
             app:cardElevation="6dp"
+            android:visibility="gone"
             app:cardPreventCornerOverlap="true"
             android:layout_width="44dp"
             android:layout_height="44dp">
@@ -774,6 +776,7 @@
 
             <android.support.v7.widget.CardView
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/dp_10"
                 android:id="@+id/bt_jiagouwuche"
                 android:layout_gravity="center_vertical"
@@ -804,6 +807,7 @@
             <android.support.v7.widget.CardView
                 android:layout_marginLeft="@dimen/dp_10"
                 android:id="@+id/bt_goumai"
+                android:visibility="gone"
                 android:layout_weight="1"
                 app:cardBackgroundColor="#CCBA91"
                 android:layout_marginRight="@dimen/dp_10"

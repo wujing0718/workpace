@@ -147,10 +147,15 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         commission = getArguments().getString("commission");
         isjingxuan = getArguments().getString("isjingxuan");
         type = getArguments().getString("type");
-        initData();
         initUI();
-        initShopShare();
         return inflate;
+    }
+
+    @Override
+    public void onStart() {
+        initShopShare();
+        initData();
+        super.onStart();
     }
 
     private void initShopShare() {
@@ -165,11 +170,19 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         QuanZiShare quanZiShare = new Gson().fromJson(body, QuanZiShare.class);
                         if (quanZiShare.getStatus() == 1){
                             share = quanZiShare;
+                            view_caozuo.setVisibility(View.VISIBLE);
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(getActivity(), "载入中...");
+                        super.onStart(request);
                     }
                 });
     }
@@ -368,10 +381,12 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         if ("赚客".equals(type)){
             bt_jiagouwuche.setVisibility(View.GONE);
             tv_lijigoumai.setText("分享赚钱");
+            bt_goumai.setVisibility(View.VISIBLE);
         }else if (挑选!=null){
             bt_commission.setVisibility(View.VISIBLE);
             bt_detail_fenxiang.setVisibility(View.GONE);
             tv_lijigoumai.setText("放入仓库");
+            bt_goumai.setVisibility(View.VISIBLE);
             if(!"null".equals(commission)){
                 bt_commission.setText("赚 ¥"+commission);
             }else{
@@ -382,9 +397,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         }else{
             tv_lijigoumai.setText("立即购买");
             bt_commission.setVisibility(View.GONE);
+            bt_shoucang.setVisibility(View.VISIBLE);
+            bt_jiagouwuche.setVisibility(View.VISIBLE);
+            bt_goumai.setVisibility(View.VISIBLE);
             bt_detail_fenxiang.setVisibility(View.VISIBLE);
         }
-
         if (mallProduct.getUserId() == Integer.valueOf(id)){
             view_caozuo.setVisibility(View.GONE);
         }else{

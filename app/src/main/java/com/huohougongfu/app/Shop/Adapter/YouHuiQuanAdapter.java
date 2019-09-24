@@ -18,7 +18,9 @@ public class YouHuiQuanAdapter extends BaseQuickAdapter<ShopYouHuiQuan.ResultBea
     protected void convert(BaseViewHolder helper, ShopYouHuiQuan.ResultBean item) {
         helper.addOnClickListener(R.id.bt_lingquyouhuiquan);
         helper.setText(R.id.tv_youhuiquan_money,"¥"+String.valueOf(item.getMoney()));
-        helper.setText(R.id.tv_youhuiquan_serviceRegulations,item.getServiceRegulations());
+        if (item.getServiceRegulations()!=null){
+            helper.setText(R.id.tv_youhuiquan_serviceRegulations,item.getServiceRegulations());
+        }
         helper.setText(R.id.tv_youhuiquan_endTime,"订单有效期"+item.getEndTime());
     }
 }

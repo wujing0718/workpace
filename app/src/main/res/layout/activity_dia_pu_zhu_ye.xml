@@ -292,7 +292,7 @@
         android:id="@+id/bt_dashi_jianjie"
         android:layout_marginTop="@dimen/dp_6"
         android:layout_marginHorizontal="@dimen/dp_12"
-        android:text="简介"
+        android:text="快去查看TA的简介"
         android:paddingHorizontal="10dp"
         android:paddingVertical="2dp"
         android:textSize="12sp"

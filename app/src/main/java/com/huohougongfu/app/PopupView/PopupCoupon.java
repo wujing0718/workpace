@@ -24,7 +24,8 @@ public class PopupCoupon extends BottomPopupView implements View.OnClickListener
     private final FragmentActivity activity;
     private final Context context;
 
-    private String[] mqiaoqiaohua = new String[]{"茶米送给你，快乐分享给你","你要收下我的茶米，也要收下我","送你我的茶米， 我们一起发家致富"};
+    private String[] mqiaoqiaohua = new String[]{"小可爱，给你点了杯茶，记得去喝哦",
+            "茶里有故事，故事里有你我","感谢你给我的每一个拥抱","茶里是我对你真挚的祝福","你有多努力就有多特殊","茶凉就不好喝了，快去喝吧"};
     private int i;
     private UMShareListener umShareListener = new UMShareListener() {
         @Override

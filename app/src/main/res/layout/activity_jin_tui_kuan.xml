@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/tv_shop_price"
-                    android:text="¥ 198.00"
+                    android:text=""
                     android:layout_marginRight="@dimen/dp_15"
                     android:textColor="@color/colorBlack"
                     android:layout_alignParentRight="true"
@@ -189,6 +189,7 @@
                     android:background="@null"
                     android:hint="请填写"
                     android:textSize="14sp"
+                    android:maxLength="50"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:gravity="right"
                     android:textColor="@color/colorBlack"

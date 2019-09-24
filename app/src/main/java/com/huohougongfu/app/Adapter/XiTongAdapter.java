@@ -44,7 +44,7 @@ public class XiTongAdapter  extends BaseMultiItemQuickAdapter<XiTongGson.ResultB
                 helper.setText(R.id.tv_tuisong_title,item.getTitle());
                 helper.setText(R.id.tv_tuisong_content,item.getContent());
                 Glide.with(MyApp.context).load(item.getMember().getPhoto())
-                        .apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_tuisong);
+                        .apply(new RequestOptions().placeholder(R.mipmap.img_logo)).into(img_tuisong);
                 break;
             case 2:
                 TextView bt_guanzhu = helper.getView(R.id.bt_guanzhu);

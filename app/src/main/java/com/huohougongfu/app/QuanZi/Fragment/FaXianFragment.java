@@ -64,6 +64,7 @@ public class FaXianFragment extends Fragment implements IListener {
     private String mId;
     private String token;
     private Intent intent;
+    private String status;
 
     public FaXianFragment() {
     }
@@ -90,7 +91,7 @@ public class FaXianFragment extends Fragment implements IListener {
 
     private void initData(String condition) {
         Map<String, String> map = new HashMap<>();
-        if (!condition.isEmpty()){
+        if (condition!=null  && !condition.isEmpty()){
             map.put("condition",condition);
         }
         map.put("pageNo","1");
@@ -186,7 +187,7 @@ public class FaXianFragment extends Fragment implements IListener {
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                initData("");
+                initData(status);
             }
         });
         //加载更多
@@ -307,6 +308,7 @@ public class FaXianFragment extends Fragment implements IListener {
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if(audience_cnt == 3){
+            this.status = status;
             initData(status);
         }
     }

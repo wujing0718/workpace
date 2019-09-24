@@ -1,5 +1,6 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +12,13 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.LeiMuActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
@@ -106,7 +109,15 @@ public class WoDeGuanZhuActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         });
-
+        zhaorendadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.putExtra("id",String.valueOf(list.get(position).getUserId()));
+                intent.setClass(WoDeGuanZhuActivity.this,DiaPuZhuYeActivity.class);
+                startActivity(intent);
+            }
+        });
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

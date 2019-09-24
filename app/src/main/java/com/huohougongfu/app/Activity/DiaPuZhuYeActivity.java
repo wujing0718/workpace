@@ -60,6 +60,7 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     private int id;
     private View view_vip;
     private View view_xian;
+    private TextView bt_dashi_jianjie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +96,8 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
         tv_my_fenlei = findViewById(R.id.tv_my_fenlei);
         tv_my_weizhi = findViewById(R.id.tv_my_weizhi);
         findViewById(R.id.bt_finish).setOnClickListener(this);
-        findViewById(R.id.bt_dashi_jianjie).setOnClickListener(this);
+        bt_dashi_jianjie = findViewById(R.id.bt_dashi_jianjie);
+        bt_dashi_jianjie.setOnClickListener(this);
     }
 
     private void initData() {
@@ -120,6 +122,9 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView(MyZhuYe.ResultBean result) {
+        if (id == result.getUserId()){
+            bt_dashi_jianjie.setVisibility(View.GONE);
+        }
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         if (result.isVip()){
             view_vip.setVisibility(View.VISIBLE);

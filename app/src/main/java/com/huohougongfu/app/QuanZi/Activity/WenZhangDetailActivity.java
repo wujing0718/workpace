@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -90,12 +91,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private void initUI() {
         tv_vip_num = findViewById(R.id.tv_vip_num);
         view_vip = findViewById(R.id.view_vip);
-        findViewById(R.id.bt_dianzan).setOnClickListener(this);
-        img_xihuan = findViewById(R.id.img_xihuan);
-        tv_liulanliang_num = findViewById(R.id.tv_liulanliang_num);
-        tv_pinglum_num = findViewById(R.id.tv_pinglum_num);
-        tv_xihuan_num = findViewById(R.id.tv_xihuan_num);
-        tv_wenzhang_time = findViewById(R.id.tv_wenzhang_time);
+
         tv_wenzhang_title = findViewById(R.id.tv_wenzhang_title);
         img_quanzi_touxiang = findViewById(R.id.img_quanzi_touxiang);
         tv_guanzhu = findViewById(R.id.tv_guanzhu);
@@ -201,14 +197,6 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         }else{
             view_vip.setVisibility(View.GONE);
         }
-        if (result.getIsPraise() == 1){
-            img_xihuan.setImageResource(R.mipmap.img_xihuan2);
-        }else{
-            img_xihuan.setImageResource(R.mipmap.img_xihuan);
-        }
-        tv_pinglum_num.setText(String.valueOf(result.getCommentNum()));
-        tv_liulanliang_num.setText(String.valueOf(result.getBrowseCount()));
-        tv_xihuan_num.setText(String.valueOf(result.getPraiseNum()));
         String content = result.getContent();
         String picture = result.getPicture();
         String[] split1 = picture.split(",");
@@ -247,8 +235,27 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
         rec_wenzhang_pinglun.setLayoutManager(layoutmanager);
+        View wenzhang_view_time = LayoutInflater.from(this).inflate(R.layout.wenzhang_view_time, null, false);
+        wenzhang_view_time.findViewById(R.id.bt_dianzan).setOnClickListener(this);
+        img_xihuan = wenzhang_view_time.findViewById(R.id.img_xihuan);
+        if (result.getIsPraise() == 1){
+            img_xihuan.setImageResource(R.mipmap.img_xihuan2);
+        }else{
+            img_xihuan.setImageResource(R.mipmap.img_xihuan);
+        }
+        tv_liulanliang_num = wenzhang_view_time.findViewById(R.id.tv_liulanliang_num);
+        tv_pinglum_num = wenzhang_view_time.findViewById(R.id.tv_pinglum_num);
+        tv_xihuan_num = wenzhang_view_time.findViewById(R.id.tv_xihuan_num);
+        tv_wenzhang_time = wenzhang_view_time.findViewById(R.id.tv_wenzhang_time);
+        tv_pinglum_num.setText(String.valueOf(result.getCommentNum()));
+        tv_liulanliang_num.setText(String.valueOf(result.getBrowseCount()));
+        tv_xihuan_num.setText(String.valueOf(result.getPraiseNum()));
         pingLunAdapter = new PingLunAdapter(R.layout.item_quanzi_pinglun, pinglun.getResult().getList());
         rec_wenzhang_pinglun.setAdapter(pingLunAdapter);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(10,20,10,20);
+        wenzhang_view_time.setLayoutParams(layoutParams);
+        view_wenzhang.addView(wenzhang_view_time);
         view_wenzhang.addView(rec_wenzhang_pinglun);
         tv_quanzi_name.setText(result.getMember().getNickName());
         RequestOptions requestOptions = new RequestOptions().circleCrop();
@@ -366,13 +373,6 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
-                                        if(Build.VERSION.SDK_INT>=23){
-                                            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,
-                                                    Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE,
-                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,
-                                                    Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-                                            ActivityCompat.requestPermissions(WenZhangDetailActivity.this,mPermissionList,123);
-                                        }
                                         if ("分享".equals(text)){
                                             UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
                                             web.setTitle(share.getResult().getTitle());//标题
@@ -575,12 +575,19 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                                 ToastUtils.showShort("评论成功");
                                 initPingLun(detail.getResult());
                                 edt_quanzi_pinglun.setText("");
+                                initData();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(WenZhangDetailActivity.this,"请稍后。。。");
+                        super.onStart(request);
                     }
                 });
     }

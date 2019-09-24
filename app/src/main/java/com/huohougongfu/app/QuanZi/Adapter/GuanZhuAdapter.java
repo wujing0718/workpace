@@ -71,11 +71,15 @@ public class GuanZhuAdapter extends BaseQuickAdapter<GuanZhuDongTai.ResultBean.L
         } else {
             Picasso.get().load(R.mipmap.ic_launcher).into(img_quanzi_photo);
         }
-        String content = item.getContent();
-        String newcontent = content.replace("@&$,,", "");
+        String content1 = item.getContent();
+        String newcontent = content1.replace("ゐゑを", "");
+        String newcontent1 = newcontent.replace("わわ", "");
+        String content = newcontent1.replace("\n", " ");
+        String newcontent2 = content.replace("@&$,,", "");
+
         String time = utils.transForDate2(Long.valueOf(item.getCreateTime()));
         helper.setText(R.id.tv_faxian_name, item.getMember().getNickName());
-        helper.setText(R.id.tv_faxian_content, newcontent);
+        helper.setText(R.id.tv_faxian_content, newcontent2);
         helper.setText(R.id.tv_faxian_time, time);
         helper.setText(R.id.tv_xihuan_num, String.valueOf(item.getPraiseNum()));
 

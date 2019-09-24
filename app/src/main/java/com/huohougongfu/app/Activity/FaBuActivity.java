@@ -203,7 +203,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         Matisse.from(this)
                 .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))//照片视频全部显示MimeType.allOf()
                 .countable(true)//true:选中后显示数字;false:选中后显示对号
-                .maxSelectable(6)//最大选择数量为9
+                .maxSelectable(9)//最大选择数量为9
                 //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))//图片显示表格的大小
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_USER)//图像选择和预览活动所需的方向
@@ -243,7 +243,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == CONTEXT_RESTRICTED){
             data1 = (AddressBean)data.getSerializableExtra("data");
             if(data1==null){
-                tv_weizhi.setText("服务地址");
+                tv_weizhi.setText("");
             }else{
                 tv_weizhi.setText(data1.getTitle());
             }
@@ -255,10 +255,13 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(FaBuActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            String compress = SDCardUtil.saveToSdCard(bitmap1);//压缩后的图片路径
-            String compressPath = ImageUtils.amendRotatePhoto(compress,FaBuActivity.this);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //Log.e(TAG, "###path=" + imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
+            String compressPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
             if (compressPath!=null) {
                 //compressPath 存放所有的照片的路径
                 mPicList.add(compressPath); //把图片添加到将要上传的图片数组中

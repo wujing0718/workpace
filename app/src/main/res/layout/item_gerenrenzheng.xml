@@ -162,6 +162,7 @@
                     android:textColorHint="#818181"
                     android:textSize="14sp"
                     android:paddingLeft="@dimen/dp_10"
+                    android:maxLength="18"
                     android:layout_marginLeft="@dimen/dp_42"
                     android:layout_centerVertical="true"
                     android:background="@drawable/black_kuang"

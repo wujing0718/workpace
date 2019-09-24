@@ -103,7 +103,7 @@
 
             <TextView
                 android:id="@+id/bt_add_editview"
-                android:layout_marginVertical="10dp"
+                android:layout_marginBottom="@dimen/dp_20"
                 android:layout_centerInParent="true"
                 android:background="@drawable/kaquan_kuang"
                 android:paddingHorizontal="@dimen/icon_size_20dp"
@@ -115,5 +115,27 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/view_fabud_dingwei"
+        android:layout_marginBottom="6dp"
+        android:padding="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_weizhi"
+            android:text="所在位置"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

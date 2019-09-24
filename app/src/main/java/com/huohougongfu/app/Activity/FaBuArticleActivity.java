@@ -13,14 +13,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.JiQiAcyivity;
 import com.huohougongfu.app.UploadPictures.MainConstant;
 import com.huohougongfu.app.UploadPictures.PictureSelectorConfig;
 import com.huohougongfu.app.UploadPictures.PlusImageActivity;
@@ -79,6 +82,9 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
     private ImageView imageView;
     private RichTextEditor et_new_content;
     private Disposable subsInsert;
+    private TextView tv_weizhi;
+    private AddressBean data1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +103,9 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
         insertDialog.setCanceledOnTouchOutside(false);
         view_wenzhang = findViewById(R.id.view_wenzhang);
         edt_wenzhang_title = findViewById(R.id.edt_wenzhang_title);
+        tv_weizhi = findViewById(R.id.tv_weizhi);
         findViewById(R.id.bt_add_editview).setOnClickListener(this);
+        findViewById(R.id.view_fabud_dingwei).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_fabu).setOnClickListener(this);
         et_new_content.post(new Runnable() {
@@ -111,6 +119,11 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.view_fabud_dingwei:
+                if (!utils.isDoubleClick()){
+                    startActivityForResult(new Intent(FaBuArticleActivity.this, JiQiAcyivity.class), CONTEXT_RESTRICTED);
+                }
+                break;
             case R.id.bt_add_editview:
                 if (!utils.isDoubleClick()) {
                     callGallery();
@@ -193,8 +206,13 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
             map.put("type","2");
             map.put("title",title);
             map.put("mId",String.valueOf(mId));
-            map.put("cityCode",citycode);
             map.put("token",token);
+        if (data1!=null){
+            map.put("longitude", String.valueOf(data1.getLongitude()));
+            map.put("latitude", String.valueOf(data1.getLatitude()));
+            map.put("cityCode", data1.getCityCode());
+            map.put("address", data1.getTitle());
+        }
         OkGo.<String>post(Contacts.URl1+"/circle/pub")
                     .tag(this)
                     .isMultipart(true)
@@ -237,6 +255,14 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                     break;
             }
         }
+        if (requestCode == CONTEXT_RESTRICTED){
+            data1 = (AddressBean)data.getSerializableExtra("data");
+            if(data1==null){
+                tv_weizhi.setText("所在位置");
+            }else{
+                tv_weizhi.setText(data1.getTitle());
+            }
+        }
     }
 
     private void insertImagesSync(final Intent data) {
@@ -244,16 +270,19 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                     //被压缩后的图片路径
                     for (Uri imageUri : mSelected) {
                         String imagePath = SDCardUtil.getFilePathFromUri(FaBuArticleActivity.this, imageUri);
-                        //Log.e(TAG, "###path=" + imagePath);
                         Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-                        String compress = SDCardUtil.saveToSdCard(bitmap1);//压缩后的图片路径
-                        String compressPath = ImageUtils.amendRotatePhoto(compress,FaBuArticleActivity.this);
+                        //读取图片的旋转的角度
+                        int degree  = ImageUtils.getBitmapDegree(imagePath);
+                        //Log.e(TAG, "###path=" + imagePath);
+                        //将图片按照某个角度进行旋转
+                        Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
+                        String compressPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                         if (compressPath!=null){
-//                            compressPath = SDCardUtil.saveToSdCard(bitmap);
-                            //Log.e(TAG, "###imagePath="+imagePath);
                             mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
                             mphotopath.add(new File(compressPath));
                             imageView = new ImageView(FaBuArticleActivity.this);
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                            imageView.setLayoutParams(layoutParams);
                             RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
                             Glide.with(FaBuArticleActivity.this).load(compressPath).apply(placeholder).into(imageView);
                             et_new_content.insertImage(imagePath, et_new_content.getMeasuredWidth());

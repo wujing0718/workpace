@@ -113,6 +113,13 @@ public class WenZhangActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        initData(sousuo);
+        super.onResume();
+    }
+
     private void initData(String sousuo) {
         Map<String, String> map = new HashMap<>();
         map.put("type","2");

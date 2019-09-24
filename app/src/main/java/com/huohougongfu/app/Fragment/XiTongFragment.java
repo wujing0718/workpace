@@ -54,6 +54,8 @@ public class XiTongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_xi_tong, container, false);
+        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
+        rec_xitong = inflate.findViewById(R.id.rec_xitong);
         initData();
         return inflate;
     }
@@ -68,6 +70,7 @@ public class XiTongFragment extends Fragment {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        smartrefreshlayout.finishRefresh();
                         String body = response.body();
                         XiTongGson xiTongGson = new Gson().fromJson(body, XiTongGson.class);
                         if (xiTongGson.getStatus() == 1){
@@ -78,8 +81,6 @@ public class XiTongFragment extends Fragment {
     }
 
     private void initRec(List<XiTongGson.ResultBean.ListBean> list) {
-        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
-        rec_xitong = inflate.findViewById(R.id.rec_xitong);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rec_xitong.setLayoutManager(layoutManager);
         for (int i = 0; i < list.size(); i++) {

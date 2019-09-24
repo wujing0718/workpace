@@ -238,6 +238,7 @@
                         android:layout_marginRight="55dp"
                         android:hint="请输入银行开户名"
                         android:textSize="14sp"
+                        android:maxLength="20"
                         android:textColorHint="#818181"
                         android:paddingHorizontal="@dimen/dp_10"
                         android:layout_marginLeft="@dimen/dp_30"

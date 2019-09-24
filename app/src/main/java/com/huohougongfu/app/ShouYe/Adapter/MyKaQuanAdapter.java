@@ -22,7 +22,7 @@ public class MyKaQuanAdapter extends BaseQuickAdapter<MyCaQuan.ResultBean,BaseVi
     @Override
     protected void convert(BaseViewHolder helper, MyCaQuan.ResultBean item) {
         ImageView img_quan_photo = helper.getView(R.id.img_quan_photo);
-//        helper.addOnClickListener(R.id.bt_zhuanzeng);
+        helper.addOnClickListener(R.id.bt_zhuanzeng);
         helper.addOnClickListener(R.id.bt_serviceRegulations);
         Glide.with(MyApp.context).load(item.getPicturel()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_quan_photo);
         helper.setText(R.id.tv_quan_title,item.getTitle());
