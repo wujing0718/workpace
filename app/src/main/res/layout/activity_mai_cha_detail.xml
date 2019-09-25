@@ -88,8 +88,8 @@
         android:text=""
         android:layout_marginTop="@dimen/dp_10"
         android:textColor="@color/colorBlack"
-        android:textSize="17sp"
-        android:layout_marginLeft="20dp"
+        android:textSize="15sp"
+        android:layout_marginHorizontal="@dimen/dp_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

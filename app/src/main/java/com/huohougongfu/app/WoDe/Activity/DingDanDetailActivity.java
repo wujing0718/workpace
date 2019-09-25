@@ -143,7 +143,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         tv_logisticsFee.setText(String.valueOf(result.get(0).getLogisticsFee()));
         tv_orderAmountTotal.setText("¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
         tv_order_AmountTotal.setText("共计：¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
-        tv_payTime.setText(result.get(0).getPayTime());
+        tv_payTime.setText(result.get(0).getPayTime1());
         tv_serviceRegulations.setText(result.get(0).getServiceRegulations());
         tv_shouhuo_name.setText(result.get(0).getReceiverName());
         tv_shouhuo_phone.setText(result.get(0).getPhone());

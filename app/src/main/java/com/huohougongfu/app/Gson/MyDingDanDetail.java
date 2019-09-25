@@ -94,6 +94,7 @@ public class MyDingDanDetail implements Serializable{
         private String outTradeNo;
         private String escrowTradeNo;
         private String payTime;
+        private String payTime1;
         private int delayReceiveDay;
         private int createBy;
         private String createTime;
@@ -244,6 +245,14 @@ public class MyDingDanDetail implements Serializable{
 
         public void setPayTime(String payTime) {
             this.payTime = payTime;
+        }
+
+        public String getPayTime1() {
+            return payTime1;
+        }
+
+        public void setPayTime1(String payTime1) {
+            this.payTime1 = payTime1;
         }
 
         public int getDelayReceiveDay() {
