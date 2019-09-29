@@ -207,4 +207,13 @@ dependencies {
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
+    //城市索引列表
+    implementation 'com.desmond:CityPicker:0.4.6'    //必选
+
+    implementation('com.desmond:CityPicker:0.4.6') {
+        exclude group: 'com.android.support'
+        exclude group: 'com.squareup.sqlbrite'
+        exclude group: 'io.reactivex'
+        exclude group: 'org.greenrobot'
+    }
 }

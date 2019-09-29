@@ -3,17 +3,20 @@ package com.huohougongfu.app.Gson;
 import java.io.Serializable;
 
 public class TeaDetail implements Serializable {
+
     /**
-     * teaName : 绿茶
-     * price : 12.00
-     * teaId : 2
-     * concentration : {"teaWeight":"5","waterWeight":"200","temperature":"80"}
-     * picture : http://oss.irving.net.cn/tea/101561088827_.pic_hd.jpg
-     * efficacy : 功效
+     * teaName : 凤凰单枞
+     * price : 0.01
+     * introduce : 相关介绍
+     * teaId : 1
+     * concentration : {"teaWeight":"14","waterWeight":"300","temperature":"96"}
+     * picture : http://oss.hotkungfu-tea.com/picture/1568945382910.png
+     * efficacy : 提神益思；消脂去腻；降低血脂
      */
 
     private String teaName;
     private String price;
+    private String introduce;
     private String teaId;
     private ConcentrationBean concentration;
     private String picture;
@@ -33,6 +36,14 @@ public class TeaDetail implements Serializable {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 
     public String getTeaId() {
@@ -69,9 +80,9 @@ public class TeaDetail implements Serializable {
 
     public static class ConcentrationBean implements Serializable{
         /**
-         * teaWeight : 5
-         * waterWeight : 200
-         * temperature : 80
+         * teaWeight : 14
+         * waterWeight : 300
+         * temperature : 96
          */
 
         private String teaWeight;

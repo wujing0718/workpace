@@ -36,6 +36,7 @@ public class MyDingDanActivity extends AppCompatActivity {
         });
         initTablayout();
     }
+
     private void initTablayout() {
         mFragments.clear();
         mtabtitle.clear();
@@ -51,4 +52,5 @@ public class MyDingDanActivity extends AppCompatActivity {
         stl.setViewPager(mViewPager);
         stl.setCurrentTab(position,true);
     }
+
 }

@@ -65,7 +65,7 @@ public class utils {
     public static String transForDate2(Long ms) {
         String str = "";
         if (ms != null) {
-            long msl = (long) ms * 1000;
+            long msl = (long) ms;
 //            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
 

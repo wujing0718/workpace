@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.Gson.ShopGuanLiLieBiao;
 import com.huohougongfu.app.Gson.TeiHuiGson;
 import com.huohougongfu.app.MyApp;
@@ -27,6 +28,7 @@ import com.huohougongfu.app.ShouYe.Fragment.ChaYinFragment;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
+import com.huohougongfu.app.WoDe.Activity.ShangHuRenZhengActivity;
 import com.huohougongfu.app.WoDe.Activity.ShopGuanLIActivity;
 import com.huohougongfu.app.WoDe.Activity.TianJiaShangPinActivity;
 import com.huohougongfu.app.WoDe.Activity.TiaoXuanShopActivity;
@@ -72,6 +74,7 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
     private View view;
     private Intent intent;
     private int page = 2;
+    private RenZhengZhuangTai renZhengZhuangTai;
 
 
     public YiShangJiaFragment() {
@@ -88,6 +91,8 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
+        intent = new Intent();
+        initRenZheng();
         initUI();
         initData();
         return inflate;
@@ -109,6 +114,19 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
         inflate.findViewById(R.id.bt_shangchuan_shop).setOnClickListener(this);
 
     }
+
+    private void initRenZheng() {
+        OkGo.<String>get(Contacts.URl1+"/my/certificationStatus/"+id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        renZhengZhuangTai = gson.fromJson(body, RenZhengZhuangTai.class);
+                    }
+                });
+    }
+
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("tel",tel);
@@ -288,21 +306,31 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                             //下架
                             initXiaJia();
                         } else {
-                            intent.setClass(getActivity(), TianJiaShangPinActivity.class);
-                            startActivity(intent);
+                            //如果已经认证店铺
+                            if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                                intent.setClass(getActivity(), TianJiaShangPinActivity.class);
+                                startActivity(intent);
+                            }else{
+                                intent.setClass(getActivity(), ShangHuRenZhengActivity.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 } else {
-                    intent = new Intent();
-                    intent.setClass(getActivity(), TianJiaShangPinActivity.class);
-                    startActivity(intent);
+                    //如果已经认证店铺
+                    if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                        intent.setClass(getActivity(), TianJiaShangPinActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(), ShangHuRenZhengActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 break;
             case R.id.bt_tiaoxuan_shop:
                 if (status != null) {
                     if (status.equals("仓库")) {
                         if (isGuanLi) {
-                            intent = new Intent();
                             intent.setClass(getActivity(), TiaoXuanShopActivity.class);
                             startActivity(intent);
                         } else {
@@ -311,7 +339,6 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                         }
                     }
                 } else {
-                    intent = new Intent();
                     intent.setClass(getActivity(), TiaoXuanShopActivity.class);
                     startActivity(intent);
                 }

@@ -547,33 +547,40 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                 if (!utils.isDoubleClick()){
                     if (!token.isEmpty()){
                         if (xinxi.getResult()!=null){
-                            if (xinxi.getResult().isIsMerchant() ==true){
+                            if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
                                 intent.setClass(getActivity(),MyDianPuActivity.class);
                                 startActivity(intent);
                             }else{
-                                if (renZhengZhuangTai!=null){
-                                    if (renZhengZhuangTai.getStatus() == 1){
-                                        if (renZhengZhuangTai.getResult().getPerson().getCode() == 0) {
-                                            intent.setClass(getActivity(), GeRenRenZhengActivity.class);
-                                            startActivity(intent);
-                                        }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
-                                            if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
-                                                intent.setClass(getActivity(),RealNameActivity.class);
-                                                startActivity(intent);
-                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 1){
-                                                intent.setClass(getActivity(),ReviewViewActivity.class);
-                                                startActivity(intent);
-                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
-                                                intent.setClass(getActivity(),MyDianPuActivity.class);
-                                                startActivity(intent);
-                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 0){
-                                                intent.setClass(getActivity(),FailedViewActivity.class);
-                                                startActivity(intent);
-                                            }
-                                        }
-                                    }
-                                }
+                                intent.setClass(getActivity(),GeRenRenZhengActivity.class);
+                                startActivity(intent);
                             }
+//                            if (xinxi.getResult().isIsMerchant() ==true){
+//                                intent.setClass(getActivity(),MyDianPuActivity.class);
+//                                startActivity(intent);
+//                            }else{
+//                                if (renZhengZhuangTai!=null){
+//                                    if (renZhengZhuangTai.getStatus() == 1){
+//                                        if (renZhengZhuangTai.getResult().getPerson().getCode() == 0) {
+//                                            intent.setClass(getActivity(), GeRenRenZhengActivity.class);
+//                                            startActivity(intent);
+//                                        }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+//                                            if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
+//                                                intent.setClass(getActivity(),RealNameActivity.class);
+//                                                startActivity(intent);
+//                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 1){
+//                                                intent.setClass(getActivity(),ReviewViewActivity.class);
+//                                                startActivity(intent);
+//                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+//                                                intent.setClass(getActivity(),MyDianPuActivity.class);
+//                                                startActivity(intent);
+//                                            }else if (renZhengZhuangTai.getResult().getStore().getCode() == 0){
+//                                                intent.setClass(getActivity(),FailedViewActivity.class);
+//                                                startActivity(intent);
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
                         }else{
                             ToastUtils.showShort("请稍后再试");
                         }

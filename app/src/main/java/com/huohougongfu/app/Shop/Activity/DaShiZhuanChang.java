@@ -12,18 +12,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
-import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.DSZhuanChang;
-import com.huohougongfu.app.Gson.ShangPinGson;
-import com.huohougongfu.app.Gson.TeYuePingPai;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
@@ -129,7 +124,11 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
                     }
                     //自己需要的操作
                     String sousuo = bt_dashi_sousuo.getText().toString();
-                    initData(sousuo);
+                    if (sousuo.isEmpty()){
+                        initData(sousuo);
+                    }else{
+                        initData(sousuo);
+                    }
                 }
                 //记得返回false
                 return false;
@@ -197,8 +196,12 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
                         Gson gson = new Gson();
                         DSZhuanChang shangPinGson = gson.fromJson(response.body(), DSZhuanChang.class);
                         if (shangPinGson.getStatus() == 1) {
-                            initRec(shangPinGson.getResult().getYourLike());
-                            initRec2(shangPinGson.getResult().getAllMaster().getList());
+                            if (!sousuo.isEmpty()){
+                                initRec2(shangPinGson.getResult().getAllMaster().getList(),sousuo);
+                            }else{
+                                initRec2(shangPinGson.getResult().getAllMaster().getList(),sousuo);
+                                initRec(shangPinGson.getResult().getYourLike());
+                            }
                         }
                     }
                     @Override
@@ -265,24 +268,30 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
         });
     }
 
-    private void initRec2(List<DSZhuanChang.ResultBean.AllMasterBean.ListBean> allMaster) {
-        //BUG
-        ViewGroup parentViewGroup = (ViewGroup) head_dashizhuanchang.getParent();
-        if (parentViewGroup != null) {
-            parentViewGroup.removeAllViews();
-        }
-        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
-        LinearLayoutManager layoutmanager = new LinearLayoutManager(DaShiZhuanChang.this){
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
+    private void initRec2(List<DSZhuanChang.ResultBean.AllMasterBean.ListBean> allMaster, String sousuo) {
+        if (sousuo.isEmpty()){
+            //BUG
+            ViewGroup parentViewGroup = (ViewGroup) head_dashizhuanchang.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeAllViews();
             }
-        };
-        layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
-        //设置RecyclerView 布局
-        rec_dashizhuanchang.setLayoutManager(layoutmanager);
-        quanBuDaShiAdapter = new QuanBuDaShiAdapter(R.layout.item_dashizhuanchang,allMaster);
-        quanBuDaShiAdapter.addHeaderView(head_dashizhuanchang);
+            //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+            LinearLayoutManager layoutmanager = new LinearLayoutManager(DaShiZhuanChang.this){
+                @Override
+                public boolean canScrollHorizontally() {
+                    return false;
+                }
+            };
+            layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
+            //设置RecyclerView 布局
+            rec_dashizhuanchang.setLayoutManager(layoutmanager);
+            quanBuDaShiAdapter = new QuanBuDaShiAdapter(R.layout.item_dashizhuanchang,allMaster);
+            quanBuDaShiAdapter.addHeaderView(head_dashizhuanchang);
+            rec_dashizhuanchang.setAdapter(quanBuDaShiAdapter);
+        }else{
+            quanBuDaShiAdapter = new QuanBuDaShiAdapter(R.layout.item_dashizhuanchang,allMaster);
+            rec_dashizhuanchang.setAdapter(quanBuDaShiAdapter);
+        }
         quanBuDaShiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -304,7 +313,6 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
 
             }
         });
-        rec_dashizhuanchang.setAdapter(quanBuDaShiAdapter);
         //刷新
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

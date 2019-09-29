@@ -45,6 +45,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -60,6 +62,7 @@ public class TongChengFragment extends Fragment implements IListener {
     private int page = 2;
     private FaXianAdapter faXianAdapter;
     private Intent intent;
+    private String citycode;
 
     public TongChengFragment() {
         // Required empty public constructor
@@ -71,10 +74,10 @@ public class TongChengFragment extends Fragment implements IListener {
                              Bundle savedInstanceState) {
         ListenerManager.getInstance().registerListtener(this);
         inflate = inflater.inflate(R.layout.fragment_tong_cheng, container, false);
-        channel = getArguments().getString("ARGS");
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
         intent = new Intent();
+        channel = getArguments().getString("ARGS");
         initUI();
         initData("");
         return inflate;
@@ -86,7 +89,11 @@ public class TongChengFragment extends Fragment implements IListener {
         if (!condition.isEmpty()){
             map.put("condition",condition);
         }
-        map.put("cityCode",MyApp.instance.getString("citycode"));
+        if (citycode!=null){
+            map.put("cityCode",citycode);
+        }else{
+            map.put("cityCode",channel);
+        }
         map.put("pageNo","1");
         map.put("mId",String.valueOf(mId));
         map.put("pageSize","10");
@@ -260,7 +267,6 @@ public class TongChengFragment extends Fragment implements IListener {
         map.put("dataId",String.valueOf(listBean.getId()));
         map.put("mId",String.valueOf(mId));
         map.put("token",token);
-
         OkGo.<String>post(Contacts.URl1+"/circle/praise")
                 .params(map)
                 .execute(new StringCallback() {
@@ -303,6 +309,9 @@ public class TongChengFragment extends Fragment implements IListener {
     public void notifyAllActivity(int audience_cnt, String status) {
         if(audience_cnt == 3){
             initData(status);
+        }else if (audience_cnt == 1001){
+            citycode = status;
+            initData("");
         }
     }
 }

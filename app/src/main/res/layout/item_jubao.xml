@@ -8,8 +8,9 @@
     android:paddingVertical="2dp"
     android:layout_marginVertical="5dp"
     android:gravity="center"
-    android:background="@drawable/sousuo_shaixuan"
+    android:layout_weight="1"
+    android:background="@drawable/selector_paocha"
     android:layout_marginLeft="5dp"
-    android:textColor="@drawable/text_drawable_selector"
+    android:textColor="@color/black"
     android:textSize="12sp"
     android:text="" />

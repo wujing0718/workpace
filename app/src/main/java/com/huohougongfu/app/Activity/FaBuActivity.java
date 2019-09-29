@@ -200,8 +200,8 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
      * 调用图库选择
      */
     private void callGallery(){
-        Matisse.from(this)
-                .choose(MimeType.of(MimeType.JPEG, MimeType.PNG, MimeType.GIF))//照片视频全部显示MimeType.allOf()
+        Matisse.from(FaBuActivity.this)
+                .choose(MimeType.ofImage(),false)//照片视频全部显示MimeType.allOf()
                 .countable(true)//true:选中后显示数字;false:选中后显示对号
                 .maxSelectable(9)//最大选择数量为9
                 //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))

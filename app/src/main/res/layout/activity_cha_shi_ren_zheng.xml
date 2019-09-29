@@ -223,9 +223,10 @@
                                 android:id="@+id/edt_zhicheng_qita"
                                 android:hint="其他"
                                 android:textSize="14sp"
+                                android:maxLength="30"
                                 android:paddingLeft="@dimen/dp_10"
                                 android:background="@drawable/kaquan_kuang"
-                                android:layout_width="100dp"
+                                android:layout_width="@dimen/dp_200"
                                 android:layout_height="24dp" />
 
                         </LinearLayout>

@@ -45,6 +45,8 @@ import com.huohougongfu.app.PopupView.VedioComment;
 import com.huohougongfu.app.PopupView.VedioContentDetail;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
@@ -75,7 +77,7 @@ import java.util.Map;
 
 import cn.jzvd.JzvdStd;
 
-public class VedioDetailActivity extends AppCompatActivity {
+public class VedioDetailActivity extends AppCompatActivity implements IListener {
 
     private JzvdStd jzvdStd;
     private int dId,mId;
@@ -100,12 +102,14 @@ public class VedioDetailActivity extends AppCompatActivity {
     private QuanZiXiHuan.ResultBean.DatasBean.ListBean likeshipin;
     private QuanZiShare share;
     private VedioDetail vedio;
+    private String citycode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vedio_detail);
         dId = getIntent().getIntExtra("dId", 0);
+        ListenerManager.getInstance().registerListtener(this);
         dongtaishipin = (MyDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("动态视频");
         shipin = (QuanZiFaXian.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("小视频");
         shipin2 = (GuanZhuDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("关注视频");
@@ -114,6 +118,18 @@ public class VedioDetailActivity extends AppCompatActivity {
         token = MyApp.instance.getString("token");
         map  = new HashMap<>();
         initDeta();
+        initViedioNum();
+    }
+
+    private void initViedioNum() {
+        OkGo.<String>post(Contacts.URl1+"/circle/addVideoBrowseCount")
+                .params("dataId",dId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                    }
+                });
     }
 
     private void initDeta() {
@@ -123,12 +139,16 @@ public class VedioDetailActivity extends AppCompatActivity {
         map.put("dataId",String.valueOf(dId));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
+        if (citycode!=null){
+            map.put("cityCode",citycode);
+        }else{
+            map.put("cityCode",MyApp.instance.getString("citycode"));
+        }
         OkGo.<String>post(Contacts.URl1+"/circle/video")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
                         Gson gson = new Gson();
                         vedio = gson.fromJson(response.body(), VedioDetail.class);
                         if (vedio.getStatus()==1){
@@ -143,7 +163,6 @@ public class VedioDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(VedioDetailActivity.this,"正在加载。。。");
                         super.onStart(request);
 
                     }
@@ -377,6 +396,14 @@ public class VedioDetailActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if (audience_cnt == 1001){
+            citycode = status;
+            initDeta();
+        }
     }
 
 //    /**

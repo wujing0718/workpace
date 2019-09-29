@@ -198,6 +198,17 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tv_jieshao"
+            android:layout_marginHorizontal="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_12"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:text="就是大家安静多了按时间大数据的了解是多久啊是假的啦就是大家安静多了按时间大数据的了解是多久啊是假的啦"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_marginBottom="20dp"
             android:layout_marginTop="18dp"

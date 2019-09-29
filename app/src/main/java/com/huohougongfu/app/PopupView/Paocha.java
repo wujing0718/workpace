@@ -64,6 +64,7 @@ public class Paocha extends CenterPopupView implements View.OnClickListener,ILis
     private void initUI() {
         tv_paocha_nameprice = findViewById(R.id.tv_paocha_nameprice);
         RadioGroup radiogroup_yedi = findViewById(R.id.radiogroup_yedi);
+        TextView tv_jieshao = findViewById(R.id.tv_jieshao);
         RadioGroup radiogroup_nongdu = findViewById(R.id.radiogroup_nongdu);
         RadioButton radiobutton_youyedi = findViewById(R.id.radiobutton_youyedi);
         RadioButton radiobutton_wuyedi = findViewById(R.id.radiobutton_wuyedi);
@@ -81,6 +82,7 @@ public class Paocha extends CenterPopupView implements View.OnClickListener,ILis
         findViewById(R.id.bt_lijixiadan).setOnClickListener(this);
         radiobutton_youyedi.setChecked(true);
         radiobutton_biaozhun.setChecked(true);
+        tv_jieshao.setText(teaDetail.getIntroduce());
         tv_paocha_nameprice.setText(teaDetail.getTeaName()+" ¥ "+teaDetail.getPrice());
         radiogroup_yedi.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

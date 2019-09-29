@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.MyCollect;
+import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.Gson.ShopGuanLiLieBiao;
 import com.huohougongfu.app.Gson.TeiHuiGson;
 import com.huohougongfu.app.MyApp;
@@ -26,6 +27,7 @@ import com.huohougongfu.app.Shop.Adapter.TeHuiAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
+import com.huohougongfu.app.WoDe.Activity.ShangHuRenZhengActivity;
 import com.huohougongfu.app.WoDe.Activity.ShopGuanLIActivity;
 import com.huohougongfu.app.WoDe.Activity.TianJiaShangPinActivity;
 import com.huohougongfu.app.WoDe.Activity.TiaoXuanShopActivity;
@@ -71,6 +73,7 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
     private View view;
     private Intent intent;
     private int page = 2;
+    private RenZhengZhuangTai renZhengZhuangTai;
 
     public CangKuFragment() {
     }
@@ -86,9 +89,22 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
          intent = new Intent();
+        initRenZheng();
         initUI();
         initData();
         return inflate;
+    }
+
+    private void initRenZheng() {
+        OkGo.<String>get(Contacts.URl1+"/my/certificationStatus/"+id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        renZhengZhuangTai = gson.fromJson(body, RenZhengZhuangTai.class);
+                    }
+                });
     }
 
     @Override
@@ -285,12 +301,24 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                         //上架
                         initShangJia();
                     }else{
-                        intent.setClass(getActivity(),TianJiaShangPinActivity.class);
-                        startActivity(intent);
+                        //如果已经认证店铺
+                        if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                            intent.setClass(getActivity(), TianJiaShangPinActivity.class);
+                            startActivity(intent);
+                        }else{
+                            intent.setClass(getActivity(), ShangHuRenZhengActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }else{
-                    intent.setClass(getActivity(),TianJiaShangPinActivity.class);
-                    startActivity(intent);
+                    //如果已经认证店铺
+                    if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                        intent.setClass(getActivity(), TianJiaShangPinActivity.class);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(getActivity(), ShangHuRenZhengActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 break;
             case R.id.bt_tiaoxuan_shop:

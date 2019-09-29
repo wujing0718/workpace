@@ -20,16 +20,12 @@ import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
-import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.TeYuePingPai;
-import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.PinPaiAdapter;
-import com.huohougongfu.app.Shop.Adapter.PingJiaAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
-import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -42,7 +38,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -199,8 +194,12 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
                         Gson gson = new Gson();
                         TeYuePingPai shangPinGson = gson.fromJson(response.body(), TeYuePingPai.class);
                         if (shangPinGson.getStatus() == 1) {
-                            initRec(shangPinGson.getResult().getIsSpecial());
-                            initRec2(shangPinGson.getResult().getResultList().getList());
+                            if (!sousuo.isEmpty()){
+                                initRec2(shangPinGson.getResult().getResultList().getList(),sousuo);
+                            }else{
+                                initRec2(shangPinGson.getResult().getResultList().getList(),sousuo);
+                                initRec(shangPinGson.getResult().getIsSpecial());
+                            }
                         }
                     }
                     @Override
@@ -267,25 +266,30 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
         });
     }
 
-    private void initRec2(List<TeYuePingPai.ResultBean.ResultListBean.ListBean> resultList) {
-        ViewGroup parentViewGroup = (ViewGroup) head_teyue.getParent();
-        if (parentViewGroup != null) {
-            parentViewGroup.removeAllViews();
-        }
-        //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
-        LinearLayoutManager layoutmanager = new LinearLayoutManager(TeYuePinPaiActivity.this){
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
+    private void initRec2(List<TeYuePingPai.ResultBean.ResultListBean.ListBean> resultList, String sousuo) {
+        if (sousuo.isEmpty()){
+            ViewGroup parentViewGroup = (ViewGroup) head_teyue.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeAllViews();
             }
-        };
-        layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
-        //设置RecyclerView 布局
-        rec_quanbupinpai.setLayoutManager(layoutmanager);
-        pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,resultList);
-        pinPaiItemAdapter.addHeaderView(head_teyue);
+            //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
+            LinearLayoutManager layoutmanager = new LinearLayoutManager(TeYuePinPaiActivity.this){
+                @Override
+                public boolean canScrollHorizontally() {
+                    return false;
+                }
+            };
+            layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
+            //设置RecyclerView 布局
+            rec_quanbupinpai.setLayoutManager(layoutmanager);
+            pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,resultList);
+            pinPaiItemAdapter.addHeaderView(head_teyue);
+            rec_quanbupinpai.setAdapter(pinPaiItemAdapter);
+        }else{
+            pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,resultList);
+            rec_quanbupinpai.setAdapter(pinPaiItemAdapter);
 
-        rec_quanbupinpai.setAdapter(pinPaiItemAdapter);
+        }
         pinPaiItemAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

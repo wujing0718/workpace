@@ -109,7 +109,6 @@ public class MaiChaFragment extends Fragment {
         });
     }
 
-
     public static Fragment newInstance(String content) {
         Bundle args = new Bundle();
         args.putString("ARGS", content);
@@ -117,4 +116,5 @@ public class MaiChaFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 }

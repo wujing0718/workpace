@@ -16,9 +16,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.desmond.citypicker.bean.BaseCity;
+import com.desmond.citypicker.bin.CityPicker;
+import com.desmond.citypicker.callback.IOnCityPickerCheckedCallBack;
+import com.desmond.citypicker.ui.CityPickerActivity;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
-import com.huohougongfu.app.Activity.GouWuCheActivity;
+import com.huohougongfu.app.Activity.CityActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
@@ -56,6 +60,7 @@ import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
 import q.rorbin.badgeview.QBadgeView;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
@@ -70,7 +75,6 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     private MyPagerAdapter mAdapter;
     private View inflate;
     private Intent intent;
-    private String citycode;
     private EditText edt_quanzi_sousuo;
     private InputMethodManager manager;
     private TextView tv_city;
@@ -85,9 +89,9 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     private QBadgeView qBadgeView;
     private View bt_xiaoxi;
     private String token;
+    private String city;
 
     public QuanZiFragment() {
-        // Required empty public constructor
     }
 
 
@@ -103,14 +107,15 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         token = MyApp.instance.getString("token");
         banner = inflate.findViewById(R.id.banner);
         layoutParams.height = utils.getStatusBarHeight();
-        citycode = MyApp.instance.getString("citycode");
+        city = MyApp.instance.getString("city");
         intent = new Intent();
         tv_city = inflate.findViewById(R.id.tv_city);
-        tv_city.setText(MyApp.instance.getString("city"));
+        tv_city.setText(city);
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
         bt_xiaoxi = inflate.findViewById(R.id.bt_xiaoxi);
         bt_xiaoxi.setOnClickListener(this);
         inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);
+        inflate.findViewById(R.id.bt_city).setOnClickListener(this);
         inflate.findViewById(R.id.bt_quanzi_zhaoren).setOnClickListener(this);
         edt_quanzi_sousuo = inflate.findViewById(R.id.edt_quanzi_sousuo);
         edt_quanzi_sousuo.setOnKeyListener(new View.OnKeyListener() {
@@ -182,7 +187,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         SlidingTabLayout stl = inflate.findViewById(R.id.stl);
         ViewPager mViewPager = inflate.findViewById(R.id.vp);
         mFragments.add(FaXianFragment.newInstance(""));
-        mFragments.add(TongChengFragment.newInstance(citycode));
+        mFragments.add(TongChengFragment.newInstance(MyApp.instance.getString("citycode")));
         mFragments.add(GuanZhuFragment.newInstance("zhengce"));
         mFragments.add(XiHuanFragment.newInstance("personage"));
         for (int i = 0;i<mTitles.length;i++){
@@ -230,6 +235,34 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
                     }
                 }
                 break;
+            case R.id.bt_city:
+                if (!utils.isDoubleClick()){
+                    if (!token.isEmpty()){
+                        CityPicker.setGpsCityByAMap(city,MyApp.instance.getString("citycode"));
+                        //高德定位
+                        CityPicker.with(getContext())
+                                .setUseGpsCity(true)
+                                .setTitleBarDrawable(R.color.colorBlack)
+                                .setMaxHistory(6)
+                                .setCustomDBName("city.sqlite")
+                                .setUseImmerseBar(false)
+                                .setOnCityPickerCallBack(new IOnCityPickerCheckedCallBack() {
+                                    @Override
+                                    public void onCityPickerChecked(BaseCity baseCity) {
+                                        tv_city.setText(baseCity.getCityName());
+                                        String citycode = baseCity.getCodeByAMap();
+                                        //自己需要的操作
+                                        ListenerManager.getInstance().sendBroadCast(1001,citycode);
+                                    }
+                                }).open();
+                    }else{
+                        ToastUtils.showShort(R.string.denglu);
+                        intent.setClass(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                        MainActivity.activity.finish();
+                    }
+                }
+                break;
             case R.id.bt_quanzi_zhaoren:
                 if (!utils.isDoubleClick()){
                     if (!token.isEmpty()){
@@ -263,6 +296,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
+            ListenerManager.getInstance().sendBroadCast(1001,MyApp.instance.getString("citycode"));
             RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         }
     }
