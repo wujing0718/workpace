@@ -42,6 +42,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"
                 tools:replace="android:resource" />
+
         </provider>
 
         <activity
@@ -55,14 +56,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- <data -->
-            <!-- android:host="com.huohougongfu.app" -->
-            <!-- android:pathPrefix="/conversation/" -->
-            <!-- android:scheme="rong" /> -->
-            <!-- </intent-filter> -->
 
         </activity>
 
@@ -78,7 +71,6 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5d1efbd54ca357a016000105" />
-
         <!-- 多渠道 -->
         <meta-data
             android:name="UMENG_CHANNEL"

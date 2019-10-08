@@ -56,7 +56,7 @@
         import io.rong.imlib.RongIMClient;
 
         import static io.rong.imlib.RongIMClient.ErrorCode.RC_CONN_USER_OR_PASSWD_ERROR;
-        public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener,IListener {
+    public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,ViewPager.OnPageChangeListener,IListener {
     private ArrayList<Fragment> fragments;
     private long firstTime = 0;
     private BottomNavigationView bottomNavigationView;

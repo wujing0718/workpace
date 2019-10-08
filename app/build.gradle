@@ -69,6 +69,9 @@ android {
         oppo {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
         }
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
         baidu {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
         }
