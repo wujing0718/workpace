@@ -150,7 +150,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     public void onResume() {
         //未读消息
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
-        smartrefreshlayout.autoRefresh();
+//        smartrefreshlayout.autoRefresh();
         page = 2;
         initShoppingCartNum();
         super.onResume();

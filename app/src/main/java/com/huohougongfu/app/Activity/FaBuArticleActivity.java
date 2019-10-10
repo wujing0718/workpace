@@ -126,6 +126,8 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.bt_add_editview:
                 if (!utils.isDoubleClick()) {
+//                    et_new_content.createEditText("请输入内容",10);
+//                    et_new_content.addEditTextAtIndex(10,"请输入内容");
                     callGallery();
                 }
                 break;
@@ -182,7 +184,7 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void dealWithContent(){
-        et_new_content.clearAllLayout();
+//        et_new_content.clearAllLayout();
         // 图片删除事件
         et_new_content.setOnRtImageDeleteListener(new RichTextEditor.OnRtImageDeleteListener() {
 
@@ -198,7 +200,6 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
             }
         });
     }
-
 
     private void initFaBu(String content) {
         Map<String,String> map = new HashMap<>();

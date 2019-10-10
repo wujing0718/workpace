@@ -109,6 +109,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vedio_detail);
         dId = getIntent().getIntExtra("dId", 0);
+        refreshLayout = findViewById(R.id.refreshLayout);
         ListenerManager.getInstance().registerListtener(this);
         dongtaishipin = (MyDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("动态视频");
         shipin = (QuanZiFaXian.ResultBean.DatasBean.ListBean) getIntent().getSerializableExtra("小视频");
@@ -183,7 +184,6 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         mRecyclerView.setLayoutManager(mLayoutManager);
         utils.MoveToPosition(mLayoutManager,0);
         mRecyclerView.setAdapter(mAdapter);
-        refreshLayout = findViewById(R.id.refreshLayout);
         //下拉刷新设置经典样式
         refreshLayout.setRefreshHeader(new ClassicsHeader(this).setEnableLastTime(true));
         refreshLayout.setRefreshFooter(new ClassicsFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
