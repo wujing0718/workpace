@@ -86,7 +86,7 @@
                 android:id="@+id/edt_dianpu_name"
                 android:layout_marginLeft="@dimen/dp_40"
                 android:layout_marginRight="@dimen/dp_15"
-                android:hint="寄予爱茶人"
+                android:hint="输入店铺名称"
                 android:textSize="14sp"
                 android:maxLength="10"
                 android:gravity="right|center_vertical"

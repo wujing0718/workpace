@@ -18,12 +18,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.ChaQuan;
+import com.huohougongfu.app.Gson.QuanZiShare;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.KaQuanGuiZe;
+import com.huohougongfu.app.PopupView.PopupCoupon;
+import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.MeKaQuanAdapter;
 import com.huohougongfu.app.ShouYe.Adapter.SendKaQuanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
@@ -43,7 +47,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChaYinFragment extends Fragment {
+public class ChaYinFragment extends Fragment implements UMShareListener{
 
 
     private View inflate;
@@ -52,6 +56,7 @@ public class ChaYinFragment extends Fragment {
     private boolean isfrist = true;
     private String token,tel,id;
     private View view_zhanweitu1,view_zhanweitu2;
+    private QuanZiShare share;
 
     public ChaYinFragment() {
         // Required empty public constructor
@@ -181,19 +186,11 @@ public class ChaYinFragment extends Fragment {
                                 .show();
                         break;
                     case R.id.bt_zhuanzeng:
-                        UMWeb web = new UMWeb("http://www.baidu.com");//连接地址
-                        web.setTitle("火后功夫");//标题
-                        web.setDescription("123456");//描述
-                        if (TextUtils.isEmpty("")) {
-                            web.setThumb(new UMImage(getActivity(), R.mipmap.img_back));  //本地缩略图
-                        } else {
-                            web.setThumb(new UMImage(getActivity(), ""));  //网络缩略图
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .asCustom(new PopupCoupon(getContext(), getActivity(), me.get(position).getId()))
+                                    .show();
                         }
-                        new ShareAction(getActivity())
-                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
-                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
-                                .withMedia(web)
-                                .setCallback(umShareListener).open();
                         break;
                 }
             }
@@ -213,5 +210,25 @@ public class ChaYinFragment extends Fragment {
         ChaYinFragment fragment = new ChaYinFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onStart(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onResult(SHARE_MEDIA share_media) {
+
+    }
+
+    @Override
+    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+
+    }
+
+    @Override
+    public void onCancel(SHARE_MEDIA share_media) {
+
     }
 }

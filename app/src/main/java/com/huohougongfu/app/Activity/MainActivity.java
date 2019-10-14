@@ -35,6 +35,7 @@
         import com.huohougongfu.app.Gson.LiBaoGson;
         import com.huohougongfu.app.MyApp;
         import com.huohougongfu.app.PopupView.PopupShouCi;
+        import com.huohougongfu.app.PopupView.PopupShouDaoQuan;
         import com.huohougongfu.app.PopupView.XinRenDaLiBao;
         import com.huohougongfu.app.R;
         import com.huohougongfu.app.Utils.Contacts;
@@ -236,6 +237,12 @@
                                     new XPopup.Builder(MainActivity.this)
                                             .enableDrag(false)
                                             .asCustom(new XinRenDaLiBao(MainActivity.this,liBaoGson.getResult().getSystem()))
+                                            .show();
+                                }
+                                if (liBaoGson.getResult().getReceive().size()>0){
+                                    new XPopup.Builder(MainActivity.this)
+                                            .enableDrag(false)
+                                            .asCustom(new PopupShouDaoQuan(MainActivity.this,liBaoGson.getResult().getReceive()))
                                             .show();
                                 }
                             }

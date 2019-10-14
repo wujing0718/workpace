@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.DianPuXinXi;
 import com.huohougongfu.app.Gson.MyDianPu;
+import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -23,6 +25,7 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
 
     private Intent intent;
     private TextView tv_visitNum,tv_visitNumOfDay;
+    private RenZhengZhuangTai renZhengZhuangTai;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,15 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void initData() {
+        OkGo.<String>get(Contacts.URl1+"/my/certificationStatus/"+MyApp.instance.getInt("id"))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        renZhengZhuangTai = gson.fromJson(body, RenZhengZhuangTai.class);
+                    }
+                });
         Map<String,String> map = new HashMap<>();
         map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("token",MyApp.instance.getString("token"));
@@ -102,8 +114,19 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.bt_my_dianpu_setting:
                 if (!utils.isDoubleClick()){
-                    intent.setClass(MyDianPuActivity.this,DianPuSettingActivity.class);
-                    startActivity(intent);
+                    if (renZhengZhuangTai.getStatus() == 1){
+                        if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                            intent.setClass(MyDianPuActivity.this,DianPuSettingActivity.class);
+                            startActivity(intent);
+                        }else if (renZhengZhuangTai.getResult().getStore().getCode() ==1){
+                            //茶师认证或者商户认证审核中
+                            intent.setClass(MyDianPuActivity.this,ReviewViewActivity.class);
+                            startActivity(intent);
+                        }else if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
+                            intent.setClass(MyDianPuActivity.this,RealNameActivity.class);
+                            startActivity(intent);
+                        }
+                    }
                 }
                 break;
         }

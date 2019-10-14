@@ -14,7 +14,6 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
-import com.huohougongfu.app.PopupView.PopupCoupon;
 import com.huohougongfu.app.PopupView.PopupDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.ChaTaiDetailAdapter;

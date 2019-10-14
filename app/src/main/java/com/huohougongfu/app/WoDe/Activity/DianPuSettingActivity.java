@@ -65,7 +65,9 @@ public class DianPuSettingActivity extends AppCompatActivity implements View.OnC
     }
 
     private void initView(DianPuXinXi dianPuXinXi) {
-        edt_dianpu_name.setText(dianPuXinXi.getResult().getStoreName());
+        if (dianPuXinXi.getResult()!=null){
+            edt_dianpu_name.setText(dianPuXinXi.getResult().getStoreName());
+        }
     }
 
     private void initUI() {
@@ -101,6 +103,9 @@ public class DianPuSettingActivity extends AppCompatActivity implements View.OnC
                            }else if (renZhengZhuangTai.getResult().getStore().getCode() ==1){
                                //茶师认证或者商户认证审核中
                                intent.setClass(DianPuSettingActivity.this,ReviewViewActivity.class);
+                               startActivity(intent);
+                           }else if (renZhengZhuangTai.getResult().getPerson().getCode() == 3){
+                               intent.setClass(DianPuSettingActivity.this,RealNameActivity.class);
                                startActivity(intent);
                            }
                        }

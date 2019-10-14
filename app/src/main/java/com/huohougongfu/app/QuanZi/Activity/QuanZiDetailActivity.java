@@ -403,7 +403,6 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                                                             SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
                                                     .withMedia(web)
                                                     .setCallback(QuanZiDetailActivity.this).open();
-
                                         }else if ("举报".equals(text)){
                                             intent.putExtra("dataId",String.valueOf(dId));
                                             intent.putExtra("username",detail.getResult().getMember().getNickName());

@@ -73,7 +73,7 @@ public class MCYouHuiQuan extends BottomPopupView {
         layoutmanager.setOrientation(LinearLayoutManager.VERTICAL);
         //设置RecyclerView 布局
         rec_shop_youhuiquan.setLayoutManager(layoutmanager);
-        YouHuiQuanAdapter youHuiQuanAdapter = new YouHuiQuanAdapter(R.layout.item_detail_youhuiquan,mYouhuiquan);
+        YouHuiQuanAdapter youHuiQuanAdapter = new YouHuiQuanAdapter(R.layout.item_wodekaquan,mYouhuiquan);
         rec_shop_youhuiquan.setAdapter(youHuiQuanAdapter);
         youHuiQuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override

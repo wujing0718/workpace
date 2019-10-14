@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@mipmap/img_xinrenlibao2"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_350">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_30"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/dp_60"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_shoudaoquan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text=""
+            android:textColor="#CCBA91"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rec_shoudaoquan"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|center_horizontal"-->
+        <!--android:layout_marginBottom="@dimen/dp_10"-->
+        <!--android:layout_marginHorizontal="@dimen/dp_60"-->
+        <!--android:background="@drawable/delete_kuang"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingHorizontal="@dimen/dp_10"-->
+        <!--android:paddingVertical="4dp"-->
+        <!--android:text="立即领取"-->
+        <!--android:textColor="@color/colorWhite"-->
+        <!--android:textSize="@dimen/text_size_14sp" />-->
+
+
+
+</FrameLayout>

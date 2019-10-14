@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#00ffffff"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_quan_photo"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_gravity="center_vertical"
+                android:layout_width="42dp"
+                android:layout_height="42dp" />
+
+            <TextView
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layerType="software"
+                android:background="@drawable/kaquan_xuxian"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_quan_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:maxLines="1"
+                                    android:text="绿茶券"
+                                    android:textColor="@color/colorZi"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_alignParentRight="true"
+                                    android:id="@+id/tv_quan_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:maxLines="1"
+                                    android:text="爱茶之人分享"
+                                    android:textColor="#CCBA91"
+                                    android:textSize="11sp" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/tv_quan_jieshao"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="免费领取一杯绿茶免费领取一杯绿茶"
+                                android:textColor="@color/colorZi"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_quan_endTime"
+                            android:layout_marginBottom="5dp"
+                            android:layout_alignParentBottom="true"
+                            android:text="有效日期至2020-5-12"
+                            android:textColor="@color/kaquanzi"
+                            android:textSize="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginRight="@dimen/dp_4"
+                        android:layout_weight="1"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp">
+
+                        <RelativeLayout
+                            android:id="@+id/bt_zhuanzeng"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:visibility="gone"
+                                android:layout_alignParentRight="true"
+                                android:paddingVertical="@dimen/dp_4"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:text="转增"
+                                    android:textSize="11sp"
+                                    android:textColor="@color/zhuanzeng"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+
+                                <ImageView
+                                    android:src="@mipmap/img_zhuanzeng"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp" />
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/bt_serviceRegulations"
+                            android:textSize="11sp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/kaquanzi"
+                            android:text="使用规则"
+                            android:gravity="right|center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_guize"
+                    android:visibility="gone"
+                    android:textColor="#A0A0A0"
+                    android:textSize="11sp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginVertical="4dp"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="TA的悄悄话："
+            android:textSize="12sp"
+            android:textColor="#1890FF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_qiaoqoanhua"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dp_4"
+            android:layout_height="@dimen/dp_60"
+            android:textColor="@color/colorBlack"
+            android:background="@drawable/shop_fenlei_kuang"
+            android:text="送你我的茶米分享我的快乐~" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -39,6 +39,7 @@ import com.huohougongfu.app.WoDe.Activity.RealNameActivity;
 import com.huohougongfu.app.WoDe.Activity.ReviewViewActivity;
 import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.huohougongfu.app.WoDe.Activity.VIPActivity;
+import com.huohougongfu.app.WoDe.Activity.WeiRenZhengActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeFenSiActivity;
 import com.huohougongfu.app.WoDe.Activity.WoDeGuanZhuActivity;
 import com.huohougongfu.app.WoDe.Activity.YaoQingActivity;
@@ -551,7 +552,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                                 intent.setClass(getActivity(),MyDianPuActivity.class);
                                 startActivity(intent);
                             }else{
-                                intent.setClass(getActivity(),GeRenRenZhengActivity.class);
+                                intent.setClass(getActivity(),WeiRenZhengActivity.class);
                                 startActivity(intent);
                             }
 //                            if (xinxi.getResult().isIsMerchant() ==true){

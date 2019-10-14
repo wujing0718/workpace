@@ -108,8 +108,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             lat = MyApp.instance.getString("lat");
             //设置默认显示内容
             initUI();
-            initJiQi();
             initMaiChaJiQi();
+            initJiQi();
         }
         return inflate;
     }
@@ -155,14 +155,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                 });
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
-            initJiQi();
-            initMaiChaJiQi();
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser){
+//            initMaiChaJiQi();
+//            initJiQi();
+//        }
+//    }
 
     private void setDefaultFragment(String equipmentId) {
         if (!isAdded()) return;
@@ -190,7 +190,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                             if (lieiao.getResult().getList().size()>0){
                                 jiQiLieBiao = lieiao.getResult().getList().get(0);
                                 setDefaultFragment(lieiao.getResult().getList().get(0).getEquipmentId());
-                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress()+"(No."+lieiao.getResult().getList().get(0).getEquipmentId()+")");
+                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress());
                                 DecimalFormat formater = new DecimalFormat();
                                 formater.setMaximumFractionDigits(2);
                                 formater.setGroupingSize(0);
@@ -231,6 +231,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         if (lieiao.getStatus() == 1) {
                             if (lieiao.getResult().getList().size()>0){
                                 jiQiLieBiao = lieiao.getResult().getList().get(0);
+                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress());
+//                                DecimalFormat formater = new DecimalFormat();
+//                                formater.setMaximumFractionDigits(2);
+//                                formater.setGroupingSize(0);
+//                                formater.setRoundingMode(RoundingMode.FLOOR);
+//                                String result = formater.format(Double.valueOf(lieiao.getResult().getList().get(0).getDistance()));
+//                                tv_jiqijuli.setText(result+"m");
+//                                if (!isAdded()) return;
+//                                FragmentManager fm = getChildFragmentManager();
+//                                FragmentTransaction transaction = fm.beginTransaction();
+//                                transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
+//                                transaction.commitAllowingStateLoss();
                                 initTeaTableNum(HomeFragment.this.jiQiLieBiao.getEquipmentId());
                             }
                         }
@@ -266,18 +278,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                 if (!isChecked) {
                     ischecked = isChecked;
                     initMaiChaJiQi();
-                        tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getEquipmentId()+")");
+                    if (!isAdded()) return;
+                    FragmentManager fm = getChildFragmentManager();
+                    FragmentTransaction transaction = fm.beginTransaction();
+                    if (jiQiLieBiao!=null){
+                        transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
+                        transaction.commitAllowingStateLoss();
+                        tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress());
                         DecimalFormat formater = new DecimalFormat();
                         formater.setMaximumFractionDigits(2);
                         formater.setGroupingSize(0);
                         formater.setRoundingMode(RoundingMode.FLOOR);
                         String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
                         tv_jiqijuli.setText(result+"m");
-                        if (!isAdded()) return;
-                        FragmentManager fm = getChildFragmentManager();
-                        FragmentTransaction transaction = fm.beginTransaction();
-                        transaction.replace(R.id.layFrame, MaiChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
-                        transaction.commitAllowingStateLoss();
+                    }
                 }else{
                     ischecked = isChecked;
                     initJiQi();
@@ -287,7 +301,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     if (jiQiLieBiao!=null){
                         transaction.replace(R.id.layFrame, PaoChaFragment.newInstance(jiQiLieBiao.getEquipmentId()));
                         transaction.commitAllowingStateLoss();
-                        tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getEquipmentId()+")");
+                        tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress());
                         DecimalFormat formater = new DecimalFormat();
                         formater.setMaximumFractionDigits(2);
                         formater.setGroupingSize(0);
@@ -442,7 +456,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     formater.setRoundingMode(RoundingMode.FLOOR);
                     String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
                     tv_jiqijuli.setText(result+"m");
-                    tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress()+"(No."+jiQiLieBiao.getDetailAddress()+")");
+                    tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress());
                     setDefaultFragment(jiQiLieBiao.getEquipmentId());
                     initTeaTableNum(jiQiLieBiao.getEquipmentId());
                 }
@@ -454,7 +468,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     formater.setRoundingMode(RoundingMode.FLOOR);
                     String result = formater.format(Double.valueOf(jiQiLieBiao.getDistance()));
                     tv_jiqijuli.setText(result + "m");
-                    tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress() + "(No." + jiQiLieBiao.getDetailAddress() + ")");
+                    tv_jiqiweizhi.setText(jiQiLieBiao.getDetailAddress());
                     if (!isAdded()) return;
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -472,8 +486,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             if ("是".equals(status)){
                 lon = MyApp.instance.getString("lon");
                 lat = MyApp.instance.getString("lat");
-                initJiQi();
-                initMaiChaJiQi();
             }
         }else if (audience_cnt == 9) {
             if ("是".equals(status)) {

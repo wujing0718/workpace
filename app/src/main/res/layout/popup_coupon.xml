@@ -47,7 +47,7 @@
                     android:id="@+id/edt_qiaoqiaohua"
                     android:paddingLeft="@dimen/icon_size_20dp"
                     android:paddingTop="@dimen/dp_10"
-                    android:text="收下我的茶米，你就是我的人啦~"
+                    android:text="小可爱，给你点了杯茶，记得去喝哦！"
                     android:gravity="top"
                     android:textSize="12sp"
                     android:background="@null"

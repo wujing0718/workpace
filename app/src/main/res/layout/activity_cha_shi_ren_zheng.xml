@@ -119,6 +119,57 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:text="形象照片"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_xingxiang"
+                            android:src="@mipmap/img_xingxiang_icon"
+                            android:layout_width="@dimen/dp_100"
+                            android:layout_height="@dimen/dp_100" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_marginRight="50dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:textSize="12sp"
+                        android:text="图片须清晰、完整、方向正确"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="#E8E8E8"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
                     android:text="职称选择"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"

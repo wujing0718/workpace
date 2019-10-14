@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.huohougongfu.app.Activity.FaBuActivity;
 import com.huohougongfu.app.Activity.FaBuArticleActivity;
 import com.huohougongfu.app.MyApp;
@@ -86,6 +87,9 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
     private String positivePath,reversePath,yingyezizhiPath,qitazizhiPath;
     private ArrayList<File> shenfenFile = new ArrayList<>();
     private ArrayList<File> zizhiFile = new ArrayList<>();
+    private ArrayList<File> xingxiangFile = new ArrayList<>();
+    private ImageView img_xingxiang;
+    private String xingxiangpath;
 
 
     @Override
@@ -105,7 +109,8 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         img_qitazizhi = findViewById(R.id.img_qitazizhi);
         img_yingyezizhi.setOnClickListener(this);
         img_qitazizhi.setOnClickListener(this);
-
+        img_xingxiang = findViewById(R.id.img_xingxiang);
+        img_xingxiang.setOnClickListener(this);
         findViewById(R.id.bt_chashi_tijiao).setOnClickListener(this);
         radio_zhicheng = findViewById(R.id.radio_zhicheng);
         radio_zhicheng.setOnCheckedChangeListener(this);
@@ -238,6 +243,11 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                     callGallery(4);
                 }
                 break;
+            case R.id.img_xingxiang:
+                if (!utils.isDoubleClick()) {
+                    callGallery(5);
+                }
+                break;
             case R.id.bt_chashi_tijiao:
                 if (check_qita.isChecked()){
                     specialty_qita = edt_shanchang_qita.getText().toString();
@@ -273,13 +283,17 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                         if (!"".equals(specialty)){
                             if (positivePath!=null){
                                 if (reversePath!=null){
-                                    if (yingyezizhiPath!=null){
-                                        map.put("specialty",specialty);
-                                        map.put("level",level);
-                                        map.put("mId",String.valueOf(id));
-                                        initData(map);
+                                    if (xingxiangpath !=null){
+                                        if (yingyezizhiPath!=null){
+                                            map.put("specialty",specialty);
+                                            map.put("level",level);
+                                            map.put("mId",String.valueOf(id));
+                                            initData(map);
+                                        }else{
+                                            ToastUtils.showShort("请上传资格证书");
+                                        }
                                     }else{
-                                        ToastUtils.showShort("请上传资格证书");
+                                        ToastUtils.showShort("请上传形象照片");
                                     }
                                 }else{
                                     ToastUtils.showShort("请上传背面面照");
@@ -327,6 +341,7 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                 .params(map)
                 .addFileParams("idCardFile",shenfenFile)
                 .addFileParams("qualificationFile",zizhiFile)
+                .addFileParams("portrait",xingxiangFile)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -339,6 +354,8 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                                 Intent intent = new Intent();
                                 intent.setClass(ChaShiRenZhengActivity.this,ReviewViewActivity.class);
                                 startActivity(intent);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -374,7 +391,28 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                     // 图片选择结果回调
                     qitazizhi(data);
                     break;
+                case 5:
+                    // 图片选择结果回调
+                    xingxiang(data);
+                    break;
             }
+        }
+    }
+
+    private void xingxiang(Intent data) {
+        List<Uri> mSelected = Matisse.obtainResult(data);
+        //被压缩后的图片路径
+        for (Uri imageUri : mSelected) {
+            String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
+            Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //Log.e(TAG, "###path=" + imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
+            xingxiangpath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
+            xingxiangFile.add(new File(xingxiangpath));
+            Glide.with(ChaShiRenZhengActivity.this).load(xingxiangpath).into(img_xingxiang);
         }
     }
 
@@ -383,9 +421,11 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             qitazizhiPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
             zizhiFile.add(new File(qitazizhiPath));
             Glide.with(ChaShiRenZhengActivity.this).load(qitazizhiPath).into(img_qitazizhi);
@@ -395,11 +435,12 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
     private void yingyezizhi(Intent data) {
         List<Uri> mSelected = Matisse.obtainResult(data);
         for (Uri imageUri : mSelected) {
-            //被压缩后的图片路径
             String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             yingyezizhiPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
             zizhiFile.add(new File(yingyezizhiPath));
                 Glide.with(ChaShiRenZhengActivity.this).load(yingyezizhiPath).into(img_yingyezizhi);
@@ -411,9 +452,11 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             positivePath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
             shenfenFile.add(new File(positivePath));
                 Glide.with(ChaShiRenZhengActivity.this).load(positivePath).into(img_positive);
@@ -425,9 +468,11 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ChaShiRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             reversePath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 shenfenFile.add(new File(reversePath));
                 Glide.with(ChaShiRenZhengActivity.this).load(reversePath).into(img_reverse);

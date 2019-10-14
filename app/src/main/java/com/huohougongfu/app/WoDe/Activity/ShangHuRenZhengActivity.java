@@ -286,9 +286,12 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ShangHuRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //Log.e(TAG, "###path=" + imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             shouquanPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
             shouquanFile.add(new File(shouquanPath));
                 Glide.with(ShangHuRenZhengActivity.this).load(shouquanPath).into(img_shouquan_photo);
@@ -300,9 +303,12 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ShangHuRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //Log.e(TAG, "###path=" + imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             mentouPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 mentouFile.add(new File(mentouPath));
                 Glide.with(ShangHuRenZhengActivity.this).load(mentouPath).into(img_mentou_photo);
@@ -314,9 +320,12 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ShangHuRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //Log.e(TAG, "###path=" + imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             zhizhaoPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 zhizhaoFile.add(new File(zhizhaoPath));
                 Glide.with(ShangHuRenZhengActivity.this).load(zhizhaoPath).into(img_yingyezhizhao);
@@ -328,9 +337,12 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ShangHuRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //Log.e(TAG, "###path=" + imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             reversePath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 shenfenFile.add(new File(reversePath));
                 Glide.with(ShangHuRenZhengActivity.this).load(reversePath).into(img_reverse);
@@ -342,9 +354,12 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
         //被压缩后的图片路径
         for (Uri imageUri : mSelected) {
             String imagePath = SDCardUtil.getFilePathFromUri(ShangHuRenZhengActivity.this, imageUri);
-            //Log.e(TAG, "###path=" + imagePath);
             Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            Bitmap bitmap = ImageUtils.rotaingImageView(90, bitmap1);
+            //读取图片的旋转的角度
+            int degree  = ImageUtils.getBitmapDegree(imagePath);
+            //Log.e(TAG, "###path=" + imagePath);
+            //将图片按照某个角度进行旋转
+            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             positivePath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 shenfenFile.add(new File(positivePath));
                 Glide.with(ShangHuRenZhengActivity.this).load(positivePath).into(img_positive);

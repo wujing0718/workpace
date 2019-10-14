@@ -28,6 +28,7 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -148,7 +149,7 @@ public class MyKaQuanFragment extends Fragment {
                     case R.id.bt_zhuanzeng:
                         if (!utils.isDoubleClick()){
                             new XPopup.Builder(getContext())
-                                    .asCustom(new PopupCoupon(getContext(),getActivity()))
+                                    .asCustom(new PopupCoupon(getContext(), getActivity(), result.get(position).getId()))
                                     .show();
                         }
                         break;

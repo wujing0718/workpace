@@ -25,6 +25,8 @@ public class SendKaQuanAdapter extends BaseQuickAdapter<ChaQuan.ResultBean.Recei
     protected void convert(BaseViewHolder helper, ChaQuan.ResultBean.ReceivedBean item) {
         ImageView img_quan_photo = helper.getView(R.id.img_quan_photo);
         helper.addOnClickListener(R.id.bt_zhuanzeng);
+        View bt_zhuanzeng = helper.getView(R.id.bt_zhuanzeng);
+        bt_zhuanzeng.setVisibility(View.GONE);
         helper.addOnClickListener(R.id.bt_serviceRegulations);
         Glide.with(MyApp.context).load(item.getPicture()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_quan_photo);
         helper.setText(R.id.tv_quan_title,item.getTitle());
