@@ -156,7 +156,7 @@ public class JuBaoActivity extends AppCompatActivity implements View.OnClickList
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
-                                ToastUtils.showShort("举报成功");
+                                ToastUtils.showShort("您的举报已提交，稍后会为您处理");
                                 finish();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));

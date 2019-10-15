@@ -194,9 +194,12 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
                         Gson gson = new Gson();
                         TeYuePingPai shangPinGson = gson.fromJson(response.body(), TeYuePingPai.class);
                         if (shangPinGson.getStatus() == 1) {
-                            if (!sousuo.isEmpty()){
+                            if (!sousuo.isEmpty() && shangPinGson.getResult().getResultList().getList().size()==0){
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }else if (!sousuo.isEmpty()){
                                 initRec2(shangPinGson.getResult().getResultList().getList(),sousuo);
                             }else{
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
                                 initRec2(shangPinGson.getResult().getResultList().getList(),sousuo);
                                 initRec(shangPinGson.getResult().getIsSpecial());
                             }
@@ -285,6 +288,7 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
             pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,resultList);
             pinPaiItemAdapter.addHeaderView(head_teyue);
             rec_quanbupinpai.setAdapter(pinPaiItemAdapter);
+
         }else{
             pinPaiItemAdapter = new PinPaiAdapter(R.layout.item_shop_pinpai,resultList);
             rec_quanbupinpai.setAdapter(pinPaiItemAdapter);

@@ -104,7 +104,6 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_cha_tai_one, container, false);
         machineId = getArguments().getString(KEY);
-        initYouHuiQuan();
         initUI();
         return inflate;
     }
@@ -187,14 +186,14 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                             initData(myouhuiquan);
                             tv_chami_dikou.setText("可用"+youhuiquan.getResult().getTeaRice()+"茶米抵扣"+
                                     (youhuiquan.getResult().getTeaRice()*youhuiquan.getResult().getProportion())+"元");
-                            if (myouhuiquan.getCoupons().size()>1){
-                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getTitle());
-                                tv_manjian2.setText(myouhuiquan.getCoupons().get(1).getTitle());
-                            }else if(myouhuiquan.getCoupons().size() ==1){
-                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getTitle());
-                            }else if (myouhuiquan.getCoupons().size()<0){
-                                tv_manjian1.setText("暂无优惠券");
-                            }
+//                            if (myouhuiquan.getCoupons().size()>1){
+//                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getTitle());
+//                                tv_manjian2.setText(myouhuiquan.getCoupons().get(1).getTitle());
+//                            }else if(myouhuiquan.getCoupons().size() ==1){
+//                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getTitle());
+//                            }else if (myouhuiquan.getCoupons().size()<0){
+//                                tv_manjian1.setText("暂无优惠券");
+//                            }
                         }
                     }
                 });
@@ -207,6 +206,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
         mAdapter = new ChaTaiAdapter(R.layout.item_shouye_chataione,bt_checkbox,btn_go_to_pay,result,getActivity()
                 ,img_check,tv_total_price,bt_chami_dikou,img_chami_check, myouhuiquan,bt_delete);
         mAdapter.setData(result);
+        mAdapter.setYouHuoQuan(xuanzeyouhuiquan);
         mAdapter.setOnChangeCountListener(new ChaTaiAdapter.OnChangeCountListener() {
 
             @Override

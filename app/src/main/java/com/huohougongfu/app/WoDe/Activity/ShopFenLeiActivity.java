@@ -100,7 +100,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
         categoryNameid= String.valueOf(shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().get(0).getId());
         if(!(cityValues.isEmpty())){
             cityAdapter=new LevelListViewAdapter(this, cityValues, 3);
-            cityAdapter.setSelectedPositionNoNotify(cityPosition, cityValues);
+            cityAdapter.setSelectedPositionNoNotify(0, cityValues);
             lv_city.setAdapter(cityAdapter);
             cityAdapter.setOnItemClickListener(new LevelListViewAdapter.OnItemClickListener() {
                 @Override
@@ -120,32 +120,32 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
             }
         if(!(provinceValues.isEmpty())){
             provinceAdapter=new LevelListViewAdapter(this, provinceValues, 2);
-            provinceAdapter.setSelectedPositionNoNotify(provincePosition, provinceValues);
+            provinceAdapter.setSelectedPositionNoNotify(0, provinceValues);
             lv_province.setAdapter(provinceAdapter);
             provinceAdapter.setOnItemClickListener(new LevelListViewAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     provincePosition = position;
                     provinceAdapter.setSelectItem(position);
-                    if(provinceNumber!=position){//记录不是当前点击的
-                        provinceNumber=position;//就记录当前条目
-                        provinceTime=System.currentTimeMillis();//并记录第一次时间戳
-                        Timer timer=new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                provinceNumber=-1;
-                                provinceTime=0;
-                            }
-                        }, 300);
-                    }else{//记录的是当前点击的
-                        long num = System.currentTimeMillis()-provinceTime;//判断时间差，是不是双击
-                        if(num<=300){//时间差200毫秒内
-//                            ToastUtil.showToast(MainActivity.this, provinceValues.get(position).getPlacename());
-                        }
-                        provinceNumber=-1;//重置过的记录
-                        provinceTime=0;//重置时间的记录
-                    }
+//                    if(provinceNumber!=position){//记录不是当前点击的
+//                        provinceNumber=position;//就记录当前条目
+//                        provinceTime=System.currentTimeMillis();//并记录第一次时间戳
+//                        Timer timer=new Timer();
+//                        timer.schedule(new TimerTask() {
+//                            @Override
+//                            public void run() {
+//                                provinceNumber=-1;
+//                                provinceTime=0;
+//                            }
+//                        }, 300);
+//                    }else{//记录的是当前点击的
+//                        long num = System.currentTimeMillis()-provinceTime;//判断时间差，是不是双击
+//                        if(num<=300){//时间差200毫秒内
+////                            ToastUtil.showToast(MainActivity.this, provinceValues.get(position).getPlacename());
+//                        }
+//                        provinceNumber=-1;//重置过的记录
+//                        provinceTime=0;//重置时间的记录
+//                    }
                     cityValues.clear();
                     cityValuesid.clear();
                     if(!(provinceValues.isEmpty())){
@@ -166,31 +166,32 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     private void setCountry() {
         if(!(countryValues.isEmpty())){
             countryAdapter=new LevelListViewAdapter(this, countryValues,1);
-            countryAdapter.setSelectedPositionNoNotify(countryPosition, countryValues);
+            countryAdapter.setSelectedPositionNoNotify(0, countryValues);
             lv_country.setAdapter(countryAdapter);
             countryAdapter.setOnItemClickListener(new LevelListViewAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     countryPosition = position;
                     countryAdapter.setSelectItem(position);
-                    if(countryNumber!=position){//记录不是当前点击的
-                        countryNumber=position;//就记录当前条目
-                        countryTime=System.currentTimeMillis();//并记录第一次时间戳
-                        Timer timer=new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                countryNumber=-1;
-                                countryTime=0;
-                            }
-                        }, 300);
-                    }else{//记录的是当前点击的
-                        long num = System.currentTimeMillis()-countryTime;//判断时间差，是不是双击
-                        if(num<=300){//时间差200毫秒内
-                        }
-                        countryNumber=-1;//重置过的记录
-                        countryTime=0;//重置时间的记录
-                    }
+                    provinceAdapter.setSelectItem(0);
+//                    if(countryNumber!=position){//记录不是当前点击的
+//                        countryNumber=position;//就记录当前条目
+//                        countryTime=System.currentTimeMillis();//并记录第一次时间戳
+//                        Timer timer=new Timer();
+//                        timer.schedule(new TimerTask() {
+//                            @Override
+//                            public void run() {
+//                                countryNumber=-1;
+//                                countryTime=0;
+//                            }
+//                        }, 300);
+//                    }else{//记录的是当前点击的
+//                        long num = System.currentTimeMillis()-countryTime;//判断时间差，是不是双击
+//                        if(num<=300){//时间差200毫秒内
+//                        }
+//                        countryNumber=-1;//重置过的记录
+//                        countryTime=0;//重置时间的记录
+//                    }
                     provinceValues.clear();
                     provinceValuesid.clear();
                     if(!(countryValues.isEmpty())){
@@ -207,9 +208,9 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                     cityValues.clear();
                     cityValuesid.clear();
                     if(!(provinceValues.isEmpty())){
-                        for (int i = 0; i < shopFenLeiGson.getResult().get(position).getList().size(); i++) {
-                            cityValues.add(shopFenLeiGson.getResult().get(position).getName());
-                            cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getId()));
+                        for (int i = 0; i < shopFenLeiGson.getResult().get(position).getList().get(0).getList().size(); i++) {
+                                cityValues.add(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getName());
+                                cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getId()));
                         }
 //                            categoryName = cityValues.get(0);
 //                            categoryNameid  = cityValuesid.get(0);

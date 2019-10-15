@@ -78,14 +78,16 @@ public class CTYouHuiQuan extends BottomPopupView {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (mYouhuiquan.get(position).getCouponType() == 1){
-                    if (result.get(position).getTeaId() != mYouhuiquan.get(position).getUsableProductId()){
-                        ToastUtils.showShort("免费券品种不一样,不能使用");
-                    }else{
-                        Message msg = Message.obtain();
-                        msg.what = 0;
-                        msg.obj = mYouhuiquan.get(position);
-                        mHandler.sendMessage(msg);
-                        dismiss();
+                    for (int i = 0; i < result.size(); i++) {
+                        if (result.get(i).getTeaId() == mYouhuiquan.get(position).getUsableProductId()){
+                            Message msg = Message.obtain();
+                            msg.what = 0;
+                            msg.obj = mYouhuiquan.get(position);
+                            mHandler.sendMessage(msg);
+                            dismiss();
+                        }else if(result.get(i).getTeaId() != mYouhuiquan.get(position).getUsableProductId()){
+                            dismiss();
+                        }
                     }
                 }else{
                     Message msg = Message.obtain();

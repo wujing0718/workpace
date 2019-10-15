@@ -24,6 +24,7 @@ import com.huohougongfu.app.Utils.ImageUtils;
 import com.huohougongfu.app.Utils.MyGlideEngine;
 import com.huohougongfu.app.Utils.SDCardUtil;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.lxj.xpopup.XPopup;
@@ -31,6 +32,7 @@ import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -236,6 +238,7 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);
@@ -248,6 +251,12 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(ShangHuRenZhengActivity.this,"请稍后。。。");
+                        super.onStart(request);
                     }
                 });
     }

@@ -209,6 +209,7 @@ public class MyApp extends Application {
                     RongIM.getInstance().logout();
                     JPushInterface.stopPush(context);
                     intent.setClass(context,LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     MainActivity.activity.finish();
                     break;

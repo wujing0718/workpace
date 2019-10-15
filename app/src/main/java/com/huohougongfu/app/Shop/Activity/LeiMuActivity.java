@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
@@ -61,6 +63,7 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
     private HomeAdapter homeAdapter;
     private int scrollPosition = -1;
     private List<String> title = new ArrayList<>();
+    private List<String> ico = new ArrayList<>();
     private List<List<QuanBuLeiMu.ResultBean.ListBean>> content = new ArrayList<>();
 
     private ArrayList<Integer> showTitle;
@@ -164,6 +167,7 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
         for (int i = 0; i < result.size(); i++) {
             showTitle.add(i);
             title.add(result.get(i).getName());
+            ico.add(result.get(i).getIco());
             content.add(result.get(i).getList());
         }
         lv_menu =findViewById(R.id.lv_menu);
@@ -388,17 +392,17 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
                     };
                     viewHold4.rec_leimu_leibie.setLayoutManager(gridLayoutManager4);
                     if (title.get(position).equals("茶叶")){
-                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbuleimu_tea);
+                        Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold4.img_quanbuleimu_tab);
                     }else if(title.get(position).equals("茶器")){
-                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbuleimu_chaqi);
+                        Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold4.img_quanbuleimu_tab);
                     }else if(title.get(position).equals("茶服")){
-                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_chaye_tab);
+                        Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold4.img_quanbuleimu_tab);
                     }else if(title.get(position).equals("茶食")){
-                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbufenlei_chashi);
+                        Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold4.img_quanbuleimu_tab);
                     }else if(title.get(position).equals("家具")){
-                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_quanbufenlei_jiaju);
+                        Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold4.img_quanbuleimu_tab);
                     }else if(title.get(position).equals("茶道")){
-                        viewHold4.img_quanbuleimu_tab.setImageResource(R.mipmap.img_dashizhuanchang_tab);
+                        Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold4.img_quanbuleimu_tab);
                     }
                     LeiMuLeiBieAdapter leimuruzhudianpu2 = new LeiMuLeiBieAdapter(R.layout.item_leimu_ruzhudianpu_zi,listBeans);
                     viewHold4.rec_leimu_leibie.setAdapter(leimuruzhudianpu2);

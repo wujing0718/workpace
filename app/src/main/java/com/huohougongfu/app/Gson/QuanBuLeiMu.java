@@ -40,6 +40,7 @@ public class QuanBuLeiMu {
          */
 
         private String name;
+        private String ico;
         private List<ListBean> list;
 
         public String getName() {
@@ -48,6 +49,14 @@ public class QuanBuLeiMu {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getIco() {
+            return ico;
+        }
+
+        public void setIco(String name) {
+            this.ico = name;
         }
 
         public List<ListBean> getList() {

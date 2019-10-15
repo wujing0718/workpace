@@ -10,11 +10,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Utils.Contacts;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.mcxtzhang.lib.AnimShopButton;
 import com.mcxtzhang.lib.IOnAddDelListener;
 
@@ -24,7 +30,9 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChaTaiAdapter extends BaseAdapter {
 
@@ -111,7 +119,7 @@ public class ChaTaiAdapter extends BaseAdapter {
         if (list.get(position).getHasDust()==1){
             groupViewHolder.tv_chatai_hasDust.setText("有叶底");
         }else{
-            groupViewHolder.tv_chatai_hasDust.setText("有叶底");
+            groupViewHolder.tv_chatai_hasDust.setText("无叶底");
         }
         groupViewHolder.tv_chatai_concentration.setText(list.get(position).getConcentration());
         RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
@@ -123,6 +131,7 @@ public class ChaTaiAdapter extends BaseAdapter {
             public void onAddSuccess(int i) {
                 list.get(position).setNum(i);
                 notifyDataSetChanged();
+                initAddGouWuChe(i,list.get(position).getId());
             }
 
             @Override
@@ -138,6 +147,7 @@ public class ChaTaiAdapter extends BaseAdapter {
                     notifyDataSetChanged();
                 }else{
                     list.get(position).setNum(i);
+                    initAddGouWuChe(i,list.get(position).getId());
 //                    list.get(position).setIsSelect(true);
                     notifyDataSetChanged();
                 }
@@ -218,6 +228,7 @@ public class ChaTaiAdapter extends BaseAdapter {
         });
 
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        boolean is = true;
         if (!isDikou){
             //合计的计算
             total_price = 0.00;
@@ -242,7 +253,10 @@ public class ChaTaiAdapter extends BaseAdapter {
                     if (xuanzeyouhuiquan!=null) {
                         if (xuanzeyouhuiquan.getCouponType() == 1) {
                             if (xuanzeyouhuiquan.getUsableProductId() == resultBean.getTeaId()) {
-                                num = num - 1;
+                                if (is){
+                                    num = num - 1;
+                                    is = false;
+                                }
                             }
                             String price = String.valueOf(resultBean.getTea().getPrice());
                             double v = Double.parseDouble(String.valueOf(num));
@@ -296,7 +310,10 @@ public class ChaTaiAdapter extends BaseAdapter {
                     if (xuanzeyouhuiquan!=null){
                         if (xuanzeyouhuiquan.getCouponType()==1){
                             if (xuanzeyouhuiquan.getUsableProductId() == resultBean.getTeaId()){
-                                num = num-1;
+                                if (is){
+                                    num = num - 1;
+                                    is = false;
+                                }
                             }
                         }
                         String price = String.valueOf(resultBean.getTea().getPrice());
@@ -306,7 +323,6 @@ public class ChaTaiAdapter extends BaseAdapter {
                         orderprice = decimalFormat.format(total_price);
                         tv_total_price.setText("¥" + orderprice);
                         if (xuanzeyouhuiquan.getCouponType()==3){
-                            total_price = v * v1;
                             total_price = total_price * xuanzeyouhuiquan.getDiscount();
                             String orderprice = decimalFormat.format(total_price);
                             tv_total_price.setText("¥" + orderprice);
@@ -364,11 +380,11 @@ public class ChaTaiAdapter extends BaseAdapter {
         groupViewHolder.bt_chatai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (xuanzeyouhuiquan!=null){
-                    if (xuanzeyouhuiquan.getUsableProductId() == resultBean1.getTeaId()){
-                        xuanzeyouhuiquan = null;
-                    }
-                }
+//                if (xuanzeyouhuiquan!=null){
+//                    if (xuanzeyouhuiquan.getUsableProductId() == resultBean1.getTeaId()){
+//                        xuanzeyouhuiquan = null;
+//                    }
+//                }
                 resultBean1.setIsSelect(!isSelect1);
                 if (!isSelect1 == false) {
                     resultBean1.setIsSelect(false);
@@ -389,35 +405,28 @@ public class ChaTaiAdapter extends BaseAdapter {
             }
         });
 
-        //去结算的点击事件
-//        btn_go_to_pay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //创建临时的List，用于存储被选中的商品
-//                List<ChaTaiGson.ResultBean> temp = new ArrayList<>();
-//                for (int i = 0; i < list.size(); i++) {
-//                    ChaTaiGson.ResultBean goodsBean = list.get(i);
-//                    boolean isSelect = goodsBean.getIsSelect();
-//                    if (isSelect) {
-//                        temp.add(goodsBean);
-//                    }
-//                }
-//                if (temp != null && temp.size() > 0) {//如果有被选中的
-//                    /**
-//                     * 实际开发中，如果有被选中的商品，
-//                     * 则跳转到确认订单页面，完成后续订单流程。
-//                     */
-//                    LogUtils.e(total_price+""+array.toString());
-////                    Intent intent = new Intent();
-////                    intent.setClass(context,XiaDanActivity.class);
-////                    startActivity(intent);
-//                } else {
-//                    ToastUtils.showShort("请选择要购买的商品");
-//                }
-//            }
-//        });
-
         return convertView;
+    }
+
+    private void initAddGouWuChe(int num, int id) {
+        Map<String,String> map = new HashMap<>();
+        map.put("teaTableId",String.valueOf(id));
+        map.put("num",String.valueOf(num));
+        OkGo.<String>post(Contacts.URl1+"/machine/changeNum")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     public void setYouHuoQuan(ChaTaiYouHuiQuan.ResultBean.CouponsBean youHuoQuan) {

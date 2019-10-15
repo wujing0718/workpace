@@ -196,9 +196,12 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
                         Gson gson = new Gson();
                         DSZhuanChang shangPinGson = gson.fromJson(response.body(), DSZhuanChang.class);
                         if (shangPinGson.getStatus() == 1) {
-                            if (!sousuo.isEmpty()){
+                            if (!sousuo.isEmpty() && shangPinGson.getResult().getAllMaster().getList().size()==0){
+                                smartrefreshlayout.setVisibility(View.GONE);
+                            }else if (!sousuo.isEmpty()){
                                 initRec2(shangPinGson.getResult().getAllMaster().getList(),sousuo);
                             }else{
+                                smartrefreshlayout.setVisibility(View.VISIBLE);
                                 initRec2(shangPinGson.getResult().getAllMaster().getList(),sousuo);
                                 initRec(shangPinGson.getResult().getYourLike());
                             }

@@ -52,7 +52,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     private double total_price;
     private JSONArray array;
     private DecimalFormat decimalFormat = new DecimalFormat("#.##");
-    public static  MyDingDanPaoChaActivity activity ;
+    public static MyDingDanPaoChaActivity activity;
 
 
     @SuppressLint("HandlerLeak")

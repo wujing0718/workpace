@@ -1,5 +1,6 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
@@ -97,6 +99,16 @@ public class WoDeFenSiActivity extends AppCompatActivity {
                         ToastUtils.showShort(R.string.denglu);
                     }
                 }
+            }
+        });
+
+        zhaorendadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.putExtra("id",String.valueOf(list.get(position).getUserId()));
+                intent.setClass(WoDeFenSiActivity.this,DiaPuZhuYeActivity.class);
+                startActivity(intent);
             }
         });
 

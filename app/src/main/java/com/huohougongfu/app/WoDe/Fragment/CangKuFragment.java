@@ -20,6 +20,7 @@ import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.Gson.ShopGuanLiLieBiao;
 import com.huohougongfu.app.Gson.TeiHuiGson;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.PopupWeiDianpuRenZheng;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.TeHuiActivity;
@@ -34,6 +35,7 @@ import com.huohougongfu.app.WoDe.Activity.TiaoXuanShopActivity;
 import com.huohougongfu.app.WoDe.Adapter.CangKuGuanLiAdapter;
 import com.huohougongfu.app.WoDe.Adapter.ShopGuanLiAdapter;
 import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -245,9 +247,9 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                             isGuanLi = false ;
                             editorStatus = true;
                             tehuiadapter.setEditMode(1);
+                            tv_tiaoxuan_shop.setText("删除");
                             tv_shangchuan_shop.setText("上架");
                         }
-                        tv_tiaoxuan_shop.setText("删除");
                     }else{
                         if (tehuiadapter!=null){
                             isGuanLi = true ;
@@ -306,8 +308,9 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                             intent.setClass(getActivity(), TianJiaShangPinActivity.class);
                             startActivity(intent);
                         }else{
-                            intent.setClass(getActivity(), ShangHuRenZhengActivity.class);
-                            startActivity(intent);
+                            new XPopup.Builder(getContext())
+                                    .asCustom(new PopupWeiDianpuRenZheng(getContext()))
+                                    .show();
                         }
                     }
                 }else{
@@ -316,8 +319,9 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                         intent.setClass(getActivity(), TianJiaShangPinActivity.class);
                         startActivity(intent);
                     }else{
-                        intent.setClass(getActivity(), ShangHuRenZhengActivity.class);
-                        startActivity(intent);
+                        new XPopup.Builder(getContext())
+                                .asCustom(new PopupWeiDianpuRenZheng(getContext()))
+                                .show();
                     }
                 }
                 break;

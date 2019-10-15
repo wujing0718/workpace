@@ -90,6 +90,7 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
     private ArrayList<File> xingxiangFile = new ArrayList<>();
     private ImageView img_xingxiang;
     private String xingxiangpath;
+    private String chashi_qita;
 
 
     @Override
@@ -254,6 +255,11 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                 }else{
                     specialty_qita = "";
                 }
+                if (radio_qita.isChecked()){
+                    chashi_qita = edt_zhicheng_qita.getText().toString();
+                }else{
+                    chashi_qita = "";
+                }
                 Map <String,String> map = new HashMap<>();
                 StringBuilder stringBuilder = new StringBuilder();
                 if (!"".equals(specialty_baicha)){
@@ -277,40 +283,42 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                 if (!"".equals(specialty_qita)){
                     stringBuilder.append(specialty_qita+",");
                 }
-                if (!"".equals(stringBuilder.toString())){
-                    String specialty = stringBuilder.toString().substring(0, stringBuilder.toString().length() - 1);
-                    if (!"".equals(level)){
-                        if (!"".equals(specialty)){
-                            if (positivePath!=null){
-                                if (reversePath!=null){
-                                    if (xingxiangpath !=null){
-                                        if (yingyezizhiPath!=null){
-                                            map.put("specialty",specialty);
-                                            map.put("level",level);
-                                            map.put("mId",String.valueOf(id));
-                                            initData(map);
+                if (radio_qita.isChecked()){
+                    level = edt_zhicheng_qita.getText().toString();
+                }
+                    if (!"".equals(stringBuilder.toString())){
+                        String specialty = stringBuilder.toString().substring(0, stringBuilder.toString().length() - 1);
+                        if (!"".equals(level)){
+                            if (!"".equals(specialty)){
+                                if (positivePath!=null){
+                                    if (reversePath!=null){
+                                        if (xingxiangpath !=null){
+                                            if (yingyezizhiPath!=null){
+                                                map.put("specialty",specialty);
+                                                map.put("level",level);
+                                                map.put("mId",String.valueOf(id));
+                                                initData(map);
+                                            }else{
+                                                ToastUtils.showShort("请上传资格证书");
+                                            }
                                         }else{
-                                            ToastUtils.showShort("请上传资格证书");
+                                            ToastUtils.showShort("请上传形象照片");
                                         }
                                     }else{
-                                        ToastUtils.showShort("请上传形象照片");
+                                        ToastUtils.showShort("请上传背面面照");
                                     }
                                 }else{
-                                    ToastUtils.showShort("请上传背面面照");
+                                    ToastUtils.showShort("请上传正面照");
                                 }
                             }else{
-                                ToastUtils.showShort("请上传正面照");
+                                ToastUtils.showShort("请选择擅长类目");
                             }
                         }else{
-                            ToastUtils.showShort("请选择擅长类目");
+                            ToastUtils.showShort("请选择职称");
                         }
-
                     }else{
-                        ToastUtils.showShort("请选择职称");
+                        ToastUtils.showShort("擅长内容不能为空");
                     }
-                }else{
-                    ToastUtils.showShort("选择内容不能为空");
-                }
                 break;
         }
     }
@@ -497,7 +505,8 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                 level = "匠人";
                 break;
             case  R.id.radio_qita:
-                level = edt_zhicheng_qita.getText().toString();
+                String s = edt_zhicheng_qita.getText().toString();
+                level = s;
                 break;
 
         }

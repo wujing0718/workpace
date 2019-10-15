@@ -69,7 +69,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                         if (type!=null && "茶台订单".equals(type)){
                             dismiss();
                         }else{
-                            MyDingDanPaoChaActivity.activity.finish();
+                            dismiss();
                         }
                         ToastUtils.showShort("支付成功");
                     } else {
@@ -242,17 +242,19 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                 if (check_yue.isChecked()){
                     check_ali.setChecked(false);
                     check_weixin.setChecked(false);
-                    if (over.getResult().isHasPayPassword()){
-                        dismiss();
-                        PopEnterPassword popEnterPassword = new PopEnterPassword(1, context,total_price,result);
-                        // 显示窗口
-                        popEnterPassword.showAtLocation(getPopupContentView(),
-                                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
-                    }else{
-                        Intent intent = new Intent();
-                        intent.setClass(context, SetKeyBoardActivity.class);
-                        context.startActivity(intent);
-                        dismiss();
+                    if (over!=null&&over.getResult()!=null){
+                        if (over.getResult().isHasPayPassword()){
+                            dismiss();
+                            PopEnterPassword popEnterPassword = new PopEnterPassword(1, context,total_price,result);
+                            // 显示窗口
+                            popEnterPassword.showAtLocation(getPopupContentView(),
+                                    Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
+                        }else{
+                            Intent intent = new Intent();
+                            intent.setClass(context, SetKeyBoardActivity.class);
+                            context.startActivity(intent);
+                            dismiss();
+                        }
                     }
                 }else if (check_ali.isChecked()){
                     check_yue.setChecked(false);
@@ -276,7 +278,6 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
             Runnable payRunnable = new Runnable() {  //这里注意要放在子线程
                 @Override
                 public void run() {
-                    dismiss();
                     PayReq req = new PayReq();
                     req.appId = wxPay.getAppid();
                     req.partnerId = wxPay.getPartnerid();

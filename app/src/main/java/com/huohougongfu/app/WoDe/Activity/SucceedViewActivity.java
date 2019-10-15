@@ -109,8 +109,8 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
             tv_name.setText("姓名："+renZhengZhuangTai.getResult().getPerson().getInfo().getRealName());
             tv_renzheng_level.setText("职称："+renZhengZhuangTai.getResult().getPerson().getInfo().getLevel());
             tv_renzheng_idCard.setText("身份证号："+renZhengZhuangTai.getResult().getPerson().getInfo().getIdCard());
-            bt_zanburenzheng.setVisibility(View.GONE);
-            bt_jixurenzheng.setVisibility(View.GONE);
+            bt_zanburenzheng.setText("暂不进行身份认证");
+            bt_jixurenzheng.setText("进行个人身份认证");
         }else if("特约品牌认证成功".equals(code)){
             tv_renzheng_shanchang.setVisibility(View.VISIBLE);
             tv_name.setText("店铺名："+renZhengZhuangTai.getResult().getSpecialBrand().getInfo().getStoreName());
@@ -143,6 +143,8 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                 }else if ("进行茶师认证".equals(renzhengone)){
                     intent.setClass(SucceedViewActivity.this,ChaShiRenZhengActivity.class);
                     startActivity(intent);
+                }else if ("暂不进行身份认证".equals(renzhengone)){
+                    finish();
                 }
                 break;
             case R.id.bt_jixurenzheng:
@@ -155,6 +157,9 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                     startActivity(intent);
                 }else if ("进行茶师认证".equals(renzhengtwo)){
                     intent.setClass(SucceedViewActivity.this,ChaShiRenZhengActivity.class);
+                    startActivity(intent);
+                }else if ("进行个人身份认证".equals(renzhengtwo)){
+                    intent.setClass(SucceedViewActivity.this,RealNameActivity.class);
                     startActivity(intent);
                 }
                 break;

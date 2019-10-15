@@ -407,7 +407,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                                             intent.putExtra("dataId",String.valueOf(dId));
                                             intent.putExtra("username",detail.getResult().getMember().getNickName());
                                             intent.putExtra("photo",detail.getResult().getPicture());
-                                            intent.putExtra("title",detail.getResult().getTitle());
+                                            intent.putExtra("title",detail.getResult().getContent());
                                             intent.setClass(QuanZiDetailActivity.this,JuBaoActivity.class);
                                             startActivity(intent);
                                         }

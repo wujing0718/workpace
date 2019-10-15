@@ -108,8 +108,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             lat = MyApp.instance.getString("lat");
             //设置默认显示内容
             initUI();
-            initMaiChaJiQi();
-            initJiQi();
         }
         return inflate;
     }
@@ -126,8 +124,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
         //设置定位监听
         initbanner();
 //        bt_switch.setChecked(true);
-//        initJiQi();
-//        initMaiChaJiQi();
+        initMaiChaJiQi();
+        initJiQi();
         if (jiQiLieBiao!=null){
             initTeaTableNum(jiQiLieBiao.getEquipmentId());
         }
@@ -486,6 +484,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             if ("是".equals(status)){
                 lon = MyApp.instance.getString("lon");
                 lat = MyApp.instance.getString("lat");
+                initMaiChaJiQi();
+                initJiQi();
             }
         }else if (audience_cnt == 9) {
             if ("是".equals(status)) {
