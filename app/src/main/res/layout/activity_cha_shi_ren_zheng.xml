@@ -439,14 +439,14 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_marginLeft="@dimen/dp_20"
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <ImageView
@@ -457,7 +457,7 @@
 
                         <ImageView
                             android:id="@+id/img_qitazizhi"
-                            android:layout_marginLeft="@dimen/dp_20"
+                            android:layout_marginLeft="@dimen/dp_30"
                             android:src="@mipmap/img_qitazizhi"
                             android:layout_width="100dp"
                             android:layout_height="100dp" />

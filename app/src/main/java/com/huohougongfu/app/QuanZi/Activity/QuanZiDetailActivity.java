@@ -2,6 +2,7 @@ package com.huohougongfu.app.QuanZi.Activity;
 
 import android.Manifest;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -31,6 +32,8 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.AddRegionActivity;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.enums.PopupPosition;
@@ -376,6 +379,12 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case R.id.bt_gengduo:
+                String[] caozuo;
+                if (userid == MyApp.instance.getInt("id")){
+                    caozuo = new String[]{"分享", "举报","删除"};
+                }else{
+                    caozuo= new String[]{"分享", "举报"};
+                }
                 new XPopup.Builder(QuanZiDetailActivity.this)
                         .hasShadowBg(false)
 //                        .popupAnimation(PopupAnimation.NoAnimation) //NoAnimation表示禁用动画
@@ -384,8 +393,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                         .offsetX(00)
                         .popupPosition(PopupPosition.Left) //手动指定弹窗的位置
                         .atView(bt_gengduo)  // 依附于所点击的View，内部会自动判断在上方或者下方显示
-                        .asAttachList(new String[]{"分享", "举报"},
-                                new int[]{},
+                        .asAttachList(caozuo, new int[]{},
                                 new OnSelectListener() {
                                     @Override
                                     public void onSelect(int position, String text) {
@@ -410,7 +418,20 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                                             intent.putExtra("title",detail.getResult().getContent());
                                             intent.setClass(QuanZiDetailActivity.this,JuBaoActivity.class);
                                             startActivity(intent);
-                                        }
+                                        }else if ("删除".equals(text))
+                                            SelectDialog.show(QuanZiDetailActivity.this, "提示", "是否删除该条圈子",
+                                                    "确定", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            //删除这条圈子
+                                                            initDel(dId);
+                                                        }
+                                                    },
+                                                    "取消", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                        }
+                                                    });
                                     }
                                 })
                         .show();
@@ -434,6 +455,29 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 //                view_pinglun_fasong.setVisibility(View.VISIBLE);
 //                break;
         }
+    }
+
+    private void initDel(int id) {
+        Map<String,String> map = new HashMap<>();
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("dataIds",String.valueOf(id));
+        OkGo.<String>post(Contacts.URl1+"/circle/del")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                finish();
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initGuanZhu(int type) {

@@ -163,10 +163,12 @@ public class MyDongTaiActivity extends AppCompatActivity implements View.OnClick
                     } else {
                         if (list.get(pos).getType() == 2) {
                             Intent intent = new Intent();
+                            intent.putExtra("userid",MyApp.instance.getInt("id"));
                             intent.putExtra("dId", list.get(pos).getId());
                             startActivity(intent.setClass(MyDongTaiActivity.this, WenZhangDetailActivity.class));
                         } else if (list.get(pos).getType() == 1) {
                             Intent intent = new Intent();
+                            intent.putExtra("userid",MyApp.instance.getInt("id"));
                             intent.putExtra("dId", list.get(pos).getId());
                             startActivity(intent.setClass(MyDongTaiActivity.this, QuanZiDetailActivity.class));
                         } else if (list.get(pos).getType() == 3) {
@@ -174,6 +176,7 @@ public class MyDongTaiActivity extends AppCompatActivity implements View.OnClick
                             intent.putExtra("动态视频", list.get(pos));
                             intent.putExtra("position", pos);
                             intent.putExtra("dId", list.get(pos).getId());
+                            intent.putExtra("userid",MyApp.instance.getInt("id"));
                             startActivity(intent.setClass(MyDongTaiActivity.this, VedioDetailActivity.class));
                         }
                     }

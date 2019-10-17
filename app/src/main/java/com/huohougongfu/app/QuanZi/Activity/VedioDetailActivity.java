@@ -2,6 +2,7 @@ package com.huohougongfu.app.QuanZi.Activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -48,6 +49,7 @@ import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
 import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.enums.PopupPosition;
@@ -103,12 +105,14 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
     private QuanZiShare share;
     private VedioDetail vedio;
     private String citycode;
+    private int userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vedio_detail);
         dId = getIntent().getIntExtra("dId", 0);
+        userid = getIntent().getIntExtra("userid", 0);
         refreshLayout = findViewById(R.id.refreshLayout);
         ListenerManager.getInstance().registerListtener(this);
         dongtaishipin = (MyDongTai.ResultBean.ListBean) getIntent().getSerializableExtra("动态视频");
@@ -485,14 +489,19 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
 
                     @Override
                     public void onClick(View v) {
+                        String[] caozuo;
+                        if (userid == MyApp.instance.getInt("id")){
+                            caozuo = new String[]{"分享", "举报","删除"};
+                        }else{
+                            caozuo= new String[]{"分享", "举报"};
+                        }
                         new XPopup.Builder(VedioDetailActivity.this)
                                 .hasShadowBg(false)
                                 .offsetY(-10)
                                 .offsetX(00)
                                 .popupPosition(PopupPosition.Left) //手动指定弹窗的位置
                                 .atView(holder.bt_gengduo)  // 依附于所点击的View，内部会自动判断在上方或者下方显示
-                                .asAttachList(new String[]{"分享", "举报"},
-                                        new int[]{},
+                                .asAttachList(caozuo, new int[]{},
                                         new OnSelectListener() {
                                             @Override
                                             public void onSelect(int position, String text) {
@@ -538,7 +547,20 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                                                     intent.putExtra("title",shipindetail.getList().get(i).getTitle());
                                                     intent.setClass(VedioDetailActivity.this,JuBaoActivity.class);
                                                     startActivity(intent);
-                                                }
+                                                }else if ("删除".equals(text))
+                                                    SelectDialog.show(VedioDetailActivity.this, "提示", "是否删除该条圈子",
+                                                            "确定", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    //删除这条圈子
+                                                                    initDel(dId);
+                                                                }
+                                                            },
+                                                            "取消", new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                }
+                                                            });
                                             }
                                         })
                                 .show();
@@ -619,6 +641,30 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                     }
                 });
         }
+
+        private void initDel(int id) {
+            Map<String,String> map = new HashMap<>();
+            map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+            map.put("dataIds",String.valueOf(id));
+            OkGo.<String>post(Contacts.URl1+"/circle/del")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body());
+                                if (jsonObject.getInt("status") == 1){
+                                    finish();
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        }
+
 
         private void initGuanZhu(int type, VedioDetail.ResultBean.ListBean.MemberBean member, ViewHolder holder) {
             Map<String,String> map =new HashMap<>();

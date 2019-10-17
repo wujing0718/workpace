@@ -78,8 +78,8 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                 if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() ==2){
                     bt_zanburenzheng.setVisibility(View.GONE);
                     bt_jixurenzheng.setVisibility(View.GONE);
-                }else{
-                    bt_zanburenzheng.setVisibility(View.GONE);
+                }else if (renZhengZhuangTai.getResult().getMaster().getCode() ==2){
+                    bt_zanburenzheng.setText("进行大师认证");
                     bt_jixurenzheng.setText("特约品牌认证");
                 }
             }else{
@@ -138,12 +138,20 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                 if ("特约品牌认证".equals(renzhengone)){
                     intent.setClass(SucceedViewActivity.this,SpecialBrandActivity.class);
                     startActivity(intent);
+                    finish();
                 }else if ("进行商户认证".equals(renzhengone)){
                     intent.setClass(SucceedViewActivity.this,ShangHuRenZhengActivity.class);
+                    startActivity(intent);
+                    finish();
                 }else if ("进行茶师认证".equals(renzhengone)){
                     intent.setClass(SucceedViewActivity.this,ChaShiRenZhengActivity.class);
                     startActivity(intent);
+                    finish();
                 }else if ("暂不进行身份认证".equals(renzhengone)){
+                    finish();
+                }else if ("进行大师认证".equals(renzhengone)){
+                    intent.setClass(SucceedViewActivity.this,DaShiRenZhengActivity.class);
+                    startActivity(intent);
                     finish();
                 }
                 break;
@@ -152,15 +160,19 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                 if ("特约品牌认证".equals(renzhengtwo)){
                     intent.setClass(SucceedViewActivity.this,SpecialBrandActivity.class);
                     startActivity(intent);
+                    finish();
                 }else if ("进行商户认证".equals(renzhengtwo)){
                     intent.setClass(SucceedViewActivity.this,ShangHuRenZhengActivity.class);
                     startActivity(intent);
+                    finish();
                 }else if ("进行茶师认证".equals(renzhengtwo)){
                     intent.setClass(SucceedViewActivity.this,ChaShiRenZhengActivity.class);
                     startActivity(intent);
+                    finish();
                 }else if ("进行个人身份认证".equals(renzhengtwo)){
                     intent.setClass(SucceedViewActivity.this,RealNameActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 break;
         }

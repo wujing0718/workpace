@@ -71,6 +71,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
     private String canshu;
     private String shopguige;
     private TextView tv_shuo_guige,tv_yitianxie,tv_shop_yitianxie;
+    private ArrayList<String> shopphoto = new ArrayList<>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,10 +193,11 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
         //商品详情
         if (requestCode == 103){
             Bundle extras = data.getExtras();
-            ArrayList<String> shopphoto = extras.getStringArrayList("Shopphoto");
+            shopphoto = extras.getStringArrayList("Shopphoto");
+            String type = extras.getString("type");
             mshopphoto.clear();
-            if (shopphoto!=null){
-                tv_shop_yitianxie.setText("已选择");
+            if (!"finish".equals(type)){
+                tv_shop_yitianxie.setText("完成");
                 tv_shop_yitianxie.setTextColor(getResources().getColor(R.color.colorBlack));
                 for (int i = 0; i < shopphoto.size(); i++) {
                     mshopphoto.add(new File(shopphoto.get(i)));
@@ -207,7 +209,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
             Bundle extras = data.getExtras();
             canshu = extras.getString("canshu");
             if (canshu!=null){
-                tv_yitianxie.setText("已选择");
+                tv_yitianxie.setText("完成");
                 tv_yitianxie.setTextColor(getResources().getColor(R.color.colorBlack));
             }
         }
@@ -216,7 +218,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
             Bundle extras = data.getExtras();
             shopguige = extras.getString("Shopguige");
             if (shopguige!=null){
-                tv_shuo_guige.setText("已选择");
+                tv_shuo_guige.setText("完成");
                 tv_shuo_guige.setTextColor(getResources().getColor(R.color.colorBlack));
             }
 //            mguige.clear();
@@ -296,6 +298,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.bt_shop_detail:
                 if (!utils.isDoubleClick()){
+                    intent.putStringArrayListExtra("mshopphoto",shopphoto);
                     intent.setClass(TianJiaShangPinActivity.this,ShopDetailActivity.class);
                     startActivityForResult(intent,103);
                 }

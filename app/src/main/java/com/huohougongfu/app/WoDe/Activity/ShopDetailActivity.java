@@ -40,6 +40,7 @@ public class ShopDetailActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
+        mPicList = getIntent().getStringArrayListExtra("mshopphoto");
         initUI();
         initGridView();
 
@@ -139,13 +140,15 @@ public class ShopDetailActivity extends AppCompatActivity implements View.OnClic
             case R.id.bt_queding:
                 bundle = new Bundle();
                 bundle.putStringArrayList("Shopphoto",mPicList);
-                setResult(101,ShopDetailActivity.this.getIntent().putExtras(bundle));
+                bundle.putString("type","1");
+                setResult(103,ShopDetailActivity.this.getIntent().putExtras(bundle));
                 ShopDetailActivity.this.finish();
                 break;
             case R.id.bt_finish:
                 bundle = new Bundle();
-                bundle.putStringArrayList("Shopphoto",null);
-                setResult(101,ShopDetailActivity.this.getIntent().putExtras(bundle));
+                bundle.putString("type","finish");
+                bundle.putStringArrayList("Shopphoto",mPicList);
+                setResult(103,ShopDetailActivity.this.getIntent().putExtras(bundle));
                 ShopDetailActivity.this.finish();
                 break;
         }
@@ -153,8 +156,9 @@ public class ShopDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onBackPressed(){
         bundle = new Bundle();
-        bundle.putStringArrayList("Shopphoto",null);
-        setResult(101,ShopDetailActivity.this.getIntent().putExtras(bundle));
+        bundle.putString("type","finish");
+        bundle.putStringArrayList("Shopphoto",mPicList);
+        setResult(103,ShopDetailActivity.this.getIntent().putExtras(bundle));
         ShopDetailActivity.this.finish();
         super.onBackPressed();
     }
