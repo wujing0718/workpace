@@ -73,7 +73,6 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intents = getIntent();
                 Bundle bundles = new Bundle();
                 bundles.putSerializable("data",null);
                 setResult(CONTEXT_RESTRICTED,DingWeiActivity.this.getIntent().putExtras(bundles));
@@ -115,7 +114,7 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
                         if (lieiao.getStatus() == 1) {
                             if (lieiao.getResult().getList().size()>0){
                                 initRec(lieiao);
-                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress()+"(No."+lieiao.getResult().getList().get(0).getDetailAddress()+")");
+                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress());
                                 DecimalFormat formater = new DecimalFormat();
                                 formater.setMaximumFractionDigits(2);
                                 formater.setGroupingSize(0);
@@ -183,7 +182,7 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
                         if (lieiao.getStatus() == 1) {
                             if (lieiao.getResult().getList().size()>0){
                                 initRec(lieiao);
-                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress()+"(No."+lieiao.getResult().getList().get(0).getDetailAddress()+")");
+                                tv_jiqiweizhi.setText(lieiao.getResult().getList().get(0).getDetailAddress());
                                 DecimalFormat formater = new DecimalFormat();
                                 formater.setMaximumFractionDigits(2);
                                 formater.setGroupingSize(0);

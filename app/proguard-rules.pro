@@ -101,6 +101,16 @@
 
 -keepattributes Signature
 
+#eventBus
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.** { *; }
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
 # RongCloud SDK
 -keep class io.rong.** {*;}
 -keep class cn.rongcloud.** {*;}

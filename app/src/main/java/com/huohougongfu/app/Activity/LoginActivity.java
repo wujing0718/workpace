@@ -23,6 +23,7 @@ import com.huohougongfu.app.Gson.Login;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.ShareUtils;
 import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.huohougongfu.app.Utils.utils;
@@ -314,15 +315,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //token1参数报错
             @Override
             public void onTokenIncorrect() {
-                Log.e("TAG","参数错误");
             }
 
             @Override
             public void onSuccess(String s) {
-                Log.e("TAG","成功");
                 // 调用 Handler 来异步设置别名
                 mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(result.getUserInfo().getUserId())));
                 // 点击恢复按钮后，极光推送服务会恢复正常工作
+                String lat = MyApp.instance.getString("lat");
+                if (lat!=null){
+                    ListenerManager.getInstance().sendBroadCast(10,"是");
+                }
                 JPushInterface.resumePush(getApplicationContext());
                 finish();
                 ToastUtils.showShort("登录成功");
@@ -333,7 +336,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("TAG","失败");
             }
         });
     }
@@ -400,29 +402,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         startActivity(intent);
                                         finish();
                                         // 调用 Handler 来异步设置别名
+                                        String lat = MyApp.instance.getString("lat");
+                                        if (lat!=null){
+                                            ListenerManager.getInstance().sendBroadCast(10,"是");
+                                        }
                                         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
                                         // 点击恢复按钮后，极光推送服务会恢复正常工作
                                         JPushInterface.resumePush(getApplicationContext());
                                         ToastUtils.showShort("登录成功");
-//                                        //融云登录
-//                                        RongIM.connect(login.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
-//                                            //token参数报错
-//                                            @Override
-//                                            public void onTokenIncorrect() {
-//                                                //重新请求Token
-//                                            }
-//                                            @Override
-//                                            public void onSuccess(String s) {
-//                                                Log.e("TAG","成功");
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void onError(RongIMClient.ErrorCode errorCode) {
-////                                                ToastUtils.showShort("失败:======="+errorCode);
-//                                            }
-//                                        });
-
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
                                     }
@@ -476,32 +463,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         MyApp.instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
+                                        String lat = MyApp.instance.getString("lat");
+                                        if (lat!=null){
+                                            ListenerManager.getInstance().sendBroadCast(10,"是");
+                                        }
                                         // 调用 Handler 来异步设置别名
                                         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(login.getResult().getUserInfo().getUserId())));
                                         // 点击恢复按钮后，极光推送服务会恢复正常工作
                                         JPushInterface.resumePush(getApplicationContext());
                                         finish();
                                         ToastUtils.showShort("登录成功");
-//                                        //融云登录
-//                                        RongIM.connect(login.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
-//
-//                                            @Override
-//                                            public void onTokenIncorrect() {
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void onSuccess(String s) {
-//                                                Log.e("TAG","成功");
-//
-//                                                // 连接成功，说明你已成功连接到融云Server
-//                                            }
-//
-//                                            @Override
-//                                            public void onError(RongIMClient.ErrorCode errorCode) {
-//                                                Log.e("TAG","失败");
-//                                            }
-//                                        });
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
                                     }

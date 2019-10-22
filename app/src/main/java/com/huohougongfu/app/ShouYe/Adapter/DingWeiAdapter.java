@@ -19,7 +19,7 @@ public class DingWeiAdapter extends BaseQuickAdapter<JiQiLieBiao.ResultBean.List
 
     @Override
     protected void convert(BaseViewHolder helper, JiQiLieBiao.ResultBean.ListBean item) {
-        helper.setText(R.id.tv_jiqi_weizhi,item.getDetailAddress()+"(No."+item.getDetailAddress()+")");
+        helper.setText(R.id.tv_jiqi_weizhi,item.getDetailAddress());
         DecimalFormat formater = new DecimalFormat();
         formater.setMaximumFractionDigits(2);
         formater.setGroupingSize(0);

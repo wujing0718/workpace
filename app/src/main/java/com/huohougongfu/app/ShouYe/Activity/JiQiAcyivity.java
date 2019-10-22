@@ -97,7 +97,6 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intents = getIntent();
                 Bundle bundles = new Bundle();
                 bundles.putSerializable("data",null);
                 setResult(CONTEXT_RESTRICTED,JiQiAcyivity.this.getIntent().putExtras(bundles));
@@ -162,9 +161,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
                         String cityName=item.getCityName();
                         String area=item.getBusinessArea();
                         String  provinceName=item.getProvinceName();
-
                         String addressInfo=provinceName+cityName+name+text;
-
                         data.add(new AddressBean(lon, lat, title, text,addressInfo,adCode,cityCode));
                     }
                 }

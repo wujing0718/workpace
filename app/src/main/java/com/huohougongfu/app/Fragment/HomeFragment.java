@@ -123,7 +123,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
         lat = MyApp.instance.getString("lat");
         //设置定位监听
         initbanner();
-//        bt_switch.setChecked(true);
         initMaiChaJiQi();
         initJiQi();
         if (jiQiLieBiao!=null){
@@ -206,7 +205,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-//                        WaitDialog.show(getActivity(), "载入中...");
+                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });

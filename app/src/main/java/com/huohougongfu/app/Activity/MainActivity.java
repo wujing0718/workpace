@@ -78,6 +78,7 @@
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initLoc();
+//        ListenerManager.getInstance().sendBroadCast(10,"是");
         String rongToken = MyApp.instance.getString("rongToken");
         if (!rongToken.isEmpty()){
             RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
@@ -88,13 +89,10 @@
 
                 @Override
                 public void onSuccess(String s) {
-                    Log.e("TAG","成功");
-                    // 连接成功，说明你已成功连接到融云Server
                 }
 
                 @Override
                 public void onError(RongIMClient.ErrorCode errorCode) {
-                    Log.e("TAG","=========="+errorCode);
                     if (errorCode==RC_CONN_USER_OR_PASSWD_ERROR){
                         MyApp.instance.clear(true);
                         startActivity(new Intent().setClass(MainActivity.this,LoginActivity.class));
@@ -249,7 +247,6 @@
                         }
                     });
         }
-
         //定位
          private void initLoc() {
                 //初始化定位

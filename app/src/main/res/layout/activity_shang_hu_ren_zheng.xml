@@ -172,7 +172,7 @@
                         <ImageView
                             android:id="@+id/img_mentou_photo"
                             android:layout_marginLeft="@dimen/dp_20"
-                            android:src="@mipmap/img_qitazizhi"
+                            android:src="@mipmap/img_mentou"
                             android:layout_width="100dp"
                             android:layout_height="100dp" />
 
@@ -187,7 +187,7 @@
 
                         <ImageView
                             android:id="@+id/img_shouquan_photo"
-                            android:src="@mipmap/img_yingyezizhi"
+                            android:src="@mipmap/img_shouquan"
                             android:layout_width="100dp"
                             android:layout_height="100dp" />
 

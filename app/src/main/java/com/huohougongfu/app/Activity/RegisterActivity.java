@@ -21,6 +21,7 @@ import com.huohougongfu.app.Gson.Register;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.SelectDialog;
@@ -229,7 +230,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             MyApp.instance.put("rongToken",register.getResult().getUserInfo().getRongToken(),true);
                             MyApp.instance.put("token",register.getResult().getToken(),true);
                             intent.setClass(RegisterActivity.this,MainActivity.class);
-                            ToastUtils.showShort("成功");
+                            String lat = MyApp.instance.getString("lat");
+                            if (lat!=null){
+                                ListenerManager.getInstance().sendBroadCast(10,"是");
+                            }
                             // 连接成功，说明你已成功连接到融云Server
                             startActivity(intent);
                             finish();
@@ -237,27 +241,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(register.getResult().getUserInfo().getUserId())));
                             // 点击恢复按钮后，极光推送服务会恢复正常工作
                             JPushInterface.resumePush(getApplicationContext());
-                            //融云登录
-//                            RongIM.connect(register.getResult().getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
-//                                //token1参数报错
-//                                @Override
-//                                public void onTokenIncorrect() {
-//                                    Log.e("TAG","参数错误");
-//                                    ToastUtils.showShort("参数错误");
-//                                }
-//
-//                                @Override
-//                                public void onSuccess(String s) {
-//                                    Log.e("TAG","成功");
-//
-//                                }
-//
-//                                @Override
-//                                public void onError(RongIMClient.ErrorCode errorCode) {
-//                                    Log.e("TAG","失败");
-//                                    ToastUtils.showShort("失败");
-//                                }
-//                            });
                         }else{
                             ToastUtils.showShort(register.getMsg());
                         }

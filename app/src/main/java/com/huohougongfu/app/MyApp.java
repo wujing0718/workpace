@@ -9,20 +9,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.MainActivity;
-import com.huohougongfu.app.WoDe.Activity.SettingActivity;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -129,6 +121,7 @@ public class MyApp extends Application {
 
     @Override
     public void onCreate() {
+//        DoraemonKit.install(this);
         //设置是否启用模糊
         DialogSettings.use_blur = true;
         DialogSettings.dialog_theme = THEME_LIGHT;
