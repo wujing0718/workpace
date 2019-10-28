@@ -288,12 +288,14 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
                         convertView = inflater.inflate(R.layout.item_leimu_dashizhuanchang, parent, false);
                         viewHold2 = new ViewHold2();
                         viewHold2.rec_leimu_dashizhuanchang =convertView.findViewById(R.id.rec_leimu_dashizhuanchang);
+                        viewHold2.img_dashizhuanchang = convertView.findViewById(R.id.img_dashizhuanchang);
                         convertView.setTag(viewHold2);
                         break;
                     case TYPE_3:
                         convertView = inflater.inflate(R.layout.item_leimi_ruzhudianpu, parent, false);
                         viewHold3 = new ViewHold3();
                         viewHold3.rec_leimu_ruzhudianpu =convertView.findViewById(R.id.rec_leimu_ruzhudianpu);
+                        viewHold3.img_ruzhudianpu = convertView.findViewById(R.id.img_ruzhudianpu);
                         convertView.setTag(viewHold3);
                         break;
                     case TYPE_4:
@@ -350,6 +352,7 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
                             return false;
                         }
                     };
+                    Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold2.img_dashizhuanchang);
                     viewHold2.rec_leimu_dashizhuanchang.setLayoutManager(gridLayoutManager);
                     LeiMuDaShiZhuanChangAdapter leimudashizhuanchang = new LeiMuDaShiZhuanChangAdapter(R.layout.item_leimu_dashizhuanchang_zi,listBeans);
                     viewHold2.rec_leimu_dashizhuanchang.setAdapter(leimudashizhuanchang);
@@ -371,6 +374,7 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
                             return false;
                         }
                     };
+                    Glide.with(MyApp.context).load(ico.get(position)).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(viewHold3.img_ruzhudianpu);
                     viewHold3.rec_leimu_ruzhudianpu.setLayoutManager(gridLayoutManager3);
                     LeiMuRuZhuDianPuAdapter leimuruzhudianpu = new LeiMuRuZhuDianPuAdapter(R.layout.item_leimu_ruzhudianpu_zi,listBeans);
                     viewHold3.rec_leimu_ruzhudianpu.setAdapter(leimuruzhudianpu);
@@ -425,9 +429,11 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
         }
         private class ViewHold2 {
             private RecyclerView rec_leimu_dashizhuanchang;
+            private ImageView img_dashizhuanchang;
         }
         private class ViewHold3 {
             private RecyclerView rec_leimu_ruzhudianpu;
+            private ImageView img_ruzhudianpu;
 
         }
         private class ViewHold4 {

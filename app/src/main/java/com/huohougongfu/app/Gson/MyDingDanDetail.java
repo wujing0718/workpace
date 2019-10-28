@@ -117,6 +117,8 @@ public class MyDingDanDetail implements Serializable{
         private String logisticsName;
         private int addressId;
         private int couponId;
+        private int useTeaRice;
+        private String couponInfo;
         private String provinceName;
         private String cityName;
         private String areaName;
@@ -429,6 +431,22 @@ public class MyDingDanDetail implements Serializable{
 
         public void setCouponId(int couponId) {
             this.couponId = couponId;
+        }
+
+        public int getUseTeaRice() {
+            return useTeaRice;
+        }
+
+        public void setUseTeaRice(int useTeaRice) {
+            this.useTeaRice = useTeaRice;
+        }
+
+        public String getCouponInfo() {
+            return couponInfo;
+        }
+
+        public void setCouponInfo(String couponInfo) {
+            this.couponInfo = couponInfo;
         }
 
         public String getProvinceName() {

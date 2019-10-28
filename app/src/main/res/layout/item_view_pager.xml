@@ -7,8 +7,8 @@
 
     <com.huohougongfu.app.Utils.FullScreenVideoView
         android:id="@+id/video_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:clickable="false"
         android:focusable="false"
         />
@@ -55,7 +55,7 @@
         android:focusable="false"
         android:visibility="visible"
         />
-
+z
     <LinearLayout
         android:id="@+id/ll_xiangqing"
         android:layout_width="wrap_content"

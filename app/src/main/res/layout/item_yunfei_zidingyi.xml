@@ -6,6 +6,8 @@
 
     <LinearLayout
         android:layout_marginLeft="@dimen/dp_20"
+        android:layout_toLeftOf="@+id/bt_delete_zidingyi"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:orientation="horizontal"
         android:layout_width="wrap_content"

@@ -21,11 +21,11 @@
         <item name="android:windowBackground">@android:color/transparent</item><!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
         <item name="windowActionBar">false</item>
+        <item name="android:windowDisablePreview">false</item>
         <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
     </style>
 
     <style name="BaseTheme" parent="AppTheme">
-        <item name="android:screenOrientation">portrait</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 

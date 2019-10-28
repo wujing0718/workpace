@@ -107,7 +107,7 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:text="转增"
+                                android:text="转赠"
                                 android:textSize="11sp"
                                 android:textColor="@color/zhuanzeng"
                                 android:layout_gravity="center_vertical"

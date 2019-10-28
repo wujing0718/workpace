@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
     
     <ImageView
+        android:id="@+id/img_dashizhuanchang"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginHorizontal="@dimen/dp_15"
         android:src="@mipmap/img_dashizhuanchang_tab"

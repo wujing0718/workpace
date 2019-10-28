@@ -61,6 +61,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     private int ofManager;
     private TextView tv_remark;
     private TextView tv_kuaidi;
+    private TextView tv_chami_dikou;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,16 +145,18 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         tv_orderAmountTotal.setText("¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
         tv_order_AmountTotal.setText("共计：¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
         tv_payTime.setText(result.get(0).getPayTime1());
-        tv_serviceRegulations.setText(result.get(0).getServiceRegulations());
+        tv_serviceRegulations.setText(result.get(0).getCouponInfo());
         tv_shouhuo_name.setText(result.get(0).getReceiverName());
         tv_shouhuo_phone.setText(result.get(0).getPhone());
         tv_shouhuo_address.setText(result.get(0).getAreaName()+result.get(0).getDetailAddr());
+        tv_chami_dikou.setText(result.get(0).getUseTeaRice()+"茶米");
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(result.get(0).getMallStores().getStoreLogo()).apply(requestOptions).into(img_dianpu_logo);
         tv_dianpu_name.setText(result.get(0).getMallStores().getStoreName());
     }
 
     private void initUI() {
+        tv_chami_dikou = findViewById(R.id.tv_chami_dikou);
         tv_kuaidi = findViewById(R.id.tv_kuaidi);
         tv_remark = findViewById(R.id.tv_remark);
         View view_logistics = findViewById(R.id.view_logistics);

@@ -107,6 +107,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             lon = MyApp.instance.getString("lon");
             lat = MyApp.instance.getString("lat");
             //设置默认显示内容
+            initMaiChaJiQi();
+            initJiQi();
             initUI();
         }
         return inflate;
@@ -123,8 +125,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
         lat = MyApp.instance.getString("lat");
         //设置定位监听
         initbanner();
-        initMaiChaJiQi();
-        initJiQi();
         if (jiQiLieBiao!=null){
             initTeaTableNum(jiQiLieBiao.getEquipmentId());
         }
@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
+//                        WaitDialog.dismiss();
                         Gson gson = new Gson();
                         JiQiLieBiao lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
                         if (lieiao.getStatus() == 1) {
@@ -205,7 +205,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
+//                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -222,7 +222,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
+//                        WaitDialog.dismiss();
                         Gson gson = new Gson();
                         JiQiLieBiao lieiao = gson.fromJson(response.body(), JiQiLieBiao.class);
                         if (lieiao.getStatus() == 1) {

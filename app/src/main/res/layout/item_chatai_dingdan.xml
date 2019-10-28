@@ -64,34 +64,47 @@
             android:id="@+id/tv_chatai_teas"
             android:text="绿茶、红茶等"
             android:textSize="@dimen/sp_14"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="@color/colorBlack"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_200"
+            android:layout_marginRight="@dimen/dp_10"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_toRightOf="@+id/tv_chatai_teas"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_chatai_teaNum"
-                android:text="共2件"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/colorBlack"
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_chatai_orderTotal"
-                android:text="合计：¥30"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/colorBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_chatai_teaNum"
+                    android:text="共2件"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_chatai_orderTotal"
+                    android:text="合计：¥30"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

@@ -85,6 +85,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/bt_dianzan"
                     android:layout_marginLeft="@dimen/icon_size_20dp"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"

@@ -98,6 +98,7 @@ public class MyDongTaiActivity extends AppCompatActivity implements View.OnClick
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(mId));
+        map.put("userId",String.valueOf(mId));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
         OkGo.<String>post(Contacts.URl1+"/my/dynamic")

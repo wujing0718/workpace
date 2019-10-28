@@ -1,10 +1,12 @@
 package com.huohougongfu.app.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,12 +35,26 @@ public class TaDongTai  extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,B
         this.data1 = data;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void convert(BaseViewHolder helper, MyDongTai.ResultBean.ListBean item) {
         RecyclerView rec_dongtai_photo = helper.getView(R.id.rec_dongtai_photo);
         TextView tv_dongtai_title = helper.getView(R.id.tv_dongtai_title);
         TextView tv_dongtai_content = helper.getView(R.id.tv_dongtai_content);
+        ImageView img_xihuan = helper.getView(R.id.img_xihuan);
         rec_dongtai_photo.setLayoutManager(new GridLayoutManager(context, 3));
+        helper.addOnClickListener(R.id.bt_dianzan);
+        rec_dongtai_photo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return helper.itemView.onTouchEvent(event);
+            }
+        });
+        if (item.getIsPraise() == 1){
+            img_xihuan.setImageResource(R.mipmap.img_xihuan2);
+        }else{
+            img_xihuan.setImageResource(R.mipmap.img_xihuan);
+        }
         if(item.getPicture() !=null){
             String[] split = item.getPicture().split(",");
             rec_dongtai_photo.setVisibility(View.VISIBLE);
@@ -59,7 +75,17 @@ public class TaDongTai  extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,B
         }
         if (item.getContent()!=null){
             tv_dongtai_content.setVisibility(View.VISIBLE);
-            helper.setText(R.id.tv_dongtai_content,item.getContent());
+            String わわ = item.getContent().replace("わわ", "");
+            String ゐゑを = わわ.replace("ゐゑを", "");
+            helper.setText(R.id.tv_dongtai_content,ゐゑを);
+        }else{
+            tv_dongtai_content.setVisibility(View.GONE);
+        }
+        if (item.getContent()!=null){
+            tv_dongtai_content.setVisibility(View.VISIBLE);
+            String わわ = item.getContent().replace("わわ", "");
+            String ゐゑを = わわ.replace("ゐゑを", "");
+            helper.setText(R.id.tv_dongtai_content,ゐゑを);
         }else{
             tv_dongtai_content.setVisibility(View.GONE);
         }

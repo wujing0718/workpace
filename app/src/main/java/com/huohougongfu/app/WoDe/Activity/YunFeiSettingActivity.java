@@ -98,12 +98,14 @@ public class YunFeiSettingActivity extends AppCompatActivity implements View.OnC
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
-            Bundle extras = data.getExtras();
-            if (extras!=null){
-                ArrayList<String> dizhi = (ArrayList<String>) extras.getSerializable("地址");
-                int position = extras.getInt("position");
-                if (dizhi!=null){
-                    adapter.setData(position,dizhi);
+            if (data!=null){
+                Bundle extras = data.getExtras();
+                if (extras!=null){
+                    ArrayList<String> dizhi = (ArrayList<String>) extras.getSerializable("地址");
+                    int position = extras.getInt("position");
+                    if (dizhi!=null){
+                        adapter.setData(position,dizhi);
+                    }
                 }
             }
         }
@@ -152,6 +154,11 @@ public class YunFeiSettingActivity extends AppCompatActivity implements View.OnC
                     if (!"".equals(list.get(i))){
                         if (!"".equals(mlist.get(i))){
                             customSettings.add(list.get(i)+"~"+mlist.get(i));
+                            if (!customSettings.isEmpty()){
+                                initQueDing(customSettings);
+                            }else{
+                                ToastUtils.showShort("请选择地区");
+                            }
                         }else{
                             ToastUtils.showShort("请输入金额");
                         }
@@ -159,7 +166,6 @@ public class YunFeiSettingActivity extends AppCompatActivity implements View.OnC
                         ToastUtils.showShort("请选择地区");
                     }
                 }
-                initQueDing(customSettings);
                 break;
         }
     }

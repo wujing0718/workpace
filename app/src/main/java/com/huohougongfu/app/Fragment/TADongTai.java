@@ -10,17 +10,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.TaDongTai;
 import com.huohougongfu.app.Gson.MyDongTai;
+import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangDetailActivity;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.MyDongTaiActivity;
 import com.huohougongfu.app.WoDe.Adapter.MyDongTaiAdapter;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -32,6 +37,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +69,7 @@ public class TADongTai extends Fragment {
     private void initData() {
         Map<String,String> map = new HashMap<>();
         map.put("mId",String.valueOf(mId));
+        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
         OkGo.<String>post(Contacts.URl1+"/my/dynamic")
@@ -114,6 +123,21 @@ public class TADongTai extends Fragment {
                     }
                 }
             });
+
+            myDongTaiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    ImageView img_faixan_shoucang = view.findViewById(R.id.img_xihuan);
+                    TextView tv_dianzan_num = view.findViewById(R.id.tv_dongtai_xihuannum);
+                        if (list.get(position).getIsPraise() == 0){
+                            initDianZan("1",list.get(position),img_faixan_shoucang,tv_dianzan_num);
+                        }else{
+                            if (!utils.isDoubleClick()){
+                                initQuXiaoDianZan("0",list.get(position),img_faixan_shoucang,tv_dianzan_num);
+                            }
+                        }
+                }
+            });
             //刷新
             smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
                 @Override
@@ -132,6 +156,70 @@ public class TADongTai extends Fragment {
         }else{
             smartrefreshlayout.setVisibility(View.GONE);
         }
+    }
+
+    //取消点赞
+    private void initQuXiaoDianZan(String type, MyDongTai.ResultBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(listBean.getId()));
+        map.put("mId",String.valueOf(mId));
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                String num = tv_dianzan_num.getText().toString();
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer-1));
+                                listBean.setIsPraise(0);
+                                img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan);
+                                ToastUtils.showShort("取消点赞");
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    //点赞
+    private void initDianZan(String type, MyDongTai.ResultBean.ListBean listBean, ImageView img_faixan_shoucang, TextView tv_dianzan_num) {
+        String num = tv_dianzan_num.getText().toString();
+        Map<String,String> map = new HashMap<>();
+        map.put("type",type);
+        map.put("dataId",String.valueOf(listBean.getId()));
+        map.put("mId",String.valueOf(mId));
+        OkGo.<String>post(Contacts.URl1+"/circle/praise")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        try {
+                            JSONObject jsonObject = new JSONObject(body);
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort("点赞成功");
+                                Integer integer = Integer.valueOf(num);
+                                tv_dianzan_num.setText(String.valueOf(integer+1));
+                                listBean.setIsPraise(1);
+                                img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan2);
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initAdd() {

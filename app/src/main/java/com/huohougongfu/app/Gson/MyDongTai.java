@@ -262,7 +262,7 @@ public class MyDongTai implements Serializable{
             private Object address;
             private String cityCode;
             private Object member;
-            private Object isPraise;
+            private int isPraise;
             private int praiseNum;
             private int commentNum;
             private Object isSift;
@@ -389,11 +389,11 @@ public class MyDongTai implements Serializable{
                 this.member = member;
             }
 
-            public Object getIsPraise() {
+            public int getIsPraise() {
                 return isPraise;
             }
 
-            public void setIsPraise(Object isPraise) {
+            public void setIsPraise(int isPraise) {
                 this.isPraise = isPraise;
             }
 

@@ -125,7 +125,7 @@ public class MyKaQuanFragment extends Fragment {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity()){
             @Override
             public boolean canScrollVertically() {
-                return false;
+                return true;
             }
         };
         //设置RecyclerView 布局
