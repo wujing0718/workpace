@@ -18,10 +18,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.Over;
 import com.huohougongfu.app.Gson.WXPay;
+import com.huohougongfu.app.Gson.ZhiFu;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.ChaTaiActivity;
-import com.huohougongfu.app.ShouYe.Activity.MyDingDanPaoChaActivity;
+import com.huohougongfu.app.ShouYe.Activity.ChaTaiDingDanDetail;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
 import com.huohougongfu.app.Utils.utils;
@@ -38,9 +39,11 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+import static com.blankj.utilcode.util.ActivityUtils.startActivity;
+
 public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener {
     private String type;
-    private String orderNo;
+    private String OrderNo,OrderId;
     private String result;
     private Activity context;
     private double total_price;
@@ -63,6 +66,9 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
+                        Intent intent = new Intent();
+                        intent.putExtra("orderNo",OrderId);
+                        startActivity( intent.setClass(context,ChaTaiDingDanDetail.class));
                         if (ChaTaiActivity.activity!=null){
                             ChaTaiActivity.activity.finish();
                         }
@@ -84,13 +90,14 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
     private String wxtoken;
     private Over over;
 
-    public ChaTaiZhiFu(@NonNull Activity context, String result, double total_price) {
+    public ChaTaiZhiFu(@NonNull Activity context, String OrderNo,String OrderId, double total_price) {
         super(context);
-        this.result = result;
+        this.OrderNo = OrderNo;
+        this.OrderId = OrderId;
         this.context= context;
         this.total_price = total_price;
     }
-    public ChaTaiZhiFu(@NonNull Activity context, String result, double total_price,String type) {
+    public ChaTaiZhiFu(@NonNull Activity context, String result, double total_price, String type) {
         super(context);
         this.result = result;
         this.context= context;
@@ -157,9 +164,9 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
 
     //支付宝支付
     private void initALi() {
-        if (result!=null){
+        if (OrderNo!=null){
             OkGo.<String>post(Contacts.URl1+"/pay/alipay")
-                    .params("orderNo",result)
+                    .params("orderNo",OrderNo)
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
@@ -176,7 +183,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                         }
                     });
         }else{
-            OkGo.<String>post(Contacts.URl1+"/pay/product/alipay")
+            OkGo.<String>post(Contacts.URl1+"/pay/alipay")
                     .params("orderNo",result)
                     .execute(new StringCallback() {
                         @Override
@@ -199,7 +206,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
 
     private void initWX(){
         OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
-                .params("orderNo",result)
+                .params("orderNo",OrderNo)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -245,7 +252,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     if (over!=null&&over.getResult()!=null){
                         if (over.getResult().isHasPayPassword()){
                             dismiss();
-                            PopEnterPassword popEnterPassword = new PopEnterPassword(1, context,total_price,result);
+                            PopEnterPassword popEnterPassword = new PopEnterPassword(1, context,total_price,OrderNo);
                             // 显示窗口
                             popEnterPassword.showAtLocation(getPopupContentView(),
                                     Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置

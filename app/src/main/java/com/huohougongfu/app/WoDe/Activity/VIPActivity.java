@@ -1,6 +1,7 @@
 package com.huohougongfu.app.WoDe.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -117,6 +118,7 @@ public class VIPActivity extends AppCompatActivity implements OnClickListener {
     }
 
     private void initUI() {
+        findViewById(R.id.bt_guize).setOnClickListener(this);
         findViewById(R.id.bt_huiyuan).setOnClickListener(this);
         findViewById(R.id.bt_dianpu).setOnClickListener(this);
         findViewById(R.id.bt_chami).setOnClickListener(this);
@@ -140,6 +142,11 @@ public class VIPActivity extends AppCompatActivity implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_guize:
+                if (!utils.isDoubleClick()){
+                    startActivity(new Intent().setClass(VIPActivity.this,VIPGuiZeActivity.class));
+                }
+                break;
             case R.id.bt_finish:
                 finish();
                 break;

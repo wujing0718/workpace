@@ -68,7 +68,9 @@
             <EditText
                 android:id="@+id/edt_wenzhang_title"
                 android:hint="文章标题"
+                android:text=""
                 android:gravity="center"
+                android:maxLength="15"
                 android:paddingHorizontal="@dimen/dp_10"
                 android:background="@null"
                 android:layout_width="match_parent"
@@ -128,11 +130,15 @@
         <TextView
             android:id="@+id/tv_weizhi"
             android:text="所在位置"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dp_4"
             android:textSize="12sp"
+            android:gravity="center"
             android:textColor="@color/colorBlack"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_70"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Shop.Activity.DaShiJianJieActivity">
 
     <LinearLayout
@@ -85,24 +86,32 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
+
+
     <android.support.v4.widget.NestedScrollView
         android:layout_marginTop="420dp"
+        android:layout_alignParentBottom="true"
         android:layout_width="@dimen/dp_320"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/dp_500">
 
         <LinearLayout
             android:paddingLeft="30dp"
             android:paddingRight="@dimen/dp_50"
-            android:background="@color/colorWhite"
+            android:background="@drawable/dashi_kuang"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <LinearLayout
                 android:layout_marginTop="@dimen/dp_40"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
 
                 <TextView
                     android:id="@+id/tv_dashi_name"
@@ -136,4 +145,4 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-</FrameLayout>
+</RelativeLayout>

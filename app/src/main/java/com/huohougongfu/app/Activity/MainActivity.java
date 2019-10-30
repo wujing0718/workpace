@@ -268,18 +268,19 @@
                                 MyApp.instance.put("city",aMapLocation.getCity(),true);
                                 MyApp.instance.put("lat",lat,true);
                                 MyApp.instance.put("lon",lon,true);
+                                MyApp.instance.put("AoiName",aMapLocation.getAoiName(),true);
                                 ListenerManager.getInstance().sendBroadCast(10,"是");
                                 if (isFirstLoc) {
                                     //获取定位信息
                                     StringBuffer buffer = new StringBuffer();
-                                    buffer.append(aMapLocation.getCountry() + ""
-                                            + aMapLocation.getProvince() + ""
-                                            + aMapLocation.getCity() + ""
-                                            + aMapLocation.getCityCode()+""
-                                            + aMapLocation.getProvince() + ""
-                                            + aMapLocation.getDistrict() + ""
-                                            + aMapLocation.getStreet() + ""
-                                            + aMapLocation.getStreetNum()+""
+                                    buffer.append(aMapLocation.getCountry() + ","
+                                            + aMapLocation.getProvince() + ","
+                                            + aMapLocation.getCity() + ","
+                                            + aMapLocation.getCityCode()+","
+                                            + aMapLocation.getProvince() + ","
+                                            + aMapLocation.getDistrict() + ","
+                                            + aMapLocation.getStreet() + ","
+                                            + aMapLocation.getStreetNum()+","
                                     +aMapLocation.getAoiName());
                                     isFirstLoc = false;
                                 }

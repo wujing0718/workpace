@@ -33,7 +33,24 @@ public class GuanZhuAdapter extends BaseQuickAdapter<GuanZhuDongTai.ResultBean.L
         ImageView img_quanzi_photo = helper.getView(R.id.img_quanzi_photo);
         ImageView img_faixan_touxiang = helper.getView(R.id.img_faixan_touxiang);
         ImageView img_faixan_shoucang = helper.getView(R.id.img_faixan_shoucang);
+        ImageView img_type = helper.getView(R.id.img_type);
 
+        if (item.getType() == 1){
+            String[] split = item.getPicture().split(",");
+            if (split.length>1){
+                img_type.setVisibility(View.VISIBLE);
+                img_type.setImageResource(R.mipmap.img_photos);
+            }
+        }if (item.getType() == 2){
+            String[] split = item.getPicture().split(",");
+            if (split.length>1){
+                img_type.setVisibility(View.VISIBLE);
+                img_type.setImageResource(R.mipmap.img_photos);
+            }
+        }else if (item.getType() == 3){
+            img_type.setVisibility(View.VISIBLE);
+            img_type.setImageResource(R.mipmap.img_video);
+        }
         String picture = item.getPicture();
         if (item.getAddress() != null) {
             view_dingwei.setVisibility(View.VISIBLE);

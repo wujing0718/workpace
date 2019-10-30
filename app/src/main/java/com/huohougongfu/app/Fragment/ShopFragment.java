@@ -7,36 +7,28 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
-import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
-import com.huohougongfu.app.Gson.OKGson;
-import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopGson;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.DaShiZhuanChang;
 import com.huohougongfu.app.Shop.Activity.LeiMuActivity;
-import com.huohougongfu.app.Shop.Activity.LeiMuDetailActivity;
 import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.ShopSouSuoActivity;
 import com.huohougongfu.app.Shop.Activity.TeHuiActivity;
 import com.huohougongfu.app.Shop.Activity.TeYuePinPaiActivity;
 import com.huohougongfu.app.Shop.Adapter.ShopAdapter;
-import com.huohougongfu.app.ShouYe.Activity.PleaseTeaActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
@@ -153,7 +145,27 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
 //        smartrefreshlayout.autoRefresh();
         page = 2;
         initShoppingCartNum();
+        initNoticeIsView();
         super.onResume();
+    }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qBadgeView.bindTarget(bt_xiaoxi).setBadgeText("");
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -213,7 +225,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                     ToastUtils.showShort(R.string.denglu);
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
-                    MainActivity.activity.finish();
                 }
             }
         });
@@ -338,7 +349,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -351,7 +361,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -364,7 +373,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -377,7 +385,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -390,7 +397,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -403,7 +409,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -416,7 +421,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;

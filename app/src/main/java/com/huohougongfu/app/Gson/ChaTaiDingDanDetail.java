@@ -71,6 +71,7 @@ public class ChaTaiDingDanDetail {
         private int id;
         private int type;
         private String orderNo;
+        private String orderId;
         private String machineId;
         private String detailId;
         private MachineProductBean machineProduct;
@@ -116,6 +117,14 @@ public class ChaTaiDingDanDetail {
 
         public void setOrderNo(String orderNo) {
             this.orderNo = orderNo;
+        }
+
+        public String getOrderId() {
+            return orderId;
+        }
+
+        public void setOrderId(String orderId) {
+            this.orderId = orderId;
         }
 
         public String getMachineId() {

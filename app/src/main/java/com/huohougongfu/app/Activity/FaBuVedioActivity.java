@@ -57,6 +57,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,6 +86,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private int mId;
     private TextView tv_weizhi;
     private AddressBean data1;
+    private File photouri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,13 +157,14 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                             media.setDataSource(select_path);// videoPath 本地视频的路径
                             Bitmap bitmap  = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC );
                             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
+                            photouri = utils.getFile(bitmap);
                             //视频封面图截取展示
                             Picasso.get().load(uri).into(video_looksee);
                             JzvdStd video1 = v.findViewById(R.id.video1);
                             video1.setUp(select_path,"",JzvdStd.SCREEN_WINDOW_NORMAL);
                             video1.thumbImageView.setImageBitmap(bitmap);
                             JzvdStd.releaseAllVideos();
-                        }
+                         }
                         }
                     }else{
                         finish();
@@ -193,6 +197,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                     MediaMetadataRetriever media = new MediaMetadataRetriever();
                     media.setDataSource(path);// videoPath 本地视频的路径
                     Bitmap bitmap  = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC );
+                    photouri = utils.getFile(bitmap);
                     Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
                     //视频封面图截取展示
                     Picasso.get().load(uri).into(video_looksee);
@@ -285,6 +290,9 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private void initVedio() {
         String content = et_content.getText().toString();
         Map<String,String> map = new HashMap<>();
+        ArrayList<File> filelist = new ArrayList<>();
+        filelist.add(photouri);
+        filelist.add(file);
         if (!"".equals(token)) {
             if (file!=null){
                 map.put("content",content);
@@ -295,7 +303,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                         .tag(this)//
                         .isMultipart(true)
                         .params(map)
-                        .params("file",file)
+                        .addFileParams("file",filelist)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {

@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
@@ -93,7 +94,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private void initUI() {
         tv_vip_num = findViewById(R.id.tv_vip_num);
         view_vip = findViewById(R.id.view_vip);
-
+        findViewById(R.id.bt_geren_zhuye).setOnClickListener(this);
         tv_wenzhang_title = findViewById(R.id.tv_wenzhang_title);
         img_quanzi_touxiang = findViewById(R.id.img_quanzi_touxiang);
         tv_guanzhu = findViewById(R.id.tv_guanzhu);
@@ -356,6 +357,14 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                     }else{
                         ToastUtils.showShort(R.string.denglu);
                     }
+                }
+                break;
+            case R.id.bt_geren_zhuye:
+                if (!utils.isDoubleClick()){
+                    Intent intent = new Intent();
+                    intent.putExtra("id",String.valueOf(userid));
+                    intent.setClass(WenZhangDetailActivity.this,DiaPuZhuYeActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.bt_finish:

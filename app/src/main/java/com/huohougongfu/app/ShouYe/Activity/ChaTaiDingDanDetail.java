@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnClickListener {
 
-    private int orderNo;
+    private String orderNo;
     private TextView tv_zhifu_zhuangtai,tv_quhuoma,tv_chami_dikou,tv_youhuiquan,tv_xiadan_time;
     private RecyclerView rec_chatai;
     private TextView bt_queding;
@@ -67,7 +67,6 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
 
         }
     };
-    private int type;
     private View item_dingdanxiangqing_chatai;
     private TextView tv_cha_name,tv_cha_content,tv_cha_num,tv_cha_price;
 
@@ -75,8 +74,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cha_tai_ding_dan_detail);
-        orderNo = getIntent().getIntExtra("orderNo", 0);
-        type = getIntent().getIntExtra("type", 0);
+        orderNo = getIntent().getStringExtra("orderNo");
         initUI();
         initData();
     }
@@ -231,7 +229,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                     initDelect(chaTaiDingDanDetail.getResult().getId());
                 }else if (bt_queding.getText().toString().equals("确认支付")){
                     new XPopup.Builder(ChaTaiDingDanDetail.this)
-                            .asCustom(new ChaTaiZhiFu(ChaTaiDingDanDetail.this,chaTaiDingDanDetail.getResult().getOrderNo(),chaTaiDingDanDetail.getResult().getOrderTotal()))
+                            .asCustom(new ChaTaiZhiFu(ChaTaiDingDanDetail.this,chaTaiDingDanDetail.getResult().getOrderNo(),chaTaiDingDanDetail.getResult().getOrderId(),chaTaiDingDanDetail.getResult().getOrderTotal()))
                             .show();
                 }
                 break;

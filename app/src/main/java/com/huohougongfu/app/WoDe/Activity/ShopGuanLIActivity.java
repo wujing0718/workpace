@@ -131,6 +131,14 @@ public class ShopGuanLIActivity extends AppCompatActivity implements View.OnClic
     }
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
-
+        if (audience_cnt == 12){
+            if ("已上架".equals(status)){
+                tv_guanli.setText("管理");
+                editorStatus = true;
+            }else{
+                tv_guanli.setText("管理");
+                editorStatus = true;
+            }
+        }
     }
 }

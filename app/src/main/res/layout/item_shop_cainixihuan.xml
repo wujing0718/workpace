@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/img_dashi_touxiang"
-            android:layout_width="@dimen/layout_margin_64dp"
-            android:layout_height="@dimen/layout_margin_64dp" />
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50" />
 
         <!--<TextView-->
             <!--android:text="V"-->

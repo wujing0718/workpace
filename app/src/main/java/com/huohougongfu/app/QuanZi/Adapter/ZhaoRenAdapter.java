@@ -29,10 +29,11 @@ public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.List
         TextView bt_zhaoren_gaunzhu = helper.getView(R.id.bt_zhaoren_gaunzhu);
         View view_xian = helper.getView(R.id.view_xian);
         if (item.getIsAttention() == 1){
-            bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.yiguanzhu);
-            bt_zhaoren_gaunzhu.setText("已关注");
+            bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.black_di);
+            bt_zhaoren_gaunzhu.setText("取消关注");
             bt_zhaoren_gaunzhu.setTextColor(MyApp.context.getResources().getColor(R.color.colorWhite));
         }
+        helper.setText(R.id.tv_my_fensinum,"粉丝："+String.valueOf(item.getFanCount()));
         helper.setText(R.id.tv_zhaoren_name,item.getNickName());
         helper.setText(R.id.tv_zhaoren_chenghu,item.getMaster().getLevel());
         if (item.getPlace() != null &&!item.getPlace().isEmpty()){

@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_view"
+    android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.huohougongfu.app.Utils.FullScreenVideoView
+        android:layout_centerInParent="true"
         android:id="@+id/video_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clickable="false"
         android:focusable="false"
         />
@@ -55,7 +57,6 @@
         android:focusable="false"
         android:visibility="visible"
         />
-z
     <LinearLayout
         android:id="@+id/ll_xiangqing"
         android:layout_width="wrap_content"

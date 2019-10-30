@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Gson.CanShuGson;
 import com.huohougongfu.app.Gson.ChanPinCanShu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
@@ -35,6 +35,7 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
     private List<String> keys;
     private Bundle bundle;
     private View v;
+    private String canshu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_shop_can_shu);
         v = getWindow().peekDecorView();
         categoryName = getIntent().getStringExtra("categoryName");
+        canshu = getIntent().getStringExtra("canshu");
         initUI();
         initData();
     }
@@ -67,10 +69,27 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
             list.add(i,"");
             typelist.add(keys.getResult().getType().get(i));
         }
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rec_chanpin_canshu.setLayoutManager(layoutManager);
-        CanShuAdapter canShuAdapter = new CanShuAdapter(keys,list,typelist,ShopCanShuActivity.this,v);
-        rec_chanpin_canshu.setAdapter(canShuAdapter);
+        if (canshu!=null){
+            List<String> valuelist = new ArrayList<>();
+            try {
+                JSONArray jsonArray = new JSONArray(canshu);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    valuelist.add(jsonArray.getString(i));
+                }
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+                rec_chanpin_canshu.setLayoutManager(layoutManager);
+                CanShuAdapter canShuAdapter = new CanShuAdapter(keys,list,typelist,ShopCanShuActivity.this,v,valuelist);
+                rec_chanpin_canshu.setAdapter(canShuAdapter);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else{
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            rec_chanpin_canshu.setLayoutManager(layoutManager);
+            CanShuAdapter canShuAdapter = new CanShuAdapter(keys,list,typelist,ShopCanShuActivity.this,v);
+            rec_chanpin_canshu.setAdapter(canShuAdapter);
+        }
+
     }
 
     private void initUI() {
@@ -84,6 +103,23 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_finish:
+//                JSONArray jsonArray1 = new JSONArray();
+//                    for (int j = 0; j < list.size(); j++) {
+//                        JSONObject jsonObject = new JSONObject();
+//                        try {
+//                            jsonObject.put("key",keys.get(j));
+//                            if (list.get(j).equals("是")){
+//                                jsonObject.put("value","1");
+//                            }else if (list.get(j).equals("否")){
+//                                jsonObject.put("value","0");
+//                            }else{
+//                                jsonObject.put("value",list.get(j));
+//                            }
+//                            jsonArray1.put(jsonObject);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
                 bundle = new Bundle();
                 bundle.putString("canshu",null);
                 setResult(101,ShopCanShuActivity.this.getIntent().putExtras(bundle));
@@ -120,6 +156,23 @@ public class ShopCanShuActivity extends AppCompatActivity implements View.OnClic
     }
     @Override
     public void onBackPressed(){
+//        JSONArray jsonArray1 = new JSONArray();
+//        for (int j = 0; j < list.size(); j++) {
+//            JSONObject jsonObject = new JSONObject();
+//            try {
+//                jsonObject.put("key",keys.get(j));
+//                if (list.get(j).equals("是")){
+//                    jsonObject.put("value","1");
+//                }else if (list.get(j).equals("否")){
+//                    jsonObject.put("value","0");
+//                }else{
+//                    jsonObject.put("value",list.get(j));
+//                }
+//                jsonArray1.put(jsonObject);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
         bundle = new Bundle();
         bundle.putString("canshu",null);
         setResult(101,ShopCanShuActivity.this.getIntent().putExtras(bundle));

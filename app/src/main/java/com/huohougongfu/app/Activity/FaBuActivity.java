@@ -243,7 +243,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == CONTEXT_RESTRICTED){
             data1 = (AddressBean)data.getSerializableExtra("data");
             if(data1==null){
-                tv_weizhi.setText("");
+                tv_weizhi.setText("所在位置");
             }else{
                 tv_weizhi.setText(data1.getTitle());
             }

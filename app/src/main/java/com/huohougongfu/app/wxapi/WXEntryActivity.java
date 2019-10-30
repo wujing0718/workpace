@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -54,23 +56,40 @@ public class WXEntryActivity extends WXCallbackActivity implements IWXAPIEventHa
     //请求回调结果处理
     @Override
     public void onResp(BaseResp baseResp) {
-//登录回调
-        switch (baseResp.errCode) {
-            case BaseResp.ErrCode.ERR_OK:
-                String code = ((SendAuth.Resp) baseResp).code;
-                //获取accesstoken
-                getAccessToken(code);
-                Log.d("fantasychongwxlogin", code.toString()+ "");
-                break;
-            case BaseResp.ErrCode.ERR_AUTH_DENIED://用户拒绝授权
-                finish();
-                break;
-            case BaseResp.ErrCode.ERR_USER_CANCEL://用户取消
-                finish();
-                break;
-            default:
-                finish();
-                break;
+        //支付回调
+        if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+            switch (baseResp.errCode) {
+                case 0:
+                    ToastUtils.showShort("支付成功");
+                    finish();
+                    break;
+                case -1:
+                    ToastUtils.showShort("支付取消");
+                    finish();
+                    break;
+                case -2:
+                    ToastUtils.showShort("请求失败");
+                    finish();
+                    break;
+            }
+        }else{
+            //登录回调
+            switch (baseResp.errCode) {
+                case BaseResp.ErrCode.ERR_OK:
+                    String code = ((SendAuth.Resp) baseResp).code;
+                    //获取accesstoken
+                    getAccessToken(code);
+                    break;
+                case BaseResp.ErrCode.ERR_AUTH_DENIED://用户拒绝授权
+                    finish();
+                    break;
+                case BaseResp.ErrCode.ERR_USER_CANCEL://用户取消
+                    finish();
+                    break;
+                default:
+                    finish();
+                    break;
+            }
         }
     }
     private void getAccessToken(String code) {

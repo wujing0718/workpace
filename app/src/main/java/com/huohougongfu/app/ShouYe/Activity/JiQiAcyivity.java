@@ -22,6 +22,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.blankj.utilcode.util.ToastUtils;
 import com.googlecode.mp4parser.authoring.Edit;
 import com.huohougongfu.app.Gson.AddressBean;
+import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.PoiAdapter;
 import com.huohougongfu.app.Utils.ListenerManager;
@@ -41,6 +42,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
     private PoiSearch poiSearch;
     private PoiResult poiResult;
     private InputMethodManager manager;
+    private String aoiName;
 
 
     @Override
@@ -48,6 +50,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ji_qi_acyivity);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        aoiName = MyApp.instance.getString("AoiName");
         initView();
 
     }
@@ -55,7 +58,8 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
     private void initView() {
         edt_jiqi_sousuo = findViewById(R.id.edt_jiqi_sousuo);
         rcv_dizhi_sousuo = findViewById(R.id.rcv_dizhi_sousuo);
-
+        edt_jiqi_sousuo.setText(aoiName);
+        seach();
         edt_jiqi_sousuo.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -64,8 +68,9 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
                     if (manager.isActive()) {
                         manager.hideSoftInputFromWindow(edt_jiqi_sousuo.getApplicationWindowToken(), 0);
                     }
+                    aoiName = edt_jiqi_sousuo.getText().toString();
                     //自己需要的操作
-                    seach(edt_jiqi_sousuo.getText().toString());
+                    seach();
                 }
                 //记得返回false
                 return false;
@@ -114,16 +119,16 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
         super.onBackPressed();
     }
 
-    private void seach(String address){
+    private void seach(){
         int currentPage = 0;
-        //不输入城市名称有些地方搜索不到
         // 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
-        query = new PoiSearch.Query(address, "", "");
+        query = new PoiSearch.Query(aoiName, "", "");
         // 设置每页最多返回多少条poiitem
         query.setPageSize(20);
         // 设置查询页码
         query.setPageNum(currentPage);
-
+        //设置城市界限不然不输入城市名称有些地方搜索不到
+        query.setCityLimit(true);
         //构造 PoiSearch 对象，并设置监听
         poiSearch = new PoiSearch(this, query);
         poiSearch.setOnPoiSearchListener(this);

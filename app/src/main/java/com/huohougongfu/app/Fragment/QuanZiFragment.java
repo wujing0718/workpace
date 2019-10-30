@@ -24,7 +24,6 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.CityActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
@@ -218,7 +217,6 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
             break;
@@ -231,7 +229,6 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -259,7 +256,6 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -272,7 +268,6 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -285,7 +280,6 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;

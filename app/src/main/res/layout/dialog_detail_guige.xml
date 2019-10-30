@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <RadioGroup
+        <com.huohougongfu.app.Utils.GuiGeRadioGroup
             android:id="@+id/gadiogroup"
             android:orientation="horizontal"
             android:layout_marginTop="12dp"
@@ -145,7 +145,7 @@
                 <!--android:layout_height="30dp" />-->
 
 
-        </RadioGroup>
+        </com.huohougongfu.app.Utils.GuiGeRadioGroup>
 
         <View
             android:background="#BBBBBB"

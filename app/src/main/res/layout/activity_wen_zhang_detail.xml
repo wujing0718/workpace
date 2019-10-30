@@ -61,6 +61,7 @@
             android:layout_height="50dp">
 
             <LinearLayout
+                android:id="@+id/bt_geren_zhuye"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">

@@ -86,7 +86,6 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
     }
 
     private void initUI() {
-
         edt_shop_title = findViewById(R.id.edt_shop_title);
         edt_shop_num = findViewById(R.id.edt_shop_num);
         edt_shop_yongjin = findViewById(R.id.edt_shop_yongjin);
@@ -208,9 +207,12 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
         if (requestCode == 102){
             Bundle extras = data.getExtras();
             canshu = extras.getString("canshu");
+            String type = extras.getString("type");
             if (canshu!=null){
                 tv_yitianxie.setText("完成");
                 tv_yitianxie.setTextColor(getResources().getColor(R.color.colorBlack));
+            }else{
+                tv_yitianxie.setText("");
             }
         }
         //商品规格
@@ -289,6 +291,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                 if (!utils.isDoubleClick()){
                     if (Nameid != null && !"".equals(Nameid)){
                         intent.putExtra("categoryName",Nameid);
+                        intent.putExtra("canshu",canshu);
                         intent.setClass(TianJiaShangPinActivity.this,ShopCanShuActivity.class);
                         startActivityForResult(intent,102);
                     }else{

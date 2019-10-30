@@ -55,13 +55,21 @@
 
                 <TextView
                     android:id="@+id/tv_zhaoren_weizhi"
-                    android:text=""
+                    android:text="sdasda"
                     android:textSize="12sp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/dp_4"
+                android:id="@+id/tv_my_fensinum"
+                android:text=""
+                android:textColor="@color/colorBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -70,9 +78,10 @@
     <TextView
         android:id="@+id/bt_zhaoren_gaunzhu"
         android:text="+关注"
-        android:background="@drawable/guanzhu"
+        android:background="@drawable/black_di"
         android:paddingHorizontal="@dimen/layout_padding_12dp"
         android:paddingVertical="2dp"
+        android:textColor="@color/white"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"

@@ -18,6 +18,7 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.DingDanDetailActivity;
 import com.huohougongfu.app.WoDe.Adapter.QuXiaoDingDanYuanYinAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.lxj.xpopup.core.BottomPopupView;
@@ -97,12 +98,13 @@ public class QuXiaoDingDan extends BottomPopupView implements View.OnClickListen
                                                                         try {
                                                                             JSONObject jsonObject = new JSONObject(body);
                                                                             if (jsonObject.getInt("status") == 1){
-                                                                                dismiss();
                                                                                 Message msg = Message.obtain();
-                                                                                msg.what = 0;
-                                                                                msg.obj = true;
-                                                                                mHandler.sendMessage(msg);
-                                                                                dismiss();
+                                                                                if (mHandler!=null){
+                                                                                    msg.what = 0;
+                                                                                    msg.obj = true;
+                                                                                    mHandler.sendMessage(msg);
+                                                                                }
+                                                                                DingDanDetailActivity.activity.finish();
                                                                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                                                             }else{
                                                                                 dismiss();

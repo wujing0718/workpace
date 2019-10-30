@@ -1,5 +1,6 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -62,11 +63,13 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     private TextView tv_remark;
     private TextView tv_kuaidi;
     private TextView tv_chami_dikou;
+    public static DingDanDetailActivity  activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ding_dan_detail);
+        this.activity = this;
         id = MyApp.instance.getInt("id");
         orderNo = getIntent().getStringExtra("orderNo");
         orderStatus = getIntent().getIntExtra("orderStatus",0);

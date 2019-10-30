@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
 import com.huohougongfu.app.Gson.MaiChaDetail;
 import com.huohougongfu.app.Gson.TeaDetail;
+import com.huohougongfu.app.Gson.ZhiFu;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.CTYouHuiQuan;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
@@ -647,18 +648,15 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                new XPopup.Builder(MyDingDanPaoChaActivity.this)
-                                        .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,jsonObject.getString("result"),orderprice))
-                                        .show();
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        Gson gson = new Gson();
+                        ZhiFu zhiFu = gson.fromJson(response.body(), ZhiFu.class);
+                        if (zhiFu.getStatus() == 1){
+                            new XPopup.Builder(MyDingDanPaoChaActivity.this)
+                                    .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),orderprice))
+                                    .show();
+                        }else{
+                            ToastUtils.showShort(zhiFu.getMsg());
+
                         }
                     }
                 });
@@ -695,18 +693,15 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                new XPopup.Builder(MyDingDanPaoChaActivity.this)
-                                        .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,jsonObject.getString("result"),orderprice))
-                                        .show();
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        Gson gson = new Gson();
+                        ZhiFu zhiFu = gson.fromJson(response.body(), ZhiFu.class);
+                        if (zhiFu.getStatus() == 1){
+                            new XPopup.Builder(MyDingDanPaoChaActivity.this)
+                                    .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),orderprice))
+                                    .show();
+                        }else{
+                            ToastUtils.showShort(zhiFu.getMsg());
+
                         }
                     }
                 });

@@ -42,6 +42,10 @@
             <TextView
                 android:text=""
                 android:id="@+id/tv_address"
+                android:textSize="@dimen/text_size_12sp"
+                android:maxWidth="@dimen/dp_80"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/white"
                 android:layout_marginLeft="4dp"
                 android:layout_width="wrap_content"

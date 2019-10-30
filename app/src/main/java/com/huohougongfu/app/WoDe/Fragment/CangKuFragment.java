@@ -304,6 +304,20 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                         initShangJia();
                     }else{
                         //如果已经认证店铺
+                        if (renZhengZhuangTai!=null && renZhengZhuangTai.getResult()!=null) {
+                            if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                                intent.setClass(getActivity(), TianJiaShangPinActivity.class);
+                                startActivity(intent);
+                            }else{
+                                new XPopup.Builder(getContext())
+                                        .asCustom(new PopupWeiDianpuRenZheng(getContext()))
+                                        .show();
+                            }
+                        }
+                    }
+                }else{
+                    //如果已经认证店铺
+                    if (renZhengZhuangTai!=null && renZhengZhuangTai.getResult()!=null) {
                         if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
                             intent.setClass(getActivity(), TianJiaShangPinActivity.class);
                             startActivity(intent);
@@ -312,16 +326,6 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                                     .asCustom(new PopupWeiDianpuRenZheng(getContext()))
                                     .show();
                         }
-                    }
-                }else{
-                    //如果已经认证店铺
-                    if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
-                        intent.setClass(getActivity(), TianJiaShangPinActivity.class);
-                        startActivity(intent);
-                    }else{
-                        new XPopup.Builder(getContext())
-                                .asCustom(new PopupWeiDianpuRenZheng(getContext()))
-                                .show();
                     }
                 }
                 break;
@@ -403,6 +407,7 @@ public class CangKuFragment extends Fragment implements IListener ,CangKuGuanLiA
                                 JSONObject jsonObject = new JSONObject(body);
                                 if (jsonObject.getInt("status") == 1){
                                     initData();
+                                    ListenerManager.getInstance().sendBroadCast(12,"已上架");
                                     ToastUtils.showShort(jsonObject.getString("msg"));
                                 }else{
                                     ToastUtils.showShort(jsonObject.getString("msg"));

@@ -126,8 +126,7 @@ public class DingDanFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-                intent.putExtra("type",data.getList().get(position).getType());
-                intent.putExtra("orderNo",data.getList().get(position).getId());
+                intent.putExtra("orderNo",String.valueOf(data.getList().get(position).getId()));
                 startActivity( intent.setClass(getActivity(),ChaTaiDingDanDetail.class));
             }
         });

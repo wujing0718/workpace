@@ -58,12 +58,16 @@ public class TaDongTai  extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,B
         if(item.getPicture() !=null){
             String[] split = item.getPicture().split(",");
             rec_dongtai_photo.setVisibility(View.VISIBLE);
-            for (int i = 0; i < split.length; i++) {
-                List<Object> mlist = new ArrayList<>();
-                mlist.add(split[i]);
-                ImageAdapter pingJiaPhotoAdapter = new ImageAdapter(mlist);
-                rec_dongtai_photo.setAdapter(pingJiaPhotoAdapter);
+            List<Object> mlist = new ArrayList<>();
+            if (item.getType() == 3){
+                mlist.add(split[0]);
+            }else{
+                for (int i = 0; i < split.length; i++) {
+                    mlist.add(split[i]);
+                }
             }
+            ImageAdapter pingJiaPhotoAdapter = new ImageAdapter(mlist);
+            rec_dongtai_photo.setAdapter(pingJiaPhotoAdapter);
         }else{
             rec_dongtai_photo.setVisibility(View.GONE);
         }
@@ -99,7 +103,7 @@ public class TaDongTai  extends BaseQuickAdapter<MyDongTai.ResultBean.ListBean,B
         @Override
         public void loadImage(int position, @NonNull Object url, @NonNull ImageView imageView) {
             //必须指定Target.SIZE_ORIGINAL，否则无法拿到原图，就无法享用天衣无缝的动画
-            Glide.with(imageView).load(url).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).override(Target.SIZE_ORIGINAL)).into(imageView);
+            Glide.with(imageView).load(url).into(imageView);
         }
 
         @Override

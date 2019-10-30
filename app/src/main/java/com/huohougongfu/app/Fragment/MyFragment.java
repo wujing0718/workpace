@@ -17,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.MyZhuYe;
 import com.huohougongfu.app.Gson.OrderStatus;
@@ -231,6 +230,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                             if (jsonObject.getInt("status") == 1){
                                 QBadgeView qBadgeView = new QBadgeView(getActivity());
                                 qBadgeView.bindTarget(bt_my_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                                qBadgeView.setShowShadow(false);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -398,7 +398,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -411,7 +410,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -424,7 +422,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -438,7 +435,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -452,7 +448,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -466,7 +461,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -480,7 +474,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -500,7 +493,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -513,7 +505,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -527,7 +518,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -540,7 +530,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -589,7 +578,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -602,7 +590,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -616,7 +603,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -629,7 +615,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -643,7 +628,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -658,7 +642,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -671,7 +654,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -684,7 +666,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;

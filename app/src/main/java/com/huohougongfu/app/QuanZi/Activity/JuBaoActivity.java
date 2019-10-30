@@ -123,12 +123,7 @@ public class JuBaoActivity extends AppCompatActivity implements View.OnClickList
                 }
                 if (!utils.isDoubleClick()){
                     if (!sb.toString().isEmpty()){
-                        if (!phone.isEmpty()){
-                            //遍历集合中的checkBox,判断是否选择，获取选中的文本
-                            initTiJiao(sb);
-                        }else{
-                            ToastUtils.showShort("请输入备注");
-                        }
+                        initTiJiao(sb);
                     }else{
                         ToastUtils.showShort("至少选择一个投诉类型");
                     }

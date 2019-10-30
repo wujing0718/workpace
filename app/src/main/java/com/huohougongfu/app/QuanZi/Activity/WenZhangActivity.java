@@ -57,7 +57,7 @@ public class WenZhangActivity extends AppCompatActivity {
     private InputMethodManager manager;
     private String token;
     private QuanZiShare share;
-    private String sousuo;
+    private String sousuo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +76,7 @@ public class WenZhangActivity extends AppCompatActivity {
         edt_shop_sousuo = findViewById(R.id.edt_shop_sousuo);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         rec_quanzi_wenzhang = findViewById(R.id.rec_quanzi_wenzhang);
-        initData("");
+        initData(sousuo);
         edt_shop_sousuo.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -116,7 +116,6 @@ public class WenZhangActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        initData(sousuo);
         super.onResume();
     }
 

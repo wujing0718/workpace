@@ -227,23 +227,48 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
 
 
     private void initWX(){
-        OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
-                .params("orderNo",OrderNo)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                wxtoken = jsonObject.getString("result");
+        String orderId = "";
+        if (orderNo!=null){
+            for (int i = 0; i < orderNo.size(); i++) {
+                orderId =orderNo.get(i)+","+ orderId;
+            }
+            String substring = orderId.substring(0, orderId.length() - 1);
+            OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
+                    .params("orderNo",substring)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    wxtoken = jsonObject.getString("result");
 //                                initWeiXin();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+        }else{
+            OkGo.<String>post(Contacts.URl1+"/pay/wxpay")
+                    .params("orderNo",OrderNo)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            try {
+                                JSONObject jsonObject = new JSONObject(body);
+                                if (jsonObject.getInt("status") == 1){
+                                    wxtoken = jsonObject.getString("result");
+//                                initWeiXin();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        }
     }
 
     @Override

@@ -44,7 +44,6 @@ public class DianPuItemAdapter extends RecyclerView.Adapter<DianPuItemAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull DianPuItemAdapter.ViewHolder viewHolder, final  int position) {
-
 //        viewHolder.tv_shangpin_price.setText(String.valueOf(data.get(position).getPrice()));
 //        viewHolder.tv_shangpin_title.setText(String.valueOf(data.get(position).getName()));
         if (data.get(position).getCoverUrl()!=null){

@@ -25,13 +25,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_sousuo_dianpu_name"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="白茶"
-                android:textColor="@color/colorBlack"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_sousuo_dianpu_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="白茶"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/bt_dianpu"
+                    android:text="店铺"
+                    android:layout_marginLeft="10dp"
+                    android:paddingVertical="2dp"
+                    android:layout_gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/dp_4"
+                    android:background="@drawable/xiadan_kuang"
+                    android:textSize="12sp"
+                    android:textColor="#E51C23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_marginTop="5dp"
@@ -88,13 +109,13 @@
         <TextView
             android:text="进店"
             android:textSize="12sp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/color_white"
             android:gravity="center"
             android:paddingVertical="2dp"
             android:paddingHorizontal="20dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/kaquan_kuang"
+            android:background="@drawable/jindian_kuang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

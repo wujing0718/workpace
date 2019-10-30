@@ -123,9 +123,10 @@ public class MyApp extends Application {
     public void onCreate() {
 //        DoraemonKit.install(this);
         //设置是否启用模糊
-        DialogSettings.use_blur = true;
-        DialogSettings.dialog_theme = THEME_LIGHT;
+//        DialogSettings.use_blur = true;
+        DialogSettings.dialog_theme = THEME_LIGHT;//设置提示框主题为亮色主题
         DialogSettings.style = STYLE_IOS;
+        DialogSettings.blur_alpha = 250;
         RongIM.init(this);
         context = this;
         Utils.init(getApplicationContext());

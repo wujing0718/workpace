@@ -114,35 +114,42 @@ public class SpecialBrandActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initSpecialBrand() {
-        OkGo.<String>post(Contacts.URl1+"/my/brandCertification")
-                .tag(this)
-                .isMultipart(true)
-                .params("mId",MyApp.instance.getInt("id"))
-                .addFileParams("pictureFiles",shenfenFile)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                finish();
-                                Intent intent = new Intent();
-                                intent.setClass(SpecialBrandActivity.this,ReviewViewActivity.class);
-                                startActivity(intent);
+        if (!qitazizhiPath.isEmpty()){
+            if (!shenfenFile.isEmpty()){
+                OkGo.<String>post(Contacts.URl1+"/my/brandCertification")
+                        .tag(this)
+                        .isMultipart(true)
+                        .params("mId",MyApp.instance.getInt("id"))
+                        .addFileParams("pictureFiles",shenfenFile)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                WaitDialog.dismiss();
+                                String body = response.body();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(body);
+                                    if (jsonObject.getInt("status") == 1){
+                                        finish();
+                                        Intent intent = new Intent();
+                                        intent.setClass(SpecialBrandActivity.this,ReviewViewActivity.class);
+                                        startActivity(intent);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(SpecialBrandActivity.this,"请稍后。。。");
-                        super.onStart(request);
-                    }
-                });
+                            @Override
+                            public void onStart(Request<String, ? extends Request> request) {
+                                WaitDialog.show(SpecialBrandActivity.this,"请稍后。。。");
+                                super.onStart(request);
+                            }
+                        });
+            }else{
+                ToastUtils.showShort("请上传身份证明");
+            }
+        }else{
+            ToastUtils.showShort("请上传其他资质");
+        }
     }
 
     @Override

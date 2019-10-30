@@ -137,7 +137,7 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         check_wulongcha.setOnCheckedChangeListener(onBoxClickListener);
         check_hongcha.setOnCheckedChangeListener(onBoxClickListener);
         check_heicha.setOnCheckedChangeListener(onBoxClickListener);
-
+        check_qita.setOnCheckedChangeListener(onBoxClickListener);
         edt_zhicheng_qita.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -185,6 +185,7 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (check_baicha.isChecked()){
+                check_qita.setChecked(false);
                 specialty_baicha = check_baicha.getText().toString();
             }else{
                 specialty_baicha = "";

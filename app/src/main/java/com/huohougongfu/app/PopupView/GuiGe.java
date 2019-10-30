@@ -244,7 +244,7 @@ public class GuiGe extends BottomPopupView {
             gadiogroup.addView(button);
             LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) button
                     .getLayoutParams();
-            layoutParams.setMargins(20, 0,  20, 0);//4个参数按顺序分别是左上右下
+            layoutParams.setMargins(20, 30,  20, 0);//4个参数按顺序分别是左上右下
             button.setLayoutParams(layoutParams);
             index++;
         }

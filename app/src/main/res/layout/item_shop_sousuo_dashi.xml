@@ -14,9 +14,8 @@
 
         <ImageView
             android:id="@+id/img_dashi_touxiang"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50" />
 
         <LinearLayout
             android:layout_weight="1"
@@ -41,6 +40,7 @@
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -81,13 +81,13 @@
         <TextView
             android:text="进店"
             android:textSize="12sp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/white"
             android:gravity="center"
             android:paddingVertical="3dp"
             android:paddingHorizontal="20dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/kaquan_kuang"
+            android:background="@drawable/jindian_kuang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

@@ -227,6 +227,7 @@ public class ZhaoRenGson {
             private Object records;
             private MasterBean master;
             private int isAttention;
+            private int fanCount;
 
             public int getUserId() {
                 return userId;
@@ -442,6 +443,13 @@ public class ZhaoRenGson {
 
             public void setMaster(MasterBean master) {
                 this.master = master;
+            }
+            public int getFanCount() {
+                return fanCount;
+            }
+
+            public void setFanCount(int fanCount) {
+                this.fanCount = fanCount;
             }
 
             public int getIsAttention() {

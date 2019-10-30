@@ -310,25 +310,29 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                             initXiaJia();
                         } else {
                             //如果已经认证店铺
-                            if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
-                                intent.setClass(getActivity(), TianJiaShangPinActivity.class);
-                                startActivity(intent);
-                            }else{
-                                new XPopup.Builder(getContext())
-                                        .asCustom(new PopupWeiDianpuRenZheng(getContext()))
-                                        .show();
+                            if (renZhengZhuangTai!=null && renZhengZhuangTai.getResult()!=null){
+                                if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                                    intent.setClass(getActivity(), TianJiaShangPinActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    new XPopup.Builder(getContext())
+                                            .asCustom(new PopupWeiDianpuRenZheng(getContext()))
+                                            .show();
+                                }
                             }
                         }
                     }
                 } else {
-                    //如果已经认证店铺
-                    if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
-                        intent.setClass(getActivity(), TianJiaShangPinActivity.class);
-                        startActivity(intent);
-                    }else{
-                        new XPopup.Builder(getContext())
-                                .asCustom(new PopupWeiDianpuRenZheng(getContext()))
-                                .show();
+                    if (renZhengZhuangTai!=null && renZhengZhuangTai.getResult()!=null){
+                        //如果已经认证店铺
+                        if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
+                            intent.setClass(getActivity(), TianJiaShangPinActivity.class);
+                            startActivity(intent);
+                        }else{
+                            new XPopup.Builder(getContext())
+                                    .asCustom(new PopupWeiDianpuRenZheng(getContext()))
+                                    .show();
+                        }
                     }
                 }
                 break;
@@ -413,6 +417,7 @@ public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanL
                                 if (jsonObject.getInt("status") == 1){
                                     initData();
                                     ToastUtils.showShort(jsonObject.getString("msg"));
+                                    ListenerManager.getInstance().sendBroadCast(12,"已下架");
                                 }else{
                                     ToastUtils.showShort(jsonObject.getString("msg"));
                                 }

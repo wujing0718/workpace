@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -32,19 +33,24 @@ public class SouSuoDianPuAdapter extends BaseQuickAdapter<SouSuoDianPu.ResultBea
     protected void convert(BaseViewHolder helper, SouSuoDianPu.ResultBean.ListBean item) {
         ImageView img_sousuo_dianpu_logo = helper.getView(R.id.img_sousuo_dianpu_logo);
         RecyclerView rec_dianpu_shangpin = helper.getView(R.id.rec_dianpu_shangpin);
+        TextView bt_dianpu = helper.getView(R.id.bt_dianpu);
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(item.getStoreLogo()).apply(requestOptions).into(img_sousuo_dianpu_logo);
         helper.setText(R.id.tv_sousuo_dianpu_name,item.getStoreName());
         helper.setText(R.id.tv_sousuo_dianpu_year,item.getYear()+"年老店");
         helper.setText(R.id.tv_sousuo_dianpu_favorableRate,"好评率"+item.getFavorableRate()+"%");
         helper.setText(R.id.tv_sousuo_dianpu_fensNum,"粉丝数"+item.getFensNum());
-
+        if ("1".equals(item.getStoreType())){
+            bt_dianpu.setText("特约品牌");
+        }else{
+            bt_dianpu.setText("店铺");
+        }
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         GridLayoutManager layoutmanager = new GridLayoutManager(MyApp.getInstances(),3);
         //设置RecyclerView 布局
         rec_dianpu_shangpin.setLayoutManager(layoutmanager);
         int firstVisibleItemPosition = layoutmanager.findFirstVisibleItemPosition()+1;
-        if (data1.get(firstVisibleItemPosition).getMallProductList().size()>0){
+        if (item.getMallProductList().size()>0){
             DianPuItemAdapter shangPinTuiJianAdapter = new DianPuItemAdapter(MyApp.getInstances(),item.getMallProductList());
             rec_dianpu_shangpin.setAdapter(shangPinTuiJianAdapter);
             shangPinTuiJianAdapter.setOnItemClickListener(new DianPuItemAdapter.OnItemClickListener() {

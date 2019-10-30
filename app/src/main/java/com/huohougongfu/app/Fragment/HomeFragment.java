@@ -28,7 +28,6 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.huohougongfu.app.Activity.DaKaActivity;
 import com.huohougongfu.app.Activity.DingWeiActivity;
 import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.JiQiLieBiao;
@@ -368,7 +367,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -381,7 +379,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -394,7 +391,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -407,7 +403,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
                 break;
@@ -421,7 +416,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                         ToastUtils.showShort(R.string.denglu);
                         intent.setClass(getActivity(),LoginActivity.class);
                         startActivity(intent);
-                        MainActivity.activity.finish();
                     }
                 }
             case R.id.bt_dingwei:

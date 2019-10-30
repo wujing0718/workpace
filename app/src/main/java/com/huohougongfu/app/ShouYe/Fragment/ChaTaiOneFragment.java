@@ -21,11 +21,13 @@ import com.huohougongfu.app.Adapter.ChaTaiAdapter;
 import com.huohougongfu.app.Gson.ChaTaiGson;
 import com.huohougongfu.app.Gson.ChaTaiYouHuiQuan;
 import com.huohougongfu.app.Gson.OKGson;
+import com.huohougongfu.app.Gson.ZhiFu;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.PopupView.CTYouHuiQuan;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
 import com.huohougongfu.app.PopupView.MCYouHuiQuan;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.ShouYe.Activity.MyDingDanPaoChaActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -303,18 +305,15 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                new XPopup.Builder(getContext())
-                                        .asCustom(new ChaTaiZhiFu(getActivity(),jsonObject.getString("result"), total_priceorder))
-                                        .show();
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        Gson gson = new Gson();
+                        ZhiFu zhiFu = gson.fromJson(response.body(), ZhiFu.class);
+                        if (zhiFu.getStatus() == 1){
+                            new XPopup.Builder(getActivity())
+                                    .asCustom(new ChaTaiZhiFu(getActivity(),zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),total_priceorder))
+                                    .show();
+                        }else{
+                            ToastUtils.showShort(zhiFu.getMsg());
+
                         }
                     }
                 });

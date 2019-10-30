@@ -495,22 +495,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    //双击退出
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-            long secondTime = System.currentTimeMillis();
-            if (secondTime - firstTime > 2000) {
-                ToastUtils.showShort("再按一次退出程序");
-                firstTime = secondTime;
-                return true;
-            } else {
-                System.exit(0);
-            }
-        }
-
-        return super.onKeyUp(keyCode, event);
-    }
+//    //双击退出
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+//            long secondTime = System.currentTimeMillis();
+//            if (secondTime - firstTime > 2000) {
+//                ToastUtils.showShort("再按一次退出程序");
+//                firstTime = secondTime;
+//                return true;
+//            } else {
+//                System.exit(0);
+//            }
+//        }
+//
+//        return super.onKeyUp(keyCode, event);
+//    }
 
     class TimerCount extends CountDownTimer {
 

@@ -162,7 +162,7 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-                intent.putExtra("id",String.valueOf(result.getList().get(position).getId()));
+                intent.putExtra("id",String.valueOf(result.getList().get(position).getMId()));
                 intent.setClass(getActivity(),DiaPuZhuYeActivity.class);
                 startActivity(intent);
             }

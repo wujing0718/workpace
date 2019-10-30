@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WoDe.Activity.VIPGuiZeActivity">
+
+    <RelativeLayout
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44">
+
+        <RelativeLayout
+            android:id="@+id/bt_finish"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="44dp">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/img_back_white"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:text="规则"
+            android:textSize="@dimen/sp_17"
+            android:textColor="@color/colorWhite"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_margin="@dimen/dp_12"
+        android:text="1.会员标识（会员茗牌）：会员等级达到vip0即可点亮，会员图标，尊贵无处不在\n
+2.线上店铺：进行实名认证即可点亮，拥有个人店铺+10个分享橱窗\n
+3.茶米福利（茶米特权）：会员等级达到vip0即可点亮，所获茶米可以进行转赠、抵扣消费额。\n
+4.专属客服：会员等级达到vip4即可点亮，专属通道优先接入，拒绝等待\n
+5.置顶权限（热门置顶）：会员等级达到vip0即可点亮，置顶任自己的任意一条动态\n
+6.防止骚扰（）：会员等级达到vip0即可点亮，屏蔽非会员的无效私聊\n
+7.热门推广：会员等级达到【  】即可点亮，内容头条推广，实现精准推荐\n
+8.商品橱窗：会员等级达到【   】即可点亮，上架个人商品，打造个性店铺"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+</LinearLayout>

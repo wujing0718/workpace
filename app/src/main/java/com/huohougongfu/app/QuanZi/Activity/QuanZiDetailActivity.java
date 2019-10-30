@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Gson.GuanZhu;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.Gson.QuanZiDetail;
@@ -109,6 +110,7 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
     private void initUI() {
         view_vip = findViewById(R.id.view_vip);
         tv_vip_num = findViewById(R.id.tv_vip_num);
+        findViewById(R.id.bt_geren_zhuye).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         bt_gengduo = findViewById(R.id.bt_gengduo);
         bt_gengduo.setOnClickListener(this);
@@ -363,6 +365,14 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                     }else{
                         ToastUtils.showShort(R.string.denglu);
                     }
+                }
+                break;
+            case R.id.bt_geren_zhuye:
+                if (!utils.isDoubleClick()){
+                    Intent intent = new Intent();
+                    intent.putExtra("id",String.valueOf(userid));
+                    intent.setClass(QuanZiDetailActivity.this,DiaPuZhuYeActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.bt_dianzan:
@@ -640,7 +650,6 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
-        ToastUtils.showShort("分享成功");
     }
 
     @Override

@@ -444,6 +444,12 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int i) {
+            String[] split = shipindetail.getList().get(i).getPicture().split(",");
+            if (split.length == 1){
+                shipindetail.getList().get(i).setPicture(split[0]);
+            }else if (split.length == 2){
+                shipindetail.getList().get(i).setPicture(split[1]);
+            }
                 if (!shipindetail.getList().get(i).getPicture().isEmpty()){
                     Picasso.get().load(shipindetail.getList().get(i).getPicture());
                     holder.videoView.setVideoURI(

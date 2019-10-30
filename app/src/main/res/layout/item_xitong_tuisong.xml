@@ -39,7 +39,7 @@
             <TextView
                 android:id="@+id/tv_tuisong_title"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="1111"
+                android:text=""
                 android:textColor="@color/colorBlack"
                 android:textSize="17sp"
                 android:layout_width="wrap_content"
@@ -49,9 +49,7 @@
                 android:id="@+id/tv_tuisong_content"
                 android:layout_marginTop="@dimen/dp_50"
                 android:layout_marginRight="@dimen/dp_30"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:text="2222222"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

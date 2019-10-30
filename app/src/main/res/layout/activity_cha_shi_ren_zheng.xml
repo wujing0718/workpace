@@ -401,7 +401,6 @@
                             android:id="@+id/check_qita"
                             android:button="@null"
                             android:drawablePadding="@dimen/dp_6"
-                            android:clickable="true"
                             android:drawableLeft="@drawable/selector_renzehng"
                             android:textColor="@drawable/text_drawable_selector_renzheng"
                             android:paddingVertical="@dimen/dp_4"

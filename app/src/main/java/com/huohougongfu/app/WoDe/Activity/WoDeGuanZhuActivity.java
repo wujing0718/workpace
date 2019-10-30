@@ -176,9 +176,9 @@ public class WoDeGuanZhuActivity extends AppCompatActivity implements View.OnCli
                             if (jsonObject.getInt("status") == 1){
                                 listBean.setIsAttention(1);
                                 ToastUtils.showShort(jsonObject.getString("msg"));
-                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.yiguanzhu);
-                                bt_zhaoren_gaunzhu.setText("已关注");
-                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.black_di);
+                                bt_zhaoren_gaunzhu.setText("取消关注");
+                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.white));
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }
@@ -207,8 +207,8 @@ public class WoDeGuanZhuActivity extends AppCompatActivity implements View.OnCli
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 listBean.setIsAttention(0);
                                 bt_zhaoren_gaunzhu.setText("+关注");
-                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.guanzhu);
-                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.black_di);
+                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.white));
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }

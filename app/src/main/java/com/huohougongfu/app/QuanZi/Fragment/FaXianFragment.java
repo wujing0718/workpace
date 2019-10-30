@@ -16,11 +16,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
-import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
-import com.huohougongfu.app.Gson.ShangPinGson;
-import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
 import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
@@ -85,7 +81,6 @@ public class FaXianFragment extends Fragment implements IListener {
 
     @Override
     public void onResume() {
-        initData("");
         super.onResume();
     }
 
@@ -158,7 +153,6 @@ public class FaXianFragment extends Fragment implements IListener {
                     ToastUtils.showShort(R.string.denglu);
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
-                    MainActivity.activity.finish();
                 }
             }
         });
@@ -179,7 +173,6 @@ public class FaXianFragment extends Fragment implements IListener {
                     ToastUtils.showShort(R.string.denglu);
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
-                    MainActivity.activity.finish();
                 }
             }
         });
@@ -188,6 +181,7 @@ public class FaXianFragment extends Fragment implements IListener {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 initData(status);
+                page = 2;
             }
         });
         //加载更多

@@ -294,9 +294,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                         intent.setClass(SettingActivity.this,FailedViewActivity.class);
                         startActivity(intent);
                     }else  if (renZhengZhuangTai.getResult().getStore().getCode() ==2) {
-                        if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() == 2){
-                            //特约品牌认证成功界面
-                            intent.putExtra("code","特约品牌认证成功");
+                        if(renZhengZhuangTai.getResult().getMaster().getCode() == 5){
+                            //茶师认证成功界面
+                            intent.putExtra("code","茶师认证成功");
                             intent.setClass(SettingActivity.this,SucceedViewActivity.class);
                             startActivity(intent);
                         }else if(renZhengZhuangTai.getResult().getMaster().getCode() == 2){

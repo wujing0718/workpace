@@ -16,7 +16,6 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.LoginActivity;
-import com.huohougongfu.app.Activity.MainActivity;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.QuanZiDetailActivity;
@@ -156,7 +155,6 @@ public class TongChengFragment extends Fragment implements IListener {
                     ToastUtils.showShort(R.string.denglu);
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
-                    MainActivity.activity.finish();
                 }
             }
         });
@@ -177,7 +175,6 @@ public class TongChengFragment extends Fragment implements IListener {
                     ToastUtils.showShort(R.string.denglu);
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
-                    MainActivity.activity.finish();
                 }
             }
         });
@@ -187,6 +184,7 @@ public class TongChengFragment extends Fragment implements IListener {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 initData("");
+                page = 2;
             }
         });
         //加载更多
