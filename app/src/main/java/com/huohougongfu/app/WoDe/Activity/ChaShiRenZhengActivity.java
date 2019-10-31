@@ -295,12 +295,16 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                                     if (reversePath!=null){
                                         if (xingxiangpath !=null){
                                             if (yingyezizhiPath!=null){
-                                                map.put("specialty",specialty);
-                                                map.put("level",level);
-                                                map.put("mId",String.valueOf(id));
-                                                initData(map);
+                                                if (qitazizhiPath!=null){
+                                                    map.put("specialty",specialty);
+                                                    map.put("level",level);
+                                                    map.put("mId",String.valueOf(id));
+                                                    initData(map);
+                                                }else{
+                                                    ToastUtils.showShort("请上传其他资质照片");
+                                                }
                                             }else{
-                                                ToastUtils.showShort("请上传资格证书");
+                                                ToastUtils.showShort("请上传营业执照");
                                             }
                                         }else{
                                             ToastUtils.showShort("请上传形象照片");

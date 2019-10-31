@@ -114,17 +114,19 @@ public class MyDianPuActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.bt_my_dianpu_setting:
                 if (!utils.isDoubleClick()){
-                    if (renZhengZhuangTai.getStatus() == 1){
-                        if (renZhengZhuangTai.getResult().getStore().getCode() == 2){
-                            intent.setClass(MyDianPuActivity.this,DianPuSettingActivity.class);
-                            startActivity(intent);
-                        }else if (renZhengZhuangTai.getResult().getStore().getCode() ==1){
-                            //茶师认证或者商户认证审核中
-                            intent.setClass(MyDianPuActivity.this,ReviewViewActivity.class);
-                            startActivity(intent);
-                        }else if (renZhengZhuangTai.getResult().getStore().getCode() == 3){
-                            intent.setClass(MyDianPuActivity.this,RealNameActivity.class);
-                            startActivity(intent);
+                    if (renZhengZhuangTai!=null&&renZhengZhuangTai.getResult()!=null) {
+                        if (renZhengZhuangTai.getStatus() == 1) {
+                            if (renZhengZhuangTai.getResult().getStore().getCode() == 2) {
+                                intent.setClass(MyDianPuActivity.this, DianPuSettingActivity.class);
+                                startActivity(intent);
+                            } else if (renZhengZhuangTai.getResult().getStore().getCode() == 1) {
+                                //茶师认证或者商户认证审核中
+                                intent.setClass(MyDianPuActivity.this, ReviewViewActivity.class);
+                                startActivity(intent);
+                            } else if (renZhengZhuangTai.getResult().getStore().getCode() == 3) {
+                                intent.setClass(MyDianPuActivity.this, RealNameActivity.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 }

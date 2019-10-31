@@ -54,6 +54,7 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
             mMyLiveList = new ArrayList<>();
         }
         return mMyLiveList;
+
     }
 
     public void setEditMode(int editMode) {
@@ -73,7 +74,9 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
     public void onBindViewHolder(@NonNull DianPuHuoDongAdapter.ViewHolder viewHolder, int i) {
         final StoreEvents.ResultBean myLive = mMyLiveList.get(viewHolder.getAdapterPosition());
 //        holder.mTvTitle.setText(myLive.getTitle());
-//        holder.mTvSource.setText(myLive.getSource());
+        viewHolder.tv_shangpin_price.setText("有效期："+myLive.getEndTime());
+        viewHolder.tv_shangpin_collect_num.setText("订单金额满"+myLive.getFullAmount()+"可用");
+        viewHolder.tv_shangpin_title.setText("¥"+myLive.getReduceNumber());
         if (mEditMode == MYLIVE_MODE_CHECK) {
             viewHolder.iv_select.setVisibility(View.GONE);
         } else {
@@ -102,11 +105,14 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_select;
-        TextView tv_lijilingqu;
+        TextView tv_lijilingqu,tv_shangpin_price,tv_shangpin_collect_num,tv_shangpin_title;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_select = itemView.findViewById(R.id.iv_select);
+            tv_shangpin_price = itemView.findViewById(R.id.tv_shangpin_price);
             tv_lijilingqu = itemView.findViewById(R.id.tv_lijilingqu);
+            tv_shangpin_collect_num = itemView.findViewById(R.id.tv_shangpin_collect_num);
+            tv_shangpin_title = itemView.findViewById(R.id.tv_shangpin_title);
         }
     }
 }

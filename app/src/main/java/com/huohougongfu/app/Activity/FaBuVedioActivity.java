@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.Gson.AddressBean;
 import com.huohougongfu.app.MyApp;
@@ -53,6 +54,7 @@ import com.squareup.picasso.Picasso;
 import com.zyf.vc.ui.PlayVideoActiviy;
 import com.zyf.vc.ui.RecorderActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -87,6 +89,8 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private TextView tv_weizhi;
     private AddressBean data1;
     private File photouri;
+    private String SPcontent;
+    private String SPvediopath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +99,31 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.start).setOnClickListener(this);
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
+        //获取保存的草稿箱
+        SPcontent = SPUtils.getInstance("视频").getString("content");
+        SPvediopath = SPUtils.getInstance("视频").getString("vedio");
         initView();
         init();
         BackgroundBlurPopupWindows();
+        if (SPcontent!=null && !"".equals(SPcontent)){
+            et_content.setText(SPcontent);
+        }
+        if (SPvediopath!=null && !"".equals(SPvediopath)){
+            file = new File(SPvediopath);
+            rl_look_see.setVisibility(View.VISIBLE);
+            start.setVisibility(View.GONE);
+            MediaMetadataRetriever media = new MediaMetadataRetriever();
+            media.setDataSource(SPvediopath);// videoPath 本地视频的路径
+            Bitmap bitmap  = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC );
+            Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
+            photouri = utils.getFile(bitmap);
+            //视频封面图截取展示
+            Picasso.get().load(uri).into(video_looksee);
+            JzvdStd video1 = v.findViewById(R.id.video1);
+            video1.setUp(SPvediopath,"",JzvdStd.SCREEN_WINDOW_NORMAL);
+            video1.thumbImageView.setImageBitmap(bitmap);
+            JzvdStd.releaseAllVideos();
+        }
     }
 
     private void initView() {
@@ -133,6 +159,8 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
             }
         });
     }
+
+
 
     //选择视频
     @Override
@@ -186,23 +214,24 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         PlayVideoActiviy.setOnPickFinishListener(new PlayVideoActiviy.PickFinishListener() {
             @Override
             public void onPickFinish(String path) {
+                select_path = path;
                 pathTv.setText(path);
                 file = new File(path);
-                if (path.isEmpty()){
+                if (select_path.isEmpty()){
                     rl_look_see.setVisibility(View.GONE);
                     start.setVisibility(View.VISIBLE);
                 }else {
                     rl_look_see.setVisibility(View.VISIBLE);
                     start.setVisibility(View.GONE);
                     MediaMetadataRetriever media = new MediaMetadataRetriever();
-                    media.setDataSource(path);// videoPath 本地视频的路径
+                    media.setDataSource(select_path);// videoPath 本地视频的路径
                     Bitmap bitmap  = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC );
                     photouri = utils.getFile(bitmap);
                     Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
                     //视频封面图截取展示
                     Picasso.get().load(uri).into(video_looksee);
                     JzvdStd video1 = v.findViewById(R.id.video1);
-                    video1.setUp( path, "",JzvdStd.SCREEN_WINDOW_NORMAL);
+                    video1.setUp(select_path, "",JzvdStd.SCREEN_WINDOW_NORMAL);
                     video1.thumbImageView.setImageBitmap(bitmap);
                     JzvdStd.releaseAllVideos();
 //                    Toast.makeText(FaBuVedioActivity.this,"视频已保存在"+path,Toast.LENGTH_LONG).show();
@@ -266,11 +295,38 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                 initVedio();
                 break;
             case R.id.bt_shanchu:
+                SPUtils.getInstance("视频").remove("vedio");
                 rl_look_see.setVisibility(View.GONE);
                 start.setVisibility(View.VISIBLE);
                 break;
             case R.id.bt_finish:
-                finish();
+                String content = et_content.getText().toString();
+                if (!"".equals(content) || !"".equals(select_path) && select_path!=null){
+                    SelectDialog.show(FaBuVedioActivity.this, "提示", "是否当前编辑",
+                            "确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (!"".equals(content)){
+                                        SPUtils.getInstance("视频").put("content",content);
+                                    }
+                                    if (!"".equals(select_path)){
+                                        SPUtils.getInstance("视频").put("vedio",select_path);
+                                    }
+                                    finish();
+                                }
+                            },
+                            "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SPUtils.getInstance("视频").clear(true);
+                                    finish();
+                                }
+                            });
+                }else{
+                    SPvediopath = null;
+                    SPUtils.getInstance("视频").clear(true);
+                    finish();
+                }
                 break;
         }
     }
@@ -279,7 +335,33 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         mPopupWindow.dismiss();
-        super.onBackPressed();
+        String content = et_content.getText().toString();
+        if (!"".equals(content) || !"".equals(select_path) && select_path!=null){
+            SelectDialog.show(FaBuVedioActivity.this, "提示", "是否当前编辑",
+                    "确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (!"".equals(content)){
+                                SPUtils.getInstance("视频").put("content",content);
+                            }
+                            if (!"".equals(select_path)){
+                                SPUtils.getInstance("视频").put("vedio",select_path);
+                            }
+                            finish();
+                        }
+                    },
+                    "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SPUtils.getInstance("视频").clear(true);
+                            finish();
+                        }
+                    });
+        }else {
+            SPvediopath = null;
+            SPUtils.getInstance("视频").clear(true);
+            finish();
+        }
     }
 
     @Override

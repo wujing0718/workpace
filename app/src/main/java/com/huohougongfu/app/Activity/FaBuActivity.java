@@ -1,5 +1,6 @@
 package com.huohougongfu.app.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -39,7 +40,9 @@ import com.huohougongfu.app.Utils.ImageUtils;
 import com.huohougongfu.app.Utils.MyGlideEngine;
 import com.huohougongfu.app.Utils.SDCardUtil;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.AddRegionActivity;
 import com.huxq17.handygridview.HandyGridView;
+import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -89,6 +92,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_weizhi;
     private AddressBean data1;
     private static final int REQUEST_CODE_CHOOSE =23 ;
+    private String SPcontent,SPphotopath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +104,31 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         id = String.valueOf(MyApp.instance.getInt("id"));
         mContext = this;
         tv_weizhi = findViewById(R.id.tv_weizhi);
+        //获取保存的草稿箱
+        SPcontent = SPUtils.getInstance("动态").getString("content");
+        SPphotopath = SPUtils.getInstance("动态").getString("photo");
         findViewById(R.id.bt_fabu).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.view_fabud_dingwei).setOnClickListener(this);
         edt_content = findViewById(R.id.edt_content);
+        if (SPcontent!=null && !"".equals(SPcontent)){
+            edt_content.setText(SPcontent);
+        }
+        if (SPphotopath!=null && !"".equals(SPphotopath)){
+            try {
+                JSONArray jsArr = new JSONArray(SPphotopath);
+                if(jsArr != null) for (int i = 0; i < jsArr.length(); i++) {
+                    String picturepath = (String) jsArr.get(i);
+                    mPicList.add(picturepath);
+                }
+                for (int i = 0; i < mPicList.size(); i++) {
+                    mphoto.add(new File(mPicList.get(i)));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
         initGridView();
     }
 
@@ -283,7 +308,33 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                 }
             break;
             case R.id.bt_finish:
-                finish();
+                String content = edt_content.getText().toString();
+                String jsonpathString  = new JSONArray(mPicList).toString();
+                if (!"".equals(content) || !mPicList.isEmpty()){
+                    SelectDialog.show(FaBuActivity.this, "提示", "是否当前编辑",
+                            "确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (!content.isEmpty()){
+                                        SPUtils.getInstance("动态").put("content",content);
+                                    }
+                                    if (!jsonpathString.isEmpty()){
+                                        SPUtils.getInstance("动态").put("photo",jsonpathString);
+                                    }
+                                    finish();
+                                }
+                            },
+                            "取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SPUtils.getInstance("动态").clear(true);
+                                    finish();
+                                }
+                            });
+                }else{
+                    finish();
+                }
+
                 break;
             case R.id.view_fabud_dingwei:
                 if (!utils.isDoubleClick()){
@@ -346,4 +397,33 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        String content = edt_content.getText().toString();
+        String jsonpathString  = new JSONArray(mPicList).toString();
+        if (!"".equals(content) || !mPicList.isEmpty()){
+            SelectDialog.show(FaBuActivity.this, "提示", "是否当前编辑",
+                    "确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (!content.isEmpty()){
+                                SPUtils.getInstance("动态").put("content",content);
+                            }
+                            if (!jsonpathString.isEmpty()){
+                                SPUtils.getInstance("动态").put("photo",jsonpathString);
+                            }
+                            finish();
+                        }
+                    },
+                    "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SPUtils.getInstance("动态").clear(true);
+                            finish();
+                        }
+                    });
+        }else{
+            finish();
+        }
+    }
 }

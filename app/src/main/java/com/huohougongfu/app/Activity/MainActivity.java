@@ -77,9 +77,9 @@
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initLoc();
 //        ListenerManager.getInstance().sendBroadCast(10,"是");
         String rongToken = MyApp.instance.getString("rongToken");
+        String lat = MyApp.instance.getString("lat");
         if (!rongToken.isEmpty()){
             RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
                 //token1参数报错

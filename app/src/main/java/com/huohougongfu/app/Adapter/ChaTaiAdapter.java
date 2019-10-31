@@ -124,14 +124,19 @@ public class ChaTaiAdapter extends BaseAdapter {
         groupViewHolder.tv_chatai_concentration.setText(list.get(position).getConcentration());
         RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
         Glide.with(context).load(list.get(position).getTea().getPicture()).apply(placeholder).into(groupViewHolder.img_chatai_photo);
+        groupViewHolder.amountview.setMaxCount(15);
         groupViewHolder.amountview.setCount(list.get(position).getNum());
 //        groupViewHolder.amountview.setMaxCount(list.get(position).getStock());
         groupViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {
             @Override
             public void onAddSuccess(int i) {
-                list.get(position).setNum(i);
-                notifyDataSetChanged();
-                initAddGouWuChe(i,list.get(position).getId());
+                if (i<=15){
+                    list.get(position).setNum(i);
+                    notifyDataSetChanged();
+                    initAddGouWuChe(i,list.get(position).getId());
+                }else{
+                    ToastUtils.showShort("超过最大购买数量");
+                }
             }
 
             @Override

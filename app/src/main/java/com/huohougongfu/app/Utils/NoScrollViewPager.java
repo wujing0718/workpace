@@ -38,6 +38,13 @@ public class NoScrollViewPager extends ViewPager {
 
     //down one is added for smooth scrolling
 
+
+    @Override
+    public void setCurrentItem(int item) {
+        //去除页面切换时的滑动翻页效果
+        super.setCurrentItem(item, false);
+    }
+
     private void setMyScroller() {
         try {
             Class<?> viewpager = ViewPager.class;

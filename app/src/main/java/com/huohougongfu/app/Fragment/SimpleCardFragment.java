@@ -84,7 +84,6 @@ public class SimpleCardFragment extends Fragment implements View.OnClickListener
                     Intent intent = new Intent();
                     intent.setClass(getActivity(),LoginActivity.class);
                     startActivity(intent);
-                    MainActivity.activity.finish();
                 }
             }
         });
