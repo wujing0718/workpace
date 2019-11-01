@@ -141,7 +141,6 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                 vie_wanniu.setVisibility(View.VISIBLE);
             }
             tv_renzheng_shanchang.setVisibility(View.VISIBLE);
-            vie_wanniu.setVisibility(View.VISIBLE);
             tv_name.setText("店铺名："+renZhengZhuangTai.getResult().getStore().getInfo().getStoreName());
             tv_renzheng_level.setText("经营者："+renZhengZhuangTai.getResult().getStore().getInfo().getRealName());
             tv_renzheng_idCard.setText("身份证号："+renZhengZhuangTai.getResult().getStore().getInfo().getIdCard());

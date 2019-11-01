@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:src="@mipmap/img_zhanweitu"
+            android:src="@mipmap/logo_zuizhong"
             android:layout_width="80dp"
             android:layout_height="80dp" />
 

@@ -52,6 +52,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     private int position1;
     private Bundle bundle;
     private String categoryName ,categoryNameid,Nameid;
+    private View view_zhanweitu;
 
 
     @Override
@@ -84,6 +85,7 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initUI() {
+        view_zhanweitu = findViewById(R.id.view_zhanweitu);
         findViewById(R.id.bt_queding).setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         lv_country = findViewById(R.id.lv_country);
@@ -99,6 +101,8 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
         categoryName = shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().get(0).getName();
         categoryNameid= String.valueOf(shopFenLeiGson.getResult().get(countryPosition).getList().get(provincePosition).getList().get(0).getId());
         if(!(cityValues.isEmpty())){
+            lv_city.setVisibility(View.VISIBLE);
+            view_zhanweitu.setVisibility(View.GONE);
             cityAdapter=new LevelListViewAdapter(this, cityValues, 3);
             cityAdapter.setSelectedPositionNoNotify(0, cityValues);
             lv_city.setAdapter(cityAdapter);
@@ -110,7 +114,11 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                     cityAdapter.setSelectItem(position);
                     cityPosition = position;
                 }
-            });}
+            });
+        }else{
+            view_zhanweitu.setVisibility(View.VISIBLE);
+            lv_city.setVisibility(View.GONE);
+        }
     }
 
     private void setProvince() {
@@ -152,6 +160,13 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                         for (int i = 0; i < shopFenLeiGson.getResult().get(countryPosition).getList().get(position).getList().size(); i++) {
                             cityValues.add(shopFenLeiGson.getResult().get(countryPosition).getList().get(position).getList().get(i).getName());
                             cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(countryPosition).getList().get(position).getList().get(i).getId()));
+                        }
+                        if (!cityValues.isEmpty()){
+                            view_zhanweitu.setVisibility(View.GONE);
+                            lv_city.setVisibility(View.VISIBLE);
+                        }else{
+                            view_zhanweitu.setVisibility(View.VISIBLE);
+                            lv_city.setVisibility(View.GONE);
                         }
                         cityAdapter.notifyDataSetChanged();
                         cityAdapter.setSelectedPositionNoNotify(0, cityValues);
@@ -211,6 +226,13 @@ public class ShopFenLeiActivity extends AppCompatActivity implements View.OnClic
                         for (int i = 0; i < shopFenLeiGson.getResult().get(position).getList().get(0).getList().size(); i++) {
                                 cityValues.add(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getName());
                                 cityValuesid.add(String.valueOf(shopFenLeiGson.getResult().get(position).getList().get(0).getList().get(i).getId()));
+                        }
+                        if (!cityValues.isEmpty()){
+                            view_zhanweitu.setVisibility(View.GONE);
+                            lv_city.setVisibility(View.VISIBLE);
+                        }else{
+                            view_zhanweitu.setVisibility(View.VISIBLE);
+                            lv_city.setVisibility(View.GONE);
                         }
 //                            categoryName = cityValues.get(0);
 //                            categoryNameid  = cityValuesid.get(0);

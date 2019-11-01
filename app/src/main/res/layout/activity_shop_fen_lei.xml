@@ -92,6 +92,14 @@
             android:scrollbars="none" >
         </ListView>
 
+        <include
+            android:id="@+id/view_zhanweitu"
+            android:visibility="gone"
+            android:layout_weight="1"
+            layout="@layout/include_zhanweitu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 
 </LinearLayout>

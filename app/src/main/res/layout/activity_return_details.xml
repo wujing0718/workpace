@@ -271,24 +271,26 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:background="@drawable/black_kuang"
                     android:layout_centerInParent="true"
                     android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="@dimen/dp_138"
+                    android:layout_height="@dimen/dp_40">
 
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:src="@mipmap/img_wode2"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24" />
+                    <!--<ImageView-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:src="@mipmap/img_wode2"-->
+                        <!--android:layout_width="@dimen/dp_24"-->
+                        <!--android:layout_height="@dimen/dp_24" />-->
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="center_vertical|center_horizontal"
                         android:textColor="@color/colorBlack"
                         android:text="联系买家"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -302,24 +304,26 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:background="@drawable/black_kuang"
                     android:layout_centerInParent="true"
                     android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_width="@dimen/dp_148"
+                    android:layout_height="@dimen/dp_40">
 
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:src="@mipmap/img_wode2"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24" />
+                    <!--<ImageView-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:src="@mipmap/img_wode2"-->
+                        <!--android:layout_width="@dimen/dp_24"-->
+                        <!--android:layout_height="@dimen/dp_24" />-->
 
                     <TextView
                         android:layout_marginLeft="5dp"
-                        android:layout_gravity="center_vertical"
                         android:textColor="@color/colorBlack"
+                        android:gravity="center"
                         android:text="拨打电话"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
