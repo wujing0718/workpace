@@ -21,6 +21,7 @@ import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.ShangPinTuiJianAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.TeYuePingPai;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.PinPaiAdapter;
@@ -76,12 +77,14 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
     };
     private View bt_xiaoxi;
     private View bt_gouwuche;
+    private QBadgeView qbadgebiewxitong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_te_yue_pin_pai);
         qBadgeView = new QBadgeView(TeYuePinPaiActivity.this);
+        qbadgebiewxitong= new QBadgeView(TeYuePinPaiActivity.this);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
@@ -101,7 +104,27 @@ public class TeYuePinPaiActivity extends AppCompatActivity implements IUnReadMes
     protected void onResume() {
         super.onResume();
         initShoppingCartNum();
+        initNoticeIsView();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+    }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
     }
 
     private void initShoppingCartNum() {

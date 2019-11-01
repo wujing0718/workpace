@@ -1,6 +1,7 @@
 package com.huohougongfu.app.ShouYe.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,8 @@ import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
 import com.huohougongfu.app.PopupView.MCYouHuiQuan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
@@ -37,11 +40,11 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.OnClickListener,IListener {
 
     private ImageView iv_photo,img_chami_check;
     private TextView tv_name,tv_standard,tv_price_value,tv_total_price,
-            tv_chami_dikou,tv_manjian1,tv_manjian2,tv_price_key;
+            tv_chami_dikou,tv_manjian1,tv_price_key;
     private AnimShopButton amountview;
     private String yedi,nongdu,photo,machineId;
     private int num = 1;
@@ -64,7 +67,6 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
                 case 0:
                     xuanzeyouhuiquan = (ChaTaiYouHuiQuan.ResultBean.CouponsBean)msg.obj;
                     tv_manjian1.setText(xuanzeyouhuiquan.getTitle());
-                    tv_manjian2.setText("");
                     initDiKou();
                     break;
                 default:
@@ -79,6 +81,7 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
     private MaiChaDetail.ResultBean  resultBean;
     private String equipmentId;
     private TeaDetail teaDetail;
+    private ZhiFu zhiFu;
 
 
     @Override
@@ -86,6 +89,7 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         activity = this;
         setContentView(R.layout.activity_my_ding_dan_pao_cha);
+        ListenerManager.getInstance().registerListtener(this);
         yedi = getIntent().getStringExtra("yedi");
         nongdu = getIntent().getStringExtra("nongdu");
         resultBean = (MaiChaDetail.ResultBean)getIntent().getSerializableExtra("买茶");
@@ -160,7 +164,6 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
 
     private void initUI() {
         tv_manjian1 = findViewById(R.id.tv_manjian1);
-        tv_manjian2 = findViewById(R.id.tv_manjian2);
         tv_chami_dikou = findViewById(R.id.tv_chami_dikou);
         img_chami_check = findViewById(R.id.img_chami_check);
         bt_chami_dikou = findViewById(R.id.bt_chami_dikou);
@@ -207,12 +210,7 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
                             myouhuiquan = youhuiquan.getResult();
                             String dikou = decimalFormat.format(youhuiquan.getResult().getTeaRice() * youhuiquan.getResult().getProportion());
                             tv_chami_dikou.setText("可用"+youhuiquan.getResult().getTeaRice()+"茶米抵扣"+ (dikou)+"元");
-                            if (myouhuiquan.getCoupons().size()>1){
-                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getServiceRegulations());
-                                tv_manjian2.setText(myouhuiquan.getCoupons().get(1).getServiceRegulations());
-                            }else if(myouhuiquan.getCoupons().size() ==1){
-                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getServiceRegulations());
-                            }else if (myouhuiquan.getCoupons().size()<0){
+                            if (myouhuiquan.getCoupons().size()<=0){
                                 tv_manjian1.setText("暂无优惠券");
                             }
                         }
@@ -345,7 +343,7 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        ZhiFu zhiFu = gson.fromJson(response.body(), ZhiFu.class);
+                        zhiFu = gson.fromJson(response.body(), ZhiFu.class);
                         if (zhiFu.getStatus() == 1){
                             new XPopup.Builder(MyDingDanMaiChaActivity.this)
                                     .asCustom(new ChaTaiZhiFu(MyDingDanMaiChaActivity.this,zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),orderprice))
@@ -356,5 +354,19 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
                         }
                     }
                 });
+    }
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if (audience_cnt == 200){
+            if ("成功".equals(status)) {
+                Intent intent = new Intent().setClass(MyDingDanMaiChaActivity.this, ChaTaiDingDanDetail.class);
+                if (zhiFu != null) {
+                    intent.putExtra("orderNo",String.valueOf(zhiFu.getResult().getOrderId()));
+                    startActivity(intent);
+                    finish();
+                    ListenerManager.getInstance().unRegisterListener(this);
+                }
+            }
+        }
     }
 }

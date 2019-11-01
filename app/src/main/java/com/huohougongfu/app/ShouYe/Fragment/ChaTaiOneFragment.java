@@ -2,6 +2,7 @@ package com.huohougongfu.app.ShouYe.Fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,9 +28,15 @@ import com.huohougongfu.app.PopupView.CTYouHuiQuan;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
 import com.huohougongfu.app.PopupView.MCYouHuiQuan;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
+import com.huohougongfu.app.ShouYe.Activity.ChaTaiDingDanDetail;
+import com.huohougongfu.app.ShouYe.Activity.MyDingDanMaiChaActivity;
 import com.huohougongfu.app.ShouYe.Activity.MyDingDanPaoChaActivity;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
@@ -49,7 +56,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChaTaiOneFragment extends Fragment implements View.OnClickListener {
+public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,IListener {
 
 
     private static final String KEY ="MachineId";
@@ -75,6 +82,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     private View view_chataione;
     private TextView bt_delete;
     private boolean isCoupon = false;
+    private ZhiFu zhiFu;
 
     public ChaTaiOneFragment() {
         // Required empty public constructor
@@ -105,6 +113,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_cha_tai_one, container, false);
+        ListenerManager.getInstance().registerListtener(this);
         machineId = getArguments().getString(KEY);
         initUI();
         return inflate;
@@ -306,7 +315,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        ZhiFu zhiFu = gson.fromJson(response.body(), ZhiFu.class);
+                        zhiFu = gson.fromJson(response.body(), ZhiFu.class);
                         if (zhiFu.getStatus() == 1){
                             new XPopup.Builder(getActivity())
                                     .asCustom(new ChaTaiZhiFu(getActivity(),zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),total_priceorder))
@@ -343,6 +352,20 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener 
                     }
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if (audience_cnt == 200){
+            if ("成功".equals(status)) {
+                Intent intent = new Intent().setClass(getActivity(), ChaTaiDingDanDetail.class);
+                if (zhiFu != null) {
+                    intent.putExtra("orderNo",String.valueOf(zhiFu.getResult().getOrderId()));
+                    startActivity(intent);
+                    ListenerManager.getInstance().unRegisterListener(this);
+                }
+            }
         }
     }
 }

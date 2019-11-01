@@ -96,7 +96,7 @@ public class KaQuanRecord {
             private Object storeId;
             private CouponsLinkBean couponsLink;
             private Object introduction;
-            private Object imgUrl;
+            private String picture;
 
             public int getId() {
                 return id;
@@ -234,12 +234,12 @@ public class KaQuanRecord {
                 this.introduction = introduction;
             }
 
-            public Object getImgUrl() {
-                return imgUrl;
+            public String getPicturel() {
+                return picture;
             }
 
-            public void setImgUrl(Object imgUrl) {
-                this.imgUrl = imgUrl;
+            public void setPicture(String picture) {
+                this.picture = picture;
             }
 
             public static class CouponsLinkBean {
@@ -368,7 +368,7 @@ public class KaQuanRecord {
             private Object storeId;
             private CouponsLinkBeanX couponsLink;
             private Object introduction;
-            private Object imgUrl;
+            private String picture;
 
             public int getId() {
                 return id;
@@ -506,12 +506,12 @@ public class KaQuanRecord {
                 this.introduction = introduction;
             }
 
-            public Object getImgUrl() {
-                return imgUrl;
+            public String getPicturel() {
+                return picture;
             }
 
-            public void setImgUrl(Object imgUrl) {
-                this.imgUrl = imgUrl;
+            public void setPicture(String picture) {
+                this.picture = picture;
             }
 
             public static class CouponsLinkBeanX {

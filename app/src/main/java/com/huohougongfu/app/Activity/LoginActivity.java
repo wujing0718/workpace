@@ -144,12 +144,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_weixin:
+                ListenerManager.getInstance().sendBroadCast(10,"是");
                 mShareAPI.getPlatformInfo(this,SHARE_MEDIA.WEIXIN,umAuthListener);
                 break;
             case R.id.bt_qq:
+                ListenerManager.getInstance().sendBroadCast(10,"是");
                 mShareAPI.getPlatformInfo(this,SHARE_MEDIA.QQ,umAuthListener);
                 break;
             case R.id.bt_weibo:
+                ListenerManager.getInstance().sendBroadCast(10,"是");
                 mShareAPI.getPlatformInfo(this,SHARE_MEDIA.SINA,umAuthListener);
                 break;
             case R.id.bt_login:

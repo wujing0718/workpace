@@ -32,6 +32,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -50,6 +51,7 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
     private String token,tel,id;
     private TextView tv_my_cezengsong,tv_my_chami;
     private ChaMi chaMi;
+    private DecimalFormat decimalFormat = new DecimalFormat("0");
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA share_media) {
@@ -116,8 +118,12 @@ public class ZhuanZengFragment extends Fragment implements View.OnClickListener 
     }
 
     private void initView(ChaMi chaMi) {
-        tv_my_cezengsong.setText("可转赠茶米数"+chaMi.getResult().getMe());
-        tv_my_chami.setText(String.valueOf(chaMi.getResult().getMe()+chaMi.getResult().getSent()));
+        String format = decimalFormat.format(chaMi.getResult().getMe()/2);
+        String kezeng_chami = utils.subZeroAndDot(format);
+        tv_my_cezengsong.setText("可转赠茶米数"+kezeng_chami);
+        String my_chami = decimalFormat.format(chaMi.getResult().getMe()+chaMi.getResult().getSent());
+        String mychami = utils.subZeroAndDot(my_chami);
+        tv_my_chami.setText(mychami);
     }
 
 

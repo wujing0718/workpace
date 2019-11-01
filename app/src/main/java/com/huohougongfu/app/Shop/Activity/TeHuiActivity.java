@@ -15,6 +15,7 @@ import com.huohougongfu.app.Adapter.ShangPinAdapter;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.Gson.TeiHuiGson;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.TeHuiAdapter;
@@ -57,12 +58,14 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
     };
     private View bt_xiaoxi;
     private View bt_gouwuche;
+    private QBadgeView qbadgebiewxitong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_te_hui);
         qBadgeView = new QBadgeView(TeHuiActivity.this);
+        qbadgebiewxitong = new QBadgeView(TeHuiActivity.this);
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         id = String.valueOf(MyApp.instance.getInt("id"));
@@ -73,11 +76,32 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
 
     @Override
     protected void onResume() {
-        super.onResume();
         initShoppingCartNum();
+        initNoticeIsView();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        super.onResume();
     }
-    
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
+
+
     private void initData() {
         Map<String, String> map = new HashMap<>();
         map.put("tel",tel);

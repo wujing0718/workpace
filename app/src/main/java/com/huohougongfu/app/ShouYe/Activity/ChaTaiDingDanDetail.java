@@ -18,6 +18,8 @@ import com.huohougongfu.app.PopupView.PopupDingDan;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.ChaTaiDetailAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
@@ -35,7 +37,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnClickListener {
+public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnClickListener,IListener {
 
     private String orderNo;
     private TextView tv_zhifu_zhuangtai,tv_quhuoma,tv_chami_dikou,tv_youhuiquan,tv_xiadan_time;
@@ -74,9 +76,9 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cha_tai_ding_dan_detail);
+        ListenerManager.getInstance().registerListtener(this);
         orderNo = getIntent().getStringExtra("orderNo");
         initUI();
-        initData();
     }
 
 
@@ -114,6 +116,12 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        initData();
+        super.onResume();
     }
 
     private void initView(com.huohougongfu.app.Gson.ChaTaiDingDanDetail.ResultBean result) {
@@ -254,5 +262,13 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                         }
                     }
                 });
+    }
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if (audience_cnt == 200){
+            if ("成功".equals(status)){
+                initData();
+            }
+        }
     }
 }

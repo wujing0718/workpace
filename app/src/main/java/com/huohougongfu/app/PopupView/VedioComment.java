@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,10 +17,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.PingLunGson;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.QuanZi.Activity.VedioDetailActivity;
 import com.huohougongfu.app.QuanZi.Adapter.PingLunAdapter;
 import com.huohougongfu.app.QuanZi.Adapter.VedioCommentAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.core.BottomPopupView;
@@ -36,7 +40,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VedioComment extends BottomPopupView {
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
+public class VedioComment extends BottomPopupView implements IListener{
     private final String token;
     private final PingLunGson pingLunGson;
     private final int dId;
@@ -63,6 +69,7 @@ public class VedioComment extends BottomPopupView {
     @Override
     protected void onCreate() {
         super.onCreate();
+        ListenerManager.getInstance().registerListtener(this);
         bt_fasong_pinglun = findViewById(R.id.bt_fasong_pinglun);
         rec_vedio_comment = findViewById(R.id.rec_vedio_comment);
         edt_vedio_pinglun = findViewById(R.id.edt_vedio_pinglun);
@@ -156,7 +163,6 @@ public class VedioComment extends BottomPopupView {
                                 img_pinglun_dianzan.setImageResource(R.mipmap.img_dianzanok);
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
-
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -192,7 +198,10 @@ public class VedioComment extends BottomPopupView {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 ToastUtils.showShort("评论成功");
+                                hideInput();
+                                ListenerManager.getInstance().sendBroadCast(30,"是");
                                 edt_vedio_pinglun.setText("");
+                                dismiss();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }
@@ -203,9 +212,25 @@ public class VedioComment extends BottomPopupView {
                 });
     }
 
+    /**
+     * 隐藏键盘
+     */
+    protected void hideInput() {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+        View v = VedioDetailActivity.activity.getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
+
 
     @Override
     protected int getMaxHeight() {
         return (int) (XPopupUtils.getWindowHeight(getContext()) * .65f);
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+
     }
 }

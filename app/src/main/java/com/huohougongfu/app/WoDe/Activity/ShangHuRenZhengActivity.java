@@ -247,6 +247,8 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
                                 Intent intent = new Intent();
                                 intent.setClass(ShangHuRenZhengActivity.this,ReviewViewActivity.class);
                                 startActivity(intent);
+                            }else if (jsonObject.getInt("status") == 0){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -237,6 +237,8 @@
                     android:maxLength="20"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:gravity="right"
+                    android:inputType="number"
+                    android:digits="@string/filter_vcode"
                     android:textColor="@color/colorBlack"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"

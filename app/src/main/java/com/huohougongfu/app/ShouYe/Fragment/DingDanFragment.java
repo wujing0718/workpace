@@ -24,7 +24,10 @@ import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.ChaTaiDingDanDetail;
 import com.huohougongfu.app.ShouYe.Activity.MaiChaDetailActivity;
+import com.huohougongfu.app.ShouYe.Activity.MyDingDanMaiChaActivity;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.SmoothCheckBox;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
@@ -46,7 +49,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DingDanFragment extends Fragment {
+public class DingDanFragment extends Fragment implements IListener{
 
 
     private View inflate;
@@ -67,6 +70,7 @@ public class DingDanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_ding_dan, container, false);
+        ListenerManager.getInstance().registerListtener(this);
         view_zhanweitu = inflate.findViewById(R.id.view_zhanweitu);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         mId = MyApp.instance.getInt("id");
@@ -112,7 +116,6 @@ public class DingDanFragment extends Fragment {
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(getActivity(), "载入中...");
                         super.onStart(request);
                     }
                 });
@@ -218,5 +221,15 @@ public class DingDanFragment extends Fragment {
         bundle.putString("",str);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if (audience_cnt == 200){
+            if ("成功".equals(status)){
+                initData();
+                ListenerManager.getInstance().unRegisterListener(this);
+            }
+        }
     }
 }

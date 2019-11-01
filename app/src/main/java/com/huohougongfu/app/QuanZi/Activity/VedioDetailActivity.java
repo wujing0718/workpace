@@ -106,11 +106,13 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
     private VedioDetail vedio;
     private String citycode;
     private int userid;
+    public static VedioDetailActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vedio_detail);
+        activity = this;
         dId = getIntent().getIntExtra("dId", 0);
         userid = getIntent().getIntExtra("userid", 0);
         refreshLayout = findViewById(R.id.refreshLayout);
@@ -144,11 +146,6 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         map.put("dataId",String.valueOf(dId));
         map.put("pageNo",String.valueOf(1));
         map.put("pageSize",String.valueOf(10));
-        if (citycode!=null){
-            map.put("cityCode",citycode);
-        }else{
-            map.put("cityCode",MyApp.instance.getString("citycode"));
-        }
         OkGo.<String>post(Contacts.URl1+"/circle/video")
                 .params(map)
                 .execute(new StringCallback() {
@@ -185,6 +182,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         };
 //        p = shipin.getget(position1).getPage()+1;
         mAdapter = new MyAdapter(datas);
+        mRecyclerView.setOnFlingListener(null);
         mRecyclerView.setLayoutManager(mLayoutManager);
         utils.MoveToPosition(mLayoutManager,0);
         mRecyclerView.setAdapter(mAdapter);
@@ -419,7 +417,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
 //        viewHolderForAdapterPosition.videoView.stopPlayback();
 //    }
 
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements PopupWindow.OnDismissListener {
+    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements PopupWindow.OnDismissListener ,IListener {
         private VedioDetail.ResultBean shipindetail;
         private MediaPlayer mediaPlayer;
 //        private SmallVideo.DataBean data;
@@ -436,6 +434,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+            ListenerManager.getInstance().registerListtener(this);
             navigationHeight = getResources().getDimensionPixelSize(resourceId);
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_pager,parent,false);
             intent= new Intent();
@@ -472,6 +471,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                 }else{
                     holder.tv_vedio_title.setText("");
                 }
+                Glide.with(MyApp.context).load(split[0]).into(holder.img_thumb);
                 dId = shipindetail.getList().get(i).getId();
                 RequestOptions requestOptions = new RequestOptions().circleCrop();
                 Glide.with(VedioDetailActivity.this).load(shipindetail.getList().get(i).getMember().getPhoto())
@@ -481,7 +481,10 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                 holder.tv_video_pinglun.setText(String.valueOf(shipindetail.getList().get(i).getCommentNum()));
                 holder.tv_vedio_time.setText(shipindetail.getList().get(i).getUpdateTime());
                 if (shipindetail.getList().get(i).getAddress()!=null){
+                    holder.img_dingwei.setVisibility(View.VISIBLE);
                     holder.tv_vedio_weizhi.setText(shipindetail.getList().get(i).getAddress());
+                }else{
+                    holder.img_dingwei.setVisibility(View.GONE);
                 }
                 initShiPinShare(shipindetail.getList().get(i));
 
@@ -589,33 +592,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                 holder.bt_video_pinglun.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                                Map<String,String> map = new HashMap<>();
-                                map.put("dataId",String.valueOf(shipindetail.getList().get(i).getId()));
-                                map.put("mId",String.valueOf(mId));
-                                map.put("pageNo","1");
-                                map.put("pageSize","10");
-                                OkGo.<String>post(Contacts.URl1 + "/circle/comments/list")
-                                        .params(map)
-                                        .execute(new StringCallback() {
-                                            @Override
-                                            public void onSuccess(Response<String> response) {
-                                                WaitDialog.dismiss();
-                                                String body = response.body();
-                                                Gson gson = new Gson();
-                                                PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
-                                                if (pinglun1.getStatus() == 1) {
-                                                    new XPopup.Builder(VedioDetailActivity.this)
-//                                                          .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
-                                                            .asCustom(new VedioComment(VedioDetailActivity.this,pinglun1,shipindetail.getList().get(i).getId())/*.enableDrag(false)*/)
-                                                            .show();
-                                                }
-                                            }
-                                            @Override
-                                            public void onStart(Request<String, ? extends Request> request) {
-                                                super.onStart(request);
-                                                WaitDialog.show(VedioDetailActivity.this,"加载中。。。");
-                                            }
-                                        });
+                        initPingLunLieBiao(shipindetail.getList().get(i).getId());
                     }
                 });
 
@@ -648,6 +625,36 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                 });
         }
 
+        private void initPingLunLieBiao(int id) {
+            Map<String,String> map = new HashMap<>();
+            map.put("dataId",String.valueOf(id));
+            map.put("mId",String.valueOf(mId));
+            map.put("pageNo","1");
+            map.put("pageSize","10");
+            OkGo.<String>post(Contacts.URl1 + "/circle/comments/list")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            WaitDialog.dismiss();
+                            String body = response.body();
+                            Gson gson = new Gson();
+                            PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
+                            if (pinglun1.getStatus() == 1) {
+                                new XPopup.Builder(VedioDetailActivity.this)
+//                                                          .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
+                                        .asCustom(new VedioComment(VedioDetailActivity.this,pinglun1,id)/*.enableDrag(false)*/)
+                                        .show();
+                            }
+                        }
+                        @Override
+                        public void onStart(Request<String, ? extends Request> request) {
+                            super.onStart(request);
+                            WaitDialog.show(VedioDetailActivity.this,"加载中。。。");
+                        }
+                    });
+        }
+
         private void initDel(int id) {
             Map<String,String> map = new HashMap<>();
             map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
@@ -670,7 +677,6 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                         }
                     });
         }
-
 
         private void initGuanZhu(int type, VedioDetail.ResultBean.ListBean.MemberBean member, ViewHolder holder) {
             Map<String,String> map =new HashMap<>();
@@ -805,7 +811,6 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
             getWindow().setAttributes(lp);
         }
 
-
         @Override
         public int getItemCount() {
             return shipindetail.getList().size();
@@ -816,10 +821,22 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
             setBackgroundAlpha(1);
         }
 
+        @Override
+        public void notifyAllActivity(int audience_cnt, String status) {
+            if (audience_cnt == 30){
+                if ("是".equals(status)){
+                    int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+                    viewHolderForAdapterPosition = (MyAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition);
+                    viewHolderForAdapterPosition.tv_video_pinglun.setText(String.valueOf(Integer.valueOf(viewHolderForAdapterPosition.tv_video_pinglun.getText().toString())+1));
+                    ListenerManager.getInstance().unRegisterListener(this);
+                }
+            }
+        }
+
         public class ViewHolder extends RecyclerView.ViewHolder{
             ImageView img_thumb;
             VideoView videoView;
-            ImageView img_play,img_video_shoucang,img_dianzan,img_video_touxiang,bt_guanzhu;
+            ImageView img_play,img_video_shoucang,img_dianzan,img_video_touxiang,bt_guanzhu,img_dingwei;
             RelativeLayout rootView;
             View bt_fanhui,bt_video_dianzan,bt_video_fenxiang,view_fenxiang,bt_video_pinglun,bt_gengduo;
             TextView tv_video_dianzan,tv_video_pinglun,tv_vedio_time,tv_vedio_title,tv_vedio_content,tv_vedio_weizhi,tv_chakanxiangqing;
@@ -837,7 +854,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
                 bt_guanzhu = itemView.findViewById(R.id.bt_guanzhu);
                 tv_video_dianzan = itemView.findViewById(R.id.tv_video_dianzan);
                 tv_video_pinglun = itemView.findViewById(R.id.tv_video_pinglun);
-
+                img_dingwei = itemView.findViewById(R.id.img_dingwei);
                 tv_vedio_title = itemView.findViewById(R.id.tv_vedio_title);
                 tv_vedio_content = itemView.findViewById(R.id.tv_vedio_content);
 

@@ -2,6 +2,7 @@ package com.huohougongfu.app.QuanZi.Adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +42,7 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
         helper.addOnClickListener(R.id.bt_dianzan);
         View view_dingwei = helper.getView(R.id.view_dingwei);
         ImageView img_quanzi_photo = helper.getView(R.id.img_quanzi_photo);
+        ViewGroup.LayoutParams para = img_quanzi_photo.getLayoutParams();
         ImageView img_faixan_touxiang = helper.getView(R.id.img_faixan_touxiang);
         ImageView img_faixan_shoucang = helper.getView(R.id.img_faixan_shoucang);
         ImageView img_type = helper.getView(R.id.img_type);
@@ -93,14 +95,29 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
                 //屏幕的宽度(px值）
                 int screenWidth = MyApp.context.getResources().getDisplayMetrics().widthPixels;
                 //Item的宽度，或图片的宽度
-                int width = screenWidth/2;
-                RequestOptions options = new RequestOptions()
-                        .override(width, SIZE_ORIGINAL);
-                Glide.with(MyApp.context).load(split[0]).apply(options)
-                        .into(img_quanzi_photo);
+                int width1 = screenWidth/2;
+                if (item.getPictureHeight()!=0){
+                    double wth =  (double)width1/item.getPictureWidth();
+                    double hight1 = (double)wth*item.getPictureHeight();
+                    para.height = (int) hight1;
+                    para.width = (int)width1;
+                    img_quanzi_photo.setLayoutParams(para);
+                    RequestOptions options = new RequestOptions()
+                            .override(width1, (int)hight1);
+                    Glide.with(MyApp.context).load(split[0]).apply(options)
+                            .into(img_quanzi_photo);
+                }else{
+                    RequestOptions options = new RequestOptions()
+                            .override(width1, width1);
+                    para.height = width1;
+                    para.width = width1;
+                    img_quanzi_photo.setLayoutParams(para);
+                    Glide.with(MyApp.context).load(split[0]).apply(options)
+                            .into(img_quanzi_photo);
+                }
             }
         }else{
-            Picasso.get().load(R.mipmap.ic_launcher).into(img_quanzi_photo);
+            Picasso.get().load(R.mipmap.img_zhanweitu).into(img_quanzi_photo);
         }
         String content1 = item.getContent();
         String newcontent = content1.replace("ゐゑを", "");

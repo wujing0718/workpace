@@ -25,10 +25,12 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/img_pinglun"
+                    android:padding="6dp"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/img_hudong_pinglun"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
 
                 <TextView
                     android:layout_marginLeft="22dp"
@@ -68,10 +70,12 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/img_dianzan"
+                    android:padding="6dp"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/img_hudong_dianzan"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp" />
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30" />
 
                 <TextView
                     android:layout_marginLeft="22dp"

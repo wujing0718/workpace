@@ -155,6 +155,7 @@
                                 android:layout_height="wrap_content">
 
                                 <View
+                                    android:id="@+id/view_xian"
                                     android:layout_marginHorizontal="4dp"
                                     android:background="#818181"
                                     android:layout_gravity="center_vertical"
@@ -186,6 +187,18 @@
 
                         </LinearLayout>
 
+                        <TextView
+                            android:id="@+id/tv_my_jianjie"
+                            android:textSize="12sp"
+                            android:layout_marginTop="@dimen/dp_20"
+                            android:textColor="@color/colorBlack"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:layout_gravity="center_vertical"
+                            android:text=""
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
 
                     </LinearLayout>
 
@@ -208,39 +221,6 @@
 
 
             </RelativeLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:layout_marginHorizontal="@dimen/icon_size_20dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="简介"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="2dp"
-                    android:textSize="12sp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/colorWhite"
-                    android:background="@drawable/black_di"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tv_my_jianjie"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="14dp"
-                    android:textColor="@color/colorBlack"
-                    android:maxLines="2"
-                    android:layout_gravity="center_vertical"
-                    android:ellipsize="end"
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -273,6 +253,11 @@
 
             </RelativeLayout>
 
+            <View
+                android:background="#E8E8E8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
             <RelativeLayout
                 android:id="@+id/bt_shouhuodizhi"
                 android:layout_marginHorizontal="15dp"
@@ -295,6 +280,11 @@
                     android:layout_height="18dp" />
 
             </RelativeLayout>
+
+            <View
+                android:background="#E8E8E8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
 
             <RelativeLayout
                 android:id="@+id/bt_anquanzhongxin"
@@ -319,6 +309,11 @@
 
             </RelativeLayout>
 
+            <View
+                android:background="#E8E8E8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
             <RelativeLayout
                 android:id="@+id/bt_yonghuxieyi"
                 android:layout_marginHorizontal="15dp"
@@ -341,6 +336,11 @@
                     android:layout_height="18dp" />
 
             </RelativeLayout>
+
+            <View
+                android:background="#E8E8E8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
 
             <RelativeLayout
                 android:id="@+id/bt_qingchuhuancun"
@@ -366,6 +366,11 @@
 
             </RelativeLayout>
 
+            <View
+                android:background="#E8E8E8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
             <RelativeLayout
                 android:id="@+id/bt_obout"
                 android:layout_marginHorizontal="15dp"
@@ -388,6 +393,11 @@
                     android:layout_height="18dp" />
 
             </RelativeLayout>
+
+            <View
+                android:background="#E8E8E8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
 
 
         </LinearLayout>

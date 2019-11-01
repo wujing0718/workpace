@@ -5,11 +5,6 @@ import java.util.List;
 
 public class QuanZiFaXian implements Serializable {
 
-    /**
-     * msg : 操作成功
-     * result : {"condition":null,"cityCode":null,"datas":{"total":5,"list":[{"id":2,"type":1,"title":null,"content":"动态","picture":"1111","createTime":"2019-06-10 11:50:56","updateTime":"2019-06-24 17:36:39","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":2,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null},{"id":3,"type":1,"title":null,"content":"22222","picture":"2222","createTime":"2019-06-10 11:52:53","updateTime":"2019-06-24 17:36:42","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":3,"nickName":null,"personalProfile":null,"phone":null,"photo":"","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":"1"},{"id":4,"type":1,"title":null,"content":"动态","picture":"http://oss.irving.net.cn/tea/1560997020198.jpg,http://oss.irving.net.cn/tea/1560997074984.png","createTime":"2019-06-20 10:17:56","updateTime":"2019-06-24 17:36:44","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":4,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null},{"id":5,"type":1,"title":null,"content":"动态","picture":"http://oss.irving.net.cn/tea/1561013861646.png,http://oss.irving.net.cn/tea/1561013864476.png","createTime":"2019-06-20 14:57:40","updateTime":"2019-06-24 17:36:45","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":5,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null}],"pageNum":1,"pageSize":4,"size":4,"startRow":1,"endRow":4,"pages":2,"prePage":0,"nextPage":2,"isFirstPage":true,"isLastPage":false,"hasPreviousPage":false,"hasNextPage":true,"navigatePages":8,"navigatepageNums":[1,2],"navigateFirstPage":1,"navigateLastPage":2},"type":1}
-     * status : 1
-     */
 
     private String msg;
     private ResultBean result;
@@ -43,14 +38,14 @@ public class QuanZiFaXian implements Serializable {
         /**
          * condition : null
          * cityCode : null
-         * datas : {"total":5,"list":[{"id":2,"type":1,"title":null,"content":"动态","picture":"1111","createTime":"2019-06-10 11:50:56","updateTime":"2019-06-24 17:36:39","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":2,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null},{"id":3,"type":1,"title":null,"content":"22222","picture":"2222","createTime":"2019-06-10 11:52:53","updateTime":"2019-06-24 17:36:42","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":3,"nickName":null,"personalProfile":null,"phone":null,"photo":"","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":"1"},{"id":4,"type":1,"title":null,"content":"动态","picture":"http://oss.irving.net.cn/tea/1560997020198.jpg,http://oss.irving.net.cn/tea/1560997074984.png","createTime":"2019-06-20 10:17:56","updateTime":"2019-06-24 17:36:44","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":4,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null},{"id":5,"type":1,"title":null,"content":"动态","picture":"http://oss.irving.net.cn/tea/1561013861646.png,http://oss.irving.net.cn/tea/1561013864476.png","createTime":"2019-06-20 14:57:40","updateTime":"2019-06-24 17:36:45","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":5,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null},"mid":null}],"pageNum":1,"pageSize":4,"size":4,"startRow":1,"endRow":4,"pages":2,"prePage":0,"nextPage":2,"isFirstPage":true,"isLastPage":false,"hasPreviousPage":false,"hasNextPage":true,"navigatePages":8,"navigatepageNums":[1,2],"navigateFirstPage":1,"navigateLastPage":2}
-         * type : 1
+         * datas : {"total":32,"list":[{"id":131,"type":3,"title":null,"content":"他打我","picture":"http://oss.hotkungfu-tea.com/picture/1572524674744.jpg,http://oss.hotkungfu-tea.com/picture/1572524672461.mp4","pictureWidth":320,"pictureHeight":568,"createTime":"1572524673000","updateTime":"2019-10-31 20:24:33","longitude":114.261919,"latitude":22.725447,"address":"深圳市灏盟信息科技有限公司","cityCode":"0755","member":{"userId":116,"nickName":"谨记 我给过","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572513281998.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":131,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T12:24:33.000+0000","updateTime":"2019-10-31T12:24:33.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":116,"mId":116},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":1,"commentNum":0,"isSift":null,"browseCount":18,"mid":116},{"id":135,"type":3,"title":null,"content":"说点什么吧","picture":"http://oss.hotkungfu-tea.com/picture/1572527441657.jpg,http://oss.hotkungfu-tea.com/picture/1572527443012.mp4","pictureWidth":720,"pictureHeight":1280,"createTime":"1572527439000","updateTime":"2019-10-31 21:10:39","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":119,"nickName":"黎娅静","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"https://thirdqq.qlogo.cn/g?b=oidb&k=Ns8ROf4MRcytJwcyvMXRxQ&s=100&t=1556808120","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":135,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T13:10:39.000+0000","updateTime":"2019-10-31T13:10:39.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":119,"mId":119},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":5,"mid":119},{"id":136,"type":3,"title":null,"content":"好好","picture":"http://oss.hotkungfu-tea.com/picture/1572527597830.jpg,http://oss.hotkungfu-tea.com/picture/1572527597701.mp4","pictureWidth":720,"pictureHeight":1280,"createTime":"1572527596000","updateTime":"2019-10-31 21:13:16","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":119,"nickName":"黎娅静","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"https://thirdqq.qlogo.cn/g?b=oidb&k=Ns8ROf4MRcytJwcyvMXRxQ&s=100&t=1556808120","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":136,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T13:13:16.000+0000","updateTime":"2019-10-31T13:13:16.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":119,"mId":119},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":0,"mid":119},{"id":133,"type":3,"title":null,"content":"难呐","picture":"http://oss.hotkungfu-tea.com/picture/1572525481558.jpg,http://oss.hotkungfu-tea.com/picture/1572525481434.mp4","pictureWidth":360,"pictureHeight":480,"createTime":"1572525478000","updateTime":"2019-10-31 20:37:58","longitude":114.261852,"latitude":22.725397,"address":"金晖创业社区","cityCode":"0755","member":{"userId":116,"nickName":"谨记 我给过","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572513281998.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":133,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T12:37:58.000+0000","updateTime":"2019-10-31T12:37:58.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":116,"mId":116},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":1,"mid":116},{"id":32,"type":1,"title":null,"content":"肥猪","picture":"http://oss.hotkungfu-tea.com/picture/1571365260994.jpg","pictureWidth":826,"pictureHeight":826,"createTime":"1571365257000","updateTime":"2019-10-18 10:20:57","longitude":0,"latitude":0,"address":null,"cityCode":null,"member":{"userId":99,"nickName":"霏霏爱喝茶","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1570759306422.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":32,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-18T02:20:57.000+0000","updateTime":"2019-10-18T02:20:57.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":99,"mId":99},"isAttention":1,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":1,"praiseNum":4,"commentNum":1,"isSift":null,"browseCount":74,"mid":99},{"id":25,"type":1,"title":null,"content":"同城数据","picture":"http://oss.hotkungfu-tea.com/picture/1571034412708.jpg","pictureWidth":828,"pictureHeight":1104,"createTime":"1571034405000","updateTime":"2019-10-14 14:26:45","longitude":114.117683,"latitude":22.531995,"address":"深圳站","cityCode":"440303","member":{"userId":101,"nickName":"Drew","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIjv8IiccVtfzLcLTDRcMWwZSuQpjhUfxTZQhK0icQZib5z4zHvbbuISVo8gOLBXeX7iaYTvdj4zWYRdQ/132","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":25,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-14T06:26:45.000+0000","updateTime":"2019-10-14T06:26:45.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":101,"mId":101},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":3,"commentNum":0,"isSift":null,"browseCount":54,"mid":101},{"id":19,"type":1,"title":null,"content":"专注制茶三十年 老手艺人","picture":"http://oss.hotkungfu-tea.com/picture/1570759486683.jpg","pictureWidth":828,"pictureHeight":620,"createTime":"1570759477000","updateTime":"2019-10-11 10:04:37","longitude":0,"latitude":0,"address":null,"cityCode":null,"member":{"userId":99,"nickName":"霏霏爱喝茶","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1570759306422.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":19,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-11T02:04:37.000+0000","updateTime":"2019-10-11T02:04:37.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":99,"mId":99},"isAttention":1,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":5,"commentNum":0,"isSift":null,"browseCount":43,"mid":99},{"id":23,"type":1,"title":null,"content":"啦啦啦啦啦","picture":"http://oss.hotkungfu-tea.com/picture/1570764786218.jpg","pictureWidth":2016,"pictureHeight":1508,"createTime":"1570764779000","updateTime":"2019-10-11 11:32:59","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":102,"nickName":"测试","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572246720260.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":23,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-11T03:32:59.000+0000","updateTime":"2019-10-11T03:32:59.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":102,"mId":102},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":2,"commentNum":1,"isSift":null,"browseCount":29,"mid":102},{"id":35,"type":1,"title":null,"content":"中央音乐学院","picture":"http://oss.hotkungfu-tea.com/picture/1571623094226.jpg","pictureWidth":480,"pictureHeight":480,"createTime":"1571623087000","updateTime":"2019-10-21 09:58:07","longitude":114.085947,"latitude":22.547,"address":"深圳市","cityCode":"0755","member":{"userId":102,"nickName":"测试","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572246720260.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":35,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-21T01:58:07.000+0000","updateTime":"2019-10-21T01:58:07.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":102,"mId":102},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":24,"mid":102},{"id":111,"type":1,"title":null,"content":"牛","picture":"http://oss.hotkungfu-tea.com/picture/1572333615073.jpg","pictureWidth":1728,"pictureHeight":2304,"createTime":"1572333608000","updateTime":"2019-10-29 15:20:08","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":105,"nickName":"jio","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1571037569487.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":111,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-29T07:20:08.000+0000","updateTime":"2019-10-29T07:20:08.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":105,"mId":105},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":2,"commentNum":1,"isSift":null,"browseCount":21,"mid":105}],"pageNum":1,"pageSize":10,"size":10,"startRow":1,"endRow":10,"pages":4,"prePage":0,"nextPage":2,"isFirstPage":true,"isLastPage":false,"hasPreviousPage":false,"hasNextPage":true,"navigatePages":8,"navigatepageNums":[1,2,3,4],"navigateFirstPage":1,"navigateLastPage":4}
+         * type : null
          */
 
         private Object condition;
         private Object cityCode;
         private DatasBean datas;
-        private int type;
+        private Object type;
 
         public Object getCondition() {
             return condition;
@@ -76,15 +71,36 @@ public class QuanZiFaXian implements Serializable {
             this.datas = datas;
         }
 
-        public int getType() {
+        public Object getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(Object type) {
             this.type = type;
         }
 
         public static class DatasBean implements Serializable{
+            /**
+             * total : 32
+             * list : [{"id":131,"type":3,"title":null,"content":"他打我","picture":"http://oss.hotkungfu-tea.com/picture/1572524674744.jpg,http://oss.hotkungfu-tea.com/picture/1572524672461.mp4","pictureWidth":320,"pictureHeight":568,"createTime":"1572524673000","updateTime":"2019-10-31 20:24:33","longitude":114.261919,"latitude":22.725447,"address":"深圳市灏盟信息科技有限公司","cityCode":"0755","member":{"userId":116,"nickName":"谨记 我给过","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572513281998.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":131,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T12:24:33.000+0000","updateTime":"2019-10-31T12:24:33.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":116,"mId":116},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":1,"commentNum":0,"isSift":null,"browseCount":18,"mid":116},{"id":135,"type":3,"title":null,"content":"说点什么吧","picture":"http://oss.hotkungfu-tea.com/picture/1572527441657.jpg,http://oss.hotkungfu-tea.com/picture/1572527443012.mp4","pictureWidth":720,"pictureHeight":1280,"createTime":"1572527439000","updateTime":"2019-10-31 21:10:39","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":119,"nickName":"黎娅静","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"https://thirdqq.qlogo.cn/g?b=oidb&k=Ns8ROf4MRcytJwcyvMXRxQ&s=100&t=1556808120","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":135,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T13:10:39.000+0000","updateTime":"2019-10-31T13:10:39.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":119,"mId":119},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":5,"mid":119},{"id":136,"type":3,"title":null,"content":"好好","picture":"http://oss.hotkungfu-tea.com/picture/1572527597830.jpg,http://oss.hotkungfu-tea.com/picture/1572527597701.mp4","pictureWidth":720,"pictureHeight":1280,"createTime":"1572527596000","updateTime":"2019-10-31 21:13:16","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":119,"nickName":"黎娅静","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"https://thirdqq.qlogo.cn/g?b=oidb&k=Ns8ROf4MRcytJwcyvMXRxQ&s=100&t=1556808120","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":136,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T13:13:16.000+0000","updateTime":"2019-10-31T13:13:16.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":119,"mId":119},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":0,"mid":119},{"id":133,"type":3,"title":null,"content":"难呐","picture":"http://oss.hotkungfu-tea.com/picture/1572525481558.jpg,http://oss.hotkungfu-tea.com/picture/1572525481434.mp4","pictureWidth":360,"pictureHeight":480,"createTime":"1572525478000","updateTime":"2019-10-31 20:37:58","longitude":114.261852,"latitude":22.725397,"address":"金晖创业社区","cityCode":"0755","member":{"userId":116,"nickName":"谨记 我给过","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572513281998.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":133,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T12:37:58.000+0000","updateTime":"2019-10-31T12:37:58.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":116,"mId":116},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":1,"mid":116},{"id":32,"type":1,"title":null,"content":"肥猪","picture":"http://oss.hotkungfu-tea.com/picture/1571365260994.jpg","pictureWidth":826,"pictureHeight":826,"createTime":"1571365257000","updateTime":"2019-10-18 10:20:57","longitude":0,"latitude":0,"address":null,"cityCode":null,"member":{"userId":99,"nickName":"霏霏爱喝茶","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1570759306422.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":32,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-18T02:20:57.000+0000","updateTime":"2019-10-18T02:20:57.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":99,"mId":99},"isAttention":1,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":1,"praiseNum":4,"commentNum":1,"isSift":null,"browseCount":74,"mid":99},{"id":25,"type":1,"title":null,"content":"同城数据","picture":"http://oss.hotkungfu-tea.com/picture/1571034412708.jpg","pictureWidth":828,"pictureHeight":1104,"createTime":"1571034405000","updateTime":"2019-10-14 14:26:45","longitude":114.117683,"latitude":22.531995,"address":"深圳站","cityCode":"440303","member":{"userId":101,"nickName":"Drew","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIjv8IiccVtfzLcLTDRcMWwZSuQpjhUfxTZQhK0icQZib5z4zHvbbuISVo8gOLBXeX7iaYTvdj4zWYRdQ/132","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":25,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-14T06:26:45.000+0000","updateTime":"2019-10-14T06:26:45.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":101,"mId":101},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":3,"commentNum":0,"isSift":null,"browseCount":54,"mid":101},{"id":19,"type":1,"title":null,"content":"专注制茶三十年 老手艺人","picture":"http://oss.hotkungfu-tea.com/picture/1570759486683.jpg","pictureWidth":828,"pictureHeight":620,"createTime":"1570759477000","updateTime":"2019-10-11 10:04:37","longitude":0,"latitude":0,"address":null,"cityCode":null,"member":{"userId":99,"nickName":"霏霏爱喝茶","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1570759306422.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":19,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-11T02:04:37.000+0000","updateTime":"2019-10-11T02:04:37.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":99,"mId":99},"isAttention":1,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":5,"commentNum":0,"isSift":null,"browseCount":43,"mid":99},{"id":23,"type":1,"title":null,"content":"啦啦啦啦啦","picture":"http://oss.hotkungfu-tea.com/picture/1570764786218.jpg","pictureWidth":2016,"pictureHeight":1508,"createTime":"1570764779000","updateTime":"2019-10-11 11:32:59","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":102,"nickName":"测试","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572246720260.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":23,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-11T03:32:59.000+0000","updateTime":"2019-10-11T03:32:59.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":102,"mId":102},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":2,"commentNum":1,"isSift":null,"browseCount":29,"mid":102},{"id":35,"type":1,"title":null,"content":"中央音乐学院","picture":"http://oss.hotkungfu-tea.com/picture/1571623094226.jpg","pictureWidth":480,"pictureHeight":480,"createTime":"1571623087000","updateTime":"2019-10-21 09:58:07","longitude":114.085947,"latitude":22.547,"address":"深圳市","cityCode":"0755","member":{"userId":102,"nickName":"测试","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572246720260.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":35,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-21T01:58:07.000+0000","updateTime":"2019-10-21T01:58:07.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":102,"mId":102},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":0,"commentNum":0,"isSift":null,"browseCount":24,"mid":102},{"id":111,"type":1,"title":null,"content":"牛","picture":"http://oss.hotkungfu-tea.com/picture/1572333615073.jpg","pictureWidth":1728,"pictureHeight":2304,"createTime":"1572333608000","updateTime":"2019-10-29 15:20:08","longitude":null,"latitude":null,"address":null,"cityCode":null,"member":{"userId":105,"nickName":"jio","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1571037569487.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":111,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-29T07:20:08.000+0000","updateTime":"2019-10-29T07:20:08.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":105,"mId":105},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false},"isPraise":0,"praiseNum":2,"commentNum":1,"isSift":null,"browseCount":21,"mid":105}]
+             * pageNum : 1
+             * pageSize : 10
+             * size : 10
+             * startRow : 1
+             * endRow : 10
+             * pages : 4
+             * prePage : 0
+             * nextPage : 2
+             * isFirstPage : true
+             * isLastPage : false
+             * hasPreviousPage : false
+             * hasNextPage : true
+             * navigatePages : 8
+             * navigatepageNums : [1,2,3,4]
+             * navigateFirstPage : 1
+             * navigateLastPage : 4
+             */
+
             private int total;
             private int pageNum;
             private int pageSize;
@@ -250,19 +266,26 @@ public class QuanZiFaXian implements Serializable {
 
             public static class ListBean implements Serializable{
                 /**
-                 * id : 2
-                 * type : 1
+                 * id : 131
+                 * type : 3
                  * title : null
-                 * content : 动态
-                 * picture : 1111
-                 * createTime : 2019-06-10 11:50:56
-                 * updateTime : 2019-06-24 17:36:39
-                 * longitude : null
-                 * latitude : null
-                 * address : null
-                 * cityCode : null
-                 * member : {"userId":2,"nickName":null,"personalProfile":null,"phone":null,"photo":null,"realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"buyMoney":null,"records":null}
-                 * mid : null
+                 * content : 他打我
+                 * picture : http://oss.hotkungfu-tea.com/picture/1572524674744.jpg,http://oss.hotkungfu-tea.com/picture/1572524672461.mp4
+                 * pictureWidth : 320
+                 * pictureHeight : 568
+                 * createTime : 1572524673000
+                 * updateTime : 2019-10-31 20:24:33
+                 * longitude : 114.261919
+                 * latitude : 22.725447
+                 * address : 深圳市灏盟信息科技有限公司
+                 * cityCode : 0755
+                 * member : {"userId":116,"nickName":"谨记 我给过","personalProfile":null,"gender":null,"birthday":null,"email":null,"phone":null,"photo":"http://oss.hotkungfu-tea.com/picture/1572513281998.jpg","realName":null,"idcard":null,"teaRiceMe":null,"teaRicePresent":null,"commission":null,"income":null,"sinaToken":null,"qq":null,"qqToken":null,"wechat":null,"wechatToken":null,"rongToken":null,"place":null,"integral":null,"isMaster":null,"isMerchant":null,"state":null,"delFlag":null,"loginIp":null,"loginDate":null,"qrcode":null,"createTime":null,"updateTime":null,"isSift":null,"buyMoney":null,"records":null,"master":{"id":131,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T12:24:33.000+0000","updateTime":"2019-10-31T12:24:33.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":116,"mId":116},"isAttention":0,"fanCount":null,"attentionNum":null,"dynamicNum":null,"isFirstLogin":null,"masterId":null,"memberLevel":null,"getReelStatus":0,"recordStatus":0,"productNum":null,"vip":false,"zhuanKe":false}
+                 * isPraise : 0
+                 * praiseNum : 1
+                 * commentNum : 0
+                 * isSift : null
+                 * browseCount : 18
+                 * mid : 116
                  */
 
                 private int id;
@@ -270,35 +293,21 @@ public class QuanZiFaXian implements Serializable {
                 private String title;
                 private String content;
                 private String picture;
+                private int pictureWidth;
+                private int pictureHeight;
                 private String createTime;
                 private String updateTime;
-                private Object longitude;
-                private Object latitude;
+                private double longitude;
+                private double latitude;
                 private String address;
-                private Object cityCode;
+                private String cityCode;
                 private MemberBean member;
+                private int isPraise;
                 private int praiseNum;
                 private int commentNum;
+                private Object isSift;
                 private int browseCount;
-
-                private int isPraise;
-                private Object mid;
-
-                public int getCommentNum() {
-                    return commentNum;
-                }
-
-                public void setCommentNum(int commentNum) {
-                    this.id = commentNum;
-                }
-
-                public int getBrowseCount() {
-                    return browseCount;
-                }
-
-                public void setBrowseCount(int browseCount) {
-                    this.browseCount = browseCount;
-                }
+                private int mid;
 
                 public int getId() {
                     return id;
@@ -340,6 +349,22 @@ public class QuanZiFaXian implements Serializable {
                     this.picture = picture;
                 }
 
+                public int getPictureWidth() {
+                    return pictureWidth;
+                }
+
+                public void setPictureWidth(int pictureWidth) {
+                    this.pictureWidth = pictureWidth;
+                }
+
+                public int getPictureHeight() {
+                    return pictureHeight;
+                }
+
+                public void setPictureHeight(int pictureHeight) {
+                    this.pictureHeight = pictureHeight;
+                }
+
                 public String getCreateTime() {
                     return createTime;
                 }
@@ -356,19 +381,19 @@ public class QuanZiFaXian implements Serializable {
                     this.updateTime = updateTime;
                 }
 
-                public Object getLongitude() {
+                public double getLongitude() {
                     return longitude;
                 }
 
-                public void setLongitude(Object longitude) {
+                public void setLongitude(double longitude) {
                     this.longitude = longitude;
                 }
 
-                public Object getLatitude() {
+                public double getLatitude() {
                     return latitude;
                 }
 
-                public void setLatitude(Object latitude) {
+                public void setLatitude(double latitude) {
                     this.latitude = latitude;
                 }
 
@@ -378,6 +403,22 @@ public class QuanZiFaXian implements Serializable {
 
                 public void setAddress(String address) {
                     this.address = address;
+                }
+
+                public String getCityCode() {
+                    return cityCode;
+                }
+
+                public void setCityCode(String cityCode) {
+                    this.cityCode = cityCode;
+                }
+
+                public MemberBean getMember() {
+                    return member;
+                }
+
+                public void setMember(MemberBean member) {
+                    this.member = member;
                 }
 
                 public int getIsPraise() {
@@ -393,46 +434,58 @@ public class QuanZiFaXian implements Serializable {
                 }
 
                 public void setPraiseNum(int praiseNum) {
-                    this.praiseNum = isPraise;
+                    this.praiseNum = praiseNum;
                 }
 
-                public Object getCityCode() {
-                    return cityCode;
+                public int getCommentNum() {
+                    return commentNum;
                 }
 
-                public void setCityCode(Object cityCode) {
-                    this.cityCode = cityCode;
+                public void setCommentNum(int commentNum) {
+                    this.commentNum = commentNum;
                 }
 
-                public MemberBean getMember() {
-                    return member;
+                public Object getIsSift() {
+                    return isSift;
                 }
 
-                public void setMember(MemberBean member) {
-                    this.member = member;
+                public void setIsSift(Object isSift) {
+                    this.isSift = isSift;
                 }
 
-                public Object getMid() {
+                public int getBrowseCount() {
+                    return browseCount;
+                }
+
+                public void setBrowseCount(int browseCount) {
+                    this.browseCount = browseCount;
+                }
+
+                public int getMid() {
                     return mid;
                 }
 
-                public void setMid(Object mid) {
+                public void setMid(int mid) {
                     this.mid = mid;
                 }
 
                 public static class MemberBean implements Serializable{
                     /**
-                     * userId : 2
-                     * nickName : null
+                     * userId : 116
+                     * nickName : 谨记 我给过
                      * personalProfile : null
+                     * gender : null
+                     * birthday : null
+                     * email : null
                      * phone : null
-                     * photo : null
+                     * photo : http://oss.hotkungfu-tea.com/picture/1572513281998.jpg
                      * realName : null
                      * idcard : null
                      * teaRiceMe : null
                      * teaRicePresent : null
                      * commission : null
                      * income : null
+                     * sinaToken : null
                      * qq : null
                      * qqToken : null
                      * wechat : null
@@ -449,13 +502,30 @@ public class QuanZiFaXian implements Serializable {
                      * qrcode : null
                      * createTime : null
                      * updateTime : null
+                     * isSift : null
                      * buyMoney : null
                      * records : null
+                     * master : {"id":131,"name":null,"portrait":null,"photo":null,"level":null,"specialty":null,"status":null,"introduceContent":null,"createTime":"2019-10-31T12:24:33.000+0000","updateTime":"2019-10-31T12:24:33.000+0000","masterAddress":null,"storeId":null,"isMerchant":null,"nickName":null,"count":0,"isAttention":0,"mid":116,"mId":116}
+                     * isAttention : 0
+                     * fanCount : null
+                     * attentionNum : null
+                     * dynamicNum : null
+                     * isFirstLogin : null
+                     * masterId : null
+                     * memberLevel : null
+                     * getReelStatus : 0
+                     * recordStatus : 0
+                     * productNum : null
+                     * vip : false
+                     * zhuanKe : false
                      */
 
                     private int userId;
                     private String nickName;
                     private Object personalProfile;
+                    private Object gender;
+                    private Object birthday;
+                    private Object email;
                     private Object phone;
                     private String photo;
                     private Object realName;
@@ -464,6 +534,7 @@ public class QuanZiFaXian implements Serializable {
                     private Object teaRicePresent;
                     private Object commission;
                     private Object income;
+                    private Object sinaToken;
                     private Object qq;
                     private Object qqToken;
                     private Object wechat;
@@ -480,8 +551,22 @@ public class QuanZiFaXian implements Serializable {
                     private Object qrcode;
                     private Object createTime;
                     private Object updateTime;
+                    private Object isSift;
                     private Object buyMoney;
                     private Object records;
+                    private MasterBean master;
+                    private int isAttention;
+                    private Object fanCount;
+                    private Object attentionNum;
+                    private Object dynamicNum;
+                    private Object isFirstLogin;
+                    private Object masterId;
+                    private Object memberLevel;
+                    private int getReelStatus;
+                    private int recordStatus;
+                    private Object productNum;
+                    private boolean vip;
+                    private boolean zhuanKe;
 
                     public int getUserId() {
                         return userId;
@@ -505,6 +590,30 @@ public class QuanZiFaXian implements Serializable {
 
                     public void setPersonalProfile(Object personalProfile) {
                         this.personalProfile = personalProfile;
+                    }
+
+                    public Object getGender() {
+                        return gender;
+                    }
+
+                    public void setGender(Object gender) {
+                        this.gender = gender;
+                    }
+
+                    public Object getBirthday() {
+                        return birthday;
+                    }
+
+                    public void setBirthday(Object birthday) {
+                        this.birthday = birthday;
+                    }
+
+                    public Object getEmail() {
+                        return email;
+                    }
+
+                    public void setEmail(Object email) {
+                        this.email = email;
                     }
 
                     public Object getPhone() {
@@ -569,6 +678,14 @@ public class QuanZiFaXian implements Serializable {
 
                     public void setIncome(Object income) {
                         this.income = income;
+                    }
+
+                    public Object getSinaToken() {
+                        return sinaToken;
+                    }
+
+                    public void setSinaToken(Object sinaToken) {
+                        this.sinaToken = sinaToken;
                     }
 
                     public Object getQq() {
@@ -699,6 +816,14 @@ public class QuanZiFaXian implements Serializable {
                         this.updateTime = updateTime;
                     }
 
+                    public Object getIsSift() {
+                        return isSift;
+                    }
+
+                    public void setIsSift(Object isSift) {
+                        this.isSift = isSift;
+                    }
+
                     public Object getBuyMoney() {
                         return buyMoney;
                     }
@@ -713,6 +838,296 @@ public class QuanZiFaXian implements Serializable {
 
                     public void setRecords(Object records) {
                         this.records = records;
+                    }
+
+                    public MasterBean getMaster() {
+                        return master;
+                    }
+
+                    public void setMaster(MasterBean master) {
+                        this.master = master;
+                    }
+
+                    public int getIsAttention() {
+                        return isAttention;
+                    }
+
+                    public void setIsAttention(int isAttention) {
+                        this.isAttention = isAttention;
+                    }
+
+                    public Object getFanCount() {
+                        return fanCount;
+                    }
+
+                    public void setFanCount(Object fanCount) {
+                        this.fanCount = fanCount;
+                    }
+
+                    public Object getAttentionNum() {
+                        return attentionNum;
+                    }
+
+                    public void setAttentionNum(Object attentionNum) {
+                        this.attentionNum = attentionNum;
+                    }
+
+                    public Object getDynamicNum() {
+                        return dynamicNum;
+                    }
+
+                    public void setDynamicNum(Object dynamicNum) {
+                        this.dynamicNum = dynamicNum;
+                    }
+
+                    public Object getIsFirstLogin() {
+                        return isFirstLogin;
+                    }
+
+                    public void setIsFirstLogin(Object isFirstLogin) {
+                        this.isFirstLogin = isFirstLogin;
+                    }
+
+                    public Object getMasterId() {
+                        return masterId;
+                    }
+
+                    public void setMasterId(Object masterId) {
+                        this.masterId = masterId;
+                    }
+
+                    public Object getMemberLevel() {
+                        return memberLevel;
+                    }
+
+                    public void setMemberLevel(Object memberLevel) {
+                        this.memberLevel = memberLevel;
+                    }
+
+                    public int getGetReelStatus() {
+                        return getReelStatus;
+                    }
+
+                    public void setGetReelStatus(int getReelStatus) {
+                        this.getReelStatus = getReelStatus;
+                    }
+
+                    public int getRecordStatus() {
+                        return recordStatus;
+                    }
+
+                    public void setRecordStatus(int recordStatus) {
+                        this.recordStatus = recordStatus;
+                    }
+
+                    public Object getProductNum() {
+                        return productNum;
+                    }
+
+                    public void setProductNum(Object productNum) {
+                        this.productNum = productNum;
+                    }
+
+                    public boolean isVip() {
+                        return vip;
+                    }
+
+                    public void setVip(boolean vip) {
+                        this.vip = vip;
+                    }
+
+                    public boolean isZhuanKe() {
+                        return zhuanKe;
+                    }
+
+                    public void setZhuanKe(boolean zhuanKe) {
+                        this.zhuanKe = zhuanKe;
+                    }
+
+                    public static class MasterBean implements Serializable{
+                        /**
+                         * id : 131
+                         * name : null
+                         * portrait : null
+                         * photo : null
+                         * level : null
+                         * specialty : null
+                         * status : null
+                         * introduceContent : null
+                         * createTime : 2019-10-31T12:24:33.000+0000
+                         * updateTime : 2019-10-31T12:24:33.000+0000
+                         * masterAddress : null
+                         * storeId : null
+                         * isMerchant : null
+                         * nickName : null
+                         * count : 0
+                         * isAttention : 0
+                         * mid : 116
+                         * mId : 116
+                         */
+
+                        private int id;
+                        private Object name;
+                        private Object portrait;
+                        private Object photo;
+                        private Object level;
+                        private Object specialty;
+                        private Object status;
+                        private Object introduceContent;
+                        private String createTime;
+                        private String updateTime;
+                        private Object masterAddress;
+                        private Object storeId;
+                        private Object isMerchant;
+                        private Object nickName;
+                        private int count;
+                        private int isAttention;
+                        private int mid;
+                        private int mId;
+
+                        public int getId() {
+                            return id;
+                        }
+
+                        public void setId(int id) {
+                            this.id = id;
+                        }
+
+                        public Object getName() {
+                            return name;
+                        }
+
+                        public void setName(Object name) {
+                            this.name = name;
+                        }
+
+                        public Object getPortrait() {
+                            return portrait;
+                        }
+
+                        public void setPortrait(Object portrait) {
+                            this.portrait = portrait;
+                        }
+
+                        public Object getPhoto() {
+                            return photo;
+                        }
+
+                        public void setPhoto(Object photo) {
+                            this.photo = photo;
+                        }
+
+                        public Object getLevel() {
+                            return level;
+                        }
+
+                        public void setLevel(Object level) {
+                            this.level = level;
+                        }
+
+                        public Object getSpecialty() {
+                            return specialty;
+                        }
+
+                        public void setSpecialty(Object specialty) {
+                            this.specialty = specialty;
+                        }
+
+                        public Object getStatus() {
+                            return status;
+                        }
+
+                        public void setStatus(Object status) {
+                            this.status = status;
+                        }
+
+                        public Object getIntroduceContent() {
+                            return introduceContent;
+                        }
+
+                        public void setIntroduceContent(Object introduceContent) {
+                            this.introduceContent = introduceContent;
+                        }
+
+                        public String getCreateTime() {
+                            return createTime;
+                        }
+
+                        public void setCreateTime(String createTime) {
+                            this.createTime = createTime;
+                        }
+
+                        public String getUpdateTime() {
+                            return updateTime;
+                        }
+
+                        public void setUpdateTime(String updateTime) {
+                            this.updateTime = updateTime;
+                        }
+
+                        public Object getMasterAddress() {
+                            return masterAddress;
+                        }
+
+                        public void setMasterAddress(Object masterAddress) {
+                            this.masterAddress = masterAddress;
+                        }
+
+                        public Object getStoreId() {
+                            return storeId;
+                        }
+
+                        public void setStoreId(Object storeId) {
+                            this.storeId = storeId;
+                        }
+
+                        public Object getIsMerchant() {
+                            return isMerchant;
+                        }
+
+                        public void setIsMerchant(Object isMerchant) {
+                            this.isMerchant = isMerchant;
+                        }
+
+                        public Object getNickName() {
+                            return nickName;
+                        }
+
+                        public void setNickName(Object nickName) {
+                            this.nickName = nickName;
+                        }
+
+                        public int getCount() {
+                            return count;
+                        }
+
+                        public void setCount(int count) {
+                            this.count = count;
+                        }
+
+                        public int getIsAttention() {
+                            return isAttention;
+                        }
+
+                        public void setIsAttention(int isAttention) {
+                            this.isAttention = isAttention;
+                        }
+
+                        public int getMid() {
+                            return mid;
+                        }
+
+                        public void setMid(int mid) {
+                            this.mid = mid;
+                        }
+
+                        public int getMId() {
+                            return mId;
+                        }
+
+                        public void setMId(int mId) {
+                            this.mId = mId;
+                        }
                     }
                 }
             }

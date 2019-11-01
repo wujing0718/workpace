@@ -304,6 +304,7 @@ public class FaXianFragment extends Fragment implements IListener {
         if(audience_cnt == 3){
             this.status = status;
             initData(status);
+            ListenerManager.getInstance().unRegisterListener(this);
         }
     }
 }

@@ -414,7 +414,7 @@
                             android:maxLength="10"
                             android:paddingLeft="@dimen/dp_10"
                             android:background="@drawable/kaquan_kuang"
-                            android:layout_width="100dp"
+                            android:layout_width="@dimen/dp_200"
                             android:layout_height="24dp" />
 
                     </LinearLayout>

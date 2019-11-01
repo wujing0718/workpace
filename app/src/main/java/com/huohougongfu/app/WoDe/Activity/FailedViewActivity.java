@@ -38,12 +38,19 @@ public class FailedViewActivity extends AppCompatActivity implements View.OnClic
                     if ("茶师认证失败".equals(code)){
                         intent.setClass(FailedViewActivity.this,ChaShiRenZhengActivity.class);
                         startActivity(intent);
+                        finish();
                     }else if ("商户认证失败".equals(code)){
                         intent.setClass(FailedViewActivity.this,ShangHuRenZhengActivity.class);
                         startActivity(intent);
+                        finish();
                     }else if ("大师认证失败".equals(code)){
                         intent.setClass(FailedViewActivity.this,DaShiRenZhengActivity.class);
                         startActivity(intent);
+                        finish();
+                    }else if ("特约品牌认证失败".equals(code)){
+                        intent.setClass(FailedViewActivity.this,SpecialBrandActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
                 break;

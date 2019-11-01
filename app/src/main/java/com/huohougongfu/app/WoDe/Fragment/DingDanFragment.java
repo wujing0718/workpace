@@ -33,6 +33,7 @@ import com.huohougongfu.app.WoDe.Adapter.MyDingDanAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -49,6 +50,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.blankj.utilcode.util.SnackbarUtils.dismiss;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -64,6 +67,7 @@ public class DingDanFragment extends Fragment {
     private int id;
     private SmartRefreshLayout smartrefreshlayout;
     private int page = 2;
+    private BasePopupView basePopupView;
 
     public DingDanFragment() {
     }
@@ -77,6 +81,7 @@ public class DingDanFragment extends Fragment {
                     boolean refresh= (boolean)msg.obj;
                     if(refresh){
                         initData();
+                        basePopupView.dismiss();
                     }
                     break;
                 default:
@@ -158,7 +163,11 @@ public class DingDanFragment extends Fragment {
                     switch (view.getId()){
                         case R.id.bt_anniu_one:
                             if (result.get(position).getOrderStatus()==0){
-                                initQuanXiao(result.get(position).getOrderNo(),result.get(position).getOrderStatus());
+                                //  取消订单
+                                basePopupView = new XPopup.Builder(getActivity())
+                                        .asCustom(new QuXiaoDingDan(getActivity(), result.get(position).getOrderStatus(), result.get(position).getOrderNo(), mHandler));
+                                basePopupView.show();
+
                             }else if (result.get(position).getOrderStatus()==2||result.get(position).getOrderStatus()==3){
                                 intent.putExtra("logisticsName",result.get(position).getLogisticsName());
                                 intent.putExtra("logisticsNo",result.get(position).getLogisticsNo());
@@ -329,12 +338,6 @@ public class DingDanFragment extends Fragment {
                         }
                     }
                 });
-    }
-    //  取消订单
-    private void initQuanXiao(String orderNo, int orderStatus) {
-        new XPopup.Builder(getActivity())
-                .asCustom(new QuXiaoDingDan(getActivity(),orderStatus,orderNo,mHandler))
-                .show();
     }
     //  删除订单
     private void initDelete(String orderNo) {

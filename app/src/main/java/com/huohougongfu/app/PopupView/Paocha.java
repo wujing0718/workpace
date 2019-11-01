@@ -159,6 +159,8 @@ public class Paocha extends CenterPopupView implements View.OnClickListener,ILis
                 intent.putExtra("num",amount);
                 intent.putExtra("machineId",machineId);
                 intent.putExtra("teaDetail",teaDetail);
+                intent.putExtra("tv_chatai_hasDust",yedi);
+                intent.putExtra("tv_chatai_concentration",nongdu);
                 intent.setClass(context,MyDingDanPaoChaActivity.class);
                 context.startActivity(intent);
                 dismiss();

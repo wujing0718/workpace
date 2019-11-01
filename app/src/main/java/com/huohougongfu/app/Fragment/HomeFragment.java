@@ -78,7 +78,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
     private SwitchButton bt_switch;
     private Intent intent;
     private MapView amap;
-
     private String token,id,phone;
     private ImmersionBar mImmersionBar;
     private Fragment currentFragment;
@@ -89,6 +88,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
     private QBadgeView qBadgeView;
     private View bt_chatai;
     private View vew_chatai;
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
+    private Fragment showfragment;
 
     public HomeFragment() {
     }
@@ -101,10 +103,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             inflate = inflater.inflate(R.layout.fragment_home, container, false);
             ListenerManager.getInstance().registerListtener(this);
             intent = new Intent();
+            manager = getChildFragmentManager();
             qBadgeView = new QBadgeView(getActivity());
             token = MyApp.instance.getString("token");
-            lon = MyApp.instance.getString("lon");
-            lat = MyApp.instance.getString("lat");
+            lon =  SPUtils.getInstance("经纬度").getString("lon");
+            lat =  SPUtils.getInstance("经纬度").getString("lat");
             //设置默认显示内容
             initMaiChaJiQi();
             initJiQi();
@@ -120,8 +123,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
 
     @Override
     public void onResume() {
-        lon = MyApp.instance.getString("lon");
-        lat = MyApp.instance.getString("lat");
+        lon =  SPUtils.getInstance("经纬度").getString("lon");
+        lat =  SPUtils.getInstance("经纬度").getString("lat");
         //设置定位监听
         initbanner();
         if (jiQiLieBiao!=null){
@@ -273,7 +276,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (!isChecked) {
                     ischecked = isChecked;
-                    initMaiChaJiQi();
+//                    initMaiChaJiQi();
                     if (!isAdded()) return;
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -290,7 +293,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     }
                 }else{
                     ischecked = isChecked;
-                    initJiQi();
+//                    initJiQi();
                     if (!isAdded()) return;
                     FragmentManager fm = getChildFragmentManager();
                     FragmentTransaction transaction = fm.beginTransaction();
@@ -470,13 +473,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
             }
         }
     }
-
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 10){
             if ("是".equals(status)){
-                lon = MyApp.instance.getString("lon");
-                lat = MyApp.instance.getString("lat");
+                lon =  SPUtils.getInstance("经纬度").getString("lon");
+                lat =  SPUtils.getInstance("经纬度").getString("lat");
                 initMaiChaJiQi();
                 initJiQi();
             }

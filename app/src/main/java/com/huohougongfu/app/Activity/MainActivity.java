@@ -25,6 +25,7 @@
         import com.amap.api.location.AMapLocationClientOption;
         import com.amap.api.location.AMapLocationListener;
         import com.amap.api.maps.LocationSource;
+        import com.blankj.utilcode.util.SPUtils;
         import com.blankj.utilcode.util.ToastUtils;
         import com.google.gson.Gson;
         import com.gyf.barlibrary.ImmersionBar;
@@ -77,9 +78,8 @@
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ListenerManager.getInstance().sendBroadCast(10,"是");
+        initLoc2();
         String rongToken = MyApp.instance.getString("rongToken");
-        String lat = MyApp.instance.getString("lat");
         if (!rongToken.isEmpty()){
             RongIM.connect(rongToken, new RongIMClient.ConnectCallback() {
                 //token1参数报错
@@ -269,6 +269,8 @@
                                 MyApp.instance.put("lat",lat,true);
                                 MyApp.instance.put("lon",lon,true);
                                 MyApp.instance.put("AoiName",aMapLocation.getAoiName(),true);
+                                SPUtils.getInstance("经纬度").put("lat",lat);
+                                SPUtils.getInstance("经纬度").put("lon",lon);
                                 ListenerManager.getInstance().sendBroadCast(10,"是");
                                 if (isFirstLoc) {
                                     //获取定位信息
@@ -311,6 +313,71 @@
                 //启动定位
                 mLocationClient.startLocation();
             }
+        //定位
+        private void initLoc2() {
+            //初始化定位
+            mLocationClient = new AMapLocationClient(getApplicationContext());
+            //设置定位回调监听
+            mLocationClient.setLocationListener(new AMapLocationListener() {
+                @Override
+                public void onLocationChanged(AMapLocation aMapLocation) {
+                    if (aMapLocation != null) {
+                        if (aMapLocation.getErrorCode() == 0) {
+                            //可在其中解析amapLocation获取相应内容。
+                            aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                            //获取纬度
+                            double lat1 = aMapLocation.getLatitude();
+                            double lon1 = aMapLocation.getLongitude();//获取经度
+                            lat = String.valueOf(lat1);
+                            lon = String.valueOf(lon1);
+                            MyApp.instance.put("citycode",aMapLocation.getCityCode(),true);
+                            MyApp.instance.put("city",aMapLocation.getCity(),true);
+                            MyApp.instance.put("lat",lat,true);
+                            MyApp.instance.put("lon",lon,true);
+                            SPUtils.getInstance("经纬度").put("lat",lat);
+                            SPUtils.getInstance("经纬度").put("lon",lon);
+                            MyApp.instance.put("AoiName",aMapLocation.getAoiName(),true);
+                            if (isFirstLoc) {
+                                //获取定位信息
+                                StringBuffer buffer = new StringBuffer();
+                                buffer.append(aMapLocation.getCountry() + ","
+                                        + aMapLocation.getProvince() + ","
+                                        + aMapLocation.getCity() + ","
+                                        + aMapLocation.getCityCode()+","
+                                        + aMapLocation.getProvince() + ","
+                                        + aMapLocation.getDistrict() + ","
+                                        + aMapLocation.getStreet() + ","
+                                        + aMapLocation.getStreetNum()+","
+                                        +aMapLocation.getAoiName());
+                                isFirstLoc = false;
+                            }
+                        }else {
+                            //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                            Log.e("地图错误","定位失败, 错误码:" + aMapLocation.getErrorCode() + ", 错误信息:"
+                                    + aMapLocation.getErrorInfo());
+                        }
+                    }
+                }
+            });
+            //初始化定位参数
+            mLocationOption = new AMapLocationClientOption();
+            //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            //设置是否返回地址信息（默认返回地址信息）
+            mLocationOption.setNeedAddress(true);
+            //设置是否只定位一次,默认为false
+            mLocationOption.setOnceLocation(true);
+            //设置是否强制刷新WIFI，默认为强制刷新
+            mLocationOption.setWifiActiveScan(true);
+            //设置是否允许模拟位置,默认为false，不允许模拟位置
+            mLocationOption.setMockEnable(false);
+            //设置定位间隔,单位毫秒,默认为2000ms
+            mLocationOption.setInterval(2000);
+            //给定位客户端对象设置定位参数
+            mLocationClient.setLocationOption(mLocationOption);
+            //启动定位
+            mLocationClient.startLocation();
+        }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

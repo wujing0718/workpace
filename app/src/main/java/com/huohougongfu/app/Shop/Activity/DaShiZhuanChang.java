@@ -19,6 +19,7 @@ import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.BannerGson;
 import com.huohougongfu.app.Gson.DSZhuanChang;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
@@ -74,12 +75,14 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
     private View bt_xiaoxi;
     private View bt_gouwuche;
     private String token;
+    private QBadgeView qbadgebiewxitong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_da_shi_zhuan_chang);
         qBadgeView = new QBadgeView(DaShiZhuanChang.this);
+        qbadgebiewxitong = new QBadgeView(DaShiZhuanChang.this);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         token = MyApp.instance.getString("token");
         intent = new Intent();
@@ -90,15 +93,36 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
 
     @Override
     protected void onResume() {
-        super.onResume();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         initShoppingCartNum();
+        initNoticeIsView();
+        super.onResume();
     }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
+
 
     private void initUI() {
         rec_dashizhuanchang = findViewById(R.id.rec_dashizhuanchang);
         smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
-        head_dashizhuanchang = getLayoutInflater().inflate(R.layout.head_teyue, (ViewGroup) rec_dashizhuanchang.getParent(), false);
+        head_dashizhuanchang = getLayoutInflater().inflate(R.layout.head_dashizhuanchang, (ViewGroup) rec_dashizhuanchang.getParent(), false);
         rec_cainixihuan = head_dashizhuanchang.findViewById(R.id.rec_cainixihuan);
         banner = head_dashizhuanchang.findViewById(R.id.banner);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {

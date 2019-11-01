@@ -90,6 +90,8 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private QBadgeView qBadgeView;
+    private QBadgeView qbadgebiewxitong;
+
     private View bt_gouwuche;
 
     @SuppressLint("ValidFragment")
@@ -109,6 +111,8 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         qBadgeView = new QBadgeView(getActivity());
+        qbadgebiewxitong = new QBadgeView(getActivity());
+
         initUI();
         initbanner();
         initData();
@@ -159,9 +163,9 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                         WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
                         if (weiduxiaoxi.getStatus() == 1){
                             if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
-                                qBadgeView.bindTarget(bt_xiaoxi).setBadgeText("");
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
                             }else{
-                                qBadgeView.hide(true);
+                                qbadgebiewxitong.hide(true);
                             }
                         }
                     }

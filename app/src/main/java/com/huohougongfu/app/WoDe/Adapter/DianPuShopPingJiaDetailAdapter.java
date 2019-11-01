@@ -20,17 +20,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.huohougongfu.app.Gson.MyCollect;
 import com.huohougongfu.app.Gson.PingJia;
-import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.ImageAdapter;
-import com.huohougongfu.app.Utils.Contacts;
-import com.huohougongfu.app.Utils.ListenerManager;
 import com.lxj.xpopup.interfaces.XPopupImageLoader;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.io.File;
 import java.util.ArrayList;

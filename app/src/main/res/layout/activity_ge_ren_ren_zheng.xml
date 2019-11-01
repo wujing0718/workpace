@@ -37,12 +37,43 @@
 
     </RelativeLayout>
 
-    <include
-        android:id="@+id/view_geren_renzheng"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="@dimen/dp_20"
-        layout="@layout/item_gerenrenzheng"
+    <ImageView
+        android:src="@mipmap/img_shenfenrenzheng"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="165dp" />
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/view_geren_renzheng"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/dp_20"
+                layout="@layout/item_gerenrenzheng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/bt_tijiao"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBlack"
+        android:text="提交"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44" />
 
 </LinearLayout>

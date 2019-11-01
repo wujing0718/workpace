@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Fragment.SimpleCardFragment;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Fragment.CanShuFragment;
@@ -59,6 +61,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
     };
     private View bt_gouwuche;
     private String type;
+    private QBadgeView qbadgebiewxitong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
         type = getIntent().getStringExtra("type");
         intent = new Intent();
         qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
+        qbadgebiewxitong  = new QBadgeView(ShangPinDetailActivity.this);
         View bt_finish = findViewById(R.id.bt_finish);
         bt_finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,10 +135,31 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
 
     @Override
     protected void onResume() {
-        super.onResume();
         initShoppingCartNum();
+        initNoticeIsView();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        super.onResume();
     }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
+
 
     private void initTablayout() {
         mFragments.clear();

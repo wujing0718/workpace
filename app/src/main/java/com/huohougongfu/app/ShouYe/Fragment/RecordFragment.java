@@ -8,17 +8,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.KaQuanRecord;
 import com.huohougongfu.app.Gson.ShangPinGson;
 import com.huohougongfu.app.MyApp;
+import com.huohougongfu.app.PopupView.KaQuanGuiZe;
+import com.huohougongfu.app.PopupView.PopupCoupon;
+import com.huohougongfu.app.QuanZi.Adapter.WenZhangAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Adapter.RecordAdapter;
 import com.huohougongfu.app.ShouYe.Adapter.SongChuAdapter;
 import com.huohougongfu.app.ShouYe.Adapter.WoDeAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
+import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -37,6 +44,7 @@ public class RecordFragment extends Fragment {
     private RecyclerView rec_kaquan_record;
     private String token,tel,id;
     private RecyclerView rec_shixiao,rec_songchu;
+    private View view_zhanweitu1,view_zhanweitu2;
 
     public RecordFragment() {
     }
@@ -54,6 +62,8 @@ public class RecordFragment extends Fragment {
         return inflate;
     }
     private void initUI() {
+        view_zhanweitu1 = inflate.findViewById(R.id.view_zhanweitu1);
+        view_zhanweitu2 = inflate.findViewById(R.id.view_zhanweitu2);
         rec_shixiao = inflate.findViewById(R.id.rec_shixiao);
         rec_songchu = inflate.findViewById(R.id.rec_songchu);
     }
@@ -74,16 +84,20 @@ public class RecordFragment extends Fragment {
                         KaQuanRecord record = gson.fromJson(body, KaQuanRecord.class);
                         if (record.getStatus() ==1){
                             if (record.getResult().getSend().size()>0){
-                                rec_shixiao.setVisibility(View.VISIBLE);
+                                view_zhanweitu2.setVisibility(View.GONE);
+                                rec_songchu.setVisibility(View.VISIBLE);
                                 initSongChu(record.getResult());
                             }else{
-                                rec_shixiao.setVisibility(View.GONE);
+                                view_zhanweitu2.setVisibility(View.VISIBLE);
+                                rec_songchu.setVisibility(View.GONE);
                             }
                             if (record.getResult().getInvalid().size()>0){
-                                rec_songchu.setVisibility(View.VISIBLE);
+                                view_zhanweitu1.setVisibility(View.GONE);
+                                rec_shixiao.setVisibility(View.VISIBLE);
                                 initShiXiao(record.getResult());
                             }else{
-                                rec_songchu.setVisibility(View.GONE);
+                                view_zhanweitu1.setVisibility(View.VISIBLE);
+                                rec_shixiao.setVisibility(View.GONE);
                             }
                         }
                     }
@@ -100,8 +114,33 @@ public class RecordFragment extends Fragment {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_shixiao.setLayoutManager(layoutmanager);
-        RecordAdapter wodeadapter = new RecordAdapter(R.layout.item_shoudaokaquan,result.getInvalid());
-        rec_shixiao.setAdapter(wodeadapter);
+        RecordAdapter recordAdapter = new RecordAdapter(R.layout.item_wodekaquan, result.getInvalid());
+        rec_shixiao.setAdapter(recordAdapter);
+        recordAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView bt_serviceRegulations = view.findViewById(R.id.bt_serviceRegulations);
+                switch (view.getId()){
+                    case R.id.bt_serviceRegulations:
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .atView(bt_serviceRegulations)
+                                    .hasShadowBg(false) // 去掉半透明背景
+                                    .asCustom(new KaQuanGuiZe(getContext(),result.getInvalid().get(position).getServiceRegulations()))
+                                    .show();
+                        }
+                        break;
+                    case R.id.bt_zhuanzeng:
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .asCustom(new PopupCoupon(getContext(), getActivity(), result.getInvalid().get(position).getId()))
+                                    .show();
+                        }
+                        break;
+                }
+            }
+        });
+
     }
 
     private void initSongChu(KaQuanRecord.ResultBean result) {
@@ -109,8 +148,33 @@ public class RecordFragment extends Fragment {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity());
         //设置RecyclerView 布局
         rec_songchu.setLayoutManager(layoutmanager);
-        SongChuAdapter songchu= new SongChuAdapter(R.layout.item_shoudaokaquan,result.getSend());
+        SongChuAdapter songchu= new SongChuAdapter(R.layout.item_wodekaquan,result.getSend());
         rec_songchu.setAdapter(songchu);
+        songchu.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView bt_serviceRegulations = view.findViewById(R.id.bt_serviceRegulations);
+                switch (view.getId()){
+                    case R.id.bt_serviceRegulations:
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .atView(bt_serviceRegulations)
+                                    .hasShadowBg(false) // 去掉半透明背景
+                                    .asCustom(new KaQuanGuiZe(getContext(),result.getSend().get(position).getServiceRegulations()))
+                                    .show();
+                        }
+                        break;
+                    case R.id.bt_zhuanzeng:
+                        if (!utils.isDoubleClick()){
+                            new XPopup.Builder(getContext())
+                                    .asCustom(new PopupCoupon(getContext(), getActivity(), result.getInvalid().get(position).getId()))
+                                    .show();
+                        }
+                        break;
+                }
+            }
+        });
+
     }
 
     public static Fragment newInstance(String str){

@@ -104,7 +104,9 @@ public class QuXiaoDingDan extends BottomPopupView implements View.OnClickListen
                                                                                     msg.obj = true;
                                                                                     mHandler.sendMessage(msg);
                                                                                 }
-                                                                                DingDanDetailActivity.activity.finish();
+                                                                                if (DingDanDetailActivity.activity!=null){
+                                                                                    DingDanDetailActivity.activity.finish();
+                                                                                }
                                                                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                                                             }else{
                                                                                 dismiss();

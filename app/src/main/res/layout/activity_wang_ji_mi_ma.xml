@@ -155,7 +155,7 @@
 
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/img_yanjing"
+                    android:src="@mipmap/img_yanzhengma"
                     android:layout_width="16dp"
                     android:layout_height="16dp" />
 
@@ -189,7 +189,7 @@
 
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/img_yanjing"
+                    android:src="@mipmap/img_yanzhengma"
                     android:layout_width="16dp"
                     android:layout_height="16dp" />
 
@@ -217,11 +217,11 @@
             <TextView
                 android:id="@+id/bt_queren"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/login_kuang"
+                android:background="@drawable/black_di"
                 android:layout_marginHorizontal="38dp"
                 android:text="确认"
                 android:textSize="17sp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="44dp" />

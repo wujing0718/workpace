@@ -200,13 +200,15 @@
 
                         <ImageView
                             android:layout_gravity="center_vertical"
-                            android:src="@mipmap/img_yanjing"
+                            android:src="@mipmap/img_yanzhengma"
                             android:layout_width="16dp"
                             android:layout_height="16dp" />
 
                         <EditText
                             android:id="@+id/edt_login_password"
                             android:password="true"
+                            android:inputType="number"
+                            android:digits="@string/filter_vcode"
                             android:hint="请输入密码"
                             android:maxLength="11"
                             android:textSize="14sp"

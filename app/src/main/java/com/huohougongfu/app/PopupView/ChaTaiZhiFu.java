@@ -41,7 +41,7 @@ import java.util.Map;
 
 import static com.blankj.utilcode.util.ActivityUtils.startActivity;
 
-public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener {
+public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener{
     private String type;
     private String OrderNo,OrderId;
     private String result;
@@ -99,6 +99,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
     }
     public ChaTaiZhiFu(@NonNull Activity context, String result, double total_price, String type) {
         super(context);
+        this.OrderNo = result;
         this.result = result;
         this.context= context;
         this.total_price = total_price;

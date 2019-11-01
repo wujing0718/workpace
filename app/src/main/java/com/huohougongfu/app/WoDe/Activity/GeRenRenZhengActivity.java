@@ -20,10 +20,12 @@ import com.huohougongfu.app.PopupView.XingBie;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.lxj.xpopup.XPopup;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,6 +87,7 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()){
             case R.id.bt_xingbie_xuanze:
                 if (!utils.isDoubleClick()){
+                    hideInput();
                     new XPopup.Builder(GeRenRenZhengActivity.this)
                             .asCustom(new XingBie(GeRenRenZhengActivity.this,mHandler))
                             .show();
@@ -103,13 +106,6 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
                     }
                 }).build();
                 oldTime.show();
-                break;
-            case R.id.bt_chashi_renzheng:
-                Intent intent = new Intent();
-                startActivity(intent.setClass(GeRenRenZhengActivity.this,ChaShiRenZhengActivity.class));
-                break;
-            case R.id.bt_shanghu_renzheng:
-                ToastUtils.showShort("456");
                 break;
             case R.id.bt_finish:
                 finish();
@@ -178,6 +174,7 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
+                                WaitDialog.dismiss();
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 Intent intent = new Intent();
                                 intent.putExtra("code","个人认证成功");
@@ -191,6 +188,12 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
                             e.printStackTrace();
                         }
                     }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(GeRenRenZhengActivity.this,"载入中。。。");
+                        super.onStart(request);
+                    }
                 });
     }
 
@@ -201,6 +204,7 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         View v = getWindow().peekDecorView();
         if (null != v) {
+            assert imm != null;
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }

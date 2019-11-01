@@ -16,9 +16,12 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Adapter.XiTongAdapter;
 import com.huohougongfu.app.Gson.OKGson;
 import com.huohougongfu.app.Gson.XiTongGson;
+import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -37,7 +40,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class XiTongFragment extends Fragment {
+public class XiTongFragment extends Fragment implements IListener {
 
 
     private View inflate;
@@ -56,8 +59,17 @@ public class XiTongFragment extends Fragment {
         inflate = inflater.inflate(R.layout.fragment_xi_tong, container, false);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_xitong = inflate.findViewById(R.id.rec_xitong);
+        ListenerManager.getInstance().registerListtener(this);
         initData();
         return inflate;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser){
+            ListenerManager.getInstance().sendBroadCast(21,"查看");
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     private void initData() {
@@ -92,10 +104,10 @@ public class XiTongFragment extends Fragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TextView bt_guanzhu = view.findViewById(R.id.bt_guanzhu);
-                if (list.get(position).getMember().getMaster().getIsCollection()== 1){
-                    initNoGuanZhu(list.get(position).getMember(),bt_guanzhu);
+                if (list.get(position).getMember().getIsAttention() == 1){
+                    initNoGuanZhu(0,list.get(position).getMember(),bt_guanzhu);
                 }else{
-                    initGuanZhu(list.get(position).getMember(),bt_guanzhu);
+                    initGuanZhu(1,list.get(position).getMember(),bt_guanzhu);
                 }
             }
         });
@@ -115,41 +127,60 @@ public class XiTongFragment extends Fragment {
             }
         });
     }
-    private void initGuanZhu(XiTongGson.ResultBean.ListBean.MemberBean master, TextView bt_guanzhu) {
-        Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
-        map.put("masterId",String.valueOf(master.getUserId()));
-        OkGo.<String>get(Contacts.URl1+"query/allCatory/masterCollection")
+
+    private void initGuanZhu(int type, XiTongGson.ResultBean.ListBean.MemberBean listBean, TextView bt_zhaoren_gaunzhu) {
+        int userId = listBean.getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(type));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
-                        if (okGson.getStatus() == 1){
-                            master.setIsAttention(1);
-                            bt_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
-                            bt_guanzhu.setText("已关注");
-                            bt_guanzhu.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                listBean.setIsAttention(1);
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.yiguanzhu);
+                                bt_zhaoren_gaunzhu.setText("已关注");
+                                bt_zhaoren_gaunzhu.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 });
     }
 
-    private void initNoGuanZhu(XiTongGson.ResultBean.ListBean.MemberBean master, TextView bt_guanzhu) {
-        Map<String,String> map = new HashMap<>();
-        map.put("userId",String.valueOf(MyApp.instance.getInt("id")));
-        map.put("masterId",String.valueOf(master.getUserId()));
-        OkGo.<String>get(Contacts.URl1+"query/allCatory/masterCollection")
+    private void initNoGuanZhu(int type,XiTongGson.ResultBean.ListBean.MemberBean listBean, TextView bt_zhaoren_gaunzhu) {
+        int userId = listBean.getUserId();
+        Map<String,String> map =new HashMap<>();
+        map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
+        map.put("attentionId",String.valueOf(userId));
+        map.put("type",String.valueOf(type));
+        OkGo.<String>post(Contacts.URl1+"/circle/attention")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        OKGson okGson = new Gson().fromJson(response.body(), OKGson.class);
-                        if (okGson.getStatus() == 1){
-                            master.setIsAttention(0);
-                            bt_guanzhu.setText("+关注");
-                            bt_guanzhu.setBackgroundResource(R.drawable.guanzhu);
-                            bt_guanzhu.setTextColor(getActivity().getResources().getColor(R.color.white));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            if (jsonObject.getInt("status") == 1){
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                listBean.setIsAttention(0);
+                                bt_zhaoren_gaunzhu.setText("+关注");
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.guanzhu);
+                                bt_zhaoren_gaunzhu.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+                            }else{
+                                ToastUtils.showShort(jsonObject.getString("msg"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -185,5 +216,10 @@ public class XiTongFragment extends Fragment {
         XiTongFragment fragment = new XiTongFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+
     }
 }

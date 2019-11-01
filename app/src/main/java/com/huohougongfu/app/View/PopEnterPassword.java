@@ -13,6 +13,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -32,7 +34,7 @@ import java.util.Map;
  *
  * @author lining
  */
-public class PopEnterPassword extends PopupWindow {
+public class PopEnterPassword extends PopupWindow implements IListener {
 
     private final double total_price;
     private final String orderNo;
@@ -52,7 +54,7 @@ public class PopEnterPassword extends PopupWindow {
         this.orderNo = orderNo;
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        ListenerManager.getInstance().registerListtener(this);
         mMenuView = inflater.inflate(R.layout.pop_enter_password, null);
         TextView textAmount = mMenuView.findViewById(R.id.textAmount);
         textAmount.setText("￥"+total_price);
@@ -79,6 +81,7 @@ public class PopEnterPassword extends PopupWindow {
                                         JSONObject jsonObject = new JSONObject(body);
                                         if (jsonObject.getInt("status") == 1){
                                             dismiss();
+                                            ListenerManager.getInstance().sendBroadCast(200,"成功");
                                             ToastUtils.showShort(jsonObject.getString("msg"));
                                         }else{
                                             ToastUtils.showShort(jsonObject.getString("msg"));
@@ -116,6 +119,7 @@ public class PopEnterPassword extends PopupWindow {
                                     JSONObject jsonObject = new JSONObject(body);
                                     if (jsonObject.getInt("status") == 1){
                                         dismiss();
+                                        ListenerManager.getInstance().sendBroadCast(200,"成功");
                                         ToastUtils.showShort(jsonObject.getString("msg"));
                                         }else{
                                         ToastUtils.showShort(jsonObject.getString("msg"));
@@ -166,6 +170,11 @@ public class PopEnterPassword extends PopupWindow {
         ColorDrawable dw = new ColorDrawable(0x66000000);
         // 设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
+
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
 
     }
 }

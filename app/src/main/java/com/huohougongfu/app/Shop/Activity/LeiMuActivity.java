@@ -26,6 +26,7 @@ import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.QuanBuLeiMu;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.DaShiLikeAdapter;
@@ -76,12 +77,14 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
     };
     private View bt_xiaoxi;
     private View bt_gouwuche;
+    private QBadgeView qbadgebiewxitong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lei_mu);
         qBadgeView = new QBadgeView(LeiMuActivity.this);
+        qbadgebiewxitong = new QBadgeView(LeiMuActivity.this);
         intent = new Intent();
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,10 +140,31 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
 
     @Override
     protected void onResume() {
-        super.onResume();
         initShoppingCartNum();
+        initNoticeIsView();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        super.onResume();
     }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
+
 
     private void initData() {
         OkGo.<String>get(Contacts.URl1+"query/allCatory/queryAll")

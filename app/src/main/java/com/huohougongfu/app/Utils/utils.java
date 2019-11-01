@@ -65,6 +65,15 @@ public class utils {
         }
         return false;
     }
+
+
+    public static String subZeroAndDot(String s){
+        if(s.indexOf(".") > 0){
+            s = s.replaceAll("0+?$", "");//去掉多余的0
+            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+        return s;
+    }
     /*
      * 将时间戳转换为时间
      */
@@ -110,14 +119,6 @@ public class utils {
     public static void MoveToPosition(LinearLayoutManager manager, int n) {
         manager.scrollToPositionWithOffset(n, 0);
         manager.setStackFromEnd(true);
-    }
-
-    public static String subZeroAndDot(String s){
-        if(s.indexOf(".") > 0){
-            s = s.replaceAll("0+?$", "");//去掉多余的0
-            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
-        }
-        return s;
     }
 
     public static Date stringToDate(String dateString) {

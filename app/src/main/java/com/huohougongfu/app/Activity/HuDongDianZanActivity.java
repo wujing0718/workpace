@@ -72,7 +72,6 @@ public class HuDongDianZanActivity extends AppCompatActivity {
 
 
     private void initUI(List<HuDongPingLun.ResultBean.ListBean> list) {
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(HuDongDianZanActivity.this);
         rec_hudong_pinglun.setLayoutManager(layoutManager);
         HuDongDianZanAdapter dianzanadapter = new HuDongDianZanAdapter(R.layout.item_hudong_pinglun, list);

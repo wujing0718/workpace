@@ -85,14 +85,14 @@
 
                         <ImageView
                             android:id="@+id/img_shangbiao"
-                            android:src="@mipmap/img_yingyezizhi"
+                            android:src="@mipmap/img_shangbiaozhengming"
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_100" />
 
                         <ImageView
                             android:id="@+id/img_qita_zizhi"
                             android:layout_marginLeft="@dimen/dp_30"
-                            android:src="@mipmap/img_yingyezizhi"
+                            android:src="@mipmap/img_qitazizhi"
                             android:layout_width="@dimen/dp_100"
                             android:layout_height="@dimen/dp_100" />
 

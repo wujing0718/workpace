@@ -101,6 +101,8 @@
         </LinearLayout>
         
         <LinearLayout
+            android:id="@+id/vie_wanniu"
+            android:visibility="gone"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="44dp">

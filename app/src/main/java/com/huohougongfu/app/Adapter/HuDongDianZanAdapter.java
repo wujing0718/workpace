@@ -40,7 +40,15 @@ public class HuDongDianZanAdapter extends BaseQuickAdapter<HuDongPingLun.ResultB
         RequestOptions placeholder = new RequestOptions().placeholder(R.mipmap.img_zhanweitu);
         if (item.getCircleData()!=null){
             helper.setText(R.id.tv_my_content,item.getCircleData().getContent());
-            Glide.with(MyApp.context).load(item.getCircleData().getPicture()).apply(placeholder).into(img_my_photo);
+            String[] split = item.getCircleData().getPicture().split(",");
+            if (split.length>0){
+                Glide.with(MyApp.context).load(split[0]).apply(placeholder).into(img_my_photo);
+            }else{
+                Glide.with(MyApp.context).load(R.mipmap.img_zhanweitu).apply(placeholder).into(img_my_photo);
+
+            }
+        }else{
+            Glide.with(MyApp.context).load(R.mipmap.img_zhanweitu).apply(placeholder).into(img_my_photo);
         }
         Glide.with(MyApp.context).load(item.getMember().getPhoto()).apply(requestOptions).into(img_touxiang);
 

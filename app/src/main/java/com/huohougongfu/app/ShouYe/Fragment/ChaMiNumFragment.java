@@ -14,12 +14,14 @@ import com.huohougongfu.app.Gson.ChaMi;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,7 @@ public class ChaMiNumFragment extends Fragment {
     private View inflate;
     private TextView tv_chami_wode,tv_chami_send,tv_chami_price,tv_chami_zong,tv_yongjin,tv_shouru;
     private String token,tel,id;
+    private DecimalFormat decimalFormat = new DecimalFormat("0");
 
     public ChaMiNumFragment() {
     }
@@ -82,9 +85,15 @@ public class ChaMiNumFragment extends Fragment {
     }
 
     private void initView(ChaMi chaMi) {
-        tv_chami_wode.setText(String.valueOf(chaMi.getResult().getMe()+"粒"));
-        tv_chami_send.setText(String.valueOf(chaMi.getResult().getSent()+"粒"));
-        tv_chami_zong.setText(String.valueOf(chaMi.getResult().getMe()+chaMi.getResult().getSent()+"粒"));
+        String me = decimalFormat.format(chaMi.getResult().getMe());
+        String mechami = utils.subZeroAndDot(me);
+        tv_chami_wode.setText(mechami+"粒");
+        String send = decimalFormat.format(chaMi.getResult().getSent());
+        String mesend = utils.subZeroAndDot(send);
+        tv_chami_send.setText(mesend+"粒");
+        String quanbu = decimalFormat.format(chaMi.getResult().getMe()+chaMi.getResult().getSent());
+        String mequanbu = utils.subZeroAndDot(quanbu);
+        tv_chami_zong.setText(mequanbu+"粒");
         tv_yongjin.setText(String.valueOf(chaMi.getResult().getCommission()+"元"));
         tv_shouru.setText(String.valueOf(chaMi.getResult().getIncome()+"元"));
         tv_chami_price.setText(String.valueOf(chaMi.getResult().getCommission()+chaMi.getResult().getIncome()+"元"));

@@ -142,6 +142,8 @@
                     android:hint="请输入邮箱"
                     android:textColorHint="#818181"
                     android:textSize="14sp"
+                    android:inputType="number"
+                    android:digits="@string/filter_vcode"
                     android:paddingLeft="@dimen/dp_10"
                     android:layout_marginLeft="@dimen/dp_42"
                     android:layout_centerVertical="true"
@@ -163,6 +165,8 @@
                     android:textSize="14sp"
                     android:paddingLeft="@dimen/dp_10"
                     android:maxLength="18"
+                    android:inputType="number"
+                    android:digits="0123456789xyzXYZ"
                     android:layout_marginLeft="@dimen/dp_42"
                     android:layout_centerVertical="true"
                     android:background="@drawable/black_kuang"
@@ -174,16 +178,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/bt_tijiao"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorBlack"
-        android:text="提交"
-        android:textSize="17sp"
-        android:gravity="center"
-        android:textColor="@color/colorWhite"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44" />
 
 </RelativeLayout>

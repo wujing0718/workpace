@@ -238,6 +238,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/img_dingwei"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/img_dingwei_white"
                 android:layout_width="12dp"

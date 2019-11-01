@@ -23,6 +23,7 @@ import com.huohougongfu.app.Gson.OrderStatus;
 import com.huohougongfu.app.Gson.RenZhengZhuangTai;
 import com.huohougongfu.app.Gson.RongYunUsetInfo;
 import com.huohougongfu.app.Gson.VIP;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.ShouYe.Activity.MyKaBaoActivity;
@@ -89,6 +90,8 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     private QBadgeView qBadgeView2;
     private QBadgeView qBadgeView3;
     private QBadgeView qBadgeView4;
+    private QBadgeView qbadgebiewxitong;
+
     private View bt_my_gouwuche;
     private View bt_dingdan_daifukuan,bt_dingdan_daifahuo,bt_dingdan_daishouhuo;
     private View bt_dingdan_pingjia;
@@ -116,6 +119,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         qBadgeView2 = new QBadgeView(getActivity());
         qBadgeView3 = new QBadgeView(getActivity());
         qBadgeView4 = new QBadgeView(getActivity());
+        qbadgebiewxitong = new QBadgeView(getActivity());
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         layoutParams.height = utils.getStatusBarHeight();
         initUI();
@@ -191,11 +195,29 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         initData();
         initShoppingCartNum();
         initOrderStatusNum();
+        initNoticeIsView();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         super.onResume();
     }
 
-
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
 
     private void initData() {
         Map<String,String> map = new HashMap<>();
@@ -281,7 +303,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
             view_line.setVisibility(View.GONE);
         }else{
             view_vip.setVisibility(View.VISIBLE);
-            view_line.setVisibility(View.VISIBLE);
         }
         RequestOptions requestOptions = new RequestOptions().circleCrop().placeholder(R.mipmap.img_zhanweitu);
         Glide.with(getActivity()).load(result.getPhoto()).apply(requestOptions).into(img_my_touxiang);
@@ -297,12 +318,6 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         }else{
             bt_dianpu.setVisibility(View.GONE);
         }
-        if (result.getPlace()!=null && !result.getPlace().isEmpty()){
-            view_weizhi.setVisibility(View.VISIBLE);
-            tv_my_weizhi.setText(result.getPlace());
-        }else{
-            view_weizhi.setVisibility(View.GONE);
-        }
         if (result.getPersonalProfile()!= null && !result.getPersonalProfile().isEmpty()){
             tv_my_jianjie.setText(result.getPersonalProfile());
         }else{
@@ -311,7 +326,16 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
         tv_productNum.setText(String.valueOf(result.getProductNum()));
         tv_my_guanzhunum.setText(String.valueOf(result.getAttentionNum()));
         tv_my_fensinum.setText(String.valueOf(result.getFanCount()));
-        tv_my_fenlei.setText(result.getMaster().getLevel());
+        if (result.getMaster().getLevel()!= null && !result.getMaster().getLevel().isEmpty()){
+            tv_my_fenlei.setText(result.getMaster().getLevel());
+            view_line.setVisibility(View.VISIBLE);
+        }
+        if (result.getPlace()!=null && !result.getPlace().isEmpty()){
+            view_weizhi.setVisibility(View.VISIBLE);
+            tv_my_weizhi.setText(result.getPlace());
+        }else{
+            view_weizhi.setVisibility(View.GONE);
+        }
         tv_mydongtai_num.setText(String.valueOf(result.getDynamicNum()));
     }
 

@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.huohougongfu.app.Activity.DiaPuZhuYeActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.GuanZhu;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
@@ -63,12 +64,14 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
             Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
+    private QBadgeView qbadgebiewxitong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhao_ren);
         qBadgeView = new QBadgeView(ZhaoRenActivity.this);
+        qbadgebiewxitong = new QBadgeView(ZhaoRenActivity.this);
         manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mId = MyApp.instance.getInt("id");
         token = MyApp.instance.getString("token");
@@ -78,9 +81,30 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onResume() {
-        super.onResume();
+        initNoticeIsView();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        super.onResume();
     }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
+
 
     private void initUI() {
         findViewById(R.id.bt_finish).setOnClickListener(this);
@@ -228,8 +252,8 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
                             if (jsonObject.getInt("status") == 1){
                                 listBean.setIsAttention(1);
                                 ToastUtils.showShort(jsonObject.getString("msg"));
-                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.yiguanzhu);
-                                bt_zhaoren_gaunzhu.setText("已关注");
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.black_di);
+                                bt_zhaoren_gaunzhu.setText("取消关注");
                                 bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
@@ -260,8 +284,8 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 listBean.setIsAttention(0);
                                 bt_zhaoren_gaunzhu.setText("+关注");
-                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.guanzhu);
-                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
+                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.black_di);
+                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                             }

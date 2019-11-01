@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -27,6 +28,7 @@ import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Gson.BannerGson;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Activity.JingXuanActivity;
 import com.huohougongfu.app.QuanZi.Activity.WenZhangActivity;
@@ -85,10 +87,11 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
             Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
-    private QBadgeView qBadgeView;
+    private QBadgeView qBadgeView,qbadgebiewxitong;
     private View bt_xiaoxi;
     private String token;
     private String city;
+    private ImageView img_xiaoxi;
 
     public QuanZiFragment() {
     }
@@ -101,6 +104,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         inflate = inflater.inflate(R.layout.fragment_quan_zi, container, false);
         View statusBar = inflate.findViewById(R.id.statusBarView);
         qBadgeView = new QBadgeView(getActivity());
+        qbadgebiewxitong = new QBadgeView(getActivity());
         manager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
         ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
         token = MyApp.instance.getString("token");
@@ -113,6 +117,7 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         inflate.findViewById(R.id.bt_quanzi_wenzhang).setOnClickListener(this);
         bt_xiaoxi = inflate.findViewById(R.id.bt_xiaoxi);
         bt_xiaoxi.setOnClickListener(this);
+        img_xiaoxi = inflate.findViewById(R.id.img_xiaoxi);
         inflate.findViewById(R.id.bt_jingxuan).setOnClickListener(this);
         inflate.findViewById(R.id.bt_city).setOnClickListener(this);
         inflate.findViewById(R.id.bt_quanzi_zhaoren).setOnClickListener(this);
@@ -134,14 +139,36 @@ public class QuanZiFragment extends Fragment implements View.OnClickListener,ILi
         });
         initTablayout();
         initbanner();
+
         return inflate;
     }
 
     @Override
     public void onResume() {
-        super.onResume();
+        initNoticeIsView();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
+        super.onResume();
     }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qbadgebiewxitong.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
+
 
     private void initbanner() {
         //设置指示器位置

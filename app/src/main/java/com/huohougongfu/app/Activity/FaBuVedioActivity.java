@@ -381,6 +381,12 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                 map.put("type","3");
                 map.put("mId",String.valueOf(mId));
                 map.put("token",token);
+                if (data1!=null){
+                    map.put("longitude", String.valueOf(data1.getLongitude()));
+                    map.put("latitude", String.valueOf(data1.getLatitude()));
+                    map.put("cityCode", data1.getCityCode());
+                    map.put("address", data1.getTitle());
+                }
                 OkGo.<String>post(Contacts.URl1+"/circle/pub")
                         .tag(this)//
                         .isMultipart(true)

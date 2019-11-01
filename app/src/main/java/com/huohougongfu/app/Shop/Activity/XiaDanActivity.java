@@ -22,8 +22,11 @@ import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Adapter.XiaDanAdapter;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.AddressActivity;
+import com.huohougongfu.app.WoDe.Activity.MyDingDanActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -31,7 +34,7 @@ import com.lzy.okgo.model.Response;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class XiaDanActivity extends AppCompatActivity implements View.OnClickListener {
+public class XiaDanActivity extends AppCompatActivity implements View.OnClickListener ,IListener{
 
     private int mId;
     private ExpandableListView rec_xiadan;
@@ -54,6 +57,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_xia_dan);
         mId = MyApp.instance.getInt("id");
+        ListenerManager.getInstance().registerListtener(this);
         activity = this;
         coupon = (ShopYouHuiQuan.ResultBean)getIntent().getSerializableExtra("coupon");
         resultBean = (ShopDingDan.ResultBean)getIntent().getSerializableExtra("订单详情");
@@ -147,6 +151,18 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
                 tv_shouhuo_name.setText(address.getReceiverName());
                 tv_shouhuo_phone.setText(address.getPhone());
                 tv_shouhuo_address.setText(address.getAreaName()+address.getDetailAddr());
+            }
+        }
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if (audience_cnt == 200){
+            if ("成功".equals(status)){
+                Intent intent = new Intent().setClass(XiaDanActivity.this, MyDingDanActivity.class);
+                startActivity(intent);
+                finish();
+                ListenerManager.getInstance().unRegisterListener(this);
             }
         }
     }
