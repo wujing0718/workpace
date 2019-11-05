@@ -22,10 +22,12 @@ public class ZhuanKeYesActivity extends AppCompatActivity {
     private final String[] status = new String[]{"1","0"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private List<String> mtabtitle = new ArrayList<>();
+    public static ZhuanKeYesActivity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhuan_ke_yes);
+        activity = this;
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

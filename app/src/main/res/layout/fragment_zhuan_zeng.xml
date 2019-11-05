@@ -39,10 +39,10 @@
                     android:id="@+id/tv_my_chami"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="6dp"
                     android:text="0"
-                    android:textSize="30sp"
-                    android:textColor="#CCBA91"
+                    android:textSize="26sp"
+                    android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -188,9 +188,9 @@
                 android:text="转赠给他"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:layout_marginBottom="@dimen/icon_size_20dp"
-                android:background="@drawable/kaquan_kuang"
+                android:background="@drawable/delete_kuang"
                 android:layout_width="200dp"
                 android:layout_height="30dp" />
 

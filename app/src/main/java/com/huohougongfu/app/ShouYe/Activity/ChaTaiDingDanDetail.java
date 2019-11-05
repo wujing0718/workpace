@@ -47,6 +47,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
     private CountDownTimer timer;
     private TextView tv_orderTotal;
     private TextView tv_tea_num;
+    public static ChaTaiDingDanDetail activity;
     private com.huohougongfu.app.Gson.ChaTaiDingDanDetail chaTaiDingDanDetail;
     private UMShareListener umShareListener = new UMShareListener() {
         @Override
@@ -71,10 +72,13 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
     };
     private View item_dingdanxiangqing_chatai;
     private TextView tv_cha_name,tv_cha_content,tv_cha_num,tv_cha_price;
+    private View bt_zhuanzeng_cha;
+    private TextView tv_guoqishijian_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         setContentView(R.layout.activity_cha_tai_ding_dan_detail);
         ListenerManager.getInstance().registerListtener(this);
         orderNo = getIntent().getStringExtra("orderNo");
@@ -91,6 +95,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
         tv_cha_price = item_dingdanxiangqing_chatai.findViewById(R.id.tv_cha_price);
         tv_zhifu_zhuangtai = findViewById(R.id.tv_zhifu_zhuangtai);
         tv_quhuoma = findViewById(R.id.tv_quhuoma);
+        tv_guoqishijian_time = findViewById(R.id.tv_guoqishijian_time);
         tv_chami_dikou = findViewById(R.id.tv_chami_dikou);
         tv_youhuiquan = findViewById(R.id.tv_youhuiquan);
         tv_xiadan_time = findViewById(R.id.tv_xiadan_time);
@@ -100,22 +105,27 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
         tv_tea_num = findViewById(R.id.tv_tea_num);
         bt_queding.setOnClickListener(this);
         findViewById(R.id.bt_finish).setOnClickListener(this);
-        findViewById(R.id.bt_zhuanzeng_cha).setOnClickListener(this);
+        bt_zhuanzeng_cha = findViewById(R.id.bt_zhuanzeng_cha);
+        bt_zhuanzeng_cha.setOnClickListener(this);
     }
 
     private void initData() {
-        OkGo.<String>get(Contacts.URl1+"/machine/teaTable/orderInfo/"+orderNo)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String body = response.body();
-                       chaTaiDingDanDetail =
-                                new Gson().fromJson(body, com.huohougongfu.app.Gson.ChaTaiDingDanDetail.class);
-                        if (chaTaiDingDanDetail.getStatus() == 1){
-                            initView(chaTaiDingDanDetail.getResult());
+        if (orderNo!=null){
+            OkGo.<String>get(Contacts.URl1+"/machine/teaTable/orderInfo/"+orderNo)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            String body = response.body();
+                            chaTaiDingDanDetail =
+                                    new Gson().fromJson(body, com.huohougongfu.app.Gson.ChaTaiDingDanDetail.class);
+                            if (chaTaiDingDanDetail ==null){
+                                finish();
+                            }else if (chaTaiDingDanDetail.getStatus() == 1){
+                                initView(chaTaiDingDanDetail.getResult());
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     @Override
@@ -149,7 +159,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                         tv_zhifu_zhuangtai.setTextColor(MyApp.context.getResources().getColor(R.color.colorRed));
 //                                tv_chatai_orderStatus.setText("待支付："+utils.formatTime(millisUntilFinished));
                         tv_zhifu_zhuangtai.setText("待支付");
-
+                        bt_zhuanzeng_cha.setVisibility(View.GONE);
                     }
 
                     /**
@@ -159,10 +169,12 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                     public void onFinish() {
                         tv_zhifu_zhuangtai.setTextColor(MyApp.context.getResources().getColor(R.color.colorBlack));
                         tv_zhifu_zhuangtai.setText("已过期");
+                        bt_zhuanzeng_cha.setVisibility(View.GONE);
                     }
                 }.start();
                 //将此 countDownTimer 放入list.
             }else{
+                bt_zhuanzeng_cha.setVisibility(View.GONE);
                 bt_queding.setText("删除订单");
                 tv_zhifu_zhuangtai.setText("已过期");
                 tv_zhifu_zhuangtai.setTextColor(MyApp.context.getResources().getColor(R.color.colorBlack));
@@ -170,12 +182,16 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
         }else if ("1".equals(result.getOrderStatus())){
             tv_zhifu_zhuangtai.setText("待提货");
             bt_queding.setText("待提货");
+            bt_queding.setVisibility(View.GONE);
+            bt_zhuanzeng_cha.setVisibility(View.VISIBLE);
         }else if ("2".equals(result.getOrderStatus())){
             bt_queding.setText("删除订单");
             tv_zhifu_zhuangtai.setText("已消费");
+            bt_zhuanzeng_cha.setVisibility(View.VISIBLE);
         }
         if (result.getOrderStatus().equals("1")){
             tv_zhifu_zhuangtai.setText("待取货");
+            bt_zhuanzeng_cha.setVisibility(View.VISIBLE);
             tv_quhuoma.setText(result.getVerificationCode());
             tv_chami_dikou.setText(String.valueOf(result.getTeaRiceNum()));
             if (result.getCoupon()!=null){
@@ -185,6 +201,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
             }
 
         }else if (result.getOrderStatus().equals("2")){
+            bt_zhuanzeng_cha.setVisibility(View.GONE);
             tv_zhifu_zhuangtai.setText("已消费");
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -202,7 +219,8 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
             tv_cha_num.setText("X"+1);
             tv_cha_price.setText("￥"+machineProduct.getProductPrice());
         }
-        tv_xiadan_time.setText("下单时间"+result.getCreateTime());
+        tv_xiadan_time.setText("下单时间:"+result.getCreateTime());
+        tv_guoqishijian_time.setText("过期时间:"+result.getCountdownTime());
         tv_orderTotal.setText("¥"+result.getOrderTotal());
         tv_tea_num.setText("共"+result.getDetails().size()+"件");
     }
@@ -237,7 +255,7 @@ public class ChaTaiDingDanDetail extends AppCompatActivity implements View.OnCli
                     initDelect(chaTaiDingDanDetail.getResult().getId());
                 }else if (bt_queding.getText().toString().equals("确认支付")){
                     new XPopup.Builder(ChaTaiDingDanDetail.this)
-                            .asCustom(new ChaTaiZhiFu(ChaTaiDingDanDetail.this,chaTaiDingDanDetail.getResult().getOrderNo(),chaTaiDingDanDetail.getResult().getOrderId(),chaTaiDingDanDetail.getResult().getOrderTotal()))
+                            .asCustom(new ChaTaiZhiFu(ChaTaiDingDanDetail.this,chaTaiDingDanDetail.getResult().getOrderNo(),String.valueOf(chaTaiDingDanDetail.getResult().getId()),chaTaiDingDanDetail.getResult().getOrderTotal()))
                             .show();
                 }
                 break;

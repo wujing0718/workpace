@@ -135,13 +135,39 @@
                     </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/tv_quanzi_chenghu"
-                        android:textSize="11sp"
-                        android:layout_marginTop="4dp"
-                        android:textColor="#818181"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text=""
+                            android:id="@+id/tv_quanzi_chenghu"
+                            android:textSize="11sp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#818181"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <View
+                            android:id="@+id/view_line"
+                            android:layout_marginHorizontal="6dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="#818181"
+                            android:layout_width="@dimen/dp_1"
+                            android:layout_height="@dimen/dp_16"/>
+
+                        <TextView
+                            android:id="@+id/tv_quanzi_weizhi"
+                            android:text=""
+                            android:layout_gravity="center_vertical"
+                            android:textSize="@dimen/text_size_12sp"
+                            android:textColor="#818181"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
@@ -168,7 +194,6 @@
                         android:layout_height="12dp" />
 
                     <TextView
-                        android:id="@+id/tv_quanzi_weizhi"
                         android:text=""
                         android:textSize="@dimen/text_size_12sp"
                         android:layout_marginLeft="@dimen/layout_margin_2dp"
@@ -224,21 +249,29 @@
 
     </LinearLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartrefreshlayout"
         android:layout_below="@+id/view_title"
         android:layout_above="@+id/view_pinglun_fasong"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/view_wenzhang"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/view_wenzhang"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </android.support.v4.widget.NestedScrollView>
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/view_pinglun_fasong"

@@ -43,6 +43,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
     private PoiResult poiResult;
     private InputMethodManager manager;
     private String aoiName;
+    private String title;
 
 
     @Override
@@ -51,6 +52,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
         setContentView(R.layout.activity_ji_qi_acyivity);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         aoiName = MyApp.instance.getString("AoiName");
+        title = getIntent().getStringExtra("title");
         initView();
 
     }
@@ -88,6 +90,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
             @Override
             public void onClick(int position) {
                 Bundle bundle = new Bundle();
+                bundle.putString("title",title);
                 bundle.putSerializable("data",data.get(position));
 //                data.get(position).getAddress();
                 setResult(CONTEXT_RESTRICTED,getIntent().putExtras(bundle));
@@ -103,6 +106,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
             @Override
             public void onClick(View v) {
                 Bundle bundles = new Bundle();
+                bundles.putString("title",title);
                 bundles.putSerializable("data",null);
                 setResult(CONTEXT_RESTRICTED,JiQiAcyivity.this.getIntent().putExtras(bundles));
                 JiQiAcyivity.this.finish();
@@ -114,6 +118,7 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
     public void onBackPressed() {
         Bundle bundles = new Bundle();
         bundles.putSerializable("data",null);
+        bundles.putString("title",title);
         setResult(CONTEXT_RESTRICTED,JiQiAcyivity.this.getIntent().putExtras(bundles));
         JiQiAcyivity.this.finish();
         super.onBackPressed();

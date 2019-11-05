@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huohougongfu.app.Gson.PingLunGson;
+import com.huohougongfu.app.Gson.QuanZiFaXian;
 import com.huohougongfu.app.Gson.ShopGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -17,11 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PingLunAdapter extends BaseQuickAdapter<PingLunGson.ResultBean.ListBean,BaseViewHolder> {
+
     private List<PingLunGson.ResultBean.ListBean> data1;
 
     public PingLunAdapter(int layoutResId, @Nullable List<PingLunGson.ResultBean.ListBean> data) {
         super(layoutResId, data);
-        this.data1 = data1;
+        this.data1 = data;
     }
 
     @Override
@@ -29,7 +31,6 @@ public class PingLunAdapter extends BaseQuickAdapter<PingLunGson.ResultBean.List
         helper.addOnClickListener(R.id.bt_dianzan);
         ImageView img_pinglun_touxiang = helper.getView(R.id.img_pinglun_touxiang);
         ImageView img_pinglun_dianzan = helper.getView(R.id.img_pinglun_dianzan);
-
         if (item.getMember().getPhoto()!=null){
             RequestOptions options = new RequestOptions().circleCrop();
             Glide.with(MyApp.context).load(item.getMember().getPhoto()).apply(options)
@@ -49,11 +50,19 @@ public class PingLunAdapter extends BaseQuickAdapter<PingLunGson.ResultBean.List
         helper.setText(R.id.tv_pinglun_time,item.getCreateTime());
         helper.setText(R.id.tv_pinglun_dianzannum,String.valueOf(item.getPraiseNum()));
     }
+
     //下面两个方法提供给页面刷新和加载时调用
     public void add(List<PingLunGson.ResultBean.ListBean> data) {
         //增加数据
         int position = data1.size();
-        data1.addAll(0, data);
+        data1.addAll(position, data);
         notifyItemRangeChanged(position,data.size());
+    }
+
+    public void refresh(List<PingLunGson.ResultBean.ListBean> data) {
+        //刷新数据
+        data1.remove(data1);
+        data1.addAll(data);
+        notifyDataSetChanged();
     }
 }

@@ -27,11 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/img_xiayibu"
-            android:layout_width="@dimen/dp_13"
-            android:layout_height="@dimen/dp_13" />
+        <!--<ImageView-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:src="@mipmap/img_xiayibu"-->
+            <!--android:layout_width="@dimen/dp_13"-->
+            <!--android:layout_height="@dimen/dp_13" />-->
 
     </LinearLayout>
 

@@ -68,6 +68,7 @@ import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 public class XiaDanAdapter extends BaseExpandableListAdapter {
 
     private final ShopYouHuiQuan.ResultBean coupon;
+    private final TextView tv_num;
     private ImageView img_dianpu_logo;
     private ShopDingDan.ResultBean  list;
     private View bt_chami_dikou;
@@ -86,7 +87,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
     private List<Map<String, Object>> mData = new ArrayList<>();// 存储的EditText值
 
     public XiaDanAdapter(Activity context, View bt_chami_dikou, Button btn_go_to_pay, TextView tv_chami_dikou,
-                         ImageView img_chami_check, TextView tv_total_price, double teaRice,ShopYouHuiQuan.ResultBean coupon) {
+                         ImageView img_chami_check, TextView tv_total_price, double teaRice, ShopYouHuiQuan.ResultBean coupon, TextView tv_num) {
         this.bt_chami_dikou =bt_chami_dikou;
         this.btn_go_to_pay = btn_go_to_pay;
         this.context = context;
@@ -95,6 +96,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         this.tvTotalPrice = tv_total_price;
         this.teaRice = teaRice;
         this.coupon = coupon;
+        this.tv_num = tv_num;
     }
 
     /**
@@ -365,8 +367,8 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         ShopDingDan.ResultBean.OrderListBean.MallStoreBean.MallProductsBean mallProductsBean1 = data.get(groupPosition).getMallStore().getMallProducts().get(childPosition);
         childViewHolder.tv_dingdan_title.setText(mallProductsBean1.getName());
         childViewHolder.tv_dingdan_guige.setText(mallProductsBean1.getStandard());
-        childViewHolder.tv_dingdan_price.setText(String.valueOf(mallProductsBean1.getPrice()));
-        childViewHolder.tv_kuaidi.setText(String.valueOf(data.get(groupPosition).getMallStore().getBasicExpressFee()));
+        childViewHolder.tv_dingdan_price.setText("¥"+String.valueOf(mallProductsBean1.getPrice()));
+        childViewHolder.tv_kuaidi.setText("¥"+String.valueOf(data.get(groupPosition).getMallStore().getBasicExpressFee()));
         if (coupon!=null){
             childViewHolder.tv_youhuiquan.setText("满"+coupon.getFullMoney()+"减"+coupon.getMoney());
         }else{
@@ -374,11 +376,13 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
         }
 
         childViewHolder.amountview.setCount(mallProductsBean1.getNum());
+        tv_num.setText("共"+mallProductsBean1.getNum()+"件");
         Glide.with(context).load(mallProductsBean1.getCoverUrl()).into(childViewHolder.img_dingdan_photo);
         childViewHolder.amountview.setOnAddDelListener(new IOnAddDelListener() {
             @Override
             public void onAddSuccess(int i) {
                 mallProductsBean1.setNum(i);
+                tv_num.setText("共"+i+"件");
                 notifyDataSetChanged();
             }
 
@@ -393,6 +397,7 @@ public class XiaDanAdapter extends BaseExpandableListAdapter {
                     childViewHolder.amountview.setCount(0);
                     notifyDataSetChanged();
                 }else{
+                    tv_num.setText("共"+i+"件");
                     mallProductsBean1.setNum(i);
                     notifyDataSetChanged();
                 }

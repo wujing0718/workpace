@@ -477,9 +477,9 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
     @Override
     public void onCountChanged(int i) {
         if(i == 0){
-            qBadgeView.hide(true);
+            qbadgebiewxitong.hide(true);
         }else{
-            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+            qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
         }
     }
 }

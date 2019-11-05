@@ -31,6 +31,6 @@ public class SendKaQuanAdapter extends BaseQuickAdapter<ChaQuan.ResultBean.Recei
         Glide.with(MyApp.context).load(item.getPicture()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu)).into(img_quan_photo);
         helper.setText(R.id.tv_quan_title,item.getTitle());
         helper.setText(R.id.tv_quan_jieshao,item.getServiceRegulations());
-        helper.setText(R.id.tv_quan_endTime,item.getCreateTime());
+        helper.setText(R.id.tv_quan_endTime,item.getEndTime());
     }
 }

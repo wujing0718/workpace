@@ -104,6 +104,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private String isjingxuan;
     private ShopYouHuiQuan youhuiquan;
     private ShopYouHuiQuan.ResultBean xuanzeyouhuiquan;
+    private boolean isgouwuche;
     @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
 
@@ -128,6 +129,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     private String type;
     private View bt_goumai;
     private TextView tv_specialNote;
+    private TextView tv_guige;
+    private String userid;
 
     public ShangPinFragment() {
 
@@ -147,6 +150,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         commission = getArguments().getString("commission");
         isjingxuan = getArguments().getString("isjingxuan");
         type = getArguments().getString("type");
+        userid = getArguments().getString("userid");
         initUI();
         return inflate;
     }
@@ -198,9 +202,13 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         ShopFuWuGson fuwu1 = gson.fromJson(body, ShopFuWuGson.class);
                         if (fuwu1.getStatus() == 1){
                             fuwu = fuwu1.getResult();
-                            fuwupopup = new XPopup.Builder(getContext())
-                                    .asCustom(new FuWu(getContext(), fuwu));
-                            initView(mallProduct);
+                            if (fuwu!=null){
+                                if (null != getContext()){
+                                    fuwupopup = new XPopup.Builder(getContext())
+                                            .asCustom(new FuWu(getContext(), fuwu));
+                                    initView(mallProduct);
+                                }
+                            }
                         }
                     }
                 });
@@ -247,6 +255,8 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
     }
 
     private void initUI() {
+
+        tv_guige = inflate.findViewById(R.id.tv_guige);
         tv_specialNote = inflate.findViewById(R.id.tv_specialNote);
         view_caozuo = inflate.findViewById(R.id.view_caozuo);
         img_dianpu_ditu = inflate.findViewById(R.id.img_dianpu_ditu);
@@ -378,10 +388,19 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     private void initView(ShopDetail.ResultBean.ProductDetailInfoBean mallProduct) {
         tv_specialNote.setText(mallProduct.getSpecialInstructions());
+
         if ("赚客".equals(type)){
+            tv_yuan_price.setVisibility(View.GONE);
             bt_jiagouwuche.setVisibility(View.GONE);
             tv_lijigoumai.setText("分享赚钱");
             bt_goumai.setVisibility(View.VISIBLE);
+            bt_commission.setVisibility(View.VISIBLE);
+            bt_detail_fenxiang.setVisibility(View.GONE);
+            if(!"null".equals(commission)){
+                bt_commission.setText("赚 ¥"+commission);
+            }else{
+                bt_commission.setText("");
+            }
         }else if (挑选!=null){
             bt_commission.setVisibility(View.VISIBLE);
             bt_detail_fenxiang.setVisibility(View.GONE);
@@ -408,7 +427,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
             view_caozuo.setVisibility(View.VISIBLE);
         }
         tv_detail_price.setText(String.valueOf(mallProduct.getPrice()));
-        tv_yuan_price.setText(String.valueOf(mallProduct.getMarketPrice()));
+        tv_yuan_price.setText("¥"+String.valueOf(mallProduct.getMarketPrice()));
         tv_detail_kuaidi.setText("快递："+mallProduct.getDefaultTranCost());
         tv_detail_name.setText(mallProduct.getName());
         tv_detail_xiaoliang.setText("销量："+mallProduct.getSellNum());
@@ -440,6 +459,18 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         }else{
             bt_detail_fuwu.setVisibility(View.GONE);
         }
+        if (guige!=null){
+            if (guige.getProductStandard().size()>0){
+                tv_guige.setText(guige.getProductStandard().get(0).getStandard());
+            }
+        }
+        if (userid!=null){
+            if (!userid.equals(String.valueOf(mallProduct.getUserId()))){
+                bt_jiagouwuche.setVisibility(View.GONE);
+            }else{
+                bt_jiagouwuche.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void initRec(List<ShopDetail.ResultBean.RecommendBean> recommendation) {
@@ -462,7 +493,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     }
 
-    public static Fragment newInstance(int str, String 挑选, String commission, String isjingxuan,String type){
+    public static Fragment newInstance(int str, String 挑选, String commission, String isjingxuan, String type,String userid){
         ShangPinFragment fragment = new ShangPinFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id",str);
@@ -470,6 +501,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
         bundle.putString("commission",commission);
         bundle.putString("isjingxuan",isjingxuan);
         bundle.putString("type",type);
+        bundle.putString("userid",userid);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -523,11 +555,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                     }else{
                         if (xuanzeyouhuiquan!=null){
                             XPopup.Builder builder = new XPopup.Builder(getContext());
-                            builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan))
+                            builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan,userid))
                                     .show();
                         }else{
                             XPopup.Builder builder = new XPopup.Builder(getContext());
-                            builder.asCustom(new GuiGe(getContext(),guige))
+                            builder.asCustom(new GuiGe(getContext(),guige,userid))
                                     .show();
                         }
                     }
@@ -555,11 +587,11 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                         if (!"-1".equals(id)) {
                             if (xuanzeyouhuiquan!=null){
                                 XPopup.Builder builder = new XPopup.Builder(getContext());
-                                builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan))
+                                builder.asCustom(new GuiGe(getContext(),guige,xuanzeyouhuiquan,userid))
                                         .show();
                             }else{
                                 XPopup.Builder builder = new XPopup.Builder(getContext());
-                                builder.asCustom(new GuiGe(getContext(),guige))
+                                builder.asCustom(new GuiGe(getContext(),guige,userid))
                                         .show();
                             }
                         }else{
@@ -572,7 +604,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
                 if (!utils.isDoubleClick()){
                     if (!"-1".equals(id)) {
                         XPopup.Builder builder = new XPopup.Builder(getContext());
-                        builder.asCustom(new GuiGe(getContext(),guige))
+                        builder.asCustom(new GuiGe(getContext(),guige,userid))
                                 .show();
                     }else{
                         ToastUtils.showShort("请登录后操作");
@@ -679,7 +711,7 @@ public class ShangPinFragment extends Fragment implements View.OnClickListener,I
 
     @Override
     public void onResult(SHARE_MEDIA share_media) {
-        ToastUtils.showShort("分享成功");
+
     }
 
     @Override

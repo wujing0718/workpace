@@ -39,6 +39,7 @@ public class ZhuanKeYesFragment extends Fragment implements OnClickListener{
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_zhuanke;
     private View view_zhuanke;
+    private View view_zhanweitu;
 
     public ZhuanKeYesFragment() {
     }
@@ -56,6 +57,7 @@ public class ZhuanKeYesFragment extends Fragment implements OnClickListener{
 
     private void initUI() {
         inflate.findViewById(R.id.bt_fenxiang_zhuanqian).setOnClickListener(this);
+        view_zhanweitu = inflate.findViewById(R.id.view_zhanweitu);
         view_zhuanke = inflate.findViewById(R.id.view_zhuanke);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_zhuanke = inflate.findViewById(R.id.rec_zhuanke);
@@ -79,8 +81,10 @@ public class ZhuanKeYesFragment extends Fragment implements OnClickListener{
                             if (zhuanKeYes.getResult().getList().size()>0){
                                 initRec(zhuanKeYes.getResult().getList());
                                 smartrefreshlayout.setVisibility(View.VISIBLE);
+                                view_zhanweitu.setVisibility(View.GONE);
                             }else{
                                 smartrefreshlayout.setVisibility(View.GONE);
+                                view_zhanweitu.setVisibility(View.VISIBLE);
                             }
                         }
                     }

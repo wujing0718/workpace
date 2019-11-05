@@ -504,7 +504,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
             case R.id.bt_zhuanke:
                 if (!utils.isDoubleClick()){
                     if (!token.isEmpty()){
-                        if (xinxi.getResult()!=null){
+                        if (xinxi!=null && xinxi.getResult()!=null){
                             if (xinxi.getResult().isZhuanKe()){
                                 intent.setClass(getActivity(),ZhuanKeYesActivity.class);
                                 startActivity(intent);
@@ -560,14 +560,15 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
             case R.id.bt_my_dianpu:
                 if (!utils.isDoubleClick()){
                     if (!token.isEmpty()){
-                        if (xinxi.getResult()!=null){
-                            if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
-                                intent.setClass(getActivity(),MyDianPuActivity.class);
-                                startActivity(intent);
-                            }else{
-                                intent.setClass(getActivity(),WeiRenZhengActivity.class);
-                                startActivity(intent);
-                            }
+                        if (null !=xinxi){
+                            if (xinxi.getResult()!=null){
+                                if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+                                    intent.setClass(getActivity(),MyDianPuActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    intent.setClass(getActivity(),WeiRenZhengActivity.class);
+                                    startActivity(intent);
+                                }
 //                            if (xinxi.getResult().isIsMerchant() ==true){
 //                                intent.setClass(getActivity(),MyDianPuActivity.class);
 //                                startActivity(intent);
@@ -595,8 +596,7 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
 //                                    }
 //                                }
 //                            }
-                        }else{
-                            ToastUtils.showShort("请稍后再试");
+                            }
                         }
                     }else{
                         ToastUtils.showShort(R.string.denglu);
@@ -699,9 +699,9 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
     @Override
     public void onCountChanged(int i) {
         if(i == 0){
-            qBadgeView.hide(true);
+            qbadgebiewxitong.hide(true);
         }else{
-            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+            qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
         }
     }
 }

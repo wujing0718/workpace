@@ -3,6 +3,7 @@ package com.huohougongfu.app.WoDe.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -58,6 +59,7 @@ public class AddDianPuHuoDongActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.starttime:
+                hideInput();
                 //时间选择器
                 TimePickerView staTime = new TimePickerBuilder(AddDianPuHuoDongActivity.this, new OnTimeSelectListener() {
                     @Override
@@ -71,6 +73,7 @@ public class AddDianPuHuoDongActivity extends AppCompatActivity implements View.
                 staTime.show();
                 break;
             case R.id.oldertime:
+                hideInput();
                 //时间选择器
                 TimePickerView oldTime = new TimePickerBuilder(AddDianPuHuoDongActivity.this, new OnTimeSelectListener() {
                     @Override
@@ -142,5 +145,15 @@ public class AddDianPuHuoDongActivity extends AppCompatActivity implements View.
                         }
                     }
                 });
+    }
+    /**
+     * 隐藏键盘
+     */
+    protected void hideInput() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View v = getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 }

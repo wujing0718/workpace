@@ -168,6 +168,7 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                 Intent intent = new Intent();
                 intent.putExtra("id",data.getList().get(position).getId());
                 intent.putExtra("type",type);
+                intent.putExtra("commission",String.valueOf(data.getList().get(position).getCommission()));
                 intent.setClass(getActivity(),ShangPinDetailActivity.class);
                 startActivity(intent);
             }

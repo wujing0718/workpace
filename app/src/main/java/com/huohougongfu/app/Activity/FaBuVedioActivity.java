@@ -91,6 +91,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
     private File photouri;
     private String SPcontent;
     private String SPvediopath;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,10 +202,15 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         }
         if (requestCode == CONTEXT_RESTRICTED){
             data1 = (AddressBean)data.getSerializableExtra("data");
+            title = data.getStringExtra("title");
             if(data1==null){
                 tv_weizhi.setText("所在位置");
             }else{
+                title = data1.getTitle();
                 tv_weizhi.setText(data1.getTitle());
+            }
+            if (null!=title){
+                tv_weizhi.setText(title);
             }
         }
     }
@@ -245,7 +251,10 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.view_fabud_dingwei:
                 if (!utils.isDoubleClick()){
-                    startActivityForResult(new Intent(FaBuVedioActivity.this, JiQiAcyivity.class), CONTEXT_RESTRICTED);
+                    Intent intent = new Intent();
+                    intent.setClass(FaBuVedioActivity.this,JiQiAcyivity.class);
+                    intent.putExtra("title",tv_weizhi.getText().toString());
+                    startActivityForResult(intent, CONTEXT_RESTRICTED);
                 }
                 break;
             case R.id.start:
@@ -302,7 +311,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
             case R.id.bt_finish:
                 String content = et_content.getText().toString();
                 if (!"".equals(content) || !"".equals(select_path) && select_path!=null){
-                    SelectDialog.show(FaBuVedioActivity.this, "提示", "是否当前编辑",
+                    SelectDialog.show(FaBuVedioActivity.this, "提示", "是否保留当前编辑",
                             "确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -337,7 +346,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
         mPopupWindow.dismiss();
         String content = et_content.getText().toString();
         if (!"".equals(content) || !"".equals(select_path) && select_path!=null){
-            SelectDialog.show(FaBuVedioActivity.this, "提示", "是否当前编辑",
+            SelectDialog.show(FaBuVedioActivity.this, "提示", "是否保留当前编辑",
                     "确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

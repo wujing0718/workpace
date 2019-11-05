@@ -51,6 +51,7 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
     private int index = 0;
     private TextView bt_dianpu_tianjia_huodong;
     private StoreEvents myCollect;
+    private View view_zhanweitu;
 
 
     @Override
@@ -77,11 +78,15 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
                         Gson gson = new Gson();
                         myCollect = gson.fromJson(body, StoreEvents.class);
                         if (myCollect.getStatus() == 1){
-                            if (myCollect.getResult().size()==0){
+                            if (myCollect.getResult().size()<=0){
                                 setBtnBackground(0);
+                                tv_guanli.setText("管理");
+                                bt_dianpu_tianjia_huodong.setVisibility(View.VISIBLE);
+                                view_zhanweitu.setVisibility(View.VISIBLE);
                                 ll_mycollection_bottom_dialog.setVisibility(View.GONE);
                                 view_collect.setVisibility(View.GONE);
                             }else{
+                                view_zhanweitu.setVisibility(View.GONE);
                                 view_collect.setVisibility(View.VISIBLE);
                                 initRec(myCollect.getResult());
                             }
@@ -102,6 +107,7 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
     }
 
     private void initUI() {
+        view_zhanweitu = findViewById(R.id.view_zhanweitu);
         view_collect = findViewById(R.id.view_collect);
         ll_mycollection_bottom_dialog = findViewById(R.id.ll_mycollection_bottom_dialog);
         findViewById(R.id.bt_guanli).setOnClickListener(this);
@@ -177,7 +183,7 @@ public class DianPuMainJianActivity extends AppCompatActivity implements View.On
                         for (int i = dianpuhuodongadapter.getMyLiveList().size(), j =0 ; i > j; i--) {
                             StoreEvents.ResultBean myLive = dianpuhuodongadapter.getMyLiveList().get(i-1);
                             if (myLive.isSelect()) {
-                                id = id+","+myLive.getId();
+                                id = myLive.getId()+","+id;
                             }
                         }
                         initDel(id);

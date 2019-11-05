@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.Utils;
 import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.MainActivity;
 import com.kongzue.dialog.v2.DialogSettings;
+import com.lzy.okgo.OkGo;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
@@ -31,6 +32,7 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -44,6 +46,7 @@ import io.rong.push.notification.PushMessageReceiver;
 import io.rong.push.notification.PushNotificationMessage;
 import io.rong.push.rongpush.RongPush;
 import me.leolin.shortcutbadger.ShortcutBadger;
+import okhttp3.OkHttpClient;
 
 import static com.kongzue.dialog.v2.DialogSettings.STYLE_IOS;
 import static com.kongzue.dialog.v2.DialogSettings.THEME_LIGHT;
@@ -55,6 +58,7 @@ public class MyApp extends Application {
     private static final int MSG_SET_ALIAS = 1001;
     public static final String APP_ID = "wxa36e44f4072c4818";
     public static IWXAPI wxapi;
+
     static {//static 代码段可以防止内存泄露
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
@@ -124,6 +128,12 @@ public class MyApp extends Application {
 //        DoraemonKit.install(this);
         //设置是否启用模糊
 //        DialogSettings.use_blur = true;
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        //超时时间设置，默认10秒
+        builder.readTimeout(10000, TimeUnit.MILLISECONDS);      //全局的读取超时时间
+        builder.writeTimeout(10000, TimeUnit.MILLISECONDS);     //全局的写入超时时间
+        builder.connectTimeout(10000, TimeUnit.MILLISECONDS);   //全局的连接超时时间
+
         DialogSettings.dialog_theme = THEME_LIGHT;//设置提示框主题为亮色主题
         DialogSettings.style = STYLE_IOS;
         DialogSettings.blur_alpha = 250;

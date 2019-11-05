@@ -74,7 +74,7 @@ public class DianPuHuoDongAdapter extends RecyclerView.Adapter<DianPuHuoDongAdap
     public void onBindViewHolder(@NonNull DianPuHuoDongAdapter.ViewHolder viewHolder, int i) {
         final StoreEvents.ResultBean myLive = mMyLiveList.get(viewHolder.getAdapterPosition());
 //        holder.mTvTitle.setText(myLive.getTitle());
-        viewHolder.tv_shangpin_price.setText("有效期："+myLive.getEndTime());
+        viewHolder.tv_shangpin_price.setText("有效期："+myLive.getBeginTime()+"至"+myLive.getEndTime());
         viewHolder.tv_shangpin_collect_num.setText("订单金额满"+myLive.getFullAmount()+"可用");
         viewHolder.tv_shangpin_title.setText("¥"+myLive.getReduceNumber());
         if (mEditMode == MYLIVE_MODE_CHECK) {

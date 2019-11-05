@@ -11,22 +11,25 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_marginVertical="@dimen/dp_10"
+            android:background="#EDEDED"
             android:id="@+id/bt_timepicker"
-            android:layout_marginLeft="15dp"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/tv_time"
                 android:text="201"
                 android:textSize="14sp"
+                android:layout_marginLeft="15dp"
                 android:textColor="@color/colorBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"

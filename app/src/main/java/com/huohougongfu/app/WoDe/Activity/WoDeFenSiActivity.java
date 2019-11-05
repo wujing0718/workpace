@@ -18,6 +18,7 @@ import com.huohougongfu.app.QuanZi.Adapter.ZhaoRenAdapter;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
+import com.huohougongfu.app.WoDe.Adapter.FenSiAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -37,7 +38,7 @@ public class WoDeFenSiActivity extends AppCompatActivity {
 
     private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_wodefensi;
-    private ZhaoRenAdapter zhaorendadapter;
+    private FenSiAdapter zhaorendadapter;
     private String token;
     private String mId;
     private int page = 2;
@@ -82,7 +83,7 @@ public class WoDeFenSiActivity extends AppCompatActivity {
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
         //设置RecyclerView 布局
         rec_wodefensi.setLayoutManager(layoutmanager);
-        zhaorendadapter = new ZhaoRenAdapter(R.layout.item_quanzi_zhaoren,list);
+        zhaorendadapter = new FenSiAdapter(R.layout.item_quanzi_zhaoren,list);
         rec_wodefensi.setAdapter(zhaorendadapter);
         zhaorendadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override

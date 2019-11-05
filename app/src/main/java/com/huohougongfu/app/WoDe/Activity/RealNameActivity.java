@@ -66,9 +66,11 @@ public class RealNameActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.bt_chashi_renzheng:
                 startActivity(intent.setClass(RealNameActivity.this,ChaShiRenZhengActivity.class));
+                finish();
                 break;
             case R.id.bt_shanghu_renzheng:
                 startActivity(intent.setClass(RealNameActivity.this,ShangHuRenZhengActivity.class));
+                finish();
                 break;
             case R.id.bt_finish:
                 finish();

@@ -46,22 +46,6 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
         ImageView img_faixan_touxiang = helper.getView(R.id.img_faixan_touxiang);
         ImageView img_faixan_shoucang = helper.getView(R.id.img_faixan_shoucang);
         ImageView img_type = helper.getView(R.id.img_type);
-        if (item.getType() == 1){
-            String[] split = item.getPicture().split(",");
-            if (split.length>1){
-                img_type.setVisibility(View.VISIBLE);
-                img_type.setImageResource(R.mipmap.img_photos);
-            }
-        }if (item.getType() == 2){
-            String[] split = item.getPicture().split(",");
-            if (split.length>1){
-                img_type.setVisibility(View.VISIBLE);
-                img_type.setImageResource(R.mipmap.img_photos);
-            }
-        }else if (item.getType() == 3){
-                img_type.setVisibility(View.VISIBLE);
-                img_type.setImageResource(R.mipmap.img_video);
-        }
 
         if (item.getAddress()!=null){
             view_dingwei.setVisibility(View.VISIBLE);
@@ -129,6 +113,26 @@ public class FaXianAdapter extends BaseQuickAdapter<QuanZiFaXian.ResultBean.Data
         helper.setText(R.id.tv_faxian_time,time);
         helper.setText(R.id.tv_xihuan_num,String.valueOf(item.getPraiseNum()));
 
+        if (item.getType() == 3){
+            img_type.setVisibility(View.VISIBLE);
+            img_type.setImageResource(R.mipmap.img_video);
+        }else if (item.getType() == 1){
+            String[] split = item.getPicture().split(",");
+            if (split.length>1){
+                img_type.setVisibility(View.VISIBLE);
+                img_type.setImageResource(R.mipmap.img_photos);
+            }else{
+                img_type.setVisibility(View.GONE);
+            }
+        }else if (item.getType() == 2){
+            String[] split = item.getPicture().split(",");
+            if (split.length>1){
+                img_type.setVisibility(View.VISIBLE);
+                img_type.setImageResource(R.mipmap.img_photos);
+            }else{
+                img_type.setVisibility(View.GONE);
+            }
+        }
     }
 
     //下面两个方法提供给页面刷新和加载时调用

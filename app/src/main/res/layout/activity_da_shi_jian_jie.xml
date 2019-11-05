@@ -71,6 +71,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/bt_share"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/dp_50"

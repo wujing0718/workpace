@@ -75,6 +75,7 @@ public class TeYuePingPai {
             private int navigatePages;
             private int navigateFirstPage;
             private int navigateLastPage;
+            private String photo;
             private List<ListBean> list;
             private List<Integer> navigatepageNums;
 
@@ -144,6 +145,14 @@ public class TeYuePingPai {
 
             public int getNextPage() {
                 return nextPage;
+            }
+
+            public String getPhoto() {
+                return photo;
+            }
+
+            public void setPhoto(String photo) {
+                this.photo = photo;
             }
 
             public void setNextPage(int nextPage) {
@@ -287,6 +296,7 @@ public class TeYuePingPai {
                 private Object doorPhoto;
                 private int isAttention;
                 private String storeType;
+                private String photo;
                 private List<MallProductListBean> mallProductList;
 
                 public int getId() {
@@ -487,6 +497,14 @@ public class TeYuePingPai {
 
                 public void setFreeAmountOfExpressFee(Object freeAmountOfExpressFee) {
                     this.freeAmountOfExpressFee = freeAmountOfExpressFee;
+                }
+
+                public String getPhoto() {
+                    return photo;
+                }
+
+                public void setPhoto(String photo) {
+                    this.photo = photo;
                 }
 
                 public Object getStatus() {
@@ -1301,6 +1319,7 @@ public class TeYuePingPai {
             private String doorPhoto;
             private Object mallProductList;
             private Object isAttention;
+            private String photo;
 
             public int getId() {
                 return id;
@@ -1368,6 +1387,14 @@ public class TeYuePingPai {
 
             public String getCreateTime() {
                 return createTime;
+            }
+
+            public String getPhoto() {
+                return photo;
+            }
+
+            public void setPhoto(String photo) {
+                this.photo = photo;
             }
 
             public void setCreateTime(String createTime) {

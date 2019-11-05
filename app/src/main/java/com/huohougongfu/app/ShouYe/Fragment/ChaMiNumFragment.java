@@ -35,6 +35,7 @@ public class ChaMiNumFragment extends Fragment {
     private TextView tv_chami_wode,tv_chami_send,tv_chami_price,tv_chami_zong,tv_yongjin,tv_shouru;
     private String token,tel,id;
     private DecimalFormat decimalFormat = new DecimalFormat("0");
+    private DecimalFormat decimalFormat1 = new DecimalFormat("0.00");
 
     public ChaMiNumFragment() {
     }
@@ -94,9 +95,12 @@ public class ChaMiNumFragment extends Fragment {
         String quanbu = decimalFormat.format(chaMi.getResult().getMe()+chaMi.getResult().getSent());
         String mequanbu = utils.subZeroAndDot(quanbu);
         tv_chami_zong.setText(mequanbu+"粒");
-        tv_yongjin.setText(String.valueOf(chaMi.getResult().getCommission()+"元"));
-        tv_shouru.setText(String.valueOf(chaMi.getResult().getIncome()+"元"));
-        tv_chami_price.setText(String.valueOf(chaMi.getResult().getCommission()+chaMi.getResult().getIncome()+"元"));
+        String yongjin = decimalFormat1.format(chaMi.getResult().getCommission());
+        String shouru = decimalFormat1.format(chaMi.getResult().getIncome());
+        tv_yongjin.setText(String.valueOf(yongjin+"元"));
+        tv_shouru.setText(String.valueOf(shouru+"元"));
+        String format = decimalFormat1.format(chaMi.getResult().getCommission() + chaMi.getResult().getIncome());
+        tv_chami_price.setText(format+"元");
     }
 
     private void initUI() {

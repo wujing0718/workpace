@@ -323,9 +323,10 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/tv_guige"
                             android:textColor="@color/colorBlack"
                             android:textSize="14sp"
-                            android:text="重量"
+                            android:text=""
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -427,7 +428,6 @@
                                 android:id="@+id/img_dianp_logo"
                                 android:layout_marginLeft="15dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@mipmap/ic_launcher"
                                 android:layout_width="44dp"
                                 android:layout_height="44dp" />
 
@@ -527,11 +527,11 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rec_shop_detail_photo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                android:id="@+id/rec_shop_detail_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
                 
 
                 <RelativeLayout
@@ -636,6 +636,7 @@
                 <TextView
                     android:id="@+id/tv_specialNote"
                     android:textSize="14sp"
+                    android:layout_marginLeft="@dimen/dp_20"
                     android:textColor="@color/colorBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

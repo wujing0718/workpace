@@ -16,6 +16,7 @@ import com.huohougongfu.app.Gson.DaKaOne;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -66,7 +67,8 @@ public class DaKaActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         ChaMi chaMi = gson.fromJson(body, ChaMi.class);
                         if (chaMi.getStatus() == 1){
-                            tv_chami_num.setText(String.valueOf(chaMi.getResult().getMe()+chaMi.getResult().getSent()));
+                            String mychami = utils.subZeroAndDot(String.valueOf(chaMi.getResult().getMe()+chaMi.getResult().getSent()));
+                            tv_chami_num.setText(mychami);
                         }
                     }
 

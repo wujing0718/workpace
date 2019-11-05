@@ -56,7 +56,8 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class YiShangJiaFragment extends Fragment implements IListener ,ShopGuanLiAdapter.OnItemClickListener,View.OnClickListener {
+public class
+YiShangJiaFragment extends Fragment implements IListener ,ShopGuanLiAdapter.OnItemClickListener,View.OnClickListener {
 
 
     private View inflate;

@@ -198,11 +198,18 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
                                     ToastUtils.showShort("上传成功");
                                     finish();
                                 }else{
+                                    WaitDialog.dismiss();
                                     ToastUtils.showShort(jsonObject.getString("msg"));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            WaitDialog.dismiss();
+                            super.onError(response);
                         }
 
                         @Override

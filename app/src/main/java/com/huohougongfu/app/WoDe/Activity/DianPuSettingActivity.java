@@ -72,6 +72,7 @@ public class DianPuSettingActivity extends AppCompatActivity implements View.OnC
 
     private void initUI() {
         edt_dianpu_name = findViewById(R.id.edt_dianpu_name);
+        findViewById(R.id.bt_dianpu_queding).setOnClickListener(this);
         findViewById(R.id.bt_dianpu_renzheng).setOnClickListener(this);
         findViewById(R.id.bt_dianpu_tebieshuoming).setOnClickListener(this);
         findViewById(R.id.bt_dianpu_fuwuxuanxiang).setOnClickListener(this);
@@ -83,6 +84,11 @@ public class DianPuSettingActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.bt_dianpu_queding:
+                if (!utils.isDoubleClick()){
+
+                }
+                break;
            case R.id.bt_dianpu_renzheng:
                if (!utils.isDoubleClick()){
                    if (renZhengZhuangTai!=null){

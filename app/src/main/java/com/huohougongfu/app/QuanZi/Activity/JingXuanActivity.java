@@ -11,9 +11,12 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.huohougongfu.app.Activity.LoginActivity;
+import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Gson.JingXuanRen;
 import com.huohougongfu.app.Gson.MyCaQuan;
 import com.huohougongfu.app.Gson.QuanZiFaXian;
+import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.Gson.ZhaoRenGson;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.QuanZi.Adapter.JingXuanAdapter;
@@ -35,10 +38,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JingXuanActivity extends AppCompatActivity {
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import q.rorbin.badgeview.QBadgeView;
+
+public class JingXuanActivity extends AppCompatActivity implements  IUnReadMessageObserver {
 
     private RecyclerView rec_jingxuan_wenzhang,rec_tuijianyonghu;
     private String token,tel,mId;
+    private QBadgeView qBadgeView;
+    private View bt_xiaoxi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +55,36 @@ public class JingXuanActivity extends AppCompatActivity {
         token = MyApp.instance.getString("token");
         tel = MyApp.instance.getString("phone");
         mId = String.valueOf(MyApp.instance.getInt("id"));
+        qBadgeView = new QBadgeView(JingXuanActivity.this);
         initUI();
         initData();
     }
+
+    @Override
+    protected void onResume() {
+        initNoticeIsView();
+        super.onResume();
+    }
+
+    private void initNoticeIsView() {
+        OkGo.<String>post(Contacts.URl1+"/circle/noticeIsView")
+                .params("mId",String.valueOf(MyApp.instance.getInt("id")))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String body = response.body();
+                        WeiDuXiaoXI weiduxiaoxi = new Gson().fromJson(body, WeiDuXiaoXI.class);
+                        if (weiduxiaoxi.getStatus() == 1){
+                            if (weiduxiaoxi.getResult().isComments() || weiduxiaoxi.getResult().isJg() || weiduxiaoxi.getResult().isPraise()){
+                                qBadgeView.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+                            }else{
+                                qBadgeView.hide(true);
+                            }
+                        }
+                    }
+                });
+    }
+
 
     private void initData() {
         Map<String, String> map = new HashMap<>();
@@ -215,6 +250,21 @@ public class JingXuanActivity extends AppCompatActivity {
 //        rec_jingxuan_wenzhang.setAdapter(wodeadapter);
 //    }
     private void initUI() {
+        bt_xiaoxi = findViewById(R.id.bt_xiaoxi);
+        bt_xiaoxi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                if (!token.isEmpty()){
+                    intent.setClass(JingXuanActivity.this,XiaoXiActivity.class);
+                    startActivity(intent);
+                }else{
+                    ToastUtils.showShort(R.string.denglu);
+                    intent.setClass(JingXuanActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         findViewById(R.id.bt_huanyihuan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,5 +279,14 @@ public class JingXuanActivity extends AppCompatActivity {
         });
          rec_jingxuan_wenzhang = findViewById(R.id.rec_jingxuan_wenzhang);
          rec_tuijianyonghu = findViewById(R.id.rec_tuijianyonghu);
+    }
+
+    @Override
+    public void onCountChanged(int i) {
+        if(i == 0){
+            qBadgeView.hide(true);
+        }else{
+            qBadgeView.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+        }
     }
 }

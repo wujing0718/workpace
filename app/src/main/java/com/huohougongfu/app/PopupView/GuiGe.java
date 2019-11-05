@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
@@ -28,6 +30,8 @@ import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.WoDe.Activity.AddressActivity;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -49,7 +53,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GuiGe extends BottomPopupView {
+public class GuiGe extends BottomPopupView implements IListener{
+    private final String userid;
     private ShopGuiGe.ResultBean mallProduct;
     private ImageView img_guige_photo;
     private TextView tv_guige_name,tv_guige_price,tv_guige_kucun;
@@ -66,24 +71,30 @@ public class GuiGe extends BottomPopupView {
     private String standard;
     private ShopYouHuiQuan.ResultBean resultBean;
 
-    public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct) {
+    public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct,String userid) {
         super(context);
         this.mallProduct = mallProduct;
         this.context = context;
+        this.userid = userid;
+
     }
-    public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct, ShopYouHuiQuan.ResultBean resultBean) {
+    public GuiGe(@NonNull Context context, ShopGuiGe.ResultBean mallProduct, ShopYouHuiQuan.ResultBean resultBean,String userid) {
         super(context);
         this.mallProduct = mallProduct;
         this.context = context;
         this.resultBean = resultBean;
+        this.userid = userid;
     }
+
     @Override
     protected int getImplLayoutId() {
         return R.layout.dialog_detail_guige;
     }
+
     @Override
     protected void onCreate() {
         super.onCreate();
+        ListenerManager.getInstance().registerListtener(this);
         initUI();
 
     }
@@ -95,13 +106,19 @@ public class GuiGe extends BottomPopupView {
         tv_guige_price = findViewById(R.id.tv_guige_price);
         tv_guige_kucun = findViewById(R.id.tv_guige_kucun);
         amountview = findViewById(R.id.amountview);
+        View bt_gouwuche = findViewById(R.id.bt_gouwuche);
+
+        //转卖ID
+        if (null!=userid && !userid.isEmpty()){
+            bt_gouwuche.setVisibility(GONE);
+        }else {
+            bt_gouwuche.setVisibility(VISIBLE);
+        }
         tv_guige_kucun.setText("库存"+mallProduct.getProductInfo().getStock()+"件");
         if(mallProduct.getProductStandard()!=null){
             for (int i = 0; i <mallProduct.getProductStandard().size() ; i++) {
                 list.add(mallProduct.getProductStandard().get(i).getStandard());
             }
-        }else{
-
         }
         amountview.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
@@ -111,7 +128,7 @@ public class GuiGe extends BottomPopupView {
         });
         addview(gadiogroup);
         //初始化
-        findViewById(R.id.bt_gouwuche).setOnClickListener(new OnClickListener() {
+        bt_gouwuche.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 initGouWuChe();
@@ -122,6 +139,9 @@ public class GuiGe extends BottomPopupView {
             public void onClick(View v) {
                 JSONObject jsonObject = new JSONObject();
                 try {
+                    if (null!=userid && !userid.isEmpty()){
+                        jsonObject.put("resellOfUserId",userid);
+                    }
                         jsonObject.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
                         jsonObject.put("productId",mallProduct.getProductInfo().getId());
                         jsonObject.put("storeId",mallProduct.getProductInfo().getStoreId());
@@ -192,7 +212,7 @@ public class GuiGe extends BottomPopupView {
                                     }
                                     intent.setClass(context,XiaDanActivity.class);
                                     context.startActivity(intent);
-                                    ShangPinDetailActivity.activity.fileList();
+                                    ShangPinDetailActivity.activity.finish();
                                 }
                             }
                         } catch (JSONException e) {
@@ -227,6 +247,9 @@ public class GuiGe extends BottomPopupView {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 ToastUtils.showShort(jsonObject.getString("msg"));
+                                ListenerManager.getInstance().sendBroadCast(300,"加入购物车");
+                                dismiss();
+                            }else{
                                 dismiss();
                             }
                         } catch (JSONException e) {
@@ -281,5 +304,10 @@ public class GuiGe extends BottomPopupView {
     @Override
     protected int getMaxHeight() {
         return (int) (XPopupUtils.getWindowHeight(getContext()) * .65f);
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+
     }
 }

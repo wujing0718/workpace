@@ -73,6 +73,7 @@ public class PingJiaAdapter extends BaseQuickAdapter<PingJia.ResultBean.ListBean
             bt_pinglun_dianzan.setVisibility(View.GONE);
         }
         if(picture1 !=null){
+            mlist.clear();
             String[] split = picture1.split(",");
             pinglun_photo.setVisibility(View.VISIBLE);
             for (int i = 0; i < split.length; i++) {

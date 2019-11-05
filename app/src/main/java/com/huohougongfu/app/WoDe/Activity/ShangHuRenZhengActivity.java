@@ -302,6 +302,7 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
             int degree  = ImageUtils.getBitmapDegree(imagePath);
             //Log.e(TAG, "###path=" + imagePath);
             //将图片按照某个角度进行旋转
+            shouquanFile.clear();
             Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             shouquanPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
             shouquanFile.add(new File(shouquanPath));
@@ -319,6 +320,7 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
             int degree  = ImageUtils.getBitmapDegree(imagePath);
             //Log.e(TAG, "###path=" + imagePath);
             //将图片按照某个角度进行旋转
+            mentouFile.clear();
             Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             mentouPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 mentouFile.add(new File(mentouPath));
@@ -336,6 +338,7 @@ public class ShangHuRenZhengActivity extends AppCompatActivity implements View.O
             int degree  = ImageUtils.getBitmapDegree(imagePath);
             //Log.e(TAG, "###path=" + imagePath);
             //将图片按照某个角度进行旋转
+            zhizhaoFile.clear();
             Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             zhizhaoPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
                 zhizhaoFile.add(new File(zhizhaoPath));

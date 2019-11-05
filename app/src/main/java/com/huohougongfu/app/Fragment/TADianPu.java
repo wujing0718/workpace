@@ -56,7 +56,6 @@ public class TADianPu extends Fragment {
         mId = getArguments().getString(KEY);
         smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_ta_dianpu = inflate.findViewById(R.id.rec_ta_dianpu);
-
         initData();
         return inflate;
     }
@@ -94,6 +93,7 @@ public class TADianPu extends Fragment {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     Intent intent = new Intent();
+                    intent.putExtra("userid",mId);
                     intent.putExtra("id",shop.getResult().getList().get(position).getId());
                     intent.setClass(getActivity(),ShangPinDetailActivity.class);
                     startActivity(intent);

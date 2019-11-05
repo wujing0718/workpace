@@ -470,6 +470,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,IList
                     transaction.commitAllowingStateLoss();
                     initTeaTableNum(jiQiLieBiao.getEquipmentId());
                 }
+            }else{
+                if (bt_switch.isChecked()){
+                    initJiQi();
+                }else{
+                    initMaiChaJiQi();
+                }
             }
         }
     }

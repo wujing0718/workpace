@@ -29,12 +29,14 @@ import com.huohougongfu.app.Utils.CustomGridView;
 import com.huohougongfu.app.Utils.GetJsonDataUtil;
 import com.huohougongfu.app.Utils.utils;
 import com.huxq17.handygridview.HandyGridView;
+import com.kongzue.dialog.v2.WaitDialog;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -350,6 +352,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.show(TianJiaShangPinActivity.this,"请稍后。。。");
                         String body = response.body();
                         JSONObject jsonObject1 = null;
                         try {
@@ -358,12 +361,19 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                                 ToastUtils.showShort(jsonObject1.getString("msg"));
                                 finish();
                             }else{
+                                WaitDialog.dismiss();
                                 ToastUtils.showShort(jsonObject1.getString("msg"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.dismiss();
+                        super.onStart(request);
                     }
                 });
 

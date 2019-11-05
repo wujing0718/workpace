@@ -91,9 +91,9 @@ public class PingJiaFragment extends Fragment {
                             if (shangPinGson.getResult().getList().size()>0){
                                 smartrefreshlayout.setVisibility(View.VISIBLE);
                                 initRec(shangPinGson.getResult().getList());
+                            }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
                             }
-                        }else{
-                            smartrefreshlayout.setVisibility(View.GONE);
                         }
                     }
                     @Override

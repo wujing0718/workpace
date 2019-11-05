@@ -26,6 +26,10 @@ public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.List
     @Override
     protected void convert(BaseViewHolder helper, ZhaoRenGson.ResultBean.ListBean item) {
         helper.addOnClickListener(R.id.bt_zhaoren_gaunzhu);
+        View view = helper.getView(R.id.tv_my_fensinum);
+        View view_line = helper.getView(R.id.view_line);
+        view_line.setVisibility(View.GONE);
+        view.setVisibility(View.GONE);
         TextView bt_zhaoren_gaunzhu = helper.getView(R.id.bt_zhaoren_gaunzhu);
         View view_xian = helper.getView(R.id.view_xian);
         if (item.getIsAttention() == 1){

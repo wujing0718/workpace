@@ -82,6 +82,7 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
     private String equipmentId;
     private TeaDetail teaDetail;
     private ZhiFu zhiFu;
+    private TextView tv_num;
 
 
     @Override
@@ -163,6 +164,9 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
     }
 
     private void initUI() {
+        tv_num = findViewById(R.id.tv_num);
+        findViewById(R.id.view).setVisibility(View.GONE);
+        tv_num.setText("共"+1+"件");
         tv_manjian1 = findViewById(R.id.tv_manjian1);
         tv_chami_dikou = findViewById(R.id.tv_chami_dikou);
         img_chami_check = findViewById(R.id.img_chami_check);
@@ -298,7 +302,7 @@ public class MyDingDanMaiChaActivity extends AppCompatActivity implements View.O
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        ZhiFu zhiFu = gson.fromJson(response.body(), ZhiFu.class);
+                        zhiFu = gson.fromJson(response.body(), ZhiFu.class);
                         if (zhiFu.getStatus() == 1){
                             new XPopup.Builder(MyDingDanMaiChaActivity.this)
                                     .asCustom(new ChaTaiZhiFu(MyDingDanMaiChaActivity.this,zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),orderprice))

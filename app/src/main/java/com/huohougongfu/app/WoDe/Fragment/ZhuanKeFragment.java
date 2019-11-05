@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +18,14 @@ import com.huohougongfu.app.Gson.ZhuanKeVIP;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
+import com.huohougongfu.app.Shop.Adapter.ShopImageAdapter;
 import com.huohougongfu.app.Shop.Fragment.SouSuoShopFragment;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.AddressActivity;
+import com.huohougongfu.app.WoDe.Activity.ZhuanKeYesActivity;
+import com.huohougongfu.app.WoDe.Adapter.ZhuanKeImageAdapter;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -50,7 +55,8 @@ public class ZhuanKeFragment extends Fragment implements View.OnClickListener{
     private ZhuanKeVIP.ResultBean.EarnPordutBean earnpordutbean;
     private Banner banner;
     private List<String> mbanner = new ArrayList<>();
-    private TextView tv_introduce;
+    private RecyclerView rec_shop_detail_photo;
+    private List<Object> mlist = new ArrayList<>();
 
     public ZhuanKeFragment() {
         // Required empty public constructor
@@ -75,13 +81,26 @@ public class ZhuanKeFragment extends Fragment implements View.OnClickListener{
             mbanner.add(split[i]);
         }
         banner = inflate.findViewById(R.id.banner);
-        tv_introduce = inflate.findViewById(R.id.tv_introduce);
+        rec_shop_detail_photo = inflate.findViewById(R.id.rec_shop_detail_photo);
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        //设置RecyclerView 布局
+        rec_shop_detail_photo.setLayoutManager(layoutmanager);
         //加载网络图片
         banner.setImages(mbanner)
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 .setImageLoader(new GlideImageLoader())
                 .start();
-        tv_introduce.setText(earnpordutbean.getIntroduce());
+        String[] split1 = earnpordutbean.getIntroduce().split(",");
+        for (int i = 0; i < split1.length; i++) {
+            mlist.add(split1[i]);
+        }
+        ZhuanKeImageAdapter pingJiaPhotoAdapter = new ZhuanKeImageAdapter(mlist);
+        rec_shop_detail_photo.setAdapter(pingJiaPhotoAdapter);
     }
 
     public static Fragment newInstance(ZhuanKeVIP.ResultBean.EarnPordutBean content) {
@@ -150,6 +169,9 @@ public class ZhuanKeFragment extends Fragment implements View.OnClickListener{
                                     intent.putExtra("订单详情",(Serializable) shopDingDan.getResult());
                                     intent.setClass(getActivity(),XiaDanActivity.class);
                                     getActivity().startActivity(intent);
+                                    if (ZhuanKeYesActivity.activity!=null){
+                                        ZhuanKeYesActivity.activity.finish();
+                                    }
                                 }
                             }
                         } catch (JSONException e) {

@@ -54,6 +54,7 @@ import com.lzy.okgo.request.base.Request;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.zhihu.matisse.internal.model.SelectedItemCollection;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +94,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
     private AddressBean data1;
     private static final int REQUEST_CODE_CHOOSE =23 ;
     private String SPcontent,SPphotopath;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,8 +212,10 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                         //最多添加6张图片
                         viewPluImg(position);
                     } else {
+                        if (mPicList.size()<10){
+                            callGallery();
+                        }
                         //添加凭证图片
-                        callGallery();
 //                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mPicList.size());
                     }
                 } else {
@@ -267,33 +271,44 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (requestCode == CONTEXT_RESTRICTED){
             data1 = (AddressBean)data.getSerializableExtra("data");
+            title = data.getStringExtra("title");
             if(data1==null){
                 tv_weizhi.setText("所在位置");
             }else{
+                title = data1.getTitle();
                 tv_weizhi.setText(data1.getTitle());
+            }
+            if (null!=title){
+                tv_weizhi.setText(title);
             }
         }
     }
 
     private void insertImagesSync(final Intent data) {
         List<Uri> mSelected = Matisse.obtainResult(data);
-        //被压缩后的图片路径
-        for (Uri imageUri : mSelected) {
-            String imagePath = SDCardUtil.getFilePathFromUri(FaBuActivity.this, imageUri);
-            Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
-            //读取图片的旋转的角度
-            int degree  = ImageUtils.getBitmapDegree(imagePath);
-            //Log.e(TAG, "###path=" + imagePath);
-            //将图片按照某个角度进行旋转
-            Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
-            String compressPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
-            if (compressPath!=null) {
-                //compressPath 存放所有的照片的路径
-                mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
-                mphoto.add(new File(compressPath));
-                mGridViewAddImgAdapter.notifyDataSetChanged();
-            }else{
-                ToastUtils.showShort("该图片错误");
+        if (mPicList.size()<10){
+            //被压缩后的图片路径
+            for (Uri imageUri : mSelected) {
+                String imagePath = SDCardUtil.getFilePathFromUri(FaBuActivity.this, imageUri);
+                Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+                //读取图片的旋转的角度
+                int degree  = ImageUtils.getBitmapDegree(imagePath);
+                //Log.e(TAG, "###path=" + imagePath);
+                //将图片按照某个角度进行旋转
+                Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
+                String compressPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
+                if (compressPath!=null) {
+                    //compressPath 存放所有的照片的路径
+                    if (mPicList.size()>8){
+                        ToastUtils.showShort("最多上传9张");
+                    }else{
+                        mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
+                        mphoto.add(new File(compressPath));
+                        mGridViewAddImgAdapter.notifyDataSetChanged();
+                    }
+                }else{
+                    ToastUtils.showShort("该图片错误");
+                }
             }
         }
     }
@@ -311,7 +326,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                 String content = edt_content.getText().toString();
                 String jsonpathString  = new JSONArray(mPicList).toString();
                 if (!"".equals(content) || !mPicList.isEmpty()){
-                    SelectDialog.show(FaBuActivity.this, "提示", "是否当前编辑",
+                    SelectDialog.show(FaBuActivity.this, "提示", "是否保留当前编辑",
                             "确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -338,7 +353,11 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.view_fabud_dingwei:
                 if (!utils.isDoubleClick()){
-                    startActivityForResult(new Intent(FaBuActivity.this, JiQiAcyivity.class), CONTEXT_RESTRICTED);
+                    Intent intent = new Intent();
+                    intent.setClass(FaBuActivity.this,JiQiAcyivity.class);
+                    intent.putExtra("title",tv_weizhi.getText().toString());
+                    startActivityForResult(intent, CONTEXT_RESTRICTED);
+
                 }
                 break;
         }
@@ -402,7 +421,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
         String content = edt_content.getText().toString();
         String jsonpathString  = new JSONArray(mPicList).toString();
         if (!"".equals(content) || !mPicList.isEmpty()){
-            SelectDialog.show(FaBuActivity.this, "提示", "是否当前编辑",
+            SelectDialog.show(FaBuActivity.this, "提示", "是否保留当前编辑",
                     "确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

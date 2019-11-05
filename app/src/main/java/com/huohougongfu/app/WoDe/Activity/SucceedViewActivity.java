@@ -70,6 +70,66 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView(RenZhengZhuangTai renZhengZhuangTai) {
+        if ("大师认证成功".equals(code)){
+            vie_wanniu.setVisibility(View.VISIBLE);
+            tv_renzheng_shanchang.setVisibility(View.VISIBLE);
+            tv_name.setText("姓名："+renZhengZhuangTai.getResult().getMaster().getInfo().getRealName());
+            tv_renzheng_level.setText("职称："+renZhengZhuangTai.getResult().getMaster().getInfo().getLevel());
+            tv_renzheng_idCard.setText("身份证号："+renZhengZhuangTai.getResult().getMaster().getInfo().getIdCard());
+            tv_renzheng_shanchang.setText("擅长："+renZhengZhuangTai.getResult().getMaster().getInfo().getSpecialty());
+            if (renZhengZhuangTai.getResult().getStore().getCode() ==2){
+                if (renZhengZhuangTai.getResult().getMaster().getCode() ==2){
+                    if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() == 2){
+                        vie_wanniu.setVisibility(View.VISIBLE);
+                        bt_zanburenzheng.setVisibility(View.GONE);
+                        bt_zanburenzheng.setText("进行大师认证");
+                        bt_jixurenzheng.setVisibility(View.GONE);
+                    }else{
+                        vie_wanniu.setVisibility(View.VISIBLE);
+                        bt_zanburenzheng.setText("进行大师认证");
+                        bt_jixurenzheng.setText("特约品牌认证");
+                    }
+                }else if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() ==2) {
+                    vie_wanniu.setVisibility(View.GONE);
+                    bt_zanburenzheng.setVisibility(View.GONE);
+                    bt_jixurenzheng.setVisibility(View.GONE);
+                }else if (renZhengZhuangTai.getResult().getMaster().getCode() ==5){
+                    if (renZhengZhuangTai.getResult().getStore().getCode() ==2){
+                        if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() ==2){
+                            vie_wanniu.setVisibility(View.GONE);
+                            bt_zanburenzheng.setVisibility(View.GONE);
+                            bt_jixurenzheng.setVisibility(View.GONE);
+                        }else{
+                            vie_wanniu.setVisibility(View.VISIBLE);
+                            bt_zanburenzheng.setVisibility(View.VISIBLE);
+                            bt_zanburenzheng.setText("特约品牌认证");
+                            bt_jixurenzheng.setVisibility(View.GONE);
+                        }
+                    }else{
+                        if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() ==2){
+                            vie_wanniu.setVisibility(View.VISIBLE);
+                            bt_zanburenzheng.setVisibility(View.VISIBLE);
+                            bt_zanburenzheng.setText("进行商户认证");
+                            bt_jixurenzheng.setVisibility(View.GONE);
+                        }else{
+                            bt_zanburenzheng.setVisibility(View.VISIBLE);
+                            bt_jixurenzheng.setVisibility(View.VISIBLE);
+                            bt_zanburenzheng.setText("进行商户认证");
+                            bt_jixurenzheng.setText("特约品牌认证");
+                            vie_wanniu.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            }else if (renZhengZhuangTai.getResult().getMaster().getCode()<4){
+                vie_wanniu.setVisibility(View.VISIBLE);
+                bt_zanburenzheng.setText("进行大师认证");
+                bt_jixurenzheng.setText("进行商户认证");
+            }else{
+                vie_wanniu.setVisibility(View.VISIBLE);
+                bt_zanburenzheng.setVisibility(View.GONE);
+                bt_jixurenzheng.setText("进行商户认证");
+            }
+        }
         if ("茶师认证成功".equals(code)){
             vie_wanniu.setVisibility(View.VISIBLE);
             tv_renzheng_shanchang.setVisibility(View.VISIBLE);
@@ -119,17 +179,26 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
                         }
                     }
                 }
+            }else if (renZhengZhuangTai.getResult().getMaster().getCode()<4){
+                vie_wanniu.setVisibility(View.VISIBLE);
+                bt_zanburenzheng.setText("进行大师认证");
+                bt_jixurenzheng.setText("进行商户认证");
             }else{
                 vie_wanniu.setVisibility(View.VISIBLE);
                 bt_zanburenzheng.setVisibility(View.GONE);
                 bt_jixurenzheng.setText("进行商户认证");
             }
-        }else if ("商户认证成功".equals(code)){
+        }
+        if ("商户认证成功".equals(code)){
             if (renZhengZhuangTai.getResult().getMaster().getCode() == 2){
                 if (renZhengZhuangTai.getResult().getSpecialBrand().getCode() == 2){
                     vie_wanniu.setVisibility(View.GONE);
                     bt_zanburenzheng.setVisibility(View.GONE);
                     bt_jixurenzheng.setVisibility(View.GONE);
+                }else if (renZhengZhuangTai.getResult().getMaster().getCode()<4){
+                    vie_wanniu.setVisibility(View.VISIBLE);
+                    bt_zanburenzheng.setText("进行大师认证");
+                    bt_jixurenzheng.setText("特约品牌认证");
                 }else{
                     vie_wanniu.setVisibility(View.VISIBLE);
                     bt_zanburenzheng.setVisibility(View.GONE);
@@ -153,12 +222,14 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
             bt_zanburenzheng.setText("暂不进行身份认证");
             bt_jixurenzheng.setText("进行个人身份认证");
             vie_wanniu.setVisibility(View.VISIBLE);
-        }else if("特约品牌认证成功".equals(code)){
+        }
+        if("特约品牌认证成功".equals(code)){
             tv_renzheng_shanchang.setVisibility(View.VISIBLE);
-            tv_name.setText("店铺名："+renZhengZhuangTai.getResult().getSpecialBrand().getInfo().getStoreName());
-            tv_renzheng_level.setText("经营者："+renZhengZhuangTai.getResult().getSpecialBrand().getInfo().getRealName());
-            tv_renzheng_idCard.setText("身份证号："+renZhengZhuangTai.getResult().getSpecialBrand().getInfo().getIdCard());
-            tv_renzheng_shanchang.setText("银行卡："+renZhengZhuangTai.getResult().getSpecialBrand().getInfo().getBankCard());
+            RenZhengZhuangTai.ResultBean.SpecialBrandBean.InfoBeanX info = renZhengZhuangTai.getResult().getSpecialBrand().getInfo();
+            tv_name.setText("店铺名："+info.getStoreName());
+            tv_renzheng_level.setText("经营者："+info.getRealName());
+            tv_renzheng_idCard.setText("身份证号："+info.getIdCard());
+            tv_renzheng_shanchang.setText("银行卡："+info.getBankCard());
             vie_wanniu.setVisibility(View.VISIBLE);
             if (renZhengZhuangTai.getResult().getMaster().getCode() == 2){
                 vie_wanniu.setVisibility(View.GONE);
@@ -167,6 +238,7 @@ public class SucceedViewActivity extends AppCompatActivity implements View.OnCli
             }else{
                 vie_wanniu.setVisibility(View.VISIBLE);
                 bt_zanburenzheng.setVisibility(View.GONE);
+                bt_jixurenzheng.setVisibility(View.GONE);
                 bt_jixurenzheng.setText("进行茶师认证");
             }
         }

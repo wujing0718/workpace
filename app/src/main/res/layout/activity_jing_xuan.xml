@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:background="@color/black"
             android:layout_width="match_parent"
             android:layout_height="44dp">
 
@@ -25,7 +26,7 @@
                 android:layout_height="44dp">
 
                 <ImageView
-                    android:src="@mipmap/img_back"
+                    android:src="@mipmap/img_back_white"
                     android:layout_centerInParent="true"
                     android:layout_width="@dimen/icon_size_20dp"
                     android:layout_height="@dimen/icon_size_20dp" />
@@ -35,10 +36,24 @@
             <TextView
                 android:text="精选内容"
                 android:textSize="17sp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/bt_xiaoxi"
+                android:layout_alignParentRight="true"
+                android:layout_width="50dp"
+                android:layout_height="44dp">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/img_xiaoxi"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

@@ -307,6 +307,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_centerInParent="true"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"

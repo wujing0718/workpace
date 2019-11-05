@@ -22,6 +22,7 @@ import com.huohougongfu.app.Gson.Over;
 import com.huohougongfu.app.Gson.WXPay;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.PaySucceedActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.PayResult;
 import com.huohougongfu.app.Utils.utils;
@@ -69,7 +70,7 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Intent intent = new Intent();
-                        intent.setClass(context, MyDingDanActivity.class);
+                        intent.setClass(context, PaySucceedActivity.class);
                         context.startActivity(intent);
                         Message msg1 = Message.obtain();
                         msg1.what = 0;

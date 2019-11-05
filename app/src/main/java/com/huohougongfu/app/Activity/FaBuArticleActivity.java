@@ -121,7 +121,11 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.view_fabud_dingwei:
                 if (!utils.isDoubleClick()){
-                    startActivityForResult(new Intent(FaBuArticleActivity.this, JiQiAcyivity.class), CONTEXT_RESTRICTED);
+                    Intent intent = new Intent();
+                    intent.setClass(FaBuArticleActivity.this,JiQiAcyivity.class);
+                    intent.putExtra("title",tv_weizhi.getText().toString());
+                    startActivityForResult(intent, CONTEXT_RESTRICTED);
+
                 }
                 break;
             case R.id.bt_add_editview:
@@ -257,11 +261,16 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
             }
         }
         if (requestCode == CONTEXT_RESTRICTED){
+            title = data.getStringExtra("title");
             data1 = (AddressBean)data.getSerializableExtra("data");
             if(data1==null){
                 tv_weizhi.setText("所在位置");
             }else{
+                title = data1.getTitle();
                 tv_weizhi.setText(data1.getTitle());
+            }
+            if (null!=title){
+                tv_weizhi.setText(title);
             }
         }
     }

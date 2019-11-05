@@ -238,31 +238,33 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
     private void initGuanZhu(int type, ZhaoRenGson.ResultBean.ListBean listBean, TextView bt_zhaoren_gaunzhu) {
         int userId = listBean.getUserId();
         Map<String,String> map =new HashMap<>();
-        map.put("mId",String.valueOf(mId));
-        map.put("attentionId",String.valueOf(userId));
-        map.put("type",String.valueOf(type));
-        map.put("token",token);
-        OkGo.<String>post(Contacts.URl1+"/circle/attention")
-                .params(map)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.body());
-                            if (jsonObject.getInt("status") == 1){
-                                listBean.setIsAttention(1);
-                                ToastUtils.showShort(jsonObject.getString("msg"));
-                                bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.black_di);
-                                bt_zhaoren_gaunzhu.setText("取消关注");
-                                bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
-                            }else{
-                                ToastUtils.showShort(jsonObject.getString("msg"));
+        if (mId != userId){
+            map.put("mId",String.valueOf(mId));
+            map.put("attentionId",String.valueOf(userId));
+            map.put("type",String.valueOf(type));
+            map.put("token",token);
+            OkGo.<String>post(Contacts.URl1+"/circle/attention")
+                    .params(map)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body());
+                                if (jsonObject.getInt("status") == 1){
+                                    listBean.setIsAttention(1);
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                    bt_zhaoren_gaunzhu.setBackgroundResource(R.drawable.black_di);
+                                    bt_zhaoren_gaunzhu.setText("取消关注");
+                                    bt_zhaoren_gaunzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.colorWhite));
+                                }else{
+                                    ToastUtils.showShort(jsonObject.getString("msg"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void initNoGuanZhu(int type, ZhaoRenGson.ResultBean.ListBean listBean, TextView bt_zhaoren_gaunzhu) {
@@ -371,9 +373,9 @@ public class ZhaoRenActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onCountChanged(int i) {
         if(i == 0){
-            qBadgeView.hide(true);
+            qbadgebiewxitong.hide(true);
         }else{
-            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+            qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
         }
     }
 }

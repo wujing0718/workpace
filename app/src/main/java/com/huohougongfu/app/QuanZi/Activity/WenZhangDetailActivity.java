@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,6 +42,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -77,6 +82,10 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private TextView tv_vip_num;
     private View view_vip;
     private QuanZiShare share;
+    private View view_line;
+    private int page = 2;
+    private SmartRefreshLayout smartRefreshLayout;
+    private SmartRefreshLayout smartrefreshlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +103,10 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     private void initUI() {
         tv_vip_num = findViewById(R.id.tv_vip_num);
         view_vip = findViewById(R.id.view_vip);
+        smartrefreshlayout = findViewById(R.id.smartrefreshlayout);
         findViewById(R.id.bt_geren_zhuye).setOnClickListener(this);
         tv_wenzhang_title = findViewById(R.id.tv_wenzhang_title);
+        view_line = findViewById(R.id.view_line);
         img_quanzi_touxiang = findViewById(R.id.img_quanzi_touxiang);
         tv_guanzhu = findViewById(R.id.tv_guanzhu);
         view_wenzhang = findViewById(R.id.view_wenzhang);
@@ -109,6 +120,12 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         edt_quanzi_pinglun = findViewById(R.id.edt_quanzi_pinglun);
         findViewById(R.id.bt_fasong_pinglun).setOnClickListener(this);
         initData();
+        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initData();
+            }
+        });
     }
 
     private void initData() {
@@ -124,7 +141,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        WaitDialog.dismiss();
+                        smartrefreshlayout.finishRefresh(true);
                         String body = response.body();
                         Gson gson = new Gson();
                         detail = gson.fromJson(body, QuanZiDetail.class);
@@ -135,8 +152,14 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
-                        WaitDialog.show(WenZhangDetailActivity.this,"载入中...");
+                        smartrefreshlayout.finishRefresh(true);
                         super.onStart(request);
                     }
                 });
@@ -200,10 +223,25 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         }else{
             view_vip.setVisibility(View.GONE);
         }
+        if (result.getMember().getMaster().getLevel()!= null && !result.getMember().getMaster().getLevel().isEmpty()){
+            tv_quanzi_chenghu.setText(result.getMember().getMaster().getLevel());
+            view_line.setVisibility(View.VISIBLE);
+        }
+        if (result.getMember().getPlace()!=null && !result.getMember().getPlace().isEmpty()){
+            view_line.setVisibility(View.VISIBLE);
+            tv_quanzi_weizhi.setText(result.getMember().getPlace());
+        }else{
+            view_line.setVisibility(View.GONE);
+        }
         String content = result.getContent();
         String picture = result.getPicture();
         String[] split1 = picture.split(",");
         String[] mcontent = content.split("わわ");
+        if (userid == MyApp.instance.getInt("id")){
+            tv_guanzhu.setVisibility(View.GONE);
+        }else{
+            tv_guanzhu.setVisibility(View.VISIBLE);
+        }
         if (result.getMember().getIsAttention() ==1){
             tv_guanzhu.setBackgroundResource(R.drawable.yiguanzhu);
             tv_guanzhu.setText("已关注");
@@ -214,7 +252,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
             tv_guanzhu.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
         }
         tv_wenzhang_title.setText(result.getTitle());
-        tv_quanzi_weizhi.setText(result.getAddress());
+//        tv_quanzi_weizhi.setText(result.getAddress());
         view_wenzhang.removeAllViews();
         int temp = 0;
             for (int i = 0;i<mcontent.length;i++){
@@ -236,6 +274,8 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         rec_wenzhang_pinglun = new RecyclerView(WenZhangDetailActivity.this);
         //创建LinearLayoutManager 对象 这里使用 LinearLayoutManager 是线性布局的意思
         LinearLayoutManager layoutmanager = new LinearLayoutManager(this);
+        smartRefreshLayout = new SmartRefreshLayout(this);
+        smartRefreshLayout.addView(rec_wenzhang_pinglun);
         //设置RecyclerView 布局
         rec_wenzhang_pinglun.setLayoutManager(layoutmanager);
         View wenzhang_view_time = LayoutInflater.from(this).inflate(R.layout.wenzhang_view_time, null, false);
@@ -259,7 +299,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
         layoutParams.setMargins(10,20,10,20);
         wenzhang_view_time.setLayoutParams(layoutParams);
         view_wenzhang.addView(wenzhang_view_time);
-        view_wenzhang.addView(rec_wenzhang_pinglun);
+        view_wenzhang.addView(smartRefreshLayout);
         tv_quanzi_name.setText(result.getMember().getNickName());
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(WenZhangDetailActivity.this).load(result.getMember().getPhoto()).apply(requestOptions).into(img_quanzi_touxiang);
@@ -277,6 +317,66 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
             }
         });
 
+         //刷新
+        smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 2;
+                initData();
+                smartRefreshLayout.finishRefresh(true);//传入false表示刷新失败
+            }
+        });
+        //加载更多
+        smartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+        //加载更多
+        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                initAdd();
+            }
+        });
+    }
+
+    private void initAdd() {
+        Map<String,String> map = new HashMap<>();
+        map.put("dataId",String.valueOf(dId));
+        map.put("pageNo",String.valueOf(page++));
+        map.put("token",token);
+        map.put("mId",String.valueOf(mId));
+        map.put("pageSize","10");
+        OkGo.<String>post(Contacts.URl1+"/circle/comments/list")
+                .params(map)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
+                        String body = response.body();
+                        Gson gson = new Gson();
+                        PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
+                        if (pinglun1.getStatus() == 1) {
+                            if (pinglun1.getResult().getList().size()>0){
+                                pingLunAdapter.add(pinglun1.getResult().getList());
+                                smartRefreshLayout.finishLoadmore(true);//传入false表示刷新失败
+                                smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                            }else{
+                                smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                                smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(WenZhangDetailActivity.this,"载入中...");
+                        super.onStart(request);
+                    }
+                });
     }
 
     private void initPinglunDianZan(int i, PingLunGson.ResultBean.ListBean result, TextView dianzannum, ImageView img_pinglun_dianzan) {
@@ -373,7 +473,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
             case R.id.bt_gengduo:
                 String[] caozuo;
                 if (userid == MyApp.instance.getInt("id")){
-                    caozuo = new String[]{"分享", "举报","删除"};
+                    caozuo = new String[]{"分享", "删除"};
                 }else{
                     caozuo= new String[]{"分享", "举报"};
                 }
@@ -628,6 +728,7 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                                 ToastUtils.showShort("评论成功");
                                 initPingLun(detail.getResult());
                                 edt_quanzi_pinglun.setText("");
+                                hideInput();
                                 initData();
                             }else{
                                 ToastUtils.showShort(jsonObject.getString("msg"));
@@ -663,5 +764,16 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
     public void onCancel(SHARE_MEDIA share_media) {
         ToastUtils.showShort("取消分享");
 
+    }
+
+    /**
+     * 隐藏键盘
+     */
+    protected void hideInput() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View v = getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 }

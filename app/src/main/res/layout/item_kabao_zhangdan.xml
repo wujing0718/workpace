@@ -51,7 +51,7 @@
 
         <TextView
             android:text="+100.00"
-            android:textSize="17sp"
+            android:textSize="14sp"
             android:id="@+id/tv_zhangdan_count"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

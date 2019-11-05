@@ -108,6 +108,7 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
     private int userid;
     public static VedioDetailActivity activity;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -426,6 +427,30 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         private int navigationHeight;
         private EditText edt_video_pinglun;
         private Intent intent;
+        @SuppressLint("HandlerLeak")
+        Handler mHandler = new Handler() {
+
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 0:
+                        //完成主界面更新,拿到数据
+                        boolean data = (boolean)msg.obj;
+                        if (data == true){
+                            int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+                            viewHolderForAdapterPosition = (MyAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition);
+                            shipindetail.getList().get(firstVisibleItemPosition).setCommentNum(shipindetail.getList().get(firstVisibleItemPosition).getCommentNum()+1);
+                            String s = String.valueOf(shipindetail.getList().get(firstVisibleItemPosition).getCommentNum());
+                            viewHolderForAdapterPosition.tv_video_pinglun.setText(s);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        };
 
         public MyAdapter(VedioDetail.ResultBean shipin){
             this.shipindetail = shipin;
@@ -626,33 +651,11 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         }
 
         private void initPingLunLieBiao(int id) {
-            Map<String,String> map = new HashMap<>();
-            map.put("dataId",String.valueOf(id));
-            map.put("mId",String.valueOf(mId));
-            map.put("pageNo","1");
-            map.put("pageSize","10");
-            OkGo.<String>post(Contacts.URl1 + "/circle/comments/list")
-                    .params(map)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            WaitDialog.dismiss();
-                            String body = response.body();
-                            Gson gson = new Gson();
-                            PingLunGson pinglun1 = gson.fromJson(body, PingLunGson.class);
-                            if (pinglun1.getStatus() == 1) {
-                                new XPopup.Builder(VedioDetailActivity.this)
+            new XPopup.Builder(VedioDetailActivity.this)
 //                                                          .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
-                                        .asCustom(new VedioComment(VedioDetailActivity.this,pinglun1,id)/*.enableDrag(false)*/)
-                                        .show();
-                            }
-                        }
-                        @Override
-                        public void onStart(Request<String, ? extends Request> request) {
-                            super.onStart(request);
-                            WaitDialog.show(VedioDetailActivity.this,"加载中。。。");
-                        }
-                    });
+                    .asCustom(new VedioComment(VedioDetailActivity.this,id,mHandler)/*.enableDrag(false)*/)
+                    .show();
+
         }
 
         private void initDel(int id) {
@@ -825,10 +828,9 @@ public class VedioDetailActivity extends AppCompatActivity implements IListener 
         public void notifyAllActivity(int audience_cnt, String status) {
             if (audience_cnt == 30){
                 if ("是".equals(status)){
-                    int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
-                    viewHolderForAdapterPosition = (MyAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition);
-                    viewHolderForAdapterPosition.tv_video_pinglun.setText(String.valueOf(Integer.valueOf(viewHolderForAdapterPosition.tv_video_pinglun.getText().toString())+1));
-                    ListenerManager.getInstance().unRegisterListener(this);
+//                    int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+//                    viewHolderForAdapterPosition = (MyAdapter.ViewHolder) mRecyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition);
+//                    viewHolderForAdapterPosition.tv_video_pinglun.setText(String.valueOf(Integer.valueOf(shipindetail.getList().get(firstVisibleItemPosition).getCommentNum())));
                 }
             }
         }

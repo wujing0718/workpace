@@ -228,9 +228,9 @@ public class ShopSouSuoActivity extends AppCompatActivity implements IListener,I
     @Override
     public void onCountChanged(int i) {
         if(i == 0){
-            qBadgeView.hide(true);
+            qbadgebiewxitong.hide(true);
         }else{
-            qBadgeView.bindTarget(bt_kefu).setBadgeNumber(i);
+            qbadgebiewxitong.bindTarget(bt_kefu).setGravityOffset(8,true).setBadgeText("");
         }
     }
 }

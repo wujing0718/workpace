@@ -55,6 +55,7 @@ public class GuanZhuAdapter extends BaseQuickAdapter<GuanZhuDongTai.ResultBean.L
         }
         String picture = item.getPicture();
         if (item.getAddress() != null) {
+            helper.setText(R.id.tv_address,item.getAddress());
             view_dingwei.setVisibility(View.VISIBLE);
         } else {
             view_dingwei.setVisibility(View.GONE);
@@ -68,7 +69,6 @@ public class GuanZhuAdapter extends BaseQuickAdapter<GuanZhuDongTai.ResultBean.L
             Glide.with(MyApp.context).load(R.mipmap.img_wode1).apply(options)
                     .into(img_faixan_touxiang);
         }
-
         if (item.getIsPraise() == 1) {
             img_faixan_shoucang.setImageResource(R.mipmap.img_xihuan2);
         } else {

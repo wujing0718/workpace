@@ -127,9 +127,16 @@ public class FaXianFragment extends Fragment implements IListener {
         // 绑定布局管理器
         rec_faxian.setLayoutManager(layoutManager);
         //关闭RecyclerView动画效果
-        rec_faxian.setItemAnimator(null);
+//        rec_faxian.setItemAnimator(null);
         faXianAdapter = new FaXianAdapter(R.layout.item_quanzi_faxian,faxian.getResult().getDatas().getList());
         rec_faxian.setAdapter(faXianAdapter);
+        rec_faxian.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                layoutManager.invalidateSpanAssignments();//防止瀑布流图片闪烁
+            }
+        });//滚动预先加载数据
         faXianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -263,6 +270,9 @@ public class FaXianFragment extends Fragment implements IListener {
 
     private void initAdd() {
         Map<String, String> map = new HashMap<>();
+        if (status!=null  && !status.isEmpty()){
+            map.put("condition",status);
+        }
         map.put("pageNo",String.valueOf(page++));
         map.put("pageSize","10");
         map.put("mId",mId);
@@ -304,7 +314,7 @@ public class FaXianFragment extends Fragment implements IListener {
         if(audience_cnt == 3){
             this.status = status;
             initData(status);
-            ListenerManager.getInstance().unRegisterListener(this);
+//            ListenerManager.getInstance().unRegisterListener(this);
         }
     }
 }

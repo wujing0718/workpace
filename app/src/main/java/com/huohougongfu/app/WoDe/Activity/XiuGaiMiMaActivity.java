@@ -102,12 +102,13 @@ public class XiuGaiMiMaActivity extends AppCompatActivity implements View.OnClic
                         Gson gson = new Gson();
                         Code code = gson.fromJson(body, Code.class);
                         if (code.getStatus() == 1){
-                            Intent intent = new Intent();
-                            intent.setClass(XiuGaiMiMaActivity.this,LoginActivity.class);
-                            startActivity(intent);
-                            //如果断开连接后，有新消息时，不想收到任何推送通知，调用 logout() 方法。
-                            RongIM.getInstance().logout();
-                            ToastUtils.showShort("密码修改成功，请重新登录");
+//                            Intent intent = new Intent();
+////                            intent.setClass(XiuGaiMiMaActivity.this,LoginActivity.class);
+////                            startActivity(intent);
+////                            //如果断开连接后，有新消息时，不想收到任何推送通知，调用 logout() 方法。
+////                            RongIM.getInstance().logout();
+                            finish();
+                            ToastUtils.showShort("密码修改成功");
                         }else{
                             ToastUtils.showShort(code.getMsg());
                         }

@@ -129,7 +129,6 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                         WaitDialog.dismiss();
                         Gson gson = new Gson();
                         SouSuoDianPu dianpu = gson.fromJson(response.body(), SouSuoDianPu.class);
-
                         if (dianpu.getStatus() == 1) {
                             if (dianpu.getResult().getList().size()>0){
                                 smartrefreshlayout.setVisibility(View.VISIBLE);
@@ -141,7 +140,9 @@ public class SouSuoPinPaiFragment extends Fragment implements IListener ,View.On
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-//                        WaitDialog.show(getActivity(), "载入中...");
+                        if (getActivity()!=null){
+                            WaitDialog.show(getActivity(), "载入中...");
+                        }
                         super.onStart(request);
                     }
                 });

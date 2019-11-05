@@ -41,6 +41,7 @@ public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.Data
     protected void convert(BaseViewHolder helper, QuanZiXiHuan.ResultBean.DatasBean.ListBean item) {
         helper.addOnClickListener(R.id.bt_dianzan);
         View view_dingwei = helper.getView(R.id.view_dingwei);
+        ImageView img_dingwei = helper.getView(R.id.img_dingwei);
         ImageView img_quanzi_photo = helper.getView(R.id.img_quanzi_photo);
         ViewGroup.LayoutParams para = img_quanzi_photo.getLayoutParams();
         ImageView img_faixan_touxiang = helper.getView(R.id.img_faixan_touxiang);
@@ -77,6 +78,12 @@ public class XiHuanAdapter extends BaseQuickAdapter<QuanZiXiHuan.ResultBean.Data
             RequestOptions options = new RequestOptions().circleCrop();
             Glide.with(MyApp.context).load(R.mipmap.img_wode1).apply(options)
                     .into(img_faixan_touxiang);
+        }
+        if (item.getAddress()!=null){
+            img_dingwei.setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_address,item.getAddress());
+        }else{
+            img_dingwei.setVisibility(View.GONE);
         }
 
         if (item.getIsPraise() == 1){

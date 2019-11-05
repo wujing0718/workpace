@@ -170,11 +170,11 @@ public class GeRenRenZhengActivity extends AppCompatActivity implements View.OnC
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        WaitDialog.dismiss();
                         String body = response.body();
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
-                                WaitDialog.dismiss();
                                 ToastUtils.showShort(jsonObject.getString("msg"));
                                 Intent intent = new Intent();
                                 intent.putExtra("code","个人认证成功");

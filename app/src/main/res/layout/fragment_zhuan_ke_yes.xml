@@ -26,7 +26,12 @@
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-
+        <include
+            android:visibility="gone"
+            android:id="@+id/view_zhanweitu"
+            layout="@layout/include_zhanweitu"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
         <TextView
             android:id="@+id/bt_fenxiang_zhuanqian"
             android:layout_alignParentBottom="true"
@@ -40,11 +45,6 @@
     </RelativeLayout>
 
 
-
-    <include
-        layout="@layout/include_zhanweitu"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
 
 
 

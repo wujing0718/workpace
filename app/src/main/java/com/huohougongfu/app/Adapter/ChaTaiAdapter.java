@@ -51,11 +51,12 @@ public class ChaTaiAdapter extends BaseAdapter {
     private JSONArray array;
     private String orderprice;
     private TextView bt_delete;
+    private TextView tv_num;
 
     public ChaTaiAdapter(int item_shouye_chataione, View bt_checkbox, Button btn_go_to_pay,
                          List<ChaTaiGson.ResultBean> list, Context context, ImageView img_check,
                          TextView tv_total_price, View bt_chami_dikou, ImageView img_chami_check,
-                         ChaTaiYouHuiQuan.ResultBean myouhuiquan, TextView bt_delete) {
+                         ChaTaiYouHuiQuan.ResultBean myouhuiquan, TextView bt_delete,TextView tv_num) {
         this.item_shouye_chataione = item_shouye_chataione;
         this.bt_checkbox = bt_checkbox;
         this.btn_go_to_pay = btn_go_to_pay;
@@ -66,6 +67,7 @@ public class ChaTaiAdapter extends BaseAdapter {
         this.img_chami_check =img_chami_check;
         this.myouhuiquan =myouhuiquan;
         this.bt_delete = bt_delete;
+        this.tv_num = tv_num;
 
     }
 
@@ -131,6 +133,7 @@ public class ChaTaiAdapter extends BaseAdapter {
             @Override
             public void onAddSuccess(int i) {
                 if (i<=15){
+                    tv_num.setText("共"+i+"件");
                     list.get(position).setNum(i);
                     notifyDataSetChanged();
                     initAddGouWuChe(i,list.get(position).getId());
@@ -151,6 +154,7 @@ public class ChaTaiAdapter extends BaseAdapter {
                     groupViewHolder.amountview.setCount(0);
                     notifyDataSetChanged();
                 }else{
+                    tv_num.setText("共"+i+"件");
                     list.get(position).setNum(i);
                     initAddGouWuChe(i,list.get(position).getId());
 //                    list.get(position).setIsSelect(true);
@@ -168,8 +172,10 @@ public class ChaTaiAdapter extends BaseAdapter {
         ChaTaiGson.ResultBean resultBean1 = list.get(position);
         //商品是否被选中
         if (isSelect1) {
+            tv_num.setText("共"+list.get(position).getNum()+"件");
             groupViewHolder.img_check.setImageResource(R.mipmap.select);
         } else {
+            tv_num.setText("共"+0+"件");
             groupViewHolder.img_check.setImageResource(R.mipmap.unselect);
         }
         //当所有的选择框都是选中的时候，全选也要选中
@@ -258,7 +264,7 @@ public class ChaTaiAdapter extends BaseAdapter {
                     if (xuanzeyouhuiquan!=null) {
                         if (xuanzeyouhuiquan.getCouponType() == 1) {
                             if (xuanzeyouhuiquan.getUsableProductId() == resultBean.getTeaId()) {
-                                if (is){
+                                if (is) {
                                     num = num - 1;
                                     is = false;
                                 }
@@ -385,11 +391,6 @@ public class ChaTaiAdapter extends BaseAdapter {
         groupViewHolder.bt_chatai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (xuanzeyouhuiquan!=null){
-//                    if (xuanzeyouhuiquan.getUsableProductId() == resultBean1.getTeaId()){
-//                        xuanzeyouhuiquan = null;
-//                    }
-//                }
                 resultBean1.setIsSelect(!isSelect1);
                 if (!isSelect1 == false) {
                     resultBean1.setIsSelect(false);
@@ -403,6 +404,18 @@ public class ChaTaiAdapter extends BaseAdapter {
                 }
                 if (is){
                     bt_delete.setVisibility(View.VISIBLE);
+                    if (xuanzeyouhuiquan!=null) {
+                        if (xuanzeyouhuiquan.getCouponType() == 1) {
+                            if (!isSelect1){
+                                resultBean1.setIsSelect(!isSelect1);
+                                if (xuanzeyouhuiquan.getUsableProductId() == list.get(position).getTeaId()) {
+
+                                }else{
+                                    ToastUtils.showShort("免费券品种不一样不可使用");
+                                }
+                            }
+                        }
+                    }
                 }else{
                     bt_delete.setVisibility(View.GONE);
                 }

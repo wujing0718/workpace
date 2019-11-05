@@ -85,6 +85,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     private TextView tv_chatai_hasDust,tv_chatai_concentration;
     private String chatai_hasDust,chatai_concentration;
     private ZhiFu zhiFu;
+    private TextView tv_num;
 
 
     @Override
@@ -198,6 +199,8 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     }
 
     private void initUI() {
+        findViewById(R.id.view).setVisibility(View.VISIBLE);
+        tv_num = findViewById(R.id.tv_num);
         tv_manjian1 = findViewById(R.id.tv_manjian1);
         tv_manjian2 = findViewById(R.id.tv_manjian2);
         tv_chami_dikou = findViewById(R.id.tv_chami_dikou);
@@ -217,6 +220,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
         amountview = findViewById(R.id.amountview);
         if (teaDetail!=null){
             amountview.setCount(num);
+            tv_num.setText("共"+num+"件");
             initDiKou();
             Glide.with(MyApp.context).load(teaDetail.getPicture()).into(iv_photo);
             tv_name.setText(teaDetail.getTeaName());
@@ -235,6 +239,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onAddSuccess(int i) {
                     num = i;
+                    tv_num.setText("共"+i+"件");
                     DecimalFormat decimalFormat = new DecimalFormat("0.00");
                     if (!isDikou){
                         //合计的计算
@@ -316,6 +321,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onDelSuccess(int i) {
                     num = i;
+                    tv_num.setText("共"+i+"件");
                     DecimalFormat decimalFormat = new DecimalFormat("0.00");
                     if (!isDikou){
                         //合计的计算

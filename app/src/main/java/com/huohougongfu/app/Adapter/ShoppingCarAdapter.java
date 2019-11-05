@@ -21,9 +21,11 @@ import com.huohougongfu.app.Gson.ShopDingDan;
 import com.huohougongfu.app.Gson.ShoppingCarDataBean;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
+import com.huohougongfu.app.Shop.Activity.ShangPinDetailActivity;
 import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.Utils.AmountView;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Activity.AddressActivity;
 import com.kongzue.dialog.v2.SelectDialog;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -324,6 +326,9 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                         String body = response.body();
                         try {
                             JSONObject jsonObject1 = new JSONObject(body);
+                            if (jsonObject1.getInt("status") == 0){
+                                ToastUtils.showShort(jsonObject1.getString("msg"));
+                            }
                             String result = jsonObject1.getString("result");
                             JSONObject result2 = new JSONObject(result);
                             if ("你还未设置地址".equals(result2.getString("defaultAddress"))) {
@@ -350,6 +355,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
                                     intent.putExtra("订单详情", (Serializable) shopDingDan.getResult());
                                     intent.setClass(context, XiaDanActivity.class);
                                     context.startActivity(intent);
+                                }else{
+                                    ToastUtils.showShort(shopDingDan.getMsg());
                                 }
                             }
                         } catch (JSONException e) {
@@ -463,7 +470,17 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder.ivSelect.setImageResource(R.mipmap.unselect);
         }
-
+        childViewHolder.bt_shop_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!utils.isDoubleClick()){
+                    Intent intent = new Intent();
+                    intent.putExtra("id",goodsBean.getId());
+                    intent.setClass(context, ShangPinDetailActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         //商品选择框的点击事件
         childViewHolder.bt_gouwuche.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -527,12 +544,13 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         TextView tvPriceValue;
         ImageView ivEditAdd;
 //        View view1;
-        View viewLast,bt_gouwuche;
+        View viewLast,bt_gouwuche,bt_shop_detail;
         AnimShopButton amountview;
 
         ChildViewHolder(View view) {
             bt_gouwuche = view.findViewById(R.id.bt_gouwuche);
             ivSelect = view.findViewById(R.id.iv_select);
+            bt_shop_detail = view.findViewById(R.id.bt_shop_detail);
             ivPhoto = view.findViewById(R.id.iv_photo);
             tvName = view.findViewById(R.id.tv_name);
             tvPriceKey = view.findViewById(R.id.tv_price_key);

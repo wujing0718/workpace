@@ -141,7 +141,7 @@ public class DingDanFragment extends Fragment implements IListener{
                     initDelect(data.getList().get(position).getId());
                 }else if ("0".equals(data.getList().get(position).getOrderStatus())){
                     new XPopup.Builder(getActivity())
-                            .asCustom(new ChaTaiZhiFu(getActivity(),data.getList().get(position).getOrderNo()
+                            .asCustom(new ChaTaiZhiFu(getActivity(),data.getList().get(position).getOrderNo(),String.valueOf(data.getList().get(position).getId())
                                     ,shangPinGson.getResult().getList().get(position).getOrderTotal(),"茶台订单"))
                             .show();
                 }else if ("1".equals(data.getList().get(position).getOrderStatus())){

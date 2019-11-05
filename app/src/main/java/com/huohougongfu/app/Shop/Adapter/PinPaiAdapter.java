@@ -39,12 +39,7 @@ public class PinPaiAdapter extends BaseQuickAdapter<TeYuePingPai.ResultBean.Resu
         helper.addOnClickListener(R.id.bt_pinpai);
         ImageView img_quanbu_logo = helper.getView(R.id.img_quanbu_logo);
         TextView bt_pinpai_guanzhu = helper.getView(R.id.bt_pinpai_guanzhu);
-        if (item.getMallProductList().size()>0){
-            String[] split = item.getMallProductList().get(0).getCoverUrl().split(",");
-            Glide.with(MyApp.context).load(split[0]).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop()).into(img_quanbu_logo);
-        }else{
-            Glide.with(MyApp.context).load(R.mipmap.img_zhanweitu).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop()).into(img_quanbu_logo);
-        }
+        Glide.with(MyApp.context).load(item.getPhoto()).apply(new RequestOptions().placeholder(R.mipmap.img_zhanweitu).circleCrop()).into(img_quanbu_logo);
         helper.setText(R.id.tv_quanbu_name,item.getStoreName());
         helper.setText(R.id.tv_quanbu_jianjie,item.getStoreBoard());
         helper.addOnClickListener(R.id.bt_pinpai_guanzhu);

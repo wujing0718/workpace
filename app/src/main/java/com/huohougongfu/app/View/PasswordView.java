@@ -129,9 +129,7 @@ public class PasswordView extends RelativeLayout {
                 } else {
                     if (position == 11) {      //点击退格键
                         if (currentIndex - 1 >= -1) {      //判断是否删除完毕————要小心数组越界
-
                             tvList[currentIndex].setText("");
-
                             tvList[currentIndex].setVisibility(View.VISIBLE);
                             imgList[currentIndex].setVisibility(View.INVISIBLE);
 
@@ -181,5 +179,17 @@ public class PasswordView extends RelativeLayout {
 
     public ImageView getImgCancel() {
         return imgCancel;
+    }
+
+    public TextView[]  gettvList() {
+        return tvList;
+    }
+
+    public TextView[] getTvList() {
+        return tvList;
+    }
+
+    public void setTvList(TextView[] tvList) {
+        this.tvList = tvList;
     }
 }

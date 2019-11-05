@@ -51,7 +51,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
 
     private String orderNo;
     private int id,orderStatus;
-    private TextView tv_shouhuo_name,tv_shouhuo_phone,tv_shouhuo_address,tv_orderNo,tv_logisticsFee,tv_orderAmountTotal,tv_payTime
+    private TextView tv_shouhuo_name,tv_shouhuo_phone,tv_shouhuo_address,tv_orderNo,tv_logisticsFee,tv_payTime
             ,tv_createTime,tv_serviceRegulations,tv_order_AmountTotal;
     private RecyclerView rec_dingdan_detail;
     private ImageView img_dianpu_logo;
@@ -69,7 +69,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ding_dan_detail);
-        this.activity = this;
+        activity = this;
         id = MyApp.instance.getInt("id");
         orderNo = getIntent().getStringExtra("orderNo");
         orderStatus = getIntent().getIntExtra("orderStatus",0);
@@ -144,8 +144,8 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         tv_kuaidi.setText(result.get(0).getTransportWay());
         tv_orderNo.setText(result.get(0).getOrderNo());
         tv_createTime.setText(result.get(0).getCreateTimel());
-        tv_logisticsFee.setText(String.valueOf(result.get(0).getLogisticsFee()));
-        tv_orderAmountTotal.setText("¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
+        tv_logisticsFee.setText("¥"+String.valueOf(result.get(0).getLogisticsFee()));
+//        tv_orderAmountTotal.setText("¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
         tv_order_AmountTotal.setText("共计：¥"+String.valueOf(result.get(0).getOrderAmountTotal()));
         tv_payTime.setText(result.get(0).getPayTime1());
         tv_serviceRegulations.setText(result.get(0).getCouponInfo());
@@ -182,7 +182,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                 tv_dingdan_zhuangtai.setText("待付款");
             }
         }else if (orderStatus == 1){
-            tv_dingdan_caozuo1.setText("取消订单");
+            tv_dingdan_caozuo1.setVisibility(View.GONE);
             tv_dingdan_caozuo2.setText("提醒发货");
             tv_dingdan_zhuangtai.setText("待发货");
             view_logistics.setVisibility(View.GONE);
@@ -224,7 +224,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
 
          tv_orderNo = findViewById(R.id.tv_orderNo);
          tv_logisticsFee = findViewById(R.id.tv_logisticsFee);
-         tv_orderAmountTotal = findViewById(R.id.tv_orderAmountTotal);
+//         tv_orderAmountTotal = findViewById(R.id.tv_orderAmountTotal);
         tv_order_AmountTotal = findViewById(R.id.tv_order_AmountTotal);
 
         tv_payTime = findViewById(R.id.tv_payTime);

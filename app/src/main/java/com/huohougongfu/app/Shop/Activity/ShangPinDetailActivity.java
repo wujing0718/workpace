@@ -1,7 +1,10 @@
 package com.huohougongfu.app.Shop.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,8 @@ import com.huohougongfu.app.Activity.GouWuCheActivity;
 import com.huohougongfu.app.Activity.XiaoXiActivity;
 import com.huohougongfu.app.Adapter.MyPagerAdapter;
 import com.huohougongfu.app.Fragment.SimpleCardFragment;
+import com.huohougongfu.app.Gson.GouWuCheNum;
+import com.huohougongfu.app.Gson.ShopYouHuiQuan;
 import com.huohougongfu.app.Gson.WeiDuXiaoXI;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
@@ -22,6 +27,8 @@ import com.huohougongfu.app.Shop.Fragment.CanShuFragment;
 import com.huohougongfu.app.Shop.Fragment.PingJiaFragment;
 import com.huohougongfu.app.Shop.Fragment.ShangPinFragment;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.IListener;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -40,7 +47,7 @@ import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
 import q.rorbin.badgeview.QBadgeView;
 
-public class ShangPinDetailActivity extends AppCompatActivity implements IUnReadMessageObserver {
+public class ShangPinDetailActivity extends AppCompatActivity implements IUnReadMessageObserver ,IListener{
 
     private final String[] mTitles = {"商品", "参数", "评价"};
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -60,8 +67,10 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
             Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE
     };
     private View bt_gouwuche;
-    private String type;
+    private String type,userid;
     private QBadgeView qbadgebiewxitong;
+    private JSONObject jsonObject;
+    private GouWuCheNum gouWuCheNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +81,10 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
         挑选 = getIntent().getStringExtra("挑选");
         commission = getIntent().getStringExtra("commission");
         isJingXuan = getIntent().getStringExtra("isJingXuan");
+        userid = getIntent().getStringExtra("userid");
         type = getIntent().getStringExtra("type");
         intent = new Intent();
+        ListenerManager.getInstance().registerListtener(this);
         qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
         qbadgebiewxitong  = new QBadgeView(ShangPinDetailActivity.this);
         View bt_finish = findViewById(R.id.bt_finish);
@@ -118,17 +129,14 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
                     public void onSuccess(Response<String> response) {
                         QBadgeView qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
                         String body = response.body();
-                        try {
-                            JSONObject jsonObject = new JSONObject(body);
-                            if (jsonObject.getInt("status") == 1){
-                                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
-                            }else{
-                                qBadgeView.hide(true);
+                        Gson gson = new Gson();
+                        gouWuCheNum = gson.fromJson(body, GouWuCheNum.class);
+                        if (gouWuCheNum.getStatus() == 1){
+                            qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(gouWuCheNum.getResult());
+                        }else{
+                            qBadgeView.hide(true);
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
                 });
     }
 
@@ -166,7 +174,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
         mtabtitle.clear();
         SlidingTabLayout stl = findViewById(R.id.stl);
         ViewPager mViewPager = findViewById(R.id.vp);
-        mFragments.add(ShangPinFragment.newInstance(shopid,挑选,commission,isJingXuan,type));
+        mFragments.add(ShangPinFragment.newInstance(shopid,挑选,commission,isJingXuan,type,userid));
         mFragments.add(CanShuFragment.newInstance(shopid,挑选));
         mFragments.add(PingJiaFragment.newInstance(shopid,挑选));
         for (int i = 0;i<mTitles.length;i++){
@@ -180,9 +188,23 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
     @Override
     public void onCountChanged(int i) {
         if(i == 0){
-            qBadgeView.hide(true);
+            qbadgebiewxitong.hide(true);
         }else{
-            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+            qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
+        }
+    }
+
+    @Override
+    public void notifyAllActivity(int audience_cnt, String status) {
+        if (audience_cnt == 300){
+            if (status.equals("加入购物车")){
+                    if (gouWuCheNum.getStatus() == 1){
+                        gouWuCheNum.setResult(gouWuCheNum.getResult()+1);
+                        qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(gouWuCheNum.getResult());
+                    }else{
+                        qBadgeView.hide(true);
+                    }
+            }
         }
     }
 }

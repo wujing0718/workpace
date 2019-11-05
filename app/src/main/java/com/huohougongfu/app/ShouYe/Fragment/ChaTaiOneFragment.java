@@ -48,6 +48,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +84,9 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
     private TextView bt_delete;
     private boolean isCoupon = false;
     private ZhiFu zhiFu;
+    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private TextView tv_num;
+
 
     public ChaTaiOneFragment() {
         // Required empty public constructor
@@ -126,6 +130,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
     }
 
     private void initUI() {
+        tv_num = inflate.findViewById(R.id.tv_num);
         mBtnSubmit =inflate.findViewById(R.id.btn_go_to_pay);
         inflate.findViewById(R.id.bt_checkbox).setOnClickListener(this);
         bt_checkbox = inflate.findViewById(R.id.bt_checkbox);
@@ -162,8 +167,10 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
                         if (chatai.getStatus() == 1) {
                             initRec(chatai.getResult(),myouhuiquan);
                             if (chatai.getResult().size()>0){
+                                view_chataione.setVisibility(View.VISIBLE);
                                 view_zhanweitu.setVisibility(View.GONE);
                             }else{
+                                view_chataione.setVisibility(View.GONE);
                                 view_zhanweitu.setVisibility(View.VISIBLE);
                             }
                         }
@@ -195,8 +202,9 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
                         if (youhuiquan.getStatus() == 1){
                             myouhuiquan = youhuiquan.getResult();
                             initData(myouhuiquan);
+                            String money = decimalFormat.format(youhuiquan.getResult().getTeaRice() * youhuiquan.getResult().getProportion());
                             tv_chami_dikou.setText("可用"+youhuiquan.getResult().getTeaRice()+"茶米抵扣"+
-                                    (youhuiquan.getResult().getTeaRice()*youhuiquan.getResult().getProportion())+"元");
+                                    (money)+"元");
 //                            if (myouhuiquan.getCoupons().size()>1){
 //                                tv_manjian1.setText(myouhuiquan.getCoupons().get(0).getTitle());
 //                                tv_manjian2.setText(myouhuiquan.getCoupons().get(1).getTitle());
@@ -215,7 +223,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
 //        rec_chatai.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        rec_chatai.setHasFixedSize(true);
         mAdapter = new ChaTaiAdapter(R.layout.item_shouye_chataione,bt_checkbox,btn_go_to_pay,result,getActivity()
-                ,img_check,tv_total_price,bt_chami_dikou,img_chami_check, myouhuiquan,bt_delete);
+                ,img_check,tv_total_price,bt_chami_dikou,img_chami_check, myouhuiquan,bt_delete,tv_num);
         mAdapter.setData(result);
         mAdapter.setYouHuoQuan(xuanzeyouhuiquan);
         mAdapter.setOnChangeCountListener(new ChaTaiAdapter.OnChangeCountListener() {
@@ -291,7 +299,6 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
         if (xuanzeyouhuiquan!=null){
             xuanzeyouhuiquan.getCouponType();
             map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
-
         }
         double dikou = myouhuiquan.getTeaRice() * myouhuiquan.getProportion();
         double order;
@@ -359,11 +366,13 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 200){
             if ("成功".equals(status)) {
-                Intent intent = new Intent().setClass(getActivity(), ChaTaiDingDanDetail.class);
                 if (zhiFu != null) {
-                    intent.putExtra("orderNo",String.valueOf(zhiFu.getResult().getOrderId()));
-                    startActivity(intent);
-                    ListenerManager.getInstance().unRegisterListener(this);
+                    if (getActivity()!=null){
+                        Intent intent = new Intent().setClass(getActivity(), ChaTaiDingDanDetail.class);
+                        intent.putExtra("orderNo",String.valueOf(zhiFu.getResult().getOrderId()));
+                        startActivity(intent);
+                        ListenerManager.getInstance().unRegisterListener(this);
+                    }
                 }
             }
         }

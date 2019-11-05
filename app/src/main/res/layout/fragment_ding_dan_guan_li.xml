@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".WoDe.Fragment.DingDanGuanLiFragment">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/smartrefreshlayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<com.scwang.smartrefresh.layout.SmartRefreshLayout-->
+        <!--android:id="@+id/smartrefreshlayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rec_dingdan_guanli"
@@ -18,7 +18,7 @@
 
         </android.support.v7.widget.RecyclerView>
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <!--</com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
 
     <include
         layout="@layout/include_zhanweitu"

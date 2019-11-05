@@ -161,6 +161,7 @@ public class DaShiRenZhengActivity extends AppCompatActivity implements View.OnC
             //读取图片的旋转的角度
             int degree  = ImageUtils.getBitmapDegree(imagePath);
             //将图片按照某个角度进行旋转
+            shenfenFile.clear();
             Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
             positivePath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
             shenfenFile.add(new File(positivePath));

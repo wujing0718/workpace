@@ -80,52 +80,53 @@ public class QuXiaoDingDan extends BottomPopupView implements View.OnClickListen
                             quXiaoDingDanYuanYinAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                    SelectDialog.show(context, "提示", "是否取消订单",
-                                            "确定", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if(!utils.isDoubleClick()){
-                                                        Map<String,String> map = new HashMap<>();
-                                                        map.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
-                                                        map.put("orderNo",orderNo);
-                                                        map.put("ocrId",String.valueOf(dingDanQuXiaoYuanYin.getResult().get(position).getId()));
-                                                        OkGo.<String>post(Contacts.URl1+"order/cancelOrder")
-                                                                .params(map)
-                                                                .execute(new StringCallback() {
-                                                                    @Override
-                                                                    public void onSuccess(Response<String> response) {
-                                                                        String body = response.body();
-                                                                        try {
-                                                                            JSONObject jsonObject = new JSONObject(body);
-                                                                            if (jsonObject.getInt("status") == 1){
-                                                                                Message msg = Message.obtain();
-                                                                                if (mHandler!=null){
-                                                                                    msg.what = 0;
-                                                                                    msg.obj = true;
-                                                                                    mHandler.sendMessage(msg);
-                                                                                }
-                                                                                if (DingDanDetailActivity.activity!=null){
-                                                                                    DingDanDetailActivity.activity.finish();
-                                                                                }
-                                                                                ToastUtils.showShort(jsonObject.getString("msg"));
-                                                                            }else{
-                                                                                dismiss();
-                                                                                ToastUtils.showShort(jsonObject.getString("msg"));
-                                                                            }
-                                                                        } catch (JSONException e) {
-                                                                            e.printStackTrace();
-                                                                        }
-                                                                    }
-                                                                });
+//                                    SelectDialog.show(context, "提示", "是否取消订单",
+//                                            "确定", new DialogInterface.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(DialogInterface dialog, int which) {
+//
+//                                                }
+//                                            },
+//                                            "取消", new DialogInterface.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    dismiss();
+//                                                }
+//                                            });
+                                    if(!utils.isDoubleClick()){
+                                        Map<String,String> map = new HashMap<>();
+                                        map.put("createBy",String.valueOf(MyApp.instance.getInt("id")));
+                                        map.put("orderNo",orderNo);
+                                        map.put("ocrId",String.valueOf(dingDanQuXiaoYuanYin.getResult().get(position).getId()));
+                                        OkGo.<String>post(Contacts.URl1+"order/cancelOrder")
+                                                .params(map)
+                                                .execute(new StringCallback() {
+                                                    @Override
+                                                    public void onSuccess(Response<String> response) {
+                                                        String body = response.body();
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(body);
+                                                            if (jsonObject.getInt("status") == 1){
+                                                                Message msg = Message.obtain();
+                                                                if (mHandler!=null){
+                                                                    msg.what = 0;
+                                                                    msg.obj = true;
+                                                                    mHandler.sendMessage(msg);
+                                                                }
+                                                                if (DingDanDetailActivity.activity!=null){
+                                                                    DingDanDetailActivity.activity.finish();
+                                                                }
+                                                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                                            }else{
+                                                                dismiss();
+                                                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
                                                     }
-                                                }
-                                            },
-                                            "取消", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dismiss();
-                                                }
-                                            });
+                                                });
+                                    }
                                 }
                             });
                         }

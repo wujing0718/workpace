@@ -19,10 +19,17 @@ public class ConversationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_conversation);
         TextView tv_name = findViewById(R.id.tv_name);
         tv_name.setText(getIntent().getData().getQueryParameter("title"));
+
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        findViewById(R.id.bt_dianpu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 //        FragmentManager fragmentManage = getSupportFragmentManager();

@@ -50,6 +50,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private int transId = 0;
     public static XiaDanActivity activity;
     private ShopYouHuiQuan.ResultBean coupon;
+    private TextView tv_num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +90,12 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
     private void initRec() {
         tv_total_price.setText("1000");
         xiaDanAdapter = new XiaDanAdapter(this,bt_chami_dikou,btn_go_to_pay,tv_chami_dikou,
-                img_chami_check,tv_total_price,resultBean.getTeaRice(),coupon);
+                img_chami_check,tv_total_price,resultBean.getTeaRice(),coupon,tv_num);
         rec_xiadan.setAdapter(xiaDanAdapter);
     }
 
     private void initUI() {
+        tv_num = findViewById(R.id.tv_num);
         tv_shouhuo_name = findViewById(R.id.tv_shouhuo_name);
         tv_shouhuo_phone = findViewById(R.id.tv_shouhuo_phone);
         tv_shouhuo_address = findViewById(R.id.tv_shouhuo_address);
@@ -106,11 +108,12 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
         btn_go_to_pay.setOnClickListener(this);
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         String format = decimalFormat.format(resultBean.getTeaRice() * 0.01);
-        tv_chami_dikou.setText("可用"+resultBean.getTeaRice()+"茶米抵扣"+
+        String tearice = utils.subZeroAndDot(String.valueOf(resultBean.getTeaRice()));
+        tv_chami_dikou.setText("可用"+tearice+"茶米抵扣"+
                 format+"元");
         tv_shouhuo_name.setText(resultBean.getDefaultAddress().getReceiverName());
         tv_shouhuo_phone.setText(resultBean.getDefaultAddress().getPhone());
-        tv_shouhuo_address.setText(resultBean.getDefaultAddress().getReceiverName()+resultBean.getDefaultAddress().getAreaName()+resultBean.getDefaultAddress().getDetailAddr());
+        tv_shouhuo_address.setText(resultBean.getDefaultAddress().getProvinceName()+resultBean.getDefaultAddress().getCityName()+resultBean.getDefaultAddress().getAreaName()+resultBean.getDefaultAddress().getDetailAddr());
         rec_xiadan = findViewById(R.id.elv_shopping_car);
         findViewById(R.id.bt_finish).setOnClickListener(this);
         findViewById(R.id.bt_xuanze_dizhi).setOnClickListener(this);
@@ -150,7 +153,7 @@ public class XiaDanActivity extends AppCompatActivity implements View.OnClickLis
                 xiaDanAdapter.setData(resultBean,transId);
                 tv_shouhuo_name.setText(address.getReceiverName());
                 tv_shouhuo_phone.setText(address.getPhone());
-                tv_shouhuo_address.setText(address.getAreaName()+address.getDetailAddr());
+                tv_shouhuo_address.setText(address.getProvinceName()+address.getCityName()+address.getAreaName()+address.getDetailAddr());
             }
         }
     }

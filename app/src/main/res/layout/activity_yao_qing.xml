@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorBlack"
+    android:background="@color/colorHui"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WoDe.Activity.YaoQingActivity">
@@ -25,69 +25,85 @@
             android:layout_above="@+id/bt_lijiyaoqing"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_230"
-                android:orientation="vertical">
+                android:layout_height="@dimen/dp_230">
 
-                <RelativeLayout
+                <ImageView
+                    android:src="@mipmap/img_zhuanke_bg"
+                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp">
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_230"
+                    android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/bt_finish"
-                        android:layout_width="50dp"
+                        android:layout_width="match_parent"
                         android:layout_height="44dp">
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                        <RelativeLayout
+                            android:id="@+id/bt_finish"
+                            android:layout_width="50dp"
+                            android:layout_height="44dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/img_back_white" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:src="@mipmap/img_back_white" />
+                            android:text="邀请"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="17sp" />
 
                     </RelativeLayout>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="邀请"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="17sp" />
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:orientation="vertical">
 
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_biaoyu"
+                            android:layout_width="@dimen/dp_120"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="标语口号"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/dp_40"
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tv_guize"
+                            android:background="@drawable/black_di"
+                            android:layout_width="@dimen/dp_100"
+                            android:layout_height="@dimen/dp_26"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:gravity="center"
+                            android:text="规则详情"
+                            android:textColor="@color/colorWhite" />
 
-                    <TextView
-                        android:id="@+id/tv_biaoyu"
-                        android:layout_width="@dimen/dp_120"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="标语口号"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_guize"
-                        android:layout_width="@dimen/dp_120"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:gravity="center"
-                        android:text="规则详情"
-                        android:textColor="@color/colorWhite" />
 
                 </LinearLayout>
 
 
-            </LinearLayout>
+            </FrameLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

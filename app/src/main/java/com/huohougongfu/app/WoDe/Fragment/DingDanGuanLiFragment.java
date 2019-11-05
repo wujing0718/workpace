@@ -56,7 +56,7 @@ public class DingDanGuanLiFragment extends Fragment {
 
 
     private View inflate;
-    private SmartRefreshLayout smartrefreshlayout;
+//    private SmartRefreshLayout smartrefreshlayout;
     private RecyclerView rec_dingdan_guanli;
     private String status;
     private Intent intent;
@@ -90,7 +90,7 @@ public class DingDanGuanLiFragment extends Fragment {
     }
 
     private void initUI() {
-        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
+//        smartrefreshlayout = inflate.findViewById(R.id.smartrefreshlayout);
         rec_dingdan_guanli = inflate.findViewById(R.id.rec_dingdan_guanli);
     }
     private void initData() {
@@ -102,15 +102,15 @@ public class DingDanGuanLiFragment extends Fragment {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        smartrefreshlayout.finishRefresh();
+//                        smartrefreshlayout.finishRefresh();
                         String body = response.body();
                         Gson gson = new Gson();
                         myCollect = gson.fromJson(body, DingDanGuanLi.class);
                         if (myCollect.getStatus() == 1){
                             if (myCollect.getResult().size()==0){
-                                smartrefreshlayout.setVisibility(View.GONE);
+                                rec_dingdan_guanli.setVisibility(View.GONE);
                             }else{
-                                smartrefreshlayout.setVisibility(View.VISIBLE);
+                                rec_dingdan_guanli.setVisibility(View.VISIBLE);
                                 initRec(myCollect.getResult());
                             }
                         }
@@ -127,21 +127,27 @@ public class DingDanGuanLiFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (list.get(position).getOrderStatus() == -1){
-                    Intent intent = new Intent();
-                    intent.putExtra("orderNo",list.get(position).getOrderNo());
-                    intent.setClass(getActivity(), RefundsActivity.class);
-                    startActivity(intent);
+                    if (!utils.isDoubleClick()){
+                        Intent intent = new Intent();
+                        intent.putExtra("orderNo",list.get(position).getOrderNo());
+                        intent.setClass(getActivity(), RefundsActivity.class);
+                        startActivity(intent);
+                    }
                 }else if (list.get(position).getOrderStatus() == -5){
-                    Intent intent = new Intent();
-                    intent.putExtra("orderNo",list.get(position).getOrderNo());
-                    intent.setClass(getActivity(), ReturnDetailsActivity.class);
-                    startActivity(intent);
+                    if (!utils.isDoubleClick()){
+                        Intent intent = new Intent();
+                        intent.putExtra("orderNo",list.get(position).getOrderNo());
+                        intent.setClass(getActivity(), ReturnDetailsActivity.class);
+                        startActivity(intent);
+                    }
                 }else{
-                    intent.putExtra("orderNo",list.get(position).getOrderNo());
-                    intent.putExtra("orderStatus",list.get(position).getOrderStatus());
-                    intent.putExtra("ofManager",1);
-                    intent.setClass(getActivity(),DianPuDingDanDetailActivity.class);
-                    startActivity(intent);
+                    if (!utils.isDoubleClick()){
+                        intent.putExtra("orderNo",list.get(position).getOrderNo());
+                        intent.putExtra("orderStatus",list.get(position).getOrderStatus());
+                        intent.putExtra("ofManager",1);
+                        intent.setClass(getActivity(),DianPuDingDanDetailActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -151,10 +157,14 @@ public class DingDanGuanLiFragment extends Fragment {
                 switch (view.getId()){
                     case R.id.bt_anniu_one:
                         if (list.get(position).getOrderStatus()==1||list.get(position).getOrderStatus()==0){
-                            initQuanXiao(list.get(position).getOrderNo(),list.get(position).getOrderStatus());
+                            if (!utils.isDoubleClick()){
+                                initQuanXiao(list.get(position).getOrderNo(),list.get(position).getOrderStatus());
+                            }
                         }else if (list.get(position).getOrderStatus()==2||list.get(position).getOrderStatus()==3){
-                            intent.setClass(getActivity(),WuLiuActivity.class);
-                            startActivity(intent);
+                            if (!utils.isDoubleClick()){
+                                intent.setClass(getActivity(),WuLiuActivity.class);
+                                startActivity(intent);
+                            }
                         }else if (list.get(position).getOrderStatus() == -1){
                             //支付
 //                                new ShopZhiFu(getActivity(),result.get(position).getOrderNo(),result.get(position));
@@ -162,10 +172,14 @@ public class DingDanGuanLiFragment extends Fragment {
                         break;
                     case R.id.bt_anniu_two:
                         if (list.get(position).getOrderStatus()==-4){
-                            initDelete(list.get(position).getOrderNo());
+                            if (!utils.isDoubleClick()){
+                                initDelete(list.get(position).getOrderNo());
+                            }
                         }else if(list.get(position).getOrderStatus() == 3){
-                            intent.setClass(getActivity(),DingDanPingJiaActivity.class);
-                            startActivity(intent);
+                            if (!utils.isDoubleClick()){
+                                intent.setClass(getActivity(),DingDanPingJiaActivity.class);
+                                startActivity(intent);
+                            }
                         }else  if (list.get(position).getOrderStatus() == 0){
                             if (!utils.isDoubleClick()){
                                 if (!token.isEmpty()){
@@ -176,41 +190,51 @@ public class DingDanGuanLiFragment extends Fragment {
                                 }
                             }
                         }else if (list.get(position).getOrderStatus() == -1){
-                            Intent intent = new Intent();
-                            intent.putExtra("orderNo",list.get(position).getOrderNo());
-                            intent.setClass(getActivity(), RefundsActivity.class);
-                            startActivity(intent);
+                            if (!utils.isDoubleClick()){
+                                Intent intent = new Intent();
+                                intent.putExtra("orderNo",list.get(position).getOrderNo());
+                                intent.setClass(getActivity(), RefundsActivity.class);
+                                startActivity(intent);
+                            }
                         }else  if (list.get(position).getOrderStatus() == 1){
-                            Intent intent = new Intent();
-                            intent.putExtra("orderNo",list.get(position).getOrderNo());
-                            intent.setClass(getActivity(), TianXieWuLiuActivity.class);
-                            startActivity(intent);
+                            if (!utils.isDoubleClick()){
+                                Intent intent = new Intent();
+                                intent.putExtra("orderNo",list.get(position).getOrderNo());
+                                intent.setClass(getActivity(), TianXieWuLiuActivity.class);
+                                startActivity(intent);
+                            }
                         }else if (list.get(position).getOrderStatus() == -5){
-                            Intent intent = new Intent();
-                            intent.putExtra("orderNo",list.get(position).getOrderNo());
-                            intent.setClass(getActivity(), ReturnDetailsActivity.class);
-                            startActivity(intent);
+                            if (!utils.isDoubleClick()){
+                                Intent intent = new Intent();
+                                intent.putExtra("orderNo",list.get(position).getOrderNo());
+                                intent.setClass(getActivity(), ReturnDetailsActivity.class);
+                                startActivity(intent);
+                            }
                         }
                         break;
                 }
             }
         });
-        //刷新
-        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                page = 2;
-                initData();
-            }
-        });
-        //加载更多
-        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+//        //刷新
+//        smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+//            @Override
+//            public void onRefresh(RefreshLayout refreshlayout) {
+//                page = 2;
+//                initData();
+//            }
+//        });
+//        //加载更多
+//        smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+//            @Override
+//            public void onLoadmore(RefreshLayout refreshlayout) {
 //                initAdd();
-            }
-        });
+//            }
+//        });
     }
+
+//    private void initAdd() {
+//
+//    }
 
     //  取消订单
     private void initQuanXiao(String orderNo, int orderStatus) {

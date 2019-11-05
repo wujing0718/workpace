@@ -492,7 +492,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".WoDe.Activity.WeiRenZhengActivity" />
         <activity android:name=".WoDe.Activity.DaShiRenZhengActivity" />
-        <activity android:name=".WoDe.Activity.VIPGuiZeActivity"></activity>
+        <activity android:name=".WoDe.Activity.VIPGuiZeActivity" />
+        <activity android:name=".Shop.Activity.PaySucceedActivity"></activity>
     </application>
 
 </manifest>

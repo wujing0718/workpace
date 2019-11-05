@@ -145,7 +145,9 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                     }
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
-//                        WaitDialog.show(getActivity(), "载入中...");
+                        if (getActivity()!=null){
+                            WaitDialog.show(getActivity(), "载入中...");
+                        }
                         super.onStart(request);
                     }
                 });

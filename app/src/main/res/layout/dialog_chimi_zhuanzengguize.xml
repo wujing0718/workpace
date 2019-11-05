@@ -31,7 +31,7 @@
             android:textColor="@color/colorBlack"
             android:lineSpacingExtra="8dp"
             android:textSize="12sp"
-            android:text="别人送我的茶米不可二次转增我自己的茶米只能送出去50%,假如我的茶米：2200，有200是别人送我的，所以我最多能送出1000"
+            android:text="别人送我的茶米不可二次转赠我自己的茶米只能送出去50%,假如我的茶米：2200，有200是别人送我的，所以我最多能送出1000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

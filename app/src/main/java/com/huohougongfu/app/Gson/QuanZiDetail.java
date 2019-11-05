@@ -227,7 +227,7 @@ public class QuanZiDetail  {
             private Object income;
             private Object qq;
             private Object wechat;
-            private Object place;
+            private String place;
             private Object integral;
             private Object isMaster;
             private Object isMerchant;
@@ -358,11 +358,11 @@ public class QuanZiDetail  {
                 this.wechat = wechat;
             }
 
-            public Object getPlace() {
+            public String getPlace() {
                 return place;
             }
 
-            public void setPlace(Object place) {
+            public void setPlace(String place) {
                 this.place = place;
             }
 

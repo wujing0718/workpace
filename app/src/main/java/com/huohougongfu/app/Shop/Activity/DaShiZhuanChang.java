@@ -352,15 +352,18 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
         smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                initAdd();
+                initAdd(sousuo);
             }
         });
     }
 
-    private void initAdd() {
+    private void initAdd(String sousuo) {
         Map<String,String> map = new HashMap<>();
         map.put("page",String.valueOf(page++));
         map.put("pageSize","10");
+        if (!"".equals(sousuo)){
+            map.put("name",sousuo);
+        }
         OkGo.<String>get(Contacts.URl2+"query/master/masterOwn")
                 .params(map)
                 .execute(new StringCallback() {
@@ -383,9 +386,9 @@ public class DaShiZhuanChang extends AppCompatActivity implements IUnReadMessage
     @Override
     public void onCountChanged(int i) {
         if(i == 0){
-            qBadgeView.hide(true);
+            qbadgebiewxitong.hide(true);
         }else{
-            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+            qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
         }
     }
 }

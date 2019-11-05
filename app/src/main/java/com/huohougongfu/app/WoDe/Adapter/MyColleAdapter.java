@@ -90,7 +90,7 @@ public class MyColleAdapter extends RecyclerView.Adapter<MyColleAdapter.ViewHold
         }
         Glide.with(context).load(myLive.getCoverUrl()).into(viewHolder.img_shangpin_photo);
         viewHolder.tv_shangpin_title.setText(myLive.getName());
-        viewHolder.tv_shangpin_price.setText("¥"+String.valueOf(myLive.getMarketPrice()));
+        viewHolder.tv_shangpin_price.setText("¥"+String.valueOf(myLive.getPrice()));
         viewHolder.tv_shangpin_collect_num.setText(String.valueOf(myLive.getCollectionNum())+"人收藏");
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -97,9 +97,10 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
         this.context= context;
         this.total_price = total_price;
     }
-    public ChaTaiZhiFu(@NonNull Activity context, String result, double total_price, String type) {
+    public ChaTaiZhiFu(@NonNull Activity context, String result, String id, double total_price, String type) {
         super(context);
         this.OrderNo = result;
+        this.OrderId = id;
         this.result = result;
         this.context= context;
         this.total_price = total_price;
@@ -253,7 +254,7 @@ public class ChaTaiZhiFu extends BottomPopupView implements View.OnClickListener
                     if (over!=null&&over.getResult()!=null){
                         if (over.getResult().isHasPayPassword()){
                             dismiss();
-                            PopEnterPassword popEnterPassword = new PopEnterPassword(1, context,total_price,OrderNo);
+                            PopEnterPassword popEnterPassword = new PopEnterPassword(1, context,total_price,OrderNo,OrderId);
                             // 显示窗口
                             popEnterPassword.showAtLocation(getPopupContentView(),
                                     Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置

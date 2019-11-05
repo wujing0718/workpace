@@ -80,21 +80,10 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked){
-                    SelectDialog.show(AddRegionActivity.this, "提示", "是否设置为默认地址",
-                            "确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    isDefault = 1;
-                                    bt_switch.setChecked(true);
-                                }
-                            },
-                            "取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    bt_switch.setChecked(false);
-                                }
-                            });
+                    isDefault = 1;
+                    bt_switch.setChecked(true);
                 }else{
+                    bt_switch.setChecked(false);
                     isDefault = 0;
                 }
             }
@@ -119,21 +108,10 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
                 @Override
                 public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                     if (isChecked){
-                        SelectDialog.show(AddRegionActivity.this, "提示", "是否设置为默认地址",
-                                "确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        isDefault = 1;
-                                        bt_switch.setChecked(true);
-                                    }
-                                },
-                                "取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        bt_switch.setChecked(false);
-                                    }
-                                });
+                        isDefault = 1;
+                        bt_switch.setChecked(true);
                     }else{
+                        bt_switch.setChecked(false);
                         isDefault = 0;
                     }
                 }

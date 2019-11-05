@@ -1,5 +1,6 @@
 package com.huohougongfu.app.WoDe.Activity;
 
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.huohougongfu.app.R;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.utils;
 import com.huohougongfu.app.WoDe.Adapter.YaoQingAdapter;
+import com.kongzue.dialog.v2.MessageDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -50,6 +52,7 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
     private RecyclerView rec_yaoqing;
     private QuanZiShare share;
     private View view_liebiao;
+    private YaoQingGson yaoQingGson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,7 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
         img_zhuanke_bg = findViewById(R.id.img_zhuanke_bg);
         tv_biaoyu = findViewById(R.id.tv_biaoyu);
         tv_guize = findViewById(R.id.tv_guize);
+        tv_guize.setOnClickListener(this);
         rec_yaoqing = findViewById(R.id.rec_yaoqing);
     }
 
@@ -97,7 +101,7 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        YaoQingGson yaoQingGson = gson.fromJson(body, YaoQingGson.class);
+                        yaoQingGson = gson.fromJson(body, YaoQingGson.class);
                         if (yaoQingGson.getStatus() == 1){
                             if (yaoQingGson.getResult().getEarnPordut().getList().size()>0){
                                 view_liebiao.setVisibility(View.VISIBLE);
@@ -161,19 +165,32 @@ public class YaoQingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.bt_lijiyaoqing:
                 if (!utils.isDoubleClick()){
-                    UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
-                    web.setTitle(share.getResult().getTitle());//标题
-                    web.setDescription(share.getResult().getContent());//描述
-                    if (share.getResult().getPhoto()!=null) {
-                        web.setThumb(new UMImage(YaoQingActivity.this, share.getResult().getPhoto()));  //网络缩略图
-                    } else {
-                        web.setThumb(new UMImage(YaoQingActivity.this, R.mipmap.img_zhanweitu));  //本地缩略图
+                    if (null!=share&& null!=share.getResult()){
+                        UMWeb web = new UMWeb(share.getResult().getUrl());//连接地址
+                        web.setTitle(share.getResult().getTitle());//标题
+                        web.setDescription(share.getResult().getContent());//描述
+                        if (share.getResult().getPhoto()!=null) {
+                            web.setThumb(new UMImage(YaoQingActivity.this, share.getResult().getPhoto()));  //网络缩略图
+                        } else {
+                            web.setThumb(new UMImage(YaoQingActivity.this, R.mipmap.img_zhanweitu));  //本地缩略图
+                        }
+                        new ShareAction(YaoQingActivity.this)
+                                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
+                                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
+                                .withMedia(web)
+                                .setCallback(this).open();
                     }
-                    new ShareAction(YaoQingActivity.this)
-                            .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,
-                                    SHARE_MEDIA.WEIXIN,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN_CIRCLE)
-                            .withMedia(web)
-                            .setCallback(this).open();
+                }
+                break;
+            case R.id.tv_guize:
+                if (null!=yaoQingGson && null!=yaoQingGson.getResult()){
+//                    TipDialog.show(this, , TipDialog.SHOW_TIME_SHORT, TipDialog.TYPE_CUSTOM_DRAWABLE);
+                    MessageDialog.show(this, "规则详情", yaoQingGson.getResult().getRule().getRegulation(), "取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+//                    ToastUtils.showShort();
                 }
                 break;
         }

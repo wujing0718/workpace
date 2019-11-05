@@ -112,7 +112,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         layoutParams.height = utils.getStatusBarHeight();
         qBadgeView = new QBadgeView(getActivity());
         qbadgebiewxitong = new QBadgeView(getActivity());
-
         initUI();
         initbanner();
         initData();
@@ -449,9 +448,9 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     @Override
     public void onCountChanged(int i) {
         if(i == 0){
-            qBadgeView.hide(true);
+            qbadgebiewxitong.hide(true);
         }else{
-            qBadgeView.bindTarget(bt_xiaoxi).setBadgeNumber(i);
+            qbadgebiewxitong.bindTarget(bt_xiaoxi).setGravityOffset(8,true).setBadgeText("");
         }
     }
 }
