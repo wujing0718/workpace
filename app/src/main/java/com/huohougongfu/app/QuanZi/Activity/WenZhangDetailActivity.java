@@ -372,6 +372,12 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(WenZhangDetailActivity.this,"载入中...");
                         super.onStart(request);
@@ -736,6 +742,12 @@ public class WenZhangDetailActivity extends AppCompatActivity implements View.On
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
                     }
 
                     @Override

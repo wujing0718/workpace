@@ -163,6 +163,12 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                         }
 
                         @Override
+                        public void onError(Response<String> response) {
+                            WaitDialog.dismiss();
+                            super.onError(response);
+                        }
+
+                        @Override
                         public void onStart(Request<String, ? extends Request> request) {
                             WaitDialog.show(context,"请稍后。。。");
                             super.onStart(request);
@@ -183,6 +189,12 @@ public class DingDanZhiFu extends BottomPopupView implements View.OnClickListene
                                 alitoken = aLiPay.getResult().getOrderString();
                                 tv_total_price.setText("￥"+aLiPay.getResult().getPriceTotal());
                             }
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            WaitDialog.dismiss();
+                            super.onError(response);
                         }
 
                         @Override

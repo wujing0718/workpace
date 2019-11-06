@@ -273,6 +273,12 @@ public class QuanZiDetailActivity extends AppCompatActivity implements View.OnCl
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(QuanZiDetailActivity.this,"载入中...");
                         super.onStart(request);

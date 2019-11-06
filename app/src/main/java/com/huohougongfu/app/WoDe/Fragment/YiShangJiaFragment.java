@@ -156,6 +156,13 @@ YiShangJiaFragment extends Fragment implements IListener ,ShopGuanLiAdapter.OnIt
                             }
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(getActivity(), "载入中...");
@@ -213,6 +220,13 @@ YiShangJiaFragment extends Fragment implements IListener ,ShopGuanLiAdapter.OnIt
                             smartrefreshlayout. finishLoadmoreWithNoMoreData();
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(getActivity(), "载入中...");

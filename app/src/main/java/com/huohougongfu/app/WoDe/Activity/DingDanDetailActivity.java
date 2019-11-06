@@ -314,6 +314,12 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(DingDanDetailActivity.this,"请稍后。。。");
                         super.onStart(request);

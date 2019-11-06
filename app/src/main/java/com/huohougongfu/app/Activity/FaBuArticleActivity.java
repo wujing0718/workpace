@@ -243,6 +243,12 @@ public class FaBuArticleActivity extends AppCompatActivity implements View.OnCli
                         }
 
                         @Override
+                        public void onError(Response<String> response) {
+                            WaitDialog.dismiss();
+                            super.onError(response);
+                        }
+
+                        @Override
                         public void onStart(Request<String, ? extends Request> request) {
                             WaitDialog.show(FaBuArticleActivity.this,"载入中...");
                             super.onStart(request);

@@ -140,6 +140,14 @@ public class DingDanGuanLiFragment extends Fragment {
                         intent.setClass(getActivity(), ReturnDetailsActivity.class);
                         startActivity(intent);
                     }
+                }else if (list.get(position).getOrderStatus() == -7){
+                    if (!utils.isDoubleClick()){
+                        Intent intent = new Intent();
+                        intent.putExtra("OrderStatus",list.get(position).getOrderStatus());
+                        intent.putExtra("orderNo",list.get(position).getOrderNo());
+                        intent.setClass(getActivity(), RefundsActivity.class);
+                        startActivity(intent);
+                    }
                 }else{
                     if (!utils.isDoubleClick()){
                         intent.putExtra("orderNo",list.get(position).getOrderNo());

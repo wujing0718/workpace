@@ -44,6 +44,8 @@ public class TADianPu extends Fragment {
     private RecyclerView rec_ta_dianpu;
     private ShopAdapter shangPinAdapter;
     private int page = 2;
+    private ShopGson shop;
+
     public TADianPu() {
         // Required empty public constructor
     }
@@ -72,7 +74,7 @@ public class TADianPu extends Fragment {
                     public void onSuccess(Response<String> response) {
                         String body = response.body();
                         Gson gson = new Gson();
-                        ShopGson shop = gson.fromJson(body, ShopGson.class);
+                        shop = gson.fromJson(body, ShopGson.class);
                         if (shop.getStatus() == 1){
                             initRec(shop);
                         }
@@ -112,7 +114,13 @@ public class TADianPu extends Fragment {
             smartrefreshlayout.setOnLoadmoreListener(new OnLoadmoreListener() {
                 @Override
                 public void onLoadmore(RefreshLayout refreshlayout) {
-                    initAdd();
+                    if (shop!=null && shop.getResult()!=null){
+                        if(shop.getResult().isHasNextPage()){
+                            initAdd();
+                        }else{
+                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
+                        }
+                    }
                 }
             });
         }else{
@@ -123,24 +131,31 @@ public class TADianPu extends Fragment {
     private void initAdd() {
         Map<String, String> map = new HashMap<>();
         map.put("mId",mId);
-        map.put("page",String.valueOf(page++));
+        map.put("pageNo",String.valueOf(page++));
         map.put("pageSize","10");
-        OkGo.<String>get(Contacts.URl2+"querySiftAndExpand")
+        OkGo.<String>post(Contacts.URl1+"/my/store")
                 .params(map)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                         WaitDialog.dismiss();
                         String body = response.body();
                         Gson gson = new Gson();
                         ShopGson shop = gson.fromJson(body, ShopGson.class);
                         if (shop.getResult().getList().size()>0){
                             shangPinAdapter.add(shop.getResult().getList());
-                            smartrefreshlayout.finishLoadmore(true);//传入false表示刷新失败
                         }else {
                             smartrefreshlayout. finishLoadmoreWithNoMoreData();
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(getActivity(), "载入中...");

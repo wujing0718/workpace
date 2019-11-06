@@ -193,6 +193,12 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
                                                 }
 
                                                 @Override
+                                                public void onError(Response<String> response) {
+                                                    WaitDialog.dismiss();
+                                                    super.onError(response);
+                                                }
+
+                                                @Override
                                                 public void onStart(Request<String, ? extends Request> request) {
                                                     WaitDialog.show(AddRegionActivity.this, "载入中...");
                                                     super.onStart(request);
@@ -257,6 +263,12 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();
                                                             }
+                                                        }
+
+                                                        @Override
+                                                        public void onError(Response<String> response) {
+                                                            WaitDialog.dismiss();
+                                                            super.onError(response);
                                                         }
 
                                                         @Override

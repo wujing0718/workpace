@@ -41,12 +41,15 @@ public class RefundsActivity extends AppCompatActivity {
     private String orderNo;
     private ImageView img_photo;
     private ReturnDetails returnDetails;
+    private int orderStatus;
+    private TextView bt_tongyituikuan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refunds);
         orderNo = getIntent().getStringExtra("orderNo");
+        orderStatus = getIntent().getIntExtra("OrderStatus", 100);
         initUI();
         initData();
     }
@@ -85,6 +88,7 @@ public class RefundsActivity extends AppCompatActivity {
     }
 
     private void initUI() {
+        tv_type = findViewById(R.id.tv_type);
         findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +109,15 @@ public class RefundsActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.bt_tongyituikuan).setOnClickListener(new View.OnClickListener() {
+        bt_tongyituikuan = findViewById(R.id.bt_tongyituikuan);
+        if (orderStatus == -7){
+            bt_tongyituikuan.setVisibility(View.GONE);
+            tv_type.setText("完成退款");
+        }else{
+            tv_type.setText("退货退款");
+            bt_tongyituikuan.setVisibility(View.VISIBLE);
+        }
+        bt_tongyituikuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SelectDialog.show(RefundsActivity.this, "提示", "是否同意退款",

@@ -241,6 +241,12 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
                         WaitDialog.show(DiaPuZhuYeActivity.this,"请稍后。。。");
@@ -272,6 +278,12 @@ public class DiaPuZhuYeActivity extends AppCompatActivity implements View.OnClic
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
                     }
 
                     @Override

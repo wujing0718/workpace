@@ -247,6 +247,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(RegisterActivity.this,"请稍后。。。");
                         super.onStart(request);

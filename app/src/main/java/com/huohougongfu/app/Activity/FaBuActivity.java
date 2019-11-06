@@ -403,6 +403,12 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
                             @Override
+                            public void onError(Response<String> response) {
+                                WaitDialog.dismiss();
+                                super.onError(response);
+                            }
+
+                            @Override
                             public void onStart(Request<String, ? extends Request> request) {
                                 WaitDialog.show(FaBuActivity.this, "载入中...");
                                 super.onStart(request);

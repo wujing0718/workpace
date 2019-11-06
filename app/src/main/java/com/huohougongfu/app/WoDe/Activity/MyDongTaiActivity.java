@@ -122,6 +122,12 @@ public class MyDongTaiActivity extends AppCompatActivity implements View.OnClick
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(MyDongTaiActivity.this,"载入中...");
                         super.onStart(request);

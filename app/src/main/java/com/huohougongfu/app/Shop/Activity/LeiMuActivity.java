@@ -179,6 +179,13 @@ public class LeiMuActivity extends AppCompatActivity implements IUnReadMessageOb
                             initView(leimu.getResult());
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(LeiMuActivity.this,"请稍后。。。");

@@ -421,6 +421,12 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                             }
 
                             @Override
+                            public void onError(Response<String> response) {
+                                WaitDialog.dismiss();
+                                super.onError(response);
+                            }
+
+                            @Override
                             public void onStart(Request<String, ? extends Request> request) {
                                 WaitDialog.show(FaBuVedioActivity.this, "上传中...");
                                 super.onStart(request);

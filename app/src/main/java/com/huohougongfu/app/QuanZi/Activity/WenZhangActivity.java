@@ -145,6 +145,13 @@ public class WenZhangActivity extends AppCompatActivity {
                             }
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(WenZhangActivity.this, "载入中...");

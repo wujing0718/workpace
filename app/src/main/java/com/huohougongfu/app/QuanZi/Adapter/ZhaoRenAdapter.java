@@ -37,6 +37,11 @@ public class ZhaoRenAdapter extends BaseQuickAdapter<ZhaoRenGson.ResultBean.List
             bt_zhaoren_gaunzhu.setText("取消关注");
             bt_zhaoren_gaunzhu.setTextColor(MyApp.context.getResources().getColor(R.color.colorWhite));
         }
+        if (MyApp.instance.getInt("id") == item.getUserId()){
+            bt_zhaoren_gaunzhu.setVisibility(View.GONE);
+        }else{
+            bt_zhaoren_gaunzhu.setVisibility(View.VISIBLE);
+        }
         helper.setText(R.id.tv_my_fensinum,"粉丝："+String.valueOf(item.getFanCount()));
         helper.setText(R.id.tv_zhaoren_name,item.getNickName());
         helper.setText(R.id.tv_zhaoren_chenghu,item.getMaster().getLevel());

@@ -106,6 +106,13 @@ public class JingXuanActivity extends AppCompatActivity implements  IUnReadMessa
                             initRec(faxian);
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(JingXuanActivity.this, "载入中...");
@@ -126,6 +133,13 @@ public class JingXuanActivity extends AppCompatActivity implements  IUnReadMessa
                             initRecRen(jingxuanren.getResult().getList());
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(JingXuanActivity.this, "载入中...");

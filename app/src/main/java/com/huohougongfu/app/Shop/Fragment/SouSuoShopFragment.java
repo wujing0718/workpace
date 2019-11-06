@@ -145,6 +145,13 @@ public class SouSuoShopFragment extends Fragment implements View.OnClickListener
                             }
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         if (getActivity() != null) {

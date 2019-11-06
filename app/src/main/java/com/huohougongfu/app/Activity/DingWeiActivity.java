@@ -192,6 +192,13 @@ public class DingWeiActivity extends AppCompatActivity implements GeocodeSearch.
                             }
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(DingWeiActivity.this, "载入中...");

@@ -562,12 +562,14 @@ public class MyFragment extends Fragment implements View.OnClickListener,IUnRead
                     if (!token.isEmpty()){
                         if (null !=xinxi){
                             if (xinxi.getResult()!=null){
-                                if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
-                                    intent.setClass(getActivity(),MyDianPuActivity.class);
-                                    startActivity(intent);
-                                }else{
-                                    intent.setClass(getActivity(),WeiRenZhengActivity.class);
-                                    startActivity(intent);
+                                if (renZhengZhuangTai!=null && renZhengZhuangTai.getResult()!=null){
+                                    if (renZhengZhuangTai.getResult().getPerson().getCode() == 2){
+                                        intent.setClass(getActivity(),MyDianPuActivity.class);
+                                        startActivity(intent);
+                                    }else{
+                                        intent.setClass(getActivity(),WeiRenZhengActivity.class);
+                                        startActivity(intent);
+                                    }
                                 }
 //                            if (xinxi.getResult().isIsMerchant() ==true){
 //                                intent.setClass(getActivity(),MyDianPuActivity.class);

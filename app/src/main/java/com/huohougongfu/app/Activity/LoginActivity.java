@@ -419,6 +419,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
 
                                 @Override
+                                public void onError(Response<String> response) {
+                                    WaitDialog.dismiss();
+                                    super.onError(response);
+                                }
+
+                                @Override
                                 public void onStart(Request<String, ? extends Request> request) {
                                     WaitDialog.show(LoginActivity.this,"正在登录。。。");
                                     super.onStart(request);
@@ -479,6 +485,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }else{
                                         ToastUtils.showShort(login.getMsg());
                                     }
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    WaitDialog.dismiss();
+                                    super.onError(response);
                                 }
 
                                 @Override

@@ -376,6 +376,12 @@ public class ChaShiRenZhengActivity extends AppCompatActivity implements View.On
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(ChaShiRenZhengActivity.this,"请稍后。。。");
                         super.onStart(request);

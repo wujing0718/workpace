@@ -262,7 +262,15 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                                                     mallproduct .put("commission",edt_shop_yongjin.getText().toString());
                                                 }
                                                 mallproduct .put("sendAddress",cityName);
-                                                initShangChuan(mallproduct);
+                                                if (!mshopphoto.isEmpty()){
+                                                    if (!mphoto.isEmpty()){
+                                                        initShangChuan(mallproduct);
+                                                    }else{
+                                                        ToastUtils.showShort("请上传商品主图");
+                                                    }
+                                                }else{
+                                                    ToastUtils.showShort("请上传商品详情图");
+                                                }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -371,8 +379,14 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                     }
 
                     @Override
-                    public void onStart(Request<String, ? extends Request> request) {
+                    public void onError(Response<String> response) {
                         WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
+                    public void onStart(Request<String, ? extends Request> request) {
+                        WaitDialog.show(TianJiaShangPinActivity.this,"请稍后。。。");
                         super.onStart(request);
                     }
                 });

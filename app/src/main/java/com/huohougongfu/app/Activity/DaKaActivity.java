@@ -73,6 +73,12 @@ public class DaKaActivity extends AppCompatActivity {
                     }
 
                     @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
+                    @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
                     }
@@ -138,6 +144,12 @@ public class DaKaActivity extends AppCompatActivity {
                                     img7.setImageResource(R.mipmap.img_yiqiandao);
                                 }
                             }
+                        }
+
+                        @Override
+                        public void onError(Response<String> response) {
+                            WaitDialog.dismiss();
+                            super.onError(response);
                         }
 
                         @Override
@@ -245,6 +257,12 @@ public class DaKaActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
                     }
 
                     @Override

@@ -143,6 +143,13 @@ public class SouSuoDaShiFragment extends Fragment implements IListener ,View.OnC
                             }
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         if (getActivity()!=null){

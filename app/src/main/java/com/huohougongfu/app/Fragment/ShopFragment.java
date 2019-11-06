@@ -271,6 +271,13 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                             smartrefreshlayout.finishLoadmore(true);
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(getActivity(), "载入中...");

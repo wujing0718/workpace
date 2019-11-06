@@ -126,6 +126,13 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
                             }
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(TeHuiActivity.this, "载入中...");
@@ -213,6 +220,13 @@ public class TeHuiActivity extends AppCompatActivity implements IUnReadMessageOb
                             smartrefreshlayout. finishLoadmoreWithNoMoreData();
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        WaitDialog.dismiss();
+                        super.onError(response);
+                    }
+
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         WaitDialog.show(TeHuiActivity.this, "载入中...");
