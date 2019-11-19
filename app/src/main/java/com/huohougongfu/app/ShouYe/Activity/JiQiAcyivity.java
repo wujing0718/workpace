@@ -78,6 +78,16 @@ public class JiQiAcyivity extends AppCompatActivity  implements PoiSearch.OnPoiS
                 return false;
             }
         });
+        findViewById(R.id.bt_no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundles = new Bundle();
+                bundles.putSerializable("data",null);
+                bundles.putString("title","所在位置");
+                setResult(CONTEXT_RESTRICTED,JiQiAcyivity.this.getIntent().putExtras(bundles));
+                JiQiAcyivity.this.finish();
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(JiQiAcyivity.this);
         //设置布局管理器
         rcv_dizhi_sousuo.setLayoutManager(layoutManager);

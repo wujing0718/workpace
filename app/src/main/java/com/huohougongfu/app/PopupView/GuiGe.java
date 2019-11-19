@@ -1,5 +1,6 @@
 package com.huohougongfu.app.PopupView;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -185,20 +186,28 @@ public class GuiGe extends BottomPopupView implements IListener{
                             String result = jsonObject1.getString("result");
                             JSONObject result2 = new JSONObject(result);
                             if ("你还未设置地址".equals(result2.getString("defaultAddress"))){
-                                SelectDialog.show(context, "提示", "是否前往设置收货地址",
-                                        "确定", new DialogInterface.OnClickListener() {
+                                final AlertDialog.Builder normalDialog =
+                                        new AlertDialog.Builder(context);
+                                normalDialog.setTitle("提示");
+                                normalDialog.setMessage("是否前往设置收货地址?");
+                                normalDialog.setPositiveButton("确定",
+                                        new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 Intent intent = new Intent();
                                                 intent.setClass(context, AddressActivity.class);
                                                 context.startActivity(intent);
                                             }
-                                        },
-                                        "取消", new DialogInterface.OnClickListener() {
+                                        });
+                                normalDialog.setNegativeButton("取消",
+                                        new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                //...To-do
                                             }
                                         });
+                                // 显示
+                                normalDialog.show();
                             }else{
                                 Gson gson = new Gson();
                                 ShopDingDan shopDingDan = gson.fromJson(body, ShopDingDan.class);
@@ -253,7 +262,7 @@ public class GuiGe extends BottomPopupView implements IListener{
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 ToastUtils.showShort(jsonObject.getString("msg"));
-                                ListenerManager.getInstance().sendBroadCast(300,"加入购物车");
+                                ListenerManager.getInstance().sendBroadCast(300,String.valueOf(amount));
                                 dismiss();
                             }else{
                                 dismiss();

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.renderscript.Sampler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,6 +87,10 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
     private ZhiFu zhiFu;
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
     private TextView tv_num;
+    private String priceorder;
+    private List<Integer> teaids = new ArrayList<>();
+    private List<Double> prices = new ArrayList<>();
+
 
 
     public ChaTaiOneFragment() {
@@ -236,9 +241,9 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
         mAdapter.setOnChangeCountListener(new ChaTaiAdapter.OnChangeCountListener() {
 
             @Override
-            public void onChangeCount(double total_price, JSONArray array, int teaRice,boolean isDikou,String orderprice) {
+            public void onChangeCount(double total_price, JSONArray array, int teaRice,boolean isDikou,String orderprice,List<ChaTaiGson.ResultBean> listok) {
                 if (!"[]".equals(array.toString())){
-                    initORder(total_price,array,teaRice,isDikou,orderprice);
+                    initORder(total_price,array,teaRice,isDikou,orderprice,listok);
                 }else{
                     ToastUtils.showShort("请选择要购买的商品");
                 }
@@ -296,33 +301,147 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
                 });
     }
 
-    private void initORder(double total_price, JSONArray array, int teaRice, boolean isDikou,String orderprice) {
+    private void initORder(double total_price, JSONArray array, int teaRice, boolean isDikou, String orderprice, List<ChaTaiGson.ResultBean> listok) {
         Map<String,String> map = new HashMap<>();
         String ¥ = orderprice.replace("¥", "");
         Double total_priceorder = Double.valueOf(¥);
+        Double total_priceorder1 = Double.valueOf(¥);
+//        try {
+//            JSONObject jsonObject = new JSONObject(String.valueOf(array));
+//            JSONArray teaId = jsonObject.getJSONArray("teaId");
+//            for (int i = 0; i <teaId.length() ; i++) {
+//                JSONObject tea = teaId.getJSONObject(i);
+//                Integer teaid = Integer.valueOf(tea.toString());
+//
+//                }
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         map.put("json",array.toString());
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("machineId",machineId);
-        if (xuanzeyouhuiquan!=null){
-            xuanzeyouhuiquan.getCouponType();
-            map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
-        }
         double dikou = myouhuiquan.getTeaRice() * myouhuiquan.getProportion();
         double order;
         if (!isDikou){
             if (total_priceorder-dikou>0){
-                map.put("totalPrice",String.valueOf(total_priceorder));
-                map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
+                if (xuanzeyouhuiquan!=null){
+                    teaids.clear();
+                    prices.clear();
+                    for (int i = 0; i < listok.size(); i++) {
+                        teaids.add(listok.get(i).getTeaId());
+                        prices.add(listok.get(i).getTea().getPrice());
+                    }
+                    for (int i = 0; i < prices.size(); i++) {
+                        if (xuanzeyouhuiquan.getCouponType() ==1){
+                            if (teaids.contains(xuanzeyouhuiquan.getUsableProductId())) {
+                                    map.put("couponId", String.valueOf(xuanzeyouhuiquan.getId()));
+                                    total_priceorder = total_price - listok.get(i).getTea().getPrice();
+                                    total_priceorder = Double.valueOf(decimalFormat.format(total_priceorder));
+                                    priceorder = decimalFormat.format(total_priceorder);
+                                    map.put("totalPrice",String.valueOf(total_priceorder));
+                                    map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
+                                } else {
+                                    ToastUtils.showShort("免费券品种不一样不可使用");
+                                    return;
+                                }
+                            }else{
+                                map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
+                                total_priceorder = total_price*xuanzeyouhuiquan.getDiscount();
+                                total_priceorder = Double.valueOf(decimalFormat.format(total_priceorder));
+                                priceorder = decimalFormat.format(total_priceorder-dikou);
+                                map.put("totalPrice",String.valueOf(priceorder));
+                            }
+                    }
+                    initgoumai(total_priceorder1,map);
+                }else{
+                    total_priceorder = total_price;
+                    map.put("totalPrice",String.valueOf(total_priceorder));
+                    initgoumai(total_priceorder1,map);
+                }
             }else{
-                map.put("totalPrice",String.valueOf(total_priceorder));
-                Double v = total_price * 100;
-                int teaRiceNum = v.intValue();
-                map.put("teaRiceNum",String.valueOf(teaRiceNum));
+                if (xuanzeyouhuiquan!=null){
+                    teaids.clear();
+                    prices.clear();
+                    for (int i = 0; i < listok.size(); i++) {
+                        teaids.add(listok.get(i).getTeaId());
+                        prices.add(listok.get(i).getTea().getPrice());
+                    }
+                    for (int i = 0; i < prices.size(); i++) {
+                        if (xuanzeyouhuiquan.getCouponType() ==1){
+                            if (teaids.contains(xuanzeyouhuiquan.getUsableProductId())) {
+                                xuanzeyouhuiquan.getCouponType();
+                                map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
+                                total_priceorder = total_price - prices.get(i);
+                                total_priceorder = Double.valueOf(decimalFormat.format(total_priceorder));
+                                priceorder = decimalFormat.format(total_priceorder);
+                                map.put("totalPrice",String.valueOf(0));
+                                map.put("teaRiceNum",String.valueOf((int)(total_price*100)));
+                                total_priceorder = 0.00;
+                            } else {
+                                ToastUtils.showShort("免费券品种不一样不可使用");
+                                return;
+                            }
+                        }else{
+                            total_priceorder = 0.0;
+                            map.put("totalPrice",String.valueOf(0));
+                            Double v = Double.valueOf(total_price) * 100;
+                            int teaRiceNum = v.intValue();
+                            map.put("teaRiceNum",String.valueOf(teaRiceNum));
+                        }
+                    }
+                    initgoumai(total_priceorder1,map);
+                }else{
+                    if (total_priceorder-dikou>0){
+                        map.put("totalPrice",String.valueOf(total_priceorder-dikou));
+                        double RiceNum = total_price*100;
+                        map.put("teaRiceNum",String.valueOf((int)RiceNum));
+                        initgoumai(total_priceorder1,map);
+                    }else{
+                        map.put("totalPrice",String.valueOf(0));
+                        double RiceNum = total_price*100;
+                        map.put("teaRiceNum",String.valueOf((int)RiceNum));
+                        initgoumai(total_priceorder1,map);
+                    }
+                }
             }
         }else{
-            order = total_price;
-            map.put("totalPrice",String.valueOf(total_priceorder));
+            if (xuanzeyouhuiquan!=null){
+                teaids.clear();
+                prices.clear();
+                for (int i = 0; i < listok.size(); i++) {
+                    teaids.add(listok.get(i).getTeaId());
+                    prices.add(listok.get(i).getTea().getPrice());
+                }
+                for (int i = 0; i < prices.size(); i++) {
+                    if (xuanzeyouhuiquan.getCouponType() ==1){
+                        if (teaids.contains(xuanzeyouhuiquan.getUsableProductId())) {
+                            map.put("couponId", String.valueOf(xuanzeyouhuiquan.getId()));
+                            total_priceorder = Double.valueOf(decimalFormat.format(total_price));
+                            priceorder = decimalFormat.format(total_priceorder);
+                            map.put("totalPrice",String.valueOf(total_priceorder));
+                        } else {
+                            ToastUtils.showShort("免费券品种不一样不可使用");
+                            return;
+                        }
+                    }else{
+                        map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
+                        double jiage = total_price*xuanzeyouhuiquan.getDiscount();
+                        priceorder = decimalFormat.format(jiage);
+                        map.put("totalPrice",String.valueOf(priceorder));
+                    }
+                }
+                initgoumai(total_priceorder1,map);
+            }else{
+                total_priceorder = total_price;
+                map.put("totalPrice",String.valueOf(total_priceorder));
+                initgoumai(total_priceorder1,map);
+            }
         }
+    }
+
+    private void initgoumai(Double total_priceorder, Map<String, String> map) {
+        Double finalTotal_priceorder = total_priceorder;
         OkGo.<String>post(Contacts.URl1+"/machine/generate/orders")
                 .params(map)
                 .execute(new StringCallback() {
@@ -332,7 +451,7 @@ public class ChaTaiOneFragment extends Fragment implements View.OnClickListener,
                         zhiFu = gson.fromJson(response.body(), ZhiFu.class);
                         if (zhiFu.getStatus() == 1){
                             new XPopup.Builder(getActivity())
-                                    .asCustom(new ChaTaiZhiFu(getActivity(),zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),total_priceorder))
+                                    .asCustom(new ChaTaiZhiFu(getActivity(),zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()), finalTotal_priceorder))
                                     .show();
                         }else{
                             ToastUtils.showShort(zhiFu.getMsg());

@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.Shop.Activity.PaySucceedActivity;
+import com.huohougongfu.app.Shop.Activity.XiaDanActivity;
 import com.huohougongfu.app.ShouYe.Activity.ChaTaiDingDanDetail;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.IListener;
@@ -127,6 +128,7 @@ public class PopEnterPassword extends PopupWindow implements IListener {
                                     if (jsonObject.getInt("status") == 1){
                                         dismiss();
                                         startActivity(new Intent().setClass(mContext, PaySucceedActivity.class));
+                                        XiaDanActivity.activity.finish();
                                         ToastUtils.showShort(jsonObject.getString("msg"));
                                         }else{
                                         ToastUtils.showShort(jsonObject.getString("msg"));

@@ -213,7 +213,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                         viewPluImg(position);
                     } else {
                         if (mPicList.size()<10){
-                            callGallery();
+                            callGallery(9-mPicList.size());
                         }
                         //添加凭证图片
 //                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mPicList.size());
@@ -228,11 +228,11 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 调用图库选择
      */
-    private void callGallery(){
+    private void callGallery(int num){
         Matisse.from(FaBuActivity.this)
                 .choose(MimeType.ofImage(),false)//照片视频全部显示MimeType.allOf()
                 .countable(true)//true:选中后显示数字;false:选中后显示对号
-                .maxSelectable(9)//最大选择数量为9
+                .maxSelectable(num)//最大选择数量为9
                 //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))//图片显示表格的大小
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_USER)//图像选择和预览活动所需的方向
@@ -267,6 +267,10 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
             ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
             mPicList.clear();
             mPicList.addAll(toDeletePicList);
+            mphoto.clear();
+            for (int i = 0; i < mPicList.size(); i++) {
+                mphoto.add(new File(mPicList.get(i)));
+            }
             mGridViewAddImgAdapter.notifyDataSetChanged();
         }
         if (requestCode == CONTEXT_RESTRICTED){
@@ -387,6 +391,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
+                                WaitDialog.dismiss();
                                 String body = response.body();
                                 JSONObject jsonObject = null;
                                 try {
@@ -395,6 +400,7 @@ public class FaBuActivity extends AppCompatActivity implements View.OnClickListe
                                         ToastUtils.showShort(jsonObject.getString("msg"));
                                         finish();
                                     }else{
+                                        WaitDialog.dismiss();
                                         ToastUtils.showShort(jsonObject.getString("msg"));
                                     }
                                 } catch (JSONException e) {

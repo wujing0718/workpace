@@ -44,7 +44,7 @@ public class PhotoSelectorActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_IMAGE_SWITCHER = 2000;
     private ArrayList<String> selectedFath;
     private ImageDir.Type loadType = ImageDir.Type.IMAGE;
-    private long sizeLimit=5*1024*1024;//5m
+    private long sizeLimit=30*1024*1024;//5m
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

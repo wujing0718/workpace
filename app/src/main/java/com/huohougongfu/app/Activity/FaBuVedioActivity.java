@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.huohougongfu.app.Gson.AddressBean;
@@ -40,6 +41,7 @@ import com.huohougongfu.app.SelectVideo.PermissionUtil;
 import com.huohougongfu.app.SelectVideo.PhotoSelectorActivity;
 import com.huohougongfu.app.ShouYe.Activity.JiQiAcyivity;
 import com.huohougongfu.app.Utils.Contacts;
+import com.huohougongfu.app.Utils.FileSizeUtil;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.listener.OnMenuItemClickListener;
 import com.kongzue.dialog.v2.BottomMenu;
@@ -276,7 +278,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                                         Intent i = new Intent(FaBuVedioActivity.this, PhotoSelectorActivity.class);
                                         i.putStringArrayListExtra("selectedPaths", selectedVedioPaths);
                                         i.putExtra("loadType", ImageDir.Type.VEDIO.toString());
-                                        i.putExtra("sizeLimit", 1 * 1024 * 1024);
+                                        i.putExtra("sizeLimit", 30 * 1024 * 1024);
                                         startActivityForResult(i, REQUEST_CODE_GET_VEDIOS);
                                     }
                                 }
@@ -305,6 +307,7 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.bt_shanchu:
                 SPUtils.getInstance("视频").remove("vedio");
+                selectedVedioPaths.clear();
                 rl_look_see.setVisibility(View.GONE);
                 start.setVisibility(View.VISIBLE);
                 break;
@@ -396,42 +399,52 @@ public class FaBuVedioActivity extends BaseActivity implements View.OnClickListe
                     map.put("cityCode", data1.getCityCode());
                     map.put("address", data1.getTitle());
                 }
-                OkGo.<String>post(Contacts.URl1+"/circle/pub")
-                        .tag(this)//
-                        .isMultipart(true)
-                        .params(map)
-                        .addFileParams("file",filelist)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                WaitDialog.dismiss();
-                                String body = response.body();
-                                try {
-                                    JSONObject jsonObject = new JSONObject(body);
-                                    if (jsonObject.getInt("status") == 1){
-                                        ToastUtils.showShort("上传成功");
-                                        finish();
-                                    }else{
-                                        ToastUtils.showShort(jsonObject.getString("msg"));
+                try {
+                    long fileSize = FileSizeUtil.getFileSize(file);
+                    if (fileSize>30*1024*1024){
+                        ToastUtils.showShort("视频过大请重新选择");
+                    }else{
+                        OkGo.<String>post(Contacts.URl1+"/circle/pub")
+                                .tag(this)//
+                                .isMultipart(true)
+                                .params(map)
+                                .addFileParams("file",filelist)
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        WaitDialog.dismiss();
+                                        String body = response.body();
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(body);
+                                            if (jsonObject.getInt("status") == 1){
+                                                ToastUtils.showShort("上传成功");
+                                                finish();
+                                            }else{
+                                                ToastUtils.showShort(jsonObject.getString("msg"));
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                                    @Override
+                                    public void onError(Response<String> response) {
+                                        WaitDialog.dismiss();
+                                        super.onError(response);
+                                    }
 
-                            @Override
-                            public void onError(Response<String> response) {
-                                WaitDialog.dismiss();
-                                super.onError(response);
-                            }
-
-                            @Override
-                            public void onStart(Request<String, ? extends Request> request) {
-                                WaitDialog.show(FaBuVedioActivity.this, "上传中...");
-                                super.onStart(request);
-                            }
-                        });
+                                    @Override
+                                    public void onStart(Request<String, ? extends Request> request) {
+                                        WaitDialog.show(FaBuVedioActivity.this, "上传中...");
+                                        super.onStart(request);
+                                    }
+                                });
+                    }
+                    LogUtils.e("00000",fileSize+"");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }else{
                 ToastUtils.showShort("请选择上传的视频");
             }

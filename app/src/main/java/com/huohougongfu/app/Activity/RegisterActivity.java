@@ -29,6 +29,7 @@ import com.kongzue.dialog.v2.TipDialog;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 
@@ -229,6 +230,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             MyApp.instance.put("photo",register.getResult().getUserInfo().getPhoto(),true);
                             MyApp.instance.put("rongToken",register.getResult().getUserInfo().getRongToken(),true);
                             MyApp.instance.put("token",register.getResult().getToken(),true);
+                            HttpParams params = new HttpParams();
+                            params.put("token",register.getResult().getToken());
+                            params.put("tokenId",String.valueOf(register.getResult().getUserInfo().getUserId()));
+                            OkGo.getInstance().addCommonParams(params);
                             intent.setClass(RegisterActivity.this,MainActivity.class);
                             String lat = MyApp.instance.getString("lat");
                             if (lat!=null){

@@ -33,6 +33,7 @@
                     android:layout_gravity="bottom"
                     android:src="@mipmap/img_bolang"
                     android:scaleType="fitXY"
+                    android:layout_marginBottom="@dimen/dp_4"
                     android:layout_width="match_parent"
                     android:layout_height="40dp" />
 

@@ -59,6 +59,7 @@ public class DianPuDingDanDetailActivity extends AppCompatActivity implements On
     private int ofManager;
     private TextView tv_remark;
     private TextView tv_kuaidi;
+    private TextView tv_num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,9 +149,15 @@ public class DianPuDingDanDetailActivity extends AppCompatActivity implements On
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(result.get(0).getMallStores().getStoreLogo()).apply(requestOptions).into(img_dianpu_logo);
         tv_dianpu_name.setText(result.get(0).getMallStores().getStoreName());
+        if (result.size()>0){
+            if (result.get(0).getMallStores().getMallProducts().size()>0){
+                tv_num.setText("共"+result.get(0).getMallStores().getMallProducts().get(0).getNum()+"件");
+            }
+        }
     }
 
     private void initUI() {
+        tv_num = findViewById(R.id.tv_num);
         tv_kuaidi = findViewById(R.id.tv_kuaidi);
         tv_remark = findViewById(R.id.tv_remark);
         View view_logistics = findViewById(R.id.view_logistics);

@@ -30,6 +30,7 @@ import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.umeng.socialize.UMAuthListener;
@@ -42,6 +43,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -313,6 +315,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         MyApp.instance.put("photo",result.getUserInfo().getPhoto(),true);
         MyApp.instance.put("rongToken",result.getUserInfo().getRongToken(),true);
         MyApp.instance.put("token",result.getToken(),true);
+        HttpParams params = new HttpParams();
+        params.put("token",result.getToken());
+        params.put("tokenId",String.valueOf(result.getUserInfo().getUserId()));
+        OkGo.getInstance().addCommonParams(params);
         //融云登录
         RongIM.connect(result.getUserInfo().getRongToken(), new RongIMClient.ConnectCallback() {
             //token1参数报错
@@ -401,6 +407,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         MyApp.instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
                                         MyApp.instance.put("token",login.getResult().getToken(),true);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
+                                        HttpParams params = new HttpParams();
+                                        params.put("token",login.getResult().getToken());
+                                        params.put("tokenId",String.valueOf(login.getResult().getUserInfo().getUserId()));
+                                        OkGo.getInstance().addCommonParams(params);
                                         // 连接成功，说明你已成功连接到融云Server
                                         startActivity(intent);
                                         finish();
@@ -470,6 +480,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         MyApp.instance.put("photo",login.getResult().getUserInfo().getPhoto(),true);
                                         MyApp.instance.put("rongToken",login.getResult().getUserInfo().getRongToken(),true);
                                         MyApp.instance.put("token",login.getResult().getToken(),true);
+                                        HttpParams params = new HttpParams();
+                                        params.put("token",login.getResult().getToken());
+                                        params.put("tokenId",String.valueOf(login.getResult().getUserInfo().getUserId()));
+                                        OkGo.getInstance().addCommonParams(params);
                                         intent.setClass(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         String lat = MyApp.instance.getString("lat");

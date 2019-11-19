@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.huohougongfu.app.Gson.DianPuXinXi;
@@ -23,7 +24,7 @@ import java.util.Map;
 
 public class DianPuSettingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText edt_dianpu_name;
+    private TextView edt_dianpu_name;
     private Intent intent;
     private DianPuXinXi dianPuXinXi;
     private RenZhengZhuangTai renZhengZhuangTai;

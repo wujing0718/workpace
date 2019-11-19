@@ -13,19 +13,38 @@ import android.widget.TextView;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class GuiGeAdapter extends RecyclerView.Adapter<GuiGeAdapter.ViewHolder>{
 
-    private ArrayList<String> mguige;
-    private ArrayList<String> mxianjia;
-    private ArrayList<String> myuanjia;
+    private  String guige;
+    private ArrayList<String> mguige = new ArrayList<>();
+    private ArrayList<String> mxianjia = new ArrayList<>();
+    private ArrayList<String> myuanjia = new ArrayList<>();
+    private JSONArray jsonArray = null;
 
-    public GuiGeAdapter(ArrayList<String> mguige, ArrayList<String> mxianjia, ArrayList<String> myuanjia) {
-        this.mguige= mguige;
-        this.mxianjia= mxianjia;
-        this.myuanjia= myuanjia;
-
+    public GuiGeAdapter(ArrayList<String> mguige1, ArrayList<String> mxianjia1, ArrayList<String> myuanjia1, String guige) {
+        this.mguige= mguige1;
+        this.mxianjia= mxianjia1;
+        this.myuanjia= myuanjia1;
+        this.guige = guige;
+        if (guige!=null){
+            try {
+                jsonArray = new JSONArray(guige);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    mguige.add(jsonObject.optString("standard", null));
+                    mxianjia.add(jsonObject.optString("standardPrice", null));
+                    myuanjia.add(jsonObject.optString("marketPrice", null));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //  添加数据
@@ -58,7 +77,7 @@ public class GuiGeAdapter extends RecyclerView.Adapter<GuiGeAdapter.ViewHolder>{
 
     @NonNull
     @Override
-    public GuiGeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public GuiGeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
         GuiGeAdapter.ViewHolder holder = new GuiGeAdapter.ViewHolder(LayoutInflater.from(MyApp.context).inflate(R.layout.item_tianjia_shop_guige , viewGroup, false));
         return holder;
     }
@@ -95,7 +114,7 @@ public class GuiGeAdapter extends RecyclerView.Adapter<GuiGeAdapter.ViewHolder>{
         if (viewHolder.edt_xianjia.getTag() instanceof TextWatcher) {
             viewHolder.edt_xianjia.removeTextChangedListener((TextWatcher) viewHolder.edt_guige.getTag());
         }
-        viewHolder.edt_xianjia.setText(mxianjia.get(position));
+       viewHolder.edt_xianjia.setText(mxianjia.get(position));
         TextWatcher Watcherxianjia = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -121,7 +140,7 @@ public class GuiGeAdapter extends RecyclerView.Adapter<GuiGeAdapter.ViewHolder>{
         if (viewHolder.edt_yuanjia.getTag() instanceof TextWatcher) {
             viewHolder.edt_yuanjia.removeTextChangedListener((TextWatcher) viewHolder.edt_yuanjia.getTag());
         }
-        viewHolder.edt_yuanjia.setText(myuanjia.get(position));
+            viewHolder.edt_yuanjia.setText(myuanjia.get(position));
         TextWatcher Watcheryuanjia= new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -50,9 +50,9 @@
 
     <ImageView
         android:id="@+id/img_thumb"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:clickable="false"
         android:focusable="false"
         android:visibility="visible"

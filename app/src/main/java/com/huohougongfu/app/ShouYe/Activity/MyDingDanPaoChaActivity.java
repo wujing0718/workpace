@@ -18,7 +18,6 @@ import com.huohougongfu.app.Gson.MaiChaDetail;
 import com.huohougongfu.app.Gson.TeaDetail;
 import com.huohougongfu.app.Gson.ZhiFu;
 import com.huohougongfu.app.MyApp;
-import com.huohougongfu.app.PopupView.CTYouHuiQuan;
 import com.huohougongfu.app.PopupView.ChaTaiZhiFu;
 import com.huohougongfu.app.PopupView.MCYouHuiQuan;
 import com.huohougongfu.app.R;
@@ -52,10 +51,10 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     private TeaDetail teaDetail;
     private ChaTaiYouHuiQuan.ResultBean myouhuiquan;
     private View bt_chami_dikou;
-    private boolean isDikou = true;
+    private boolean isDikou = false;
     private double total_price;
     private JSONArray array;
-    private DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
     public static MyDingDanPaoChaActivity activity;
 
 
@@ -69,6 +68,12 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 case 0:
                     xuanzeyouhuiquan = (ChaTaiYouHuiQuan.ResultBean.CouponsBean)msg.obj;
                     tv_manjian1.setText(xuanzeyouhuiquan.getTitle());
+                    if (xuanzeyouhuiquan!=null){
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
+                    }
                     initUI();
                     break;
                 default:
@@ -86,6 +91,9 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     private String chatai_hasDust,chatai_concentration;
     private ZhiFu zhiFu;
     private TextView tv_num;
+    private double total_priceorder;
+    private String priceorder;
+    private double teaRice;
 
 
     @Override
@@ -105,97 +113,33 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
         chatai_concentration = getIntent().getStringExtra("tv_chatai_concentration");
         initUI();
         initYouHuiQuan();
+
     }
 
-    private void initDiKou() {
-        if (!isDikou){
-            //合计的计算
-            total_price = 0.00;
-            tv_total_price.setText("¥0.00");
-            array = new JSONArray();
-                    try {
-                        JSONObject object =new JSONObject();
-                        object.put("id","");
-                        object.put("concentration",nongdu);
-                        object.put("teaId",teaDetail.getTeaId());
-                        object.put("hasDust",yedi);
-                        object.put("num",num);
-                        array.put(object);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (xuanzeyouhuiquan!=null){
-                        String price = String.valueOf(teaDetail.getPrice());
-                        dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                        double v = Double.parseDouble(String.valueOf(num));
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        total_price = total_price*xuanzeyouhuiquan.getDiscount();
-                        if (dikou>=total_price){
-                            orderprice = decimalFormat.format(0.00);
-                            tv_total_price.setText("¥" + price);
-                        }else{
-                            orderprice = decimalFormat.format(total_price - dikou);
-                            tv_total_price.setText("¥" + price);
-                        }
-                    }else{
-                        String price = String.valueOf(teaDetail.getPrice());
-                        dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                        double v = Double.parseDouble(String.valueOf(num));
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        if (dikou>=total_price){
-                            orderprice = decimalFormat.format(0.00);
-                            tv_total_price.setText("¥" + price);
-                        }else{
-                            orderprice = decimalFormat.format(total_price - dikou);
-                            tv_total_price.setText("¥" + price);
-                        }
-                    }
-        }else{
-            //合计的计算
-            total_price = 0.00;
-            tv_total_price.setText("¥0.00");
-            array = new JSONArray();
-                    try {
-                        JSONObject object =new JSONObject();
-                        object.put("id","");
-                        object.put("concentration",nongdu);
-                        object.put("teaId",teaDetail.getTeaId());
-                        object.put("hasDust",yedi);
-                        object.put("num",num);
-                        array.put(object);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    int dingdannum = num;
-                    if (xuanzeyouhuiquan!=null){
-                        if (xuanzeyouhuiquan.getCouponType() == 1){
-                            if (xuanzeyouhuiquan.getUsableProductId() == Integer.valueOf(teaDetail.getTeaId())){
-                                dingdannum = num-1;
-                            }
-                        }
-                        String price = String.valueOf(teaDetail.getPrice());
-                        double v = Double.parseDouble(String.valueOf(dingdannum));
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        orderprice = decimalFormat.format(total_price);
-                        tv_total_price.setText("¥" + orderprice);
-                        if (xuanzeyouhuiquan.getCouponType()==3){
-                            total_price = num * v1;
-                            total_price = total_price * xuanzeyouhuiquan.getDiscount();
-                            String orderprice = decimalFormat.format(total_price);
-                            tv_total_price.setText("¥" + orderprice);
-                        }
-                    }else{
-                        String price = String.valueOf(teaDetail.getPrice());
-                        double v = Double.parseDouble(String.valueOf(num));
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        orderprice = decimalFormat.format(total_price);
-                        tv_total_price.setText("¥" + orderprice);
-                    }
-                }
+    //
+    private double initChami(double price){
+        teaRice = myouhuiquan.getTeaRice();
+        double teaprice = teaRice/100;
+        if (isDikou){
+            if (price>teaprice){
+                price = price - teaprice;
+                teaRice = teaRice;
+            }else{
+                teaRice =  price*100;
+                price = 0.00;
+            }
+        }
+        return price;
+    }
+    //计算价格
+    private double initjisuan() {
+        double price = Double.valueOf(teaDetail.getPrice());
+        double v = Double.parseDouble(String.valueOf(num));
+        total_price = v * price;
+        if (xuanzeyouhuiquan != null) {
+            return xuanzeyouhuiquan.getDiscount() * total_price;
+        }
+        return total_price;
     }
 
     private void initUI() {
@@ -221,7 +165,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
         if (teaDetail!=null){
             amountview.setCount(num);
             tv_num.setText("共"+num+"件");
-            initDiKou();
+//            initDiKou();
             Glide.with(MyApp.context).load(teaDetail.getPicture()).into(iv_photo);
             tv_name.setText(teaDetail.getTeaName());
             tv_price_value.setText(teaDetail.getPrice());
@@ -239,77 +183,17 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onAddSuccess(int i) {
                     num = i;
-                    tv_num.setText("共"+i+"件");
-                    DecimalFormat decimalFormat = new DecimalFormat("0.00");
-                    if (!isDikou){
-                        //合计的计算
-                        total_price = 0.00;
-                        tv_total_price.setText("¥0.00");
-                        array = new JSONArray();
-                        JSONObject object =new JSONObject();
-                        try {
-//                        object.put("id",teaDetail.getId());
-                            object.put("concentration",nongdu);
-                            object.put("teaId",teaDetail.getTeaId());
-                            object.put("hasDust",yedi);
-                            object.put("num",i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        array.put(object);
-                        String teanum = String.valueOf(i);
-                        String price = String.valueOf(teaDetail.getPrice());
-                        dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                        double v = Double.parseDouble(teanum);
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        if (dikou>=total_price){
-                            tv_total_price.setText("¥" + decimalFormat.format(0.00));
-                        }else{
-                            tv_total_price.setText("¥" + decimalFormat.format(total_price-dikou));
-                        }
+                    // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                    if (isDikou){
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
                     }else{
-                        //合计的计算
-                        total_price = 0.00;
-                        tv_total_price.setText("¥0.00");
-                        array = new JSONArray();
-                        try {
-                            JSONObject object =new JSONObject();
-//                                object.put("id",resultBean.getId());
-                            object.put("concentration",nongdu);
-                            object.put("teaId",teaDetail.getTeaId());
-                            object.put("hasDust",yedi);
-                            object.put("num",i);
-                            array.put(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        if (xuanzeyouhuiquan!=null) {
-                            if (xuanzeyouhuiquan.getCouponType() == 1) {
-                                if (xuanzeyouhuiquan.getUsableProductId() == Integer.valueOf(teaDetail.getTeaId())) {
-                                    num = num - 1;
-                                }
-                            }
-                            String price = String.valueOf(teaDetail.getPrice());
-                            double v = Double.parseDouble(String.valueOf(num));
-                            double v1 = Double.parseDouble(price);
-                            total_price = total_price + v * v1;
-                            orderprice = decimalFormat.format(total_price);
-                            tv_total_price.setText("¥" + orderprice);
-                            if (xuanzeyouhuiquan.getCouponType()==3){
-                                total_price = num * v1;
-                                total_price = total_price * xuanzeyouhuiquan.getDiscount();
-                                String orderprice = decimalFormat.format(total_price);
-                                tv_total_price.setText("¥" + orderprice);
-                            }
-                        }else{
-                            String price = String.valueOf(teaDetail.getPrice());
-                            double v = Double.parseDouble(String.valueOf(num));
-                            double v1 = Double.parseDouble(price);
-                            total_price = total_price + v * v1;
-                            orderprice = decimalFormat.format(total_price);
-                            tv_total_price.setText("¥" + orderprice);
-                        }
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
                     }
                 }
 
@@ -415,55 +299,17 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onAddSuccess(int i) {
                     num = i;
-                    DecimalFormat decimalFormat = new DecimalFormat("0.00");
-                    if (!isDikou){
-                        //合计的计算
-                        total_price = 0.00;
-                        tv_total_price.setText("¥0.00");
-                        array = new JSONArray();
-                        JSONObject object =new JSONObject();
-                        try {
-                            object.put("concentration",nongdu);
-                            object.put("teaId",teaDetail.getTeaId());
-                            object.put("hasDust",yedi);
-                            object.put("num",i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        array.put(object);
-                        String teanum = String.valueOf(i);
-                        String price = String.valueOf(teaDetail.getPrice());
-                        dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                        double v = Double.parseDouble(teanum);
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        if (dikou>=total_price){
-                            tv_total_price.setText("¥" + decimalFormat.format(0.00));
-                        }else{
-                            tv_total_price.setText("¥" + decimalFormat.format(total_price-dikou));
-                        }
+                    // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                    if (isDikou){
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
                     }else{
-                        //合计的计算
-                        total_price = 0.00;
-                        tv_total_price.setText("¥0.00");
-                        array = new JSONArray();
-                        try {
-                            JSONObject object =new JSONObject();
-//                                object.put("id",resultBean.getId());
-                            object.put("concentration",nongdu);
-                            object.put("teaId",teaDetail.getTeaId());
-                            object.put("hasDust",yedi);
-                            object.put("num",i);
-                            array.put(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        String teanum = String.valueOf(i);
-                        String price = String.valueOf(teaDetail.getPrice());
-                        double v = Double.parseDouble(teanum);
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        tv_total_price.setText("¥" + decimalFormat.format(total_price));
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
                     }
                 }
 
@@ -475,59 +321,21 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onDelSuccess(int i) {
                     num = i;
-                    DecimalFormat decimalFormat = new DecimalFormat("0.00");
-                    if (!isDikou){
-                        //合计的计算
-                        total_price = 0.00;
-                        tv_total_price.setText("¥0.00");
-                        array = new JSONArray();
-                        JSONObject object =new JSONObject();
-                        try {
-//                        object.put("id",teaDetail.getId());
-                            object.put("concentration",nongdu);
-                            object.put("teaId",teaDetail.getTeaId());
-                            object.put("hasDust",yedi);
-                            object.put("num",i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        array.put(object);
-                        String teanum = String.valueOf(i);
-                        String price = String.valueOf(teaDetail.getPrice());
-                        double dikou  = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                        double v = Double.parseDouble(teanum);
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        if (dikou>=total_price){
-                            orderprice = decimalFormat.format(0.00);
-                            tv_total_price.setText("¥" + orderprice);
-                        }else{
-                            orderprice = decimalFormat.format(total_price-dikou);
-                            tv_total_price.setText("¥" + orderprice);
-                        }
-                    }else{
-                        //合计的计算
-                        total_price = 0.00;
-                        tv_total_price.setText("¥0.00");
-                        array = new JSONArray();
-                        try {
-                            JSONObject object =new JSONObject();
-//                                object.put("id",resultBean.getId());
-                            object.put("concentration",nongdu);
-                            object.put("teaId",teaDetail.getTeaId());
-                            object.put("hasDust",yedi);
-                            object.put("num",i);
-                            array.put(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        String teanum = String.valueOf(i);
-                        String price = String.valueOf(teaDetail.getPrice());
-                        double v = Double.parseDouble(teanum);
-                        double v1 = Double.parseDouble(price);
-                        total_price = total_price + v * v1;
-                        orderprice = decimalFormat.format(total_price);
+                    // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
+                    if (isDikou){
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
                         tv_total_price.setText("¥" + orderprice);
+                        img_chami_check.setImageResource(R.mipmap.select);
+                        isDikou = false;
+                    }else{
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
+                        img_chami_check.setImageResource(R.mipmap.unselect);
+                        isDikou = true;
                     }
                 }
 
@@ -557,6 +365,10 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                         ChaTaiYouHuiQuan youhuiquan = gson.fromJson(body, ChaTaiYouHuiQuan.class);
                         if (youhuiquan.getStatus() == 1){
                             myouhuiquan = youhuiquan.getResult();
+                            double initjisuan = initjisuan();
+                            double v = initChami(initjisuan);
+                            orderprice = decimalFormat.format(v);
+                            tv_total_price.setText("¥" + orderprice);
                             String dikou = decimalFormat.format(youhuiquan.getResult().getTeaRice() * youhuiquan.getResult().getProportion());
                             tv_chami_dikou.setText("可用"+youhuiquan.getResult().getTeaRice()+"茶米抵扣"+ (dikou)+"元");
                             if (myouhuiquan.getCoupons().size()<=0){
@@ -577,36 +389,36 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                 if (teaDetail!=null){
                     // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
                     if (isDikou){
-                        dikou = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                        if (dikou<=total_price){
-                            double total_price1 = total_price-dikou;
-                            tv_total_price.setText("¥" + decimalFormat.format(total_price1));
-                        }else{
-                            tv_total_price.setText("¥" + 0.00);
-                        }
-                        img_chami_check.setImageResource(R.mipmap.select);
-                        isDikou = false;
-                    }else{
-                        tv_total_price.setText("¥" + decimalFormat.format(total_price));
                         img_chami_check.setImageResource(R.mipmap.unselect);
+                        isDikou = false;
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
+                    }else{
+                        img_chami_check.setImageResource(R.mipmap.select);
                         isDikou = true;
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
                     }
                 }else{
                     // 在这里执行你要想的操作 比如直接在这里更新ui或者调用回调在 在回调中更新ui
                     if (isDikou){
-                        dikou = myouhuiquan.getTeaRice()*myouhuiquan.getProportion();
-                        if (dikou<=resultBean.getProductPrice()){
-                            double total_price1 = resultBean.getProductPrice()-dikou;
-                            tv_total_price.setText("¥" + decimalFormat.format(total_price1));
-                        }else{
-                            tv_total_price.setText("¥" + 0.00);
-                        }
-                        img_chami_check.setImageResource(R.mipmap.select);
-                        isDikou = false;
-                    }else{
-                        tv_total_price.setText("¥" + decimalFormat.format(resultBean.getProductPrice()));
                         img_chami_check.setImageResource(R.mipmap.unselect);
+                        isDikou = false;
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
+                    }else{
+                        img_chami_check.setImageResource(R.mipmap.select);
                         isDikou = true;
+                        double initjisuan = initjisuan();
+                        double v = initChami(initjisuan);
+                        orderprice = decimalFormat.format(v);
+                        tv_total_price.setText("¥" + orderprice);
                     }
                 }
 
@@ -679,31 +491,39 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
     }
 
     private void initORder() {
-        String s = tv_total_price.getText().toString();
-        String ¥ = s.replace("¥", "");
-        double orderprice = Double.parseDouble(¥);
+        array = new JSONArray();
+        JSONObject object =new JSONObject();
+        try {
+            object.put("concentration",nongdu);
+            object.put("teaId",teaDetail.getTeaId());
+            object.put("hasDust",yedi);
+            object.put("num",num);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        array.put(object);
         Map<String,String> map = new HashMap<>();
         map.put("json",array.toString());
         map.put("mId",String.valueOf(MyApp.instance.getInt("id")));
         map.put("machineId",machineId);
-        if (xuanzeyouhuiquan!=null){
-            map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
-        }
-        Double total_priceorder = Double.valueOf(orderprice);
-        if (!isDikou){
-            if (total_priceorder>=dikou){
-                map.put("totalPrice",String.valueOf(total_priceorder-dikou));
-                map.put("teaRiceNum",String.valueOf(myouhuiquan.getTeaRice()));
-            }else{
-                map.put("totalPrice",String.valueOf(orderprice));
-                Double d = total_price*100;
-                int teaRiceNum = d.intValue();
-                map.put("teaRiceNum",String.valueOf(teaRiceNum));
+        if (isDikou){
+            double initjisuan = initjisuan();
+            double v = initChami(initjisuan);
+            orderprice = decimalFormat.format(v);
+            map.put("totalPrice",String.valueOf(orderprice));
+            map.put("teaRiceNum",String.valueOf((int)teaRice));
+            if (xuanzeyouhuiquan!=null){
+                map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
             }
         }else{
+            if (xuanzeyouhuiquan!=null){
+                map.put("couponId",String.valueOf(xuanzeyouhuiquan.getId()));
+            }
+            double initjisuan = initjisuan();
+            double v = initChami(initjisuan);
+            orderprice = decimalFormat.format(v);
             map.put("totalPrice",String.valueOf(orderprice));
         }
-
         OkGo.<String>post(Contacts.URl1+"/machine/generate/orders")
                 .params(map)
                 .execute(new StringCallback() {
@@ -713,7 +533,7 @@ public class MyDingDanPaoChaActivity extends AppCompatActivity implements View.O
                         zhiFu = gson.fromJson(response.body(), ZhiFu.class);
                         if (zhiFu.getStatus() == 1){
                             new XPopup.Builder(MyDingDanPaoChaActivity.this)
-                                    .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),orderprice))
+                                    .asCustom(new ChaTaiZhiFu(MyDingDanPaoChaActivity.this,zhiFu.getResult().getOrderNo(),String.valueOf(zhiFu.getResult().getOrderId()),Double.valueOf(orderprice)))
                                     .show();
                         }else{
                             ToastUtils.showShort(zhiFu.getMsg());

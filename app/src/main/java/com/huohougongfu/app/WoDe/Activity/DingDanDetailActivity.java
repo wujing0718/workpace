@@ -64,6 +64,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
     private TextView tv_kuaidi;
     private TextView tv_chami_dikou;
     public static DingDanDetailActivity  activity;
+    private TextView tv_num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,14 +152,20 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
         tv_serviceRegulations.setText(result.get(0).getCouponInfo());
         tv_shouhuo_name.setText(result.get(0).getReceiverName());
         tv_shouhuo_phone.setText(result.get(0).getPhone());
-        tv_shouhuo_address.setText(result.get(0).getAreaName()+result.get(0).getDetailAddr());
+        tv_shouhuo_address.setText(result.get(0).getProvinceName()+result.get(0).getCityName()+result.get(0).getAreaName()+result.get(0).getDetailAddr());
         tv_chami_dikou.setText(result.get(0).getUseTeaRice()+"茶米");
         RequestOptions requestOptions = new RequestOptions().circleCrop();
         Glide.with(MyApp.context).load(result.get(0).getMallStores().getStoreLogo()).apply(requestOptions).into(img_dianpu_logo);
         tv_dianpu_name.setText(result.get(0).getMallStores().getStoreName());
+        if (result.size()>0){
+            if (result.get(0).getMallStores().getMallProducts().size()>0){
+                tv_num.setText("共"+result.get(0).getMallStores().getMallProducts().get(0).getNum()+"件");
+            }
+        }
     }
 
     private void initUI() {
+         tv_num = findViewById(R.id.tv_num);
         tv_chami_dikou = findViewById(R.id.tv_chami_dikou);
         tv_kuaidi = findViewById(R.id.tv_kuaidi);
         tv_remark = findViewById(R.id.tv_remark);
@@ -404,7 +411,7 @@ public class DingDanDetailActivity extends AppCompatActivity implements OnClickL
                         try {
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status" ) == 1){
-                                initData();
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

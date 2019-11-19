@@ -17,6 +17,7 @@ import com.huohougongfu.app.Activity.LoginActivity;
 import com.huohougongfu.app.Activity.MainActivity;
 import com.kongzue.dialog.v2.DialogSettings;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
@@ -128,12 +129,7 @@ public class MyApp extends Application {
 //        DoraemonKit.install(this);
         //设置是否启用模糊
 //        DialogSettings.use_blur = true;
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //超时时间设置，默认10秒
-        builder.readTimeout(10000, TimeUnit.MILLISECONDS);      //全局的读取超时时间
-        builder.writeTimeout(10000, TimeUnit.MILLISECONDS);     //全局的写入超时时间
-        builder.connectTimeout(10000, TimeUnit.MILLISECONDS);   //全局的连接超时时间
-
+        instance = SPUtils.getInstance("登录");
         DialogSettings.dialog_theme = THEME_LIGHT;//设置提示框主题为亮色主题
         DialogSettings.style = STYLE_IOS;
         DialogSettings.blur_alpha = 250;
@@ -156,7 +152,6 @@ public class MyApp extends Application {
         //新浪
         PlatformConfig.setSinaWeibo("3354599465", "b194e78d0a9811f19c262a37ae5205c8","https://api.weibo.com/oauth2/default.html");
 
-        instance = SPUtils.getInstance("登录");
         String rongToken = instance.getString("rongToken");
         // token 就是你刚刚获取的token
         if (!"".equals(rongToken)){
@@ -169,8 +164,24 @@ public class MyApp extends Application {
         if (id!=0){
             mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, String.valueOf(id)));
         }
+        initOkGo();
         super.onCreate();
     }
+
+    private void initOkGo() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpParams params = new HttpParams();
+        params.put("token",MyApp.instance.getString("token"));
+        params.put("tokenId",String.valueOf(MyApp.instance.getInt("id")));
+        //超时时间设置，默认10秒
+        builder.readTimeout(8000, TimeUnit.MILLISECONDS);      //全局的读取超时时间
+        builder.writeTimeout(8000, TimeUnit.MILLISECONDS);     //全局的写入超时时间
+        builder.connectTimeout(8000, TimeUnit.MILLISECONDS);   //全局的连接超时时间
+        OkGo.getInstance().init(this)
+                .setRetryCount(3)                               //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
+                .addCommonParams(params);
+    }
+
     private class MyReceiveMessageListener implements RongIMClient.OnReceiveMessageListener {
 
         /**

@@ -31,6 +31,7 @@ import com.huohougongfu.app.Shop.Activity.TeYuePinPaiActivity;
 import com.huohougongfu.app.Shop.Adapter.ShopAdapter;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.GlideImageLoader;
+import com.huohougongfu.app.Utils.ListenerManager;
 import com.huohougongfu.app.Utils.utils;
 import com.kongzue.dialog.v2.WaitDialog;
 import com.lzy.okgo.OkGo;
@@ -115,7 +116,6 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
         initUI();
         initbanner();
         initData();
-        initShoppingCartNum();
         return inflate;
     }
 
@@ -131,6 +131,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
                             JSONObject jsonObject = new JSONObject(body);
                             if (jsonObject.getInt("status") == 1){
                                 qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(jsonObject.getInt("result"));
+                                ListenerManager.getInstance().sendBroadCast(300,String.valueOf(jsonObject.getInt("result")));
                             }else{
                                 qBadgeView.hide(true);
                             }
@@ -442,7 +443,7 @@ public class ShopFragment extends Fragment implements View.OnClickListener,IUnRe
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            initShoppingCartNum();
+//            initShoppingCartNum();
             RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         }
     }

@@ -84,10 +84,15 @@
 
     </RelativeLayout>
 
-    <View
-        android:background="@color/colorHui"
+    <TextView
+        android:id="@+id/bt_no"
+        android:layout_margin="@dimen/dp_10"
+        android:text="不显示位置"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/colorBlack"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="@dimen/dp_30" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_dizhi_sousuo"

@@ -8,6 +8,7 @@
         android:text="其他原因"
         android:layout_marginLeft="@dimen/dp_30"
         android:textColor="@color/colorBlack"
+        android:textSize="13sp"
         android:paddingVertical="15dp"
         android:id="@+id/tv_quxiao_yuanyin"
         android:layout_width="wrap_content"

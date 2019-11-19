@@ -184,7 +184,7 @@ YiShangJiaFragment extends Fragment implements IListener ,ShopGuanLiAdapter.OnIt
         smartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-//                initOkGO();
+                initData();
                 smartrefreshlayout.finishRefresh(true);//传入false表示刷新失败
             }
         });

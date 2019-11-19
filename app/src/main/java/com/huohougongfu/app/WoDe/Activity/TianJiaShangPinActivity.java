@@ -1,6 +1,7 @@
 package com.huohougongfu.app.WoDe.Activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.huohougongfu.app.Gson.JsonBean;
 import com.huohougongfu.app.MyApp;
 import com.huohougongfu.app.R;
 import com.huohougongfu.app.UploadPictures.GridViewAdapter;
+import com.huohougongfu.app.UploadPictures.GridViewAdapter6;
 import com.huohougongfu.app.UploadPictures.MainConstant;
 import com.huohougongfu.app.UploadPictures.PhotoUtils;
 import com.huohougongfu.app.UploadPictures.PictureSelectorConfig;
@@ -27,6 +29,9 @@ import com.huohougongfu.app.UploadPictures.PlusImageActivity;
 import com.huohougongfu.app.Utils.Contacts;
 import com.huohougongfu.app.Utils.CustomGridView;
 import com.huohougongfu.app.Utils.GetJsonDataUtil;
+import com.huohougongfu.app.Utils.ImageUtils;
+import com.huohougongfu.app.Utils.MyGlideEngine;
+import com.huohougongfu.app.Utils.SDCardUtil;
 import com.huohougongfu.app.Utils.utils;
 import com.huxq17.handygridview.HandyGridView;
 import com.kongzue.dialog.v2.WaitDialog;
@@ -37,6 +42,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,10 +57,12 @@ import java.util.List;
 import java.util.Map;
 
 import static com.huxq17.handygridview.HandyGridView.MODE.LONG_PRESS;
+import static io.rong.imkit.utilities.RongUtils.screenHeight;
+import static io.rong.imkit.utilities.RongUtils.screenWidth;
 
 public class TianJiaShangPinActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private GridViewAdapter mGridViewAddImgAdapter;
+    private GridViewAdapter6 mGridViewAddImgAdapter;
     private CustomGridView gridView;
     private ArrayList<String> mPicList = new ArrayList<>(); //上传的图片凭证的数据源
     private String compressPath;
@@ -60,8 +70,9 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
     private ArrayList<File> mphoto = new ArrayList<>(); //上传的图片凭证的数据源
     private ArrayList<File> mshopphoto = new ArrayList<>(); //上传的图片凭证的数据源
     private ArrayList<File> mguige = new ArrayList<>(); //上传商品规格数据源
+    private static final int REQUEST_CODE_CHOOSE =23 ;
 
-    private TextView tv_zhutu_num;
+//    private TextView tv_zhutu_num;
     private Intent intent;
     private TextView tv_categoryName,tv_city;
     private String categoryName;
@@ -103,14 +114,14 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
         findViewById(R.id.bt_shop_detail).setOnClickListener(this);
         findViewById(R.id.bt_shop_guige).setOnClickListener(this);
         findViewById(R.id.bt_tijiao).setOnClickListener(this);
-        tv_zhutu_num = findViewById(R.id.tv_zhutu_num);
+//        tv_zhutu_num = findViewById(R.id.tv_zhutu_num);
     }
 
     //初始化展示上传图片的GridView
     private void initGridView(){
         gridView = findViewById(R.id.gridView);
         gridView.setMode(LONG_PRESS);
-        mGridViewAddImgAdapter = new GridViewAdapter(TianJiaShangPinActivity.this, mPicList);
+        mGridViewAddImgAdapter = new GridViewAdapter6(TianJiaShangPinActivity.this, mPicList);
         gridView.setAdapter(mGridViewAddImgAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -118,18 +129,40 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                                     int position, long id) {
                 if (position == parent.getChildCount() - 1){
                     //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过5张，才能点击
-                    if (mPicList.size() == MainConstant.MAX_SELECT_PIC_NUM) {
+                    if (mPicList.size() == MainConstant.MAX_SELECT_PIC_NUM_THREE) {
                         //最多添加6张图片
                         viewPluImg(position);
                     } else {
+                        if (mPicList.size()<7){
+                            callGallery();
+                        }
                         //添加凭证图片
-                        selectPic(MainConstant.MAX_SELECT_PIC_NUM - mPicList.size());
                     }
                 } else {
                     viewPluImg(position);
                 }
             }
+
         });
+    }
+
+    /**
+     * 调用图库选择
+     */
+    private void callGallery(){
+        Matisse.from(TianJiaShangPinActivity.this)
+                .choose(MimeType.ofImage(),false)//照片视频全部显示MimeType.allOf()
+                .countable(true)//true:选中后显示数字;false:选中后显示对号
+                .maxSelectable(6)//最大选择数量为9
+                //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+//                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))//图片显示表格的大小
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_USER)//图像选择和预览活动所需的方向
+                .theme(R.style.Matisse_Zhihu)//主题  暗色主题 R.style.Matisse_Dracula
+                .imageEngine(new MyGlideEngine())//图片加载方式，Glide4需要自定义实现
+                .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
+                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                .captureStrategy(new CaptureStrategy(true,"com.huohougongfu.app.FileProvider"))//存储到哪里
+                .forResult(REQUEST_CODE_CHOOSE);//请求码
     }
 
     //查看大图
@@ -149,20 +182,33 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
     }
 
     // 处理选择的照片的地址
-    private void refreshAdapter(List<LocalMedia> picList) {
-        for (LocalMedia localMedia : picList) {
+    private void refreshAdapter(Intent data) {
+        if (mPicList.size()<7){
+            List<Uri> mSelected = Matisse.obtainResult(data);
             //被压缩后的图片路径
-            if (localMedia.isCompressed()) {
-                compressPath = localMedia.getCompressPath(); //压缩后的图片路径
-                //compressPath 存放所有的照片的路径
-                mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
-                mphoto.add(new File(compressPath));
-                mGridViewAddImgAdapter.notifyDataSetChanged();
-                Uri uri = Uri.fromFile(new File(compressPath));
-                bitmap = PhotoUtils.getBitmapFromUri(uri,TianJiaShangPinActivity.this);
+            for (Uri imageUri : mSelected) {
+                String imagePath = SDCardUtil.getFilePathFromUri(TianJiaShangPinActivity.this, imageUri);
+                Bitmap bitmap1 = ImageUtils.getSmallBitmap(imagePath, screenWidth, screenHeight);//压缩图片
+                //读取图片的旋转的角度
+                int degree  = ImageUtils.getBitmapDegree(imagePath);
+                //将图片按照某个角度进行旋转
+                Bitmap bitmap = ImageUtils.rotateBitmapByDegree(bitmap1, degree);
+                compressPath = SDCardUtil.saveToSdCard(bitmap);//压缩后的图片路径
+                if (compressPath!=null) {
+                    //compressPath 存放所有的照片的路径
+                    if (mPicList.size()>5){
+                        ToastUtils.showShort("最多上传6张");
+                    }else{
+                        mPicList.add(compressPath); //把图片添加到将要上传的图片数组中
+                        mphoto.add(new File(compressPath));
+                        mGridViewAddImgAdapter.notifyDataSetChanged();
+                    }
+//                    tv_zhutu_num.setText("("+mPicList.size()+"/6)");
+                }else{
+                    ToastUtils.showShort("该图片错误");
+                }
             }
         }
-        tv_zhutu_num.setText("("+mPicList.size()+"/6)");
     }
 
     @Override
@@ -170,9 +216,9 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
+                case REQUEST_CODE_CHOOSE:
                     // 图片选择结果回调
-                    refreshAdapter(PictureSelector.obtainMultipleResult(data));
+                    refreshAdapter(data);
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
@@ -193,17 +239,20 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
         }
         //商品详情
         if (requestCode == 103){
-            Bundle extras = data.getExtras();
-            shopphoto = extras.getStringArrayList("Shopphoto");
-            String type = extras.getString("type");
-            mshopphoto.clear();
-            if (!"finish".equals(type)){
-                tv_shop_yitianxie.setText("完成");
-                tv_shop_yitianxie.setTextColor(getResources().getColor(R.color.colorBlack));
-                for (int i = 0; i < shopphoto.size(); i++) {
-                    mshopphoto.add(new File(shopphoto.get(i)));
+            if (data!=null){
+                Bundle extras = data.getExtras();
+                shopphoto = extras.getStringArrayList("Shopphoto");
+                String type = extras.getString("type");
+                mshopphoto.clear();
+                if (!"finish".equals(type)){
+                    tv_shop_yitianxie.setText("完成");
+                    tv_shop_yitianxie.setTextColor(getResources().getColor(R.color.colorBlack));
+                    for (int i = 0; i < shopphoto.size(); i++) {
+                        mshopphoto.add(new File(shopphoto.get(i)));
+                    }
                 }
             }
+
         }
         //商品参数
         if (requestCode == 102){
@@ -224,21 +273,20 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
             if (shopguige!=null){
                 tv_shuo_guige.setText("完成");
                 tv_shuo_guige.setTextColor(getResources().getColor(R.color.colorBlack));
+            }else {
+                tv_shuo_guige.setText("请选择规格");
             }
-//            mguige.clear();
-//            if (shopguige!=null){
-//                for (int i = 0; i < shopguige.size(); i++) {
-//                    mguige.add(new File(shopguige.get(i)));
-//                }
-//            }
         }
         if (requestCode == MainConstant.REQUEST_CODE_MAIN && resultCode == MainConstant.RESULT_CODE_VIEW_IMG) {
             //查看大图页面删除了图片
             ArrayList<String> toDeletePicList = data.getStringArrayListExtra(MainConstant.IMG_LIST); //要删除的图片的集合
             mPicList.clear();
             mPicList.addAll(toDeletePicList);
+            mphoto.clear();
+            for (int i = 0; i < mPicList.size(); i++) {
+                mphoto.add(new File(mPicList.get(i)));
+            }
             mGridViewAddImgAdapter.notifyDataSetChanged();
-            tv_zhutu_num.setText("("+mPicList.size()+"/6)");
         }
     }
 
@@ -334,6 +382,7 @@ public class TianJiaShangPinActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.bt_shop_guige:
                 if (!utils.isDoubleClick()){
+                    intent.putExtra("guige",shopguige);
                     intent.setClass(TianJiaShangPinActivity.this,ShopGuiGeActivity.class);
                     startActivityForResult(intent,100);
                 }

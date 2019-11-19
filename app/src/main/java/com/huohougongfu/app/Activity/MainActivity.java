@@ -202,6 +202,8 @@
                 firstTime = secondTime;
                 return true;
             } else {
+                //清空任务战
+                finishAffinity();
                 System.exit(0);
             }
         }

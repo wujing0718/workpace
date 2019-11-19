@@ -96,14 +96,14 @@ public class AddRegionActivity extends AppCompatActivity implements View.OnClick
             edt_shouhuoren.setText(resultBean.getReceiverName());
             edt_dizhi_phone.setText(resultBean.getPhone());
             edt_xiangxidizhi.setText(resultBean.getDetailAddr());
-            tv_zhuangtai.setText("修改");
             if (resultBean.getIsDefault() == 1){
+                isDefault = 1;
                 bt_switch.setChecked(true);
             }else{
+                isDefault = 0;
                 bt_switch.setChecked(false);
             }
         }else{
-            tv_zhuangtai.setText("保存");
             bt_switch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(SwitchButton view, boolean isChecked) {

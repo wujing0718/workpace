@@ -85,7 +85,7 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
         type = getIntent().getStringExtra("type");
         intent = new Intent();
         ListenerManager.getInstance().registerListtener(this);
-        qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
+         qBadgeView= new QBadgeView(ShangPinDetailActivity.this);
         qbadgebiewxitong  = new QBadgeView(ShangPinDetailActivity.this);
         View bt_finish = findViewById(R.id.bt_finish);
         bt_finish.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +127,6 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        QBadgeView qBadgeView = new QBadgeView(ShangPinDetailActivity.this);
                         String body = response.body();
                         Gson gson = new Gson();
                         gouWuCheNum = gson.fromJson(body, GouWuCheNum.class);
@@ -143,8 +142,8 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
 
     @Override
     protected void onResume() {
-        initShoppingCartNum();
         initNoticeIsView();
+        initShoppingCartNum();
         RongIM.getInstance().addUnReadMessageCountChangedObserver(this, conversationTypes);
         super.onResume();
     }
@@ -197,14 +196,10 @@ public class ShangPinDetailActivity extends AppCompatActivity implements IUnRead
     @Override
     public void notifyAllActivity(int audience_cnt, String status) {
         if (audience_cnt == 300){
-            if (status.equals("加入购物车")){
-                    if (gouWuCheNum.getStatus() == 1){
-                        gouWuCheNum.setResult(gouWuCheNum.getResult()+1);
-                        qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(gouWuCheNum.getResult());
-                    }else{
-                        qBadgeView.hide(true);
-                    }
-            }
+                qBadgeView.bindTarget(bt_gouwuche).setBadgeNumber(gouWuCheNum.getResult()+Integer.valueOf(status));
+                ListenerManager.getInstance().unRegisterListener(this);
+            }else{
+                qBadgeView.hide(true);
         }
     }
 }

@@ -107,6 +107,7 @@ public class FaXianFragment extends Fragment implements IListener {
                                 smartrefreshlayout.setVisibility(View.VISIBLE);
                                 initRec(faxian);
                             }else{
+                                smartrefreshlayout.setVisibility(View.GONE);
 //                                smartrefreshlayout.setVisibility(View.GONE);
                             }
                         }
